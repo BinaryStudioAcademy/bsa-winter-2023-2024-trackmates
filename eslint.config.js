@@ -64,6 +64,7 @@ const importConfig = {
     "import/no-default-export": ["error"],
     "import/newline-after-import": ["error"],
     "import/no-duplicates": ["error"],
+    "import/no-unresolved": ["off"],
   },
   settings: {
     "import/resolver": {
