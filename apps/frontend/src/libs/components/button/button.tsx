@@ -4,8 +4,8 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({
-  type = "button",
   label,
+  type = "button",
 }: Properties) => <button type={type}>{label}</button>;
 
 export { Button };

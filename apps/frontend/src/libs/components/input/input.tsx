@@ -13,7 +13,7 @@ type Properties<T extends FieldValues> = {
   label: string;
   name: FieldPath<T>;
   placeholder?: string;
-  type?: "text" | "email";
+  type?: "email" | "text";
 };
 
 const Input = <T extends FieldValues>({
@@ -24,7 +24,7 @@ const Input = <T extends FieldValues>({
   placeholder = "",
   type = "text",
 }: Properties<T>): JSX.Element => {
-  const { field } = useFormController({ name, control });
+  const { field } = useFormController({ control, name });
 
   const error = errors[name]?.message;
   const hasError = Boolean(error);
@@ -32,7 +32,7 @@ const Input = <T extends FieldValues>({
   return (
     <label>
       <span>{label}</span>
-      <input {...field} type={type} placeholder={placeholder} />
+      <input {...field} placeholder={placeholder} type={type} />
       {hasError && <span>{error as string}</span>}
     </label>
   );

@@ -1,5 +1,7 @@
 {
   "extends": "../../tsconfig.json",
+  "include": ["src"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "ESNext",
     "module": "NodeNext",
@@ -9,23 +11,8 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "useDefineForClassFields": true,
-
-    /* Bundler mode */
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
     "paths": {
-      "~/*": ["./src/*"]
-    }
+      "~/*": ["./src/*"],
+    },
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
 }

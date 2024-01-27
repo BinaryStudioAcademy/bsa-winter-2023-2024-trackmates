@@ -1,8 +1,7 @@
-import "#assets/css/styles.scss";
-
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
+import "~/assets/css/styles.scss";
 import {
   App,
   RouterProvider,
@@ -18,22 +17,22 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
       <RouterProvider
         routes={[
           {
-            path: AppRoute.ROOT,
-            element: <App />,
             children: [
               {
-                path: AppRoute.ROOT,
                 element: "Root",
+                path: AppRoute.ROOT,
               },
               {
+                element: <Auth />,
                 path: AppRoute.SIGN_IN,
-                element: <Auth />,
               },
               {
-                path: AppRoute.SIGN_UP,
                 element: <Auth />,
+                path: AppRoute.SIGN_UP,
               },
             ],
+            element: <App />,
+            path: AppRoute.ROOT,
           },
         ]}
       />

@@ -4,8 +4,8 @@ import { type AppRoute } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 type Properties = {
-  to: ValueOf<typeof AppRoute>;
   children: React.ReactNode;
+  to: ValueOf<typeof AppRoute>;
 };
 
 const Link: React.FC<Properties> = ({ children, to }: Properties) => (
