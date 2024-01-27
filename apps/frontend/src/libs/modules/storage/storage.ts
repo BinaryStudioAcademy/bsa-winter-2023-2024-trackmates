@@ -1,4 +1,4 @@
-import { BaseStorage } from "./base-storage.package.js";
+import { BaseStorage } from "./base-storage.module.js";
 
 const storage = new BaseStorage(window.localStorage);
 

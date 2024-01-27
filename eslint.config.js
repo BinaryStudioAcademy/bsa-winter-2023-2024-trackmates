@@ -105,7 +105,7 @@ const typescriptConfig = {
   languageOptions: {
     parser: /** @type {ParserModule} */ tsParser,
     parserOptions: {
-      project: "./tsconfig.json",
+      project: ["./tsconfig.json"],
     },
   },
   plugins: {

@@ -5,10 +5,9 @@ const config: KnipConfig = {
     "apps/frontend": {
       entry: ["src/index.tsx"],
     },
-    // TODO: uncomment
-    // "apps/backend": {
-    //   entry: ["src/index.ts"],
-    // },
+    "apps/backend": {
+      entry: ["src/index.ts"],
+    },
     "packages/shared": {
       entry: ["src/index.ts"],
     },
