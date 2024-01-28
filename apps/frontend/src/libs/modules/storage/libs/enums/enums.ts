@@ -1,1 +1,1 @@
-export { StorageKey } from "./storage-key.enum.js";
+export { StorageKey } from "./storage-key.enum.ts";

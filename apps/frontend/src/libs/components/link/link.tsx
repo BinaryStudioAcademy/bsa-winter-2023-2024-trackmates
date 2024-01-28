@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-import { type AppRoute } from "~/libs/enums/enums.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type AppRoute } from "~/libs/enums/enums.ts";
+import { type ValueOf } from "~/libs/types/types.ts";
 
 type Properties = {
   children: React.ReactNode;

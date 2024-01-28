@@ -1,4 +1,4 @@
-import { type HTTP, type HTTPOptions } from "./libs/types/types.js";
+import { type HTTP, type HTTPOptions } from "./libs/types/types.ts";
 
 class BaseHttp implements HTTP {
   public load(path: string, options: HTTPOptions): Promise<Response> {

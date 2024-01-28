@@ -9,7 +9,7 @@ import {
 } from "react-hook-form";
 import { useForm } from "react-hook-form";
 
-import { type ValidationSchema } from "~/libs/types/types.js";
+import { type ValidationSchema } from "~/libs/types/types.ts";
 
 type Parameters<T extends FieldValues = FieldValues> = {
   defaultValues: DefaultValues<T>;

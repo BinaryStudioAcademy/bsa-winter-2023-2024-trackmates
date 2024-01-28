@@ -1,14 +1,14 @@
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute } from "~/libs/enums/enums.ts";
 import {
   useAppDispatch,
   useAppSelector,
   useCallback,
   useLocation,
-} from "~/libs/hooks/hooks.js";
-import { type UserSignUpRequestDto } from "~/modules/users/users.js";
-import { actions as authActions } from "~/slices/auth/auth.js";
+} from "~/libs/hooks/hooks.ts";
+import { type UserSignUpRequestDto } from "~/modules/users/users.ts";
+import { actions as authActions } from "~/slices/auth/auth.ts";
 
-import { SignInForm, SignUpForm } from "./components/components.js";
+import { SignInForm, SignUpForm } from "./components/components.tsx";
 
 const Auth: React.FC = () => {
   const dispatch = useAppDispatch();

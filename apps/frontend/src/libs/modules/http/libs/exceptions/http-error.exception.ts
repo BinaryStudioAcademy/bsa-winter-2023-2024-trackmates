@@ -1,9 +1,9 @@
 import { HTTPError as LibraryHTTPError } from "shared/build/index.js";
 
-import { type ServerErrorType } from "~/libs/enums/enums.js";
-import { type ServerErrorDetail, type ValueOf } from "~/libs/types/types.js";
+import { type ServerErrorType } from "~/libs/enums/enums.ts";
+import { type ServerErrorDetail, type ValueOf } from "~/libs/types/types.ts";
 
-import { type HTTPCode } from "../enums/enums.js";
+import { type HTTPCode } from "../enums/enums.ts";
 
 type Constructor = {
   status: ValueOf<typeof HTTPCode>;

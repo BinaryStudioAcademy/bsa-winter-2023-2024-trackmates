@@ -1,4 +1,4 @@
-export { type AsyncThunkConfig } from "./async-thunk-config.type.js";
+export { type AsyncThunkConfig } from "./async-thunk-config.type.ts";
 export {
   type ServerErrorDetail,
   type ServerErrorResponse,

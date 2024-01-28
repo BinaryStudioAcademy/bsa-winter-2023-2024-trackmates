@@ -1,11 +1,11 @@
-import { Button, Input } from "~/libs/components/components.js";
-import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
+import { Button, Input } from "~/libs/components/components.tsx";
+import { useAppForm, useCallback } from "~/libs/hooks/hooks.ts";
 import {
   type UserSignUpRequestDto,
   userSignUpValidationSchema,
-} from "~/modules/users/users.js";
+} from "~/modules/users/users.ts";
 
-import { DEFAULT_SIGN_UP_PAYLOAD } from "./libs/constants.js";
+import { DEFAULT_SIGN_UP_PAYLOAD } from "./libs/constants.ts";
 
 type Properties = {
   onSubmit: (payload: UserSignUpRequestDto) => void;

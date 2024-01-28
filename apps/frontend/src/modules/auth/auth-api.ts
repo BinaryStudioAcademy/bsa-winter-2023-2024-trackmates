@@ -1,13 +1,13 @@
-import { APIPath, ContentType } from "~/libs/enums/enums.js";
-import { BaseHttpApi } from "~/libs/modules/api/api.js";
-import { type HTTP } from "~/libs/modules/http/http.js";
-import { type Storage } from "~/libs/modules/storage/storage.js";
+import { APIPath, ContentType } from "~/libs/enums/enums.ts";
+import { BaseHttpApi } from "~/libs/modules/api/api.ts";
+import { type HTTP } from "~/libs/modules/http/http.ts";
+import { type Storage } from "~/libs/modules/storage/storage.ts";
 import {
   type UserSignUpRequestDto,
   type UserSignUpResponseDto,
-} from "~/modules/users/users.js";
+} from "~/modules/users/users.ts";
 
-import { AuthApiPath } from "./libs/enums/enums.js";
+import { AuthApiPath } from "./libs/enums/enums.ts";
 
 type Constructor = {
   baseUrl: string;

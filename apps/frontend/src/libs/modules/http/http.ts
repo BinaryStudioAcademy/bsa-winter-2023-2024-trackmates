@@ -1,9 +1,8 @@
-import { BaseHttp } from "./base-http.module.js";
+import { BaseHttp } from "./base-http.module.ts";
 
 const http = new BaseHttp();
 
 export { http };
-export { HTTPCode, HTTPHeader } from "./libs/enums/enums.js";
-export { HTTPError } from "./libs/exceptions/exceptions.js";
-export { type HTTP } from "./libs/types/types.js";
-export { type HTTPOptions } from "./libs/types/types.js";
+export { HTTPCode, HTTPHeader } from "./libs/enums/enums.ts";
+export { HTTPError } from "./libs/exceptions/exceptions.ts";
+export { type HTTP, type HTTPOptions } from "./libs/types/types.ts";

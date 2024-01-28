@@ -1,4 +1,4 @@
-import { type HTTPApiOptions } from "./types.js";
+import { type HTTPApiOptions } from "./types.ts";
 
 type HTTPApi = {
   load(path: string, options: HTTPApiOptions): Promise<Response>;
