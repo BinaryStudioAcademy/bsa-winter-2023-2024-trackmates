@@ -119,7 +119,7 @@ You should use .env.example folder as a reference.
 
 5. Run backend: `npm run start:dev -w backend`
 
-6. Run frontend: `npm run start -w frontend`
+6. Run frontend: `npm run start:dev -w frontend`
 
 ## 7. Development Flow
 
