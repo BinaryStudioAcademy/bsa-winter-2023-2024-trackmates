@@ -7,12 +7,12 @@ let FlatConfig;
 
 /** @type {FlatConfig} */
 const mainConfig = {
-  languageOptions: {
-    parserOptions: {
-      project: ["./tsconfig.json"],
-    },
-    globals: globals.node,
-  },
+	languageOptions: {
+		parserOptions: {
+			project: ["./tsconfig.json"],
+		},
+		globals: globals.node,
+	},
 };
 
 /** @type {FlatConfig[]} */

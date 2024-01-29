@@ -1,5 +1,10 @@
 {
-  "compilerOptions": {
-    "strict": true
-  }
+	"exclude": ["node_modules"],
+	"compilerOptions": {
+		"strict": true,
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"esModuleInterop": true,
+	},
 }

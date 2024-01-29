@@ -1,18 +1,18 @@
 import {
-  AbstractModel,
-  DatabaseTableName,
+	AbstractModel,
+	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
 class UserModel extends AbstractModel {
-  public email!: string;
+	public email!: string;
 
-  public passwordHash!: string;
+	public passwordHash!: string;
 
-  public passwordSalt!: string;
+	public passwordSalt!: string;
 
-  public static override get tableName(): string {
-    return DatabaseTableName.USERS;
-  }
+	public static override get tableName(): string {
+		return DatabaseTableName.USERS;
+	}
 }
 
 export { UserModel };

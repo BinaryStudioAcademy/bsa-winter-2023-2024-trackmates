@@ -7,33 +7,33 @@ let FlatConfig;
 
 /** @type {FlatConfig} */
 const mainConfig = {
-  languageOptions: {
-    parserOptions: {
-      project: ["./tsconfig.json"],
-    },
-    globals: globals.node,
-  },
+	languageOptions: {
+		parserOptions: {
+			project: ["./tsconfig.json"],
+		},
+		globals: globals.node,
+	},
 };
 
 /** @type {FlatConfig[]} */
 const overridesConfigs = [
-  {
-    files: ["knexfile.ts"],
-    rules: {
-      "import/no-default-export": ["off"],
-    },
-  },
-  {
-    files: ["src/db/migrations/**/*.ts"],
-    rules: {
-      "unicorn/filename-case": [
-        "error",
-        {
-          case: "snakeCase",
-        },
-      ],
-    },
-  },
+	{
+		files: ["knexfile.ts"],
+		rules: {
+			"import/no-default-export": ["off"],
+		},
+	},
+	{
+		files: ["src/db/migrations/**/*.ts"],
+		rules: {
+			"unicorn/filename-case": [
+				"error",
+				{
+					case: "snakeCase",
+				},
+			],
+		},
+	},
 ];
 
 /** @type {FlatConfig[]} */

@@ -1,17 +1,17 @@
 const configureString = <T extends Record<string, string>>(
-  ...parameters: [...string[], T]
+	...parameters: [...string[], T]
 ): string => {
-  const copiedArguments = [...parameters];
+	const copiedArguments = [...parameters];
 
-  const options = copiedArguments.pop() as T;
+	const options = copiedArguments.pop() as T;
 
-  let result = copiedArguments.join("");
+	let result = copiedArguments.join("");
 
-  for (const [key, value] of Object.entries(options)) {
-    result = result.replace(`:${key}`, value);
-  }
+	for (const [key, value] of Object.entries(options)) {
+		result = result.replace(`:${key}`, value);
+	}
 
-  return result;
+	return result;
 };
 
 export { configureString };

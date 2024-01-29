@@ -2,8 +2,8 @@ import { signUp } from "./actions.ts";
 import { actions } from "./auth.slice.ts";
 
 const allActions = {
-  ...actions,
-  signUp,
+	...actions,
+	signUp,
 };
 
 export { allActions as actions };

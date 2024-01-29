@@ -1,5 +1,5 @@
 export {
-  APIPath,
-  AppEnvironment,
-  ServerErrorType,
+	APIPath,
+	AppEnvironment,
+	ServerErrorType,
 } from "shared/build/index.js";

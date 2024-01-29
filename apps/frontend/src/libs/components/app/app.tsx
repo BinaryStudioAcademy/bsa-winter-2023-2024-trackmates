@@ -2,62 +2,62 @@ import reactLogo from "~/assets/img/react.svg";
 import { Link, RouterOutlet } from "~/libs/components/components.tsx";
 import { AppRoute } from "~/libs/enums/enums.ts";
 import {
-  useAppDispatch,
-  useAppSelector,
-  useEffect,
-  useLocation,
+	useAppDispatch,
+	useAppSelector,
+	useEffect,
+	useLocation,
 } from "~/libs/hooks/hooks.ts";
 import { actions as userActions } from "~/slices/users/users.ts";
 
 const App: React.FC = () => {
-  const { pathname } = useLocation();
-  const dispatch = useAppDispatch();
-  const { dataStatus, users } = useAppSelector(({ users }) => ({
-    dataStatus: users.dataStatus,
-    users: users.users,
-  }));
+	const { pathname } = useLocation();
+	const dispatch = useAppDispatch();
+	const { dataStatus, users } = useAppSelector(({ users }) => ({
+		dataStatus: users.dataStatus,
+		users: users.users,
+	}));
 
-  const isRoot = pathname === AppRoute.ROOT;
+	const isRoot = pathname === AppRoute.ROOT;
 
-  useEffect(() => {
-    if (isRoot) {
-      void dispatch(userActions.loadAll());
-    }
-  }, [isRoot, dispatch]);
+	useEffect(() => {
+		if (isRoot) {
+			void dispatch(userActions.loadAll());
+		}
+	}, [isRoot, dispatch]);
 
-  return (
-    <>
-      <img alt="logo" className="App-logo" src={reactLogo} width="30" />
+	return (
+		<>
+			<img alt="logo" className="App-logo" src={reactLogo} width="30" />
 
-      <ul className="App-navigation-list">
-        <li>
-          <Link to={AppRoute.ROOT}>Root</Link>
-        </li>
-        <li>
-          <Link to={AppRoute.SIGN_IN}>Sign in</Link>
-        </li>
-        <li>
-          <Link to={AppRoute.SIGN_UP}>Sign up</Link>
-        </li>
-      </ul>
-      <p>Current path: {pathname}</p>
+			<ul className="App-navigation-list">
+				<li>
+					<Link to={AppRoute.ROOT}>Root</Link>
+				</li>
+				<li>
+					<Link to={AppRoute.SIGN_IN}>Sign in</Link>
+				</li>
+				<li>
+					<Link to={AppRoute.SIGN_UP}>Sign up</Link>
+				</li>
+			</ul>
+			<p>Current path: {pathname}</p>
 
-      <div>
-        <RouterOutlet />
-      </div>
-      {isRoot && (
-        <>
-          <h2>Users:</h2>
-          <h3>Status: {dataStatus}</h3>
-          <ul>
-            {users.map((user) => (
-              <li key={user.id}>{user.email}</li>
-            ))}
-          </ul>
-        </>
-      )}
-    </>
-  );
+			<div>
+				<RouterOutlet />
+			</div>
+			{isRoot && (
+				<>
+					<h2>Users:</h2>
+					<h3>Status: {dataStatus}</h3>
+					<ul>
+						{users.map((user) => (
+							<li key={user.id}>{user.email}</li>
+						))}
+					</ul>
+				</>
+			)}
+		</>
+	);
 };
 
 export { App };

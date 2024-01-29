@@ -5,9 +5,9 @@ import { storage } from "~/libs/modules/storage/storage.ts";
 import { AuthApi } from "./auth-api.ts";
 
 const authApi = new AuthApi({
-  baseUrl: config.ENV.API.ORIGIN_URL,
-  storage,
-  http,
+	baseUrl: config.ENV.API.ORIGIN_URL,
+	storage,
+	http,
 });
 
 export { authApi };

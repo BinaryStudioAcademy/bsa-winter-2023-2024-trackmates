@@ -8,17 +8,17 @@ import { BaseServerApplication } from "./base-server-application.js";
 import { BaseServerApplicationApi } from "./base-server-application-api.js";
 
 const apiV1 = new BaseServerApplicationApi(
-  "v1",
-  config,
-  ...authController.routes,
-  ...userController.routes,
+	"v1",
+	config,
+	...authController.routes,
+	...userController.routes,
 );
 const serverApplication = new BaseServerApplication({
-  title: "CalmPal",
-  config,
-  logger,
-  database,
-  apis: [apiV1],
+	title: "CalmPal",
+	config,
+	logger,
+	database,
+	apis: [apiV1],
 });
 
 export { serverApplication };

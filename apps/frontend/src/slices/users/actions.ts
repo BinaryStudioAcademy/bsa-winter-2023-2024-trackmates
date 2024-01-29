@@ -6,13 +6,13 @@ import { type UserGetAllResponseDto } from "~/modules/users/users.ts";
 import { name as sliceName } from "./users.slice.ts";
 
 const loadAll = createAsyncThunk<
-  UserGetAllResponseDto,
-  undefined,
-  AsyncThunkConfig
+	UserGetAllResponseDto,
+	undefined,
+	AsyncThunkConfig
 >(`${sliceName}/load-all`, (_, { extra }) => {
-  const { userApi } = extra;
+	const { userApi } = extra;
 
-  return userApi.getAll();
+	return userApi.getAll();
 });
 
 export { loadAll };
