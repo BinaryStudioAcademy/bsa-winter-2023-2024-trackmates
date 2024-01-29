@@ -8,11 +8,11 @@
 		"npm": "9.x.x"
 	},
 	"scripts": {
-		"lint:css": "npx stylelint \"src/**/*.scss\"",
+		"lint:css": "npx stylelint \"src/**/*.css\"",
 		"lint:js": "npx eslint .",
 		"lint:type": "npx tsc --noEmit",
 		"start:dev": "vite",
-		"build": "tsc --build --clean && tsc-alias && vite build",
+		"build": "tsc --build --clean && vite build",
 		"preview": "vite preview"
 	},
 	"dependencies": {
@@ -27,16 +27,13 @@
 	"devDependencies": {
 		"@types/react": "18.2.48",
 		"@types/react-dom": "18.2.18",
-		"@typescript-eslint/eslint-plugin": "6.19.0",
-		"@typescript-eslint/parser": "6.19.0",
 		"@vitejs/plugin-react": "4.2.1",
 		"eslint": "8.56.0",
 		"eslint-plugin-jsx-a11y": "6.8.0",
 		"eslint-plugin-react": "7.33.2",
 		"eslint-plugin-react-hooks": "4.6.0",
-		"eslint-plugin-react-refresh": "0.4.5",
-		"sass": "1.70.0",
 		"typescript": "5.3.3",
-		"vite": "5.0.12"
+		"vite": "5.0.12",
+		"vite-tsconfig-paths": "4.3.1"
 	}
 }

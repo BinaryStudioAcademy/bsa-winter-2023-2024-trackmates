@@ -7,4 +7,4 @@ import { AuthService } from "./auth.service.js";
 const authService = new AuthService(userService);
 const authController = new AuthController(logger, authService);
 
-export { authController, authService };
+export { authController };

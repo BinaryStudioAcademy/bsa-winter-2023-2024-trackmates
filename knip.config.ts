@@ -16,6 +16,8 @@ const config: KnipConfig = {
 		"./lint-staged.config.ts",
 		"./prettierrc.config.ts",
 		"./stylelint.config.ts",
+		"./apps/backend/knexfile.ts",
+		"./apps/backend/src/db/migrations/*.ts",
 	],
 	ignoreDependencies: [
 		"@commitlint/cli",
@@ -25,6 +27,7 @@ const config: KnipConfig = {
 		"stylelint-order",
 		"shared/*",
 		"@commitlint/types",
+		"pg",
 	],
 };
 
