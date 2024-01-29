@@ -5,16 +5,8 @@ const config: Config = {
   tabWidth: 2,
   useTabs: false,
   semi: true,
-  singleQuote: true,
+  singleQuote: false,
   quoteProps: "preserve",
   bracketSpacing: true,
   arrowParens: "always",
-  overrides: [
-    {
-      files: "*.scss",
-      options: {
-        singleQuote: false,
-      },
-    },
-  ],
 };

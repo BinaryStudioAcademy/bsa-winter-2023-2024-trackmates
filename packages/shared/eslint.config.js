@@ -2,7 +2,7 @@ import globals from "globals";
 
 import baseConfig from "../../eslint.config.js";
 
-/** @typedef {import('eslint').Linter.FlatConfig} */
+/** @typedef {import("eslint").Linter.FlatConfig} */
 let FlatConfig;
 
 /** @type {FlatConfig} */

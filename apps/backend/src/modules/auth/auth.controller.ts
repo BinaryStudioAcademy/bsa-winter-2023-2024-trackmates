@@ -6,8 +6,10 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { type UserSignUpRequestDto } from "~/modules/users/users.js";
-import { userSignUpValidationSchema } from "~/modules/users/users.js";
+import {
+  type UserSignUpRequestDto,
+  userSignUpValidationSchema,
+} from "~/modules/users/users.js";
 
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
@@ -63,7 +65,7 @@ class AuthController extends BaseController {
    *                properties:
    *                  message:
    *                    type: object
-   *                    $ref: '#/components/schemas/User'
+   *                    $ref: "#/components/schemas/User"
    */
   private async signUp(
     options: APIHandlerOptions<{

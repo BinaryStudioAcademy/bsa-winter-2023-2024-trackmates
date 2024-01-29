@@ -8,9 +8,9 @@ import sonarjs from "eslint-plugin-sonarjs";
 import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 
-/** @typedef {import('eslint').Linter.FlatConfig} */
+/** @typedef {import("eslint").Linter.FlatConfig} */
 let FlatConfig;
-/** @typedef {import('eslint').Linter.ParserModule} */
+/** @typedef {import("eslint").Linter.ParserModule} */
 let ParserModule;
 
 /** @type {FlatConfig} */
@@ -27,12 +27,12 @@ const jsConfig = {
     "no-restricted-syntax": [
       "error",
       {
-        message: `Export/Import all (*) is forbidden.`,
-        selector: `ExportAllDeclaration,ImportAllDeclaration`,
+        message: "Export/Import all (*) is forbidden.",
+        selector: "ExportAllDeclaration,ImportAllDeclaration",
       },
       {
-        message: `Exports should be at the end of the file.`,
-        selector: `ExportNamedDeclaration[declaration!=null]`,
+        message: "Exports should be at the end of the file.",
+        selector: "ExportNamedDeclaration[declaration!=null]",
       },
       {
         message: "TS features are forbidden",
