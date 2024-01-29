@@ -96,7 +96,7 @@ As we are already using js on both frontend and backend it would be useful to sh
 
 #### 5.4.2 Technologies
 
-1. [Joi](https://github.com/sideway/joi) — a schema validator
+1. [Zod](https://github.com/colinhacks/zod) — a schema validator
 
 ## 6. How to Run
 

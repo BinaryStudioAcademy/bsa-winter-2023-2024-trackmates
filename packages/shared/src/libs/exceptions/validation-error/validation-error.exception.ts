@@ -1,5 +1,5 @@
-import joi from "joi";
+import zod from "zod";
 
-class ValidationError extends joi.ValidationError {}
+class ValidationError extends zod.ZodError {}
 
 export { ValidationError };

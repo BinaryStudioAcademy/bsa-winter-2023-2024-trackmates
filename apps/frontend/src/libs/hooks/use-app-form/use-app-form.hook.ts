@@ -1,4 +1,4 @@
-import { joiResolver } from "@hookform/resolvers/joi";
+import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	UseFormProps,
 	type Control,
@@ -37,7 +37,7 @@ const useAppForm = <T extends FieldValues = FieldValues>({
 	if (validationSchema) {
 		parameters = {
 			...parameters,
-			resolver: joiResolver(validationSchema),
+			resolver: zodResolver(validationSchema),
 		};
 	}
 
