@@ -4,6 +4,9 @@ const ProjectPrefix = {
 		APPS: ["frontend", "backend"],
 		PACKAGES: ["shared"],
 	},
+	APP: "tm",
+	CHANGE_TYPES: ["feat", "fix", "refactor", "chore", "docs"],
+	ENVIRONMENT: "main",
 } as const;
 
 export { ProjectPrefix };
