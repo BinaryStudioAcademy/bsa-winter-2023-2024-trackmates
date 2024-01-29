@@ -1,4 +1,4 @@
-import { HTTPError as LibraryHTTPError } from "shared/build/index.js";
+import { HTTPError as LibraryHTTPError } from "shared";
 
 import { type ServerErrorType } from "~/libs/enums/enums.ts";
 import { type ServerErrorDetail, type ValueOf } from "~/libs/types/types.ts";

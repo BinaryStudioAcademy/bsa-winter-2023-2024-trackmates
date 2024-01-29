@@ -1,1 +1,1 @@
-export { type HTTP, type HTTPOptions } from "shared/build/index.js";
+export { type HTTP, type HTTPOptions } from "shared";

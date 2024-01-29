@@ -2,6 +2,9 @@
 	"exclude": ["node_modules"],
 	"compilerOptions": {
 		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"noPropertyAccessFromIndexSignature": true,
 		"target": "ESNext",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",

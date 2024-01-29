@@ -1,1 +1,1 @@
-export { type HTTPMethod } from "shared/build/index.js";
+export { type HTTPMethod } from "shared";

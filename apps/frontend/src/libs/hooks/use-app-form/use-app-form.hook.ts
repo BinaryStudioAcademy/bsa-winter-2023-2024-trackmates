@@ -1,5 +1,6 @@
 import { joiResolver } from "@hookform/resolvers/joi";
 import {
+	UseFormProps,
 	type Control,
 	type DefaultValues,
 	type FieldErrors,
@@ -26,17 +27,25 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 const useAppForm = <T extends FieldValues = FieldValues>({
 	validationSchema,
 	defaultValues,
-	mode,
+	mode = "onSubmit",
 }: Parameters<T>): ReturnValue<T> => {
+	let parameters: UseFormProps<T> = {
+		mode,
+		defaultValues,
+	};
+
+	if (validationSchema) {
+		parameters = {
+			...parameters,
+			resolver: joiResolver(validationSchema),
+		};
+	}
+
 	const {
 		control,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<T>({
-		mode,
-		defaultValues,
-		resolver: validationSchema ? joiResolver(validationSchema) : undefined,
-	});
+	} = useForm<T>(parameters);
 
 	return {
 		control,

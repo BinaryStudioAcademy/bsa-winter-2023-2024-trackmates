@@ -49,6 +49,7 @@ const jsConfig = {
 		],
 		"max-params": ["error", 3],
 		curly: ["error", "all"],
+		quotes: ["error", "double"],
 	},
 };
 
@@ -135,6 +136,9 @@ const overridesConfigs = [
 			"stylelint.config.ts",
 			"knip.config.js",
 		],
+		rules: {
+			"import/no-default-export": ["off"],
+		},
 	},
 ];
 

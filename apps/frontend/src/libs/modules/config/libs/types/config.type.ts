@@ -1,4 +1,4 @@
-import { type Config as LibraryConfig } from "shared/build/index.js";
+import { type Config as LibraryConfig } from "shared";
 
 import { EnvironmentSchema } from "./types.ts";
 

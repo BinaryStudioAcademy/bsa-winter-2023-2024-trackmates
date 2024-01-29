@@ -11,6 +11,8 @@
 		"npm": "9.x.x"
 	},
 	"scripts": {
+		"git:hook:precommit": "lint-staged",
+		"git:hook:commit": "npx @commitlint/cli --edit",
 		"build:shared": "npm run build -w shared",
 		"build:frontend": "npm run build -w frontend",
 		"build:backend": "npm run build -w backend",
@@ -44,12 +46,12 @@
 		"prettier": "3.2.4",
 		"simple-git-hooks": "2.9.0",
 		"stylelint": "16.2.0",
+		"stylelint-config-recess-order": "4.4.0",
 		"stylelint-config-standard": "36.0.0",
-		"stylelint-order": "6.0.4",
 		"typescript": "5.3.3"
 	},
 	"simple-git-hooks": {
-		"pre-commit": "npm run lint:type && npx lint-staged",
-		"commit-msg": "npx commitlint --edit $1"
+		"pre-commit": "npm run lint:type && npm run git:hook:precommit",
+		"commit-msg": "npm run git:hook:commit"
 	}
 }
