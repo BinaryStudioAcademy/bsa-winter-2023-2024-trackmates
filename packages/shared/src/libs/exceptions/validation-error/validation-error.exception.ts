@@ -1,5 +1,5 @@
-import zod from "zod";
+import { z } from "zod";
 
-class ValidationError extends zod.ZodError {}
+class ValidationError extends z.ZodError {}
 
 export { ValidationError };

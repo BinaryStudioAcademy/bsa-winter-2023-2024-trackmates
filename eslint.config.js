@@ -3,15 +3,23 @@ import ts from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import { resolve as tsResolver } from "eslint-import-resolver-typescript";
 import importPlugin from "eslint-plugin-import";
+import jsdoc from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
 import sonarjs from "eslint-plugin-sonarjs";
 import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 
+const JS_MAX_PARAMS_ALLOWED = 3;
+
 /** @typedef {import("eslint").Linter.FlatConfig} */
 let FlatConfig;
 /** @typedef {import("eslint").Linter.ParserModule} */
 let ParserModule;
+
+/** @type {FlatConfig} */
+const ignoresConfig = {
+	ignores: ["apps", "packages"],
+};
 
 /** @type {FlatConfig} */
 const jsConfig = {
@@ -24,6 +32,16 @@ const jsConfig = {
 	},
 	rules: {
 		...js.configs.recommended.rules,
+		"arrow-parens": ["error", "always"],
+		curly: ["error", "all"],
+		"max-params": ["error", JS_MAX_PARAMS_ALLOWED],
+		"no-console": ["error"],
+		"no-multiple-empty-lines": [
+			"error",
+			{
+				max: 1,
+			},
+		],
 		"no-restricted-syntax": [
 			"error",
 			{
@@ -39,16 +57,6 @@ const jsConfig = {
 				selector: "TSEnumDeclaration,ClassDeclaration[abstract=true]",
 			},
 		],
-		"arrow-parens": ["error", "always"],
-		"no-console": ["error"],
-		"no-multiple-empty-lines": [
-			"error",
-			{
-				max: 1,
-			},
-		],
-		"max-params": ["error", 3],
-		curly: ["error", "all"],
 		quotes: ["error", "double"],
 	},
 };
@@ -62,8 +70,8 @@ const importConfig = {
 		...importPlugin.configs.recommended.rules,
 		"import/exports-last": ["error"],
 		"import/extensions": ["error", "ignorePackages"],
-		"import/no-default-export": ["error"],
 		"import/newline-after-import": ["error"],
+		"import/no-default-export": ["error"],
 		"import/no-duplicates": ["error"],
 		"import/no-unresolved": ["off"],
 	},
@@ -114,7 +122,6 @@ const typescriptConfig = {
 	},
 	rules: {
 		...ts.configs["strict-type-checked"].rules,
-		"@typescript-eslint/return-await": ["error", "always"],
 		"@typescript-eslint/no-magic-numbers": [
 			"error",
 			{
@@ -122,6 +129,18 @@ const typescriptConfig = {
 				ignoreReadonlyClassProperties: true,
 			},
 		],
+		"@typescript-eslint/return-await": ["error", "always"],
+	},
+};
+
+/** @type {FlatConfig} */
+const jsdocConfig = {
+	plugins: {
+		jsdoc,
+	},
+	rules: {
+		...jsdoc.configs["recommended-typescript-flavor-error"].rules,
+		"jsdoc/no-undefined-types": ["error"],
 	},
 };
 
@@ -129,27 +148,42 @@ const typescriptConfig = {
 const overridesConfigs = [
 	{
 		files: [
-			"commitlint.config.js",
+			"commitlint.config.ts",
 			"prettierrc.config.ts",
-			"lint-staged.config.ts",
-			"eslint.config.ts",
+			"lint-staged.config.js",
 			"stylelint.config.ts",
-			"knip.config.js",
+			"knip.config.ts",
+			"eslint.config.js",
 		],
 		rules: {
 			"import/no-default-export": ["off"],
+		},
+	},
+	{
+		files: ["eslint.config.js"],
+		rules: {
+			"@typescript-eslint/no-unsafe-assignment": ["off"],
+			"@typescript-eslint/no-unsafe-member-access": ["off"],
+		},
+	},
+	{
+		files: ["commitlint.config.ts"],
+		rules: {
+			"import/extensions": ["off"],
 		},
 	},
 ];
 
 /** @type {FlatConfig[]} */
 const config = [
+	ignoresConfig,
 	jsConfig,
 	importConfig,
 	sonarConfig,
 	unicornConfig,
 	perfectionistConfig,
 	typescriptConfig,
+	jsdocConfig,
 	...overridesConfigs,
 ];
 

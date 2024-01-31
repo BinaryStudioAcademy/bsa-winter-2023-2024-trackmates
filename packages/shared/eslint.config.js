@@ -6,6 +6,11 @@ import baseConfig from "../../eslint.config.js";
 let FlatConfig;
 
 /** @type {FlatConfig} */
+const ignoresConfig = {
+	ignores: ["build"],
+};
+
+/** @type {FlatConfig} */
 const mainConfig = {
 	languageOptions: {
 		parserOptions: {
@@ -16,6 +21,6 @@ const mainConfig = {
 };
 
 /** @type {FlatConfig[]} */
-const config = [...baseConfig, mainConfig];
+const config = [...baseConfig, ignoresConfig, mainConfig];
 
 export default config;

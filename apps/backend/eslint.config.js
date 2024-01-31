@@ -6,6 +6,11 @@ import baseConfig from "../../eslint.config.js";
 let FlatConfig;
 
 /** @type {FlatConfig} */
+const ignoresConfig = {
+	ignores: ["build"],
+};
+
+/** @type {FlatConfig} */
 const mainConfig = {
 	languageOptions: {
 		parserOptions: {
@@ -21,6 +26,7 @@ const overridesConfigs = [
 		files: ["knexfile.ts"],
 		rules: {
 			"import/no-default-export": ["off"],
+			"import/extensions": ["off"],
 		},
 	},
 	{
@@ -37,6 +43,6 @@ const overridesConfigs = [
 ];
 
 /** @type {FlatConfig[]} */
-const config = [...baseConfig, mainConfig, ...overridesConfigs];
+const config = [...baseConfig, ignoresConfig, mainConfig, ...overridesConfigs];
 
 export default config;

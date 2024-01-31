@@ -1,15 +1,15 @@
-import zod from "zod";
+import { z } from "zod";
 
 import { UserValidationMessage } from "../enums/enums.js";
 
 type UserSignUpRequestValidationDto = {
-	email: zod.ZodString;
-	password: zod.ZodString;
+	email: z.ZodString;
+	password: z.ZodString;
 };
 
-const userSignUp = zod
+const userSignUp = z
 	.object<UserSignUpRequestValidationDto>({
-		email: zod
+		email: z
 			.string()
 			.trim()
 			.min(1, {
@@ -18,7 +18,7 @@ const userSignUp = zod
 			.email({
 				message: UserValidationMessage.EMAIL_WRONG,
 			}),
-		password: zod.string().trim(),
+		password: z.string().trim(),
 	})
 	.required({
 		email: true,

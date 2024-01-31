@@ -11,7 +11,8 @@
 	"scripts": {
 		"postinstall": "npm run build",
 		"lint:type": "npx tsc --noEmit",
-		"lint:js": "npx eslint .",
+		"lint:js": "npx eslint **/*.ts --no-warn-ignored",
+		"lint": "concurrently \"npm:lint:*\"",
 		"build": "tsc && npm run build:copy",
 		"build:copy": "cp -r package.json build"
 	}

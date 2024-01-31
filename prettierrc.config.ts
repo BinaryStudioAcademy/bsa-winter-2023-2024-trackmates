@@ -1,14 +1,14 @@
 import { Config } from "prettier";
 
 const config: Config = {
+	arrowParens: "always",
+	bracketSpacing: true,
 	printWidth: 80,
-	tabWidth: 2,
-	useTabs: true,
+	quoteProps: "preserve",
 	semi: true,
 	singleQuote: false,
-	quoteProps: "preserve",
-	bracketSpacing: true,
-	arrowParens: "always",
+	tabWidth: 2,
+	useTabs: true,
 };
 
 export default config;

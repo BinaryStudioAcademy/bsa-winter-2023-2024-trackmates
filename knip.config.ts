@@ -1,17 +1,6 @@
 import { KnipConfig } from "knip";
 
 const config: KnipConfig = {
-	workspaces: {
-		"apps/frontend": {
-			entry: ["src/index.tsx"],
-		},
-		"apps/backend": {
-			entry: ["src/index.ts", "src/db/migrations/*.ts", "knexfile.ts"],
-		},
-		"packages/shared": {
-			entry: ["src/index.ts"],
-		},
-	},
 	ignore: ["./prettierrc.config.ts", "./stylelint.config.ts"],
 	ignoreDependencies: [
 		"simple-git-hooks",
@@ -21,6 +10,17 @@ const config: KnipConfig = {
 		"@commitlint/types",
 		"pg",
 	],
+	workspaces: {
+		"apps/backend": {
+			entry: ["src/index.ts", "src/db/migrations/*.ts", "knexfile.ts"],
+		},
+		"apps/frontend": {
+			entry: ["src/index.tsx"],
+		},
+		"packages/shared": {
+			entry: ["src/index.ts"],
+		},
+	},
 };
 
 export default config;

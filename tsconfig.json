@@ -1,5 +1,7 @@
 {
-	"exclude": ["node_modules"],
+	"include": ["**/*.ts", "**/*.js"],
+	"exclude": ["node_modules", "apps", "packages"],
+	"files": ["packages.d.ts"],
 	"compilerOptions": {
 		"strict": true,
 		"noUncheckedIndexedAccess": true,
@@ -9,5 +11,6 @@
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"esModuleInterop": true,
+		"skipLibCheck": true,
 	},
 }

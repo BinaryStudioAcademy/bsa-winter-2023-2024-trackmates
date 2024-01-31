@@ -74,9 +74,9 @@ const overridesConfigs = [
 
 /** @type {FlatConfig[]} */
 const config = [
+	...baseConfig,
 	ignoresConfig,
 	mainConfig,
-	...baseConfig,
 	reactConfig,
 	reactHooksConfig,
 	jsxA11yConfig,

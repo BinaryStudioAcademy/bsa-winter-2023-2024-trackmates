@@ -4,7 +4,8 @@
 	"version": "1.0.0",
 	"scripts": {
 		"lint:type": "npx tsc --noEmit",
-		"lint:js": "npx eslint .",
+		"lint:js": "npx eslint \"**/*.ts\"",
+		"lint": "concurrently \"npm:lint:*\"",
 		"start:dev": "tsx src/index.ts",
 		"migrate:dev": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:latest",
 		"migrate:dev:make": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:make -x ts",

@@ -9,8 +9,9 @@
 	},
 	"scripts": {
 		"lint:css": "npx stylelint \"src/**/*.css\"",
-		"lint:js": "npx eslint .",
+		"lint:js": "npx eslint \"src/**/*.{ts,tsx}\"",
 		"lint:type": "npx tsc --noEmit",
+		"lint": "concurrently \"npm:lint:*\"",
 		"start:dev": "vite",
 		"build": "tsc --build --clean && vite build",
 		"preview": "vite preview"
