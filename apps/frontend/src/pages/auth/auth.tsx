@@ -5,8 +5,8 @@ import {
 	useCallback,
 	useLocation,
 } from "~/libs/hooks/hooks.ts";
+import { actions as authActions } from "~/modules/auth/auth.ts";
 import { type UserSignUpRequestDto } from "~/modules/users/users.ts";
-import { actions as authActions } from "~/slices/auth/auth.ts";
 
 import { SignInForm, SignUpForm } from "./components/components.tsx";
 

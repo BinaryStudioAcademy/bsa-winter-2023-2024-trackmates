@@ -18,3 +18,4 @@ export {
 	type UserSignUpResponseDto,
 } from "./libs/types/types.ts";
 export { userSignUpValidationSchema } from "./libs/validation-schemas/validation-schemas.ts";
+export { actions, reducer } from "./slices/users.ts";

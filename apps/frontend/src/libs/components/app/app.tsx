@@ -7,7 +7,7 @@ import {
 	useEffect,
 	useLocation,
 } from "~/libs/hooks/hooks.ts";
-import { actions as userActions } from "~/slices/users/users.ts";
+import { actions as userActions } from "~/modules/users/users.ts";
 
 const App: React.FC = () => {
 	const { pathname } = useLocation();
