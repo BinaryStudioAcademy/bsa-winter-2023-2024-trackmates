@@ -135,6 +135,7 @@ const typescriptConfig = {
 
 /** @type {FlatConfig} */
 const jsdocConfig = {
+	files: ["eslint.config.js", "lint-staged.config.js"],
 	plugins: {
 		jsdoc,
 	},
@@ -149,11 +150,10 @@ const overridesConfigs = [
 	{
 		files: [
 			"commitlint.config.ts",
-			"prettierrc.config.ts",
+			"prettier.config.ts",
 			"lint-staged.config.js",
 			"stylelint.config.ts",
 			"knip.config.ts",
-			"eslint.config.js",
 		],
 		rules: {
 			"import/no-default-export": ["off"],
@@ -164,6 +164,7 @@ const overridesConfigs = [
 		rules: {
 			"@typescript-eslint/no-unsafe-assignment": ["off"],
 			"@typescript-eslint/no-unsafe-member-access": ["off"],
+			"import/no-default-export": ["off"],
 		},
 	},
 	{

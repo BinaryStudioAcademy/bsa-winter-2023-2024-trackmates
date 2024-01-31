@@ -1,14 +1,11 @@
 import { KnipConfig } from "knip";
 
 const config: KnipConfig = {
-	ignore: ["./prettierrc.config.ts", "./stylelint.config.ts"],
+	ignore: ["./prettier.config.ts", "./stylelint.config.ts", "./dangerfile.ts"],
 	ignoreDependencies: [
-		"simple-git-hooks",
-		"stylelint-config-standard",
-		"stylelint-order",
-		"shared",
-		"@commitlint/types",
 		"pg",
+		"stylelint-config-recess-order",
+		"stylelint-config-standard",
 	],
 	workspaces: {
 		"apps/backend": {

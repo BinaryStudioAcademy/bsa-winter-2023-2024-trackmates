@@ -4,7 +4,7 @@
 	"version": "1.0.0",
 	"scripts": {
 		"lint:type": "npx tsc --noEmit",
-		"lint:js": "npx eslint \"**/*.ts\"",
+		"lint:js": "npx eslint \"**/*.ts\" --max-warnings=0",
 		"lint": "concurrently \"npm:lint:*\"",
 		"start:dev": "tsx src/index.ts",
 		"migrate:dev": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:latest",
@@ -29,6 +29,7 @@
 		"pg": "8.11.3",
 		"pino": "8.17.2",
 		"pino-pretty": "10.3.1",
+		"shared": "file:../../packages/shared",
 		"swagger-jsdoc": "6.2.8"
 	},
 	"devDependencies": {
