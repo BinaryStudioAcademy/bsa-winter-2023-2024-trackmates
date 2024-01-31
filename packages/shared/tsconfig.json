@@ -9,5 +9,8 @@
 		"paths": {
 			"~/*": ["./src/*"],
 		},
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 	},
 }

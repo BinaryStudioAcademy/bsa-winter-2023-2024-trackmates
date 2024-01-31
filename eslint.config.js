@@ -168,7 +168,7 @@ const overridesConfigs = [
 		},
 	},
 	{
-		files: ["commitlint.config.ts"],
+		files: ["commitlint.config.ts", "dangerfile.ts"],
 		rules: {
 			"import/extensions": ["off"],
 		},

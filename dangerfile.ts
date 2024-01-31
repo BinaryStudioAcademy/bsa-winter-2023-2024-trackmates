@@ -1,49 +1,51 @@
-import { danger, fail, type GitHubPRDSL as LibraryGitHubDSL } from "danger";
+import { type GitHubPRDSL as LibraryGitHubDSL, danger, fail } from "danger";
 
-import { ProjectPrefix } from "./project.config.js";
+import { ProjectPrefix } from "./project.config";
+
+const LABELS_EMPTY_LENGTH = 0;
 
 type GitHubPRDSL = LibraryGitHubDSL & {
-	milestone: Record<string, unknown> | null;
 	labels: unknown[];
-	project_id: string | null;
+	milestone: Record<string, unknown> | null;
+	project_id: null | string;
 };
 
 type DangerConfig = {
-	TITLE: {
+	ASSIGNEES: {
+		IS_REQUIRED: boolean;
+	};
+	BRANCH: {
 		PATTERN: RegExp | null;
 	};
-	ASSIGNEES: {
+	LABELS: {
 		IS_REQUIRED: boolean;
 	};
 	MILESTONE: {
 		IS_REQUIRED: boolean;
 	};
-	LABELS: {
-		IS_REQUIRED: boolean;
-	};
-	BRANCH: {
+	TITLE: {
 		PATTERN: RegExp | null;
 	};
 };
 
 const config: DangerConfig = {
-	TITLE: {
-		PATTERN: new RegExp(
-			`^(${ProjectPrefix.CHANGE_TYPES.join("|")}: (.*\\S) ${ProjectPrefix.APP}-[0-9]{1,6}$`,
-		),
-	},
 	ASSIGNEES: {
-		IS_REQUIRED: true,
-	},
-	MILESTONE: {
-		IS_REQUIRED: true,
-	},
-	LABELS: {
 		IS_REQUIRED: true,
 	},
 	BRANCH: {
 		PATTERN: new RegExp(
 			`^[0-9]{1,6}-${ProjectPrefix.CHANGE_TYPES.join("|")}-[a-zA-Z0-9-]+$|(${ProjectPrefix.ENVIRONMENT})$`,
+		),
+	},
+	LABELS: {
+		IS_REQUIRED: true,
+	},
+	MILESTONE: {
+		IS_REQUIRED: true,
+	},
+	TITLE: {
+		PATTERN: new RegExp(
+			`^(${ProjectPrefix.CHANGE_TYPES.join("|")}): (.*\\S) ${ProjectPrefix.APP}-[0-9]{1,6}$`,
 		),
 	},
 };
@@ -79,7 +81,7 @@ const checkMilestone = (): void => {
 };
 
 const checkLabels = (): void => {
-	const hasLabels = pr.labels.length > 0;
+	const hasLabels = pr.labels.length > LABELS_EMPTY_LENGTH;
 
 	if (!hasLabels) {
 		fail("This pull request should have at least one label.");
