@@ -52,7 +52,7 @@ class BaseServerApplicationApi implements ServerApplicationApi {
 					},
 				},
 			},
-			apis: [`src/packages/**/*.controller.${controllerExtension}`],
+			apis: [`src/modules/**/*.controller.${controllerExtension}`],
 		});
 	}
 }

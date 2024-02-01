@@ -14,7 +14,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...userController.routes,
 );
 const serverApplication = new BaseServerApplication({
-	title: "CalmPal",
+	title: "TrackMates",
 	config,
 	logger,
 	database,
