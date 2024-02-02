@@ -20,11 +20,40 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  dependencies:
+    name: Install Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v4
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Cache Dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            packages/**/build
+          key: ci-pr-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ci-pr-
+
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
+
   ci-pr:
     permissions:
       contents: read
       pull-requests: write
 
+    name: PR Linting
+    needs: dependencies
     runs-on: ubuntu-latest
 
     steps:
@@ -38,9 +67,13 @@ jobs:
         with:
           node-version-file: .nvmrc
 
-      - name: Install Dependencies
-        run: |
-          npm install
+      - name: Restore Dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+            packages/**/build
+          key: ci-${{ hashFiles('**/package-lock.json') }}
 
       - name: Lint Commits
         run: |
