@@ -1,14 +1,14 @@
 import {
-	type UnknownAction,
-	type Tuple,
 	type ThunkMiddleware,
+	type Tuple,
+	type UnknownAction,
 } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 
 import { AppEnvironment } from "~/libs/enums/enums.ts";
 import { type Config } from "~/libs/modules/config/config.ts";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.ts";
-import { reducer as usersReducer, userApi } from "~/modules/users/users.ts";
+import { userApi, reducer as usersReducer } from "~/modules/users/users.ts";
 
 type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
@@ -32,16 +32,16 @@ class Store {
 	public constructor(config: Config) {
 		this.instance = configureStore({
 			devTools: config.ENV.APP.ENVIRONMENT !== AppEnvironment.PRODUCTION,
-			reducer: {
-				auth: authReducer,
-				users: usersReducer,
-			},
 			middleware: (getDefaultMiddleware) => {
 				return getDefaultMiddleware({
 					thunk: {
 						extraArgument: this.extraArguments,
 					},
 				});
+			},
+			reducer: {
+				auth: authReducer,
+				users: usersReducer,
 			},
 		});
 	}

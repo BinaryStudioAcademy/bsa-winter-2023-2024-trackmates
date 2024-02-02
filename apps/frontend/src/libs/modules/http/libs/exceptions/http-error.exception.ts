@@ -6,29 +6,29 @@ import { type ServerErrorDetail, type ValueOf } from "~/libs/types/types.ts";
 import { type HTTPCode } from "../enums/enums.ts";
 
 type Constructor = {
-	status: ValueOf<typeof HTTPCode>;
-	details: ServerErrorDetail[];
-	message: string;
-	errorType: ValueOf<typeof ServerErrorType>;
 	cause?: unknown;
+	details: ServerErrorDetail[];
+	errorType: ValueOf<typeof ServerErrorType>;
+	message: string;
+	status: ValueOf<typeof HTTPCode>;
 };
 
 class HTTPError extends LibraryHTTPError {
-	public errorType: ValueOf<typeof ServerErrorType>;
-
 	public details: ServerErrorDetail[];
 
+	public errorType: ValueOf<typeof ServerErrorType>;
+
 	public constructor({
+		cause,
+		details,
+		errorType,
 		message,
 		status,
-		cause,
-		errorType,
-		details,
 	}: Constructor) {
 		super({
+			cause,
 			message,
 			status,
-			cause,
 		});
 
 		this.errorType = errorType;

@@ -1,9 +1,4 @@
 const ProjectPrefix = {
-	ISSUE_PREFIXES: ["tm"],
-	SCOPES: {
-		APPS: ["frontend", "backend"],
-		PACKAGES: ["shared"],
-	},
 	APP: "tm",
 	CHANGE_TYPES: [
 		"build",
@@ -19,6 +14,11 @@ const ProjectPrefix = {
 		"test",
 	],
 	ENVIRONMENT: "main",
+	ISSUE_PREFIXES: ["tm"],
+	SCOPES: {
+		APPS: ["frontend", "backend"],
+		PACKAGES: ["shared"],
+	},
 } as const;
 
 export { ProjectPrefix };

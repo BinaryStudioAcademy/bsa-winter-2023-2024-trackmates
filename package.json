@@ -20,7 +20,7 @@
 		"lint:editor": "editorconfig-checker",
 		"lint:fs": "ls-lint",
 		"lint:type": "npx tsc --noEmit",
-		"lint:js": "npx eslint *.{ts,js} --max-warnings=0 --no-warn-ignored",
+		"lint:js": "npx eslint . --max-warnings=0 --no-warn-ignored",
 		"lint:prettify": "prettier --check \"**/*.{ts,tsx,json,md,css,html}\"",
 		"lint:trash": "knip",
 		"lint:format": "prettier --write \"**/*.{ts,tsx,json,md,css,html}\"",

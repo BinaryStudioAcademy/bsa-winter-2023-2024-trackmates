@@ -10,8 +10,8 @@ class BaseStorage implements Storage {
 		this.store = store;
 	}
 
-	public set(key: ValueOf<typeof StorageKey>, value: string): Promise<void> {
-		this.store.setItem(key as string, value);
+	public drop(key: ValueOf<typeof StorageKey>): Promise<void> {
+		this.store.removeItem(key as string);
 
 		return Promise.resolve();
 	}
@@ -20,16 +20,16 @@ class BaseStorage implements Storage {
 		return Promise.resolve(this.store.getItem(key as string) as R);
 	}
 
-	public drop(key: ValueOf<typeof StorageKey>): Promise<void> {
-		this.store.removeItem(key as string);
-
-		return Promise.resolve();
-	}
-
 	public async has(key: ValueOf<typeof StorageKey>): Promise<boolean> {
 		const value = await this.get(key);
 
 		return Boolean(value);
+	}
+
+	public set(key: ValueOf<typeof StorageKey>, value: string): Promise<void> {
+		this.store.setItem(key as string, value);
+
+		return Promise.resolve();
 	}
 }
 

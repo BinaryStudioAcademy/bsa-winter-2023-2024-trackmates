@@ -1,6 +1,6 @@
+import jsxA11y from "eslint-plugin-jsx-a11y";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
-import jsxA11y from "eslint-plugin-jsx-a11y";
 import globals from "globals";
 
 import baseConfig from "../../eslint.config.js";
@@ -17,9 +17,10 @@ const ignoresConfig = {
 const mainConfig = {
 	languageOptions: {
 		globals: {
+			...globals.node,
 			...globals.browser,
-			React: true,
 			JSX: true,
+			React: true,
 		},
 	},
 };
@@ -65,9 +66,9 @@ const overridesConfigs = [
 		},
 	},
 	{
-		files: ["vite-end.d.ts"],
+		files: ["src/vite-env.d.ts"],
 		rules: {
-			"unicorn/prevent-abbreviation": ["off"],
+			"unicorn/prevent-abbreviations": ["off"],
 		},
 	},
 ];

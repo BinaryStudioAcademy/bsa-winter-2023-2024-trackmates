@@ -17,57 +17,33 @@ import {
 
 type Constructor = {
 	baseUrl: string;
-	path: string;
 	http: HTTP;
+	path: string;
 	storage: Storage;
 };
 
 class BaseHTTPApi implements HTTPApi {
 	private baseUrl: string;
 
-	private path: string;
-
 	private http: HTTP;
+
+	private path: string;
 
 	private storage: Storage;
 
-	public constructor({ baseUrl, path, http, storage }: Constructor) {
+	public constructor({ baseUrl, http, path, storage }: Constructor) {
 		this.baseUrl = baseUrl;
-		this.path = path;
 		this.http = http;
+		this.path = path;
 		this.storage = storage;
 	}
 
-	public async load(
-		path: string,
-		options: HTTPApiOptions,
-	): Promise<HTTPApiResponse> {
-		const { method, contentType, payload = null, hasAuth } = options;
+	private async checkResponse(response: Response): Promise<Response> {
+		if (!response.ok) {
+			await this.handleError(response);
+		}
 
-		const headers = await this.getHeaders(contentType, hasAuth);
-
-		const response = await this.http.load(path, {
-			method,
-			headers,
-			payload,
-		});
-
-		return (await this.checkResponse(response)) as HTTPApiResponse;
-	}
-
-	protected getFullEndpoint<T extends Record<string, string>>(
-		...parameters: [...string[], T]
-	): string {
-		const copiedParameters = [...parameters];
-
-		const options = copiedParameters.pop() as T;
-
-		return configureString(
-			this.baseUrl,
-			this.path,
-			...(copiedParameters as string[]),
-			options,
-		);
+		return response;
 	}
 
 	private async getHeaders(
@@ -87,14 +63,6 @@ class BaseHTTPApi implements HTTPApi {
 		return headers;
 	}
 
-	private async checkResponse(response: Response): Promise<Response> {
-		if (!response.ok) {
-			await this.handleError(response);
-		}
-
-		return response;
-	}
-
 	private async handleError(response: Response): Promise<never> {
 		let parsedException: ServerErrorResponse;
 
@@ -110,13 +78,45 @@ class BaseHTTPApi implements HTTPApi {
 		const isCustomException = Boolean(parsedException.errorType);
 
 		throw new HTTPError({
-			status: response.status as ValueOf<typeof HTTPCode>,
+			details: "details" in parsedException ? parsedException.details : [],
 			errorType: isCustomException
 				? parsedException.errorType
 				: ServerErrorType.COMMON,
 			message: parsedException.message,
-			details: "details" in parsedException ? parsedException.details : [],
+			status: response.status as ValueOf<typeof HTTPCode>,
 		});
+	}
+
+	protected getFullEndpoint<T extends Record<string, string>>(
+		...parameters: [...string[], T]
+	): string {
+		const copiedParameters = [...parameters];
+
+		const options = copiedParameters.pop() as T;
+
+		return configureString(
+			this.baseUrl,
+			this.path,
+			...(copiedParameters as string[]),
+			options,
+		);
+	}
+
+	public async load(
+		path: string,
+		options: HTTPApiOptions,
+	): Promise<HTTPApiResponse> {
+		const { contentType, hasAuth, method, payload = null } = options;
+
+		const headers = await this.getHeaders(contentType, hasAuth);
+
+		const response = await this.http.load(path, {
+			headers,
+			method,
+			payload,
+		});
+
+		return (await this.checkResponse(response)) as HTTPApiResponse;
 	}
 }
 

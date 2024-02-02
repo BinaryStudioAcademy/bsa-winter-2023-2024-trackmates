@@ -17,6 +17,11 @@ let FlatConfig;
 let ParserModule;
 
 /** @type {FlatConfig} */
+const filesConfig = {
+	files: ["**/*.{js,ts,tsx}"],
+};
+
+/** @type {FlatConfig} */
 const ignoresConfig = {
 	ignores: ["apps", "packages"],
 };
@@ -151,9 +156,9 @@ const overridesConfigs = [
 		files: [
 			"commitlint.config.ts",
 			"prettier.config.ts",
-			"lint-staged.config.js",
 			"stylelint.config.ts",
 			"knip.config.ts",
+			"packages.d.ts",
 		],
 		rules: {
 			"import/no-default-export": ["off"],
@@ -164,7 +169,11 @@ const overridesConfigs = [
 		rules: {
 			"@typescript-eslint/no-unsafe-assignment": ["off"],
 			"@typescript-eslint/no-unsafe-member-access": ["off"],
+			"import/default": ["off"],
+			"import/namespace": ["off"],
 			"import/no-default-export": ["off"],
+			"import/no-named-as-default": ["off"],
+			"import/no-named-as-default-member": ["off"],
 		},
 	},
 	{
@@ -173,10 +182,18 @@ const overridesConfigs = [
 			"import/extensions": ["off"],
 		},
 	},
+	{
+		files: ["lint-staged.config.js"],
+		rules: {
+			"import/namespace": ["off"],
+			"import/no-default-export": ["off"],
+		},
+	},
 ];
 
 /** @type {FlatConfig[]} */
 const config = [
+	filesConfig,
 	ignoresConfig,
 	jsConfig,
 	importConfig,

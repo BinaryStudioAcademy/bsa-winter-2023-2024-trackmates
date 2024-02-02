@@ -17,7 +17,7 @@ type Constructor = {
 
 class AuthApi extends BaseHTTPApi {
 	public constructor({ baseUrl, http, storage }: Constructor) {
-		super({ path: APIPath.AUTH, baseUrl, http, storage });
+		super({ baseUrl, http, path: APIPath.AUTH, storage });
 	}
 
 	public async signUp(
@@ -26,10 +26,10 @@ class AuthApi extends BaseHTTPApi {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.SIGN_UP, {}),
 			{
-				method: "POST",
 				contentType: ContentType.JSON,
-				payload: JSON.stringify(payload),
 				hasAuth: false,
+				method: "POST",
+				payload: JSON.stringify(payload),
 			},
 		);
 

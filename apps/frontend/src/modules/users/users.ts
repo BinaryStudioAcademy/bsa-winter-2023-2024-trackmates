@@ -6,8 +6,8 @@ import { UserApi } from "./users-api.ts";
 
 const userApi = new UserApi({
 	baseUrl: config.ENV.API.ORIGIN_URL,
-	storage,
 	http,
+	storage,
 });
 
 export { userApi };

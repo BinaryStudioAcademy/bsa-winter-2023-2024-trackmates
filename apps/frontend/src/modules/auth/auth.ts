@@ -6,8 +6,8 @@ import { AuthApi } from "./auth-api.ts";
 
 const authApi = new AuthApi({
 	baseUrl: config.ENV.API.ORIGIN_URL,
-	storage,
 	http,
+	storage,
 });
 
 export { authApi };

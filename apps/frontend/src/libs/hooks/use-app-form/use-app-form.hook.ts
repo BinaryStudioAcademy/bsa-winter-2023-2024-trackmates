@@ -1,11 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-	UseFormProps,
 	type Control,
 	type DefaultValues,
 	type FieldErrors,
 	type FieldValues,
 	type UseFormHandleSubmit,
+	UseFormProps,
 	type ValidationMode,
 } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -14,8 +14,8 @@ import { type ValidationSchema } from "~/libs/types/types.ts";
 
 type Parameters<T extends FieldValues = FieldValues> = {
 	defaultValues: DefaultValues<T>;
-	validationSchema?: ValidationSchema;
 	mode?: keyof ValidationMode;
+	validationSchema?: ValidationSchema;
 };
 
 type ReturnValue<T extends FieldValues = FieldValues> = {
@@ -25,13 +25,13 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 };
 
 const useAppForm = <T extends FieldValues = FieldValues>({
-	validationSchema,
 	defaultValues,
 	mode = "onSubmit",
+	validationSchema,
 }: Parameters<T>): ReturnValue<T> => {
 	let parameters: UseFormProps<T> = {
-		mode,
 		defaultValues,
+		mode,
 	};
 
 	if (validationSchema) {
@@ -43,8 +43,8 @@ const useAppForm = <T extends FieldValues = FieldValues>({
 
 	const {
 		control,
-		handleSubmit,
 		formState: { errors },
+		handleSubmit,
 	} = useForm<T>(parameters);
 
 	return {
