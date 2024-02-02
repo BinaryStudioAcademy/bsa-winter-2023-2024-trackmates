@@ -23,17 +23,17 @@ class AuthController extends BaseController {
 		this.authService = authService;
 
 		this.addRoute({
-			path: AuthApiPath.SIGN_UP,
-			method: "POST",
-			validation: {
-				body: userSignUpValidationSchema,
-			},
 			handler: (options) =>
 				this.signUp(
 					options as APIHandlerOptions<{
 						body: UserSignUpRequestDto;
 					}>,
 				),
+			method: "POST",
+			path: AuthApiPath.SIGN_UP,
+			validation: {
+				body: userSignUpValidationSchema,
+			},
 		});
 	}
 
@@ -73,8 +73,8 @@ class AuthController extends BaseController {
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			status: HTTPCode.CREATED,
 			payload: await this.authService.signUp(options.body),
+			status: HTTPCode.CREATED,
 		};
 	}
 }

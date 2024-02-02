@@ -15,6 +15,24 @@ class UserService implements Service {
 		this.userRepository = userRepository;
 	}
 
+	public async create(
+		payload: UserSignUpRequestDto,
+	): Promise<UserSignUpResponseDto> {
+		const item = await this.userRepository.create(
+			UserEntity.initializeNew({
+				email: payload.email,
+				passwordHash: "HASH", // TODO
+				passwordSalt: "SALT", // TODO
+			}),
+		);
+
+		return item.toObject();
+	}
+
+	public delete(): ReturnType<Service["delete"]> {
+		return Promise.resolve(true);
+	}
+
 	public find(): ReturnType<Service["find"]> {
 		return Promise.resolve(null);
 	}
@@ -27,26 +45,8 @@ class UserService implements Service {
 		};
 	}
 
-	public async create(
-		payload: UserSignUpRequestDto,
-	): Promise<UserSignUpResponseDto> {
-		const item = await this.userRepository.create(
-			UserEntity.initializeNew({
-				email: payload.email,
-				passwordSalt: "SALT", // TODO
-				passwordHash: "HASH", // TODO
-			}),
-		);
-
-		return item.toObject();
-	}
-
 	public update(): ReturnType<Service["update"]> {
 		return Promise.resolve(null);
-	}
-
-	public delete(): ReturnType<Service["delete"]> {
-		return Promise.resolve(true);
 	}
 }
 

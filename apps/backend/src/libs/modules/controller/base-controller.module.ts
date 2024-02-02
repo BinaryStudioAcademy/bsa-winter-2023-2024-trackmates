@@ -9,9 +9,9 @@ import {
 } from "./libs/types/types.js";
 
 class BaseController implements Controller {
-	private logger: Logger;
-
 	private apiUrl: string;
+
+	private logger: Logger;
 
 	public routes: ServerApplicationRouteParameters[];
 
@@ -19,17 +19,6 @@ class BaseController implements Controller {
 		this.logger = logger;
 		this.apiUrl = apiPath;
 		this.routes = [];
-	}
-
-	public addRoute(options: ControllerRouteParameters): void {
-		const { handler, path } = options;
-		const fullPath = this.apiUrl + path;
-
-		this.routes.push({
-			...options,
-			path: fullPath,
-			handler: (request, reply) => this.mapHandler(handler, request, reply),
-		});
 	}
 
 	private async mapHandler(
@@ -40,7 +29,7 @@ class BaseController implements Controller {
 		this.logger.info(`${request.method.toUpperCase()} on ${request.url}`);
 
 		const handlerOptions = this.mapRequest(request);
-		const { status, payload } = await handler(handlerOptions);
+		const { payload, status } = await handler(handlerOptions);
 
 		return await reply.status(status).send(payload);
 	}
@@ -48,13 +37,24 @@ class BaseController implements Controller {
 	private mapRequest(
 		request: Parameters<ServerApplicationRouteParameters["handler"]>[0],
 	): APIHandlerOptions {
-		const { body, query, params } = request;
+		const { body, params, query } = request;
 
 		return {
 			body,
-			query,
 			params,
+			query,
 		};
+	}
+
+	public addRoute(options: ControllerRouteParameters): void {
+		const { handler, path } = options;
+		const fullPath = this.apiUrl + path;
+
+		this.routes.push({
+			...options,
+			handler: (request, reply) => this.mapHandler(handler, request, reply),
+			path: fullPath,
+		});
 	}
 }
 

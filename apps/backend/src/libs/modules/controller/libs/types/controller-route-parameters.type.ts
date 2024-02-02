@@ -4,9 +4,9 @@ import { type ValidationSchema } from "~/libs/types/types.js";
 import { type APIHandler } from "./api-handler.type.js";
 
 type ControllerRouteParameters = {
-	path: string;
-	method: HTTPMethod;
 	handler: APIHandler;
+	method: HTTPMethod;
+	path: string;
 	validation?: {
 		body?: ValidationSchema;
 	};

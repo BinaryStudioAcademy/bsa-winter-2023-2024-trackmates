@@ -9,11 +9,11 @@ import {
 } from "./libs/types/types.js";
 
 class BaseServerApplicationApi implements ServerApplicationApi {
-	public version: string;
+	private config: Config;
 
 	public routes: ServerApplicationRouteParameters[];
 
-	private config: Config;
+	public version: string;
 
 	public constructor(
 		version: string,
@@ -35,24 +35,24 @@ class BaseServerApplicationApi implements ServerApplicationApi {
 		const controllerExtension = isProduction ? "js" : "ts";
 
 		return swaggerJsdoc({
+			apis: [`src/modules/**/*.controller.${controllerExtension}`],
 			definition: {
-				openapi: "3.0.0",
+				components: {
+					securitySchemes: {
+						bearerAuth: {
+							bearerFormat: "JWT",
+							scheme: "bearer",
+							type: "http",
+						},
+					},
+				},
 				info: {
 					title,
 					version: `${this.version}.0.0`,
 				},
+				openapi: "3.0.0",
 				servers: [{ url: "/api/v1" }],
-				components: {
-					securitySchemes: {
-						bearerAuth: {
-							type: "http",
-							scheme: "bearer",
-							bearerFormat: "JWT",
-						},
-					},
-				},
 			},
-			apis: [`src/modules/**/*.controller.${controllerExtension}`],
 		});
 	}
 }

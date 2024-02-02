@@ -3,15 +3,15 @@ import { type ValueOf } from "~/libs/types/types.js";
 
 type EnvironmentSchema = {
 	APP: {
-		PORT: number;
-		HOST: string;
 		ENVIRONMENT: ValueOf<typeof AppEnvironment>;
+		HOST: string;
+		PORT: number;
 	};
 	DB: {
 		CONNECTION_STRING: string;
 		DIALECT: string;
-		POOL_MIN: number;
 		POOL_MAX: number;
+		POOL_MIN: number;
 	};
 };
 

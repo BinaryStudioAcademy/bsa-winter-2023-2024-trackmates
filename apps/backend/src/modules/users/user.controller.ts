@@ -32,9 +32,9 @@ class UserController extends BaseController {
 		this.userService = userService;
 
 		this.addRoute({
-			path: UsersApiPath.ROOT,
-			method: "GET",
 			handler: () => this.findAll(),
+			method: "GET",
+			path: UsersApiPath.ROOT,
 		});
 	}
 
@@ -55,8 +55,8 @@ class UserController extends BaseController {
 	 */
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
-			status: HTTPCode.OK,
 			payload: await this.userService.findAll(),
+			status: HTTPCode.OK,
 		};
 	}
 }

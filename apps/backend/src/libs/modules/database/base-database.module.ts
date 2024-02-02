@@ -1,5 +1,5 @@
 import knex, { type Knex } from "knex";
-import { knexSnakeCaseMappers, Model } from "objection";
+import { Model, knexSnakeCaseMappers } from "objection";
 
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
@@ -18,6 +18,27 @@ class BaseDatabase implements Database {
 		this.logger = logger;
 	}
 
+	private get environmentConfig(): Knex.Config {
+		return this.environmentsConfig[this.appConfig.ENV.APP.ENVIRONMENT];
+	}
+
+	private get initialConfig(): Knex.Config {
+		return {
+			client: this.appConfig.ENV.DB.DIALECT,
+			connection: this.appConfig.ENV.DB.CONNECTION_STRING,
+			debug: false,
+			migrations: {
+				directory: "src/db/migrations",
+				tableName: DatabaseTableName.MIGRATIONS,
+			},
+			pool: {
+				max: this.appConfig.ENV.DB.POOL_MAX,
+				min: this.appConfig.ENV.DB.POOL_MIN,
+			},
+			...knexSnakeCaseMappers({ underscoreBetweenUppercaseLetters: true }),
+		};
+	}
+
 	public connect(): ReturnType<Database["connect"]> {
 		this.logger.info("Establish DB connection...");
 
@@ -29,27 +50,6 @@ class BaseDatabase implements Database {
 			[AppEnvironment.DEVELOPMENT]: this.initialConfig,
 			[AppEnvironment.PRODUCTION]: this.initialConfig,
 		};
-	}
-
-	private get initialConfig(): Knex.Config {
-		return {
-			client: this.appConfig.ENV.DB.DIALECT,
-			connection: this.appConfig.ENV.DB.CONNECTION_STRING,
-			pool: {
-				min: this.appConfig.ENV.DB.POOL_MIN,
-				max: this.appConfig.ENV.DB.POOL_MAX,
-			},
-			migrations: {
-				directory: "src/db/migrations",
-				tableName: DatabaseTableName.MIGRATIONS,
-			},
-			debug: false,
-			...knexSnakeCaseMappers({ underscoreBetweenUppercaseLetters: true }),
-		};
-	}
-
-	private get environmentConfig(): Knex.Config {
-		return this.environmentsConfig[this.appConfig.ENV.APP.ENVIRONMENT];
 	}
 }
 

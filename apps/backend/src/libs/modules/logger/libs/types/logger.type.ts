@@ -4,10 +4,10 @@ type LogFunction = (
 ) => void;
 
 type Logger = {
+	debug: LogFunction;
+	error: LogFunction;
 	info: LogFunction;
 	warn: LogFunction;
-	error: LogFunction;
-	debug: LogFunction;
 };
 
 export { type Logger };

@@ -1,10 +1,9 @@
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-
 import fastifyStatic from "@fastify/static";
 import swagger, { type StaticDocumentSpec } from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import Fastify, { type FastifyError } from "fastify";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
@@ -25,27 +24,27 @@ import {
 } from "./libs/types/types.js";
 
 type Constructor = {
-	title: string;
-	config: Config;
-	logger: Logger;
-	database: Database;
 	apis: ServerApplicationApi[];
+	config: Config;
+	database: Database;
+	logger: Logger;
+	title: string;
 };
 
 class BaseServerApplication implements ServerApplication {
-	private title: string;
-
-	private config: Config;
-
-	private logger: Logger;
-
-	private database: Database;
-
 	private apis: ServerApplicationApi[];
 
 	private app: ReturnType<typeof Fastify>;
 
-	public constructor({ title, config, logger, database, apis }: Constructor) {
+	private config: Config;
+
+	private database: Database;
+
+	private logger: Logger;
+
+	private title: string;
+
+	public constructor({ apis, config, database, logger, title }: Constructor) {
 		this.title = title;
 		this.config = config;
 		this.logger = logger;
@@ -57,97 +56,23 @@ class BaseServerApplication implements ServerApplication {
 		});
 	}
 
-	public addRoute(parameters: ServerApplicationRouteParameters): void {
-		const { path, method, handler, validation } = parameters;
-
-		this.app.route({
-			url: path,
-			method,
-			handler,
-			schema: {
-				body: validation?.body,
-			},
-		});
-
-		this.logger.info(`Route: ${method} ${path} is registered`);
-	}
-
-	public addRoutes(parameters: ServerApplicationRouteParameters[]): void {
-		parameters.forEach((parameter) => {
-			this.addRoute(parameter);
-		});
-	}
-
-	public initRoutes(): void {
-		const routers = this.apis.flatMap((api) => api.routes);
-
-		this.addRoutes(routers);
-	}
-
-	public async initMiddlewares(): Promise<void> {
-		await Promise.all(
-			this.apis.map(async (api) => {
-				this.logger.info(
-					`Generate swagger documentation for API ${api.version}`,
-				);
-
-				await this.app.register(swagger, {
-					mode: "static",
-					specification: {
-						document: api.generateDoc(
-							this.title,
-						) as StaticDocumentSpec["document"],
-					},
-				});
-
-				await this.app.register(swaggerUi, {
-					routePrefix: `${api.version}/documentation`,
-				});
-			}),
-		);
-	}
-
-	private async initServe(): Promise<void> {
-		const staticPath = join(
-			dirname(fileURLToPath(import.meta.url)),
-			"../../../../public",
-		);
-
-		await this.app.register(fastifyStatic, {
-			root: staticPath,
-			prefix: "/",
-		});
-
-		this.app.setNotFoundHandler(async (_request, response) => {
-			await response.sendFile("index.html", staticPath);
-		});
-	}
-
-	private initValidationCompiler(): void {
-		this.app.setValidatorCompiler<ValidationSchema>(({ schema }) => {
-			return <T, R = ReturnType<ValidationSchema["parse"]>>(data: T): R => {
-				return schema.parse(data) as R;
-			};
-		});
-	}
-
 	private initErrorHandler(): void {
 		this.app.setErrorHandler(
 			(error: FastifyError | ValidationError, _request, reply) => {
 				if ("issues" in error) {
 					this.logger.error(`[Validation Error]: ${error.message}`);
 
-					error.issues.forEach((issue) => {
+					for (let issue of error.issues) {
 						this.logger.error(`[${issue.path.toString()}] — ${issue.message}`);
-					});
+					}
 
 					const response: ServerValidationErrorResponse = {
+						details: error.issues.map((issue) => ({
+							message: issue.message,
+							path: issue.path,
+						})),
 						errorType: ServerErrorType.VALIDATION,
 						message: error.message,
-						details: error.issues.map((issue) => ({
-							path: issue.path,
-							message: issue.message,
-						})),
 					};
 
 					return reply.status(HTTPCode.UNPROCESSED_ENTITY).send(response);
@@ -176,6 +101,51 @@ class BaseServerApplication implements ServerApplication {
 		);
 	}
 
+	private async initServe(): Promise<void> {
+		const staticPath = join(
+			dirname(fileURLToPath(import.meta.url)),
+			"../../../../public",
+		);
+
+		await this.app.register(fastifyStatic, {
+			prefix: "/",
+			root: staticPath,
+		});
+
+		this.app.setNotFoundHandler(async (_request, response) => {
+			await response.sendFile("index.html", staticPath);
+		});
+	}
+
+	private initValidationCompiler(): void {
+		this.app.setValidatorCompiler<ValidationSchema>(({ schema }) => {
+			return <T, R = ReturnType<ValidationSchema["parse"]>>(data: T): R => {
+				return schema.parse(data) as R;
+			};
+		});
+	}
+
+	public addRoute(parameters: ServerApplicationRouteParameters): void {
+		const { handler, method, path, validation } = parameters;
+
+		this.app.route({
+			handler,
+			method,
+			schema: {
+				body: validation?.body,
+			},
+			url: path,
+		});
+
+		this.logger.info(`Route: ${method} ${path} is registered`);
+	}
+
+	public addRoutes(parameters: ServerApplicationRouteParameters[]): void {
+		for (let parameter of parameters) {
+			this.addRoute(parameter);
+		}
+	}
+
 	public async init(): Promise<void> {
 		this.logger.info("Application initialization…");
 
@@ -193,8 +163,8 @@ class BaseServerApplication implements ServerApplication {
 
 		try {
 			await this.app.listen({
-				port: this.config.ENV.APP.PORT,
 				host: this.config.ENV.APP.HOST,
+				port: this.config.ENV.APP.PORT,
 			});
 
 			this.logger.info(
@@ -212,6 +182,35 @@ class BaseServerApplication implements ServerApplication {
 
 			throw error;
 		}
+	}
+
+	public async initMiddlewares(): Promise<void> {
+		await Promise.all(
+			this.apis.map(async (api) => {
+				this.logger.info(
+					`Generate swagger documentation for API ${api.version}`,
+				);
+
+				await this.app.register(swagger, {
+					mode: "static",
+					specification: {
+						document: api.generateDoc(
+							this.title,
+						) as StaticDocumentSpec["document"],
+					},
+				});
+
+				await this.app.register(swaggerUi, {
+					routePrefix: `${api.version}/documentation`,
+				});
+			}),
+		);
+	}
+
+	public initRoutes(): void {
+		const routers = this.apis.flatMap((api) => api.routes);
+
+		this.addRoutes(routers);
 	}
 }
 

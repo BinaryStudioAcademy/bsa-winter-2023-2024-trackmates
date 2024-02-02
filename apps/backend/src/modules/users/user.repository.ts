@@ -8,6 +8,26 @@ class UserRepository implements Repository {
 		this.userModel = userModel;
 	}
 
+	public async create(entity: UserEntity): Promise<UserEntity> {
+		const { email, passwordHash, passwordSalt } = entity.toNewObject();
+
+		const user = await this.userModel
+			.query()
+			.insert({
+				email,
+				passwordHash,
+				passwordSalt,
+			})
+			.returning("*")
+			.execute();
+
+		return UserEntity.initialize(user);
+	}
+
+	public delete(): ReturnType<Repository["delete"]> {
+		return Promise.resolve(true);
+	}
+
 	public find(): ReturnType<Repository["find"]> {
 		return Promise.resolve(null);
 	}
@@ -18,28 +38,8 @@ class UserRepository implements Repository {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public async create(entity: UserEntity): Promise<UserEntity> {
-		const { email, passwordSalt, passwordHash } = entity.toNewObject();
-
-		const user = await this.userModel
-			.query()
-			.insert({
-				email,
-				passwordSalt,
-				passwordHash,
-			})
-			.returning("*")
-			.execute();
-
-		return UserEntity.initialize(user);
-	}
-
 	public update(): ReturnType<Repository["update"]> {
 		return Promise.resolve(null);
-	}
-
-	public delete(): ReturnType<Repository["delete"]> {
-		return Promise.resolve(true);
 	}
 }
 

@@ -32,48 +32,48 @@ class BaseConfig implements Config {
 		return convict<EnvironmentSchema>({
 			APP: {
 				ENVIRONMENT: {
+					default: null,
 					doc: "Application environment",
-					format: Object.values(AppEnvironment),
 					env: "NODE_ENV",
-					default: null,
-				},
-				PORT: {
-					doc: "Port for incoming connections",
-					format: Number,
-					env: "PORT",
-					default: null,
+					format: Object.values(AppEnvironment),
 				},
 				HOST: {
-					doc: "Host for server app",
-					format: String,
-					env: "HOST",
 					default: null,
+					doc: "Host for server app",
+					env: "HOST",
+					format: String,
+				},
+				PORT: {
+					default: null,
+					doc: "Port for incoming connections",
+					env: "PORT",
+					format: Number,
 				},
 			},
 			DB: {
 				CONNECTION_STRING: {
-					doc: "Database connection string",
-					format: String,
-					env: "DB_CONNECTION_STRING",
 					default: null,
+					doc: "Database connection string",
+					env: "DB_CONNECTION_STRING",
+					format: String,
 				},
 				DIALECT: {
+					default: null,
 					doc: "Database dialect",
-					format: String,
 					env: "DB_DIALECT",
-					default: null,
-				},
-				POOL_MIN: {
-					doc: "Database pool min count",
-					format: Number,
-					env: "DB_POOL_MIN",
-					default: null,
+					format: String,
 				},
 				POOL_MAX: {
-					doc: "Database pool max count",
-					format: Number,
-					env: "DB_POOL_MAX",
 					default: null,
+					doc: "Database pool max count",
+					env: "DB_POOL_MAX",
+					format: Number,
+				},
+				POOL_MIN: {
+					default: null,
+					doc: "Database pool min count",
+					env: "DB_POOL_MIN",
+					format: Number,
 				},
 			},
 		});

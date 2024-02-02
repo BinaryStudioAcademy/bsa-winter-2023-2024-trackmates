@@ -1,6 +1,6 @@
 type Entity = {
-	toObject(): unknown;
 	toNewObject(): unknown;
+	toObject(): unknown;
 };
 
 export { type Entity };

@@ -74,7 +74,12 @@ const importConfig = {
 	rules: {
 		...importPlugin.configs.recommended.rules,
 		"import/exports-last": ["error"],
-		"import/extensions": ["error", "ignorePackages"],
+		"import/extensions": [
+			"error",
+			{
+				js: "always",
+			},
+		],
 		"import/newline-after-import": ["error"],
 		"import/no-default-export": ["error"],
 		"import/no-duplicates": ["error"],

@@ -14,11 +14,11 @@ const apiV1 = new BaseServerApplicationApi(
 	...userController.routes,
 );
 const serverApplication = new BaseServerApplication({
-	title: "TrackMates",
-	config,
-	logger,
-	database,
 	apis: [apiV1],
+	config,
+	database,
+	logger,
+	title: "TrackMates",
 });
 
 export { serverApplication };

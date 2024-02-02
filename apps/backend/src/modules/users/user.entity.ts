@@ -1,22 +1,22 @@
 import { type Entity } from "~/libs/types/types.js";
 
 class UserEntity implements Entity {
-	private id: number | null;
-
 	private email: string;
+
+	private id: null | number;
 
 	private passwordHash: string;
 
 	private passwordSalt: string;
 
 	private constructor({
-		id,
 		email,
+		id,
 		passwordHash,
 		passwordSalt,
 	}: {
-		id: number | null;
 		email: string;
+		id: null | number;
 		passwordHash: string;
 		passwordSalt: string;
 	}) {
@@ -27,19 +27,19 @@ class UserEntity implements Entity {
 	}
 
 	public static initialize({
-		id,
 		email,
+		id,
 		passwordHash,
 		passwordSalt,
 	}: {
-		id: number;
 		email: string;
+		id: number;
 		passwordHash: string;
 		passwordSalt: string;
 	}): UserEntity {
 		return new UserEntity({
-			id,
 			email,
+			id,
 			passwordHash,
 			passwordSalt,
 		});
@@ -55,21 +55,11 @@ class UserEntity implements Entity {
 		passwordSalt: string;
 	}): UserEntity {
 		return new UserEntity({
-			id: null,
 			email,
+			id: null,
 			passwordHash,
 			passwordSalt,
 		});
-	}
-
-	public toObject(): {
-		id: number;
-		email: string;
-	} {
-		return {
-			id: this.id as number,
-			email: this.email,
-		};
 	}
 
 	public toNewObject(): {
@@ -81,6 +71,16 @@ class UserEntity implements Entity {
 			email: this.email,
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
+		};
+	}
+
+	public toObject(): {
+		email: string;
+		id: number;
+	} {
+		return {
+			email: this.email,
+			id: this.id as number,
 		};
 	}
 }

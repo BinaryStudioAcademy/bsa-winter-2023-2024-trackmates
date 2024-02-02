@@ -3,8 +3,8 @@ import { type ServerApplicationRouteParameters } from "~/libs/modules/server-app
 import { type ControllerRouteParameters } from "./types.js";
 
 type Controller = {
-	routes: ServerApplicationRouteParameters[];
 	addRoute(options: ControllerRouteParameters): void;
+	routes: ServerApplicationRouteParameters[];
 };
 
 export { type Controller };
