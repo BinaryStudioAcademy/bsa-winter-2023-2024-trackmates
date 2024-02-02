@@ -4,18 +4,18 @@ import { type ValueOf } from "~/libs/types/value-of.type.js";
 import { ApplicationError } from "../application-error/application-error.exception.js";
 
 type Constructor = {
+	cause?: unknown;
 	message: string;
 	status: ValueOf<typeof HTTPCode>;
-	cause?: unknown;
 };
 
 class HTTPError extends ApplicationError {
 	public status: ValueOf<typeof HTTPCode>;
 
-	public constructor({ message, cause, status }: Constructor) {
+	public constructor({ cause, message, status }: Constructor) {
 		super({
-			message,
 			cause,
+			message,
 		});
 
 		this.status = status;

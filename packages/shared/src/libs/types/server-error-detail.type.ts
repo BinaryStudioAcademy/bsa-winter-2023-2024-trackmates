@@ -1,6 +1,6 @@
 type ServerErrorDetail = {
-	path: (number | string)[];
 	message: string;
+	path: (number | string)[];
 };
 
 export { type ServerErrorDetail };

@@ -1,6 +1,6 @@
 const HTTPHeader = {
-	CONTENT_TYPE: "content-type",
 	AUTHORIZATION: "authorization",
+	CONTENT_TYPE: "content-type",
 } as const;
 
 export { HTTPHeader };

@@ -1,10 +1,10 @@
 type Constructor = {
-	message: string;
 	cause?: unknown;
+	message: string;
 };
 
 class ApplicationError extends Error {
-	public constructor({ message, cause }: Constructor) {
+	public constructor({ cause, message }: Constructor) {
 		super(message, {
 			cause,
 		});

@@ -13,10 +13,10 @@ const ignoresConfig = {
 /** @type {FlatConfig} */
 const mainConfig = {
 	languageOptions: {
+		globals: globals.node,
 		parserOptions: {
 			project: ["./tsconfig.json"],
 		},
-		globals: globals.node,
 	},
 };
 
