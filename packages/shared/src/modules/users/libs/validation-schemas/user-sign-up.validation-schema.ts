@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { UserValidationMessage } from "../enums/enums.js";
+import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 
 type UserSignUpRequestValidationDto = {
 	email: z.ZodString;
@@ -12,7 +12,7 @@ const userSignUp = z
 		email: z
 			.string()
 			.trim()
-			.min(1, {
+			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
 				message: UserValidationMessage.EMAIL_REQUIRE,
 			})
 			.email({
@@ -20,9 +20,6 @@ const userSignUp = z
 			}),
 		password: z.string().trim(),
 	})
-	.required({
-		email: true,
-		password: true,
-	});
+	.required();
 
 export { userSignUp };

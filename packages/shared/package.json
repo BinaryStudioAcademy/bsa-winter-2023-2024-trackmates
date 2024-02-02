@@ -15,5 +15,8 @@
 		"lint": "concurrently \"npm:lint:*\"",
 		"build": "tsc && npm run build:copy",
 		"build:copy": "cp -r package.json build"
+	},
+	"devDependencies": {
+		"zod": "3.22.4"
 	}
 }

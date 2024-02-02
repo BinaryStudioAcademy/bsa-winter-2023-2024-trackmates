@@ -5,7 +5,19 @@ const ProjectPrefix = {
 		PACKAGES: ["shared"],
 	},
 	APP: "tm",
-	CHANGE_TYPES: ["feat", "fix", "refactor", "chore", "docs"],
+	CHANGE_TYPES: [
+		"build",
+		"chore",
+		"ci",
+		"docs",
+		"feat",
+		"fix",
+		"perf",
+		"refactor",
+		"revert",
+		"style",
+		"test",
+	],
 	ENVIRONMENT: "main",
 } as const;
 

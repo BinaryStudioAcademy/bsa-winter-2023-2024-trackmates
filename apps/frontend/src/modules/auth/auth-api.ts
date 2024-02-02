@@ -1,5 +1,5 @@
 import { APIPath, ContentType } from "~/libs/enums/enums.ts";
-import { BaseHttpApi } from "~/libs/modules/api/api.ts";
+import { BaseHTTPApi } from "~/libs/modules/api/api.ts";
 import { type HTTP } from "~/libs/modules/http/http.ts";
 import { type Storage } from "~/libs/modules/storage/storage.ts";
 import {
@@ -15,7 +15,7 @@ type Constructor = {
 	storage: Storage;
 };
 
-class AuthApi extends BaseHttpApi {
+class AuthApi extends BaseHTTPApi {
 	public constructor({ baseUrl, http, storage }: Constructor) {
 		super({ path: APIPath.AUTH, baseUrl, http, storage });
 	}

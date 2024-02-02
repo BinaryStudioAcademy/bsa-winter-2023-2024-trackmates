@@ -1,7 +1,6 @@
 import reactPlugin from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
 import { ConfigEnv, defineConfig, loadEnv } from "vite";
-import tsconfigPathsPlugin from "vite-tsconfig-paths";
-import path from "path";
 
 const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 	const {
@@ -14,7 +13,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		build: {
 			outDir: "build",
 		},
-		plugins: [tsconfigPathsPlugin(), reactPlugin()],
+		plugins: [reactPlugin()],
 		server: {
 			port: Number(VITE_APP_DEVELOPMENT_PORT),
 			proxy: {
@@ -25,9 +24,12 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 			},
 		},
 		resolve: {
-			alias: {
-				"~/": path.join(__dirname, "src/"),
-			},
+			alias: [
+				{
+					find: "~",
+					replacement: fileURLToPath(new URL("src", import.meta.url)),
+				},
+			],
 		},
 	});
 };

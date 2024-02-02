@@ -22,7 +22,7 @@ type Constructor = {
 	storage: Storage;
 };
 
-class BaseHttpApi implements HTTPApi {
+class BaseHTTPApi implements HTTPApi {
 	private baseUrl: string;
 
 	private path: string;
@@ -120,4 +120,4 @@ class BaseHttpApi implements HTTPApi {
 	}
 }
 
-export { BaseHttpApi };
+export { BaseHTTPApi };
