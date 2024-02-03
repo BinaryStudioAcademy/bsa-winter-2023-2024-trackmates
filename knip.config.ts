@@ -1,10 +1,12 @@
 import { KnipConfig } from "knip";
 
 const config: KnipConfig = {
-	ignore: ["./dangerfile.ts"],
 	prettier: ["./prettier.config.ts"],
 	stylelint: ["./stylelint.config.ts"],
 	workspaces: {
+		".": {
+			entry: ["./dangerfile.ts"],
+		},
 		"apps/backend": {
 			entry: ["src/index.ts", "src/db/migrations/*.ts", "knexfile.ts"],
 			ignoreDependencies: ["pg"],
