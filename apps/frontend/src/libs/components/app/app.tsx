@@ -1,13 +1,13 @@
 import reactLogo from "~/assets/img/react.svg";
-import { Link, RouterOutlet } from "~/libs/components/components.tsx";
-import { AppRoute } from "~/libs/enums/enums.ts";
+import { Link, RouterOutlet } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
 	useLocation,
-} from "~/libs/hooks/hooks.ts";
-import { actions as userActions } from "~/modules/users/users.ts";
+} from "~/libs/hooks/hooks.js";
+import { actions as userActions } from "~/modules/users/users.js";
 
 const App: React.FC = () => {
 	const { pathname } = useLocation();

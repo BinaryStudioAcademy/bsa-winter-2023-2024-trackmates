@@ -1,1 +1,1 @@
-export { HTTPError } from "./http-error.exception.ts";
+export { HTTPError } from "./http-error.exception.js";

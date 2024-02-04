@@ -2,8 +2,8 @@
 	"extends": "../../tsconfig.json",
 	"include": ["**/*.ts", "**/*.js", "**/*.tsx"],
 	"exclude": ["node_modules"],
+	"files": ["packages.d.ts"],
 	"compilerOptions": {
-		"skipLibCheck": true,
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
 		"jsx": "react-jsx",
 		"allowImportingTsExtensions": true,
@@ -12,8 +12,5 @@
 		"paths": {
 			"~/*": ["./src/*"],
 		},
-		"target": "ESNext",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
 	},
 }

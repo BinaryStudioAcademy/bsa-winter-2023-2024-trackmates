@@ -1,19 +1,19 @@
-import { type ContentType, ServerErrorType } from "~/libs/enums/enums.ts";
-import { configureString } from "~/libs/helpers/helpers.ts";
+import { type ContentType, ServerErrorType } from "~/libs/enums/enums.js";
+import { configureString } from "~/libs/helpers/helpers.js";
 import {
 	type HTTP,
 	type HTTPCode,
 	HTTPError,
 	HTTPHeader,
-} from "~/libs/modules/http/http.ts";
-import { type Storage, StorageKey } from "~/libs/modules/storage/storage.ts";
-import { type ServerErrorResponse, type ValueOf } from "~/libs/types/types.ts";
+} from "~/libs/modules/http/http.js";
+import { type Storage, StorageKey } from "~/libs/modules/storage/storage.js";
+import { type ServerErrorResponse, type ValueOf } from "~/libs/types/types.js";
 
 import {
 	type HTTPApi,
 	type HTTPApiOptions,
 	type HTTPApiResponse,
-} from "./libs/types/types.ts";
+} from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;

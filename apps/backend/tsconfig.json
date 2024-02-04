@@ -4,13 +4,9 @@
 	"exclude": ["build", "node_modules"],
 	"compilerOptions": {
 		"outDir": "build",
-		"skipLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
 			"~/*": ["./src/*"],
 		},
-		"target": "ESNext",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext",
 	},
 }

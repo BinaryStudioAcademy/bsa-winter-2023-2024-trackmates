@@ -1,6 +1,6 @@
 import { type Config as LibraryConfig } from "shared";
 
-import { EnvironmentSchema } from "./types.ts";
+import { EnvironmentSchema } from "./types.js";
 
 type Config = LibraryConfig<EnvironmentSchema>;
 

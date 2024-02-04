@@ -1,5 +1,5 @@
-import { signUp } from "./actions.ts";
-import { actions } from "./auth.slice.ts";
+import { signUp } from "./actions.js";
+import { actions } from "./auth.slice.js";
 
 const allActions = {
 	...actions,
@@ -7,4 +7,4 @@ const allActions = {
 };
 
 export { allActions as actions };
-export { reducer } from "./auth.slice.ts";
+export { reducer } from "./auth.slice.js";

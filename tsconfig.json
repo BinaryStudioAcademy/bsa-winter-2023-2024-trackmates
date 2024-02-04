@@ -1,6 +1,6 @@
 {
 	"include": ["**/*.ts", "**/*.js"],
-	"exclude": ["node_modules", "apps", "packages"],
+	"exclude": ["node_modules", "apps", "packages", "dangerfile.ts"],
 	"files": ["packages.d.ts"],
 	"compilerOptions": {
 		"strict": true,
@@ -9,5 +9,9 @@
 		"noPropertyAccessFromIndexSignature": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
+		"resolveJsonModule": true,
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 	},
 }

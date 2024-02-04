@@ -1,6 +1,6 @@
-import { config } from "~/libs/modules/config/config.ts";
+import { config } from "~/libs/modules/config/config.js";
 
-import { Store } from "./store.module.ts";
+import { Store } from "./store.module.js";
 
 const store = new Store(config);
 

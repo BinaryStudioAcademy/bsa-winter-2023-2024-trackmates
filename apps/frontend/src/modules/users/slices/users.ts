@@ -1,5 +1,5 @@
-import { loadAll } from "./actions.ts";
-import { actions } from "./users.slice.ts";
+import { loadAll } from "./actions.js";
+import { actions } from "./users.slice.js";
 
 const allActions = {
 	...actions,
@@ -7,4 +7,4 @@ const allActions = {
 };
 
 export { allActions as actions };
-export { reducer } from "./users.slice.ts";
+export { reducer } from "./users.slice.js";

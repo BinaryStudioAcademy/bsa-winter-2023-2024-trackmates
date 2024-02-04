@@ -23,13 +23,13 @@ const filesConfig = {
 
 /** @type {FlatConfig} */
 const ignoresConfig = {
-	ignores: ["apps", "packages"],
+	ignores: ["apps", "packages", "dangerfile.ts"],
 };
 
 /** @type {FlatConfig} */
 const jsConfig = {
 	languageOptions: {
-		globals: globals.browser,
+		globals: globals.node,
 		parserOptions: {
 			ecmaVersion: "latest",
 			sourceType: "module",
@@ -83,9 +83,11 @@ const importConfig = {
 		"import/newline-after-import": ["error"],
 		"import/no-default-export": ["error"],
 		"import/no-duplicates": ["error"],
-		"import/no-unresolved": ["off"],
 	},
 	settings: {
+		"import/parsers": {
+			espree: [".js", ".cjs"],
+		},
 		"import/resolver": {
 			typescript: tsResolver,
 		},
@@ -122,9 +124,9 @@ const perfectionistConfig = {
 /** @type {FlatConfig} */
 const typescriptConfig = {
 	languageOptions: {
-		parser: /** @type {ParserModule} */ tsParser,
+		parser: /** @type {ParserModule} */ (tsParser),
 		parserOptions: {
-			project: ["./tsconfig.json"],
+			project: "./tsconfig.json",
 		},
 	},
 	plugins: {
@@ -164,33 +166,10 @@ const overridesConfigs = [
 			"stylelint.config.ts",
 			"knip.config.ts",
 			"packages.d.ts",
+			"lint-staged.config.js",
+			"eslint.config.js",
 		],
 		rules: {
-			"import/no-default-export": ["off"],
-		},
-	},
-	{
-		files: ["eslint.config.js"],
-		rules: {
-			"@typescript-eslint/no-unsafe-assignment": ["off"],
-			"@typescript-eslint/no-unsafe-member-access": ["off"],
-			"import/default": ["off"],
-			"import/namespace": ["off"],
-			"import/no-default-export": ["off"],
-			"import/no-named-as-default": ["off"],
-			"import/no-named-as-default-member": ["off"],
-		},
-	},
-	{
-		files: ["commitlint.config.ts", "dangerfile.ts"],
-		rules: {
-			"import/extensions": ["off"],
-		},
-	},
-	{
-		files: ["lint-staged.config.js"],
-		rules: {
-			"import/namespace": ["off"],
 			"import/no-default-export": ["off"],
 		},
 	},

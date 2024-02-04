@@ -1,5 +1,3 @@
-import globals from "globals";
-
 import baseConfig from "../../eslint.config.js";
 
 /** @typedef {import("eslint").Linter.FlatConfig} */
@@ -10,17 +8,7 @@ const ignoresConfig = {
 	ignores: ["build"],
 };
 
-/** @type {FlatConfig} */
-const mainConfig = {
-	languageOptions: {
-		globals: globals.node,
-		parserOptions: {
-			project: ["./tsconfig.json"],
-		},
-	},
-};
-
 /** @type {FlatConfig[]} */
-const config = [...baseConfig, ignoresConfig, mainConfig];
+const config = [...baseConfig, ignoresConfig];
 
 export default config;

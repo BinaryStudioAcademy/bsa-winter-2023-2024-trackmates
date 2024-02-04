@@ -6,10 +6,10 @@ import {
 	App,
 	RouterProvider,
 	StoreProvider,
-} from "~/libs/components/components.tsx";
-import { AppRoute } from "~/libs/enums/enums.ts";
-import { store } from "~/libs/modules/store/store.ts";
-import { Auth } from "~/pages/auth/auth.tsx";
+} from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
+import { store } from "~/libs/modules/store/store.js";
+import { Auth } from "~/pages/auth/auth.jsx";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>

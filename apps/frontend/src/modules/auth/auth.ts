@@ -1,8 +1,8 @@
-import { config } from "~/libs/modules/config/config.ts";
-import { http } from "~/libs/modules/http/http.ts";
-import { storage } from "~/libs/modules/storage/storage.ts";
+import { config } from "~/libs/modules/config/config.js";
+import { http } from "~/libs/modules/http/http.js";
+import { storage } from "~/libs/modules/storage/storage.js";
 
-import { AuthApi } from "./auth-api.ts";
+import { AuthApi } from "./auth-api.js";
 
 const authApi = new AuthApi({
 	baseUrl: config.ENV.API.ORIGIN_URL,
@@ -11,4 +11,4 @@ const authApi = new AuthApi({
 });
 
 export { authApi };
-export { actions, reducer } from "./slices/auth.ts";
+export { actions, reducer } from "./slices/auth.js";

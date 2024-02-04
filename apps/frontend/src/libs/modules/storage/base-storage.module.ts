@@ -1,7 +1,7 @@
-import { type ValueOf } from "~/libs/types/types.ts";
+import { type ValueOf } from "~/libs/types/types.js";
 
-import { type StorageKey } from "./libs/enums/enums.ts";
-import { type Storage } from "./libs/types/types.ts";
+import { type StorageKey } from "./libs/enums/enums.js";
+import { type Storage } from "./libs/types/types.js";
 
 class BaseStorage implements Storage {
 	private store: globalThis.Storage;

@@ -26,13 +26,6 @@ const mainConfig = {
 };
 
 /** @type {FlatConfig} */
-const importConfig = {
-	rules: {
-		"import/extensions": ["error", "ignorePackages"],
-	},
-};
-
-/** @type {FlatConfig} */
 const reactConfig = {
 	files: ["**/*.tsx"],
 	plugins: {
@@ -85,7 +78,6 @@ const config = [
 	...baseConfig,
 	ignoresConfig,
 	mainConfig,
-	importConfig,
 	reactConfig,
 	reactHooksConfig,
 	jsxA11yConfig,

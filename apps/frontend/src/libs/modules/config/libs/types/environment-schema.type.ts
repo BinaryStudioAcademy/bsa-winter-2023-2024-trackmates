@@ -1,5 +1,5 @@
-import { AppEnvironment } from "~/libs/enums/enums.ts";
-import { ValueOf } from "~/libs/types/types.ts";
+import { AppEnvironment } from "~/libs/enums/enums.js";
+import { ValueOf } from "~/libs/types/types.js";
 
 type EnvironmentSchema = {
 	API: {

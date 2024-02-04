@@ -5,7 +5,7 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 
-import { useFormController } from "~/libs/hooks/hooks.ts";
+import { useFormController } from "~/libs/hooks/hooks.js";
 
 type Properties<T extends FieldValues> = {
 	control: Control<T, null>;

@@ -5,10 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 
-import { AppEnvironment } from "~/libs/enums/enums.ts";
-import { type Config } from "~/libs/modules/config/config.ts";
-import { authApi, reducer as authReducer } from "~/modules/auth/auth.ts";
-import { userApi, reducer as usersReducer } from "~/modules/users/users.ts";
+import { AppEnvironment } from "~/libs/enums/enums.js";
+import { type Config } from "~/libs/modules/config/config.js";
+import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
+import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 
 type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
