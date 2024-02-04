@@ -22,7 +22,119 @@ The product helps the users to track the progress in all their courses from diff
 
 ## 4. Database Schema
 
-TODO: add database schema
+```mermaid
+
+erDiagram
+   users {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    citext email
+    text password_hash
+    text password_salt
+   }
+
+   user_details {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int user_id FK
+    varchar first_name
+    varchar last_name
+    int avatar_file_id FK
+   }
+
+   courses {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar url
+    varchar title
+    varchar description
+    int vendor_id FK
+   }
+
+   courses_to_users {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int course_id FK
+    int user_id FK
+   }
+
+   vendors {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar name
+    varchar key
+   }
+
+   course_sections {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int course_id FK
+    varchar title
+    varchar description
+   }
+
+   section_statuses {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int course_section_id FK
+    int user_id FK
+    enum status
+   }
+
+   friends {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int first_user_id FK
+    int second_user_id FK
+    bool is_invitation_accepted
+   }
+
+   files {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar url
+    enum content_type
+   }
+
+   chat_messages {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int sender_id FK
+    int receiver_id FK
+    text message
+    uuid chat_id
+    enum status
+   }
+
+   users ||--|| user_details : user_id
+   user_details ||--|| files : avatar_file_id
+
+   users ||--|{ friends : first_user_id
+   users ||--|{ friends : second_user_id
+
+   users ||--|{ chat_messages : sender_id
+   users ||--|{ chat_messages : receiver_id
+
+   users ||--|{ courses_to_users : user_id
+   courses ||--|{ courses_to_users : course_id
+
+   courses ||--|| vendors : vendor_id
+
+   course_sections }|--|| courses : course_id
+   section_statuses }|--|| course_sections : course_section_id
+   section_statuses }|--|| users : user_id
+
+```
 
 ## 5. Architecture
 
