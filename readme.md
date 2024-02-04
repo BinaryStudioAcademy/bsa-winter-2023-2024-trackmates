@@ -17,7 +17,7 @@ The product helps the users to track the progress in all their courses from diff
 ## 3. Requirements
 
 - [NodeJS](https://nodejs.org/en) (18.x.x);
-- [npm](https://www.npmjs.com/) (9.x.x);
+- [npm](https://www.npmjs.com/) (10.x.x);
 - [PostgreSQL](https://www.postgresql.org/) (15.4)
 
 ## 4. Database Schema
@@ -61,7 +61,6 @@ TODO: add application schema
 
 3. modules - separate app features or functionalities
 4. pages - app pages
-5. slices - redux slices
 
 ### 5.3 Backend
 
@@ -107,7 +106,7 @@ As we are already using js on both frontend and backend it would be useful to sh
 - apps/frontend/.env
 - apps/backend/.env
 
-You should use .env.example folder as a reference.
+You should use .env.example files as a reference.
 
 1. Install dependencies: `npm install`.
 
@@ -129,6 +128,8 @@ You should use .env.example folder as a reference.
 <type>: <ticket-title> <project-prefix>-<issue-number>
 ```
 
+For the full list of types check [Conventional Commits](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional)
+
 Examples:
 
 - `feat: add dashboard screen tm-123`
@@ -138,11 +139,6 @@ Examples:
 ```
 <issue-number>-<type>-<short-desc>
 ```
-
-Types:
-
-- feat
-- fix
 
 Examples:
 
@@ -161,7 +157,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0) to 
 Examples:
 
 - `feat: add dashboard component tm-45`
-- `fix: update dashboard card size`
+- `fix: update dashboard card size tm-212`
 
 ## 8. Deployment
 
