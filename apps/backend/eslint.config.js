@@ -25,7 +25,6 @@ const overridesConfigs = [
 	{
 		files: ["knexfile.ts"],
 		rules: {
-			"import/extensions": ["off"],
 			"import/no-default-export": ["off"],
 		},
 	},

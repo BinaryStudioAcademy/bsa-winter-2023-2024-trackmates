@@ -13,7 +13,7 @@
 		"lint:type": "npx tsc --noEmit",
 		"lint:js": "npx eslint . --max-warnings=0 --no-warn-ignored",
 		"lint": "concurrently \"npm:lint:*\"",
-		"build": "tsc && npm run build:copy",
+		"build": "tsc --project tsconfig.build.json && npm run build:copy",
 		"build:copy": "cp -r package.json build"
 	},
 	"devDependencies": {

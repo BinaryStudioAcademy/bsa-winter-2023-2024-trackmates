@@ -13,7 +13,7 @@
 		"lint:type": "npx tsc --noEmit",
 		"lint": "concurrently \"npm:lint:*\"",
 		"start:dev": "vite",
-		"build": "tsc --build --clean && vite build",
+		"build": "tsc --project tsconfig.build.json --build --clean && vite build",
 		"preview": "vite preview"
 	},
 	"dependencies": {

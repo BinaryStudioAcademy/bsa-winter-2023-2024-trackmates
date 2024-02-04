@@ -11,7 +11,7 @@
 		"migrate:dev:make": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:make -x ts",
 		"migrate:dev:down": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:down",
 		"migrate:dev:rollback": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:rollback --all",
-		"build": "tsc && tsc-alias && npm run build:copy",
+		"build": "tsc --project tsconfig.build.json && tsc-alias && npm run build:copy",
 		"build:copy": "cp -r package.json build",
 		"prestart": "npm run migrate",
 		"migrate": "knex migrate:latest",

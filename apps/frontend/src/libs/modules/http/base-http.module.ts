@@ -1,6 +1,6 @@
 import { type HTTP, type HTTPOptions } from "./libs/types/types.ts";
 
-class BaseHttp implements HTTP {
+class BaseHTTP implements HTTP {
 	public load(path: string, options: HTTPOptions): Promise<Response> {
 		const { headers, method, payload } = options;
 
@@ -12,4 +12,4 @@ class BaseHttp implements HTTP {
 	}
 }
 
-export { BaseHttp };
+export { BaseHTTP };

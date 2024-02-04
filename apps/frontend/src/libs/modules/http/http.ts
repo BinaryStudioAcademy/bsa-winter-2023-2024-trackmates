@@ -1,6 +1,6 @@
-import { BaseHttp } from "./base-http.module.ts";
+import { BaseHTTP } from "./base-http.module.ts";
 
-const http = new BaseHttp();
+const http = new BaseHTTP();
 
 export { http };
 export { HTTPCode, HTTPHeader } from "./libs/enums/enums.ts";
