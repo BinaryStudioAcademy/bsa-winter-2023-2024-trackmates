@@ -13,7 +13,7 @@
 		"lint:type": "npx tsc --noEmit",
 		"lint": "concurrently \"npm:lint:*\"",
 		"start:dev": "vite",
-		"build": "tsc --project tsconfig.build.json && vite build",
+		"build": "tsc -p tsconfig.build.json && vite build",
 		"preview": "vite preview"
 	},
 	"dependencies": {
@@ -24,7 +24,7 @@
 		"react-hook-form": "7.49.3",
 		"react-redux": "9.1.0",
 		"react-router-dom": "6.21.3",
-		"shared": "file:../../packages/shared"
+		"shared": "*"
 	},
 	"devDependencies": {
 		"@types/react": "18.2.48",
