@@ -5,10 +5,11 @@ ls:
   .tsx: regex:([.a-z0-9]*)([-.][a-z0-9]+)*
   apps/backend/src/db/migrations:
     .ts: snake_case
+  .github/ISSUE_TEMPLATE:
+    .dir: SCREAMING_SNAKE_CASE
 
 ignore:
   - .git
-  - .github
   - node_modules
   - build
   - packages/shared/build
