@@ -29,9 +29,9 @@ class UserModel extends AbstractModel {
 		};
 	};
 
-	public email!: string;
-
 	static tableName: string = DatabaseTableName.USERS;
+
+	public email!: string;
 
 	public passwordHash!: string;
 

@@ -21,9 +21,9 @@ class UserDetailsModel extends AbstractModel {
 		};
 	};
 
-	public firstName!: string;
-
 	public static tableName: string = DatabaseTableName.USER_DETAILS;
+
+	public firstName!: string;
 
 	public lastName!: string;
 
