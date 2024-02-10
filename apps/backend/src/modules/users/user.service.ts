@@ -1,4 +1,3 @@
-import { type Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
@@ -8,6 +7,7 @@ import {
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
 import { type UserService as UserServiceT } from "./types/user-service.type.js";
+import { UserWithPassword } from "shared";
 
 class UserService implements UserServiceT {
 	private userRepository: UserRepository;
@@ -50,7 +50,7 @@ class UserService implements UserServiceT {
 		throw new Error("Method not implemented.");
 	}
 
-	public async getByEmail(email: string): Promise<UserEntity | null> {
+	public async getByEmail(email: string): Promise<UserWithPassword | null> {
 		return await this.userRepository.getByEmail(email);
 	}
 }

@@ -1,6 +1,7 @@
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 import { type UserRepository as UserRepositoryT } from "./types/user-repository.type.js";
+import { UserWithPassword } from "shared";
 
 class UserRepository implements UserRepositoryT {
 	private userModel: typeof UserModel;
@@ -42,11 +43,11 @@ class UserRepository implements UserRepositoryT {
 		throw new Error("Method not implemented.");
 	}
 
-	public async getByEmail(email: string): Promise<UserEntity | null> {
+	public async getByEmail(email: string): Promise<UserWithPassword | null> {
 		const user = await this.userModel
 			.query()
 			.findOne({ email })
-			.castTo<UserEntity | null>();
+			.castTo<UserWithPassword | null>();
 
 		return user;
 	}

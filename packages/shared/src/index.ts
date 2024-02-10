@@ -25,10 +25,14 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath } from "./modules/auth/auth.js";
 export {
+	type User,
+	type UserWithPassword,
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	type UserSignInRequestDto,
+	type UserSignInResponseDto,
 	UsersApiPath,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
