@@ -1,4 +1,5 @@
 export {
+	type User,
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
