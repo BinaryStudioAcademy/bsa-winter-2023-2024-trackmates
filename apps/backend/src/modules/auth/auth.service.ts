@@ -5,8 +5,8 @@ import {
 import { type UserService } from "~/modules/users/user.service.js";
 import { type AuthService as AuthServiceT } from "./libs/types/types.js";
 import {
+	AuthError,
 	HTTPCode,
-	HTTPError,
 	type UserWithPassword,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
@@ -51,7 +51,7 @@ class AuthService implements AuthServiceT {
 		const user = await this.userService.getByEmail(email);
 
 		if (user === null) {
-			throw new HTTPError({
+			throw new AuthError({
 				message: ExceptionMessage.INCORRECT_EMAIL,
 				status: HTTPCode.BAD_REQUEST,
 			});
@@ -60,9 +60,8 @@ class AuthService implements AuthServiceT {
 		const isEqualPassword = await cryptCompare(password, user.passwordHash);
 
 		if (!isEqualPassword) {
-			throw new HTTPError({
+			throw new AuthError({
 				message: ExceptionMessage.PASSWORDS_NOT_MATCH,
-				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
