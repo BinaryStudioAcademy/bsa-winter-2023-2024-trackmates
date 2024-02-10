@@ -1,12 +1,16 @@
 import { type Repository } from "~/libs/types/types.js";
-import { UserEntity } from "~/modules/users/user.entity.js";
-import { type UserModel } from "~/modules/users/user.model.js";
-import { UserDetailsModel } from "./user-details/user-details.model.js";
+
 import { UserRepository } from "./libs/types/types.js";
 
+import { UserEntity } from "~/modules/users/user.entity.js";
+
+import { type UserModel } from "~/modules/users/user.model.js";
+
+import { UserDetailsModel } from "./user-details/user-details.model.js";
+
 class User implements UserRepository {
-	private userModel: typeof UserModel;
 	private userDetailsModel: typeof UserDetailsModel;
+	private userModel: typeof UserModel;
 	public constructor(
 		userModel: typeof UserModel,
 		userDetailsModel: typeof UserDetailsModel,
@@ -53,12 +57,12 @@ class User implements UserRepository {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public update(): ReturnType<Repository["update"]> {
-		return Promise.resolve(null);
+	public async getByEmail(email: string): Promise<UserModel | undefined> {
+		return await this.userModel.query().findOne({ email }).execute();
 	}
 
-	public async getByEmail(email: string): Promise<UserModel | undefined> {
-		const user = await this.userModel.query().findOne({ email }).execute();
+	public update(): ReturnType<Repository["update"]> {
+		const user = Promise.resolve(null);
 		return user;
 	}
 }

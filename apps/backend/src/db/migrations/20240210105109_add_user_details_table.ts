@@ -3,11 +3,11 @@ import { type Knex } from "knex";
 const TABLE_NAME = "user_details";
 
 const ColumnName = {
-	CREATED_AT: "created_at",
-	USER_ID: "user_id",
-	ID: "id",
 	FISRT_NAME: "first_name",
+	ID: "id",
+	USER_ID: "user_id",
 	LAST_NAME: "last_name",
+	CREATED_AT: "created_at",
 	UPDATED_AT: "updated_at",
 } as const;
 

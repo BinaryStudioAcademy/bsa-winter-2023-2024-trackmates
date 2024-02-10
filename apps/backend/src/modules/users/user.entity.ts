@@ -1,4 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
+
 import { UserDetailsEntity } from "./user-details/user-details.entity.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
@@ -16,7 +17,7 @@ class UserEntity implements Entity {
 
 	private passwordSalt: string;
 
-	private userDetails: null | UserDetailsEntity;
+	private userDetails: UserDetailsEntity | null;
 
 	private constructor({
 		email,
@@ -29,7 +30,7 @@ class UserEntity implements Entity {
 		id: null | number;
 		passwordHash: string;
 		passwordSalt: string;
-		userDetails: null | UserDetailsModel;
+		userDetails: UserDetailsModel | null;
 	}) {
 		this.id = id;
 		this.email = email;

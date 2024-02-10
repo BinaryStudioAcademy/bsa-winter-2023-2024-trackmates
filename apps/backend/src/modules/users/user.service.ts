@@ -46,13 +46,12 @@ class UserService implements Service {
 		};
 	}
 
-	public update(): ReturnType<Service["update"]> {
-		return Promise.resolve(null);
+	public async getByEmail(email: string): Promise<UserModel | undefined> {
+		return await this.userRepository.getByEmail(email);
 	}
 
-	public async getByEmail(email: string): Promise<UserModel | undefined> {
-		const user = this.userRepository.getByEmail(email);
-		return user;
+	public update(): ReturnType<Service["update"]> {
+		return Promise.resolve(null);
 	}
 }
 

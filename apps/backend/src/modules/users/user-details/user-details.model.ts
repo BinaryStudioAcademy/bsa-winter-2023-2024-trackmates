@@ -1,45 +1,46 @@
+import { Model } from "objection";
+
+import { UserModel } from "../user.model.js";
+
 import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-import { Model } from "objection";
-import { UserModel } from "../user.model.js";
 
 class UserDetailsModel extends AbstractModel {
-	public userId!: number;
-
 	public firstName!: string;
+
+	public userId!: number;
 
 	public lastName!: string;
 
-	public user!: UserModel;
-
 	public static tableName: string = DatabaseTableName.USER_DETAILS;
 
-	static get jsonSchema() {
-		return {
-			type: "object",
-
-			properties: {
-				userId: { type: "integer" },
-				firstName: { type: "string" },
-				lastName: { type: "string" },
-			},
-		};
-	}
+	public user!: UserModel;
 
 	public static relationMappings = () => {
 		return {
 			user: {
-				relation: Model.BelongsToOneRelation,
-				modelClass: UserModel,
 				join: {
 					from: `${DatabaseTableName.USER_DETAILS}.userId`,
 					to: `${DatabaseTableName.USERS}.id`,
 				},
+				modelClass: UserModel,
+				relation: Model.BelongsToOneRelation,
 			},
 		};
 	};
+
+	static get jsonSchema() {
+		return {
+			properties: {
+				firstName: { type: "string" },
+				userId: { type: "integer" },
+				lastName: { type: "string" },
+			},
+			type: "object",
+		};
+	}
 }
 
 export { UserDetailsModel };

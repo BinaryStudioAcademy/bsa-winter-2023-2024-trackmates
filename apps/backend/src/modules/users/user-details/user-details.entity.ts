@@ -3,74 +3,74 @@ import { type Entity } from "~/libs/types/types.js";
 class UserDetailsEntity implements Entity {
 	private id: null | number;
 
-	private userId: number;
-
 	private firstName: null | string;
+
+	private userId: number;
 
 	private lastName: null | string;
 
 	private constructor({
 		id,
-		userId,
 		firstName,
+		userId,
 		lastName,
 	}: {
 		id: null | number;
-		userId: number;
 		firstName: null | string;
+		userId: number;
 		lastName: null | string;
 	}) {
 		this.id = id;
+		this.firstName = firstName;
 		this.userId = userId;
 		this.lastName = lastName;
-		this.firstName = firstName;
 	}
 
 	public static initialize({
 		id,
-		userId,
 		firstName,
+		userId,
 		lastName,
 	}: {
 		id: number;
-		userId: number;
 		firstName: null | string;
+		userId: number;
 		lastName: null | string;
 	}): UserDetailsEntity {
 		return new UserDetailsEntity({
 			id,
-			userId,
 			firstName,
+			userId,
 			lastName,
 		});
 	}
 
 	public static initializeNew({
-		userId,
 		firstName,
+		userId,
 		lastName,
 	}: {
-		userId: number;
 		firstName: null | string;
+		userId: number;
 		lastName: null | string;
 	}): UserDetailsEntity {
 		return new UserDetailsEntity({
 			id: null,
-			userId,
 			firstName,
+			userId,
 			lastName,
 		});
 	}
 
 	public toNewObject(): {
-		userId: null | number;
 		firstName: null | string;
+		userId: null | number;
 		lastName: null | string;
 	} {
 		return {
-			userId: this.userId,
-			lastName: this.lastName,
 			firstName: this.firstName,
+			lastName: this.lastName,
+			userId: this.userId,
 		};
 	}
 

@@ -1,7 +1,7 @@
 const DatabaseTableName = {
 	MIGRATIONS: "migrations",
-	USERS: "users",
 	USER_DETAILS: "user_details",
+	USERS: "users",
 } as const;
 
 export { DatabaseTableName };
