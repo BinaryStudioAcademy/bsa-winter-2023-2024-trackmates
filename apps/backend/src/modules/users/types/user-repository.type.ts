@@ -1,5 +1,5 @@
 import { Repository } from "~/libs/types/types.js";
-import { UserEntity } from "./user.entity.js";
+import { UserEntity } from "../user.entity.js";
 
 type UserRepository = Repository<UserEntity> & {
 	getByEmail(email: string): Promise<UserEntity | null>;
