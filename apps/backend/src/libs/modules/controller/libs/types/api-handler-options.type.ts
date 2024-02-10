@@ -1,6 +1,7 @@
 type DefaultApiHandlerOptions = {
 	body?: unknown;
 	params?: unknown;
+	headers?: unknown;
 	query?: unknown;
 };
 
@@ -9,6 +10,9 @@ type APIHandlerOptions<
 > = {
 	body: T["body"];
 	params: T["params"];
+	headers?: T["headers"] & {
+		authorization?: string | undefined;
+	};
 	query: T["query"];
 };
 
