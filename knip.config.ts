@@ -1,6 +1,7 @@
 import { KnipConfig } from "knip";
 
 const config: KnipConfig = {
+	ignore: ["packages/shared/**"], //TODO delete
 	prettier: ["./prettier.config.ts"],
 	stylelint: ["./stylelint.config.ts"],
 	workspaces: {
