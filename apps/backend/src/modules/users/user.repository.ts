@@ -1,8 +1,8 @@
-import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
+import { type UserRepository as UserRepositoryT } from "./user-repository.type.js";
 
-class UserRepository implements Repository {
+class UserRepository implements UserRepositoryT {
 	private userModel: typeof UserModel;
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
@@ -24,11 +24,11 @@ class UserRepository implements Repository {
 		return UserEntity.initialize(user);
 	}
 
-	public delete(): ReturnType<Repository["delete"]> {
+	public delete(): ReturnType<UserRepositoryT["delete"]> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<Repository["find"]> {
+	public find(): ReturnType<UserRepositoryT["find"]> {
 		return Promise.resolve(null);
 	}
 
@@ -38,8 +38,12 @@ class UserRepository implements Repository {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public update(): ReturnType<Repository["update"]> {
-		return Promise.resolve(null);
+	public update(): ReturnType<UserRepositoryT["update"]> {
+		throw new Error("Method not implemented.");
+	}
+
+	public getByEmail(email: string): Promise<UserEntity | null> {
+		throw new Error("Method not implemented.");
 	}
 }
 
