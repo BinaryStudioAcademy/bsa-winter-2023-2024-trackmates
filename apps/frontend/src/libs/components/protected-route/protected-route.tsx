@@ -11,7 +11,7 @@ type Properties = {
 const ProtectedRoute: React.FC<Properties> = ({
 	component,
 	redirectTo = AppRoute.SIGN_IN,
-}) => {
+}: Properties) => {
 	const { user } = useAppSelector((state) => state.auth);
 
 	const hasUser = Boolean(user);
