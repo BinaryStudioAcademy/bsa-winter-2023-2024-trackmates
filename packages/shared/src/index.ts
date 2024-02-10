@@ -32,3 +32,5 @@ export {
 	UsersApiPath,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
+export { AuthPluginErrorMessage } from "./libs/modules/plugins/plugins.js";
+export type { AuthPluginOptions } from "./libs/modules/plugins/plugins.js";

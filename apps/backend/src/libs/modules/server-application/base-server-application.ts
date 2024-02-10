@@ -22,6 +22,7 @@ import {
 	type ServerApplicationApi,
 	type ServerApplicationRouteParameters,
 } from "./libs/types/types.js";
+import { authorizationPlugin } from "~/libs/modules/plugins/auth.plugin.js";
 
 type Constructor = {
 	apis: ServerApplicationApi[];
@@ -146,6 +147,10 @@ class BaseServerApplication implements ServerApplication {
 		}
 	}
 
+	private async initPlugins(): Promise<void> {
+		await this.app.register(authorizationPlugin);
+	}
+
 	public async init(): Promise<void> {
 		this.logger.info("Application initialization…");
 
@@ -156,6 +161,8 @@ class BaseServerApplication implements ServerApplication {
 		this.initValidationCompiler();
 
 		this.initErrorHandler();
+
+		await this.initPlugins();
 
 		this.initRoutes();
 
