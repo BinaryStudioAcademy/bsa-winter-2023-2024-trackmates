@@ -48,10 +48,10 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<>
+		<div>
 			state: {dataStatus}
 			{getScreen(pathname)}
-		</>
+		</div>
 	);
 };
 
