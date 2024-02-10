@@ -1,10 +1,7 @@
 import { type Repository } from "~/libs/types/types.js";
-
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
-
 import { UserRepository } from "./libs/types/types.js";
-
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class User implements UserRepository {

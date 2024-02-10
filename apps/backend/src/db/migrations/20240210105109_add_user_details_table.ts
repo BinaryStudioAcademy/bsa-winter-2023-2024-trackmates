@@ -5,10 +5,10 @@ const TABLE_NAME = "user_details";
 const ColumnName = {
 	FISRT_NAME: "first_name",
 	ID: "id",
-	LAST_NAME: "last_name",
 	CREATED_AT: "created_at",
-	USER_ID: "user_id",
 	UPDATED_AT: "updated_at",
+	LAST_NAME: "last_name",
+	USER_ID: "user_id",
 } as const;
 
 function up(knex: Knex): Promise<void> {

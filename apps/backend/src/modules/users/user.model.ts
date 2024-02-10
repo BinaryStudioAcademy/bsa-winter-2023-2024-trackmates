@@ -10,8 +10,6 @@ import { UserDetailsModel } from "./user-details/user-details.model.js";
 class UserModel extends AbstractModel {
 	public email!: string;
 
-	public passwordHash!: string;
-
 	static jsonSchema = {
 		properties: {
 			email: { type: "string" },
@@ -20,9 +18,9 @@ class UserModel extends AbstractModel {
 		type: "object",
 	};
 
-	static tableName: string = DatabaseTableName.USERS;
+	public passwordHash!: string;
 
-	public passwordSalt!: string;
+	static tableName: string = DatabaseTableName.USERS;
 
 	public static relationMappings = () => {
 		return {
@@ -36,6 +34,8 @@ class UserModel extends AbstractModel {
 			},
 		};
 	};
+
+	public passwordSalt!: string;
 
 	public userDetails!: UserDetailsModel;
 }
