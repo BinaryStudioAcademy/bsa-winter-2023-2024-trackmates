@@ -7,6 +7,7 @@ import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
+import { UserModel } from "./user.model.js";
 
 class UserService implements Service {
 	private userRepository: UserRepository;
@@ -47,6 +48,11 @@ class UserService implements Service {
 
 	public update(): ReturnType<Service["update"]> {
 		return Promise.resolve(null);
+	}
+
+	public async getByEmail(email: string): Promise<UserModel | undefined> {
+		const user = this.userRepository.getByEmail(email);
+		return user;
 	}
 }
 

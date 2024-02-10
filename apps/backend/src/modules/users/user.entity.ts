@@ -1,4 +1,11 @@
 import { type Entity } from "~/libs/types/types.js";
+import { UserDetailsEntity } from "./user-details/user-details.entity.js";
+import { UserDetailsModel } from "./user-details/user-details.model.js";
+
+type UserDetailsType = {
+	firstName: string;
+	lastName: string;
+};
 
 class UserEntity implements Entity {
 	private email: string;
@@ -9,21 +16,28 @@ class UserEntity implements Entity {
 
 	private passwordSalt: string;
 
+	private userDetails: null | UserDetailsEntity;
+
 	private constructor({
 		email,
 		id,
 		passwordHash,
 		passwordSalt,
+		userDetails,
 	}: {
 		email: string;
 		id: null | number;
 		passwordHash: string;
 		passwordSalt: string;
+		userDetails: null | UserDetailsModel;
 	}) {
 		this.id = id;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.passwordSalt = passwordSalt;
+		this.userDetails = userDetails
+			? UserDetailsEntity.initialize(userDetails)
+			: null;
 	}
 
 	public static initialize({
@@ -31,17 +45,20 @@ class UserEntity implements Entity {
 		id,
 		passwordHash,
 		passwordSalt,
+		userDetails,
 	}: {
 		email: string;
 		id: number;
 		passwordHash: string;
 		passwordSalt: string;
+		userDetails: UserDetailsModel;
 	}): UserEntity {
 		return new UserEntity({
 			email,
 			id,
 			passwordHash,
 			passwordSalt,
+			userDetails,
 		});
 	}
 
@@ -59,6 +76,7 @@ class UserEntity implements Entity {
 			id: null,
 			passwordHash,
 			passwordSalt,
+			userDetails: null,
 		});
 	}
 
@@ -77,10 +95,12 @@ class UserEntity implements Entity {
 	public toObject(): {
 		email: string;
 		id: number;
+		userDetails: UserDetailsType | undefined;
 	} {
 		return {
 			email: this.email,
 			id: this.id as number,
+			userDetails: this.userDetails?.toObject(),
 		};
 	}
 }

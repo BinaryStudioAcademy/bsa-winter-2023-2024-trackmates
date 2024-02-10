@@ -11,9 +11,13 @@ class AuthService {
 		this.userService = userService;
 	}
 
-	public signUp(
+	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
+		const user = await this.userService.getByEmail(userRequestDto.email);
+		if (user) {
+			throw new Error("this email is allready used");
+		}
 		return this.userService.create(userRequestDto);
 	}
 }

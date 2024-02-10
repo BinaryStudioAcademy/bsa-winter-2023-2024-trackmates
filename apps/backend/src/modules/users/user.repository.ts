@@ -1,11 +1,18 @@
 import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
+import { UserDetailsModel } from "./user-details/user-details.model.js";
+import { UserRepository } from "./libs/types/types.js";
 
-class UserRepository implements Repository {
+class User implements UserRepository {
 	private userModel: typeof UserModel;
-	public constructor(userModel: typeof UserModel) {
+	private userDetailsModel: typeof UserDetailsModel;
+	public constructor(
+		userModel: typeof UserModel,
+		userDetailsModel: typeof UserDetailsModel,
+	) {
 		this.userModel = userModel;
+		this.userDetailsModel = userDetailsModel;
 	}
 
 	public async create(entity: UserEntity): Promise<UserEntity> {
@@ -20,8 +27,13 @@ class UserRepository implements Repository {
 			})
 			.returning("*")
 			.execute();
+		const userDetails = await this.userDetailsModel
+			.query()
+			.insert({ userId: user.id })
+			.returning("*")
+			.execute();
 
-		return UserEntity.initialize(user);
+		return UserEntity.initialize({ ...user, userDetails });
 	}
 
 	public delete(): ReturnType<Repository["delete"]> {
@@ -33,7 +45,10 @@ class UserRepository implements Repository {
 	}
 
 	public async findAll(): Promise<UserEntity[]> {
-		const users = await this.userModel.query().execute();
+		const users = await this.userModel
+			.query()
+			.withGraphJoined("userDetails")
+			.execute();
 
 		return users.map((user) => UserEntity.initialize(user));
 	}
@@ -41,6 +56,11 @@ class UserRepository implements Repository {
 	public update(): ReturnType<Repository["update"]> {
 		return Promise.resolve(null);
 	}
+
+	public async getByEmail(email: string): Promise<UserModel | undefined> {
+		const user = await this.userModel.query().findOne({ email }).execute();
+		return user;
+	}
 }
 
-export { UserRepository };
+export { User as UserRepository };
