@@ -8,8 +8,6 @@ import {
 import { UserModel } from "../user.model.js";
 
 class UserDetailsModel extends AbstractModel {
-	public firstName!: string;
-
 	public static relationMappings = () => {
 		return {
 			user: {
@@ -22,6 +20,8 @@ class UserDetailsModel extends AbstractModel {
 			},
 		};
 	};
+
+	public firstName!: string;
 
 	public static tableName: string = DatabaseTableName.USER_DETAILS;
 

@@ -3,8 +3,8 @@ import { type Knex } from "knex";
 const TABLE_NAME = "user_details";
 
 const ColumnName = {
-	FISRT_NAME: "first_name",
 	CREATED_AT: "created_at",
+	FISRT_NAME: "first_name",
 	ID: "id",
 	LAST_NAME: "last_name",
 	UPDATED_AT: "updated_at",

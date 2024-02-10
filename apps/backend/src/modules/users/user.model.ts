@@ -16,8 +16,6 @@ class UserModel extends AbstractModel {
 		type: "object",
 	};
 
-	public email!: string;
-
 	public static relationMappings = () => {
 		return {
 			userDetails: {
@@ -30,6 +28,8 @@ class UserModel extends AbstractModel {
 			},
 		};
 	};
+
+	public email!: string;
 
 	static tableName: string = DatabaseTableName.USERS;
 
