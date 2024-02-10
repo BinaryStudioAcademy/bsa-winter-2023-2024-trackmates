@@ -5,7 +5,7 @@ import Fastify, { type FastifyError } from "fastify";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { ServerErrorType } from "~/libs/enums/enums.js";
+import { APIPath, ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
@@ -22,7 +22,8 @@ import {
 	type ServerApplicationApi,
 	type ServerApplicationRouteParameters,
 } from "./libs/types/types.js";
-import { authorizationPlugin } from "~/libs/modules/plugins/auth.plugin.js";
+import { authorizationPlugin } from "~/libs/modules/plugins/plugins.js";
+import { AuthApiPath } from "~/modules/auth/libs/enums/enums.js";
 
 type Constructor = {
 	apis: ServerApplicationApi[];
@@ -148,7 +149,12 @@ class BaseServerApplication implements ServerApplication {
 	}
 
 	private async initPlugins(): Promise<void> {
-		await this.app.register(authorizationPlugin);
+		await this.app.register(authorizationPlugin, {
+			whiteRouteList: [
+				`${APIPath.AUTH}${AuthApiPath.SIGN_UP}`,
+				`${APIPath.AUTH}${AuthApiPath.SIGN_IN}`,
+			],
+		});
 	}
 
 	public async init(): Promise<void> {

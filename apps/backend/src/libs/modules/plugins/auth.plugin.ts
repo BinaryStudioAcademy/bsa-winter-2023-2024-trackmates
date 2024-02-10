@@ -4,12 +4,24 @@ import type { AuthPluginOptions } from "./libs/types/types.js";
 import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
 import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
 import { userService } from "~/modules/users/users.js";
+import { getApiEndpoint } from "./libs/helpers/helpers.js";
 
-const plugin = async (fastify: FastifyInstance, opts: AuthPluginOptions) => {
+const plugin = async (
+	fastify: FastifyInstance,
+	{ whiteRouteList }: AuthPluginOptions,
+) => {
 	fastify.decorateRequest("user", null);
 
 	fastify.addHook("preHandler", async (request: FastifyRequest, reply) => {
 		const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
+
+		const apiEndpoint = getApiEndpoint(request.url);
+
+		const isWhiteRoute = whiteRouteList.includes(apiEndpoint ?? "");
+
+		if (isWhiteRoute) {
+			return;
+		}
 
 		if (!authHeader) {
 			throw new HTTPError({
