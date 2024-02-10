@@ -7,10 +7,12 @@ import { signUp } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
+	user: null;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
+	user: null,
 };
 
 const { actions, name, reducer } = createSlice({
