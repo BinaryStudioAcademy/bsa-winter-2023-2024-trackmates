@@ -1,4 +1,4 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
 import type { AuthPluginOptions } from "./libs/types/types.js";
 import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
@@ -6,7 +6,9 @@ import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
 import { userService } from "~/modules/users/users.js";
 
 const plugin = async (fastify: FastifyInstance, opts: AuthPluginOptions) => {
-	fastify.addHook("preHandler", async (request, reply) => {
+	fastify.decorateRequest("user", null);
+
+	fastify.addHook("preHandler", async (request: FastifyRequest, reply) => {
 		const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
 		if (!authHeader) {
@@ -46,6 +48,9 @@ const plugin = async (fastify: FastifyInstance, opts: AuthPluginOptions) => {
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
+
+		// TODO: assign real user
+		request.user = null;
 	});
 };
 
