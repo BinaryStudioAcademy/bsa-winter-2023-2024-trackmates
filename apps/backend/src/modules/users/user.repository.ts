@@ -1,6 +1,6 @@
-import { User } from "~/modules/users/users.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
+import { User } from "~/modules/users/users.js";
 
 import { type UserRepository as UserRepositoryT } from "./libs/types/user-repository.type.js";
 

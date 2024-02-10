@@ -1,4 +1,5 @@
 import { jwtVerify } from "jose";
+
 import { config } from "~/libs/modules/config/config.js";
 
 async function encryptToken(token: string) {
