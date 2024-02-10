@@ -1,20 +1,16 @@
 import { Model } from "objection";
 
-import { UserDetailsModel } from "./user-details/user-details.model.js";
-
 import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
+import { UserDetailsModel } from "./user-details/user-details.model.js";
+
 class UserModel extends AbstractModel {
 	public email!: string;
 
 	public passwordHash!: string;
-
-	public passwordSalt!: string;
-
-	static tableName: string = DatabaseTableName.USERS;
 
 	static jsonSchema = {
 		properties: {
@@ -24,7 +20,9 @@ class UserModel extends AbstractModel {
 		type: "object",
 	};
 
-	public userDetails!: UserDetailsModel;
+	static tableName: string = DatabaseTableName.USERS;
+
+	public passwordSalt!: string;
 
 	public static relationMappings = () => {
 		return {
@@ -38,6 +36,8 @@ class UserModel extends AbstractModel {
 			},
 		};
 	};
+
+	public userDetails!: UserDetailsModel;
 }
 
 export { UserModel };

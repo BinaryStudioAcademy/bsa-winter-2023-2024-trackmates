@@ -1,71 +1,71 @@
 import { type Entity } from "~/libs/types/types.js";
 
 class UserDetailsEntity implements Entity {
-	private id: null | number;
-
 	private firstName: null | string;
 
-	private userId: number;
+	private id: null | number;
 
 	private lastName: null | string;
 
+	private userId: number;
+
 	private constructor({
-		id,
 		firstName,
-		userId,
+		id,
 		lastName,
+		userId,
 	}: {
-		id: null | number;
 		firstName: null | string;
-		userId: number;
+		id: null | number;
 		lastName: null | string;
+		userId: number;
 	}) {
-		this.id = id;
 		this.firstName = firstName;
-		this.userId = userId;
+		this.id = id;
 		this.lastName = lastName;
+		this.userId = userId;
 	}
 
 	public static initialize({
-		id,
 		firstName,
-		userId,
+		id,
 		lastName,
+		userId,
 	}: {
-		id: number;
 		firstName: null | string;
-		userId: number;
+		id: number;
 		lastName: null | string;
+		userId: number;
 	}): UserDetailsEntity {
 		return new UserDetailsEntity({
-			id,
 			firstName,
-			userId,
+			id,
 			lastName,
+			userId,
 		});
 	}
 
 	public static initializeNew({
 		firstName,
-		userId,
 		lastName,
+		userId,
 	}: {
 		firstName: null | string;
-		userId: number;
 		lastName: null | string;
+		userId: number;
 	}): UserDetailsEntity {
 		return new UserDetailsEntity({
-			id: null,
 			firstName,
-			userId,
+			id: null,
 			lastName,
+			userId,
 		});
 	}
 
 	public toNewObject(): {
 		firstName: null | string;
-		userId: null | number;
 		lastName: null | string;
+		userId: null | number;
 	} {
 		return {
 			firstName: this.firstName,
