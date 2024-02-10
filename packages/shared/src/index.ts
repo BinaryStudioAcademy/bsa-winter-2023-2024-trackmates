@@ -35,4 +35,5 @@ export {
 	type UserSignInResponseDto,
 	UsersApiPath,
 	userSignUpValidationSchema,
+	userSignInValidationSchema,
 } from "./modules/users/users.js";

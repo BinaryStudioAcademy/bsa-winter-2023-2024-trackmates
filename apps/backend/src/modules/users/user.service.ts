@@ -8,6 +8,7 @@ import {
 } from "./libs/types/types.js";
 import { type UserService as UserServiceT } from "./types/user-service.type.js";
 import { UserWithPassword } from "shared";
+import { encrypt } from "../auth/helpers/crypt/encrypt.helper.js";
 
 class UserService implements UserServiceT {
 	private userRepository: UserRepository;
@@ -22,7 +23,7 @@ class UserService implements UserServiceT {
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
-				passwordHash: "HASH", // TODO
+				passwordHash: await encrypt(payload.password), // TODO
 				passwordSalt: "SALT", // TODO
 			}),
 		);
