@@ -1,6 +1,6 @@
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
-import { type UserRepository as UserRepositoryT } from "./types/user-repository.type.js";
+import { type UserRepository as UserRepositoryT } from "./libs/types/types.js";
 import { UserWithPassword } from "shared";
 
 class UserRepository implements UserRepositoryT {

@@ -6,7 +6,7 @@ import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
-import { type UserService as UserServiceT } from "./types/user-service.type.js";
+import { type UserService as UserServiceT } from "./libs/types/types.js";
 import { UserWithPassword } from "shared";
 import { encrypt } from "../auth/helpers/crypt/encrypt.helper.js";
 

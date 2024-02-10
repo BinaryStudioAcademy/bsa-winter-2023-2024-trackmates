@@ -3,7 +3,7 @@ import {
 	type UserSignUpResponseDto,
 } from "~/modules/users/libs/types/types.js";
 import { type UserService } from "~/modules/users/user.service.js";
-import { type AuthService as AuthServiceT } from "./types/auth-service.type.js";
+import { type AuthService as AuthServiceT } from "./libs/types/types.js";
 import {
 	HTTPCode,
 	HTTPError,

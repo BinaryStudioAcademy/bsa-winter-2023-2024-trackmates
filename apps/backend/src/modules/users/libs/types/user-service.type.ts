@@ -4,7 +4,7 @@ import {
 	UserSignUpResponseDto,
 	UserWithPassword,
 } from "shared";
-import { UserEntity } from "../user.entity.js";
+import { UserEntity } from "../../user.entity.js";
 import { Service } from "~/libs/types/types.js";
 
 type UserService = Pick<Service<UserEntity>, "delete" | "find" | "update"> & {
