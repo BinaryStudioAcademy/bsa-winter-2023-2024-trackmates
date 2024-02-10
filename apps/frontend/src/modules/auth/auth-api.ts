@@ -5,6 +5,8 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	type UserSignInRequestDto,
+	type UserSignInResponseDto,
 } from "~/modules/users/users.js";
 
 import { AuthApiPath } from "./libs/enums/enums.js";
@@ -34,6 +36,22 @@ class AuthApi extends BaseHTTPApi {
 		);
 
 		return await response.json<UserSignUpResponseDto>();
+	}
+
+	public async singIn(
+		payload: UserSignInRequestDto,
+	): Promise<UserSignInResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.SIGN_IN, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: false,
+				method: "POST",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<UserSignInResponseDto>();
 	}
 }
 
