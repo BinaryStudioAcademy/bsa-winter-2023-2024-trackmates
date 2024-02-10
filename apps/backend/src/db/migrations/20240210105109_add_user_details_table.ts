@@ -4,10 +4,10 @@ const TABLE_NAME = "user_details";
 
 const ColumnName = {
 	FISRT_NAME: "first_name",
-	ID: "id",
 	CREATED_AT: "created_at",
-	UPDATED_AT: "updated_at",
+	ID: "id",
 	LAST_NAME: "last_name",
+	UPDATED_AT: "updated_at",
 	USER_ID: "user_id",
 } as const;
 

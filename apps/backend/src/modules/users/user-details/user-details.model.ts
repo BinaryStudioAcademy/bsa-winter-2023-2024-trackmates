@@ -10,10 +10,6 @@ import { UserModel } from "../user.model.js";
 class UserDetailsModel extends AbstractModel {
 	public firstName!: string;
 
-	public lastName!: string;
-
-	public static tableName: string = DatabaseTableName.USER_DETAILS;
-
 	public static relationMappings = () => {
 		return {
 			user: {
@@ -27,9 +23,13 @@ class UserDetailsModel extends AbstractModel {
 		};
 	};
 
-	public userId!: number;
+	public static tableName: string = DatabaseTableName.USER_DETAILS;
+
+	public lastName!: string;
 
 	public user!: UserModel;
+
+	public userId!: number;
 
 	static get jsonSchema() {
 		return {
