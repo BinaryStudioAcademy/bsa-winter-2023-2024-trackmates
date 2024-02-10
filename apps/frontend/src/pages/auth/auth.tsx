@@ -22,7 +22,7 @@ const Auth: React.FC = () => {
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
-			console.log(payload);
+			dispatch(authActions.signIn(payload));
 		},
 		[],
 	);
