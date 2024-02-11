@@ -1,27 +1,29 @@
 import { NavLink } from "react-router-dom";
-import { Image } from "../image/image.js";
+
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
+
+import { Image } from "../image/image.js";
 
 type Properties = {
 	user: {
 		image: {
 			url: string;
-		};
+		} | null;
 	} | null;
 };
 
-const Header: React.FC<Properties> = ({ user }) => {
+const Header: React.FC<Properties> = ({ user }: Properties) => {
 	return (
 		<header>
 			<div>Search input</div>
 			{user ? (
 				<div>
 					<Image
-						src={user.image?.url}
 						alt="user-avatar"
-						width="48"
 						height="48"
 						isCircular
+						src={user.image?.url ?? ""}
+						width="48"
 					/>
 				</div>
 			) : (

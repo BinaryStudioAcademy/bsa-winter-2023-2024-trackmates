@@ -1,19 +1,18 @@
 type Properties = {
 	alt: string;
-	isCircular?: boolean;
 	height?: string;
+	isCircular?: boolean;
 	src: string;
 	width?: string;
 };
 
 const Image: React.FC<Properties> = ({
 	alt,
-	isCircular,
 	height,
 	src,
 	width,
-}) => {
-	return <img src={src} alt={alt} width={width} height={height} />;
+}: Properties) => {
+	return <img alt={alt} height={height} src={src} width={width} />;
 };
 
 export { Image };
