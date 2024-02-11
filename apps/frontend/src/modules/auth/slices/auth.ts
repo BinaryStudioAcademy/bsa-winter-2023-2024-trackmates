@@ -3,8 +3,8 @@ import { actions } from "./auth.slice.js";
 
 const allActions = {
 	...actions,
-	signUp,
 	getAuthenticatedUser,
+	signUp,
 };
 
 export { reducer } from "./auth.slice.js";

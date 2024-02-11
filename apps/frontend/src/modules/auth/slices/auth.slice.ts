@@ -3,6 +3,7 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type User } from "~/modules/auth/auth.js";
+
 import { getAuthenticatedUser, signUp } from "./actions.js";
 
 type State = {

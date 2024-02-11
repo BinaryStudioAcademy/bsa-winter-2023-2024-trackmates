@@ -8,16 +8,16 @@ import {
 	useLocation,
 } from "~/libs/hooks/hooks.js";
 import { StorageKey, storage } from "~/libs/modules/storage/storage.js";
-import { actions as userActions } from "~/modules/users/users.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
+import { actions as userActions } from "~/modules/users/users.js";
 
 const App: React.FC = () => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
-	const { dataStatus, users } = useAppSelector(({ users, auth }) => ({
+	const { dataStatus, users } = useAppSelector(({ auth, users }) => ({
 		dataStatus: users.dataStatus,
-		users: users.users,
 		user: auth.user,
+		users: users.users,
 	}));
 
 	const isRoot = pathname === AppRoute.ROOT;
