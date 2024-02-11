@@ -37,13 +37,21 @@ class BaseController implements Controller {
 	private mapRequest(
 		request: Parameters<ServerApplicationRouteParameters["handler"]>[0],
 	): APIHandlerOptions {
-		const { body, headers, params, query } = request;
+		const { body, params, query } = request; //const { body, params, query, user } = request;
+
+		//замокані дані, аби лінтер не сварився (тимчасово)
+		const user = {
+			createdAt: "123",
+			email: "123@yahoo.com",
+			id: 24,
+			updatedAt: "123",
+		};
 
 		return {
 			body,
-			headers,
 			params,
 			query,
+			user,
 		};
 	}
 

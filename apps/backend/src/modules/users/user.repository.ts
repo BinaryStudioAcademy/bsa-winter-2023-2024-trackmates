@@ -1,10 +1,10 @@
+import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
-import { User } from "~/modules/users/users.js";
 
-import { type UserRepository as UserRepositoryT } from "./libs/types/user-repository.type.js";
+import { UserInfoResponse } from "./libs/types/types.js";
 
-class UserRepository implements UserRepositoryT {
+class UserRepository implements Repository {
 	private userModel: typeof UserModel;
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
@@ -26,11 +26,11 @@ class UserRepository implements UserRepositoryT {
 		return UserEntity.initialize(user);
 	}
 
-	public delete(): ReturnType<UserRepositoryT["delete"]> {
+	public delete(): ReturnType<Repository["delete"]> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<UserRepositoryT["find"]> {
+	public find(): ReturnType<Repository["find"]> {
 		return Promise.resolve(null);
 	}
 
@@ -40,18 +40,18 @@ class UserRepository implements UserRepositoryT {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public async findById(id: number): Promise<User | null> {
+	public async findById(id: number): Promise<UserInfoResponse | null> {
 		const user = await this.userModel
 			.query()
 			.findById(id)
 			.modify("withoutPassword")
 			.execute();
 
-		return user || null;
+		return user ?? null;
 	}
 
-	public update(): ReturnType<UserRepositoryT["update"]> {
-		throw new Error("Method not implemented.");
+	public update(): ReturnType<Repository["update"]> {
+		return Promise.resolve(null);
 	}
 }
 

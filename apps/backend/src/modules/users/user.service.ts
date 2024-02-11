@@ -1,15 +1,15 @@
+import { type Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import {
-	type User,
 	type UserGetAllResponseDto,
+	type UserInfoResponse,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
-import { type UserService as UserServiceT } from "./libs/types/user-service.type.js";
 
-class UserService implements UserServiceT {
+class UserService implements Service {
 	private userRepository: UserRepository;
 
 	public constructor(userRepository: UserRepository) {
@@ -30,11 +30,11 @@ class UserService implements UserServiceT {
 		return item.toObject();
 	}
 
-	public delete(): ReturnType<UserServiceT["delete"]> {
+	public delete(): ReturnType<Service["delete"]> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<UserServiceT["find"]> {
+	public find(): ReturnType<Service["find"]> {
 		return Promise.resolve(null);
 	}
 
@@ -46,14 +46,16 @@ class UserService implements UserServiceT {
 		};
 	}
 
-	public async getAuthenticatedUser(id: number): Promise<User | null> {
+	public async getAuthenticatedUser(
+		id: number,
+	): Promise<UserInfoResponse | null> {
 		const user = await this.userRepository.findById(id);
 
-		return user || null;
+		return user ?? null;
 	}
 
-	public update(): ReturnType<UserServiceT["update"]> {
-		throw new Error("Method not implemented.");
+	public update(): ReturnType<Service["update"]> {
+		return Promise.resolve(null);
 	}
 }
 

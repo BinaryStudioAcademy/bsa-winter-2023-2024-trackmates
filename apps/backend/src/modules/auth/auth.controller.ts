@@ -8,12 +8,10 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
 	type UserSignUpRequestDto,
-	userService,
 	userSignUpValidationSchema,
 } from "~/modules/users/users.js";
 
 import { type AuthService } from "./auth.service.js";
-import { encryptToken } from "./helpers/crypt.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
 
 class AuthController extends BaseController {
@@ -78,35 +76,11 @@ class AuthController extends BaseController {
 	 *                    $ref: "#/components/schemas/User"
 	 */
 
-	private async getAuthenticatedUser(
-		options: APIHandlerOptions,
-	): Promise<APIHandlerResponse> {
-		const token = options.headers?.authorization?.replace("Bearer ", "");
-
-		if (!token) {
-			return {
-				payload: null,
-				status: HTTPCode.OK,
-			};
-		}
-
-		const payload = await encryptToken(token);
-
-		if (payload) {
-			const userId = (payload as { id?: number }).id;
-
-			if (userId) {
-				const user = await userService.getAuthenticatedUser(userId);
-
-				return {
-					payload: user,
-					status: HTTPCode.OK,
-				};
-			}
-		}
+	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
+		const user = options.user;
 
 		return {
-			payload: null,
+			payload: user || null,
 			status: HTTPCode.OK,
 		};
 	}
