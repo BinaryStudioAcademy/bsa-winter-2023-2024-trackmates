@@ -46,7 +46,7 @@ class UserService implements Service {
 		};
 	}
 
-	public async getByEmail(email: string): Promise<UserModel | undefined> {
+	public async getByEmail(email: string): Promise<UserModel | null> {
 		return await this.userRepository.getByEmail(email);
 	}
 

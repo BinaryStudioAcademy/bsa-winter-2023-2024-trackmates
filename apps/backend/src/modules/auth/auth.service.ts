@@ -1,3 +1,5 @@
+import { AuthError, ErrorMessage } from "shared";
+
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -13,12 +15,14 @@ class AuthService {
 
 	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
-	): Promise<UserSignUpResponseDto | undefined> {
-		const user = await this.userService.getByEmail(userRequestDto.email);
-		if (user) {
-			throw new Error("this email is allready used");
+	): Promise<UserSignUpResponseDto> {
+		const isUserWithSuchEmailExist = Boolean(
+			await this.userService.getByEmail(userRequestDto.email),
+		);
+		if (isUserWithSuchEmailExist) {
+			throw new AuthError(ErrorMessage.EMAIL_ALREADY_EXISTS);
 		}
-		return user;
+		return await this.userService.create(userRequestDto);
 	}
 }
 

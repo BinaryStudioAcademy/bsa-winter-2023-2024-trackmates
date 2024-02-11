@@ -1,3 +1,5 @@
+import { AuthError } from "shared";
+
 import { APIPath } from "~/libs/enums/enums.js";
 import {
 	type APIHandlerOptions,
@@ -79,9 +81,13 @@ class AuthController extends BaseController {
 				status: HTTPCode.CREATED,
 			};
 		} catch (error) {
+			const isAuthError = error instanceof AuthError;
+			const status = isAuthError
+				? HTTPCode.BAD_REQUEST
+				: HTTPCode.INTERNAL_SERVER_ERROR;
 			return {
 				payload: error,
-				status: HTTPCode.UNAUTHORIZED,
+				status,
 			};
 		}
 	}

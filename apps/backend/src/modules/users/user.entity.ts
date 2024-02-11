@@ -1,65 +1,65 @@
 import { type Entity } from "~/libs/types/types.js";
 
-import { UserDetailsEntity } from "./user-details/user-details.entity.js";
-import { UserDetailsModel } from "./user-details/user-details.model.js";
-
-type UserDetailsType = {
-	firstName: string;
-	lastName: string;
-};
-
 class UserEntity implements Entity {
 	private email: string;
 
+	private firstName: string = "";
+
 	private id: null | number;
+
+	private lastName: string = "";
 
 	private passwordHash: string;
 
 	private passwordSalt: string;
 
-	private userDetails: UserDetailsEntity | null;
+	// private userDetails: UserDetailsEntity | null;
 
 	private constructor({
 		email,
+		firstName,
 		id,
+		lastName,
 		passwordHash,
 		passwordSalt,
-		userDetails,
 	}: {
 		email: string;
+		firstName: string;
 		id: null | number;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
-		userDetails: UserDetailsModel | null;
 	}) {
+		this.firstName = firstName;
 		this.id = id;
+		this.lastName = lastName;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.passwordSalt = passwordSalt;
-		this.userDetails = userDetails
-			? UserDetailsEntity.initialize(userDetails)
-			: null;
 	}
 
 	public static initialize({
 		email,
+		firstName,
 		id,
+		lastName,
 		passwordHash,
 		passwordSalt,
-		userDetails,
 	}: {
 		email: string;
+		firstName: string;
 		id: number;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
-		userDetails: UserDetailsModel;
 	}): UserEntity {
 		return new UserEntity({
 			email,
+			firstName,
 			id,
+			lastName,
 			passwordHash,
 			passwordSalt,
-			userDetails,
 		});
 	}
 
@@ -74,20 +74,25 @@ class UserEntity implements Entity {
 	}): UserEntity {
 		return new UserEntity({
 			email,
+			firstName: "",
 			id: null,
+			lastName: "",
 			passwordHash,
 			passwordSalt,
-			userDetails: null,
 		});
 	}
 
 	public toNewObject(): {
 		email: string;
+		firstName: string;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
 	} {
 		return {
 			email: this.email,
+			firstName: this.firstName,
+			lastName: this.lastName,
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
 		};
@@ -95,13 +100,15 @@ class UserEntity implements Entity {
 
 	public toObject(): {
 		email: string;
+		firstName: string;
 		id: number;
-		userDetails: UserDetailsType | undefined;
+		lastName: string;
 	} {
 		return {
 			email: this.email,
+			firstName: this.firstName,
 			id: this.id as number,
-			userDetails: this.userDetails?.toObject(),
+			lastName: this.lastName,
 		};
 	}
 }

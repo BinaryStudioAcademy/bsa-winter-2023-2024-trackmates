@@ -30,17 +30,6 @@ class UserDetailsModel extends AbstractModel {
 	public user!: UserModel;
 
 	public userId!: number;
-
-	static get jsonSchema() {
-		return {
-			properties: {
-				firstName: { type: "string" },
-				lastName: { type: "string" },
-				userId: { type: "integer" },
-			},
-			type: "object",
-		};
-	}
 }
 
 export { UserDetailsModel };

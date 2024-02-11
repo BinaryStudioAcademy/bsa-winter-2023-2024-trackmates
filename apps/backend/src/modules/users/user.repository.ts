@@ -2,10 +2,9 @@ import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
-import { UserRepository } from "./libs/types/types.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
-class User implements UserRepository {
+class User implements Repository {
 	private userDetailsModel: typeof UserDetailsModel;
 	private userModel: typeof UserModel;
 	public constructor(
@@ -34,7 +33,11 @@ class User implements UserRepository {
 			.returning("*")
 			.execute();
 
-		return UserEntity.initialize({ ...user, userDetails });
+		return UserEntity.initialize({
+			...user,
+			firstName: userDetails.firstName,
+			lastName: userDetails.lastName,
+		});
 	}
 
 	public delete(): ReturnType<Repository["delete"]> {
@@ -51,11 +54,17 @@ class User implements UserRepository {
 			.withGraphJoined("userDetails")
 			.execute();
 
-		return users.map((user) => UserEntity.initialize(user));
+		return users.map((user) =>
+			UserEntity.initialize({
+				...user,
+				firstName: user.userDetails.firstName,
+				lastName: user.userDetails.lastName,
+			}),
+		);
 	}
 
-	public async getByEmail(email: string): Promise<UserModel | undefined> {
-		return await this.userModel.query().findOne({ email }).execute();
+	public async getByEmail(email: string): Promise<UserModel | null> {
+		return (await this.userModel.query().findOne({ email }).execute()) ?? null;
 	}
 
 	public update(): ReturnType<Repository["update"]> {

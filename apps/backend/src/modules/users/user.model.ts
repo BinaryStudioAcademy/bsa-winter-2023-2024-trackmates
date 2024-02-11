@@ -8,14 +8,6 @@ import {
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserModel extends AbstractModel {
-	static jsonSchema = {
-		properties: {
-			email: { type: "string" },
-		},
-		required: ["email"],
-		type: "object",
-	};
-
 	public static relationMappings = () => {
 		return {
 			userDetails: {
