@@ -1,5 +1,4 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { AuthError } from "~/libs/exceptions/exceptions.js";
 import { Encript } from "~/libs/modules/encript/encript.js";
 import {
 	type UserSignUpRequestDto,
@@ -11,6 +10,8 @@ import {
 	type UserSignInResponseDto,
 	type UserWithPassword,
 } from "~/modules/users/users.js";
+
+import { AuthError } from "./libs/exceptions/exceptions.js";
 
 function createTokenStub({ id }: { id: number }) {
 	return `token for user with id=${id}`;
