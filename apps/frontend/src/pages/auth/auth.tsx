@@ -12,6 +12,7 @@ import {
 } from "~/modules/users/users.js";
 
 import { SignInForm, SignUpForm } from "./components/components.js";
+import styles from "./style.module.css";
 
 const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<div className="wrapper">
+		<div className={styles["wrapper"]}>
 			state: {dataStatus}
 			{getScreen(pathname)}
 		</div>
