@@ -12,6 +12,7 @@ import {
 } from "~/modules/users/users.js";
 
 import { type AuthService } from "./auth.service.js";
+import { createToken } from "./helpers/token/token.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
 
 class AuthController extends BaseController {
@@ -72,8 +73,18 @@ class AuthController extends BaseController {
 			body: UserSignUpRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
+		// TODO: rewrite setting expiration
+		const date = new Date();
+		const days = 1;
+		date.setDate(date.getDate() + days);
+
+		const accessToken = await createToken({ userId: null }, date);
+
 		return {
-			payload: await this.authService.signUp(options.body),
+			payload: {
+				...(await this.authService.signUp(options.body)),
+				token: accessToken,
+			},
 			status: HTTPCode.CREATED,
 		};
 	}
