@@ -1,6 +1,5 @@
 const ExceptionMessage = {
-	INCORRECT_EMAIL: "Incorrect email.",
-	PASSWORDS_NOT_MATCH: "Passwords do not match.",
+	INCORRECT_CREDENTIALS: "Incorrect credentials.",
 } as const;
 
 export { ExceptionMessage };

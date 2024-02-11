@@ -1,9 +1,10 @@
+import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
-import { type UserRepository as UserRepositoryT } from "./libs/types/types.js";
-import { UserWithPassword } from "shared";
 
-class UserRepository implements UserRepositoryT {
+import { UserWithPassword } from "./libs/types/types.js";
+
+class UserRepository implements Repository {
 	private userModel: typeof UserModel;
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
@@ -25,11 +26,11 @@ class UserRepository implements UserRepositoryT {
 		return UserEntity.initialize(user);
 	}
 
-	public delete(): ReturnType<UserRepositoryT["delete"]> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<UserRepositoryT["find"]> {
+	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
@@ -39,17 +40,15 @@ class UserRepository implements UserRepositoryT {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public update(): ReturnType<UserRepositoryT["update"]> {
-		throw new Error("Method not implemented.");
-	}
-
 	public async getByEmail(email: string): Promise<UserWithPassword | null> {
-		const user = await this.userModel
+		return await this.userModel
 			.query()
 			.findOne({ email })
 			.castTo<UserWithPassword | null>();
+	}
 
-		return user;
+	public update(): Promise<UserEntity> {
+		throw new Error("Method not implemented.");
 	}
 }
 

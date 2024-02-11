@@ -1,7 +1,7 @@
-import { hash, genSalt } from "bcrypt";
+import { genSalt, hash } from "bcrypt";
 
 const encrypt = async (data: string): Promise<string> => {
-	return hash(data, await genSalt());
+	return await hash(data, await genSalt());
 };
 
 export { encrypt };

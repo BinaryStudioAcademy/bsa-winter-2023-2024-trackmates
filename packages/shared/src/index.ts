@@ -25,15 +25,14 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
-	type User,
-	type UserWithPassword,
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
-	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
+	type UserSignUpRequestDto,
+	type UserSignUpResponseDto,
+	type UserWithPassword,
 	UsersApiPath,
-	userSignUpValidationSchema,
 	userSignInValidationSchema,
+	userSignUpValidationSchema,
 } from "./modules/users/users.js";

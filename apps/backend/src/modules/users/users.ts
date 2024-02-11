@@ -10,8 +10,13 @@ const userService = new UserService(userRepository);
 const userController = new UserController(logger, userService);
 
 export { userController, userService };
-export { type UserSignUpRequestDto } from "./libs/types/types.js";
+
 export {
-	userSignUpValidationSchema,
+	type UserSignInRequestDto,
+	type UserSignInResponseDto,
+	type UserWithPassword,
+} from "./libs/types/types.js";
+export {
 	userSignInValidationSchema,
+	userSignUpValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

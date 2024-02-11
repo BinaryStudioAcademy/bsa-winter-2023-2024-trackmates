@@ -1,6 +1,6 @@
 type User = {
-	id: number;
 	email: string;
+	id: number;
 };
 
 export { type User };

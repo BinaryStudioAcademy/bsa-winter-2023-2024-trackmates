@@ -1,8 +1,8 @@
 export {
 	type UserGetAllResponseDto,
+	type UserSignInRequestDto,
+	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	type UserWithPassword,
 } from "shared";
-
-export { type UserRepository } from "./user-repository.type.js";
-export { type UserService } from "./user-service.type.js";

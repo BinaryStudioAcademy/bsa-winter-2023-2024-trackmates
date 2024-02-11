@@ -1,4 +1,5 @@
-import { User, UserWithPassword } from "shared";
+import { UserWithPassword } from "shared";
+
 import { type Entity } from "~/libs/types/types.js";
 
 class UserEntity implements Entity {

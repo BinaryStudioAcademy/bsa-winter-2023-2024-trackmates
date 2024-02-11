@@ -7,14 +7,14 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
-	type UserSignUpRequestDto,
-	userSignUpValidationSchema,
+	UserSignInRequestDto,
 	userSignInValidationSchema,
+	userSignUpValidationSchema,
 } from "~/modules/users/users.js";
 
+import { UserSignUpRequestDto } from "../users/libs/types/types.js";
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
-import { UserSignInRequestDto } from "shared";
 
 class AuthController extends BaseController {
 	private authService: AuthService;
@@ -55,47 +55,6 @@ class AuthController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /auth/sign-up:
-	 *    post:
-	 *      description: Sign up user into the system
-	 *      requestBody:
-	 *        description: User auth data
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                email:
-	 *                  type: string
-	 *                  format: email
-	 *                password:
-	 *                  type: string
-	 *      responses:
-	 *        201:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  message:
-	 *                    type: object
-	 *                    $ref: "#/components/schemas/User"
-	 */
-	private async signUp(
-		options: APIHandlerOptions<{
-			body: UserSignUpRequestDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.authService.signUp(options.body),
-			status: HTTPCode.CREATED,
-		};
-	}
-
-	/**
-	 * @swagger
 	 * /auth/sign-in:
 	 *    post:
 	 *      description: Sign in user into the system
@@ -132,6 +91,47 @@ class AuthController extends BaseController {
 		return {
 			payload: await this.authService.signIn(options.body),
 			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /auth/sign-up:
+	 *    post:
+	 *      description: Sign up user into the system
+	 *      requestBody:
+	 *        description: User auth data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                email:
+	 *                  type: string
+	 *                  format: email
+	 *                password:
+	 *                  type: string
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
+	private async signUp(
+		options: APIHandlerOptions<{
+			body: UserSignUpRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.authService.signUp(options.body),
+			status: HTTPCode.CREATED,
 		};
 	}
 }

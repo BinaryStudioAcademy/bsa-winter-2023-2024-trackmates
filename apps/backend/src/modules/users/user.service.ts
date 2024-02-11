@@ -1,16 +1,16 @@
+import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
+import { encrypt } from "../auth/helpers/crypt/encrypt.helper.js";
 import {
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
-import { type UserService as UserServiceT } from "./libs/types/types.js";
-import { UserWithPassword } from "shared";
-import { encrypt } from "../auth/helpers/crypt/encrypt.helper.js";
+import { UserWithPassword } from "./libs/types/types.js";
 
-class UserService implements UserServiceT {
+class UserService implements Service {
 	private userRepository: UserRepository;
 
 	public constructor(userRepository: UserRepository) {
@@ -31,11 +31,11 @@ class UserService implements UserServiceT {
 		return item.toObject();
 	}
 
-	public delete(): ReturnType<UserServiceT["delete"]> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<UserServiceT["find"]> {
+	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
@@ -47,12 +47,12 @@ class UserService implements UserServiceT {
 		};
 	}
 
-	public update(): ReturnType<UserServiceT["update"]> {
-		throw new Error("Method not implemented.");
-	}
-
 	public async getByEmail(email: string): Promise<UserWithPassword | null> {
 		return await this.userRepository.getByEmail(email);
+	}
+
+	public update(): Promise<UserEntity> {
+		throw new Error("Method not implemented.");
 	}
 }
 

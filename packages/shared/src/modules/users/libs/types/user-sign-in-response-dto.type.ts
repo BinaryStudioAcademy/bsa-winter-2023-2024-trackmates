@@ -1,8 +1,8 @@
 import { User } from "./user.type.js";
 
 type UserSignInResponseDto = {
-	user: User;
 	token: string;
+	user: User;
 };
 
 export { type UserSignInResponseDto };
