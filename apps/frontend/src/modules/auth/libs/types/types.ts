@@ -1,1 +1,1 @@
-export { type User } from "shared";
+export { type UserInfoResponse } from "shared";

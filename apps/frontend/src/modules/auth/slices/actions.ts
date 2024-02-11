@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { type User } from "~/modules/auth/auth.js";
+import { type UserInfoResponse } from "~/modules/auth/auth.js";
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -20,7 +20,7 @@ const signUp = createAsyncThunk<
 });
 
 const getAuthenticatedUser = createAsyncThunk<
-	User | null,
+	UserInfoResponse | null,
 	undefined,
 	AsyncThunkConfig
 >(`${sliceName}/get-authenticated-user`, (_payload, { extra }) => {

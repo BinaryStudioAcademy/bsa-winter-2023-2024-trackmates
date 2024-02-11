@@ -3,7 +3,7 @@ import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 import {
-	type User,
+	type UserInfoResponse,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
@@ -21,7 +21,7 @@ class AuthApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.AUTH, storage });
 	}
 
-	public async getAuthenticatedUser(): Promise<User | null> {
+	public async getAuthenticatedUser(): Promise<UserInfoResponse | null> {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.AUTHENTICATED_USER, {}),
 			{
@@ -30,7 +30,7 @@ class AuthApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<User | null>();
+		return await response.json<UserInfoResponse | null>();
 	}
 
 	public async signUp(
