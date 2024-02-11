@@ -6,6 +6,8 @@ import {
 	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
+import { type User } from "~/modules/auth/auth.js";
+
 import { name as sliceName } from "./auth.slice.js";
 
 const signUp = createAsyncThunk<
@@ -18,4 +20,14 @@ const signUp = createAsyncThunk<
 	return authApi.signUp(registerPayload);
 });
 
-export { signUp };
+const getAuthenticatedUser = createAsyncThunk<
+	User | null,
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/get-authenticated-user`, (_payload, { extra }) => {
+	const { authApi } = extra;
+
+	return authApi.getAuthenticatedUser();
+});
+
+export { getAuthenticatedUser, signUp };
