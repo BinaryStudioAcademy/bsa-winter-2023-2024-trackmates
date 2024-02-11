@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-import { userEmail } from "./user-email.validation-schema.js";
-import { userPassword } from "./user-password.validation-schema.js";
+import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 
 type UserSignUpRequestValidationDto = {
 	email: z.ZodString;
@@ -10,8 +9,16 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
 	.object<UserSignUpRequestValidationDto>({
-		email: userEmail,
-		password: userPassword,
+		email: z
+			.string()
+			.trim()
+			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
+				message: UserValidationMessage.EMAIL_REQUIRE,
+			})
+			.email({
+				message: UserValidationMessage.EMAIL_WRONG,
+			}),
+		password: z.string().trim(),
 	})
 	.required();
 
