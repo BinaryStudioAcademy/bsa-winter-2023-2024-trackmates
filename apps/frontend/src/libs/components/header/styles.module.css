@@ -1,0 +1,20 @@
+.header {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 98px;
+	padding: 24px 40px;
+	background-color: white;
+	border-bottom: 2px solid var(--color-background);
+}
+
+.header__search,
+.header__user {
+	display: flex;
+}
+
+.header__user {
+	column-gap: 24px;
+}

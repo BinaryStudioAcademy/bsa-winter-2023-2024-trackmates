@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
 
 import { Image } from "../image/image.js";
+import styles from "./styles.module.css";
 
 type Properties = {
 	user: {
@@ -14,10 +15,10 @@ type Properties = {
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
 	return (
-		<header>
-			<div>Search input</div>
+		<header className={styles["header"]}>
+			<div className={styles["header__search"]}>Search input</div>
 			{user ? (
-				<div>
+				<div className={styles["header__user"]}>
 					<Image
 						alt="user-avatar"
 						height="48"
