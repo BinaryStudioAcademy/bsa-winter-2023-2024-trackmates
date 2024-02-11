@@ -1,4 +1,5 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
+import { AuthError as AuthError2 } from "~/libs/exceptions/exceptions.js";
 import { Encript } from "~/libs/modules/encript/encript.js";
 import { Tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
 import {
@@ -38,7 +39,7 @@ class AuthService {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {
-			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);
+			throw new AuthError2(ExceptionMessage.INCORRECT_CREDENTIALS);
 		}
 
 		const isEqualPassword = await this.encript.compare(

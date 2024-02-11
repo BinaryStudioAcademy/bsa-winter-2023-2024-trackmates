@@ -24,6 +24,7 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath } from "./modules/auth/auth.js";
+export { AuthError } from "./modules/auth/libs/exceptions/exceptions.js";
 export {
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
