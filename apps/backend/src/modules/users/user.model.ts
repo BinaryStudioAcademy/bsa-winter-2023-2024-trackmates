@@ -21,8 +21,6 @@ class UserModel extends AbstractModel {
 		};
 	};
 
-	static tableName: string = DatabaseTableName.USERS;
-
 	public email!: string;
 
 	public passwordHash!: string;
@@ -30,6 +28,10 @@ class UserModel extends AbstractModel {
 	public passwordSalt!: string;
 
 	public userDetails!: UserDetailsModel;
+
+	public static override get tableName(): string {
+		return DatabaseTableName.USERS;
+	}
 }
 
 export { UserModel };

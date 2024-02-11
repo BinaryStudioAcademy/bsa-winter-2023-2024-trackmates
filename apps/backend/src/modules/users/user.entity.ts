@@ -3,11 +3,11 @@ import { type Entity } from "~/libs/types/types.js";
 class UserEntity implements Entity {
 	private email: string;
 
-	private firstName: string = "";
+	private firstName: string;
 
 	private id: null | number;
 
-	private lastName: string = "";
+	private lastName: string;
 
 	private passwordHash: string;
 
@@ -63,18 +63,22 @@ class UserEntity implements Entity {
 
 	public static initializeNew({
 		email,
+		firstName,
+		lastName,
 		passwordHash,
 		passwordSalt,
 	}: {
 		email: string;
+		firstName: string;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
 	}): UserEntity {
 		return new UserEntity({
 			email,
-			firstName: "",
+			firstName,
 			id: null,
-			lastName: "",
+			lastName,
 			passwordHash,
 			passwordSalt,
 		});

@@ -21,15 +21,15 @@ class UserDetailsModel extends AbstractModel {
 		};
 	};
 
-	public static tableName: string = DatabaseTableName.USER_DETAILS;
-
 	public firstName!: string;
 
 	public lastName!: string;
 
-	public user!: UserModel;
-
 	public userId!: number;
+
+	public static override get tableName(): string {
+		return DatabaseTableName.USER_DETAILS;
+	}
 }
 
 export { UserDetailsModel };

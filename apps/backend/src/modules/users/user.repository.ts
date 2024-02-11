@@ -4,7 +4,7 @@ import { type UserModel } from "~/modules/users/user.model.js";
 
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
-class User implements Repository {
+class UserRepository implements Repository {
 	private userDetailsModel: typeof UserDetailsModel;
 	private userModel: typeof UserModel;
 	public constructor(
@@ -72,4 +72,4 @@ class User implements Repository {
 	}
 }
 
-export { User as UserRepository };
+export { UserRepository };
