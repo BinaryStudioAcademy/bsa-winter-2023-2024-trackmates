@@ -1,5 +1,6 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { Encript } from "~/libs/modules/encript/encript.js";
+import { Tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -13,16 +14,20 @@ import {
 
 import { AuthError } from "./libs/exceptions/exceptions.js";
 
-function createTokenStub({ id }: { id: number }) {
-	return `token for user with id=${id}`;
-}
+type Constructor = {
+	encript: Encript;
+	tokenizer: Tokenizer;
+	userService: UserService;
+};
 
 class AuthService {
 	private encript: Encript;
+	private tokenizer: Tokenizer;
 	private userService: UserService;
 
-	public constructor(encript: Encript, userService: UserService) {
+	public constructor({ encript, tokenizer, userService }: Constructor) {
 		this.encript = encript;
+		this.tokenizer = tokenizer;
 		this.userService = userService;
 	}
 
@@ -57,7 +62,7 @@ class AuthService {
 		const { email, id } = user;
 
 		return {
-			token: createTokenStub({ id }),
+			token: this.tokenizer.createToken({ id }),
 			user: { email, id },
 		};
 	}
