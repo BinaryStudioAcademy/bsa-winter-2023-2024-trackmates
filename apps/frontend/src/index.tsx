@@ -20,7 +20,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 					{
 						children: [
 							{
-								element: <ProtectedRoute component={"Root"} />,
+								element: <ProtectedRoute component="Root" />,
 								path: AppRoute.ROOT,
 							},
 							{
