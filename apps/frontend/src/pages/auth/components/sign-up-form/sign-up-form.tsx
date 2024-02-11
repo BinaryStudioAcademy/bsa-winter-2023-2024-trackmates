@@ -1,4 +1,6 @@
-import { Button, Input } from "~/libs/components/components.js";
+import logo from "~/assets/img/logo.png";
+import { Button, Input, Link } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/app-route.enum.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignUpRequestDto,
@@ -6,6 +8,7 @@ import {
 } from "~/modules/users/users.js";
 
 import { DEFAULT_SIGN_UP_PAYLOAD } from "./libs/constants.js";
+import "./styles.css";
 
 type Properties = {
 	onSubmit: (payload: UserSignUpRequestDto) => void;
@@ -26,30 +29,51 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	return (
 		<>
-			<h3>Sign Up</h3>
-			<form onSubmit={handleFormSubmit}>
-				<p>
-					<Input
-						control={control}
-						errors={errors}
-						label="Email"
-						name="email"
-						placeholder="Enter your email"
-						type="text"
-					/>
-				</p>
-				<p>
-					<Input
-						control={control}
-						errors={errors}
-						label="Password"
-						name="password"
-						placeholder="Enter your password"
-						type="text"
-					/>
-				</p>
-				<Button label="Sign up" type="submit" />
-			</form>
+			<main className="sign-up-page">
+				<div className="sign-up-page__container">
+					<div className="sign-up-page__logo">
+						<img alt="logo" src={logo} />
+						<span className="sign-up-page__logo-text">TrackMates</span>
+					</div>
+					<form className="sign-up-form" onSubmit={handleFormSubmit}>
+						<div>
+							<h2 className="sign-up-form__title">Create an account</h2>
+							<span className="sign-up-form__subtitle">
+								Already have an account? Go to
+								<span className="sign-up-form__link">
+									{" "}
+									<Link to={AppRoute.SIGN_IN}> Log In</Link>
+								</span>
+							</span>
+						</div>
+						<Input
+							control={control}
+							errors={errors}
+							isPrimary
+							label="Email"
+							name="email"
+							type="text"
+						/>
+						<Input
+							control={control}
+							errors={errors}
+							isPrimary
+							label="Password"
+							name="password"
+							type="password"
+						/>
+						<Input
+							control={control}
+							errors={errors}
+							isPrimary
+							label="Confirm password"
+							name="password"
+							type="password"
+						/>
+						<Button isPrimary label="Create an account" type="submit" />
+					</form>
+				</div>
+			</main>
 		</>
 	);
 };
