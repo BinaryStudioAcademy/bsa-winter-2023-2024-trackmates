@@ -5,6 +5,9 @@ import { AppRoute } from "~/libs/enums/app-route.enum.js";
 import { Image } from "../image/image.js";
 import styles from "./styles.module.css";
 
+const DEFAULT_USER_AVATAR =
+	"https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png";
+
 type Properties = {
 	user: {
 		image: {
@@ -23,7 +26,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
 						alt="user-avatar"
 						height="48"
 						isCircular
-						src={user.image?.url ?? ""}
+						src={user.image?.url ?? DEFAULT_USER_AVATAR}
 						width="48"
 					/>
 				</div>
