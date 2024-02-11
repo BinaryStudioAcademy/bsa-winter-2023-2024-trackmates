@@ -1,5 +1,3 @@
-import { AuthError } from "shared";
-
 import { APIPath } from "~/libs/enums/enums.js";
 import {
 	type APIHandlerOptions,
@@ -15,6 +13,7 @@ import {
 
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
+import { AuthError } from "./libs/exceptions/exceptions.js";
 
 class AuthController extends BaseController {
 	private authService: AuthService;

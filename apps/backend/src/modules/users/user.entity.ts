@@ -13,8 +13,6 @@ class UserEntity implements Entity {
 
 	private passwordSalt: string;
 
-	// private userDetails: UserDetailsEntity | null;
-
 	private constructor({
 		email,
 		firstName,
