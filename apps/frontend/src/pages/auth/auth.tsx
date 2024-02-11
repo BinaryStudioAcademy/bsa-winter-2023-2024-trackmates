@@ -7,8 +7,8 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import {
-	type UserSignUpRequestDto,
 	type UserSignInRequestDto,
+	type UserSignUpRequestDto,
 } from "~/modules/users/users.js";
 
 import { SignInForm, SignUpForm } from "./components/components.js";
@@ -22,9 +22,9 @@ const Auth: React.FC = () => {
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
-			dispatch(authActions.signIn(payload));
+			void dispatch(authActions.signIn(payload));
 		},
-		[],
+		[dispatch],
 	);
 
 	const handleSignUpSubmit = useCallback(
@@ -48,7 +48,7 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<div>
+		<div className="wrapper">
 			state: {dataStatus}
 			{getScreen(pathname)}
 		</div>
