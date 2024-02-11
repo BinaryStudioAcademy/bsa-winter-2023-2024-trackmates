@@ -1,8 +1,8 @@
+import { Encript } from "~/libs/modules/encript/encript.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
-import { encrypt } from "../auth/helpers/crypt/encrypt.helper.js";
 import {
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
@@ -11,20 +11,24 @@ import {
 import { UserWithPassword } from "./libs/types/types.js";
 
 class UserService implements Service {
+	private encript: Encript;
 	private userRepository: UserRepository;
 
-	public constructor(userRepository: UserRepository) {
+	public constructor(encript: Encript, userRepository: UserRepository) {
+		this.encript = encript;
 		this.userRepository = userRepository;
 	}
 
 	public async create(
 		payload: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
+		const { hash, salt } = await this.encript.encript(payload.password);
+
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
-				passwordHash: await encrypt(payload.password), // TODO
-				passwordSalt: "SALT", // TODO
+				passwordHash: hash,
+				passwordSalt: salt,
 			}),
 		);
 
