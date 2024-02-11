@@ -20,8 +20,8 @@ class AuthService {
 		const userWithSuchEmail = await this.userService.getByEmail(
 			userRequestDto.email,
 		);
-		const isUserWithSuchEmailExist = Boolean(userWithSuchEmail);
-		if (isUserWithSuchEmailExist) {
+		const isUserWithSuchEmailExisting = Boolean(userWithSuchEmail);
+		if (isUserWithSuchEmailExisting) {
 			throw new AuthError(ErrorMessage.EMAIL_ALREADY_EXISTS);
 		}
 		return await this.userService.create(userRequestDto);
