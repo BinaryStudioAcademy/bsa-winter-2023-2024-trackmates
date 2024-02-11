@@ -1,3 +1,5 @@
+import styles from "./styles.module.css";
+
 type Properties = {
 	alt: string;
 	height?: string;
@@ -9,10 +11,19 @@ type Properties = {
 const Image: React.FC<Properties> = ({
 	alt,
 	height,
+	isCircular,
 	src,
 	width,
 }: Properties) => {
-	return <img alt={alt} height={height} src={src} width={width} />;
+	return (
+		<img
+			alt={alt}
+			className={`${styles["image"]} ${isCircular && styles["circular"]}`}
+			height={height}
+			src={src}
+			width={width}
+		/>
+	);
 };
 
 export { Image };

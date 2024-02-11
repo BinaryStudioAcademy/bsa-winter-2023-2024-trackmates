@@ -1,0 +1,10 @@
+.image {
+	display: block;
+	max-width: 100%;
+	background-color: transparent;
+}
+
+.circular {
+	overflow: hidden;
+	border-radius: 50%;
+}
