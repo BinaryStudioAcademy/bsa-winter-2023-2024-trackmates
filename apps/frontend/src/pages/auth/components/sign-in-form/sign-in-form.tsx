@@ -1,6 +1,5 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
-import { ButtonClassName, InputClassName } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignInRequestDto,
@@ -58,28 +57,24 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					</p>
 				</div>
 				<Input
-					className={InputClassName.PRIMARY}
 					control={control}
 					errors={errors}
+					isPrimary
 					label="Email"
 					name="email"
 					type="text"
 				/>
 				<Input
-					className={InputClassName.PRIMARY}
 					control={control}
 					errors={errors}
+					isPrimary
 					label="Password"
 					name="password"
 					type="password"
 				>
 					<span className={styles["sign-in__subtitle"]}>Forgot Password?</span>
 				</Input>
-				<Button
-					className={ButtonClassName.PRIMARY}
-					label="Log in"
-					type="submit"
-				/>
+				<Button color="primary" label="Log in" type="submit" />
 			</form>
 		</div>
 	);

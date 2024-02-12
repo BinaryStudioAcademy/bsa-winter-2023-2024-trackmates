@@ -5,16 +5,16 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 
-import { formatClassNames } from "~/libs/helpers/helpers.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
 	children?: React.ReactNode;
-	className?: string;
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
+	isBasic?: boolean;
+	isPrimary?: boolean;
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
@@ -23,9 +23,10 @@ type Properties<T extends FieldValues> = {
 
 const Input = <T extends FieldValues>({
 	children,
-	className,
 	control,
 	errors,
+	isBasic = false,
+	isPrimary = false,
 	label,
 	name,
 	placeholder = "",
@@ -36,15 +37,20 @@ const Input = <T extends FieldValues>({
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
 
-	const formattedClassNames = className
-		? formatClassNames(className, styles)
-		: "";
+	const inputClasses = [
+		styles["input"],
+		isPrimary && styles["primary"],
+		isBasic && styles["basic"],
+	]
+		.filter(Boolean)
+		.join(" ");
+
 	return (
 		<label className={styles["input__container"]}>
 			<span className={styles["input__heading"]}>{label}</span>
 			{children}
 			<input
-				className={`${styles["input"]} ${formattedClassNames}`}
+				className={inputClasses}
 				{...field}
 				placeholder={placeholder}
 				type={type}
