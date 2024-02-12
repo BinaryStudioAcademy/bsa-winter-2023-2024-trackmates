@@ -11,19 +11,19 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { authorizationPlugin } from "~/libs/modules/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { AuthApiPath } from "~/modules/auth/libs/enums/enums.js";
 
 import {
 	type ServerApplication,
 	type ServerApplicationApi,
 	type ServerApplicationRouteParameters,
 } from "./libs/types/types.js";
-import { authorizationPlugin } from "~/libs/modules/plugins/plugins.js";
-import { AuthApiPath } from "~/modules/auth/libs/enums/enums.js";
 
 type Constructor = {
 	apis: ServerApplicationApi[];
@@ -103,6 +103,15 @@ class BaseServerApplication implements ServerApplication {
 		);
 	}
 
+	private async initPlugins(): Promise<void> {
+		await this.app.register(authorizationPlugin, {
+			whiteRouteList: [
+				`${APIPath.AUTH}${AuthApiPath.SIGN_UP}`,
+				`${APIPath.AUTH}${AuthApiPath.SIGN_IN}`,
+			],
+		});
+	}
+
 	private async initServe(): Promise<void> {
 		const staticPath = join(
 			dirname(fileURLToPath(import.meta.url)),
@@ -146,15 +155,6 @@ class BaseServerApplication implements ServerApplication {
 		for (let parameter of parameters) {
 			this.addRoute(parameter);
 		}
-	}
-
-	private async initPlugins(): Promise<void> {
-		await this.app.register(authorizationPlugin, {
-			whiteRouteList: [
-				`${APIPath.AUTH}${AuthApiPath.SIGN_UP}`,
-				`${APIPath.AUTH}${AuthApiPath.SIGN_IN}`,
-			],
-		});
 	}
 
 	public async init(): Promise<void> {

@@ -1,6 +1,10 @@
-export function getApiEndpoint(url: string): string | null | undefined {
+function getApiEndpoint(url: string): null | string | undefined {
 	const regex = /\/api\/v\d+(\/.+)/;
 	const match = url.match(regex);
 
-	return match ? match[1] : null;
+	const [, capturedValue] = match ?? [];
+
+	return capturedValue ?? null;
 }
+
+export { getApiEndpoint };

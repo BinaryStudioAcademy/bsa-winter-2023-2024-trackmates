@@ -1,18 +1,21 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
-import type { AuthPluginOptions } from "./libs/types/types.js";
-import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
+
 import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
 import { userService } from "~/modules/users/users.js";
+
+import type { AuthPluginOptions } from "./libs/types/types.js";
+
+import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
 import { getApiEndpoint } from "./libs/helpers/helpers.js";
 
-const plugin = async (
+const plugin = (
 	fastify: FastifyInstance,
 	{ whiteRouteList }: AuthPluginOptions,
 ) => {
 	fastify.decorateRequest("user", null);
 
-	fastify.addHook("preHandler", async (request: FastifyRequest, reply) => {
+	fastify.addHook("preHandler", async (request: FastifyRequest) => {
 		const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
 		const apiEndpoint = getApiEndpoint(request.url);
@@ -30,7 +33,7 @@ const plugin = async (
 			});
 		}
 
-		const token = authHeader.split(" ")[1];
+		const [, token] = authHeader.split(" ");
 
 		if (!token) {
 			throw new HTTPError({
@@ -39,20 +42,21 @@ const plugin = async (
 			});
 		}
 
-		let id: string;
+		// let userId: number;
 
 		try {
 			// TODO: verify JWT token
-			id = "asldjflasf";
-		} catch (err) {
+			// ({ userId } = await verifyToken(token));
+			// userId = 143;
+		} catch {
 			throw new HTTPError({
 				message: AuthPluginErrorMessage.INVALID_JWT,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
 
-		// TODO: find user by id
 		const user = await userService.find();
+		// const user = await userService.getAuthenticatedUser(userId);
 
 		if (!user) {
 			throw new HTTPError({
@@ -61,11 +65,13 @@ const plugin = async (
 			});
 		}
 
-		// TODO: assign real user
-		request.user = null;
+		// TODO: Inject user
+		// request.user = user;
 	});
 };
 
-export const authorizationPlugin = fp(plugin, {
+const authorizationPlugin = fp(plugin, {
 	name: "authorization",
 });
+
+export { authorizationPlugin };
