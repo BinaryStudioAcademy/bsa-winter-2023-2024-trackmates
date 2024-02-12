@@ -44,9 +44,7 @@ const Auth: React.FC = () => {
 		return null;
 	};
 
-	return (
-		<main className={`${styles["container"]}`}>{getScreen(pathname)}</main>
-	);
+	return <main className={styles["container"]}>{getScreen(pathname)}</main>;
 };
 
 export { Auth };

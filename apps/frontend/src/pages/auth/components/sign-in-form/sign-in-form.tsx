@@ -1,5 +1,6 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignInRequestDto,
@@ -28,7 +29,12 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	return (
 		<div className={styles["main-container"]}>
-			<div className={`${styles["form-container"]} ${styles["sign-in-form"]}`}>
+			<div
+				className={getValidClassNames(
+					styles["form-container"],
+					styles["sign-in-form"],
+				)}
+			>
 				<h1 className={styles["logo-wrapper"]}>
 					<svg
 						fill="none"
@@ -70,9 +76,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						label="Password"
 						name="password"
 						type="password"
-					>
-						<span className={styles["sign-in-subtitle"]}>Forgot Password?</span>
-					</Input>
+					></Input>
 					<Button color="primary" label="Log in" type="submit" />
 				</form>
 			</div>

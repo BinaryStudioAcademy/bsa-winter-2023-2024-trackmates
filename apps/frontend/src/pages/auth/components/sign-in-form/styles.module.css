@@ -12,13 +12,13 @@
 		url("~/assets/img/svg/background-cloud-one.svg");
 	background-repeat: no-repeat;
 	background-position:
-		calc(50% - 600px) 442px,
-		calc(50% - 455px) 385px,
-		calc(50% - 325px) 466px,
-		calc(50% + 280px) 460px,
-		calc(50% + 485px) 404px,
-		calc(50% + 460px) 382px,
-		calc(50% + 750px) 484px;
+		calc(50% - 600px) 300px,
+		calc(50% - 455px) 248px,
+		calc(50% - 325px) 326px,
+		calc(50% + 280px) 320px,
+		calc(50% + 485px) 264px,
+		calc(50% + 460px) 245px,
+		calc(50% + 680px) 344px;
 }
 
 .form-container {
@@ -88,14 +88,6 @@
 
 .link:hover {
 	text-decoration: underline;
-}
-
-.sign-in-subtitle {
-	position: absolute;
-	top: 0;
-	right: 0;
-	font-size: 12px;
-	color: #7eaa9a;
 }
 
 .sign-in-form::before {
