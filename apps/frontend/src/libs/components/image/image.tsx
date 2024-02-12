@@ -1,9 +1,11 @@
+import clsx from "clsx";
+
 import styles from "./styles.module.css";
 
 type Properties = {
 	alt: string;
 	height?: string;
-	isCircular?: boolean;
+	shape?: "circle" | "default";
 	src: string;
 	width?: string;
 };
@@ -11,14 +13,14 @@ type Properties = {
 const Image: React.FC<Properties> = ({
 	alt,
 	height,
-	isCircular,
+	shape = "default",
 	src,
 	width,
 }: Properties) => {
 	return (
 		<img
 			alt={alt}
-			className={`${styles["image"]} ${isCircular && styles["circular"]}`}
+			className={clsx(styles["image"], styles[shape])}
 			height={height}
 			src={src}
 			width={width}

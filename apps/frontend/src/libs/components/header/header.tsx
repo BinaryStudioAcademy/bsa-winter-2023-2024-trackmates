@@ -24,7 +24,7 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
 					<Image
 						alt="user-avatar"
 						height="48"
-						isCircular
+						shape="circle"
 						src={user.image?.url ?? DEFAULT_USER_AVATAR}
 						width="48"
 					/>
