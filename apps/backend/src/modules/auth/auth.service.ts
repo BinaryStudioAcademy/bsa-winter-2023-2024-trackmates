@@ -20,8 +20,8 @@ class AuthService {
 		const token = await tokenModule.create({ userId: user.id });
 
 		return {
-			...user,
 			token,
+			user,
 		};
 	}
 }
