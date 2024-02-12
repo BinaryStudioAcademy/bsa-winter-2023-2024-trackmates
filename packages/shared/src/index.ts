@@ -27,11 +27,11 @@ export { AuthApiPath } from "./modules/auth/auth.js";
 export {
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
-	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
+	type UserSignUpRequestDto,
+	type UserSignUpResponseDto,
 	UsersApiPath,
-	userSignUpValidationSchema,
 	userSignInValidationSchema,
+	userSignUpValidationSchema,
 } from "./modules/users/users.js";

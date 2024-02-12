@@ -5,9 +5,14 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 
+import { formatClassNames } from "~/libs/helpers/helpers.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
 
+import styles from "./styles.module.css";
+
 type Properties<T extends FieldValues> = {
+	children?: React.ReactNode;
+	className?: string;
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
 	label: string;
@@ -17,6 +22,8 @@ type Properties<T extends FieldValues> = {
 };
 
 const Input = <T extends FieldValues>({
+	children,
+	className,
 	control,
 	errors,
 	label,
@@ -29,10 +36,19 @@ const Input = <T extends FieldValues>({
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
 
+	const formattedClassNames = className
+		? formatClassNames(className, styles)
+		: "";
 	return (
-		<label>
-			<span>{label}</span>
-			<input {...field} placeholder={placeholder} type={type} />
+		<label className={styles["input__container"]}>
+			<span className={styles["input__heading"]}>{label}</span>
+			{children}
+			<input
+				className={`${styles["input"]} ${formattedClassNames}`}
+				{...field}
+				placeholder={placeholder}
+				type={type}
+			/>
 			{hasError && <span>{error as string}</span>}
 		</label>
 	);

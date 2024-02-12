@@ -1,7 +1,6 @@
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
-	useAppSelector,
 	useCallback,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
@@ -12,14 +11,13 @@ import {
 } from "~/modules/users/users.js";
 
 import { SignInForm, SignUpForm } from "./components/components.js";
-import styles from "./style.module.css";
+import styles from "./styles.module.css";
 
 const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { dataStatus } = useAppSelector(({ auth }) => ({
-		dataStatus: auth.dataStatus,
-	}));
 	const { pathname } = useLocation();
+
+	let mainContainerClassName = "sign-in__container";
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
@@ -38,9 +36,11 @@ const Auth: React.FC = () => {
 	const getScreen = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.SIGN_IN: {
+				mainContainerClassName = "sign-in__container";
 				return <SignInForm onSubmit={handleSignInSubmit} />;
 			}
 			case AppRoute.SIGN_UP: {
+				mainContainerClassName = "sign-up__container";
 				return <SignUpForm onSubmit={handleSignUpSubmit} />;
 			}
 		}
@@ -49,10 +49,11 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<div className={styles["wrapper"]}>
-			state: {dataStatus}
+		<main
+			className={`${styles["sign__container"]} ${styles[mainContainerClassName]}`}
+		>
 			{getScreen(pathname)}
-		</div>
+		</main>
 	);
 };
 

@@ -1,0 +1,92 @@
+.sign-form__container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 454px;
+	height: 685px;
+	background-color: #004a40b3;
+	backdrop-filter: blur(5px);
+	border-radius: 37px;
+}
+
+.sign__logo-wrapper {
+	position: absolute;
+	top: -65px;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 30px 70px 43px 45px;
+	font-size: 43.71px;
+	font-weight: 700;
+	line-height: 52.89px;
+	color: var(--color-menu);
+	background-color: #ffffff;
+	border-radius: 37px;
+}
+
+.sign__logo-wrapper::after {
+	position: absolute;
+	right: 65px;
+	bottom: -30px;
+	content: url("~/assets/img/svg/tail.svg");
+}
+
+.sign__logo-img {
+	width: 61px;
+	height: 61px;
+}
+
+.sign-form {
+	display: flex;
+	flex-direction: column;
+	gap: 27px;
+	width: 100%;
+	max-width: 253px;
+	margin-bottom: 30px;
+	color: #ffffff;
+}
+
+.sign-form__title {
+	margin: 0 0 5px;
+	font-size: var(--font-size-600);
+	font-weight: 600;
+	line-height: 48px;
+}
+
+.sign-form__subtitle {
+	font-size: var(--font-size-200);
+	font-weight: 400;
+	line-height: 20px;
+}
+
+.sign-form__link {
+	color: var(--color-button);
+	text-decoration: none;
+	transition: 0.1s color ease;
+}
+
+.sign-form__link:hover {
+	text-decoration: underline;
+}
+
+.sign-in__subtitle {
+	position: absolute;
+	top: 0;
+	right: 0;
+	font-size: 12px;
+	color: #7eaa9a;
+}
+
+.sign-in-form::before {
+	position: absolute;
+	bottom: -20px;
+	left: -185px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	background-image: url("~/assets/img/sign-in-img.png");
+	background-size: cover;
+}

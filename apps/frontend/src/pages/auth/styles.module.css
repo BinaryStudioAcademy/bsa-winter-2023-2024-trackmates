@@ -1,0 +1,27 @@
+.sign__container {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+	padding-top: 178px;
+	font-family: Roboto, sans-serif;
+	background-color: var(--color-menu);
+}
+
+.sign-in__container {
+	background-image: url("~/assets/img/svg/background-cloud-one.svg"),
+		url("~/assets/img/svg/background-cloud-two.svg"),
+		url("~/assets/img/svg/background-cloud-three.svg"),
+		url("~/assets/img/svg/background-cloud-four.svg"),
+		url("~/assets/img/svg/background-cloud-five.svg"),
+		url("~/assets/img/svg/background-sun.svg"),
+		url("~/assets/img/svg/background-cloud-one.svg");
+	background-repeat: no-repeat;
+	background-position:
+		calc(50% - 600px) 442px,
+		calc(50% - 455px) 385px,
+		calc(50% - 325px) 466px,
+		calc(50% + 280px) 460px,
+		calc(50% + 485px) 404px,
+		calc(50% + 460px) 382px,
+		calc(50% + 750px) 484px;
+}

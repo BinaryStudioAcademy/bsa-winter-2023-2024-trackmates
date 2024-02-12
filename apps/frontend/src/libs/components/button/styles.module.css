@@ -1,0 +1,24 @@
+.button {
+	display: block;
+	width: 100%;
+	min-height: 54px;
+	padding: 8px 24px;
+	font-size: var(--font-size-300);
+	text-align: center;
+	text-decoration: none;
+	cursor: pointer;
+	border: none;
+	border-radius: 52px;
+	transition: background-color 0.2s ease;
+}
+
+.primary-button {
+	color: #ffffff;
+	background-color: var(--color-button);
+}
+
+.primary-button:hover {
+	color: var(--color-button);
+	background-color: transparent;
+	border: 1px solid var(--color-button);
+}
