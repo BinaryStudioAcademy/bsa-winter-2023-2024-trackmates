@@ -1,7 +1,6 @@
-import { NavLink } from "react-router-dom";
-
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
 
+import { Button } from "../components.js";
 import { Image } from "../image/image.js";
 import styles from "./styles.module.css";
 
@@ -31,7 +30,12 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
 					/>
 				</div>
 			) : (
-				<NavLink to={AppRoute.SIGN_IN}>Sign in</NavLink>
+				<Button
+					color="primary"
+					href={AppRoute.SIGN_IN}
+					isSmall
+					label="Sign in"
+				/>
 			)}
 		</header>
 	);
