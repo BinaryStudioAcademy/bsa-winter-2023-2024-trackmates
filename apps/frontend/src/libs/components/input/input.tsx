@@ -46,8 +46,8 @@ const Input = <T extends FieldValues>({
 	);
 
 	return (
-		<label className={styles["input__container"]}>
-			<span className={styles["input__heading"]}>{label}</span>
+		<label className={styles["container"]}>
+			<span className={styles["heading"]}>{label}</span>
 			{children}
 			<input
 				className={inputClasses}

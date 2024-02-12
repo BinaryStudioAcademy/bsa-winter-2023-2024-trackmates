@@ -27,11 +27,9 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	);
 
 	return (
-		<div className={styles["sign-in__container"]}>
-			<div
-				className={`${styles["sign-form__container"]} ${styles["sign-in-form"]}`}
-			>
-				<h1 className={styles["sign__logo-wrapper"]}>
+		<div className={styles["main-container"]}>
+			<div className={`${styles["form-container"]} ${styles["sign-in-form"]}`}>
+				<h1 className={styles["logo-wrapper"]}>
 					<svg
 						fill="none"
 						height="62"
@@ -47,12 +45,12 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					</svg>
 					TrackMates
 				</h1>
-				<form className={styles["sign-form"]} onSubmit={handleFormSubmit}>
+				<form className={styles["form"]} onSubmit={handleFormSubmit}>
 					<div>
-						<h2 className={styles["sign-form__title"]}>Log In</h2>
-						<p className={styles["sign-form__subtitle"]}>
+						<h2 className={styles["title"]}>Log In</h2>
+						<p className={styles["subtitle"]}>
 							No account? Go to{" "}
-							<Link className={styles["sign-form__link"]} to={AppRoute.SIGN_UP}>
+							<Link className={styles["link"]} to={AppRoute.SIGN_UP}>
 								Create an account
 							</Link>
 						</p>
@@ -73,9 +71,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						name="password"
 						type="password"
 					>
-						<span className={styles["sign-in__subtitle"]}>
-							Forgot Password?
-						</span>
+						<span className={styles["sign-in-subtitle"]}>Forgot Password?</span>
 					</Input>
 					<Button color="primary" label="Log in" type="submit" />
 				</form>

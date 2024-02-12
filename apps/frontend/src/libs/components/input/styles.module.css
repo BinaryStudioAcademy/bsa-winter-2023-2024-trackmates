@@ -1,11 +1,11 @@
-.input__container {
+.container {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	font-size: var(--font-size-200);
 }
 
-.input__heading {
+.heading {
 	margin-bottom: 5px;
 	font-weight: 500;
 	line-height: 16px;

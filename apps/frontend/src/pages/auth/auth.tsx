@@ -45,9 +45,7 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<main className={`${styles["sign__container"]}`}>
-			{getScreen(pathname)}
-		</main>
+		<main className={`${styles["container"]}`}>{getScreen(pathname)}</main>
 	);
 };
 

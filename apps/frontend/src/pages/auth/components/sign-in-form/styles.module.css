@@ -1,4 +1,4 @@
-.sign-in__container {
+.main-container {
 	display: flex;
 	justify-content: center;
 	width: 100%;
@@ -21,7 +21,7 @@
 		calc(50% + 750px) 484px;
 }
 
-.sign-form__container {
+.form-container {
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -33,7 +33,7 @@
 	border-radius: 37px;
 }
 
-.sign__logo-wrapper {
+.logo-wrapper {
 	position: absolute;
 	top: -65px;
 	left: 0;
@@ -50,19 +50,14 @@
 	border-radius: 37px;
 }
 
-.sign__logo-wrapper::after {
+.logo-wrapper::after {
 	position: absolute;
 	right: 65px;
 	bottom: -30px;
 	content: url("~/assets/img/svg/tail.svg");
 }
 
-.sign__logo-img {
-	width: 61px;
-	height: 61px;
-}
-
-.sign-form {
+.form {
 	display: flex;
 	flex-direction: column;
 	gap: 27px;
@@ -72,30 +67,30 @@
 	color: #ffffff;
 }
 
-.sign-form__title {
+.title {
 	margin: 0 0 5px;
 	font-size: var(--font-size-600);
 	font-weight: 600;
 	line-height: 48px;
 }
 
-.sign-form__subtitle {
+.subtitle {
 	font-size: var(--font-size-200);
 	font-weight: 400;
 	line-height: 20px;
 }
 
-.sign-form__link {
+.link {
 	color: var(--color-button);
 	text-decoration: none;
 	transition: 0.1s color ease;
 }
 
-.sign-form__link:hover {
+.link:hover {
 	text-decoration: underline;
 }
 
-.sign-in__subtitle {
+.sign-in-subtitle {
 	position: absolute;
 	top: 0;
 	right: 0;
