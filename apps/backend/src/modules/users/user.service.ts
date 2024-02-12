@@ -4,7 +4,6 @@ import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import {
 	type UserGetAllResponseDto,
-	type UserGetAuthenticatedResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
@@ -21,9 +20,11 @@ class UserService implements Service {
 	): Promise<UserSignUpResponseDto> {
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
+				createdAt: "",
 				email: payload.email,
 				passwordHash: "HASH", // TODO
 				passwordSalt: "SALT", // TODO
+				updatedAt: "",
 			}),
 		);
 
@@ -48,10 +49,10 @@ class UserService implements Service {
 
 	public async getAuthenticatedUser(
 		id: number,
-	): Promise<UserGetAuthenticatedResponseDto | null> {
+	): Promise<UserSignUpResponseDto | null> {
 		const user = await this.userRepository.findById(id);
 
-		return user ?? null;
+		return user?.toObject() ?? null;
 	}
 
 	public update(): ReturnType<Service["update"]> {

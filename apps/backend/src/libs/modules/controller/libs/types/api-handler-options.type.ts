@@ -1,4 +1,4 @@
-import { UserGetAuthenticatedResponseDto } from "~/modules/users/users.js";
+import { UserSignUpResponseDto } from "~/modules/users/users.js";
 
 type DefaultApiHandlerOptions = {
 	body?: unknown;
@@ -12,7 +12,7 @@ type APIHandlerOptions<
 	body: T["body"];
 	params: T["params"];
 	query: T["query"];
-	user: UserGetAuthenticatedResponseDto | null;
+	user: UserSignUpResponseDto | null;
 };
 
 export { type APIHandlerOptions };
