@@ -55,8 +55,8 @@ class UserService implements Service {
 		return await this.userRepository.getByEmail(email);
 	}
 
-	public update(): Promise<UserEntity> {
-		throw new Error("Method not implemented.");
+	public update(): Promise<UserEntity | null> {
+		return Promise.resolve(null);
 	}
 }
 
