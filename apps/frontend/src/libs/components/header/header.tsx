@@ -12,10 +12,12 @@ type Properties = {
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
+	const hasUser = Boolean(user);
+
 	return (
 		<header className={styles["header"]}>
 			<div className={styles["search"]}>Search input</div>
-			{user ? (
+			{hasUser ? (
 				<div className={styles["toolbar"]}>
 					<Image
 						alt="user-avatar"
