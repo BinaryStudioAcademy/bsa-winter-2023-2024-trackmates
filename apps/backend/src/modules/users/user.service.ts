@@ -5,7 +5,7 @@ import { type UserRepository } from "~/modules/users/user.repository.js";
 import {
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
+	type UserSignUpResponseWithoutTokenDto,
 } from "./libs/types/types.js";
 
 class UserService implements Service {
@@ -17,7 +17,7 @@ class UserService implements Service {
 
 	public async create(
 		payload: UserSignUpRequestDto,
-	): Promise<UserSignUpResponseDto> {
+	): Promise<UserSignUpResponseWithoutTokenDto> {
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
@@ -26,7 +26,9 @@ class UserService implements Service {
 			}),
 		);
 
-		return item.toObject();
+		const user = item.toObject();
+
+		return { user };
 	}
 
 	public delete(): ReturnType<Service["delete"]> {

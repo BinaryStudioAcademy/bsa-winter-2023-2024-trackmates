@@ -39,7 +39,12 @@ class AuthService {
 	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
-		return await this.userService.create(userRequestDto);
+		const { user } = await this.userService.create(userRequestDto);
+
+		return {
+			token: await this.token.create({ userId: user.id }),
+			user,
+		};
 	}
 }
 

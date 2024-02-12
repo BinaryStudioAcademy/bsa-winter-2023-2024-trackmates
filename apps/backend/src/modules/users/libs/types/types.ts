@@ -4,4 +4,5 @@ export {
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	type UserSignUpResponseWithoutTokenDto,
 } from "shared";
