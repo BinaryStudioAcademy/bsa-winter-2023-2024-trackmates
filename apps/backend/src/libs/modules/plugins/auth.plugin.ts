@@ -60,7 +60,7 @@ const plugin = (
 		if (!user) {
 			throw new HTTPError({
 				message: AuthPluginErrorMessage.NO_USER,
-				status: HTTPCode.NOT_FOUND,
+				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
 
