@@ -28,7 +28,7 @@ const userSignUp = z
 				message: UserValidationMessage.EMAIL_WRONG,
 			})
 			.regex(
-				/^(?=.{1,35}@)[\w!#$%&'*+/=?^`{|}~-]+(?:\.[\w!#$%&'*+/=?^`{|}~-]+)*@[\dA-Za-z-]+(?:\.[\dA-Za-z-]+)*$/,
+				/^[\w%+-](([\w%+-]|\.(?=.)){0,33}[\w%+-])?@[\w%+][\w%+-.]{1,33}[\w%+]$/,
 				{
 					message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 				},
