@@ -49,7 +49,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						<Input
 							control={control}
 							errors={errors}
-							isPrimary
 							label="First name"
 							name="firstName"
 							type="text"
@@ -57,7 +56,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						<Input
 							control={control}
 							errors={errors}
-							isPrimary
 							label="Last name"
 							name="lastName"
 							type="text"
@@ -65,7 +63,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						<Input
 							control={control}
 							errors={errors}
-							isPrimary
 							label="Email"
 							name="email"
 							type="text"
@@ -73,7 +70,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						<Input
 							control={control}
 							errors={errors}
-							isPrimary
 							label="Password"
 							name="password"
 							type="password"
@@ -81,12 +77,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						<Input
 							control={control}
 							errors={errors}
-							isPrimary
 							label="Confirm password"
 							name="confirmPassword"
 							type="password"
 						/>
-						<Button isPrimary label="Create an account" type="submit" />
+						<Button label="Create an account" type="submit" />
 					</form>
 				</div>
 			</main>

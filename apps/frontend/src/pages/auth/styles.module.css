@@ -1,0 +1,7 @@
+.container {
+	height: 100%;
+	padding-top: 178px;
+	padding-bottom: 160px;
+	font-family: Roboto, sans-serif;
+	background-color: var(--color-menu);
+}
