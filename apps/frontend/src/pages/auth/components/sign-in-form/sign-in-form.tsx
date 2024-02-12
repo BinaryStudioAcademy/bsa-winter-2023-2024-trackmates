@@ -1,3 +1,4 @@
+import logo from "~/assets/img/svg/sing-logo.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
@@ -36,19 +37,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				)}
 			>
 				<h1 className={styles["logo-wrapper"]}>
-					<svg
-						fill="none"
-						height="62"
-						viewBox="0 0 62 62"
-						width="62"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path
-							d="M61.9155 30.9577C61.9155 48.0552 48.0552 61.9155 30.9577 61.9155C13.8603 61.9155 0 48.0552 0 30.9577C0 13.8603 13.8603 0 30.9577 0C48.0552 0 61.9155 13.8603 61.9155 30.9577ZM12.3831 30.9577C12.3831 41.2162 20.6992 49.5324 30.9577 49.5324C41.2162 49.5324 49.5324 41.2162 49.5324 30.9577C49.5324 20.6992 41.2162 12.3831 30.9577 12.3831C20.6992 12.3831 12.3831 20.6992 12.3831 30.9577Z"
-							fill="#F76519"
-						/>
-						<circle cx="30.9578" cy="30.9578" fill="#F76519" r="10.9263" />
-					</svg>
+					<img alt="TrackMates logo" src={logo} />
 					TrackMates
 				</h1>
 				<form className={styles["form"]} onSubmit={handleFormSubmit}>
