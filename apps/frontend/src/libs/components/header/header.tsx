@@ -16,7 +16,6 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
 
 	return (
 		<header className={styles["header"]}>
-			<div className={styles["search"]}>Search input</div>
 			{hasUser ? (
 				<div className={styles["toolbar"]}>
 					<Image
