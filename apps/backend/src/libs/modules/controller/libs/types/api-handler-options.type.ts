@@ -1,4 +1,4 @@
-import { UserGetAuthenticatedResponseDto } from "shared/src/modules/users/users.js";
+import { UserGetAuthenticatedResponseDto } from "~/modules/users/users.js";
 
 type DefaultApiHandlerOptions = {
 	body?: unknown;
