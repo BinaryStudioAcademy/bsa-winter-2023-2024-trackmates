@@ -1,3 +1,7 @@
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+
 import logo from "~/assets/img/svg/logo.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
@@ -16,6 +20,12 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+	const [showPassword, setShowPassword] = useState(false);
+
+	const togglePasswordVisibility = useCallback(() => {
+		setShowPassword((previousState) => !previousState);
+	}, []);
+
 	const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
 		defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
 		validationSchema: userSignUpValidationSchema,
@@ -77,14 +87,23 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						name="email"
 						type="text"
 					/>
-					<Input
-						color="dark"
-						control={control}
-						errors={errors}
-						label="Password"
-						name="password"
-						type="password"
-					></Input>
+					<div className={styles["input-wrapper"]}>
+						<Input
+							color="dark"
+							control={control}
+							errors={errors}
+							label="Password"
+							name="password"
+							type={showPassword ? "text" : "password"}
+						/>
+						<button
+							aria-label={showPassword ? "Hide password" : "Show password"}
+							className={styles["password-toggle"]}
+							onClick={togglePasswordVisibility}
+						>
+							<FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+						</button>
+					</div>
 					<Input
 						color="dark"
 						control={control}
