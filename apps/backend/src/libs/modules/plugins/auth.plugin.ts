@@ -5,7 +5,10 @@ import fp from "fastify-plugin";
 import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
 import { userService } from "~/modules/users/users.js";
 
-import type { AuthPluginOptions } from "./libs/types/types.js";
+import type {
+	AuthPluginOptions,
+	FastifyDoneCallback,
+} from "./libs/types/types.js";
 
 import { token as jwtToken } from "../token/token.js";
 import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
@@ -14,6 +17,7 @@ import { getApiEndpoint } from "./libs/helpers/helpers.js";
 const plugin = (
 	fastify: FastifyInstance,
 	{ whiteRouteList }: AuthPluginOptions,
+	done: FastifyDoneCallback,
 ) => {
 	fastify.decorateRequest("user", null);
 
@@ -66,6 +70,8 @@ const plugin = (
 
 		request.user = user;
 	});
+
+	done();
 };
 
 const authorizationPlugin = fp(plugin, {

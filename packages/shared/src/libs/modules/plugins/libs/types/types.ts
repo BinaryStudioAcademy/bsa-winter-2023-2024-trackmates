@@ -1,1 +1,1 @@
-export { AuthPluginOptions } from "./options.type.js";
+export { type AuthPluginOptions } from "./options.type.js";
