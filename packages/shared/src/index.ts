@@ -3,6 +3,7 @@ export {
 	AppEnvironment,
 	ContentType,
 	ErrorMessage,
+	ExceptionMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { HTTPError, ValidationError } from "./libs/exceptions/exceptions.js";
