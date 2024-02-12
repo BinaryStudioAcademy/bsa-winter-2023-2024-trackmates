@@ -1,1 +1,1 @@
-export { AuthError } from "./auth-error.exception.js";
+export { AuthError } from "./auth-error/auth-error.exception.js";

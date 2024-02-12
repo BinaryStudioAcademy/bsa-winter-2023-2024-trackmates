@@ -1,3 +1,4 @@
+import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
@@ -16,8 +17,6 @@ type Constructor = {
 	token: Token;
 	userService: UserService;
 };
-
-import { ExceptionMessage, HTTPCode } from "./libs/enums/enums.js";
 
 class AuthService {
 	private encrypt: Encrypt;
@@ -68,7 +67,7 @@ class AuthService {
 		const { id } = user.toObject();
 
 		return {
-			token: this.token.create({ id }),
+			token: this.token.create({ userId: id }),
 			user: user.toObject(),
 		};
 	}
@@ -76,10 +75,8 @@ class AuthService {
 	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
-		const userWithSuchEmail = await this.userService.getByEmail(
-			userRequestDto.email,
-		);
-		const isUserWithSuchEmailExisting = Boolean(userWithSuchEmail);
+		const user = await this.userService.getByEmail(userRequestDto.email);
+		const isUserWithSuchEmailExisting = Boolean(user);
 		if (isUserWithSuchEmailExisting) {
 			throw new AuthError(
 				ExceptionMessage.EMAIL_ALREADY_EXISTS,
