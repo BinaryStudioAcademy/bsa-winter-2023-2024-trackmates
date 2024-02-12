@@ -4,6 +4,8 @@ import { createRoot } from "react-dom/client";
 import "~/assets/css/styles.css";
 import {
 	App,
+	Notification,
+	ProtectedRoute,
 	RouterProvider,
 	StoreProvider,
 } from "~/libs/components/components.js";
@@ -13,13 +15,14 @@ import { Auth } from "~/pages/auth/auth.jsx";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
+		<Notification />
 		<StoreProvider store={store.instance}>
 			<RouterProvider
 				routes={[
 					{
 						children: [
 							{
-								element: "Root",
+								element: <ProtectedRoute component="Root" />,
 								path: AppRoute.ROOT,
 							},
 							{
