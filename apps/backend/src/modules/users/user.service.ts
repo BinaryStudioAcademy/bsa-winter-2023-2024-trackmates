@@ -1,4 +1,5 @@
-import { type Service } from "~/libs/types/types.js";
+import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
@@ -9,33 +10,35 @@ import {
 } from "./libs/types/types.js";
 
 class UserService implements Service {
+	private encrypt: Encrypt;
 	private userRepository: UserRepository;
 
-	public constructor(userRepository: UserRepository) {
+	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
+		this.encrypt = encrypt;
 		this.userRepository = userRepository;
 	}
 
 	public async create(
 		payload: UserSignUpRequestDto,
 	): Promise<UserAuthResponseDto> {
+		const { hash, salt } = await this.encrypt.encrypt(payload.password);
+
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
-				createdAt: "",
 				email: payload.email,
-				passwordHash: "HASH", // TODO
-				passwordSalt: "SALT", // TODO
-				updatedAt: "",
+				passwordHash: hash,
+				passwordSalt: salt,
 			}),
 		);
 
 		return item.toObject();
 	}
 
-	public delete(): ReturnType<Service["delete"]> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<Service["find"]> {
+	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
@@ -55,7 +58,11 @@ class UserService implements Service {
 		return user?.toObject() ?? null;
 	}
 
-	public update(): ReturnType<Service["update"]> {
+	public async getByEmail(email: string): Promise<UserEntity | null> {
+		return await this.userRepository.getByEmail(email);
+	}
+
+	public update(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 }

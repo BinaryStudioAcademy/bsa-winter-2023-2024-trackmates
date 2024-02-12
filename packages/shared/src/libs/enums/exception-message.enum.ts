@@ -1,4 +1,5 @@
 const ExceptionMessage = {
+	INCORRECT_CREDENTIALS: "Incorrect credentials.",
 	INVALID_JWT: "JWT is invalid",
 	NO_AUTH_HEADER: "Authorization header is required",
 	NO_JWT: "JWT is required",

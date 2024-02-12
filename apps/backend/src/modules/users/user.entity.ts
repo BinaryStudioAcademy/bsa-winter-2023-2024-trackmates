@@ -11,9 +11,9 @@ class UserEntity implements Entity {
 
 	private passwordSalt: string;
 
-	private updatedAt: string;
+	public updatedAt: string;
 
-	constructor({
+	private constructor({
 		createdAt,
 		email,
 		id,
@@ -61,25 +61,21 @@ class UserEntity implements Entity {
 	}
 
 	public static initializeNew({
-		createdAt,
 		email,
 		passwordHash,
 		passwordSalt,
-		updatedAt,
 	}: {
-		createdAt: string;
 		email: string;
 		passwordHash: string;
 		passwordSalt: string;
-		updatedAt: string;
 	}): UserEntity {
 		return new UserEntity({
-			createdAt,
+			createdAt: "",
 			email,
 			id: null,
 			passwordHash,
 			passwordSalt,
-			updatedAt,
+			updatedAt: "",
 		});
 	}
 
