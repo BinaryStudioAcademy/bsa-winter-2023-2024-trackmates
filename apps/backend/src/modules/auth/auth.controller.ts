@@ -7,7 +7,9 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
-	type UserSignUpRequestDto,
+	UserSignInRequestDto,
+	UserSignUpRequestDto,
+	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "~/modules/users/users.js";
 
@@ -36,6 +38,73 @@ class AuthController extends BaseController {
 				body: userSignUpValidationSchema,
 			},
 		});
+
+		this.addRoute({
+			handler: (options) =>
+				this.signIn(
+					options as APIHandlerOptions<{
+						body: UserSignInRequestDto;
+					}>,
+				),
+			method: "POST",
+			path: AuthApiPath.SIGN_IN,
+			validation: {
+				body: userSignInValidationSchema,
+			},
+		});
+	}
+
+	/**
+	 * @swagger
+	 * /auth/sign-in:
+	 *    post:
+	 *      description: Sign in user into the system
+	 *      requestBody:
+	 *        description: User auth data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                email:
+	 *                  type: string
+	 *                  format: email
+	 *                password:
+	 *                  type: string
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
+	private async signIn(
+		options: APIHandlerOptions<{
+			body: UserSignInRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		try {
+			const user = await this.authService.signIn(options.body);
+			return {
+				payload: user,
+				status: HTTPCode.OK,
+			};
+		} catch (error) {
+			const isAuthError = error instanceof AuthError;
+			const status = isAuthError
+				? HTTPCode.BAD_REQUEST
+				: HTTPCode.INTERNAL_SERVER_ERROR;
+			return {
+				payload: error,
+				status,
+			};
+		}
 	}
 
 	/**

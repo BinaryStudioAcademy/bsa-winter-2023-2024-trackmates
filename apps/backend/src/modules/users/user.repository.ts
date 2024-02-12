@@ -1,4 +1,4 @@
-import { type Repository } from "~/libs/types/types.js";
+import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -40,11 +40,11 @@ class UserRepository implements Repository {
 		});
 	}
 
-	public delete(): ReturnType<Repository["delete"]> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<Repository["find"]> {
+	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
@@ -63,12 +63,24 @@ class UserRepository implements Repository {
 		);
 	}
 
-	public async getByEmail(email: string): Promise<UserModel | null> {
-		return (await this.userModel.query().findOne({ email }).execute()) ?? null;
+	public async getByEmail(email: string): Promise<UserEntity | null> {
+		const user = await this.userModel
+			.query()
+			.findOne({ email })
+			.withGraphJoined("userDetails")
+			.execute();
+		if (user) {
+			return UserEntity.initialize({
+				...user,
+				firstName: user.userDetails.firstName,
+				lastName: user.userDetails.lastName,
+			});
+		}
+		return null;
 	}
 
-	public update(): ReturnType<Repository["update"]> {
-		return Promise.resolve(null);
+	public update(): Promise<UserEntity> {
+		throw new Error("Method not implemented.");
 	}
 }
 

@@ -1,4 +1,5 @@
-import { type Service } from "~/libs/types/types.js";
+import { Encript } from "~/libs/modules/encript/encript.js";
+import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
@@ -7,36 +8,40 @@ import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
-import { UserModel } from "./user.model.js";
+import { UserWithPassword } from "./libs/types/types.js";
 
 class UserService implements Service {
+	private encript: Encript;
 	private userRepository: UserRepository;
 
-	public constructor(userRepository: UserRepository) {
+	public constructor(encript: Encript, userRepository: UserRepository) {
+		this.encript = encript;
 		this.userRepository = userRepository;
 	}
 
 	public async create(
 		payload: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
+		const { hash, salt } = await this.encript.encript(payload.password);
+
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
 				firstName: "",
 				lastName: "",
-				passwordHash: "HASH", // TODO
-				passwordSalt: "SALT", // TODO
+				passwordHash: hash,
+				passwordSalt: salt,
 			}),
 		);
 
 		return item.toObject();
 	}
 
-	public delete(): ReturnType<Service["delete"]> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<Service["find"]> {
+	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
@@ -48,8 +53,12 @@ class UserService implements Service {
 		};
 	}
 
-	public async getByEmail(email: string): Promise<UserModel | null> {
-		return await this.userRepository.getByEmail(email);
+	public async getByEmail(email: string): Promise<UserWithPassword | null> {
+		const user = await this.userRepository.getByEmail(email);
+		if (user) {
+			return user.toObject();
+		}
+		return null;
 	}
 
 	public update(): ReturnType<Service["update"]> {

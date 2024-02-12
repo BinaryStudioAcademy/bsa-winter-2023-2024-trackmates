@@ -29,8 +29,12 @@ export { AuthError } from "./modules/auth/auth.js";
 export {
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
+	type UserSignInRequestDto,
+	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	type UserWithPassword,
 	UsersApiPath,
+	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
