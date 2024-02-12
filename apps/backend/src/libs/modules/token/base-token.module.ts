@@ -1,29 +1,29 @@
-import { SignJWT, jwtVerify } from "jose";
+import { JWTVerifyResult, SignJWT, jwtVerify } from "jose";
 
-import { Token } from "./libs/types/types.js";
-import { TokenPayload } from "./libs/types/token-payload.type.js";
+import { type Config } from "~/libs/modules/config/config.js";
+
+import type { Token, TokenPayload } from "./libs/types/types.js";
 
 class BaseToken implements Token {
-	public async createToken(
-		payload: TokenPayload,
-		expiration: Date,
-	): Promise<string> {
-		// TODO: fix secret
-		const secret = new TextEncoder().encode("");
-		const alg = "HS256";
+	private algorithm: string;
+	private expiresIn: string;
+	private secret: Uint8Array;
 
-		return await new SignJWT(payload)
-			.setProtectedHeader({ alg })
-			.setExpirationTime(expiration)
-			.sign(secret);
+	public constructor(config: Config) {
+		this.algorithm = config.ENV.JWT.ALGORITHM;
+		this.expiresIn = config.ENV.JWT.EXPIRES_IN;
+		this.secret = new TextEncoder().encode(config.ENV.JWT.SECRET);
 	}
 
-	public async verifyToken(token: string): Promise<TokenPayload> {
-		// TODO: fix secret
-		const secret = new TextEncoder().encode("");
-		const { payload } = await jwtVerify(token, secret);
+	public async create(payload: TokenPayload): Promise<string> {
+		return await new SignJWT(payload)
+			.setProtectedHeader({ alg: this.algorithm })
+			.setExpirationTime(this.expiresIn)
+			.sign(this.secret);
+	}
 
-		return payload as TokenPayload;
+	public async verify(token: string): Promise<JWTVerifyResult<TokenPayload>> {
+		return await jwtVerify<TokenPayload>(token, this.secret);
 	}
 }
 

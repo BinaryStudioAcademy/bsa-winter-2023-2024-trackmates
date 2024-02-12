@@ -1,7 +1,5 @@
-import { JWTPayload } from "jose";
-
-interface TokenPayload extends JWTPayload {
+type TokenPayload = {
 	userId: number;
-}
+};
 
 export { type TokenPayload };

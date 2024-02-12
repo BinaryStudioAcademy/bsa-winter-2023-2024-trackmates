@@ -76,6 +76,16 @@ class BaseConfig implements Config {
 					format: Number,
 				},
 			},
+			JWT: {
+				ALGORITHM: "HS256",
+				EXPIRES_IN: "24h",
+				SECRET: {
+					default: null,
+					doc: "Secret key for token generation",
+					env: "SECRET_KEY",
+					format: String,
+				},
+			},
 		});
 	}
 }

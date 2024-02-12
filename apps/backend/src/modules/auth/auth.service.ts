@@ -1,5 +1,4 @@
 import { token as tokenModule } from "~/libs/modules/token/token.js";
-
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -18,12 +17,7 @@ class AuthService {
 	): Promise<UserSignUpResponseDto> {
 		const user = await this.userService.create(userRequestDto);
 
-		// TODO: rewrite setting expiration
-		const date = new Date();
-		const days = 1;
-		date.setDate(date.getDate() + days);
-
-		const token = await tokenModule.createToken({ userId: user.id }, date);
+		const token = await tokenModule.create({ userId: user.id });
 
 		return {
 			...user,
