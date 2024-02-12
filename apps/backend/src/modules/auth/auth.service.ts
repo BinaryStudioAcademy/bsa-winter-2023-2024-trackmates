@@ -1,10 +1,10 @@
+import { tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
+
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "~/modules/users/libs/types/types.js";
 import { type UserService } from "~/modules/users/user.service.js";
-
-import { createToken } from "./helpers/token/token.js";
 
 class AuthService {
 	private userService: UserService;
@@ -23,7 +23,7 @@ class AuthService {
 		const days = 1;
 		date.setDate(date.getDate() + days);
 
-		const token = await createToken({ userId: user.id }, date);
+		const token = await tokenizer.createToken({ userId: user.id }, date);
 
 		return {
 			...user,
