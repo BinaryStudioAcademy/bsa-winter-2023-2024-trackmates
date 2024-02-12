@@ -2,7 +2,7 @@ import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
-import { UserInfoResponse } from "./libs/types/types.js";
+import { UserGetAuthenticatedResponseDto } from "./libs/types/types.js";
 
 class UserRepository implements Repository {
 	private userModel: typeof UserModel;
@@ -40,7 +40,9 @@ class UserRepository implements Repository {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public async findById(id: number): Promise<UserInfoResponse | null> {
+	public async findById(
+		id: number,
+	): Promise<UserGetAuthenticatedResponseDto | null> {
 		const user = await this.userModel
 			.query()
 			.findById(id)

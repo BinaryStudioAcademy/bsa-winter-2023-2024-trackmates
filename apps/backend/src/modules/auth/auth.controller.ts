@@ -41,7 +41,7 @@ class AuthController extends BaseController {
 					options as APIHandlerOptions<Record<string, unknown>>,
 				),
 			method: "GET",
-			path: AuthApiPath.USER,
+			path: AuthApiPath.AUTHENTICATED_USER,
 		});
 	}
 

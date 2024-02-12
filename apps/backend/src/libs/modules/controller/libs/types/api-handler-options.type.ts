@@ -1,4 +1,4 @@
-import { UserInfoResponse } from "shared/src/modules/users/users.js";
+import { UserGetAuthenticatedResponseDto } from "shared/src/modules/users/users.js";
 
 type DefaultApiHandlerOptions = {
 	body?: unknown;
@@ -12,7 +12,7 @@ type APIHandlerOptions<
 	body: T["body"];
 	params: T["params"];
 	query: T["query"];
-	user: UserInfoResponse | null;
+	user: UserGetAuthenticatedResponseDto | null;
 };
 
 export { type APIHandlerOptions };

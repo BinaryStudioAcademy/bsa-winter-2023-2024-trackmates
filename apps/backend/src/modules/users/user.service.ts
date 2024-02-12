@@ -4,7 +4,7 @@ import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import {
 	type UserGetAllResponseDto,
-	type UserInfoResponse,
+	type UserGetAuthenticatedResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
@@ -48,7 +48,7 @@ class UserService implements Service {
 
 	public async getAuthenticatedUser(
 		id: number,
-	): Promise<UserInfoResponse | null> {
+	): Promise<UserGetAuthenticatedResponseDto | null> {
 		const user = await this.userRepository.findById(id);
 
 		return user ?? null;
