@@ -80,7 +80,7 @@ class AuthController extends BaseController {
 		const user = options.user;
 
 		return {
-			payload: user || null,
+			payload: user ?? null,
 			status: HTTPCode.OK,
 		};
 	}
