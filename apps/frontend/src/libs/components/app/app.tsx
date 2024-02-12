@@ -7,7 +7,6 @@ import {
 	useEffect,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
-import { StorageKey, storage } from "~/libs/modules/storage/storage.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
 
@@ -22,16 +21,12 @@ const App: React.FC = () => {
 
 	const isRoot = pathname === AppRoute.ROOT;
 
-	const hasToken = Boolean(storage.get(StorageKey.TOKEN));
-
 	useEffect(() => {
 		if (isRoot) {
 			void dispatch(userActions.loadAll());
 		}
-		if (hasToken) {
-			void dispatch(authActions.getAuthenticatedUser());
-		}
-	}, [isRoot, hasToken, dispatch]);
+		void dispatch(authActions.getAuthenticatedUser());
+	}, [isRoot, dispatch]);
 
 	return (
 		<>

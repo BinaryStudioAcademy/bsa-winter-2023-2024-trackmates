@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
@@ -24,9 +25,11 @@ const getAuthenticatedUser = createAsyncThunk<
 	undefined,
 	AsyncThunkConfig
 >(`${sliceName}/get-authenticated-user`, (_payload, { extra }) => {
-	const { authApi } = extra;
+	const { authApi, storage } = extra;
 
-	return authApi.getAuthenticatedUser();
+	const hasToken = Boolean(storage.get(StorageKey.TOKEN));
+
+	return hasToken ? authApi.getAuthenticatedUser() : null;
 });
 
 export { getAuthenticatedUser, signUp };
