@@ -1,12 +1,10 @@
+import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
 import styles from "./styles.module.css";
-
-const DEFAULT_USER_AVATAR =
-	"https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png";
 
 type Properties = {
 	user: UserAuthResponseDto | null;
