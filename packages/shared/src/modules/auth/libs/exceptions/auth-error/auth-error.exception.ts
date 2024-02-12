@@ -1,4 +1,5 @@
-import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
+import { HTTPError } from "../../../../../libs/exceptions/exceptions.js";
+import { HTTPCode } from "../../../../../libs/modules/http/http.js";
 
 class AuthError extends HTTPError {
 	public constructor(message: string) {
