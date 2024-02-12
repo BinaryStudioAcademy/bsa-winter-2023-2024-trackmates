@@ -23,7 +23,7 @@
 	border-radius: 26px;
 }
 
-.fullfilled.primary {
+.fulfilled.primary {
 	color: #ffffff;
 	background-color: var(--color-button);
 }

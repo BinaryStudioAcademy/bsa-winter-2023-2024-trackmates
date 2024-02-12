@@ -10,7 +10,7 @@ type Properties = {
 	href?: ValueOf<typeof AppRoute>;
 	label: string;
 	size?: "regular" | "small";
-	style?: "fullfilled" | "outlined";
+	style?: "fulfilled" | "outlined";
 	type?: "button" | "submit";
 };
 
@@ -19,7 +19,7 @@ const Button: React.FC<Properties> = ({
 	href,
 	label,
 	size = "regular",
-	style = "fullfilled",
+	style = "fulfilled",
 	type = "button",
 }: Properties) => {
 	const buttonStyles = getValidClassNames(
