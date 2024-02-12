@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { NotificationType } from "./libs/enums/enums.js";
-import { type NotificationService } from "./libs/types/types.js";
 
 type Options = {
 	type: ValueOf<typeof NotificationType>;
@@ -11,7 +10,7 @@ type Options = {
 
 const DEFAULT_MESSAGE = "Unexpected error";
 
-class Notification implements NotificationService {
+class Notification {
 	private show(message: string, options: Options): void {
 		toast(message, options);
 	}
