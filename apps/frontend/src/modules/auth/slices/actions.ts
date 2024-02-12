@@ -29,7 +29,11 @@ const getAuthenticatedUser = createAsyncThunk<
 
 	const hasToken = Boolean(storage.get(StorageKey.TOKEN));
 
-	return hasToken ? authApi.getAuthenticatedUser() : null;
+	if (!hasToken) {
+		return null;
+	}
+
+	return authApi.getAuthenticatedUser();
 });
 
 export { getAuthenticatedUser, signUp };
