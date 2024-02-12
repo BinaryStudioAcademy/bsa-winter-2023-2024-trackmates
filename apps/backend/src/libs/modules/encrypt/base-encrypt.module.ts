@@ -1,10 +1,10 @@
 import { hash as genHash, genSalt } from "bcrypt";
 
-import { Encript } from "./libs/types/types.js";
+import { Encrypt } from "./libs/types/types.js";
 
 const SALT_ROUNDS = 10;
 
-class BaseEncript implements Encript {
+class BaseEncrypt implements Encrypt {
 	public async compare(
 		data: string,
 		hash: string,
@@ -15,7 +15,7 @@ class BaseEncript implements Encript {
 		return dataHash === hash;
 	}
 
-	public async encript(data: string): ReturnType<Encript["encript"]> {
+	public async encrypt(data: string): ReturnType<Encrypt["encrypt"]> {
 		const salt = await genSalt(SALT_ROUNDS);
 		const hash = await genHash(data, salt);
 
@@ -23,4 +23,4 @@ class BaseEncript implements Encript {
 	}
 }
 
-export { BaseEncript };
+export { BaseEncrypt };

@@ -1,5 +1,5 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { Encript } from "~/libs/modules/encript/encript.js";
+import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
 import {
 	type UserSignUpRequestDto,
@@ -15,18 +15,18 @@ import {
 import { AuthError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
-	encript: Encript;
+	encrypt: Encrypt;
 	tokenizer: Tokenizer;
 	userService: UserService;
 };
 
 class AuthService {
-	private encript: Encript;
+	private encrypt: Encrypt;
 	private tokenizer: Tokenizer;
 	private userService: UserService;
 
-	public constructor({ encript, tokenizer, userService }: Constructor) {
-		this.encript = encript;
+	public constructor({ encrypt, tokenizer, userService }: Constructor) {
+		this.encrypt = encrypt;
 		this.tokenizer = tokenizer;
 		this.userService = userService;
 	}
@@ -41,7 +41,7 @@ class AuthService {
 			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);
 		}
 
-		const isEqualPassword = await this.encript.compare(
+		const isEqualPassword = await this.encrypt.compare(
 			password,
 			user.passwordHash,
 			user.passwordSalt,
