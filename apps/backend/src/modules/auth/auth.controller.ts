@@ -35,6 +35,14 @@ class AuthController extends BaseController {
 				body: userSignUpValidationSchema,
 			},
 		});
+		this.addRoute({
+			handler: (options) =>
+				this.getAuthenticatedUser(
+					options as APIHandlerOptions<Record<string, unknown>>,
+				),
+			method: "GET",
+			path: AuthApiPath.AUTHENTICATED_USER,
+		});
 	}
 
 	/**
@@ -67,6 +75,16 @@ class AuthController extends BaseController {
 	 *                    type: object
 	 *                    $ref: "#/components/schemas/User"
 	 */
+
+	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
+		const user = options.user;
+
+		return {
+			payload: user || null,
+			status: HTTPCode.OK,
+		};
+	}
+
 	private async signUp(
 		options: APIHandlerOptions<{
 			body: UserSignUpRequestDto;

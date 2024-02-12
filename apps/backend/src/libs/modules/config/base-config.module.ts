@@ -76,6 +76,14 @@ class BaseConfig implements Config {
 					format: Number,
 				},
 			},
+			JWT: {
+				SECRET_KEY: {
+					default: null,
+					doc: "Secret key for token generation",
+					env: "SECRET_KEY",
+					format: String,
+				},
+			},
 		});
 	}
 }

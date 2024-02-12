@@ -4,6 +4,7 @@ import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import {
 	type UserGetAllResponseDto,
+	type UserGetAuthenticatedResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
@@ -43,6 +44,14 @@ class UserService implements Service {
 		return {
 			items: items.map((item) => item.toObject()),
 		};
+	}
+
+	public async getAuthenticatedUser(
+		id: number,
+	): Promise<UserGetAuthenticatedResponseDto | null> {
+		const user = await this.userRepository.findById(id);
+
+		return user ?? null;
 	}
 
 	public update(): ReturnType<Service["update"]> {
