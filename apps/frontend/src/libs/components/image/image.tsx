@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
 import styles from "./styles.module.css";
 
@@ -20,7 +20,7 @@ const Image: React.FC<Properties> = ({
 	return (
 		<img
 			alt={alt}
-			className={clsx(styles["image"], styles[shape])}
+			className={getValidClassNames(styles["image"], styles[shape])}
 			height={height}
 			src={src}
 			width={width}

@@ -1,6 +1,5 @@
-import clsx from "clsx";
-
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { Link } from "../link/link.js";
@@ -23,7 +22,7 @@ const Button: React.FC<Properties> = ({
 	style = "filled",
 	type = "button",
 }: Properties) => {
-	const buttonStyles = clsx(
+	const buttonStyles = getValidClassNames(
 		styles["button"],
 		styles[size],
 		styles[style],

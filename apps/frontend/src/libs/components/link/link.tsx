@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import { NavLink } from "react-router-dom";
 
 import { type AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
@@ -18,7 +18,7 @@ const Link: React.FC<Properties> = ({
 	to,
 }: Properties) => {
 	return (
-		<NavLink className={clsx(className, styles["link"])} to={to}>
+		<NavLink className={getValidClassNames(className, styles["link"])} to={to}>
 			{children}
 		</NavLink>
 	);
