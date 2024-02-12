@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyRequest } from "fastify";
 
 import fp from "fastify-plugin";
 
+import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
 import { userService } from "~/modules/users/users.js";
 
@@ -11,7 +12,7 @@ import type {
 } from "./libs/types/types.js";
 
 import { token as jwtToken } from "../token/token.js";
-import { AuthPluginErrorMessage, FastifyHook } from "./libs/enums/enums.js";
+import { FastifyHook } from "./libs/enums/enums.js";
 import { isWhiteRoute } from "./libs/helpers/helpers.js";
 
 const plugin = (
@@ -30,7 +31,7 @@ const plugin = (
 
 		if (!authHeader) {
 			throw new HTTPError({
-				message: AuthPluginErrorMessage.NO_AUTH_HEADER,
+				message: ExceptionMessage.NO_AUTH_HEADER,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
@@ -39,7 +40,7 @@ const plugin = (
 
 		if (!token) {
 			throw new HTTPError({
-				message: AuthPluginErrorMessage.NO_JWT,
+				message: ExceptionMessage.NO_JWT,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
@@ -50,7 +51,7 @@ const plugin = (
 			({ userId } = await jwtToken.verifyToken(token));
 		} catch {
 			throw new HTTPError({
-				message: AuthPluginErrorMessage.INVALID_JWT,
+				message: ExceptionMessage.INVALID_JWT,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
@@ -59,7 +60,7 @@ const plugin = (
 
 		if (!user) {
 			throw new HTTPError({
-				message: AuthPluginErrorMessage.NO_USER,
+				message: ExceptionMessage.NO_USER,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
