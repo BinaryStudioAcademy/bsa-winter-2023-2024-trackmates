@@ -48,7 +48,8 @@ const plugin = (
 		let userId: number;
 
 		try {
-			({ userId } = await jwtToken.verifyToken(token));
+			const { payload } = await jwtToken.verify(token);
+			userId = payload.userId;
 		} catch {
 			throw new HTTPError({
 				message: ExceptionMessage.INVALID_JWT,
