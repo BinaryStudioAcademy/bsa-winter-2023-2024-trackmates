@@ -1,1 +1,1 @@
-export { getApiEndpoint } from "./get-api-endpoint.helper.js";
+export { isWhiteRoute } from "./is-white-route.helper.js";

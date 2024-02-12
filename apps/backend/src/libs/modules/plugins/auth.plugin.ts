@@ -12,7 +12,7 @@ import type {
 
 import { token as jwtToken } from "../token/token.js";
 import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
-import { getApiEndpoint } from "./libs/helpers/helpers.js";
+import { isWhiteRoute } from "./libs/helpers/helpers.js";
 
 const plugin = (
 	fastify: FastifyInstance,
@@ -24,11 +24,7 @@ const plugin = (
 	fastify.addHook("preHandler", async (request: FastifyRequest) => {
 		const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
-		const apiEndpoint = getApiEndpoint(request.url);
-
-		const isWhiteRoute = whiteRouteList.includes(apiEndpoint ?? "");
-
-		if (isWhiteRoute) {
+		if (isWhiteRoute(request, whiteRouteList)) {
 			return;
 		}
 
