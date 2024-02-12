@@ -4,6 +4,8 @@ import {
 } from "~/modules/users/libs/types/types.js";
 import { type UserService } from "~/modules/users/user.service.js";
 
+import { createToken } from "./helpers/token/token.js";
+
 class AuthService {
 	private userService: UserService;
 
@@ -11,10 +13,22 @@ class AuthService {
 		this.userService = userService;
 	}
 
-	public signUp(
+	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
-		return this.userService.create(userRequestDto);
+		const user = await this.userService.create(userRequestDto);
+
+		// TODO: rewrite setting expiration
+		const date = new Date();
+		const days = 1;
+		date.setDate(date.getDate() + days);
+
+		const token = await createToken({ userId: user.id }, date);
+
+		return {
+			...user,
+			token,
+		};
 	}
 }
 
