@@ -4,7 +4,7 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { concatClasses } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import classes from "./styles.module.css";
+import styles from "./styles.module.css";
 
 type Properties = {
 	color?: "primary";
@@ -24,10 +24,10 @@ const Button: React.FC<Properties> = ({
 	type = "button",
 }: Properties) => {
 	const buttonStyles = concatClasses(
-		classes["button"],
-		classes[size],
-		classes[style],
-		classes[color],
+		styles["button"],
+		styles[size],
+		styles[style],
+		styles[color],
 	);
 
 	return (
