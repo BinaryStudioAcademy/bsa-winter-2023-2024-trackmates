@@ -11,7 +11,7 @@ import type {
 } from "./libs/types/types.js";
 
 import { token as jwtToken } from "../token/token.js";
-import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
+import { AuthPluginErrorMessage, FastifyHook } from "./libs/enums/enums.js";
 import { isWhiteRoute } from "./libs/helpers/helpers.js";
 
 const plugin = (
@@ -21,7 +21,7 @@ const plugin = (
 ) => {
 	fastify.decorateRequest("user", null);
 
-	fastify.addHook("preHandler", async (request: FastifyRequest) => {
+	fastify.addHook(FastifyHook.ON_REQUEST, async (request: FastifyRequest) => {
 		const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
 		if (isWhiteRoute(request, whiteRouteList)) {
