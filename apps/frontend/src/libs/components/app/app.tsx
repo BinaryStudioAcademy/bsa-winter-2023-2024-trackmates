@@ -13,9 +13,8 @@ import { actions as userActions } from "~/modules/users/users.js";
 const App: React.FC = () => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
-	const { dataStatus, users } = useAppSelector(({ auth, users }) => ({
+	const { dataStatus, users } = useAppSelector(({ users }) => ({
 		dataStatus: users.dataStatus,
-		user: auth.user,
 		users: users.users,
 	}));
 
