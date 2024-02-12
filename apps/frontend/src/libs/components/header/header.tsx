@@ -14,9 +14,9 @@ type Properties = {
 const Header: React.FC<Properties> = ({ user }: Properties) => {
 	return (
 		<header className={styles["header"]}>
-			<div className={styles["header__search"]}>Search input</div>
+			<div className={styles["search"]}>Search input</div>
 			{user ? (
-				<div className={styles["header__user"]}>
+				<div className={styles["toolbar"]}>
 					<Image
 						alt="user-avatar"
 						height="48"

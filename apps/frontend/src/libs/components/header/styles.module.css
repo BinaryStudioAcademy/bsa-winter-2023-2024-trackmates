@@ -10,11 +10,11 @@
 	border-bottom: 2px solid var(--color-background);
 }
 
-.header__search,
-.header__user {
+.search,
+.toolbar {
 	display: flex;
 }
 
-.header__user {
+.toolbar {
 	column-gap: 24px;
 }
