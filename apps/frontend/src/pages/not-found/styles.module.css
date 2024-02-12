@@ -29,7 +29,7 @@
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background-color: var(--modal-container-background);
+	background-color: var(--color-menu);
 }
 
 .not-found-page-content-container {
@@ -150,5 +150,6 @@
 }
 
 .actions {
+	width: 100%;
 	margin-top: 40px;
 }
