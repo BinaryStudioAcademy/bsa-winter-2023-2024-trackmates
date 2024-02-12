@@ -2,9 +2,7 @@ import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
-import { UserWithPassword } from "./libs/types/types.js";
-
-class UserRepository implements Repository {
+class UserRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
@@ -40,11 +38,10 @@ class UserRepository implements Repository {
 		return users.map((user) => UserEntity.initialize(user));
 	}
 
-	public async getByEmail(email: string): Promise<UserWithPassword | null> {
-		return await this.userModel
-			.query()
-			.findOne({ email })
-			.castTo<UserWithPassword | null>();
+	public async getByEmail(email: string): Promise<UserEntity | null> {
+		const user = await this.userModel.query().findOne({ email }).execute();
+
+		return user ? UserEntity.initialize(user) : null;
 	}
 
 	public update(): Promise<UserEntity | null> {

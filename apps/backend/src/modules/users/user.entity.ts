@@ -1,7 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
 
-import { UserWithPassword } from "./libs/types/types.js";
-
 class UserEntity implements Entity {
 	private email: string;
 
@@ -33,7 +31,12 @@ class UserEntity implements Entity {
 		id,
 		passwordHash,
 		passwordSalt,
-	}: UserWithPassword): UserEntity {
+	}: {
+		email: string;
+		id: number;
+		passwordHash: string;
+		passwordSalt: string;
+	}): UserEntity {
 		return new UserEntity({
 			email,
 			id,
@@ -46,7 +49,11 @@ class UserEntity implements Entity {
 		email,
 		passwordHash,
 		passwordSalt,
-	}: Omit<UserWithPassword, "id">): UserEntity {
+	}: {
+		email: string;
+		passwordHash: string;
+		passwordSalt: string;
+	}): UserEntity {
 		return new UserEntity({
 			email,
 			id: null,
@@ -55,7 +62,11 @@ class UserEntity implements Entity {
 		});
 	}
 
-	public toNewObject(): Omit<UserWithPassword, "id"> {
+	public toNewObject(): {
+		email: string;
+		passwordHash: string;
+		passwordSalt: string;
+	} {
 		return {
 			email: this.email,
 			passwordHash: this.passwordHash,

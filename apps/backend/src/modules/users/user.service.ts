@@ -8,7 +8,6 @@ import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
-import { UserWithPassword } from "./libs/types/types.js";
 
 class UserService implements Service {
 	private encrypt: Encrypt;
@@ -51,7 +50,7 @@ class UserService implements Service {
 		};
 	}
 
-	public async getByEmail(email: string): Promise<UserWithPassword | null> {
+	public async getByEmail(email: string): Promise<UserEntity | null> {
 		return await this.userRepository.getByEmail(email);
 	}
 

@@ -2,14 +2,12 @@ import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
-	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
-} from "~/modules/users/libs/types/types.js";
-import { type UserService } from "~/modules/users/user.service.js";
-import {
+	UserEntity,
+	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
-	type UserWithPassword,
+	type UserSignUpRequestDto,
+	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
 import { AuthError } from "./libs/exceptions/exceptions.js";
@@ -34,14 +32,14 @@ class AuthService {
 	private async verifyLoginCredentials({
 		email,
 		password,
-	}: UserSignInRequestDto): Promise<UserWithPassword> | never {
+	}: UserSignInRequestDto): Promise<UserEntity> | never {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {
 			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);
 		}
 
-		const { passwordHash, passwordSalt: salt } = user;
+		const { passwordHash, passwordSalt: salt } = user.toNewObject();
 		const isEqualPassword = await this.encrypt.compare({
 			password,
 			passwordHash,
@@ -60,11 +58,11 @@ class AuthService {
 	): Promise<UserSignInResponseDto> {
 		const user = await this.verifyLoginCredentials(userRequestDto);
 
-		const { email, id } = user;
+		const { id } = user.toObject();
 
 		return {
 			token: this.token.create({ id }),
-			user: { email, id },
+			user: user.toObject(),
 		};
 	}
 
