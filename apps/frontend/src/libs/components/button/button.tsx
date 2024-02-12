@@ -7,7 +7,7 @@ import { Link } from "../components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	color?: "primary"; //others are expected to be added in the future
+	color?: "primary"; //others are expected to be added in the futureg
 	href?: ValueOf<typeof AppRoute>;
 	label: string;
 	size?: "regular" | "small";
