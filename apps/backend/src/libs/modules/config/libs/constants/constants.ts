@@ -1,1 +1,1 @@
-export { WHITE_ROUTES } from "shared";
+export { WHITE_ROUTES } from "./white-routes.constant.js";
