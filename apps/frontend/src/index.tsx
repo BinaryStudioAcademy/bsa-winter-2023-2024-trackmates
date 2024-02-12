@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import "~/assets/css/styles.css";
 import {
 	App,
+	AuthWrapper,
 	ProtectedRoute,
 	RouterProvider,
 	StoreProvider,
@@ -11,8 +12,6 @@ import {
 import { AppRoute } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
-
-import { PageWrapper } from "./libs/components/page-wrapper/page-wrapper.js";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
@@ -35,9 +34,9 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							},
 						],
 						element: (
-							<PageWrapper>
+							<AuthWrapper>
 								<App />
-							</PageWrapper>
+							</AuthWrapper>
 						),
 						path: AppRoute.ROOT,
 					},

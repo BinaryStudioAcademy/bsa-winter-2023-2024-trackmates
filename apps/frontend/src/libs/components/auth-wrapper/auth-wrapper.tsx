@@ -4,7 +4,7 @@ type Properties = {
 	children: React.ReactNode;
 };
 
-const PageWrapper: React.FC<Properties> = ({ children }: Properties) => {
+const AuthWrapper: React.FC<Properties> = ({ children }: Properties) => {
 	return (
 		<>
 			<Header user={null} />
@@ -13,4 +13,4 @@ const PageWrapper: React.FC<Properties> = ({ children }: Properties) => {
 	);
 };
 
-export { PageWrapper };
+export { AuthWrapper };
