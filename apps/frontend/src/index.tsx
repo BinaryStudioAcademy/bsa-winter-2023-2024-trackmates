@@ -5,6 +5,7 @@ import "~/assets/css/styles.css";
 import {
 	App,
 	AuthWrapper,
+	Notification,
 	ProtectedRoute,
 	RouterProvider,
 	StoreProvider,
@@ -15,6 +16,7 @@ import { Auth } from "~/pages/auth/auth.jsx";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
+		<Notification />
 		<StoreProvider store={store.instance}>
 			<RouterProvider
 				routes={[
