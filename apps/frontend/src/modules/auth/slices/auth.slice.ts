@@ -2,13 +2,13 @@ import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { type UserInfoResponse } from "~/modules/auth/auth.js";
+import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import { getAuthenticatedUser, signUp } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	user: UserInfoResponse | null;
+	user: UserAuthResponseDto | null;
 };
 
 const initialState: State = {
