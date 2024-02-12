@@ -1,3 +1,5 @@
+import { type UserAuthResponseDto } from "shared";
+
 import { AppRoute } from "~/libs/enums/enums.js";
 
 import { Button } from "../button/button.js";
@@ -8,7 +10,7 @@ const DEFAULT_USER_AVATAR =
 	"https://forwardsummit.ca/wp-content/uploads/2019/01/avatar-default.png";
 
 type Properties = {
-	user: unknown;
+	user: UserAuthResponseDto | null;
 };
 
 const Header: React.FC<Properties> = ({ user }: Properties) => {
