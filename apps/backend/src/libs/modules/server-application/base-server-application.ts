@@ -5,9 +5,10 @@ import Fastify, { type FastifyError } from "fastify";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { APIPath, ServerErrorType } from "~/libs/enums/enums.js";
+import { ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
 import { type Config } from "~/libs/modules/config/config.js";
+import { WHITE_ROUTES } from "~/libs/modules/config/libs/constants/constants.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
@@ -17,7 +18,6 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
-import { AuthApiPath } from "~/modules/auth/libs/enums/enums.js";
 
 import {
 	type ServerApplication,
@@ -105,10 +105,7 @@ class BaseServerApplication implements ServerApplication {
 
 	private async initPlugins(): Promise<void> {
 		await this.app.register(authorizationPlugin, {
-			whiteRouteList: [
-				`${APIPath.AUTH}${AuthApiPath.SIGN_UP}`,
-				`${APIPath.AUTH}${AuthApiPath.SIGN_IN}`,
-			],
+			whiteRouteList: WHITE_ROUTES,
 		});
 	}
 
