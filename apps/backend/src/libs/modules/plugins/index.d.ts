@@ -1,6 +1,6 @@
-import { FastifyRequest as BaseFastifyRequest } from "fastify";
+import { type FastifyRequest as BaseFastifyRequest } from "fastify";
 
-import { UserSignUpResponseDto } from "~/modules/users/libs/types/types.js";
+import { type UserSignUpResponseDto } from "~/modules/users/users.js";
 
 declare module "fastify" {
 	interface FastifyRequest extends BaseFastifyRequest {

@@ -1,4 +1,4 @@
-import { UserSignUpResponseDto } from "~/modules/users/users.js";
+import { type UserSignUpResponseDto } from "~/modules/users/users.js";
 
 type DefaultApiHandlerOptions = {
 	body?: unknown;
