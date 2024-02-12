@@ -1,14 +1,12 @@
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
-	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
-} from "~/modules/users/libs/types/types.js";
-import { type UserService } from "~/modules/users/user.service.js";
-import {
+	UserEntity,
+	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
-	type UserWithPassword,
+	type UserSignUpRequestDto,
+	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
 import { AuthError } from "./libs/exceptions/exceptions.js";
@@ -19,7 +17,7 @@ type Constructor = {
 	userService: UserService;
 };
 
-import { ErrorMessage } from "./libs/enums/enums.js";
+import { ExceptionMessage, HTTPCode } from "./libs/enums/enums.js";
 
 class AuthService {
 	private encrypt: Encrypt;
@@ -35,14 +33,17 @@ class AuthService {
 	private async verifyLoginCredentials({
 		email,
 		password,
-	}: UserSignInRequestDto): Promise<UserWithPassword> | never {
+	}: UserSignInRequestDto): Promise<UserEntity> | never {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {
-			throw new AuthError(ErrorMessage.INCORRECT_EMAIL);
+			throw new AuthError(
+				ExceptionMessage.INCORRECT_EMAIL,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
-		const { passwordHash, passwordSalt: salt } = user;
+		const { passwordHash, passwordSalt: salt } = user.toNewObject();
 		const isEqualPassword = await this.encrypt.compare({
 			password,
 			passwordHash,
@@ -50,7 +51,10 @@ class AuthService {
 		});
 
 		if (!isEqualPassword) {
-			throw new AuthError(ErrorMessage.PASSWORDS_NOT_MATCH);
+			throw new AuthError(
+				ExceptionMessage.PASSWORDS_NOT_MATCH,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		return user;
@@ -61,11 +65,11 @@ class AuthService {
 	): Promise<UserSignInResponseDto> {
 		const user = await this.verifyLoginCredentials(userRequestDto);
 
-		const { email, id } = user;
+		const { id } = user.toObject();
 
 		return {
 			token: this.token.create({ id }),
-			user: { email, id },
+			user: user.toObject(),
 		};
 	}
 
@@ -77,7 +81,10 @@ class AuthService {
 		);
 		const isUserWithSuchEmailExisting = Boolean(userWithSuchEmail);
 		if (isUserWithSuchEmailExisting) {
-			throw new AuthError(ErrorMessage.EMAIL_ALREADY_EXISTS);
+			throw new AuthError(
+				ExceptionMessage.EMAIL_ALREADY_EXISTS,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 		return await this.userService.create(userRequestDto);
 	}

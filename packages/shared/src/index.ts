@@ -2,7 +2,6 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
-	ErrorMessage,
 	ExceptionMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
@@ -33,7 +32,6 @@ export {
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
-	type UserWithPassword,
 	UsersApiPath,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,

@@ -1,1 +1,1 @@
-export { AuthApiPath, ErrorMessage } from "shared";
+export { AuthApiPath, ExceptionMessage, HTTPCode } from "shared";

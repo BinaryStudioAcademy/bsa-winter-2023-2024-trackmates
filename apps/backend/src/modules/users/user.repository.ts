@@ -4,7 +4,7 @@ import { type UserModel } from "~/modules/users/user.model.js";
 
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
-class UserRepository implements Repository {
+class UserRepository implements Repository<UserEntity> {
 	private userDetailsModel: typeof UserDetailsModel;
 	private userModel: typeof UserModel;
 	public constructor(

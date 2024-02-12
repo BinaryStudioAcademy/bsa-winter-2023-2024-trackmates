@@ -15,7 +15,6 @@ import {
 
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
-import { AuthError } from "./libs/exceptions/exceptions.js";
 
 class AuthController extends BaseController {
 	private authService: AuthService;
@@ -89,22 +88,10 @@ class AuthController extends BaseController {
 			body: UserSignInRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		try {
-			const user = await this.authService.signIn(options.body);
-			return {
-				payload: user,
-				status: HTTPCode.OK,
-			};
-		} catch (error) {
-			const isAuthError = error instanceof AuthError;
-			const status = isAuthError
-				? HTTPCode.BAD_REQUEST
-				: HTTPCode.INTERNAL_SERVER_ERROR;
-			return {
-				payload: error,
-				status,
-			};
-		}
+		return {
+			payload: await this.authService.signIn(options.body),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
@@ -142,22 +129,10 @@ class AuthController extends BaseController {
 			body: UserSignUpRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		try {
-			const user = await this.authService.signUp(options.body);
-			return {
-				payload: user,
-				status: HTTPCode.CREATED,
-			};
-		} catch (error) {
-			const isAuthError = error instanceof AuthError;
-			const status = isAuthError
-				? HTTPCode.BAD_REQUEST
-				: HTTPCode.INTERNAL_SERVER_ERROR;
-			return {
-				payload: error,
-				status,
-			};
-		}
+		return {
+			payload: await this.authService.signUp(options.body),
+			status: HTTPCode.CREATED,
+		};
 	}
 }
 
