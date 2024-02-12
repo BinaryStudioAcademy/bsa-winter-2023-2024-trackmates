@@ -20,9 +20,9 @@ class BaseEncrypt implements Encrypt {
 		passwordHash: string;
 		salt: string;
 	}): Promise<boolean> {
-		const dataHash = await genHash(password, salt);
+		const hash = await genHash(password, salt);
 
-		return dataHash === passwordHash;
+		return hash === passwordHash;
 	}
 
 	public async encrypt(password: string): ReturnType<Encrypt["encrypt"]> {

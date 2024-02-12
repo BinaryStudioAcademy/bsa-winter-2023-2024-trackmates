@@ -61,7 +61,7 @@ class AuthService {
 		const { id } = user.toObject();
 
 		return {
-			token: this.token.create({ id }),
+			token: this.token.create({ userId: id }),
 			user: user.toObject(),
 		};
 	}
