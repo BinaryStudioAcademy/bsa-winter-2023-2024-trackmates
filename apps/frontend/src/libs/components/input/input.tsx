@@ -12,10 +12,9 @@ import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
 	children?: React.ReactNode;
+	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
-	isBasic?: boolean;
-	isPrimary?: boolean;
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
@@ -24,10 +23,9 @@ type Properties<T extends FieldValues> = {
 
 const Input = <T extends FieldValues>({
 	children,
+	color = "light",
 	control,
 	errors,
-	isBasic = false,
-	isPrimary = false,
 	label,
 	name,
 	placeholder = "",
@@ -40,8 +38,7 @@ const Input = <T extends FieldValues>({
 
 	const inputClasses = clsx(
 		styles["input"],
-		isPrimary && styles["primary"],
-		isBasic && styles["basic"],
+		styles[color],
 		hasError && styles["error-input"],
 	);
 

@@ -26,17 +26,17 @@
 	opacity: 0.4;
 }
 
-.primary {
+.dark {
 	color: var(--color-menu);
 	background-color: var(--color-input);
 }
 
-.basic {
+.light {
 	color: var(--color-text-200);
 	background-color: var(--color-background);
 }
 
-.basic:focus {
+.light:focus {
 	color: var(--color-text-300);
 }
 

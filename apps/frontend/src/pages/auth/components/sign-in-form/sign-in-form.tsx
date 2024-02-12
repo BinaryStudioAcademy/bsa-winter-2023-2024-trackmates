@@ -56,17 +56,17 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						</p>
 					</div>
 					<Input
+						color="dark"
 						control={control}
 						errors={errors}
-						isPrimary
 						label="Email"
 						name="email"
 						type="text"
 					/>
 					<Input
+						color="dark"
 						control={control}
 						errors={errors}
-						isPrimary
 						label="Password"
 						name="password"
 						type="password"

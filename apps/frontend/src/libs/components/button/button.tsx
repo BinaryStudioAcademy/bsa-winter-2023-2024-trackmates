@@ -7,27 +7,27 @@ import { Link } from "../components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	color?: "primary";
+	color?: "primary"; //others are expected to be added in the future
 	href?: ValueOf<typeof AppRoute>;
-	isFluid?: boolean;
-	isSmall?: boolean;
 	label: string;
+	size?: "regular" | "small";
+	style?: "fullfiled" | "outlined";
 	type?: "button" | "submit";
 };
 
 const Button: React.FC<Properties> = ({
-	color,
+	color = "primary",
 	href,
-	isFluid,
-	isSmall,
 	label,
+	size = "regular",
+	style = "fullfiled",
 	type = "button",
 }: Properties) => {
 	const buttonStyles = clsx(
 		styles["button"],
-		isSmall && styles["small"],
-		isFluid && styles["fluid"],
-		color && styles[color],
+		styles[size],
+		styles[style],
+		styles[color],
 	);
 
 	return (
