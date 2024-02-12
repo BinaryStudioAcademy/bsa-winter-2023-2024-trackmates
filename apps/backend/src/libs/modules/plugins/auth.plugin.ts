@@ -43,6 +43,7 @@ const plugin = (
 		}
 
 		// let userId: number;
+		const userId = 143;
 
 		try {
 			// TODO: verify JWT token
@@ -55,8 +56,7 @@ const plugin = (
 			});
 		}
 
-		const user = await userService.find();
-		// const user = await userService.getAuthenticatedUser(userId);
+		const user = await userService.getAuthenticatedUser(userId);
 
 		if (!user) {
 			throw new HTTPError({
@@ -65,8 +65,7 @@ const plugin = (
 			});
 		}
 
-		// TODO: Inject user
-		// request.user = user;
+		request.user = user;
 	});
 };
 
