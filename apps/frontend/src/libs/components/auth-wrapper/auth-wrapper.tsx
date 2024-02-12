@@ -1,4 +1,4 @@
-import { Header } from "../components.js";
+import { Header } from "../header/header.js";
 
 type Properties = {
 	children: React.ReactNode;
