@@ -41,11 +41,12 @@ class AuthService {
 			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);
 		}
 
-		const isEqualPassword = await this.encrypt.compare(
+		const { passwordHash, passwordSalt: salt } = user;
+		const isEqualPassword = await this.encrypt.compare({
 			password,
-			user.passwordHash,
-			user.passwordSalt,
-		);
+			passwordHash,
+			salt,
+		});
 
 		if (!isEqualPassword) {
 			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);

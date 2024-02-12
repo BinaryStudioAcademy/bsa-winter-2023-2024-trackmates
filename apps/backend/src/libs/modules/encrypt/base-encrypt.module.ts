@@ -7,19 +7,27 @@ const SALT_ROUNDS = 10;
 class BaseEncrypt implements Encrypt {
 	private static saltRounds = SALT_ROUNDS;
 
-	public async compare(
-		data: string,
-		hash: string,
-		salt: string,
-	): Promise<boolean> {
-		const dataHash = await genHash(data, salt);
-
-		return dataHash === hash;
+	private generateSalt(): Promise<string> {
+		return genSalt(BaseEncrypt.saltRounds);
 	}
 
-	public async encrypt(data: string): ReturnType<Encrypt["encrypt"]> {
-		const salt = await genSalt(BaseEncrypt.saltRounds);
-		const hash = await genHash(data, salt);
+	public async compare({
+		password,
+		passwordHash,
+		salt,
+	}: {
+		password: string;
+		passwordHash: string;
+		salt: string;
+	}): Promise<boolean> {
+		const dataHash = await genHash(password, salt);
+
+		return dataHash === passwordHash;
+	}
+
+	public async encrypt(password: string): ReturnType<Encrypt["encrypt"]> {
+		const salt = await this.generateSalt();
+		const hash = await genHash(password, salt);
 
 		return { hash, salt };
 	}

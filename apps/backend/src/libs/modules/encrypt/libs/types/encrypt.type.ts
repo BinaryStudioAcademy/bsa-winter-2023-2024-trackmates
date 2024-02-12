@@ -4,8 +4,12 @@ type EncryptResult = {
 };
 
 type Encrypt = {
-	compare(data: string, hash: string, salt: string): Promise<boolean>;
-	encrypt(data: string): Promise<EncryptResult>;
+	compare(data: {
+		password: string;
+		passwordHash: string;
+		salt: string;
+	}): Promise<boolean>;
+	encrypt(password: string): Promise<EncryptResult>;
 };
 
 export { type Encrypt };
