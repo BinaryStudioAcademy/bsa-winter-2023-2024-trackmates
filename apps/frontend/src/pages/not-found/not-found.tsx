@@ -1,6 +1,6 @@
+import questionCharacter from "~/assets/img/question-character.svg";
 import { Button } from "~/libs/components/components.js";
 
-import questionCharacter from "../../assets/img/question-character.svg";
 import classes from "./styles.module.css";
 
 const NotFound: React.FC = () => {
@@ -16,7 +16,11 @@ const NotFound: React.FC = () => {
 								<div
 									className={`${classes["error-sign-content"]} ${classes["octagon"]}`}
 								>
-									<span className={classes["octagon"]}>404</span>
+									<span
+										className={`${classes["error-sign-content-text"]} ${classes["octagon"]}`}
+									>
+										404
+									</span>
 								</div>
 							</div>
 							<div className={classes["error-sign-leg"]}></div>

@@ -126,7 +126,7 @@
 	background-color: var(--color-menu);
 }
 
-.error-sign-content span {
+.error-sign-content-text {
 	position: absolute;
 	inset: 4px;
 	z-index: 1;
@@ -137,7 +137,7 @@
 	font-weight: bold;
 }
 
-.error-sign-content span::before {
+.error-sign-content-text::before {
 	z-index: -1;
 	background-color: white;
 }

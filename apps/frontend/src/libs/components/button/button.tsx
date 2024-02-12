@@ -1,10 +1,10 @@
-import clsx from "clsx";
+import { NavLink } from "react-router-dom";
 
 import { AppRoute } from "~/libs/enums/enums.js";
+import { concatClasses } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { Link } from "../link/link.js";
-import styles from "./styles.module.css";
+import classes from "./styles.module.css";
 
 type Properties = {
 	color?: "primary";
@@ -23,19 +23,19 @@ const Button: React.FC<Properties> = ({
 	style = "filled",
 	type = "button",
 }: Properties) => {
-	const buttonStyles = clsx(
-		styles["button"],
-		styles[size],
-		styles[style],
-		styles[color],
+	const buttonStyles = concatClasses(
+		classes["button"],
+		classes[size],
+		classes[style],
+		classes[color],
 	);
 
 	return (
 		<>
 			{href ? (
-				<Link to={href}>
-					<div className={buttonStyles}>{label}</div>
-				</Link>
+				<NavLink className={buttonStyles} to={href}>
+					<div>{label}</div>
+				</NavLink>
 			) : (
 				<button className={buttonStyles} type={type}>
 					{label}
