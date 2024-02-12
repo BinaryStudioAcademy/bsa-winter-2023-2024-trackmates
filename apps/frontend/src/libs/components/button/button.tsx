@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import { AppRoute } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
@@ -7,34 +9,32 @@ import styles from "./styles.module.css";
 type Properties = {
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
-	isFluid?: boolean;
-	isSmall?: boolean;
 	label: string;
+	size?: "regular" | "small";
+	style?: "filled" | "outlined";
 	type?: "button" | "submit";
 };
 
 const Button: React.FC<Properties> = ({
-	color,
+	color = "primary",
 	href,
-	isFluid,
-	isSmall,
 	label,
+	size = "regular",
+	style = "filled",
 	type = "button",
 }: Properties) => {
-	const buttonStyles = [
+	const buttonStyles = clsx(
 		styles["button"],
-		isSmall && styles["small"],
-		isFluid && styles["fluid"],
-		color ? styles[color] : styles["primary"],
-	]
-		.filter(Boolean)
-		.join(" ");
+		styles[size],
+		styles[style],
+		styles[color],
+	);
 
 	return (
 		<>
 			{href ? (
-				<Link to={href}>
-					<span className={buttonStyles}>{label}</span>
+				<Link className={buttonStyles} to={href}>
+					{label}
 				</Link>
 			) : (
 				<button className={buttonStyles} type={type}>

@@ -33,8 +33,8 @@ const Header: React.FC<Properties> = ({ user }: Properties) => {
 				<Button
 					color="primary"
 					href={AppRoute.SIGN_IN}
-					isSmall
 					label="Sign in"
+					size="small"
 				/>
 			)}
 		</header>

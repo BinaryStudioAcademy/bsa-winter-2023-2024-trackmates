@@ -1,18 +1,17 @@
 .button {
 	box-sizing: border-box;
 	display: block;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid;
+}
+
+.regular {
 	column-gap: 8px;
 	min-height: 54px;
 	padding: 8px 24px;
 	font-size: var(--font-size-300);
-	text-align: center;
-	cursor: pointer;
-	border: 1px solid var(--color-button);
 	border-radius: 52px;
-}
-
-.fluid {
-	width: 100%;
 }
 
 .small {
@@ -26,9 +25,17 @@
 .primary {
 	color: white;
 	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
 
+.primary.outlined,
 .primary:hover {
 	color: var(--color-button);
 	background-color: transparent;
+}
+
+.primary.outlined:hover {
+	color: white;
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
