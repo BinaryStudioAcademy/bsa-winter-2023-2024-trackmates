@@ -1,6 +1,5 @@
-import { type UserAuthResponseDto } from "shared";
-
 import { AppRoute } from "~/libs/enums/enums.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
