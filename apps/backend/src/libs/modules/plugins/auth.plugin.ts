@@ -6,6 +6,7 @@ import { userService } from "~/modules/users/users.js";
 
 import type { AuthPluginOptions } from "./libs/types/types.js";
 
+import { token as jwtToken } from "../token/token.js";
 import { AuthPluginErrorMessage } from "./libs/enums/enums.js";
 import { getApiEndpoint } from "./libs/helpers/helpers.js";
 
@@ -42,13 +43,10 @@ const plugin = (
 			});
 		}
 
-		// let userId: number;
-		const userId = 143;
+		let userId: number;
 
 		try {
-			// TODO: verify JWT token
-			// ({ userId } = await verifyToken(token));
-			// userId = 143;
+			({ userId } = await jwtToken.verifyToken(token));
 		} catch {
 			throw new HTTPError({
 				message: AuthPluginErrorMessage.INVALID_JWT,
