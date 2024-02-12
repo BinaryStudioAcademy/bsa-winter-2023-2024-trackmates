@@ -45,6 +45,10 @@ class UserService implements Service {
 		};
 	}
 
+	public async getByEmail(email: string): Promise<UserEntity | null> {
+		return await this.userRepository.getByEmail(email);
+	}
+
 	public update(): ReturnType<Service["update"]> {
 		return Promise.resolve(null);
 	}

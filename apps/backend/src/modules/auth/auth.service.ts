@@ -1,28 +1,45 @@
-import { token as tokenModule } from "~/libs/modules/token/token.js";
+import { Token } from "~/libs/modules/token/token.js";
 import {
+	UserEntity,
+	type UserService,
+	type UserSignInRequestDto,
+	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
-} from "~/modules/users/libs/types/types.js";
-import { type UserService } from "~/modules/users/user.service.js";
+} from "~/modules/users/users.js";
+
+type Constructor = {
+	token: Token;
+	userService: UserService;
+};
 
 class AuthService {
+	private token: Token;
 	private userService: UserService;
 
-	public constructor(userService: UserService) {
+	public constructor({ token, userService }: Constructor) {
+		this.token = token;
 		this.userService = userService;
+	}
+
+	public async signIn(
+		userRequestDto: UserSignInRequestDto,
+	): Promise<UserSignInResponseDto> {
+		const { email } = userRequestDto;
+
+		const user = (await this.userService.getByEmail(email)) as UserEntity;
+		const { id } = user.toObject();
+
+		return {
+			token: await this.token.create({ userId: id }),
+			user: user.toObject(),
+		};
 	}
 
 	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
-		const user = await this.userService.create(userRequestDto);
-
-		const token = await tokenModule.create({ userId: user.id });
-
-		return {
-			...user,
-			token,
-		};
+		return await this.userService.create(userRequestDto);
 	}
 }
 
