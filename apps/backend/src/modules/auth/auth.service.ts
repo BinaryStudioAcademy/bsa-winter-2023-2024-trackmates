@@ -1,5 +1,5 @@
-import { Encript } from "~/libs/modules/encript/encript.js";
-import { Tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
+import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { Token } from "~/libs/modules/token/token.js";
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -14,21 +14,21 @@ import {
 import { AuthError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
-	encript: Encript;
-	tokenizer: Tokenizer;
+	encrypt: Encrypt;
+	token: Token;
 	userService: UserService;
 };
 
 import { ErrorMessage } from "./libs/enums/enums.js";
 
 class AuthService {
-	private encript: Encript;
-	private tokenizer: Tokenizer;
+	private encrypt: Encrypt;
+	private token: Token;
 	private userService: UserService;
 
-	public constructor({ encript, tokenizer, userService }: Constructor) {
-		this.encript = encript;
-		this.tokenizer = tokenizer;
+	public constructor({ encrypt, token, userService }: Constructor) {
+		this.encrypt = encrypt;
+		this.token = token;
 		this.userService = userService;
 	}
 
@@ -42,11 +42,12 @@ class AuthService {
 			throw new AuthError(ErrorMessage.INCORRECT_EMAIL);
 		}
 
-		const isEqualPassword = await this.encript.compare(
+		const { passwordHash, passwordSalt: salt } = user;
+		const isEqualPassword = await this.encrypt.compare({
 			password,
-			user.passwordHash,
-			user.passwordSalt,
-		);
+			passwordHash,
+			salt,
+		});
 
 		if (!isEqualPassword) {
 			throw new AuthError(ErrorMessage.PASSWORDS_NOT_MATCH);
@@ -63,7 +64,7 @@ class AuthService {
 		const { email, id } = user;
 
 		return {
-			token: this.tokenizer.createToken({ id }),
+			token: this.token.create({ id }),
 			user: { email, id },
 		};
 	}

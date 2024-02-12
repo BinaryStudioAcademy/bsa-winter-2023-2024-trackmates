@@ -1,4 +1,4 @@
-import { Encript } from "~/libs/modules/encript/encript.js";
+import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
@@ -11,18 +11,18 @@ import {
 import { UserWithPassword } from "./libs/types/types.js";
 
 class UserService implements Service {
-	private encript: Encript;
+	private encrypt: Encrypt;
 	private userRepository: UserRepository;
 
-	public constructor(encript: Encript, userRepository: UserRepository) {
-		this.encript = encript;
+	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
+		this.encrypt = encrypt;
 		this.userRepository = userRepository;
 	}
 
 	public async create(
 		payload: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
-		const { hash, salt } = await this.encript.encript(payload.password);
+		const { hash, salt } = await this.encrypt.encrypt(payload.password);
 
 		const item = await this.userRepository.create(
 			UserEntity.initializeNew({
@@ -34,7 +34,9 @@ class UserService implements Service {
 			}),
 		);
 
-		return item.toObject();
+		const object = item.toObject();
+
+		return { email: object.email, id: object.id };
 	}
 
 	public delete(): Promise<boolean> {
@@ -49,19 +51,31 @@ class UserService implements Service {
 		const items = await this.userRepository.findAll();
 
 		return {
-			items: items.map((item) => item.toObject()),
+			items: items.map((item) => {
+				const object = item.toObject();
+				return {
+					email: object.email,
+					id: object.id,
+				};
+			}),
 		};
 	}
 
 	public async getByEmail(email: string): Promise<UserWithPassword | null> {
 		const user = await this.userRepository.getByEmail(email);
 		if (user) {
-			return user.toObject();
+			const object = user.toObject();
+			return {
+				email: object.email,
+				id: object.id,
+				passwordHash: object.passwordHash,
+				passwordSalt: object.passwordSalt,
+			};
 		}
 		return null;
 	}
 
-	public update(): ReturnType<Service["update"]> {
+	public update(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 }

@@ -79,8 +79,8 @@ class UserRepository implements Repository {
 		return null;
 	}
 
-	public update(): Promise<UserEntity> {
-		throw new Error("Method not implemented.");
+	public update(): Promise<UserEntity | null> {
+		return Promise.resolve(null);
 	}
 }
 
