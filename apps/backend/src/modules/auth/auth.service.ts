@@ -1,3 +1,4 @@
+import { tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
 import {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -11,10 +12,22 @@ class AuthService {
 		this.userService = userService;
 	}
 
-	public signUp(
+	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
-		return this.userService.create(userRequestDto);
+		const user = await this.userService.create(userRequestDto);
+
+		// TODO: rewrite setting expiration
+		const date = new Date();
+		const days = 1;
+		date.setDate(date.getDate() + days);
+
+		const token = await tokenizer.createToken({ userId: user.id }, date);
+
+		return {
+			...user,
+			token,
+		};
 	}
 }
 
