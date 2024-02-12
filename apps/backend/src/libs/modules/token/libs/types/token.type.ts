@@ -1,8 +1,8 @@
 import { JWTPayload } from "jose";
 
-type Tokenizer = {
+type Token = {
 	createToken(payload: JWTPayload, expiration: Date): Promise<string>;
 	verifyToken(token: string): Promise<JWTPayload>;
 };
 
-export { type Tokenizer };
+export { type Token };

@@ -1,8 +1,8 @@
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 
-import { Tokenizer } from "./libs/types/types.js";
+import { Token } from "./libs/types/types.js";
 
-class BaseTokenizer implements Tokenizer {
+class BaseToken implements Token {
 	public async createToken(
 		payload: JWTPayload,
 		expiration: Date,
@@ -26,4 +26,4 @@ class BaseTokenizer implements Tokenizer {
 	}
 }
 
-export { BaseTokenizer };
+export { BaseToken };

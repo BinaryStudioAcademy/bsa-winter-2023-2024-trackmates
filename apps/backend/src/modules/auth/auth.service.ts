@@ -1,4 +1,4 @@
-import { tokenizer } from "~/libs/modules/tokenizer/tokenizer.js";
+import { token as tokenModule } from "~/libs/modules/token/token.js";
 
 import {
 	type UserSignUpRequestDto,
@@ -23,7 +23,7 @@ class AuthService {
 		const days = 1;
 		date.setDate(date.getDate() + days);
 
-		const token = await tokenizer.createToken({ userId: user.id }, date);
+		const token = await tokenModule.createToken({ userId: user.id }, date);
 
 		return {
 			...user,
