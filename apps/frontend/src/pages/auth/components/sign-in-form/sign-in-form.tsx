@@ -1,4 +1,4 @@
-import logo from "~/assets/img/svg/sing-logo.svg";
+import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
