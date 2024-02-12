@@ -17,8 +17,6 @@ const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 
-	let mainContainerClassName = "sign-in__container";
-
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
 			void dispatch(authActions.signIn(payload));
@@ -36,11 +34,9 @@ const Auth: React.FC = () => {
 	const getScreen = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.SIGN_IN: {
-				mainContainerClassName = "sign-in__container";
 				return <SignInForm onSubmit={handleSignInSubmit} />;
 			}
 			case AppRoute.SIGN_UP: {
-				mainContainerClassName = "sign-up__container";
 				return <SignUpForm onSubmit={handleSignUpSubmit} />;
 			}
 		}
@@ -49,9 +45,7 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<main
-			className={`${styles["sign__container"]} ${styles[mainContainerClassName]}`}
-		>
+		<main className={`${styles["sign__container"]}`}>
 			{getScreen(pathname)}
 		</main>
 	);
