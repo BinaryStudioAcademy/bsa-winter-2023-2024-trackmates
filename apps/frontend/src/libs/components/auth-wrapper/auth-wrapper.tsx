@@ -1,3 +1,5 @@
+import { useAppSelector } from "~/libs/hooks/hooks.js";
+
 import { Header } from "../header/header.js";
 
 type Properties = {
@@ -5,9 +7,11 @@ type Properties = {
 };
 
 const AuthWrapper: React.FC<Properties> = ({ children }: Properties) => {
+	const { user } = useAppSelector((state) => state.auth);
+
 	return (
 		<>
-			<Header user={null} />
+			<Header user={user} />
 			{children}
 		</>
 	);
