@@ -39,3 +39,13 @@
 .basic:focus {
 	color: var(--color-text-300);
 }
+
+.error {
+	font-size: var(--font-size-100);
+	color: var(--color-error);
+	text-align: end;
+}
+
+.error-input {
+	border: 1px solid var(--color-error);
+}
