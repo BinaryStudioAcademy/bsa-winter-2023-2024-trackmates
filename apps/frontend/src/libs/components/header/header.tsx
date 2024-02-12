@@ -1,4 +1,4 @@
-import { AppRoute } from "~/libs/enums/app-route.enum.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 
 import { Button } from "../components.js";
 import { Image } from "../image/image.js";
