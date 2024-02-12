@@ -1,7 +1,11 @@
 import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
-import { type Storage } from "~/libs/modules/storage/storage.js";
+import {
+	type Storage,
+	StorageKey,
+	storage,
+} from "~/libs/modules/storage/storage.js";
 import {
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
@@ -51,7 +55,11 @@ class AuthApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<UserSignInResponseDto>();
+		const result = await response.json<UserSignInResponseDto>();
+
+		await storage.set(StorageKey.TOKEN, result.token);
+
+		return result;
 	}
 }
 
