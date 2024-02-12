@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import { AppRoute } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
@@ -21,14 +23,12 @@ const Button: React.FC<Properties> = ({
 	label,
 	type = "button",
 }: Properties) => {
-	const buttonStyles = [
+	const buttonStyles = clsx(
 		styles["button"],
 		isSmall && styles["small"],
 		isFluid && styles["fluid"],
-		color ? styles[color] : styles["primary"],
-	]
-		.filter(Boolean)
-		.join(" ");
+		color && styles[color],
+	);
 
 	return (
 		<>

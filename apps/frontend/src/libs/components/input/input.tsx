@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import {
 	type Control,
 	type FieldErrors,
@@ -37,14 +38,12 @@ const Input = <T extends FieldValues>({
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
 
-	const inputClasses = [
+	const inputClasses = clsx(
 		styles["input"],
 		isPrimary && styles["primary"],
 		isBasic && styles["basic"],
 		hasError && styles["error-input"],
-	]
-		.filter(Boolean)
-		.join(" ");
+	);
 
 	return (
 		<label className={styles["input__container"]}>
