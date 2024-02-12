@@ -7,6 +7,7 @@ import {
 	useEffect,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
+import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
 
 const App: React.FC = () => {
@@ -23,6 +24,7 @@ const App: React.FC = () => {
 		if (isRoot) {
 			void dispatch(userActions.loadAll());
 		}
+		void dispatch(authActions.getAuthenticatedUser());
 	}, [isRoot, dispatch]);
 
 	return (
