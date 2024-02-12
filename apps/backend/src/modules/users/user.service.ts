@@ -3,6 +3,7 @@ import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import {
+	type UserAuthResponse,
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
@@ -49,7 +50,7 @@ class UserService implements Service {
 
 	public async getAuthenticatedUser(
 		id: number,
-	): Promise<UserSignUpResponseDto | null> {
+	): Promise<UserAuthResponse | null> {
 		const user = await this.userRepository.findById(id);
 
 		return user?.toObject() ?? null;
