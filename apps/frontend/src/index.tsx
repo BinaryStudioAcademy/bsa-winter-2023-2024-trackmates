@@ -13,6 +13,8 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
+import { NotFound } from "./pages/not-found/not-found.js";
+
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
 		<Notification />
@@ -37,6 +39,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 						element: <App />,
 						path: AppRoute.ROOT,
 					},
+					{ element: <NotFound />, path: AppRoute.NOT_FOUND },
 				]}
 			/>
 		</StoreProvider>
