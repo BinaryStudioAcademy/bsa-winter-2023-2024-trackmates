@@ -6,10 +6,7 @@ const isSidebarShown = (pathname: string): boolean => {
 		AuthApiPath.SIGN_UP,
 	] as string[];
 
-	// TODO: Change later, now for development purposes
-	!pagesWithoutSidebar.includes(pathname);
-	return true;
-	// return !pagesWithoutSidebar.includes(pathname);
+	return !pagesWithoutSidebar.includes(pathname);
 };
 
 export { isSidebarShown };
