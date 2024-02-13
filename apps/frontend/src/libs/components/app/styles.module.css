@@ -1,0 +1,11 @@
+.page-layout {
+	display: flex;
+}
+
+.page {
+	flex: 1;
+}
+
+.sidebar {
+	flex-basis: 270px;
+}

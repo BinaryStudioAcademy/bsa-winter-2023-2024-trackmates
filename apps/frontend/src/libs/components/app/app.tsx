@@ -1,5 +1,5 @@
 import reactLogo from "~/assets/img/react.svg";
-import { Link, RouterOutlet } from "~/libs/components/components.js";
+import { Link, RouterOutlet, Sidebar } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -9,6 +9,8 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
+
+import styles from "./styles.module.css";
 
 const App: React.FC = () => {
 	const { pathname } = useLocation();
@@ -44,8 +46,11 @@ const App: React.FC = () => {
 			</ul>
 			<p>Current path: {pathname}</p>
 
-			<div>
-				<RouterOutlet />
+			<div className={styles["page-layout"]}>
+				<Sidebar className={styles["sidebar"] ?? ""} />
+				<div className={styles["page"]}>
+					<RouterOutlet />
+				</div>
 			</div>
 			{isRoot && (
 				<>
