@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -11,7 +9,7 @@ type Properties = {
 	className?: string;
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
-	label: ReactNode;
+	label: React.ReactNode;
 	size?: "regular" | "small";
 	style?: "filled" | "fulfilled" | "outlined";
 	type?: "button" | "submit";

@@ -1,4 +1,4 @@
-import { HTMLProps, ReactNode } from "react";
+import { HTMLProps } from "react";
 
 import HomeIcon from "~/assets/img/svg/home.svg?react";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -15,7 +15,7 @@ const Icon: React.FC<ExtendedProperties> = ({
 	name,
 	...properties
 }: ExtendedProperties) => {
-	const Icons: Record<Properties["name"], ReactNode> = {
+	const Icons: Record<Properties["name"], React.ReactNode> = {
 		home: <HomeIcon {...properties} title="" />,
 	};
 
