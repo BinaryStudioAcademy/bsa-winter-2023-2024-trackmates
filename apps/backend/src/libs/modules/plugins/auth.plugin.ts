@@ -54,7 +54,7 @@ const authorization = fp<Options>(
 				});
 			}
 
-			const user = await userService.getAuthenticatedUser(userId);
+			const user = await userService.findById(userId);
 
 			if (!user) {
 				throw new HTTPError({
