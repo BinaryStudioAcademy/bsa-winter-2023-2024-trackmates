@@ -13,17 +13,16 @@ type Options = {
 	services: {
 		userService: UserService;
 	};
-	whiteRouteList: string[];
 };
 
 const authorization = fp<Options>(
-	(fastify, { services: { userService }, whiteRouteList }, done) => {
+	(fastify, { services: { userService } }, done) => {
 		fastify.decorateRequest("user", null);
 
 		fastify.addHook(FastifyHook.ON_REQUEST, async (request: FastifyRequest) => {
 			const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
-			if (isWhiteRoute(request.url, whiteRouteList)) {
+			if (isWhiteRoute(request.url)) {
 				return;
 			}
 
