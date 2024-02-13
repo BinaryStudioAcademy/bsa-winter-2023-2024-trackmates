@@ -1,9 +1,8 @@
-import { NavLink } from "react-router-dom";
-
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { Link } from "../components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -33,9 +32,9 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<NavLink className={buttonStyles} to={href}>
+				<Link className={buttonStyles} to={href}>
 					{label}
-				</NavLink>
+				</Link>
 			) : (
 				<button className={buttonStyles} type={type}>
 					{label}
