@@ -2,7 +2,7 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { Link } from "../components.js";
+import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
