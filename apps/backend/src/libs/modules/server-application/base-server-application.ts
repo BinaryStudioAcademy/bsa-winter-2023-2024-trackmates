@@ -8,9 +8,11 @@ import { fileURLToPath } from "node:url";
 import { ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
 import { type Config } from "~/libs/modules/config/config.js";
+import { WHITE_ROUTES } from "~/libs/modules/config/libs/constants/constants.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { authorizationPlugin } from "~/libs/modules/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
@@ -101,6 +103,12 @@ class BaseServerApplication implements ServerApplication {
 		);
 	}
 
+	private async initPlugins(): Promise<void> {
+		await this.app.register(authorizationPlugin, {
+			whiteRouteList: WHITE_ROUTES,
+		});
+	}
+
 	private async initServe(): Promise<void> {
 		const staticPath = join(
 			dirname(fileURLToPath(import.meta.url)),
@@ -156,6 +164,8 @@ class BaseServerApplication implements ServerApplication {
 		this.initValidationCompiler();
 
 		this.initErrorHandler();
+
+		await this.initPlugins();
 
 		this.initRoutes();
 

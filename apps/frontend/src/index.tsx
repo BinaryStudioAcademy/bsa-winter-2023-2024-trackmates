@@ -4,6 +4,8 @@ import { createRoot } from "react-dom/client";
 import "~/assets/css/styles.css";
 import {
 	App,
+	AuthWrapper,
+	Notification,
 	ProtectedRoute,
 	RouterProvider,
 	StoreProvider,
@@ -12,8 +14,11 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
+import { NotFound } from "./pages/not-found/not-found.js";
+
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
+		<Notification />
 		<StoreProvider store={store.instance}>
 			<RouterProvider
 				routes={[
@@ -32,9 +37,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.SIGN_UP,
 							},
 						],
-						element: <App />,
+						element: (
+							<AuthWrapper>
+								<App />
+							</AuthWrapper>
+						),
 						path: AppRoute.ROOT,
 					},
+					{ element: <NotFound />, path: AppRoute.ANY },
 				]}
 			/>
 		</StoreProvider>

@@ -1,7 +1,9 @@
 export { App } from "./app/app.js";
+export { AuthWrapper } from "./auth-wrapper/auth-wrapper.js";
 export { Button } from "./button/button.js";
 export { Input } from "./input/input.js";
 export { Link } from "./link/link.js";
+export { Notification } from "./notification/notification.js";
 export { ProtectedRoute } from "./protected-route/protected-route.js";
 export { RouterProvider } from "./router-provider/router-provider.js";
 export { Provider as StoreProvider } from "react-redux";

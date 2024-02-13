@@ -5,31 +5,41 @@ class UserEntity implements Entity {
 
 	private email: string;
 
+	private firstName: string;
+
 	private id: null | number;
+
+	private lastName: string;
 
 	private passwordHash: string;
 
 	private passwordSalt: string;
 
-	private updatedAt: string;
+	public updatedAt: string;
 
-	constructor({
+	private constructor({
 		createdAt,
 		email,
+		firstName,
 		id,
+		lastName,
 		passwordHash,
 		passwordSalt,
 		updatedAt,
 	}: {
 		createdAt: string;
 		email: string;
+		firstName: string;
 		id: null | number;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
 	}) {
+		this.firstName = firstName;
 		this.createdAt = createdAt;
 		this.id = id;
+		this.lastName = lastName;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.passwordSalt = passwordSalt;
@@ -38,14 +48,18 @@ class UserEntity implements Entity {
 	public static initialize({
 		createdAt,
 		email,
+		firstName,
 		id,
+		lastName,
 		passwordHash,
 		passwordSalt,
 		updatedAt,
 	}: {
 		createdAt: string;
 		email: string;
+		firstName: string;
 		id: number;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -53,7 +67,9 @@ class UserEntity implements Entity {
 		return new UserEntity({
 			createdAt,
 			email,
+			firstName,
 			id,
+			lastName,
 			passwordHash,
 			passwordSalt,
 			updatedAt,
@@ -61,31 +77,35 @@ class UserEntity implements Entity {
 	}
 
 	public static initializeNew({
-		createdAt,
 		email,
+		firstName,
+		lastName,
 		passwordHash,
 		passwordSalt,
-		updatedAt,
 	}: {
-		createdAt: string;
 		email: string;
+		firstName: string;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
-		updatedAt: string;
 	}): UserEntity {
 		return new UserEntity({
-			createdAt,
+			createdAt: "",
 			email,
+			firstName,
 			id: null,
+			lastName,
 			passwordHash,
 			passwordSalt,
-			updatedAt,
+			updatedAt: "",
 		});
 	}
 
 	public toNewObject(): {
 		createdAt: string;
 		email: string;
+		firstName: string;
+		lastName: string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -93,6 +113,8 @@ class UserEntity implements Entity {
 		return {
 			createdAt: this.createdAt,
 			email: this.email,
+			firstName: this.firstName,
+			lastName: this.lastName,
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
 			updatedAt: this.updatedAt,
@@ -102,13 +124,17 @@ class UserEntity implements Entity {
 	public toObject(): {
 		createdAt: string;
 		email: string;
+		firstName: string;
 		id: number;
+		lastName: string;
 		updatedAt: string;
 	} {
 		return {
 			createdAt: this.createdAt,
 			email: this.email,
+			firstName: this.firstName,
 			id: this.id as number,
+			lastName: this.lastName,
 			updatedAt: this.updatedAt,
 		};
 	}
