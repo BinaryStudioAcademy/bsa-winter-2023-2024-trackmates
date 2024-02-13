@@ -7,9 +7,7 @@ const Overview: React.FC = () => {
 
 	return user ? (
 		<WelcomeHeader firstName={user.firstName} lastName={user.lastName} />
-	) : (
-		<></>
-	);
+	) : null;
 };
 
 export { Overview };
