@@ -1,4 +1,4 @@
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { concatClasses } from "~/libs/helpers/helpers.js";
 
 import styles from "./styles.module.css";
 
@@ -20,7 +20,7 @@ const Image: React.FC<Properties> = ({
 	return (
 		<img
 			alt={alt}
-			className={getValidClassNames(styles["image"], styles[shape])}
+			className={concatClasses(styles["image"], styles[shape])}
 			height={height}
 			src={src}
 			width={width}

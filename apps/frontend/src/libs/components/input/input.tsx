@@ -5,7 +5,7 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { concatClasses } from "~/libs/helpers/helpers.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
@@ -36,10 +36,10 @@ const Input = <T extends FieldValues>({
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
 
-	const inputClasses = getValidClassNames(
+	const inputClasses = concatClasses(
 		styles["input"],
 		styles[color],
-		hasError && styles["error-input"],
+		hasError ? styles["error-input"] : undefined,
 	);
 
 	return (
