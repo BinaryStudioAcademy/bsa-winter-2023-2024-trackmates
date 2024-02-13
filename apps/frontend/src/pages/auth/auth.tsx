@@ -1,4 +1,6 @@
+import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useCallback,
@@ -44,7 +46,22 @@ const Auth: React.FC = () => {
 		return null;
 	};
 
-	return <main className={styles["container"]}>{getScreen(pathname)}</main>;
+	return (
+		<main className={styles["container"]}>
+			<div
+				className={getValidClassNames(
+					styles["form-container"],
+					styles[pathname.replace("/", "")],
+				)}
+			>
+				<h1 className={styles["logo-wrapper"]}>
+					<img alt="TrackMates logo" src={logo} />
+					TrackMates
+				</h1>
+				{getScreen(pathname)}
+			</div>
+		</main>
+	);
 };
 
 export { Auth };

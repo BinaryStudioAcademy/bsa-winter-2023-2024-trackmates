@@ -11,7 +11,6 @@ import { useFormController } from "~/libs/hooks/hooks.js";
 import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
-	children?: React.ReactNode;
 	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
@@ -24,7 +23,6 @@ type Properties<T extends FieldValues> = {
 };
 
 const Input = <T extends FieldValues>({
-	children,
 	color = "light",
 	control,
 	errors,
@@ -41,13 +39,12 @@ const Input = <T extends FieldValues>({
 	const inputClasses = getValidClassNames(
 		styles["input"],
 		styles[color],
-		hasError ? styles["error-input"] : undefined,
+		hasError && styles["error-input"],
 	);
 
 	return (
 		<label className={styles["container"]}>
 			<span className={styles["heading"]}>{label}</span>
-			{children}
 			<input
 				className={inputClasses}
 				{...field}
