@@ -1,6 +1,6 @@
 import { JWTVerifyResult } from "jose";
 
-import { TokenPayload } from "./token-payload.type.js";
+import { type TokenPayload } from "./token-payload.type.js";
 
 type Token = {
 	create(payload: TokenPayload): Promise<string>;
