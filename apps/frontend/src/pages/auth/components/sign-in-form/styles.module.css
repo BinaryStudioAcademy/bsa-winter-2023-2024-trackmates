@@ -30,3 +30,14 @@
 .link:hover {
 	text-decoration: underline;
 }
+
+@media screen and (width <= 500px) {
+	.form {
+		max-width: unset;
+		padding: 0 40px;
+	}
+
+	.form * {
+		max-width: unset;
+	}
+}
