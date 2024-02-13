@@ -27,18 +27,18 @@
 
 .primary {
 	color: white;
-	background-color: var(--main-orange);
-	border-color: var(--main-orange);
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
 
 .primary.outlined,
 .primary:hover {
-	color: var(--main-orange);
+	color: var(--color-button);
 	background-color: transparent;
 }
 
 .primary.outlined:hover {
 	color: white;
-	background-color: var(--main-orange);
-	border-color: var(--main-orange);
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }

@@ -1,6 +1,6 @@
 import questionCharacter from "~/assets/img/question-character.svg";
 import { Button } from "~/libs/components/components.js";
-import { concatClasses } from "~/libs/helpers/concat-classes.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
 import classes from "./styles.module.css";
 
@@ -12,19 +12,19 @@ const NotFound: React.FC = () => {
 					<div className={classes["error-scene"]}>
 						<div className={classes["error-sign"]}>
 							<div
-								className={concatClasses(
+								className={getValidClassNames(
 									classes["error-sign-head"],
 									classes["octagon"],
 								)}
 							>
 								<div
-									className={concatClasses(
+									className={getValidClassNames(
 										classes["error-sign-content"],
 										classes["octagon"],
 									)}
 								>
 									<span
-										className={concatClasses(
+										className={getValidClassNames(
 											classes["error-sign-content-text"],
 											classes["octagon"],
 										)}
