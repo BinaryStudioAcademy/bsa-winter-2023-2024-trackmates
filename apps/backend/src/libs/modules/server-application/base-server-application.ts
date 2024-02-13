@@ -12,7 +12,7 @@ import { WHITE_ROUTES } from "~/libs/modules/config/libs/constants/constants.js"
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { authorizationPlugin } from "~/libs/modules/plugins/plugins.js";
+import { authorization } from "~/libs/modules/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
@@ -104,7 +104,7 @@ class BaseServerApplication implements ServerApplication {
 	}
 
 	private async initPlugins(): Promise<void> {
-		await this.app.register(authorizationPlugin, {
+		await this.app.register(authorization, {
 			whiteRouteList: WHITE_ROUTES,
 		});
 	}
