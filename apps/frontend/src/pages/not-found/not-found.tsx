@@ -1,52 +1,52 @@
 import questionCharacter from "~/assets/img/question-character.svg";
 import { Button } from "~/libs/components/components.js";
-import { concatClasses } from "~/libs/helpers/concat-classes.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
-import classes from "./styles.module.css";
+import styles from "./styles.module.css";
 
 const NotFound: React.FC = () => {
 	return (
-		<div className={classes["not-found-page-container"]}>
-			<div className={classes["not-found-page-content-container"]}>
-				<div className={classes["content-heading"]}>
-					<div className={classes["error-scene"]}>
-						<div className={classes["error-sign"]}>
+		<div className={styles["not-found-page-container"]}>
+			<div className={styles["not-found-page-content-container"]}>
+				<div className={styles["content-heading"]}>
+					<div className={styles["error-scene"]}>
+						<div className={styles["error-sign"]}>
 							<div
-								className={concatClasses(
-									classes["error-sign-head"],
-									classes["octagon"],
+								className={getValidClassNames(
+									styles["error-sign-head"],
+									styles["octagon"],
 								)}
 							>
 								<div
-									className={concatClasses(
-										classes["error-sign-content"],
-										classes["octagon"],
+									className={getValidClassNames(
+										styles["error-sign-content"],
+										styles["octagon"],
 									)}
 								>
 									<span
-										className={concatClasses(
-											classes["error-sign-content-text"],
-											classes["octagon"],
+										className={getValidClassNames(
+											styles["error-sign-content-text"],
+											styles["octagon"],
 										)}
 									>
 										404
 									</span>
 								</div>
 							</div>
-							<div className={classes["error-sign-leg"]}></div>
+							<div className={styles["error-sign-leg"]} />
 						</div>
 						<img
 							alt="question character"
-							className={classes["error-scene-img"]}
+							className={styles["error-scene-img"]}
 							src={questionCharacter}
 						/>
 					</div>
 				</div>
-				<h2 className={classes["title"]}>Page Not Found</h2>
-				<p className={classes["content"]}>
+				<h2 className={styles["title"]}>Page Not Found</h2>
+				<p className={styles["content"]}>
 					There is no page you are trying to find.
 				</p>
-				<div className={classes["actions"]}>
+				<div className={styles["actions"]}>
 					<Button href="/" label="Go Home" style="filled" />
 				</div>
 			</div>

@@ -1,4 +1,5 @@
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { Token } from "~/libs/modules/token/token.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
@@ -11,10 +12,16 @@ import {
 
 class UserService implements Service {
 	private encrypt: Encrypt;
+	private token: Token;
 	private userRepository: UserRepository;
 
-	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
+	public constructor(
+		encrypt: Encrypt,
+		token: Token,
+		userRepository: UserRepository,
+	) {
 		this.encrypt = encrypt;
+		this.token = token;
 		this.userRepository = userRepository;
 	}
 
@@ -23,15 +30,17 @@ class UserService implements Service {
 	): Promise<UserAuthResponseDto> {
 		const { hash, salt } = await this.encrypt.encrypt(payload.password);
 
-		const item = await this.userRepository.create(
+		const user = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
+				firstName: payload.firstName,
+				lastName: payload.lastName,
 				passwordHash: hash,
 				passwordSalt: salt,
 			}),
 		);
 
-		return item.toObject();
+		return user.toObject();
 	}
 
 	public delete(): Promise<boolean> {
@@ -43,10 +52,10 @@ class UserService implements Service {
 	}
 
 	public async findAll(): Promise<UserGetAllResponseDto> {
-		const items = await this.userRepository.findAll();
+		const users = await this.userRepository.findAll();
 
 		return {
-			items: items.map((item) => item.toObject()),
+			items: users.map((user) => user.toObject()),
 		};
 	}
 

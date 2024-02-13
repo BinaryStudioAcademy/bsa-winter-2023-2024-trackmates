@@ -1,4 +1,7 @@
 :root {
+	--modal-container-background: #004a40b2;
+	--main-orange: #f76519;
+	--main-white: #ffffff;
 	--color-background: #f5f7f7;
 	--color-menu: #043730;
 	--color-button: var(--main-orange);
@@ -7,9 +10,6 @@
 	--color-text-300: #313134;
 	--color-error: #f62d2d;
 	--color-input: #037768;
-	--modal-container-background: #004a40b2;
-	--main-orange: #f76519;
-	--main-white: #ffffff;
 	--font-size-100: 12px;
 	--font-size-200: 14px;
 	--font-size-300: 16px;

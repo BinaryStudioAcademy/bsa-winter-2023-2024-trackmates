@@ -1,4 +1,4 @@
-import { ExceptionMessage } from "~/libs/enums/enums.js";
+import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
@@ -36,7 +36,10 @@ class AuthService {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {
-			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);
+			throw new AuthError(
+				ExceptionMessage.INCORRECT_CREDENTIALS,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		const { passwordHash, passwordSalt: salt } = user.toNewObject();
@@ -47,7 +50,10 @@ class AuthService {
 		});
 
 		if (!isEqualPassword) {
-			throw new AuthError(ExceptionMessage.INCORRECT_CREDENTIALS);
+			throw new AuthError(
+				ExceptionMessage.INCORRECT_CREDENTIALS,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		return user;
@@ -66,10 +72,18 @@ class AuthService {
 		};
 	}
 
-	public signUp(
+	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserAuthResponseDto> {
-		return this.userService.create(userRequestDto);
+		const user = await this.userService.getByEmail(userRequestDto.email);
+		const hasUser = Boolean(user);
+		if (hasUser) {
+			throw new AuthError(
+				ExceptionMessage.EMAIL_ALREADY_EXISTS,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+		return await this.userService.create(userRequestDto);
 	}
 }
 

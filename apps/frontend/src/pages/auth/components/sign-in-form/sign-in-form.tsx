@@ -65,7 +65,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						label="Password"
 						name="password"
 						type="password"
-					></Input>
+					/>
 					<Button color="primary" label="Log in" type="submit" />
 				</form>
 			</div>
