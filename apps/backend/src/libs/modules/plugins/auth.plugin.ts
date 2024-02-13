@@ -29,7 +29,7 @@ const plugin = (
 
 		if (!authHeader) {
 			throw new HTTPError({
-				message: ExceptionMessage.NO_AUTH_HEADER,
+				message: ExceptionMessage.NO_USER,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
@@ -38,7 +38,7 @@ const plugin = (
 
 		if (!token) {
 			throw new HTTPError({
-				message: ExceptionMessage.NO_JWT,
+				message: ExceptionMessage.NO_USER,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
@@ -50,7 +50,7 @@ const plugin = (
 			userId = payload.userId;
 		} catch {
 			throw new HTTPError({
-				message: ExceptionMessage.INVALID_TOKEN,
+				message: ExceptionMessage.NO_USER,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
