@@ -1,5 +1,6 @@
 import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useCallback,
@@ -47,7 +48,13 @@ const Auth: React.FC = () => {
 
 	return (
 		<main className={styles["container"]}>
-			<div className={styles["form-container"]}>
+			<div
+				className={
+					pathname === AppRoute.SIGN_IN
+						? getValidClassNames(styles["form-container"], styles["sign-in"])
+						: getValidClassNames(styles["form-container"], styles["sign-up"])
+				}
+			>
 				<h1 className={styles["logo-wrapper"]}>
 					<img alt="TrackMates logo" src={logo} />
 					TrackMates

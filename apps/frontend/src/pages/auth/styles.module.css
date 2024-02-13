@@ -6,6 +6,22 @@
 	padding-bottom: 160px;
 	font-family: Roboto, sans-serif;
 	background-color: var(--color-menu);
+	background-image: url("~/assets/img/svg/background-cloud-one.svg"),
+		url("~/assets/img/svg/background-cloud-two.svg"),
+		url("~/assets/img/svg/background-cloud-three.svg"),
+		url("~/assets/img/svg/background-cloud-four.svg"),
+		url("~/assets/img/svg/background-cloud-five.svg"),
+		url("~/assets/img/svg/background-sun.svg"),
+		url("~/assets/img/svg/background-cloud-one.svg");
+	background-repeat: no-repeat;
+	background-position:
+		calc(50% - 600px) 442px,
+		calc(50% - 455px) 385px,
+		calc(50% - 325px) 466px,
+		calc(50% + 280px) 460px,
+		calc(50% + 485px) 404px,
+		calc(50% + 460px) 382px,
+		calc(50% + 750px) 484px;
 }
 
 .form-container {
@@ -42,4 +58,15 @@
 	right: 65px;
 	bottom: -30px;
 	content: url("~/assets/img/svg/tail.svg");
+}
+
+.sign-in::before {
+	position: absolute;
+	bottom: -20px;
+	left: -185px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	background-image: url("~/assets/img/sign-in-img.png");
+	background-size: cover;
 }

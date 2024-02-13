@@ -1,22 +1,3 @@
-.main-container {
-	background-image: url("~/assets/img/svg/background-cloud-one.svg"),
-		url("~/assets/img/svg/background-cloud-two.svg"),
-		url("~/assets/img/svg/background-cloud-three.svg"),
-		url("~/assets/img/svg/background-cloud-four.svg"),
-		url("~/assets/img/svg/background-cloud-five.svg"),
-		url("~/assets/img/svg/background-sun.svg"),
-		url("~/assets/img/svg/background-cloud-one.svg");
-	background-repeat: no-repeat;
-	background-position:
-		calc(50% - 600px) 300px,
-		calc(50% - 455px) 248px,
-		calc(50% - 325px) 326px,
-		calc(50% + 280px) 320px,
-		calc(50% + 485px) 264px,
-		calc(50% + 460px) 245px,
-		calc(50% + 680px) 344px;
-}
-
 .form {
 	display: flex;
 	flex-direction: column;
@@ -48,15 +29,4 @@
 
 .link:hover {
 	text-decoration: underline;
-}
-
-.sign-in-form::before {
-	position: absolute;
-	bottom: -20px;
-	left: -185px;
-	width: 283px;
-	height: 283px;
-	content: "";
-	background-image: url("~/assets/img/sign-in-img.png");
-	background-size: cover;
 }
