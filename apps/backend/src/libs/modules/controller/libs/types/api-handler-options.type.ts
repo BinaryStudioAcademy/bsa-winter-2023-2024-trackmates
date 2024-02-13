@@ -4,6 +4,7 @@ type DefaultApiHandlerOptions = {
 	body?: unknown;
 	params?: unknown;
 	query?: unknown;
+	user?: UserAuthResponseDto | null;
 };
 
 type APIHandlerOptions<
@@ -12,7 +13,7 @@ type APIHandlerOptions<
 	body: T["body"];
 	params: T["params"];
 	query: T["query"];
-	user: UserAuthResponseDto | null;
+	user: T["user"];
 };
 
 export { type APIHandlerOptions };
