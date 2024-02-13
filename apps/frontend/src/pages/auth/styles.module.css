@@ -70,3 +70,14 @@
 	background-image: url("~/assets/img/sign-in-img.png");
 	background-size: cover;
 }
+
+.sign-up::before {
+	position: absolute;
+	right: -225px;
+	bottom: 10px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	background-image: url("~/assets/img/sign-up-img.png");
+	background-size: cover;
+}
