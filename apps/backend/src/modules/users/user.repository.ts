@@ -35,9 +35,14 @@ class UserRepository implements Repository<UserEntity> {
 			.execute();
 
 		return UserEntity.initialize({
-			...user,
+			createdAt: user.createdAt,
+			email: user.email,
 			firstName: userDetails.firstName,
+			id: user.id,
 			lastName: userDetails.lastName,
+			passwordHash: user.passwordHash,
+			passwordSalt: user.passwordSalt,
+			updatedAt: user.updatedAt,
 		});
 	}
 
@@ -57,9 +62,14 @@ class UserRepository implements Repository<UserEntity> {
 
 		return users.map((user) =>
 			UserEntity.initialize({
-				...user,
+				createdAt: user.createdAt,
+				email: user.email,
 				firstName: user.userDetails.firstName,
+				id: user.id,
 				lastName: user.userDetails.lastName,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				updatedAt: user.updatedAt,
 			}),
 		);
 	}
@@ -72,9 +82,14 @@ class UserRepository implements Repository<UserEntity> {
 			.execute();
 		if (user) {
 			return UserEntity.initialize({
-				...user,
+				createdAt: user.createdAt,
+				email: user.email,
 				firstName: user.userDetails.firstName,
+				id: user.id,
 				lastName: user.userDetails.lastName,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				updatedAt: user.updatedAt,
 			});
 		}
 		return null;

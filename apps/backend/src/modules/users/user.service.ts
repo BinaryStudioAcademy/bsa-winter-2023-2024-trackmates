@@ -30,7 +30,7 @@ class UserService implements Service {
 	): Promise<UserSignUpResponseDto> {
 		const { hash, salt } = await this.encrypt.encrypt(payload.password);
 
-		const item = await this.userRepository.create(
+		const user = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
 				firstName: payload.firstName,
@@ -40,12 +40,11 @@ class UserService implements Service {
 			}),
 		);
 
-		const object = item.toObject();
+		const userObject = user.toObject();
 
 		return {
-			email: object.email,
-			id: object.id,
-			token: this.token.create({ id: object.id }),
+			token: this.token.create({ id: userObject.id }),
+			user: userObject,
 		};
 	}
 
@@ -58,16 +57,10 @@ class UserService implements Service {
 	}
 
 	public async findAll(): Promise<UserGetAllResponseDto> {
-		const items = await this.userRepository.findAll();
+		const users = await this.userRepository.findAll();
 
 		return {
-			items: items.map((item) => {
-				const object = item.toObject();
-				return {
-					email: object.email,
-					id: object.id,
-				};
-			}),
+			items: users.map((user) => user.toObject()),
 		};
 	}
 
