@@ -1,4 +1,5 @@
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { Token } from "~/libs/modules/token/token.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
@@ -11,10 +12,16 @@ import {
 
 class UserService implements Service {
 	private encrypt: Encrypt;
+	private token: Token;
 	private userRepository: UserRepository;
 
-	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
+	public constructor(
+		encrypt: Encrypt,
+		token: Token,
+		userRepository: UserRepository,
+	) {
 		this.encrypt = encrypt;
+		this.token = token;
 		this.userRepository = userRepository;
 	}
 
@@ -35,7 +42,11 @@ class UserService implements Service {
 
 		const object = item.toObject();
 
-		return { email: object.email, id: object.id };
+		return {
+			email: object.email,
+			id: object.id,
+			token: this.token.create({ id: object.id }),
+		};
 	}
 
 	public delete(): Promise<boolean> {
