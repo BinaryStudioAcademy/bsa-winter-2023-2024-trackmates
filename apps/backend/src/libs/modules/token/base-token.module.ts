@@ -2,7 +2,7 @@ import { JWTVerifyResult, SignJWT, jwtVerify } from "jose";
 
 import { type Config } from "~/libs/modules/config/config.js";
 
-import type { Token, TokenPayload } from "./libs/types/types.js";
+import { type Token, type TokenPayload } from "./libs/types/types.js";
 
 class BaseToken implements Token {
 	private algorithm: string;
