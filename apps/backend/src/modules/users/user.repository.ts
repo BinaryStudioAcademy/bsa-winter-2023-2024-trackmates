@@ -80,19 +80,19 @@ class UserRepository implements Repository<UserEntity> {
 			.findOne({ email })
 			.withGraphJoined("userDetails")
 			.execute();
-		if (user) {
-			return UserEntity.initialize({
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				updatedAt: user.updatedAt,
-			});
-		}
-		return null;
+
+		return user
+			? UserEntity.initialize({
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
 	}
 
 	public update(): Promise<UserEntity | null> {
