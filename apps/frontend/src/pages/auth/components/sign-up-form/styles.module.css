@@ -31,3 +31,26 @@
 .link:hover {
 	text-decoration: underline;
 }
+
+@media screen and (width <= 500px) {
+	.form {
+		max-width: unset;
+		padding: 0 40px;
+		margin-top: 0;
+	}
+
+	.form * {
+		max-width: unset;
+	}
+}
+
+@media screen and (width <= 375px) {
+	.form {
+		row-gap: 15px;
+		padding: 0 30px;
+	}
+
+	.title {
+		font-size: var(--font-size-500);
+	}
+}
