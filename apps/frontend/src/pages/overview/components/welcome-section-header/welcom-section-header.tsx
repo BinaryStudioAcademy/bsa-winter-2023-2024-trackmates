@@ -1,3 +1,5 @@
+import plusIcon from "~/assets/img/svg/plus-icon.svg";
+import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
 import { Button } from "~/libs/components/components.js";
 
 import styles from "./styles.module.css";
@@ -18,10 +20,19 @@ const WelcomeHeader: React.FC<Properties> = ({
 				<h3
 					className={styles["welcome-section-header-subtitle"]}
 				>{`${firstName} ${lastName}`}</h3>
-				<img alt="welcome character" />
+				<div className={styles["welcome-character"]}>
+					<div className={styles["particle"]} />
+					<div className={styles["particle"]} />
+					<img alt="welcome character" src={welcomeCharacter} />
+					<div className={styles["particle"]} />
+				</div>
 			</div>
 			<div className={styles["welcome-section-header-actions"]}>
-				<Button label="Add the course" />
+				<Button className={styles["add-course-button"]} label="Add the course">
+					<div className={styles["button-icon"]}>
+						<img alt="plus icon" src={plusIcon} />
+					</div>
+				</Button>
 			</div>
 		</header>
 	);
