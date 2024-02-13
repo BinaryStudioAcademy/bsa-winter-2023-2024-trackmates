@@ -1,0 +1,21 @@
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	width: 50px;
+}
+
+.dot {
+	display: block;
+	width: 10px;
+	height: 10px;
+	background: var(--color-button);
+	border-radius: 50%;
+}
+
+.orange {
+	background: var(--color-button);
+}
+
+.white {
+	background: var(--color-background);
+}
