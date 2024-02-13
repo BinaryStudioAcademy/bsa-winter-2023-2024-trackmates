@@ -26,6 +26,8 @@ class UserService implements Service {
 		const user = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
+				firstName: payload.firstName,
+				lastName: payload.lastName,
 				passwordHash: hash,
 				passwordSalt: salt,
 			}),
@@ -43,10 +45,10 @@ class UserService implements Service {
 	}
 
 	public async findAll(): Promise<UserGetAllResponseDto> {
-		const items = await this.userRepository.findAll();
+		const users = await this.userRepository.findAll();
 
 		return {
-			items: items.map((item) => item.toObject()),
+			items: users.map((user) => user.toObject()),
 		};
 	}
 
