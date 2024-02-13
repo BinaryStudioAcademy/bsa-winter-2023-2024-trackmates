@@ -1,10 +1,8 @@
 import logo from "~/assets/img/svg/auth-circle-logo.svg";
-import eyeIcon from "~/assets/img/svg/eye-icon.svg";
-import eyeSlashIcon from "~/assets/img/svg/eye-slash-icon.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignUpRequestDto,
 	userSignUpValidationSchema,
@@ -18,12 +16,6 @@ type Properties = {
 };
 
 const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const [showPassword, setShowPassword] = useState(false);
-
-	const togglePasswordVisibility = useCallback(() => {
-		setShowPassword((previousState) => !previousState);
-	}, []);
-
 	const { control, errors, handleSubmit } = useAppForm<UserSignUpRequestDto>({
 		defaultValues: DEFAULT_SIGN_UP_PAYLOAD,
 		validationSchema: userSignUpValidationSchema,
@@ -85,27 +77,14 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						name="email"
 						type="text"
 					/>
-					<div className={styles["input-wrapper"]}>
-						<Input
-							color="dark"
-							control={control}
-							errors={errors}
-							label="Password"
-							name="password"
-							type={showPassword ? "text" : "password"}
-						/>
-						<button
-							aria-label={showPassword ? "Show password" : "Hide password"}
-							className={styles["password-toggle"]}
-							onClick={togglePasswordVisibility}
-						>
-							<img
-								alt={showPassword ? "Show password" : "Hide password"}
-								src={showPassword ? eyeIcon : eyeSlashIcon}
-								width="16"
-							/>
-						</button>
-					</div>
+					<Input
+						color="dark"
+						control={control}
+						errors={errors}
+						label="Password"
+						name="password"
+						type="password"
+					/>
 					<Input
 						color="dark"
 						control={control}

@@ -97,19 +97,3 @@
 	background-image: url("~/assets/img/sign-up-img.png");
 	background-size: cover;
 }
-
-.input-wrapper {
-	position: relative;
-}
-
-.password-toggle {
-	position: absolute;
-	top: 40px;
-	right: 10px;
-	padding: 0;
-	color: var(--color-background);
-	cursor: pointer;
-	background: none;
-	border: none;
-	transform: translateY(-50%);
-}
