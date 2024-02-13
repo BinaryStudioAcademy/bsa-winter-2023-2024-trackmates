@@ -43,7 +43,7 @@ class UserService implements Service {
 		const userObject = user.toObject();
 
 		return {
-			token: this.token.create({ id: userObject.id }),
+			token: this.token.create({ userId: userObject.id }),
 			user: userObject,
 		};
 	}
