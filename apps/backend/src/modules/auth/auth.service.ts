@@ -1,6 +1,6 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { type BaseToken } from "~/libs/modules/token/token.js";
+import { type Token } from "~/libs/modules/token/token.js";
 import {
 	UserEntity,
 	type UserService,
@@ -14,13 +14,13 @@ import { AuthError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
 	encrypt: Encrypt;
-	token: BaseToken;
+	token: Token;
 	userService: UserService;
 };
 
 class AuthService {
 	private encrypt: Encrypt;
-	private token: BaseToken;
+	private token: Token;
 	private userService: UserService;
 
 	public constructor({ encrypt, token, userService }: Constructor) {
