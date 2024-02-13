@@ -1,6 +1,7 @@
 import reactLogo from "~/assets/img/react.svg";
 import { Link, RouterOutlet, Sidebar } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { isSidebarShown } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -46,12 +47,19 @@ const App: React.FC = () => {
 			</ul>
 			<p>Current path: {pathname}</p>
 
-			<div className={styles["page-layout"]}>
-				<Sidebar className={styles["sidebar"] ?? ""} />
-				<div className={styles["page"]}>
+			{isSidebarShown(pathname) ? (
+				<div className={styles["page-layout"]}>
+					<Sidebar className={styles["sidebar"] ?? ""} />
+					<div className={styles["page"]}>
+						<RouterOutlet />
+					</div>
+				</div>
+			) : (
+				<div>
 					<RouterOutlet />
 				</div>
-			</div>
+			)}
+
 			{isRoot && (
 				<>
 					<h2>Users:</h2>
