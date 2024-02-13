@@ -2,7 +2,7 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { Link } from "../link/link.js";
+import { Link } from "../components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -10,7 +10,7 @@ type Properties = {
 	href?: ValueOf<typeof AppRoute>;
 	label: string;
 	size?: "regular" | "small";
-	style?: "filled" | "outlined";
+	style?: "filled" | "fulfilled" | "outlined";
 	type?: "button" | "submit";
 };
 
@@ -32,8 +32,8 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<Link className={buttonStyles} to={href}>
-					{label}
+				<Link to={href}>
+					<span className={buttonStyles}>{label}</span>
 				</Link>
 			) : (
 				<button className={buttonStyles} type={type}>
