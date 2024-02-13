@@ -1,5 +1,4 @@
-import { HTTPError } from "../../../../../libs/exceptions/http-error/http-error.exception.js";
-import { HTTPCode } from "../../../../../libs/modules/http/libs/enums/http-code.enum.js";
+import { HTTPCode, HTTPError } from "../../../../../libs/modules/http/http.js";
 import { ValueOf } from "../../../../../libs/types/value-of.type.js";
 
 class AuthError extends HTTPError {

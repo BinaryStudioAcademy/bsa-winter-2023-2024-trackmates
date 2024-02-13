@@ -76,8 +76,8 @@ class AuthService {
 		userRequestDto: UserSignUpRequestDto,
 	): Promise<UserSignUpResponseDto> {
 		const user = await this.userService.getByEmail(userRequestDto.email);
-		const isUserWithSuchEmailExisting = Boolean(user);
-		if (isUserWithSuchEmailExisting) {
+		const hasUser = Boolean(user);
+		if (hasUser) {
 			throw new AuthError(
 				ExceptionMessage.EMAIL_ALREADY_EXISTS,
 				HTTPCode.BAD_REQUEST,
