@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -6,15 +8,17 @@ import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	className?: string;
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
-	label: string;
+	label: ReactNode;
 	size?: "regular" | "small";
 	style?: "filled" | "fulfilled" | "outlined";
 	type?: "button" | "submit";
 };
 
 const Button: React.FC<Properties> = ({
+	className,
 	color = "primary",
 	href,
 	label,
@@ -27,6 +31,7 @@ const Button: React.FC<Properties> = ({
 		styles[size],
 		styles[style],
 		styles[color],
+		className,
 	);
 
 	return (

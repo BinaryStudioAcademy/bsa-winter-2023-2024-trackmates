@@ -1,3 +1,48 @@
-.sidebar-wrapper {
+.wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 76px;
+	padding: 24px 24px 24px 36px;
 	background-color: var(--color-menu);
+}
+
+.title-container {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	color: var(--color-background);
+}
+
+.menu {
+	width: 100%;
+}
+
+.menu-item {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.menu-item-content {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	line-height: 1;
+}
+
+.menu-item-icon {
+	fill: var(--main-white);
+}
+
+.menu-item:hover .menu-item-icon {
+	fill: var(--main-orange);
+}
+
+.title {
+	font-size: var(--font-size-550);
+}
+
+.logo {
+	width: 34px;
+	height: 34px;
 }
