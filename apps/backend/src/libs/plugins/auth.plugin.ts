@@ -6,7 +6,7 @@ import { HTTPCode, HTTPHeader } from "~/libs/modules/http/http.js";
 import { AuthError } from "~/modules/auth/libs/exceptions/exceptions.js";
 import { type UserService } from "~/modules/users/users.js";
 
-import { token as jwtToken } from "../token/token.js";
+import { token as jwtToken } from "../modules/token/token.js";
 import { FastifyHook } from "./libs/enums/enums.js";
 import { isWhiteRoute } from "./libs/helpers/helpers.js";
 

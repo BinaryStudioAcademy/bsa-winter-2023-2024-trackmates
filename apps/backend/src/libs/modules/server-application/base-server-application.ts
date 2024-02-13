@@ -11,7 +11,7 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { authorization } from "~/libs/modules/plugins/plugins.js";
+import { authorization } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
