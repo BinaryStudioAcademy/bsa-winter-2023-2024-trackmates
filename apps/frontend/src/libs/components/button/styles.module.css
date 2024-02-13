@@ -3,8 +3,7 @@
 	display: block;
 	text-align: center;
 	cursor: pointer;
-	border: 1px solid var(--color-button);
-	border-radius: 52px;
+	border: 1px solid;
 }
 
 .regular {
@@ -23,13 +22,20 @@
 	border-radius: 26px;
 }
 
-.fulfilled.primary {
-	color: #ffffff;
+.primary {
+	color: white;
 	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
 
-.outlined.primary {
+.primary.outlined,
+.primary:hover {
 	color: var(--color-button);
 	background-color: transparent;
-	border: 1px solid var(--color-button);
+}
+
+.primary.outlined:hover {
+	color: white;
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
