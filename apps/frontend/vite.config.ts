@@ -42,6 +42,11 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 					src: "/assets/screen-mobile.png",
 					type: "image/png",
 				},
+				{
+					sizes: "1440x1024",
+					src: "/assets/screen-desk-1440-1024.png",
+					type: "image/png",
+				},
 			],
 			short_name: "Trackmates",
 			theme_color: "#0b372f",
