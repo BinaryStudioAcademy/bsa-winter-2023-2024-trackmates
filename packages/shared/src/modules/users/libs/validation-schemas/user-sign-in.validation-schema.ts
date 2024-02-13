@@ -18,7 +18,12 @@ const userSignIn = z
 			.email({
 				message: UserValidationMessage.EMAIL_WRONG,
 			}),
-		password: z.string().trim(),
+		password: z
+			.string()
+			.trim()
+			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.PASSWORD_SHORT,
+			}),
 	})
 	.required();
 
