@@ -8,7 +8,7 @@ import { type UserService } from "~/modules/users/users.js";
 
 import { token as jwtToken } from "../modules/token/token.js";
 import { FastifyHook } from "./libs/enums/enums.js";
-import { isWhiteRoute } from "./libs/helpers/helpers.js";
+import { checkIfWhiteRoute } from "./libs/helpers/helpers.js";
 
 type Options = {
 	services: {
@@ -23,7 +23,7 @@ const authorization = fp<Options>(
 		fastify.addHook(FastifyHook.ON_REQUEST, async (request: FastifyRequest) => {
 			const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
-			if (isWhiteRoute(request.url)) {
+			if (checkIfWhiteRoute(request.url)) {
 				return;
 			}
 

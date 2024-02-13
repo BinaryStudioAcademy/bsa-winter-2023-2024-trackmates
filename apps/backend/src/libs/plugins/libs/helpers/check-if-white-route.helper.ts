@@ -2,10 +2,10 @@ import { WHITE_ROUTES } from "~/libs/modules/server-application/server-applicati
 
 import { getApiEndpoint } from "./get-api-endpoint.helper.js";
 
-const isWhiteRoute = (url: string) => {
+const checkIfWhiteRoute = (url: string) => {
 	const apiEndpoint = getApiEndpoint(url);
 
 	return WHITE_ROUTES.includes(apiEndpoint ?? "");
 };
 
-export { isWhiteRoute };
+export { checkIfWhiteRoute };

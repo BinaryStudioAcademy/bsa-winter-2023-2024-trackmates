@@ -1,1 +1,1 @@
-export { isWhiteRoute } from "./is-white-route.helper.js";
+export { checkIfWhiteRoute } from "./check-if-white-route.helper.js";
