@@ -45,6 +45,7 @@ class UserEntity implements Entity {
 		this.passwordSalt = passwordSalt;
 		this.updatedAt = updatedAt;
 	}
+
 	public static initialize({
 		createdAt,
 		email,

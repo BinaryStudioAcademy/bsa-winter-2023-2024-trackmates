@@ -1,6 +1,6 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { type Token } from "~/libs/modules/token/token.js";
+import { Token } from "~/libs/modules/token/token.js";
 import {
 	UserEntity,
 	type UserService,
