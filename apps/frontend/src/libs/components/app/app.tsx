@@ -10,6 +10,8 @@ import {
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
 
+import { Course } from "../course/course.js";
+
 const App: React.FC = () => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
@@ -43,6 +45,8 @@ const App: React.FC = () => {
 				</li>
 			</ul>
 			<p>Current path: {pathname}</p>
+
+			<Course />
 
 			<div>
 				<RouterOutlet />
