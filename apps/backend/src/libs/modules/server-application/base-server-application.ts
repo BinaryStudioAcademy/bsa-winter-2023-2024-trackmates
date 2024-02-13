@@ -18,6 +18,7 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { userService } from "~/modules/users/users.js";
 
 import {
 	type ServerApplication,
@@ -105,6 +106,9 @@ class BaseServerApplication implements ServerApplication {
 
 	private async initPlugins(): Promise<void> {
 		await this.app.register(authorization, {
+			services: {
+				userService,
+			},
 			whiteRouteList: WHITE_ROUTES,
 		});
 	}
