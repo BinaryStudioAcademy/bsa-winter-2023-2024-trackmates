@@ -2,12 +2,12 @@ import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
-	type UserAuthResponseDto,
-	UserEntity,
+	type UserEntity,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
+	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
 import { AuthError } from "./libs/exceptions/exceptions.js";
@@ -67,14 +67,14 @@ class AuthService {
 		const { id } = user.toObject();
 
 		return {
-			token: this.token.create({ userId: id }),
+			token: await this.token.create({ userId: id }),
 			user: user.toObject(),
 		};
 	}
 
 	public async signUp(
 		userRequestDto: UserSignUpRequestDto,
-	): Promise<UserAuthResponseDto> {
+	): Promise<UserSignUpResponseDto> {
 		const user = await this.userService.getByEmail(userRequestDto.email);
 		const hasUser = Boolean(user);
 		if (hasUser) {
@@ -83,7 +83,13 @@ class AuthService {
 				HTTPCode.BAD_REQUEST,
 			);
 		}
-		return await this.userService.create(userRequestDto);
+
+		const newUser = await this.userService.create(userRequestDto);
+
+		return {
+			token: await this.token.create({ userId: newUser.id }),
+			user: newUser,
+		};
 	}
 }
 

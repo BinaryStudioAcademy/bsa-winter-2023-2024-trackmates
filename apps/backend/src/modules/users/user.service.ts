@@ -1,5 +1,4 @@
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { Token } from "~/libs/modules/token/token.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
@@ -12,16 +11,10 @@ import {
 
 class UserService implements Service {
 	private encrypt: Encrypt;
-	private token: Token;
 	private userRepository: UserRepository;
 
-	public constructor(
-		encrypt: Encrypt,
-		token: Token,
-		userRepository: UserRepository,
-	) {
+	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
 		this.encrypt = encrypt;
-		this.token = token;
 		this.userRepository = userRepository;
 	}
 
