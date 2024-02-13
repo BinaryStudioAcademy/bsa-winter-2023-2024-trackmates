@@ -2,12 +2,12 @@ import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
+	type UserAuthResponseDto,
 	UserEntity,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
 import { AuthError } from "./libs/exceptions/exceptions.js";
@@ -68,7 +68,7 @@ class AuthService {
 
 	public signUp(
 		userRequestDto: UserSignUpRequestDto,
-	): Promise<UserSignUpResponseDto> {
+	): Promise<UserAuthResponseDto> {
 		return this.userService.create(userRequestDto);
 	}
 }

@@ -1,0 +1,115 @@
+.main-container {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+	background-image: url("~/assets/img/svg/background-cloud-two.svg"),
+		url("~/assets/img/svg/background-cloud-three.svg"),
+		url("~/assets/img/svg/background-cloud-four.svg"),
+		url("~/assets/img/svg/background-cloud-five.svg"),
+		url("~/assets/img/svg/background-sun.svg");
+	background-repeat: no-repeat;
+	background-position:
+		calc(50% + 455px) 248px,
+		calc(50% + 285px) 276px,
+		calc(50% - 620px) 320px,
+		calc(50% - 385px) 264px,
+		calc(50% - 440px) 245px;
+}
+
+.form-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 454px;
+	height: auto;
+	background-color: #004a40b3;
+	backdrop-filter: blur(5px);
+	border-radius: 37px;
+}
+
+.logo-wrapper {
+	position: absolute;
+	top: -65px;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 30px 70px 43px 45px;
+	font-size: 43.71px;
+	font-weight: 700;
+	line-height: 52.89px;
+	color: var(--color-menu);
+	background-color: #ffffff;
+	border-radius: 37px;
+}
+
+.logo-wrapper::after {
+	position: absolute;
+	right: 65px;
+	bottom: -30px;
+	content: url("~/assets/img/svg/tail.svg");
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 27px;
+	width: 100%;
+	max-width: 253px;
+	margin-top: 141px;
+	margin-bottom: 68px;
+	color: #ffffff;
+}
+
+.title {
+	margin: 0 0 5px;
+	font-size: var(--font-size-600);
+	font-weight: 600;
+	line-height: 48px;
+}
+
+.subtitle {
+	font-size: var(--font-size-200);
+	font-weight: 400;
+	line-height: 20px;
+}
+
+.link {
+	color: var(--color-button);
+	text-decoration: none;
+	transition: 0.1s color ease;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.sign-in-form::before {
+	position: absolute;
+	right: -225px;
+	bottom: 60px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	background-image: url("~/assets/img/sign-up-img.png");
+	background-size: cover;
+}
+
+.input-wrapper {
+	position: relative;
+}
+
+.password-toggle {
+	position: absolute;
+	top: 40px;
+	right: 10px;
+	padding: 0;
+	color: var(--color-background);
+	cursor: pointer;
+	background: none;
+	border: none;
+	transform: translateY(-50%);
+}

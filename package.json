@@ -62,5 +62,10 @@
 	"simple-git-hooks": {
 		"pre-commit": "npm run lint:type && npm run git:hook:precommit",
 		"commit-msg": "npm run git:hook:commit"
+	},
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "6.5.1",
+		"@fortawesome/free-solid-svg-icons": "6.5.1",
+		"@fortawesome/react-fontawesome": "0.2.0"
 	}
 }
