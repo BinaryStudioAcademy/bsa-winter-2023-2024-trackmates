@@ -23,7 +23,7 @@ const plugin = (
 	fastify.addHook(FastifyHook.ON_REQUEST, async (request: FastifyRequest) => {
 		const authHeader = request.headers[HTTPHeader.AUTHORIZATION];
 
-		if (isWhiteRoute(request, whiteRouteList)) {
+		if (isWhiteRoute(request.url, whiteRouteList)) {
 			return;
 		}
 
