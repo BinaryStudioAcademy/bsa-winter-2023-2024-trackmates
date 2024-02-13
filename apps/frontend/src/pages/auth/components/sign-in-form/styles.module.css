@@ -1,0 +1,32 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 27px;
+	width: 100%;
+	max-width: 253px;
+	margin-bottom: 30px;
+	color: #ffffff;
+}
+
+.title {
+	margin: 0 0 5px;
+	font-size: var(--font-size-600);
+	font-weight: 600;
+	line-height: 48px;
+}
+
+.subtitle {
+	font-size: var(--font-size-200);
+	font-weight: 400;
+	line-height: 20px;
+}
+
+.link {
+	color: var(--color-button);
+	text-decoration: none;
+	transition: 0.1s color ease;
+}
+
+.link:hover {
+	text-decoration: underline;
+}

@@ -1,0 +1,155 @@
+@keyframes appearance-left {
+	from {
+		opacity: 0;
+		transform: translateX(-30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes appearance-right {
+	from {
+		opacity: 0;
+		transform: translateX(30px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+.not-found-page-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background-color: var(--color-menu);
+}
+
+.not-found-page-content-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 40px;
+	color: var(--main-white);
+	background-color: var(--modal-container-background);
+	border-radius: 37px;
+}
+
+.content-heading {
+	position: relative;
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+.content-heading::before {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 4px;
+	content: "";
+	background-color: var(--main-white);
+	border-radius: 100vw;
+	transform: translateY(100%);
+}
+
+.title {
+	margin: 0;
+	font-size: var(--font-size-700);
+}
+
+.content {
+	margin: 0;
+	font-size: var(--font-size-300);
+}
+
+.error-scene {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	gap: 20px;
+	align-items: flex-end;
+	justify-content: center;
+	width: 100%;
+}
+
+.error-scene-img {
+	width: 125px;
+	animation: appearance-right 800ms ease-out;
+}
+
+.error-sign {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	animation: appearance-left 800ms ease-out;
+}
+
+.octagon {
+	position: relative;
+	overflow: hidden;
+}
+
+.octagon::before {
+	position: absolute;
+	inset: 0;
+	content: "";
+	transform: rotate(45deg);
+}
+
+.error-sign-head {
+	width: 110px;
+	height: 110px;
+	color: var(--main-orange);
+}
+
+.error-sign-head::before {
+	background-color: var(--main-white);
+}
+
+.error-sign-content {
+	position: absolute;
+	inset: 6px;
+	z-index: 1;
+	font-size: var(--font-size-800);
+	font-weight: bold;
+}
+
+.error-sign-content::before {
+	background-color: var(--color-menu);
+}
+
+.error-sign-content-text {
+	position: absolute;
+	inset: 4px;
+	z-index: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: var(--font-size-800);
+	font-weight: bold;
+}
+
+.error-sign-content-text::before {
+	z-index: -1;
+	background-color: var(--main-white);
+}
+
+.error-sign-leg {
+	width: 6px;
+	height: 80px;
+	background-color: var(--main-white);
+	border-top: 4px solid rgb(128 128 128/50%);
+}
+
+.actions {
+	width: 100%;
+	margin-top: 40px;
+}
