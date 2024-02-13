@@ -1,7 +1,5 @@
-import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignUpRequestDto,
@@ -29,66 +27,51 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	);
 
 	return (
-		<div className={styles["main-container"]}>
-			<div
-				className={getValidClassNames(
-					styles["form-container"],
-					styles["sign-in-form"],
-				)}
-			>
-				<h1 className={styles["logo-wrapper"]}>
-					{" "}
-					<img alt="Trackmates Logo" src={logo} />
-					TrackMates
-				</h1>
-
-				<form className={styles["form"]} onSubmit={handleFormSubmit}>
-					<div>
-						<h2 className={styles["title"]}>Create an account</h2>
-						<p className={styles["subtitle"]}>
-							Already have an account? Go to{" "}
-							<Link className={styles["link"]} to={AppRoute.SIGN_IN}>
-								{" "}
-								Log In
-							</Link>
-						</p>
-					</div>
-					<Input
-						color="dark"
-						control={control}
-						errors={errors}
-						label="First name"
-						name="firstName"
-						type="text"
-					/>
-					<Input
-						color="dark"
-						control={control}
-						errors={errors}
-						label="Last name"
-						name="lastName"
-						type="text"
-					/>
-					<Input
-						color="dark"
-						control={control}
-						errors={errors}
-						label="Email"
-						name="email"
-						type="text"
-					/>
-					<Input
-						color="dark"
-						control={control}
-						errors={errors}
-						label="Password"
-						name="password"
-						type="password"
-					/>
-					<Button color="primary" label="Create an account" type="submit" />
-				</form>
+		<form className={styles["form"]} onSubmit={handleFormSubmit}>
+			<div>
+				<h2 className={styles["title"]}>Create an account</h2>
+				<p className={styles["subtitle"]}>
+					Already have an account? Go to{" "}
+					<Link className={styles["link"]} to={AppRoute.SIGN_IN}>
+						{" "}
+						Log In
+					</Link>
+				</p>
 			</div>
-		</div>
+			<Input
+				color="dark"
+				control={control}
+				errors={errors}
+				label="First name"
+				name="firstName"
+				type="text"
+			/>
+			<Input
+				color="dark"
+				control={control}
+				errors={errors}
+				label="Last name"
+				name="lastName"
+				type="text"
+			/>
+			<Input
+				color="dark"
+				control={control}
+				errors={errors}
+				label="Email"
+				name="email"
+				type="text"
+			/>
+			<Input
+				color="dark"
+				control={control}
+				errors={errors}
+				label="Password"
+				name="password"
+				type="password"
+			/>
+			<Button color="primary" label="Create an account" type="submit" />
+		</form>
 	);
 };
 
