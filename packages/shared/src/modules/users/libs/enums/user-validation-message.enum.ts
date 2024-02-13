@@ -1,7 +1,6 @@
 import { UserValidationRule } from "./user-validation-rule.enum.js";
 
 const UserValidationMessage = {
-	CONFIRM_PASSWORD_REQUIRE: "Confirm password is required",
 	EMAIL_INVALID_FORMAT:
 		"Invalid email format. Please enter a valid email address.",
 	EMAIL_REQUIRE: "Email is required",

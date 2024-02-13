@@ -3,7 +3,6 @@ import { z } from "zod";
 import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 
 type UserSignUpRequestValidationDto = {
-	confirmPassword: z.ZodString;
 	email: z.ZodString;
 	firstName: z.ZodString;
 	lastName: z.ZodString;
@@ -12,12 +11,6 @@ type UserSignUpRequestValidationDto = {
 
 const userSignUp = z
 	.object<UserSignUpRequestValidationDto>({
-		confirmPassword: z
-			.string()
-			.trim()
-			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-				message: UserValidationMessage.CONFIRM_PASSWORD_REQUIRE,
-			}),
 		email: z
 			.string()
 			.trim()
@@ -70,10 +63,6 @@ const userSignUp = z
 				},
 			),
 	})
-	.required()
-	.refine((data) => data.password === data.confirmPassword, {
-		message: UserValidationMessage.PASSWORDS_NOT_MATCH,
-		path: ["confirmPassword"],
-	});
+	.required();
 
 export { userSignUp };

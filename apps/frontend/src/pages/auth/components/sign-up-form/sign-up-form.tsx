@@ -85,14 +85,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 						name="password"
 						type="password"
 					/>
-					<Input
-						color="dark"
-						control={control}
-						errors={errors}
-						label="Confirm password"
-						name="confirmPassword"
-						type="password"
-					/>
 					<Button color="primary" label="Create an account" type="submit" />
 				</form>
 			</div>
