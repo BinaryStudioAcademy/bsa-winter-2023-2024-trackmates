@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import logo from "~/assets/img/svg/logo.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/app-route.enum.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
 import {
