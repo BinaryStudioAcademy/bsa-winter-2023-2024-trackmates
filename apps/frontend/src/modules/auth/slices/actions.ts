@@ -24,16 +24,17 @@ const getAuthenticatedUser = createAsyncThunk<
 	UserAuthResponseDto | null,
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/get-authenticated-user`, (_payload, { extra }) => {
+>(`${sliceName}/get-authenticated-user`, async (_payload, { extra }) => {
 	const { authApi, storage } = extra;
 
-	const hasToken = Boolean(storage.get(StorageKey.TOKEN));
+	const token = await storage.get(StorageKey.TOKEN);
+	const hasToken = Boolean(token);
 
 	if (!hasToken) {
 		return null;
 	}
 
-	return authApi.getAuthenticatedUser();
+	return await authApi.getAuthenticatedUser();
 });
 
 export { getAuthenticatedUser, signUp };
