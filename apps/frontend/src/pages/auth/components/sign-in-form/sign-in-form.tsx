@@ -1,7 +1,7 @@
 import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { concatClasses } from "~/libs/helpers/helpers.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignInRequestDto,
@@ -31,7 +31,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	return (
 		<div className={styles["main-container"]}>
 			<div
-				className={concatClasses(
+				className={getValidClassNames(
 					styles["form-container"],
 					styles["sign-in-form"],
 				)}

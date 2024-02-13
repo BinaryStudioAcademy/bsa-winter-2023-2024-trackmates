@@ -1,8 +1,8 @@
 import { AppRoute } from "~/libs/enums/enums.js";
-import { concatClasses } from "~/libs/helpers/helpers.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { Link } from "../components.js";
+import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -22,7 +22,7 @@ const Button: React.FC<Properties> = ({
 	style = "filled",
 	type = "button",
 }: Properties) => {
-	const buttonStyles = concatClasses(
+	const buttonStyles = getValidClassNames(
 		styles["button"],
 		styles[size],
 		styles[style],
@@ -33,7 +33,7 @@ const Button: React.FC<Properties> = ({
 		<>
 			{href ? (
 				<Link className={buttonStyles} to={href}>
-					<div>{label}</div>
+					{label}
 				</Link>
 			) : (
 				<button className={buttonStyles} type={type}>
