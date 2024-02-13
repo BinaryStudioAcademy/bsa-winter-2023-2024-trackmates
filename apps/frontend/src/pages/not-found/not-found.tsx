@@ -33,7 +33,7 @@ const NotFound: React.FC = () => {
 									</span>
 								</div>
 							</div>
-							<div className={styles["error-sign-leg"]}></div>
+							<div className={styles["error-sign-leg"]} />
 						</div>
 						<img
 							alt="question character"
