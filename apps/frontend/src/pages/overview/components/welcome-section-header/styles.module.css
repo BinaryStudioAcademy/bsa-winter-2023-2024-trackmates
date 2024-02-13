@@ -76,7 +76,7 @@
 	justify-content: center;
 	width: 24px;
 	height: 24px;
-	color: white;
+	color: var(--main-white);
 	background-color: var(--main-orange);
 	border-radius: 50%;
 }
