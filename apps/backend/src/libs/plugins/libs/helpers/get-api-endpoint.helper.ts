@@ -1,4 +1,4 @@
-const getApiEndpoint = (url: string): null | string | undefined => {
+const getApiEndpoint = (url: string): null | string => {
 	const regex = /\/api\/v\d+(\/.+)/;
 	const match = url.match(regex);
 
