@@ -37,7 +37,7 @@ class AuthService {
 
 		if (!user) {
 			throw new AuthError(
-				ExceptionMessage.INCORRECT_EMAIL,
+				ExceptionMessage.INCORRECT_CREDENTIALS,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -51,7 +51,7 @@ class AuthService {
 
 		if (!isEqualPassword) {
 			throw new AuthError(
-				ExceptionMessage.PASSWORDS_NOT_MATCH,
+				ExceptionMessage.INCORRECT_CREDENTIALS,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
