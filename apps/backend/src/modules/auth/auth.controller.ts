@@ -9,6 +9,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
+	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "~/modules/users/users.js";
 
@@ -46,6 +47,9 @@ class AuthController extends BaseController {
 				),
 			method: "POST",
 			path: AuthApiPath.SIGN_IN,
+			validation: {
+				body: userSignInValidationSchema,
+			},
 		});
 	}
 

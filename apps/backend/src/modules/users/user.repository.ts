@@ -1,8 +1,8 @@
-import { type Repository } from "~/libs/types/types.js";
+import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
-class UserRepository implements Repository {
+class UserRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
@@ -24,11 +24,11 @@ class UserRepository implements Repository {
 		return UserEntity.initialize(user);
 	}
 
-	public delete(): ReturnType<Repository["delete"]> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public find(): ReturnType<Repository["find"]> {
+	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
@@ -40,13 +40,11 @@ class UserRepository implements Repository {
 
 	public async getByEmail(email: string): Promise<UserEntity | null> {
 		const user = await this.userModel.query().findOne({ email }).execute();
-		if (user) {
-			return UserEntity.initialize(user);
-		}
-		return null;
+
+		return user ? UserEntity.initialize(user) : null;
 	}
 
-	public update(): ReturnType<Repository["update"]> {
+	public update(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 }

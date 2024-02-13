@@ -8,10 +8,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
-import { storage as storageApi } from "~/libs/modules/storage/storage.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
 import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 
+import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
 
 type RootReducer = {
@@ -22,7 +22,7 @@ type RootReducer = {
 type ExtraArguments = {
 	authApi: typeof authApi;
 	notification: typeof notification;
-	storageApi: typeof storageApi;
+	storage: typeof storage;
 	userApi: typeof userApi;
 };
 
@@ -56,7 +56,7 @@ class Store {
 		return {
 			authApi,
 			notification,
-			storageApi,
+			storage,
 			userApi,
 		};
 	}
