@@ -2,7 +2,8 @@ import { type FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
 
 import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
+import { HTTPCode, HTTPHeader } from "~/libs/modules/http/http.js";
+import { AuthError } from "~/modules/auth/libs/exceptions/exceptions.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { token as jwtToken } from "../token/token.js";
@@ -27,19 +28,13 @@ const authorization = fp<Options>(
 			}
 
 			if (!authHeader) {
-				throw new HTTPError({
-					message: ExceptionMessage.NO_USER,
-					status: HTTPCode.UNAUTHORIZED,
-				});
+				throw new AuthError(ExceptionMessage.NO_USER, HTTPCode.UNAUTHORIZED);
 			}
 
 			const [, token] = authHeader.split(" ");
 
 			if (!token) {
-				throw new HTTPError({
-					message: ExceptionMessage.NO_USER,
-					status: HTTPCode.UNAUTHORIZED,
-				});
+				throw new AuthError(ExceptionMessage.NO_USER, HTTPCode.UNAUTHORIZED);
 			}
 
 			try {
@@ -48,18 +43,12 @@ const authorization = fp<Options>(
 				const user = await userService.findById(userId);
 
 				if (!user) {
-					throw new HTTPError({
-						message: ExceptionMessage.NO_USER,
-						status: HTTPCode.UNAUTHORIZED,
-					});
+					throw new AuthError(ExceptionMessage.NO_USER, HTTPCode.UNAUTHORIZED);
 				}
 
 				request.user = user;
 			} catch {
-				throw new HTTPError({
-					message: ExceptionMessage.NO_USER,
-					status: HTTPCode.UNAUTHORIZED,
-				});
+				throw new AuthError(ExceptionMessage.NO_USER, HTTPCode.UNAUTHORIZED);
 			}
 		});
 
