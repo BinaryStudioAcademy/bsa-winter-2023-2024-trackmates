@@ -14,7 +14,6 @@ type Properties = {
 
 const Link: React.FC<Properties> = ({
 	children,
-
 	className,
 	to,
 }: Properties) => {
