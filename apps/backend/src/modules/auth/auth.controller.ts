@@ -61,6 +61,23 @@ class AuthController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /auth/authenticated-user:
+	 *    get:
+	 *      description: Return current user by token
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
 	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
 		const user = options.user;
 
