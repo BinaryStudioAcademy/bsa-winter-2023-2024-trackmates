@@ -2,7 +2,7 @@ import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
-	type UserEntity,
+	UserEntity,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,

@@ -11,7 +11,7 @@ type Properties = {
 	href?: ValueOf<typeof AppRoute>;
 	label: React.ReactNode;
 	size?: "regular" | "small";
-	style?: "filled" | "fulfilled" | "outlined";
+	style?: "filled" | "outlined";
 	type?: "button" | "submit";
 };
 
