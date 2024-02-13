@@ -1,4 +1,5 @@
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { BaseToken } from "~/libs/modules/token/token.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
@@ -7,31 +8,45 @@ import {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
+	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
 
 class UserService implements Service {
 	private encrypt: Encrypt;
+	private token: BaseToken;
 	private userRepository: UserRepository;
 
-	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
+	public constructor(
+		encrypt: Encrypt,
+		token: BaseToken,
+		userRepository: UserRepository,
+	) {
 		this.encrypt = encrypt;
+		this.token = token;
 		this.userRepository = userRepository;
 	}
 
 	public async create(
 		payload: UserSignUpRequestDto,
-	): Promise<UserAuthResponseDto> {
+	): Promise<UserSignUpResponseDto> {
 		const { hash, salt } = await this.encrypt.encrypt(payload.password);
 
-		const item = await this.userRepository.create(
+		const user = await this.userRepository.create(
 			UserEntity.initializeNew({
 				email: payload.email,
+				firstName: payload.firstName,
+				lastName: payload.lastName,
 				passwordHash: hash,
 				passwordSalt: salt,
 			}),
 		);
 
-		return item.toObject();
+		const userObject = user.toObject();
+
+		return {
+			token: await this.token.create({ userId: userObject.id }),
+			user: userObject,
+		};
 	}
 
 	public delete(): Promise<boolean> {
@@ -43,10 +58,10 @@ class UserService implements Service {
 	}
 
 	public async findAll(): Promise<UserGetAllResponseDto> {
-		const items = await this.userRepository.findAll();
+		const users = await this.userRepository.findAll();
 
 		return {
-			items: items.map((item) => item.toObject()),
+			items: users.map((user) => user.toObject()),
 		};
 	}
 

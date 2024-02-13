@@ -1,19 +1,17 @@
-import type { FastifyInstance, FastifyRequest } from "fastify";
-
+import { type FastifyInstance, type FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
 
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode, HTTPError, HTTPHeader } from "~/libs/modules/http/http.js";
 import { userService } from "~/modules/users/users.js";
 
-import type {
-	AuthPluginOptions,
-	FastifyDoneCallback,
-} from "./libs/types/types.js";
-
 import { token as jwtToken } from "../token/token.js";
 import { FastifyHook } from "./libs/enums/enums.js";
 import { isWhiteRoute } from "./libs/helpers/helpers.js";
+import {
+	type AuthPluginOptions,
+	type FastifyDoneCallback,
+} from "./libs/types/types.js";
 
 const plugin = (
 	fastify: FastifyInstance,
@@ -52,7 +50,7 @@ const plugin = (
 			userId = payload.userId;
 		} catch {
 			throw new HTTPError({
-				message: ExceptionMessage.INVALID_JWT,
+				message: ExceptionMessage.INVALID_TOKEN,
 				status: HTTPCode.UNAUTHORIZED,
 			});
 		}
