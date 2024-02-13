@@ -67,7 +67,7 @@ class AuthService {
 		const { id } = user.toObject();
 
 		return {
-			token: this.token.create({ userId: id }),
+			token: await this.token.create({ userId: id }),
 			user: user.toObject(),
 		};
 	}
@@ -83,7 +83,13 @@ class AuthService {
 				HTTPCode.BAD_REQUEST,
 			);
 		}
-		return await this.userService.create(userRequestDto);
+
+		const newUser = await this.userService.create(userRequestDto);
+
+		return {
+			token: await this.token.create({ userId: newUser.id }),
+			user: newUser,
+		};
 	}
 }
 
