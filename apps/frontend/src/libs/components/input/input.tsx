@@ -14,8 +14,6 @@ type Properties<T extends FieldValues> = {
 	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
-	isBasic?: boolean;
-	isPrimary?: boolean;
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
