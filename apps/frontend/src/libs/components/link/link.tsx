@@ -1,7 +1,10 @@
 import { NavLink } from "react-router-dom";
 
 import { type AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
+
+import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
@@ -11,12 +14,15 @@ type Properties = {
 
 const Link: React.FC<Properties> = ({
 	children,
-	className = "",
+
+	className,
 	to,
-}: Properties) => (
-	<NavLink className={className} to={to}>
-		{children}
-	</NavLink>
-);
+}: Properties) => {
+	return (
+		<NavLink className={getValidClassNames(className, styles["link"])} to={to}>
+			{children}
+		</NavLink>
+	);
+};
 
 export { Link };
