@@ -49,11 +49,10 @@ const Auth: React.FC = () => {
 	return (
 		<main className={styles["container"]}>
 			<div
-				className={
-					pathname === AppRoute.SIGN_IN
-						? getValidClassNames(styles["form-container"], styles["sign-in"])
-						: getValidClassNames(styles["form-container"], styles["sign-up"])
-				}
+				className={getValidClassNames(
+					styles["form-container"],
+					styles[pathname.replace("/", "")],
+				)}
 			>
 				<h1 className={styles["logo-wrapper"]}>
 					<img alt="TrackMates logo" src={logo} />
