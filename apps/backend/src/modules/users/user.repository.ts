@@ -78,7 +78,6 @@ class UserRepository implements Repository<UserEntity> {
 		const user = await this.userModel
 			.query()
 			.findById(id)
-			.modify("withoutPassword")
 			.withGraphJoined("userDetails")
 			.execute();
 
