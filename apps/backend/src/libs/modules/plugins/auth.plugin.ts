@@ -42,28 +42,25 @@ const authorization = fp<Options>(
 				});
 			}
 
-			let userId: number;
-
 			try {
 				const { payload } = await jwtToken.verify(token);
-				userId = payload.userId;
+				const { userId } = payload;
+				const user = await userService.findById(userId);
+
+				if (!user) {
+					throw new HTTPError({
+						message: ExceptionMessage.NO_USER,
+						status: HTTPCode.UNAUTHORIZED,
+					});
+				}
+
+				request.user = user;
 			} catch {
 				throw new HTTPError({
 					message: ExceptionMessage.NO_USER,
 					status: HTTPCode.UNAUTHORIZED,
 				});
 			}
-
-			const user = await userService.findById(userId);
-
-			if (!user) {
-				throw new HTTPError({
-					message: ExceptionMessage.NO_USER,
-					status: HTTPCode.UNAUTHORIZED,
-				});
-			}
-
-			request.user = user;
 		});
 
 		done();
