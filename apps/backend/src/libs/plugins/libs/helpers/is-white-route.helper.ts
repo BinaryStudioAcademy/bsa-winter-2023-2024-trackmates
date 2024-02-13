@@ -1,4 +1,4 @@
-import { WHITE_ROUTES } from "~/libs/modules/server-application/libs/constants/constants.js";
+import { WHITE_ROUTES } from "~/libs/modules/server-application/server-application.js";
 
 import { getApiEndpoint } from "./get-api-endpoint.helper.js";
 
