@@ -70,3 +70,65 @@
 	background-image: url("~/assets/img/sign-in-img.png");
 	background-size: cover;
 }
+
+@media screen and (width <= 850px) {
+	.container {
+		background-image: url("~/assets/img/svg/background-cloud-one.svg"),
+			url("~/assets/img/svg/background-cloud-three.svg"),
+			url("~/assets/img/svg/background-cloud-four.svg"),
+			url("~/assets/img/svg/background-cloud-five.svg"),
+			url("~/assets/img/svg/background-sun.svg");
+		background-position:
+			calc(50% - 330px) 520px,
+			calc(50% + 300px) 640px,
+			calc(50% - 220px) 760px,
+			calc(50% + 230px) 360px,
+			calc(50% + 265px) 340px;
+	}
+
+	.sign-in::before {
+		display: none;
+	}
+}
+
+@media screen and (width <= 500px) {
+	.container {
+		padding: 0;
+		background-image: url("~/assets/img/svg/background-cloud-four.svg"),
+			url("~/assets/img/svg/background-cloud-five.svg");
+		background-position:
+			calc(50% - 160px) 90%,
+			calc(50% + 200px) 20%;
+	}
+
+	.form-container {
+		flex-direction: column;
+		justify-content: flex-start;
+		width: 100%;
+		height: 100lvh;
+		border-radius: unset;
+	}
+
+	.logo-wrapper {
+		position: unset;
+		column-gap: 24px;
+		justify-content: center;
+		font-size: var(--font-size-700);
+		color: var(--main-white);
+		background-color: unset;
+	}
+
+	.logo-wrapper * {
+		width: 50px;
+	}
+
+	.logo-wrapper::after {
+		display: none;
+	}
+}
+
+@media screen and (width <= 375px) {
+	.logo-wrapper {
+		padding: 30px 45px 43px 35px;
+	}
+}
