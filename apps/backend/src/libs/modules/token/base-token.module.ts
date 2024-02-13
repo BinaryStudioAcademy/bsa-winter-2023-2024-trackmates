@@ -12,7 +12,7 @@ class BaseToken implements Token {
 	public constructor(config: Config) {
 		this.algorithm = config.ENV.JWT.ALGORITHM;
 		this.expiresIn = config.ENV.JWT.EXPIRES_IN;
-		this.secret = new TextEncoder().encode(config.ENV.JWT.SECRET);
+		this.secret = Buffer.from(config.ENV.JWT.SECRET, "utf8");
 	}
 
 	public async create(payload: TokenPayload): Promise<string> {

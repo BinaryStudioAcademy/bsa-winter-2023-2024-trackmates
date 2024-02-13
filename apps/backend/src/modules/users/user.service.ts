@@ -1,5 +1,4 @@
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { BaseToken } from "~/libs/modules/token/token.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
@@ -8,27 +7,20 @@ import {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
 } from "./libs/types/types.js";
 
 class UserService implements Service {
 	private encrypt: Encrypt;
-	private token: BaseToken;
 	private userRepository: UserRepository;
 
-	public constructor(
-		encrypt: Encrypt,
-		token: BaseToken,
-		userRepository: UserRepository,
-	) {
+	public constructor(encrypt: Encrypt, userRepository: UserRepository) {
 		this.encrypt = encrypt;
-		this.token = token;
 		this.userRepository = userRepository;
 	}
 
 	public async create(
 		payload: UserSignUpRequestDto,
-	): Promise<UserSignUpResponseDto> {
+	): Promise<UserAuthResponseDto> {
 		const { hash, salt } = await this.encrypt.encrypt(payload.password);
 
 		const user = await this.userRepository.create(
@@ -41,12 +33,7 @@ class UserService implements Service {
 			}),
 		);
 
-		const userObject = user.toObject();
-
-		return {
-			token: await this.token.create({ userId: userObject.id }),
-			user: userObject,
-		};
+		return user.toObject();
 	}
 
 	public delete(): Promise<boolean> {
