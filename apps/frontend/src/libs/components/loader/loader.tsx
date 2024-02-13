@@ -4,14 +4,21 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	color: "orange" | "white";
+	size: "large" | "small";
 };
 
-const Loader: React.FC<Properties> = ({ color }: Properties) => {
+const Loader: React.FC<Properties> = ({ color, size }: Properties) => {
 	return (
-		<div className={styles["wrapper"]}>
-			<span className={getValidClassNames(styles["dot"], styles[color])} />
-			<span className={getValidClassNames(styles["dot"], styles[color])} />
-			<span className={getValidClassNames(styles["dot"], styles[color])} />
+		<div
+			className={getValidClassNames(
+				styles["wrapper"],
+				styles[color],
+				styles[size],
+			)}
+		>
+			<span className={styles["dot"]} />
+			<span className={styles["dot"]} />
+			<span className={styles["dot"]} />
 		</div>
 	);
 };
