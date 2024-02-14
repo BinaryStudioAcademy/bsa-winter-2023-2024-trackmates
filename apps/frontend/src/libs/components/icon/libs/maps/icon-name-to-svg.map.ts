@@ -1,12 +1,14 @@
 import HomeIcon from "~/assets/img/svg/home.svg?react";
+import PlusIcon from "~/assets/img/svg/plus.svg?react";
 
-import { IconName } from "../types/types.js";
+import { type IconName } from "../types/icon-name.type.js";
 
 const iconNameToSvg: Record<
 	IconName,
 	React.FC<React.SVGProps<SVGSVGElement>>
 > = {
 	home: HomeIcon,
+	plus: PlusIcon,
 };
 
 export { iconNameToSvg };

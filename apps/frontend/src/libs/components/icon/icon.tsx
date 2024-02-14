@@ -1,5 +1,5 @@
 import { iconNameToSvg } from "./libs/maps/maps.js";
-import { IconName } from "./libs/types/types.js";
+import { type IconName } from "./libs/types/types.js";
 
 type Properties = {
 	name: IconName;
@@ -11,5 +11,4 @@ const Icon: React.FC<Properties> = ({ name }: Properties) => {
 	return <IconComponent />;
 };
 
-export { type IconName } from "./libs/types/types.js";
 export { Icon };
