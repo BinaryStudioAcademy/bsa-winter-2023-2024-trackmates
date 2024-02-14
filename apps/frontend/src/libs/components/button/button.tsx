@@ -6,15 +6,17 @@ import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	color?: "primary";
+	className?: string | undefined;
+	color?: "primary" | "secondary";
 	href?: ValueOf<typeof AppRoute>;
-	label: string;
+	label: React.ReactNode;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
 	type?: "button" | "submit";
 };
 
 const Button: React.FC<Properties> = ({
+	className,
 	color = "primary",
 	href,
 	label,
@@ -27,6 +29,7 @@ const Button: React.FC<Properties> = ({
 		styles[size],
 		styles[style],
 		styles[color],
+		className,
 	);
 
 	return (

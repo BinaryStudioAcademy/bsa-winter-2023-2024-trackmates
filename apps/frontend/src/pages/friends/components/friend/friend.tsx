@@ -1,4 +1,4 @@
-import { Image } from "~/libs/components/components.js";
+import { Button, Icon, Image } from "~/libs/components/components.js";
 
 import styles from "./styles.module.css";
 
@@ -10,13 +10,31 @@ type Properties = {
 const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
 	return (
 		<div className={styles["card"]}>
-			<div>
+			<div className={styles["card-content"]}>
 				<Image
 					alt={`portrait of ${fullName}`}
 					className={styles["portrait"]}
 					src={imageUrl}
 				/>
 				<p className={styles["fullName"]}>{fullName}</p>
+			</div>
+
+			<div className={styles["actions"]}>
+				<Button
+					className={styles["add-friend-button"]}
+					color="secondary"
+					label={
+						<span className={styles["add-friend-action"]}>
+							<Icon className={styles["add-friend-icon"]} name="add" />
+							Add friend
+						</span>
+					}
+					size="small"
+				/>
+
+				<div className={styles["send-message"]}>
+					{/* FOR THE FUTURE MESSAGE */}
+				</div>
 			</div>
 		</div>
 	);

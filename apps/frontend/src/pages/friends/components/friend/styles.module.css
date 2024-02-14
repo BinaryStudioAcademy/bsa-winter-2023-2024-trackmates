@@ -1,7 +1,32 @@
-.card {
+.actions {
+	display: flex;
+	gap: 24px;
 	padding: 12px;
+	background-color: var(--color-menu);
+}
+
+.add-friend-button {
+	flex: 1;
+}
+
+.add-friend-action {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.card {
+	overflow: hidden;
 	border-radius: 12px;
 	box-shadow: 0 0 5px rgba(0 0 0 / 10%);
+}
+
+.card-content {
+	padding: 12px;
+}
+
+.send-message {
+	width: 32px;
 }
 
 .fullName {
