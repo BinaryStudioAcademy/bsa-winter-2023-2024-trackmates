@@ -1,1 +1,1 @@
-export { type Course } from "./course.type.js";
+export { type CourseDto } from "./course.type.js";

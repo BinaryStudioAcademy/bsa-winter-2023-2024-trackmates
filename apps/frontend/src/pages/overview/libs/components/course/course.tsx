@@ -1,10 +1,10 @@
 import { Image } from "~/libs/components/components.js";
-import { Course as CourseData } from "~/libs/types/types.js";
+import { type CourseDto } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseData;
+	course: CourseDto;
 };
 
 const Course: React.FC<Properties> = ({ course }: Properties) => {
