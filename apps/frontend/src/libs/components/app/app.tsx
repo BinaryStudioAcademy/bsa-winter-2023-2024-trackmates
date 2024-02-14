@@ -1,6 +1,11 @@
 import reactLogo from "~/assets/img/react.svg";
-import { Course, Link, RouterOutlet } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import {
+	Course,
+	Link,
+	Loader,
+	RouterOutlet,
+} from "~/libs/components/components.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -53,6 +58,9 @@ const App: React.FC = () => {
 				<>
 					<h2>Users:</h2>
 					<h3>Status: {dataStatus}</h3>
+					{dataStatus === DataStatus.PENDING && (
+						<Loader color="orange" size="large" />
+					)}
 					<ul>
 						{users.map((user) => (
 							<li key={user.id}>{user.email}</li>
