@@ -27,13 +27,19 @@ const authorization = fp<Options>(
 			}
 
 			if (!authHeader) {
-				throw new AuthError(ExceptionMessage.NOT_FOUND, HTTPCode.UNAUTHORIZED);
+				throw new AuthError(
+					ExceptionMessage.USER_NOT_FOUND,
+					HTTPCode.UNAUTHORIZED,
+				);
 			}
 
 			const [, token] = authHeader.split(" ");
 
 			if (!token) {
-				throw new AuthError(ExceptionMessage.NOT_FOUND, HTTPCode.UNAUTHORIZED);
+				throw new AuthError(
+					ExceptionMessage.USER_NOT_FOUND,
+					HTTPCode.UNAUTHORIZED,
+				);
 			}
 
 			try {
@@ -43,14 +49,17 @@ const authorization = fp<Options>(
 
 				if (!user) {
 					throw new AuthError(
-						ExceptionMessage.NOT_FOUND,
+						ExceptionMessage.USER_NOT_FOUND,
 						HTTPCode.UNAUTHORIZED,
 					);
 				}
 
 				request.user = user;
 			} catch {
-				throw new AuthError(ExceptionMessage.NOT_FOUND, HTTPCode.UNAUTHORIZED);
+				throw new AuthError(
+					ExceptionMessage.USER_NOT_FOUND,
+					HTTPCode.UNAUTHORIZED,
+				);
 			}
 		});
 
