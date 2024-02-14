@@ -153,6 +153,9 @@
 	}
 
 	.mobile-logo {
+		position: relative;
+		top: -6px;
+		left: 14px;
 		display: inline;
 	}
 }
