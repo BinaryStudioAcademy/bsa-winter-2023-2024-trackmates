@@ -1,14 +1,14 @@
 import { Image } from "~/libs/components/components.js";
+import { CourseData } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	image: string;
-	source: string;
-	title: string;
+	course: CourseData;
 };
 
-const Course: React.FC<Properties> = ({ image, source, title }: Properties) => {
+const Course: React.FC<Properties> = ({ course }: Properties) => {
+	const { image, source, title } = course;
 	return (
 		<article className={styles["container"]}>
 			<div className={styles["source-container"]}>

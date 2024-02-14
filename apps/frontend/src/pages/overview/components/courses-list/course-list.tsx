@@ -1,28 +1,21 @@
-import { DEFAULT_COURSES_DATA } from "~/libs/constants/constants.js";
+import { CourseData } from "~/libs/types/types.js";
 
 import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
 
-type CourseData = {
-	id: string;
-	image: string;
-	source: string;
-	title: string;
+type Properties = {
+	courses: CourseData[];
 };
 
-const CourseList: React.FC = () => {
+const CourseList: React.FC<Properties> = ({ courses }: Properties) => {
 	return (
 		<div className={styles["container"]}>
 			<h2 className={styles["title"]}>Courses</h2>
 			<ul className={styles["list"]}>
-				{DEFAULT_COURSES_DATA.map((course: CourseData) => {
+				{courses.map((course: CourseData) => {
 					return (
 						<li key={course.id}>
-							<Course
-								image={course.image}
-								source={course.source}
-								title={course.title}
-							/>
+							<Course course={course} />
 						</li>
 					);
 				})}
