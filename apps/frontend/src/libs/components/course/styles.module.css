@@ -19,6 +19,7 @@
 .image-container {
 	width: 234px;
 	height: 135px;
+	margin-bottom: 10px;
 	overflow: hidden;
 	border-radius: 12px;
 }
@@ -43,6 +44,7 @@
 
 .title {
 	max-width: 143px;
+	margin: 0;
 	font-family: Roboto, sans-serif;
 	font-size: var(--font-size-300);
 }
