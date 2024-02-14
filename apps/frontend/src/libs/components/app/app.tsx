@@ -1,6 +1,6 @@
 import reactLogo from "~/assets/img/react.svg";
-import { checkIfSidebarIsShown } from "~/libs/components/sidebar/libs/helpers/helpers.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
+import { checkIfSidebarIsShown } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
