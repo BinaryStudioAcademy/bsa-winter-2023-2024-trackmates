@@ -12,9 +12,7 @@ class CoursesService {
 	}
 
 	public search(): Promise<unknown> {
-		return this.udemy
-			.getCourses({ search: "React" })
-			.then((result) => result.json());
+		return this.udemy.getCourses({}).then((result) => result.json());
 	}
 }
 

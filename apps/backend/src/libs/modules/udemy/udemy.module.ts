@@ -9,7 +9,7 @@ import { UdemyDefaultSearchParameter } from "./libs/enums/enums.js";
 type SearchParameters = {
 	page?: number;
 	pageSize?: number;
-	search: string;
+	search?: string;
 };
 
 type Constructor = {
@@ -79,12 +79,13 @@ class Udemy {
 		 * We can send "?fields[course]=@all", but then Udemy API return too many fields,
 		 * and take more time
 		 */
-		const options = this.getOptions({
-			// "fields[course]": Object.values(this.fields.course).join(","),
+		let query = {
+			"fields[course]": Object.values(this.fields.course).join(","),
 			page,
 			page_size: pageSize,
-			search,
-		});
+		};
+
+		const options = this.getOptions(search ? { ...query, search } : query);
 
 		return await this.http.load(this.baseUrl, options);
 	}
