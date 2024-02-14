@@ -19,12 +19,12 @@ import {
 } from "~/libs/types/types.js";
 import { userService } from "~/modules/users/users.js";
 
+import { WHITE_ROUTES } from "./libs/constants/constants.js";
 import {
 	type ServerApplication,
 	type ServerApplicationApi,
 	type ServerApplicationRouteParameters,
 } from "./libs/types/types.js";
-import { WHITE_ROUTES } from "./server-application.js";
 
 type Constructor = {
 	apis: ServerApplicationApi[];
