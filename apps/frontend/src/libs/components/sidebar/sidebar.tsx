@@ -1,4 +1,4 @@
-import logo from "~/assets/img/svg/logo.svg";
+import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
