@@ -15,7 +15,6 @@ export {
 	type HTTPMethod,
 	type HTTPOptions,
 } from "./libs/modules/http/http.js";
-export { type AuthPluginOptions } from "./libs/modules/plugins/plugins.js";
 export { type Storage } from "./libs/modules/storage/storage.js";
 export {
 	type ServerCommonErrorResponse,

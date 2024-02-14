@@ -52,9 +52,7 @@ class UserService implements Service {
 		};
 	}
 
-	public async getAuthenticatedUser(
-		id: number,
-	): Promise<UserAuthResponseDto | null> {
+	public async findById(id: number): Promise<UserAuthResponseDto | null> {
 		const user = await this.userRepository.findById(id);
 
 		return user?.toObject() ?? null;
