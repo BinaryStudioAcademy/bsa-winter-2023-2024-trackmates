@@ -3,7 +3,7 @@ import fp from "fastify-plugin";
 
 import { ExceptionMessage, FastifyHook } from "~/libs/enums/enums.js";
 import { HTTPCode, HTTPHeader } from "~/libs/modules/http/http.js";
-import { AuthError } from "~/modules/auth/libs/exceptions/exceptions.js";
+import { AuthError } from "~/modules/auth/auth.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { token as jwtToken } from "../modules/token/token.js";

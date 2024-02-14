@@ -11,3 +11,4 @@ const authController = new AuthController(logger, authService);
 
 export { authController };
 export { AuthApiPath } from "./libs/enums/enums.js";
+export { AuthError } from "./libs/exceptions/exceptions.js";
