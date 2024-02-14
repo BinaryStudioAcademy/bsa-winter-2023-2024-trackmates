@@ -82,7 +82,22 @@
 	background-size: cover;
 }
 
-@media screen and (width <= 850px) {
+.logo {
+	display: inline;
+}
+
+.mobile-logo {
+	display: none;
+}
+
+@media screen and (width <= 1024px) {
+	.sign-in::before,
+	.sign-up::before {
+		display: none;
+	}
+}
+
+@media screen and (width <= 768px) {
 	.container {
 		background-image: url("~/assets/img/svg/background-cloud-one.svg"),
 			url("~/assets/img/svg/background-cloud-three.svg"),
@@ -96,14 +111,9 @@
 			calc(50% + 230px) 360px,
 			calc(50% + 265px) 340px;
 	}
-
-	.sign-in::before,
-	.sign-up::before {
-		display: none;
-	}
 }
 
-@media screen and (width <= 500px) {
+@media screen and (width <= 480px) {
 	.container {
 		padding: 0;
 		background-image: url("~/assets/img/svg/background-cloud-four.svg"),
@@ -124,24 +134,23 @@
 
 	.logo-wrapper {
 		position: unset;
-		column-gap: 24px;
+		column-gap: 10px;
 		justify-content: center;
+		padding-bottom: 10px;
 		font-size: var(--font-size-700);
 		color: var(--main-white);
 		background-color: unset;
 	}
 
-	.logo-wrapper * {
-		width: 50px;
-	}
-
 	.logo-wrapper::after {
 		display: none;
 	}
-}
 
-@media screen and (width <= 375px) {
-	.logo-wrapper {
-		padding: 10px 45px 10px 35px;
+	.logo {
+		display: none;
+	}
+
+	.mobile-logo {
+		display: inline;
 	}
 }
