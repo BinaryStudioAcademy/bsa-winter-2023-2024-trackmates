@@ -11,6 +11,7 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type Token } from "~/libs/modules/token/token.js";
 import { authorization } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
@@ -19,7 +20,6 @@ import {
 } from "~/libs/types/types.js";
 import { type UserService } from "~/modules/users/users.js";
 
-import { type Token } from "../token/token.js";
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
 import {
 	type ServerApplication,
