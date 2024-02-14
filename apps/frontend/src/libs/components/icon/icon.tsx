@@ -17,4 +17,4 @@ const Icon: React.FC<HTMLProps<SVGSVGElement> & Properties> = ({
 };
 
 export { Icon };
-export { IconName } from "./libs/types/types.js";
+export { type IconName } from "./libs/types/types.js";
