@@ -1,1 +1,7 @@
-export { HTTPCode } from "shared";
+export {
+	ContentType,
+	HTTPCode,
+	HTTPError,
+	HTTPHeader,
+	type HTTPOptions,
+} from "shared";
