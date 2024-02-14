@@ -31,24 +31,9 @@
 	text-decoration: underline;
 }
 
-@media screen and (width <= 500px) {
+@media screen and (width <= 480px) {
 	.form {
 		max-width: unset;
-		padding: 0 40px;
-	}
-
-	.form * {
-		max-width: unset;
-	}
-}
-
-@media screen and (width <= 375px) {
-	.form {
-		row-gap: 15px;
 		padding: 0 30px;
-	}
-
-	.title {
-		font-size: var(--font-size-500);
 	}
 }
