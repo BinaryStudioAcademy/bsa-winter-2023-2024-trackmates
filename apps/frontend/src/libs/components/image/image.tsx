@@ -4,7 +4,7 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	alt: string;
-	className?: string;
+	className?: string | undefined;
 	height?: string;
 	shape?: "circle" | "default";
 	src: string;

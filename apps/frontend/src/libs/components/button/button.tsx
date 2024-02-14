@@ -6,7 +6,7 @@ import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	className?: string;
+	className?: string | undefined;
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
 	label: React.ReactNode;

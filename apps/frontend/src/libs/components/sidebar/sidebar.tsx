@@ -8,7 +8,7 @@ import { IconName } from "../icon/libs/enums/enums.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	className?: string;
+	className?: string | undefined;
 };
 
 const MENU_ITEMS: {
@@ -26,15 +26,15 @@ const MENU_ITEMS: {
 const Sidebar: React.FC<Properties> = ({ className }: Properties) => {
 	return (
 		<div className={getValidClassNames(className, styles["wrapper"])}>
-			<Link className={styles["title-container"] ?? ""} to="/">
-				<Image alt="website logo" className={styles["logo"] ?? ""} src={logo} />
+			<Link className={styles["title-container"]} to="/">
+				<Image alt="website logo" className={styles["logo"]} src={logo} />
 				<h1 className={styles["title"]}>TrackMates</h1>
 			</Link>
 
 			<nav className={styles["menu"]}>
 				{MENU_ITEMS.map(({ href, icon, label }) => (
 					<Button
-						className={styles["menu-item"] ?? ""}
+						className={styles["menu-item"]}
 						href={href}
 						key={label}
 						label={

@@ -54,7 +54,7 @@ const App: React.FC = () => {
 
 			{checkIfSidebarIsShown(pathname) ? (
 				<div className={styles["page-layout"]}>
-					<Sidebar className={styles["sidebar"] ?? ""} />
+					<Sidebar className={styles["sidebar"]} />
 					<div className={styles["page"]}>
 						<RouterOutlet />
 					</div>
