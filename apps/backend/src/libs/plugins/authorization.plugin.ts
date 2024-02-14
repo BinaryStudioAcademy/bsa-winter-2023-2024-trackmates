@@ -10,15 +10,15 @@ import { type Token } from "../modules/token/token.js";
 import { checkIfWhiteRoute } from "./libs/helpers/helpers.js";
 
 type Options = {
-	jwtToken: Token;
 	services: {
 		userService: UserService;
 	};
+	token: Token;
 	whiteRoutes: string[];
 };
 
 const authorization = fp<Options>(
-	(fastify, { jwtToken, services: { userService }, whiteRoutes }, done) => {
+	(fastify, { services: { userService }, token, whiteRoutes }, done) => {
 		fastify.decorateRequest("user", null);
 
 		fastify.addHook(FastifyHook.ON_REQUEST, async (request: FastifyRequest) => {
@@ -35,9 +35,9 @@ const authorization = fp<Options>(
 				);
 			}
 
-			const [, token] = authHeader.split(" ");
+			const [, jwtToken] = authHeader.split(" ");
 
-			if (!token) {
+			if (!jwtToken) {
 				throw new AuthError(
 					ExceptionMessage.USER_NOT_FOUND,
 					HTTPCode.UNAUTHORIZED,
@@ -45,7 +45,7 @@ const authorization = fp<Options>(
 			}
 
 			try {
-				const { payload } = await jwtToken.verify(token);
+				const { payload } = await token.verify(jwtToken);
 				const { userId } = payload;
 				const user = await userService.findById(userId);
 

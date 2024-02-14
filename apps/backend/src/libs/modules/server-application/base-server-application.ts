@@ -127,10 +127,10 @@ class BaseServerApplication implements ServerApplication {
 
 	private async initPlugins(): Promise<void> {
 		await this.app.register(authorization, {
-			jwtToken: this.token,
 			services: {
 				userService: this.services.userService,
 			},
+			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
 	}
