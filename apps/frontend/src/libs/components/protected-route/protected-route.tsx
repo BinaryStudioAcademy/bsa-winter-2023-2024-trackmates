@@ -3,6 +3,8 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { useAppSelector } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { AuthWrapper } from "../auth-wrapper/auth-wrapper.js";
+
 type Properties = {
 	component: React.ReactNode;
 	redirectTo?: ValueOf<typeof AppRoute>;
@@ -20,7 +22,7 @@ const ProtectedRoute: React.FC<Properties> = ({
 		return <Navigate replace to={redirectTo} />;
 	}
 
-	return <>{component}</>;
+	return <AuthWrapper>{component}</AuthWrapper>;
 };
 
 export { ProtectedRoute };
