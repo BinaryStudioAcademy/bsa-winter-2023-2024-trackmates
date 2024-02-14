@@ -7,17 +7,7 @@ import {
 	HTTPHeader,
 	type HTTPOptions,
 } from "./libs/enums/enums.js";
-import { queryString } from "./libs/helpers/helpers.js";
 import { Http } from "./libs/types/types.js";
-
-// TODO there is already exists HTTPMethod type in shared dir
-// what to do with it?
-const HTTPMethod = {
-	DELETE: "DELETE",
-	GET: "GET",
-	POST: "POST",
-	PUT: "PUT",
-} as const;
 
 class BaseHttp implements Http {
 	private checkStatus = async (response: Response): Promise<Response> => {
@@ -40,7 +30,12 @@ class BaseHttp implements Http {
 		query: T | undefined,
 	): string => {
 		if (query) {
-			return `${url}?${queryString.stringify(query)}`;
+			const newUrl = new URL(url);
+			for (const [key, value] of Object.entries(query)) {
+				newUrl.searchParams.set(key, value as string);
+			}
+
+			return newUrl.toString();
 		}
 
 		return url;
@@ -55,7 +50,7 @@ class BaseHttp implements Http {
 	};
 
 	private getHeaders(headers: Headers): Headers {
-		headers.append(HTTPHeader.CONTENT_TYPE, ContentType.JSON.toString());
+		headers.append(HTTPHeader.CONTENT_TYPE, ContentType.JSON);
 		return headers;
 	}
 
@@ -65,7 +60,7 @@ class BaseHttp implements Http {
 	): Promise<T> | never {
 		const {
 			headers = new Headers(),
-			method = HTTPMethod.GET,
+			method = "GET",
 			payload = null,
 			query = {},
 		} = options;
