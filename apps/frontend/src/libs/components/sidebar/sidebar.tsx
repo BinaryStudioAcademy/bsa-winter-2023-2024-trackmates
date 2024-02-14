@@ -3,8 +3,10 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { Button, Image, Link } from "../components.js";
+import { Button } from "../button/button.js";
 import { type IconName } from "../icon/icon.js";
+import { Image } from "../image/image.js";
+import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
