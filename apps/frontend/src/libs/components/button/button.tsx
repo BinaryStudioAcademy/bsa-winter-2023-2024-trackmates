@@ -9,7 +9,8 @@ type Properties = {
 	className?: string | undefined;
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
-	label: React.ReactNode;
+	icon?: React.ReactNode;
+	label: string;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
 	type?: "button" | "submit";
@@ -19,6 +20,7 @@ const Button: React.FC<Properties> = ({
 	className,
 	color = "primary",
 	href,
+	icon,
 	label,
 	size = "regular",
 	style = "filled",
@@ -36,10 +38,12 @@ const Button: React.FC<Properties> = ({
 		<>
 			{href ? (
 				<Link className={buttonStyles} to={href}>
+					{icon}
 					{label}
 				</Link>
 			) : (
 				<button className={buttonStyles} type={type}>
+					{icon}
 					{label}
 				</button>
 			)}

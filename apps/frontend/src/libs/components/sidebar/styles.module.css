@@ -19,15 +19,9 @@
 
 .menu-item {
 	display: flex;
-	align-items: center;
-	justify-content: flex-start;
-}
-
-.menu-item-content {
-	display: flex;
 	gap: 16px;
 	align-items: center;
-	line-height: 1;
+	justify-content: flex-start;
 }
 
 .menu-item-icon {
