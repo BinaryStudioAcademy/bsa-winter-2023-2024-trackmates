@@ -5,10 +5,10 @@ type Properties = {
 	name: IconName;
 };
 
-const Icon: React.FC<Properties> = ({ name, ...properties }: Properties) => {
+const Icon: React.FC<Properties> = ({ name }: Properties) => {
 	const IconComponent = iconNameToSvg[name];
 
-	return <IconComponent {...properties} />;
+	return <IconComponent />;
 };
 
 export { Icon };
