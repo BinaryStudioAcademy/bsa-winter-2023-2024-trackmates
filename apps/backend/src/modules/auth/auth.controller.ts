@@ -7,6 +7,7 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
+	type UserAuthResponseDto,
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
 	userSignInValidationSchema,
@@ -40,7 +41,7 @@ class AuthController extends BaseController {
 		this.addRoute({
 			handler: (options) =>
 				this.getAuthenticatedUser(
-					options as APIHandlerOptions<Record<string, unknown>>,
+					options as APIHandlerOptions<{ user: UserAuthResponseDto | null }>,
 				),
 			method: "GET",
 			path: AuthApiPath.AUTHENTICATED_USER,
