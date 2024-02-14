@@ -55,7 +55,11 @@ const Auth: React.FC = () => {
 				)}
 			>
 				<h1 className={styles["logo-wrapper"]}>
-					<img alt="TrackMates logo" src={logo} />
+					<img
+						alt="TrackMates logo"
+						className={styles["logo-image"]}
+						src={logo}
+					/>
 					TrackMates
 				</h1>
 				{getScreen(pathname)}
