@@ -6,8 +6,8 @@
 	height: 304px;
 	padding: 12px 12px 26px;
 	cursor: pointer;
-	background-color: #ffffff;
-	border: 1px solid #ffffff;
+	background-color: var(--main-white);
+	border: 1px solid var(--main-white);
 	border-radius: 16px;
 }
 
@@ -37,7 +37,7 @@
 	justify-content: center;
 	width: 103px;
 	height: 61px;
-	background-color: #ffffff;
+	background-color: var(--main-white);
 	border-radius: 0 0 12px 12px;
 }
 
