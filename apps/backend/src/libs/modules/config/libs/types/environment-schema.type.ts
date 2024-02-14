@@ -13,6 +13,11 @@ type EnvironmentSchema = {
 		POOL_MAX: number;
 		POOL_MIN: number;
 	};
+	UDEMY: {
+		CLIENT_ID: string;
+		CLIENT_SECRET: string;
+		URL: string;
+	};
 };
 
 export { type EnvironmentSchema };
