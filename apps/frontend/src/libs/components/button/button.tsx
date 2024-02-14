@@ -2,6 +2,8 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { Icon } from "../icon/icon.js";
+import { IconName } from "../icon/libs/types/types.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
@@ -9,7 +11,7 @@ type Properties = {
 	className?: string | undefined;
 	color?: "primary" | "secondary";
 	href?: ValueOf<typeof AppRoute>;
-	icon?: React.ReactNode;
+	iconName?: IconName;
 	label: string;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
@@ -20,7 +22,7 @@ const Button: React.FC<Properties> = ({
 	className,
 	color = "primary",
 	href,
-	icon,
+	iconName,
 	label,
 	size = "regular",
 	style = "filled",
@@ -33,6 +35,8 @@ const Button: React.FC<Properties> = ({
 		styles[color],
 		className,
 	);
+
+	const icon = iconName ? <Icon name={iconName} /> : null;
 
 	return (
 		<>

@@ -1,3 +1,3 @@
-type IconName = "add";
+type IconName = "add" | "plus";
 
-export { IconName };
+export { type IconName };

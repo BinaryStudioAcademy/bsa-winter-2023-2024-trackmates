@@ -1,4 +1,4 @@
-import { Button, Icon, Image } from "~/libs/components/components.js";
+import { Button, Image } from "~/libs/components/components.js";
 
 import styles from "./styles.module.css";
 
@@ -23,7 +23,7 @@ const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
 				<Button
 					className={styles["add-friend-action"]}
 					color="secondary"
-					icon={<Icon name="add" />}
+					iconName="add"
 					label="Add friend"
 					size="small"
 				/>
