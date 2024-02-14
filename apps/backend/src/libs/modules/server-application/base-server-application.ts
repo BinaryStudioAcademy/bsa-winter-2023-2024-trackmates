@@ -19,6 +19,7 @@ import {
 } from "~/libs/types/types.js";
 import { userService } from "~/modules/users/users.js";
 
+import { token } from "../token/token.js";
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
 import {
 	type ServerApplication,
@@ -106,6 +107,7 @@ class BaseServerApplication implements ServerApplication {
 
 	private async initPlugins(): Promise<void> {
 		await this.app.register(authorization, {
+			jwtToken: token,
 			services: {
 				userService,
 			},

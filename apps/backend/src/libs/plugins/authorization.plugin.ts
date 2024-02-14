@@ -6,10 +6,11 @@ import { HTTPCode, HTTPHeader } from "~/libs/modules/http/http.js";
 import { AuthError } from "~/modules/auth/auth.js";
 import { type UserService } from "~/modules/users/users.js";
 
-import { token as jwtToken } from "../modules/token/token.js";
+import { type Token } from "../modules/token/token.js";
 import { checkIfWhiteRoute } from "./libs/helpers/helpers.js";
 
 type Options = {
+	jwtToken: Token;
 	services: {
 		userService: UserService;
 	};
@@ -17,7 +18,7 @@ type Options = {
 };
 
 const authorization = fp<Options>(
-	(fastify, { services: { userService }, whiteRoutes }, done) => {
+	(fastify, { jwtToken, services: { userService }, whiteRoutes }, done) => {
 		fastify.decorateRequest("user", null);
 
 		fastify.addHook(FastifyHook.ON_REQUEST, async (request: FastifyRequest) => {
