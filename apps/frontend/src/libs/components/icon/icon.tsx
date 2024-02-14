@@ -7,12 +7,10 @@ type Properties = {
 	name: IconName;
 };
 
-type ExtendedProperties = HTMLProps<SVGSVGElement> & Properties;
-
-const Icon: React.FC<ExtendedProperties> = ({
+const Icon: React.FC<HTMLProps<SVGSVGElement> & Properties> = ({
 	name,
 	...properties
-}: ExtendedProperties) => {
+}: HTMLProps<SVGSVGElement> & Properties) => {
 	const IconComponent = iconNameToSvg[name];
 
 	return <IconComponent {...properties} />;
