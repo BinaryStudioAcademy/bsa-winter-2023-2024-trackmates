@@ -80,7 +80,7 @@ class AuthController extends BaseController {
 	 *                    $ref: "#/components/schemas/User"
 	 */
 	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
-		const user = options.user;
+		const { user } = options;
 
 		return {
 			payload: user ?? null,
