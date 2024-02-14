@@ -58,8 +58,12 @@ const jsConfig = {
 				selector: "ExportNamedDeclaration[declaration!=null]",
 			},
 			{
-				message: "TS features are forbidden",
+				message: "TS features are forbidden.",
 				selector: "TSEnumDeclaration,ClassDeclaration[abstract=true]",
+			},
+			{
+				message: "TAvoid import/export type { Type } from './module'. Prefer import/export { type Type } from './module'.",
+				selector: "ImportDeclaration[importKind=type],ExportNamedDeclaration[exportKind=type]",
 			},
 		],
 		quotes: ["error", "double"],

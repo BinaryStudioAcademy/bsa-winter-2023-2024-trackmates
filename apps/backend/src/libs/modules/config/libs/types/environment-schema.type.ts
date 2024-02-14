@@ -13,6 +13,11 @@ type EnvironmentSchema = {
 		POOL_MAX: number;
 		POOL_MIN: number;
 	};
+	JWT: {
+		ALGORITHM: string;
+		EXPIRES_IN: string;
+		SECRET: string;
+	};
 	UDEMY: {
 		CLIENT_ID: string;
 		CLIENT_SECRET: string;

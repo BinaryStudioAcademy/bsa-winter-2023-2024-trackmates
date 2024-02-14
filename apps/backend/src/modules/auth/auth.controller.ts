@@ -7,6 +7,7 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
+	type UserAuthResponseDto,
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
 	userSignInValidationSchema,
@@ -37,6 +38,14 @@ class AuthController extends BaseController {
 				body: userSignUpValidationSchema,
 			},
 		});
+		this.addRoute({
+			handler: (options) =>
+				this.getAuthenticatedUser(
+					options as APIHandlerOptions<{ user: UserAuthResponseDto | null }>,
+				),
+			method: "GET",
+			path: AuthApiPath.AUTHENTICATED_USER,
+		});
 
 		this.addRoute({
 			handler: (options) =>
@@ -51,6 +60,32 @@ class AuthController extends BaseController {
 				body: userSignInValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /auth/authenticated-user:
+	 *    get:
+	 *      description: Return current user by token
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
+	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
+		const { user } = options;
+
+		return {
+			payload: user ?? null,
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
