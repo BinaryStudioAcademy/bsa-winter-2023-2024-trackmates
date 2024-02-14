@@ -17,9 +17,9 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
-import { userService } from "~/modules/users/users.js";
+import { type UserService } from "~/modules/users/users.js";
 
-import { token } from "../token/token.js";
+import { type Token } from "../token/token.js";
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
 import {
 	type ServerApplication,
@@ -32,7 +32,11 @@ type Constructor = {
 	config: Config;
 	database: Database;
 	logger: Logger;
+	services: {
+		userService: UserService;
+	};
 	title: string;
+	token: Token;
 };
 
 class BaseServerApplication implements ServerApplication {
@@ -46,14 +50,30 @@ class BaseServerApplication implements ServerApplication {
 
 	private logger: Logger;
 
+	private services: {
+		userService: UserService;
+	};
+
 	private title: string;
 
-	public constructor({ apis, config, database, logger, title }: Constructor) {
+	private token: Token;
+
+	public constructor({
+		apis,
+		config,
+		database,
+		logger,
+		services,
+		title,
+		token,
+	}: Constructor) {
 		this.title = title;
+		this.token = token;
 		this.config = config;
 		this.logger = logger;
 		this.database = database;
 		this.apis = apis;
+		this.services = services;
 
 		this.app = Fastify({
 			ignoreTrailingSlash: true,
@@ -107,9 +127,9 @@ class BaseServerApplication implements ServerApplication {
 
 	private async initPlugins(): Promise<void> {
 		await this.app.register(authorization, {
-			jwtToken: token,
+			jwtToken: this.token,
 			services: {
-				userService,
+				userService: this.services.userService,
 			},
 			whiteRoutes: WHITE_ROUTES,
 		});
