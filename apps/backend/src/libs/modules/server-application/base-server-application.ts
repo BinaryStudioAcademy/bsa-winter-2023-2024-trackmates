@@ -24,6 +24,7 @@ import {
 	type ServerApplicationApi,
 	type ServerApplicationRouteParameters,
 } from "./libs/types/types.js";
+import { WHITE_ROUTES } from "./server-application.js";
 
 type Constructor = {
 	apis: ServerApplicationApi[];
@@ -108,6 +109,7 @@ class BaseServerApplication implements ServerApplication {
 			services: {
 				userService,
 			},
+			whiteRoutes: WHITE_ROUTES,
 		});
 	}
 
