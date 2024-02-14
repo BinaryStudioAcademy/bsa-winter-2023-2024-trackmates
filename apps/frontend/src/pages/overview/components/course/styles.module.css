@@ -24,11 +24,6 @@
 	border-radius: 12px;
 }
 
-.image {
-	width: 100%;
-	height: auto;
-}
-
 .source-container {
 	position: absolute;
 	top: -1px;
@@ -45,6 +40,5 @@
 .title {
 	max-width: 143px;
 	margin: 0;
-	font-family: Roboto, sans-serif;
 	font-size: var(--font-size-300);
 }

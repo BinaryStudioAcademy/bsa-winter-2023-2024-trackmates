@@ -15,6 +15,7 @@ import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
 import { NotFound } from "./pages/not-found/not-found.js";
+import { Overview } from "./pages/overview/overview.js";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
@@ -25,7 +26,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 					{
 						children: [
 							{
-								element: <ProtectedRoute component="Root" />,
+								element: <ProtectedRoute component={<Overview />} />,
 								path: AppRoute.ROOT,
 							},
 							{
