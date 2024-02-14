@@ -9,7 +9,7 @@ const Overview: React.FC = () => {
 	const { user } = useAppSelector((state) => state.auth);
 	return (
 		<div className={styles["container"]}>
-			<WelcomeHeader user={user as UserAuthResponseDto} />;
+			<WelcomeHeader user={user as UserAuthResponseDto} />
 			<Courses courses={DEFAULT_COURSES_DATA} />
 		</div>
 	);

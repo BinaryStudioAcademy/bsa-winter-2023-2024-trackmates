@@ -14,3 +14,14 @@
 	margin: 0;
 	list-style: none;
 }
+
+@media screen and (width <= 480px) {
+	.title {
+		text-align: center;
+	}
+
+	.list {
+		flex-direction: column;
+		align-items: center;
+	}
+}

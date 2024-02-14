@@ -69,3 +69,10 @@
 .add-course-button:hover {
 	color: var(--main-white);
 }
+
+@media screen and (width <= 480px) {
+	.image,
+	.particle {
+		display: none;
+	}
+}
