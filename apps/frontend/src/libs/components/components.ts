@@ -1,5 +1,4 @@
 export { App } from "./app/app.js";
-export { AuthWrapper } from "./auth-wrapper/auth-wrapper.js";
 export { Button } from "./button/button.js";
 export { Input } from "./input/input.js";
 export { Link } from "./link/link.js";
