@@ -1,0 +1,83 @@
+.container {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+	padding-top: 178px;
+	padding-bottom: 160px;
+	font-family: Roboto, sans-serif;
+	background-color: var(--color-menu);
+	background-image: url("~/assets/img/svg/background-cloud-one.svg"),
+		url("~/assets/img/svg/background-cloud-two.svg"),
+		url("~/assets/img/svg/background-cloud-three.svg"),
+		url("~/assets/img/svg/background-cloud-four.svg"),
+		url("~/assets/img/svg/background-cloud-five.svg"),
+		url("~/assets/img/svg/background-sun.svg"),
+		url("~/assets/img/svg/background-cloud-one.svg");
+	background-repeat: no-repeat;
+	background-position:
+		calc(50% - 600px) 442px,
+		calc(50% - 455px) 385px,
+		calc(50% - 325px) 466px,
+		calc(50% + 280px) 460px,
+		calc(50% + 485px) 404px,
+		calc(50% + 460px) 382px,
+		calc(50% + 750px) 484px;
+}
+
+.form-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 454px;
+	height: 685px;
+	background-color: #004a40b3;
+	backdrop-filter: blur(5px);
+	border-radius: 37px;
+}
+
+.logo-wrapper {
+	position: absolute;
+	top: -65px;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 30px 70px 43px 45px;
+	font-size: 43.71px;
+	font-weight: 700;
+	line-height: 52.89px;
+	color: var(--color-menu);
+	background-color: #ffffff;
+	border-radius: 37px;
+}
+
+.logo-wrapper::after {
+	position: absolute;
+	right: 65px;
+	bottom: -30px;
+	content: url("~/assets/img/svg/tail.svg");
+}
+
+.sign-in::before {
+	position: absolute;
+	bottom: -20px;
+	left: -185px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	background-image: url("~/assets/img/sign-in-img.png");
+	background-size: cover;
+}
+
+.sign-up::before {
+	position: absolute;
+	right: -225px;
+	bottom: 10px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	background-image: url("~/assets/img/sign-up-img.png");
+	background-size: cover;
+}
