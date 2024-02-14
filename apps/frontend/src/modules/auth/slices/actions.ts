@@ -5,9 +5,7 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
 	type UserSignInRequestDto,
-	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
-	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
 import { name as sliceName } from "./auth.slice.js";
@@ -30,31 +28,31 @@ const getAuthenticatedUser = createAsyncThunk<
 });
 
 const signIn = createAsyncThunk<
-	UserSignInResponseDto,
+	UserAuthResponseDto,
 	UserSignInRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/sign-in`, async (loginPayload, { extra }) => {
 	const { authApi, storage } = extra;
 
-	const result = await authApi.signIn(loginPayload);
+	const { token, user } = await authApi.signIn(loginPayload);
 
-	await storage.set(StorageKey.TOKEN, result.token);
+	await storage.set(StorageKey.TOKEN, token);
 
-	return result;
+	return user;
 });
 
 const signUp = createAsyncThunk<
-	UserSignUpResponseDto,
+	UserAuthResponseDto,
 	UserSignUpRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/sign-up`, async (registerPayload, { extra }) => {
 	const { authApi, storage } = extra;
 
-	const result = await authApi.signUp(registerPayload);
+	const { token, user } = await authApi.signUp(registerPayload);
 
-	await storage.set(StorageKey.TOKEN, result.token);
+	await storage.set(StorageKey.TOKEN, token);
 
-	return result;
+	return user;
 });
 
 export { getAuthenticatedUser, signIn, signUp };
