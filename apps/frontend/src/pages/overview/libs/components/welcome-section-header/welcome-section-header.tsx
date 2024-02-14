@@ -28,11 +28,15 @@ const WelcomeHeader: React.FC<Properties> = ({
 				</div>
 			</div>
 			<div className={styles["welcome-section-header-actions"]}>
-				<Button className={styles["add-course-button"]} label="Add the course">
-					<div className={styles["button-icon"]}>
-						<Icon name={IconNames.PLUS} />
-					</div>
-				</Button>
+				<Button
+					className={styles["add-course-button"]}
+					icon={
+						<span className={styles["button-icon"]}>
+							<Icon name={IconNames.PLUS} />
+						</span>
+					}
+					label="Add the course"
+				/>
 			</div>
 		</header>
 	);

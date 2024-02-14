@@ -6,10 +6,10 @@ import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	children?: React.ReactNode;
 	className?: string | undefined;
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
+	icon?: React.ReactNode;
 	label: string;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
@@ -17,10 +17,10 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({
-	children,
-	className = "",
+	className,
 	color = "primary",
 	href,
+	icon,
 	label,
 	size = "regular",
 	style = "filled",
@@ -38,12 +38,12 @@ const Button: React.FC<Properties> = ({
 		<>
 			{href ? (
 				<Link className={buttonStyles} to={href}>
-					{children}
+					{icon}
 					{label}
 				</Link>
 			) : (
 				<button className={buttonStyles} type={type}>
-					{children}
+					{icon}
 					{label}
 				</button>
 			)}
