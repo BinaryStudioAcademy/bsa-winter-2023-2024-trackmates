@@ -10,7 +10,7 @@ const Course: React.FC = () => {
 				<img alt="Course source logo" src={source} />
 			</div>
 			<div className={styles["image-container"]}>
-				<img alt="Course" src={image} />
+				<img alt="Course" className={styles["image"]} src={image} />
 			</div>
 			<div className={styles["info-container"]}>
 				<h2 className={styles["title"]}>{title}</h2>

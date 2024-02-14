@@ -1,5 +1,5 @@
 import reactLogo from "~/assets/img/react.svg";
-import { Link, RouterOutlet } from "~/libs/components/components.js";
+import { Course, Link, RouterOutlet } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -9,8 +9,6 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
-
-import { Course } from "../course/course.js";
 
 const App: React.FC = () => {
 	const { pathname } = useLocation();
