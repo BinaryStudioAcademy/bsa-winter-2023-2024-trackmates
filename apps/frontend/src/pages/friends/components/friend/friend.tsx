@@ -21,10 +21,10 @@ const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
 
 			<div className={styles["actions"]}>
 				<Button
-					className={styles["add-friend-button"]}
+					className={styles["add-friend-action"]}
 					color="secondary"
 					label={
-						<span className={styles["add-friend-action"]}>
+						<span className={styles["add-friend-action-content"]}>
 							<Icon className={styles["add-friend-icon"]} name="add" />
 							Add friend
 						</span>

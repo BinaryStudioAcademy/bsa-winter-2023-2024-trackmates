@@ -5,11 +5,11 @@
 	background-color: var(--color-menu);
 }
 
-.add-friend-button {
+.add-friend-action {
 	flex: 1;
 }
 
-.add-friend-action {
+.add-friend-action-content {
 	display: flex;
 	gap: 8px;
 	align-items: center;
