@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
-	className?: string;
+	className?: string | undefined;
 	to: ValueOf<typeof AppRoute>;
 };
 

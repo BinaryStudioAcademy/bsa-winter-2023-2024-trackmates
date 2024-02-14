@@ -1,7 +1,10 @@
 .button {
 	box-sizing: border-box;
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	text-align: center;
+	text-decoration: none;
 	cursor: pointer;
 	border: 1px solid;
 }

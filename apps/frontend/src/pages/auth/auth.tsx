@@ -1,25 +1,30 @@
+import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
-	useAppSelector,
 	useCallback,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
-import { type UserSignUpRequestDto } from "~/modules/users/users.js";
+import {
+	type UserSignInRequestDto,
+	type UserSignUpRequestDto,
+} from "~/modules/users/users.js";
 
 import { SignInForm, SignUpForm } from "./components/components.js";
+import styles from "./styles.module.css";
 
 const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { dataStatus } = useAppSelector(({ auth }) => ({
-		dataStatus: auth.dataStatus,
-	}));
 	const { pathname } = useLocation();
 
-	const handleSignInSubmit = useCallback((): void => {
-		// handle sign in
-	}, []);
+	const handleSignInSubmit = useCallback(
+		(payload: UserSignInRequestDto): void => {
+			void dispatch(authActions.signIn(payload));
+		},
+		[dispatch],
+	);
 
 	const handleSignUpSubmit = useCallback(
 		(payload: UserSignUpRequestDto): void => {
@@ -42,10 +47,20 @@ const Auth: React.FC = () => {
 	};
 
 	return (
-		<>
-			state: {dataStatus}
-			{getScreen(pathname)}
-		</>
+		<main className={styles["container"]}>
+			<div
+				className={getValidClassNames(
+					styles["form-container"],
+					styles[pathname.replace("/", "")],
+				)}
+			>
+				<h1 className={styles["logo-wrapper"]}>
+					<img alt="TrackMates logo" src={logo} />
+					TrackMates
+				</h1>
+				{getScreen(pathname)}
+			</div>
+		</main>
 	);
 };
 
