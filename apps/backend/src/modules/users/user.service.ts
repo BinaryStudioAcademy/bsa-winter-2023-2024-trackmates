@@ -52,6 +52,12 @@ class UserService implements Service {
 		};
 	}
 
+	public async findById(id: number): Promise<UserAuthResponseDto | null> {
+		const user = await this.userRepository.findById(id);
+
+		return user?.toObject() ?? null;
+	}
+
 	public async getByEmail(email: string): Promise<UserEntity | null> {
 		return await this.userRepository.getByEmail(email);
 	}
