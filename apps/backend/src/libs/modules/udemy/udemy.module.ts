@@ -1,8 +1,13 @@
 import { HTTPOptions } from "shared";
 
-import { HTTPHeader, Http } from "../http/http.js";
+import { ContentType, type HTTP, HTTPHeader } from "../http/http.js";
 import { ApiPath } from "./libs/enums/enums.js";
-import { SearchParameters, Udemy } from "./libs/types/udemy.type.js";
+
+type SearchParameters = {
+	page?: number;
+	pageSize?: number;
+	search: string;
+};
 
 type Constructor = {
 	baseUrl: string;
@@ -13,10 +18,10 @@ type Constructor = {
 		courseCurriculum: Record<string, string>;
 		courseDetails: Record<string, string>;
 	};
-	http: Http;
+	http: HTTP;
 };
 
-class BasseUdemy<C, CD, CC> implements Udemy<C, CD, CC> {
+class Udemy {
 	private authHeader: string;
 	private baseUrl: string;
 	private fields: {
@@ -24,7 +29,7 @@ class BasseUdemy<C, CD, CC> implements Udemy<C, CD, CC> {
 		courseCurriculum: Record<string, string>;
 		courseDetails: Record<string, string>;
 	};
-	private http: Http;
+	private http: HTTP;
 
 	public constructor({
 		baseUrl,
@@ -44,14 +49,15 @@ class BasseUdemy<C, CD, CC> implements Udemy<C, CD, CC> {
 		return `Basic ${token}`;
 	}
 
-	private getOptions(query: Record<string, unknown>): Partial<HTTPOptions> {
+	private getOptions(query: Record<string, unknown>): HTTPOptions {
 		const headers = new Headers();
 		headers.append(HTTPHeader.AUTHORIZATION, this.authHeader);
+		headers.append(HTTPHeader.CONTENT_TYPE, ContentType.JSON);
 
-		return { headers, query };
+		return { headers, method: "GET", payload: null, query };
 	}
 
-	public async getCourseCurriculums(id: number): Promise<CC | null> {
+	public async getCourseCurriculums(id: number): Promise<Response> {
 		const url = `${this.baseUrl}${id}${ApiPath.COURSE_CURRICULUM}`;
 		const fields = Object.values(this.fields.courseCurriculum).join(",");
 		const options = this.getOptions({
@@ -64,25 +70,24 @@ class BasseUdemy<C, CD, CC> implements Udemy<C, CD, CC> {
 			"fields[quiz]": fields,
 		});
 
-		return await this.http.load<CC>(url, options);
+		return await this.http.load(url, options);
 	}
 
-	public async getCourseDetails(id: number): Promise<CD | null> {
+	public async getCourseDetails(id: number): Promise<Response> {
 		const url = `${this.baseUrl}${id}`;
 		const options = this.getOptions({
 			// "fields[course]": "@all", - to see more fields
 			"fields[course]": Object.values(this.fields.courseDetails).join(","),
 		});
 
-		return await this.http.load<CD>(url, options);
+		return await this.http.load(url, options);
 	}
 
-	//TODO add defaults params
 	public async getCourses({
 		page,
 		pageSize,
 		search,
-	}: SearchParameters): Promise<C[]> {
+	}: SearchParameters): Promise<Response> {
 		const url = `${this.baseUrl}${ApiPath.COURSES}`;
 
 		/**
@@ -98,8 +103,8 @@ class BasseUdemy<C, CD, CC> implements Udemy<C, CD, CC> {
 			search,
 		});
 
-		return await this.http.load<C[]>(url, options);
+		return await this.http.load(url, options);
 	}
 }
 
-export { BasseUdemy };
+export { Udemy };
