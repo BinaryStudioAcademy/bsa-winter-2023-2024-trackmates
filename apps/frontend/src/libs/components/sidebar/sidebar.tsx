@@ -3,7 +3,7 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { Button, Icon, Image, Link } from "../components.js";
+import { Button, Image, Link } from "../components.js";
 import { type IconName } from "../icon/icon.js";
 import styles from "./styles.module.css";
 
@@ -36,7 +36,7 @@ const Sidebar: React.FC<Properties> = ({ className }: Properties) => {
 					<Button
 						className={styles["menu-item"]}
 						href={href}
-						icon={<Icon className={styles["menu-item-icon"]} name={icon} />}
+						iconName={icon}
 						key={label}
 						label={label}
 					/>

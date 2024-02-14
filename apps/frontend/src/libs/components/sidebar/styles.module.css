@@ -24,11 +24,11 @@
 	justify-content: flex-start;
 }
 
-.menu-item-icon {
+.menu-item svg {
 	fill: var(--main-white);
 }
 
-.menu-item:hover .menu-item-icon {
+.menu-item:hover svg {
 	fill: var(--main-orange);
 }
 
