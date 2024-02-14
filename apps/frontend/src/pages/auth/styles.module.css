@@ -44,7 +44,7 @@
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: 30px 70px 43px 45px;
+	padding: 35px 65px 22px 50px;
 	font-size: 43.71px;
 	font-weight: 700;
 	line-height: 52.89px;
@@ -83,7 +83,9 @@
 }
 
 .logo {
-	display: inline;
+	position: relative;
+	top: -12px;
+	left: 22px;
 }
 
 .mobile-logo {
