@@ -1,9 +1,12 @@
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
 
-import { IconName } from "./libs/enums/enums.js";
+import { type IconName } from "./libs/types/icon-name.type.js";
 
-const iconNameToSvg: Record<string, React.FC<React.SVGProps<SVGSVGElement>>> = {
-	[IconName.PLUS]: PlusIcon,
+const iconNameToSvg: Record<
+	IconName,
+	React.FC<React.SVGProps<SVGSVGElement>>
+> = {
+	plus: PlusIcon,
 };
 
 export { iconNameToSvg };

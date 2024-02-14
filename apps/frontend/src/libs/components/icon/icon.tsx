@@ -1,12 +1,10 @@
 import { HTMLProps } from "react";
 
-import { type ValueOf } from "~/libs/types/types.js";
-
 import { iconNameToSvg } from "./common.js";
-import { IconName } from "./libs/enums/enums.js";
+import { type IconName } from "./libs/types/types.js";
 
 type Properties = {
-	name: ValueOf<typeof IconName>;
+	name: IconName;
 };
 
 type ExtendedProperties = HTMLProps<SVGSVGElement> & Properties;
@@ -17,8 +15,8 @@ const Icon: React.FC<ExtendedProperties> = ({
 }: ExtendedProperties) => {
 	const IconComponent = iconNameToSvg[name];
 
-	return IconComponent ? <IconComponent {...properties} /> : null;
+	return <IconComponent {...properties} />;
 };
 
 export { Icon };
-export { IconName } from "./libs/enums/enums.js";
+export { IconNames } from "./libs/enums/enums.js";

@@ -1,5 +1,5 @@
-const IconName = {
+const IconNames = {
 	PLUS: "plus",
 } as const;
 
-export { IconName };
+export { IconNames };

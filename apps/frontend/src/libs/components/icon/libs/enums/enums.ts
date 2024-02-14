@@ -1,1 +1,1 @@
-export { IconName } from "./icon-name.enum.js";
+export { IconNames } from "./icon-name.enum.js";
