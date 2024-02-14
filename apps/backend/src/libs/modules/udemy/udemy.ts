@@ -1,16 +1,12 @@
 import { config } from "~/libs/modules/config/config.js";
 
 import { http } from "../http/http.js";
-import { BasseUdemy } from "./base-udemy.module.js";
 import { CourseCurriculumFields } from "./libs/enums/course-curriculum-fields.enum.js";
 import { CourseDetailsFields } from "./libs/enums/course-details-fields.enum.js";
-import { CourseFields } from "./libs/enums/course-fields.enum.js";
-import { Course, CourseCurriculum, CourseDetails } from "./libs/types/types.js";
+import { CourseFields } from "./libs/enums/enums.js";
+import { Udemy } from "./udemy.module.js";
 
-/**
- * @public
- */
-const udemy = new BasseUdemy<Course, CourseDetails, CourseCurriculum>({
+const udemy = new Udemy({
 	baseUrl: config.ENV.UDEMY.URL,
 	clientId: config.ENV.UDEMY.CLIENT_ID,
 	clientSecret: config.ENV.UDEMY.CLIENT_SECRET,
@@ -22,8 +18,4 @@ const udemy = new BasseUdemy<Course, CourseDetails, CourseCurriculum>({
 	http,
 });
 
-/**
- * @public
- */
 export { udemy };
-export { type Udemy } from "./libs/types/types.js";

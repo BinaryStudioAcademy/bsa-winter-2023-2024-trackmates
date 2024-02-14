@@ -1,3 +1,1 @@
-export { type Http } from "./http.type.js";
-
-export { type HTTPMethod } from "shared";
+export { type HTTP, type HTTPMethod } from "shared";

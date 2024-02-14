@@ -4,6 +4,7 @@ const config: KnipConfig = {
 	ignore: [
 		// TODO remove
 		"apps/backend/src/libs/modules/udemy/**",
+		"apps/backend/src/libs/modules/http/**",
 		"apps/backend/src/libs/modules/http/libs/helpers/helpers.ts",
 	],
 	prettier: ["./prettier.config.ts"],
