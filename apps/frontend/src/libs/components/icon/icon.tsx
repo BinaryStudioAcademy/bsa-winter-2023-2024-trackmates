@@ -1,6 +1,6 @@
 import { HTMLProps } from "react";
 
-import { iconNameToSvg } from "./common.js";
+import { iconNameToSvg } from "./libs/maps/maps.js";
 import { type IconName } from "./libs/types/types.js";
 
 type Properties = {
