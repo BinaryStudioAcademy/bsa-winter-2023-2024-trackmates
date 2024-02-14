@@ -6,7 +6,7 @@ import {
 	Sidebar,
 } from "~/libs/components/components.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
-import { isSidebarShown } from "~/libs/helpers/helpers.js";
+import { checkIfSidebarIsShown } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -52,7 +52,7 @@ const App: React.FC = () => {
 			</ul>
 			<p>Current path: {pathname}</p>
 
-			{isSidebarShown(pathname) ? (
+			{checkIfSidebarIsShown(pathname) ? (
 				<div className={styles["page-layout"]}>
 					<Sidebar className={styles["sidebar"] ?? ""} />
 					<div className={styles["page"]}>
