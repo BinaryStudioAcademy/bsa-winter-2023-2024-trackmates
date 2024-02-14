@@ -45,6 +45,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				label="First name"
 				name="firstName"
 				type="text"
+				width="253px"
 			/>
 			<Input
 				color="dark"
@@ -53,6 +54,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				label="Last name"
 				name="lastName"
 				type="text"
+				width="253px"
 			/>
 			<Input
 				color="dark"
@@ -61,6 +63,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				label="Email"
 				name="email"
 				type="text"
+				width="253px"
 			/>
 			<Input
 				color="dark"
@@ -69,6 +72,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				label="Password"
 				name="password"
 				type="password"
+				width="253px"
 			/>
 			<Button color="primary" label="Create an account" type="submit" />
 		</form>
