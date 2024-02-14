@@ -15,7 +15,6 @@ type Constructor = {
 	clientSecret: string;
 	fields: {
 		course: Record<string, string>;
-		courseCurriculum: Record<string, string>;
 		courseDetails: Record<string, string>;
 	};
 	http: HTTP;
@@ -26,7 +25,6 @@ class Udemy {
 	private baseUrl: string;
 	private fields: {
 		course: Record<string, string>;
-		courseCurriculum: Record<string, string>;
 		courseDetails: Record<string, string>;
 	};
 	private http: HTTP;
@@ -55,22 +53,6 @@ class Udemy {
 		headers.append(HTTPHeader.CONTENT_TYPE, ContentType.JSON);
 
 		return { headers, method: "GET", payload: null, query };
-	}
-
-	public async getCourseCurriculums(id: number): Promise<Response> {
-		const url = `${this.baseUrl}${id}${ApiPath.COURSE_CURRICULUM}`;
-		const fields = Object.values(this.fields.courseCurriculum).join(",");
-		const options = this.getOptions({
-			/**
-			 * Not describe in documentation, but without it field 'content_summary',
-			 * will not be returned. To see more fields "@all" can be used here too.
-			 */
-			"fields[chapter]": fields,
-			"fields[lecture]": fields,
-			"fields[quiz]": fields,
-		});
-
-		return await this.http.load(url, options);
 	}
 
 	public async getCourseDetails(id: number): Promise<Response> {
