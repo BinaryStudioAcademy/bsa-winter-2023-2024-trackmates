@@ -4,7 +4,6 @@ import { createRoot } from "react-dom/client";
 import "~/assets/css/styles.css";
 import {
 	App,
-	AuthWrapper,
 	Notification,
 	ProtectedRoute,
 	RouterProvider,
@@ -42,11 +41,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.FRIENDS,
 							},
 						],
-						element: (
-							<AuthWrapper>
-								<App />
-							</AuthWrapper>
-						),
+						element: <App />,
 						path: AppRoute.ROOT,
 					},
 					{ element: <NotFound />, path: AppRoute.ANY },
