@@ -1,4 +1,4 @@
-import { UserAuthResponseDto } from "~/modules/users/users.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 type DefaultApiHandlerOptions = {
 	body?: unknown;
