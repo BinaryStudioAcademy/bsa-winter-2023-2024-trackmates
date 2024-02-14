@@ -25,7 +25,7 @@ const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
 					color="secondary"
 					label={
 						<span className={styles["add-friend-action-content"]}>
-							<Icon className={styles["add-friend-icon"]} name="add" />
+							<Icon name="add" />
 							Add friend
 						</span>
 					}
