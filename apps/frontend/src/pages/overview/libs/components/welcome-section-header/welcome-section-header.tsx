@@ -1,24 +1,20 @@
 import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
-import { Button, Icon } from "~/libs/components/components.js";
-import { IconNames } from "~/libs/enums/enums.js";
+import { Button } from "~/libs/components/components.js";
 
+import { UserAuthResponseDto } from "./libs/types.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	firstName: string;
-	lastName: string;
+	user: UserAuthResponseDto;
 };
 
-const WelcomeHeader: React.FC<Properties> = ({
-	firstName,
-	lastName,
-}: Properties) => {
+const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
 	return (
 		<header className={styles["welcome-section-header"]}>
 			<div className={styles["welcome-section-header-content"]}>
 				<h2 className={styles["welcome-section-header-title"]}>Welcome back</h2>
 				<h3 className={styles["welcome-section-header-subtitle"]}>
-					{firstName} {lastName}
+					{user.firstName} {user.lastName}
 				</h3>
 				<div className={styles["welcome-character"]}>
 					<div className={styles["particle"]} />
@@ -30,11 +26,7 @@ const WelcomeHeader: React.FC<Properties> = ({
 			<div className={styles["welcome-section-header-actions"]}>
 				<Button
 					className={styles["add-course-button"]}
-					icon={
-						<span className={styles["button-icon"]}>
-							<Icon name={IconNames.PLUS} />
-						</span>
-					}
+					iconName="plus"
 					label="Add the course"
 				/>
 			</div>
