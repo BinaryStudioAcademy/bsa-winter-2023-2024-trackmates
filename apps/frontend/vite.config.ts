@@ -2,6 +2,7 @@ import reactPlugin from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
 import { ConfigEnv, defineConfig, loadEnv } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import svgr from "vite-plugin-svgr";
 
 const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 	const {
@@ -64,7 +65,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		build: {
 			outDir: "build",
 		},
-		plugins: [reactPlugin(), vitePWA],
+		plugins: [reactPlugin(), svgr(), vitePWA],
 		resolve: {
 			alias: [
 				{
