@@ -59,6 +59,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.withGraphJoined("userDetails")
 			.execute();
+
 		return users.map((user) =>
 			UserEntity.initialize({
 				createdAt: user.createdAt,
