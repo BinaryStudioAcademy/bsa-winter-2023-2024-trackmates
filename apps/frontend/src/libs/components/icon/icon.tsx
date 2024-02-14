@@ -1,8 +1,8 @@
 import { HTMLProps } from "react";
 
-import PlusIcon from "~/assets/img/svg/plus.svg?react";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { iconNameToSvg } from "./common.js";
 import { IconName } from "./libs/enums/enums.js";
 
 type Properties = {
@@ -15,11 +15,9 @@ const Icon: React.FC<ExtendedProperties> = ({
 	name,
 	...properties
 }: ExtendedProperties) => {
-	const Icons: Record<Properties["name"], React.ReactNode> = {
-		plus: <PlusIcon {...properties} title="" />,
-	};
+	const IconComponent = iconNameToSvg[name];
 
-	return Icons[name];
+	return IconComponent ? <IconComponent {...properties} /> : null;
 };
 
 export { Icon };
