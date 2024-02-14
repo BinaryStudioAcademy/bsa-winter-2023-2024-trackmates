@@ -1,10 +1,4 @@
 import reactLogo from "~/assets/img/react.svg";
-import {
-	Link,
-	Loader,
-	RouterOutlet,
-	Sidebar,
-} from "~/libs/components/components.js";
 import { checkIfSidebarIsShown } from "~/libs/components/sidebar/libs/helpers/helpers.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
@@ -16,6 +10,10 @@ import {
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
 
+import { RouterOutlet } from "../components.js";
+import { Link } from "../link/link.js";
+import { Loader } from "../loader/loader.js";
+import { Sidebar } from "../sidebar/sidebar.js";
 import styles from "./styles.module.css";
 
 const App: React.FC = () => {
