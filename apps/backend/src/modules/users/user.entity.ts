@@ -128,8 +128,6 @@ class UserEntity implements Entity {
 		firstName: string;
 		id: number;
 		lastName: string;
-		passwordHash: string;
-		passwordSalt: string;
 		updatedAt: string;
 	} {
 		return {
@@ -138,8 +136,6 @@ class UserEntity implements Entity {
 			firstName: this.firstName,
 			id: this.id as number,
 			lastName: this.lastName,
-			passwordHash: this.passwordHash,
-			passwordSalt: this.passwordSalt,
 			updatedAt: this.updatedAt,
 		};
 	}
