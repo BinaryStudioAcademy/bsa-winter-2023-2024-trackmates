@@ -32,7 +32,7 @@ const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
 					size="small"
 				/>
 
-				<div className={styles["send-message"]}>
+				<div className={styles["send-message-action"]}>
 					{/* FOR THE FUTURE MESSAGE */}
 				</div>
 			</div>
