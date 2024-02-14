@@ -16,9 +16,9 @@ const WelcomeHeader: React.FC<Properties> = ({
 		<header className={styles["welcome-section-header"]}>
 			<div className={styles["welcome-section-header-content"]}>
 				<h2 className={styles["welcome-section-header-title"]}>Welcome back</h2>
-				<h3
-					className={styles["welcome-section-header-subtitle"]}
-				>{`${firstName} ${lastName}`}</h3>
+				<h3 className={styles["welcome-section-header-subtitle"]}>
+					{firstName} {lastName}
+				</h3>
 				<div className={styles["welcome-character"]}>
 					<div className={styles["particle"]} />
 					<div className={styles["particle"]} />
