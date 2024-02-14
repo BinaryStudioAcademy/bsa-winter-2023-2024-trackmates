@@ -4,7 +4,7 @@ import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { Button, Icon, Image, Link } from "../components.js";
-import { IconName } from "../icon/libs/enums/enums.js";
+import { type IconName } from "../icon/icon.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -13,12 +13,12 @@ type Properties = {
 
 const MENU_ITEMS: {
 	href: ValueOf<typeof AppRoute>;
-	icon: ValueOf<typeof IconName>;
+	icon: IconName;
 	label: string;
 }[] = [
 	{
 		href: "/overview",
-		icon: IconName.HOME,
+		icon: "home",
 		label: "Overview",
 	},
 ];

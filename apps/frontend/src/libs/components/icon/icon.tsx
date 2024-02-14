@@ -1,25 +1,20 @@
 import { HTMLProps } from "react";
 
-import HomeIcon from "~/assets/img/svg/home.svg?react";
-import { type ValueOf } from "~/libs/types/types.js";
-
-import { IconName } from "./libs/enums/enums.js";
+import { iconNameToSvg } from "./libs/maps/maps.js";
+import { IconName } from "./libs/types/types.js";
 
 type Properties = {
-	name: ValueOf<typeof IconName>;
+	name: IconName;
 };
 
-type ExtendedProperties = HTMLProps<SVGSVGElement> & Properties;
-
-const Icon: React.FC<ExtendedProperties> = ({
+const Icon: React.FC<HTMLProps<SVGSVGElement> & Properties> = ({
 	name,
 	...properties
-}: ExtendedProperties) => {
-	const Icons: Record<Properties["name"], React.ReactNode> = {
-		home: <HomeIcon {...properties} title="" />,
-	};
+}: HTMLProps<SVGSVGElement> & Properties) => {
+	const IconComponent = iconNameToSvg[name];
 
-	return Icons[name];
+	return <IconComponent {...properties} />;
 };
 
 export { Icon };
+export { IconName } from "./libs/types/types.js";
