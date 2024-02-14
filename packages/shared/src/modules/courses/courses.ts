@@ -1,1 +1,1 @@
-export { type CourseData } from "./libs/types/types.js";
+export { type Course } from "./libs/types/types.js";

@@ -1,5 +1,5 @@
 import { Image } from "~/libs/components/components.js";
-import { CourseData } from "~/libs/types/types.js";
+import { Course as CourseData } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
 

@@ -1,4 +1,4 @@
-import { CourseData } from "~/libs/types/types.js";
+import { Course as CourseData } from "~/libs/types/types.js";
 
 import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
@@ -7,7 +7,7 @@ type Properties = {
 	courses: CourseData[];
 };
 
-const CourseList: React.FC<Properties> = ({ courses }: Properties) => {
+const Courses: React.FC<Properties> = ({ courses }: Properties) => {
 	return (
 		<div className={styles["container"]}>
 			<h2 className={styles["title"]}>Courses</h2>
@@ -24,4 +24,4 @@ const CourseList: React.FC<Properties> = ({ courses }: Properties) => {
 	);
 };
 
-export { CourseList };
+export { Courses };

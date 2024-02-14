@@ -1,6 +1,6 @@
 export { type AsyncThunkConfig } from "./async-thunk-config.type.js";
 export {
-	type CourseData,
+	type Course,
 	type ServerErrorDetail,
 	type ServerErrorResponse,
 	type ValidationSchema,

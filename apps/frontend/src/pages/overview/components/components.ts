@@ -1,1 +1,1 @@
-export { CourseList } from "./courses-list/course-list.js";
+export { Courses } from "./courses/courses.js";
