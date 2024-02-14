@@ -1,7 +1,7 @@
 export { App } from "./app/app.js";
 export { AuthWrapper } from "./auth-wrapper/auth-wrapper.js";
 export { Button } from "./button/button.js";
-export { Icon, IconNames } from "./icon/icon.js";
+export { Icon } from "./icon/icon.js";
 export { Input } from "./input/input.js";
 export { Link } from "./link/link.js";
 export { Notification } from "./notification/notification.js";

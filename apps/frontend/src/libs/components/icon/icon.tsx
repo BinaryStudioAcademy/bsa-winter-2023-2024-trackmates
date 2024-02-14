@@ -17,4 +17,3 @@ const Icon: React.FC<HTMLProps<SVGSVGElement> & Properties> = ({
 };
 
 export { Icon };
-export { IconNames } from "./libs/enums/enums.js";

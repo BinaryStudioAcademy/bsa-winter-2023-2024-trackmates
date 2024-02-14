@@ -1,5 +1,6 @@
 import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
-import { Button, Icon, IconNames } from "~/libs/components/components.js";
+import { Button, Icon } from "~/libs/components/components.js";
+import { IconNames } from "~/libs/enums/enums.js";
 
 import styles from "./styles.module.css";
 

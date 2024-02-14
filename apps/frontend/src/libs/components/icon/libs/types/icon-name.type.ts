@@ -1,6 +1,5 @@
+import { IconNames } from "~/libs/enums/enums.js";
 import { ValueOf } from "~/libs/types/types.js";
-
-import { IconNames } from "../enums/enums.js";
 
 type IconName = ValueOf<typeof IconNames>;
 
