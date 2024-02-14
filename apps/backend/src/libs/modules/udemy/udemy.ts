@@ -1,7 +1,7 @@
 import { config } from "~/libs/modules/config/config.js";
 
 import { http } from "../http/http.js";
-import { CourseDetailsFields, CourseFields } from "./libs/enums/enums.js";
+import { CourseDetailsField, CourseField } from "./libs/enums/enums.js";
 import { Udemy } from "./udemy.module.js";
 
 const udemy = new Udemy({
@@ -9,8 +9,8 @@ const udemy = new Udemy({
 	clientId: config.ENV.UDEMY.CLIENT_ID,
 	clientSecret: config.ENV.UDEMY.CLIENT_SECRET,
 	fields: {
-		course: CourseFields,
-		courseDetails: CourseDetailsFields,
+		course: CourseField,
+		courseDetails: CourseDetailsField,
 	},
 	http,
 });

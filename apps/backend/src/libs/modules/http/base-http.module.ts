@@ -24,12 +24,11 @@ class BaseHTTP implements HTTP {
 		query: T | undefined,
 	): string => {
 		if (query) {
-			const newUrl = new URL(url);
-			for (const [key, value] of Object.entries(query)) {
-				newUrl.searchParams.set(key, value as string);
-			}
+			const queryParameters = new URLSearchParams(
+				query as Record<string, string>,
+			);
 
-			return newUrl.toString();
+			return `${url}?${queryParameters.toString()}`;
 		}
 
 		return url;

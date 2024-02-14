@@ -1,7 +1,10 @@
-import { HTTPOptions } from "shared";
-
-import { ContentType, type HTTP, HTTPHeader } from "../http/http.js";
-import { ApiPath } from "./libs/enums/enums.js";
+import {
+	ContentType,
+	type HTTP,
+	HTTPHeader,
+	type HTTPOptions,
+} from "../http/http.js";
+import { UdemyDefaultSearchParameter } from "./libs/enums/enums.js";
 
 type SearchParameters = {
 	page?: number;
@@ -66,12 +69,10 @@ class Udemy {
 	}
 
 	public async getCourses({
-		page,
-		pageSize,
+		page = UdemyDefaultSearchParameter.PAGE,
+		pageSize = UdemyDefaultSearchParameter.PAGE_SIZE,
 		search,
 	}: SearchParameters): Promise<Response> {
-		const url = `${this.baseUrl}${ApiPath.COURSES}`;
-
 		/**
 		 * Some fields (avg_rating, num_reviews, num_lectures, instructional_level_simple)
 		 * will not be returned by Udemy API, if not be in query params (?fields[course]=...).
@@ -79,13 +80,13 @@ class Udemy {
 		 * and take more time
 		 */
 		const options = this.getOptions({
-			"fields[course]": Object.values(this.fields.course).join(","),
+			// "fields[course]": Object.values(this.fields.course).join(","),
 			page,
 			page_size: pageSize,
 			search,
 		});
 
-		return await this.http.load(url, options);
+		return await this.http.load(this.baseUrl, options);
 	}
 }
 

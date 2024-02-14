@@ -1,4 +1,4 @@
-const CourseFields: Record<string, string> = {
+const CourseField: Record<string, string> = {
 	AVG_RATING: "avg_rating",
 	CATEGORY: "primary_category",
 	HEADLINE: "headline",
@@ -15,4 +15,4 @@ const CourseFields: Record<string, string> = {
 	URL: "url",
 } as const;
 
-export { CourseFields };
+export { CourseField };

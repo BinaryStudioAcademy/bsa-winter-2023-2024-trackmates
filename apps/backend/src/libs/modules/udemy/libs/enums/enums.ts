@@ -1,3 +1,3 @@
-export { ApiPath } from "./api-paths.enum.js";
-export { CourseDetailsFields } from "./course-details-fields.enum.js";
-export { CourseFields } from "./course-fields.enum.js";
+export { CourseDetailsField } from "./course-details-field.enum.js";
+export { CourseField } from "./course-field.enum.js";
+export { UdemyDefaultSearchParameter } from "./udemy-default-search-parameter.enum.js";
