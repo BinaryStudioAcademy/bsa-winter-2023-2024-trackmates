@@ -19,10 +19,6 @@
 	padding: 12px;
 }
 
-.send-message-action {
-	width: 32px;
-}
-
 .fullName {
 	font-size: var(--font-size-300);
 	font-weight: 500;

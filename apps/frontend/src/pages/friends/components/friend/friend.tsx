@@ -27,10 +27,6 @@ const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
 					label="Add friend"
 					size="small"
 				/>
-
-				<div className={styles["send-message-action"]}>
-					{/* FOR THE FUTURE MESSAGE */}
-				</div>
 			</div>
 		</div>
 	);
