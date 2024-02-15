@@ -9,3 +9,7 @@
 	border: none;
 	border-radius: 0;
 }
+
+.blurred-background:hover {
+	background-color: #004a40b3;
+}
