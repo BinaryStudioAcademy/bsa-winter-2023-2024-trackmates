@@ -16,7 +16,8 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 			enabled: true,
 		},
 		manifest: {
-			description: "Trackmates",
+			description:
+				"Trackmates - monitor your progress and the progress of your friends!",
 			icons: [
 				{
 					sizes: "192x192",
