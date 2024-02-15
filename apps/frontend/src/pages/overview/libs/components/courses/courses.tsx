@@ -12,7 +12,7 @@ const Courses: React.FC<Properties> = ({ courses }: Properties) => {
 		<div className={styles["container"]}>
 			<h2 className={styles["title"]}>Courses</h2>
 			<ul className={styles["list"]}>
-				{courses.map((course: CourseDto) => {
+				{courses.map((course) => {
 					return (
 						<li key={course.id}>
 							<Course course={course} />
