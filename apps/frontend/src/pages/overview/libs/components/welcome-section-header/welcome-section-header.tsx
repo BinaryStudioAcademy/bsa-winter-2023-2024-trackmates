@@ -1,5 +1,5 @@
 import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
-import { Button, Icon } from "~/libs/components/components.js";
+import { Button } from "~/libs/components/components.js";
 import { UserAuthResponseDto } from "~/modules/users/users.js";
 
 import styles from "./styles.module.css";
@@ -26,7 +26,7 @@ const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
 			<div className={styles["welcome-section-header-actions"]}>
 				<Button
 					className={styles["add-course-button"]}
-					icon={<Icon name="plus" />}
+					iconName="plus"
 					label="Add the course"
 				/>
 			</div>
