@@ -26,6 +26,11 @@
 	top: 30px;
 	left: 30px;
 	display: none;
+	min-height: auto;
+	padding: 4px;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
 	fill: var(--main-white);
 }
 

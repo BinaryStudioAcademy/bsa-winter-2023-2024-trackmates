@@ -1,5 +1,6 @@
 import reactLogo from "~/assets/img/react.svg";
 import { RouterOutlet } from "~/libs/components/components.js";
+import { MENU_ITEMS } from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { checkIfSidebarIsShown } from "~/libs/helpers/helpers.js";
 import {
@@ -52,7 +53,7 @@ const App: React.FC = () => {
 
 			{checkIfSidebarIsShown(pathname) ? (
 				<div className={styles["page-layout"]}>
-					<Sidebar />
+					<Sidebar menuItems={MENU_ITEMS} />
 					<div className={styles["page"]}>
 						<RouterOutlet />
 					</div>
