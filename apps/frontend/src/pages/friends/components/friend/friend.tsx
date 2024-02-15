@@ -3,11 +3,12 @@ import { Button, Image } from "~/libs/components/components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	fullName: string;
-	imageUrl: string;
+	user: { fullName: string; imageUrl: string };
 };
 
-const Friend: React.FC<Properties> = ({ fullName, imageUrl }: Properties) => {
+const Friend: React.FC<Properties> = ({
+	user: { fullName, imageUrl },
+}: Properties) => {
 	return (
 		<div className={styles["card"]}>
 			<div className={styles["card-content"]}>
