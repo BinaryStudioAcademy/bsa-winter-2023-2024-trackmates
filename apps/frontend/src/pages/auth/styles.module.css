@@ -30,7 +30,7 @@
 	align-items: center;
 	justify-content: center;
 	width: 454px;
-	height: 685px;
+	min-height: 685px;
 	background-color: #004a40b3;
 	backdrop-filter: blur(5px);
 	border-radius: 37px;
