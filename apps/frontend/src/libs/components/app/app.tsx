@@ -33,7 +33,6 @@ const App: React.FC = () => {
 					<li key={user.id}>{user.email}</li>
 				))}
 			</ul>
-
 			<div>
 				{dataStatus === DataStatus.PENDING && (
 					<Loader color="orange" size="large" />
