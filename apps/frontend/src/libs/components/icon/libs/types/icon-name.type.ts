@@ -1,3 +1,3 @@
-type IconName = "plus";
+type IconName = "eye" | "eyeOff" | "plus";
 
 export { type IconName };
