@@ -5,6 +5,7 @@ const UserValidationMessage = {
 		"Invalid email format. Please enter a valid email address.",
 	EMAIL_REQUIRE: "Email is required",
 	EMAIL_WRONG: "Email is wrong",
+	FIELD_REQUIRE: "The field is required.",
 	FIRSTNAME_INVALID_FORMAT:
 		"Invalid format for first name. Please use only letters, hyphens, and apostrophes.",
 	FIRSTNAME_MAX_LENGTH: `Username must be at most ${UserValidationRule.FIRSTNAME_MAX_LENGTH} characters long`,
