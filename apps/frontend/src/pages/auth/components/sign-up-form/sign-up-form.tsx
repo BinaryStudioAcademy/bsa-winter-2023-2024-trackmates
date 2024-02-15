@@ -19,7 +19,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		validationSchema: userSignUpValidationSchema,
 	});
 
-	const [isPasswordVisible, setPasswordVisibility] = useState(false);
+	const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
