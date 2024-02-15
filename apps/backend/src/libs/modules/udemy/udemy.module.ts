@@ -60,7 +60,7 @@ class Udemy {
 		page = UdemyDefaultSearchParameter.PAGE,
 		pageSize = UdemyDefaultSearchParameter.PAGE_SIZE,
 		search,
-	}: SearchParameters): Promise<Response> {
+	}: SearchParameters = {}): Promise<Response> {
 		const query = {
 			"fields[course]": Object.values(CourseField).join(","),
 			page,
