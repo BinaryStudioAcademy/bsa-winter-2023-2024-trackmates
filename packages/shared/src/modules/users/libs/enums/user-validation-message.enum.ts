@@ -15,8 +15,7 @@ const UserValidationMessage = {
 	PASSSWORD_MAX_LENGTH: `The field shouldn't contain more than ${UserValidationRule.PASSWORD_MAX_LENGTH} characters`,
 	PASSWORD_MIN_LENGTH: `The field should contain at least ${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters`,
 	PASSWORD_SHORT: `Password is too short (${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters at least)`,
-	PASSWORD_WEAK:
-		"Password must contain at least one uppercase and lowercase letter, one digit and one special character",
+	PASSWORD_WEAK: "Password is too weak",
 } as const;
 
 export { UserValidationMessage };
