@@ -1,0 +1,17 @@
+.container {
+	flex-grow: 1;
+	padding: 15px 40px;
+	font-family: Roboto, sans-serif;
+	background-color: var(--color-background);
+}
+
+.profile-header {
+	display: flex;
+	gap: 50px;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	padding: 30px;
+	background-color: var(--color-menu);
+	border-radius: 16px;
+}
