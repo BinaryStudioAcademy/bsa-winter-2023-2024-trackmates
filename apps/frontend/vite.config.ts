@@ -12,6 +12,9 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 	} = loadEnv(mode, process.cwd());
 
 	const vitePWA = VitePWA({
+		devOptions: {
+			enabled: true,
+		},
 		manifest: {
 			description: "Trackmates",
 			icons: [
