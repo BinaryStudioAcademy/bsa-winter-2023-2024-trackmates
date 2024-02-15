@@ -7,7 +7,7 @@ const MENU_ITEMS: {
 	label: string;
 }[] = [
 	{
-		href: "/overview",
+		href: AppRoute.ROOT,
 		icon: "home",
 		label: "Overview",
 	},
