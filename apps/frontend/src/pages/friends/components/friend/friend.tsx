@@ -1,5 +1,5 @@
 import { Button, Image } from "~/libs/components/components.js";
-import { FriendDto } from "~/libs/types/types.js";
+import { type FriendDto } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
 
