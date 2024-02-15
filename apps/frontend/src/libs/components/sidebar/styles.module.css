@@ -22,13 +22,10 @@
 	gap: 16px;
 	align-items: center;
 	justify-content: flex-start;
-}
-
-.menu-item svg {
 	fill: var(--main-white);
 }
 
-.menu-item:hover svg {
+.menu-item:hover {
 	fill: var(--main-orange);
 }
 
