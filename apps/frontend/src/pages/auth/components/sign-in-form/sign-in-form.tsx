@@ -1,4 +1,9 @@
-import { Button, Input, Link } from "~/libs/components/components.js";
+import {
+	Button,
+	IconButton,
+	Input,
+	Link,
+} from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
@@ -45,14 +50,18 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				name="email"
 				type="text"
 			/>
-			<Input
-				color="dark"
-				control={control}
-				errors={errors}
-				label="Password"
-				name="password"
-				type="password"
-			/>
+			<div className={styles["password-input"]}>
+				<Input
+					className={styles["password"]}
+					color="dark"
+					control={control}
+					errors={errors}
+					label="Password"
+					name="password"
+					type="password"
+				/>
+				<IconButton className={styles["icon"]} iconName="eye" />
+			</div>
 			<Button color="primary" label="Log in" type="submit" />
 		</form>
 	);
