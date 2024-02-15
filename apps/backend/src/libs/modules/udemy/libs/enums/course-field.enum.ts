@@ -6,7 +6,7 @@ const CourseField: Record<string, string> = {
 	IMAGE_SMALL: "image_240x135",
 	INSTRUCTORS: "visible_instructors",
 	IS_PAID: "is_paid",
-	LEVEL: "instructional_level_simple", // values: 'All Levels', 'Beginner', ...
+	LEVEL: "instructional_level_simple",
 	NUM_LECTURES: "num_lectures",
 	NUM_REVIEWS: "num_reviews",
 	PRICE: "price",

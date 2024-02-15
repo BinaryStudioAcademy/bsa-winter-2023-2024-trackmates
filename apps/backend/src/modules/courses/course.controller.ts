@@ -18,13 +18,13 @@ class CourseController extends BaseController {
 		this.courseService = courseService;
 
 		this.addRoute({
-			handler: () => this.search(),
+			handler: () => this.findAllByVendor(),
 			method: "GET",
 			path: CoursesApiPath.ROOT,
 		});
 	}
 
-	private async search(): Promise<APIHandlerResponse> {
+	private async findAllByVendor(): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.courseService.search(),
 			status: HTTPCode.OK,

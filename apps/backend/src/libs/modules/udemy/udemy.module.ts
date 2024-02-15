@@ -4,7 +4,11 @@ import {
 	HTTPHeader,
 	type HTTPOptions,
 } from "../http/http.js";
-import { UdemyDefaultSearchParameter } from "./libs/enums/enums.js";
+import {
+	CourseDetailsField,
+	CourseField,
+	UdemyDefaultSearchParameter,
+} from "./libs/enums/enums.js";
 
 type SearchParameters = {
 	page?: number;
@@ -16,32 +20,17 @@ type Constructor = {
 	baseUrl: string;
 	clientId: string;
 	clientSecret: string;
-	fields: {
-		course: Record<string, string>;
-		courseDetails: Record<string, string>;
-	};
 	http: HTTP;
 };
 
 class Udemy {
 	private authHeader: string;
 	private baseUrl: string;
-	private fields: {
-		course: Record<string, string>;
-		courseDetails: Record<string, string>;
-	};
 	private http: HTTP;
 
-	public constructor({
-		baseUrl,
-		clientId,
-		clientSecret,
-		fields,
-		http,
-	}: Constructor) {
+	public constructor({ baseUrl, clientId, clientSecret, http }: Constructor) {
 		this.authHeader = this.getAuthHeader(clientId, clientSecret);
 		this.baseUrl = baseUrl;
-		this.fields = fields;
 		this.http = http;
 	}
 
@@ -61,8 +50,7 @@ class Udemy {
 	public async getCourseDetails(id: number): Promise<Response> {
 		const url = `${this.baseUrl}${id}`;
 		const options = this.getOptions({
-			// "fields[course]": "@all", - to see more fields
-			"fields[course]": Object.values(this.fields.courseDetails).join(","),
+			"fields[course]": Object.values(CourseDetailsField).join(","),
 		});
 
 		return await this.http.load(url, options);
@@ -73,14 +61,8 @@ class Udemy {
 		pageSize = UdemyDefaultSearchParameter.PAGE_SIZE,
 		search,
 	}: SearchParameters): Promise<Response> {
-		/**
-		 * Some fields (avg_rating, num_reviews, num_lectures, instructional_level_simple)
-		 * will not be returned by Udemy API, if not be in query params (?fields[course]=...).
-		 * We can send "?fields[course]=@all", but then Udemy API return too many fields,
-		 * and take more time
-		 */
-		let query = {
-			"fields[course]": Object.values(this.fields.course).join(","),
+		const query = {
+			"fields[course]": Object.values(CourseField).join(","),
 			page,
 			page_size: pageSize,
 		};
