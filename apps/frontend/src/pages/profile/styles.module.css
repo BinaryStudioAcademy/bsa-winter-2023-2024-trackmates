@@ -1,8 +1,18 @@
 .container {
-	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 17px;
+	justify-content: center;
+	max-width: 1086px;
+	min-height: 685px;
 	padding: 15px 40px;
-	font-family: Roboto, sans-serif;
 	background-color: var(--color-background);
+}
+
+.profile-title {
+	font-size: var(--font-size-400);
+	font-weight: 600;
+	color: var(--color-text-300);
 }
 
 .profile-header {
@@ -16,20 +26,38 @@
 	border-radius: 16px;
 }
 
+.profile-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 520px;
+	background-color: var(--main-white);
+	border-radius: 16px 16px 0 0;
+}
+
+.fieldset {
+	width: 280px;
+	padding: 0;
+	margin-top: 49px;
+	border: none;
+}
+
 .btnWrapper {
 	display: flex;
 	gap: 10px;
 	justify-content: center;
 	width: 100%;
 	padding: 14px 0 13px;
+	margin-top: auto;
 	background-color: var(--color-menu);
 	border-radius: 0 0 16px 16px;
 }
 
 .btnWrapper::before {
 	position: absolute;
-	top: 230px;
-	left: 255px;
+	bottom: 220px;
+	left: 190px;
 	width: 176px;
 	height: 176px;
 	content: "";

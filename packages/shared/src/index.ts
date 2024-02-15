@@ -31,11 +31,13 @@ export {
 	type UserAuthResponseDto,
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
+	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 	UsersApiPath,
+	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
