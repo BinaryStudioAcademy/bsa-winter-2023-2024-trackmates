@@ -60,31 +60,3 @@
 .error-input {
 	border: 1px solid var(--color-error);
 }
-
-.password-hint {
-	position: absolute;
-	top: 30px;
-	right: 259px;
-	width: 200px;
-	padding: 7px;
-	font-size: 12px;
-	font-weight: bold;
-	color: var(--color-menu);
-	background: var(--color-background);
-	border: solid 1px var(--color-text-200);
-	border-radius: 7px;
-	opacity: 0;
-	transition: opacity 0.3s;
-}
-
-.password-hint-ul {
-	padding-left: 20px;
-}
-
-.password-hint-li {
-	margin-bottom: 5px;
-}
-
-.input:focus ~ .password-hint {
-	opacity: 1;
-}
