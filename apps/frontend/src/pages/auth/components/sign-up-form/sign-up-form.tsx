@@ -1,9 +1,4 @@
-import {
-	Button,
-	IconButton,
-	Input,
-	Link,
-} from "~/libs/components/components.js";
+import { Button, Icon, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
 import {
@@ -83,9 +78,11 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					name="password"
 					type={isPasswordVisible ? "text" : "password"}
 				/>
-				<IconButton
+				<Button
 					className={styles["icon"]}
-					iconName={isPasswordVisible ? "eye" : "eyeOff"}
+					hasVisuallyHiddenLabel
+					icon={<Icon name={isPasswordVisible ? "eye" : "eyeOff"} />}
+					label="eye-icon"
 					onClick={handlePasswordVisibility}
 				/>
 			</div>
