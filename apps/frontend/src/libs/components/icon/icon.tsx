@@ -1,19 +1,24 @@
 import { HTMLProps } from "react";
 
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
+
 import { iconNameToSvg } from "./libs/maps/maps.js";
 import { IconName } from "./libs/types/types.js";
+import styles from "./styles.module.css";
 
 type Properties = {
 	name: IconName;
 };
 
 const Icon: React.FC<HTMLProps<SVGSVGElement> & Properties> = ({
+	className,
 	name,
-	...properties
 }: HTMLProps<SVGSVGElement> & Properties) => {
 	const IconComponent = iconNameToSvg[name];
 
-	return <IconComponent {...properties} />;
+	return (
+		<IconComponent className={getValidClassNames(className, styles["icon"])} />
+	);
 };
 
 export { Icon };
