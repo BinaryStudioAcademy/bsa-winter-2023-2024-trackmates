@@ -1,3 +1,3 @@
-type IconName = "home" | "plus";
+type IconName = "cross" | "home" | "plus";
 
 export { type IconName };
