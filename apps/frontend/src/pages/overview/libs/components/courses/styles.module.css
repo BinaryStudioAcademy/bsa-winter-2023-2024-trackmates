@@ -1,0 +1,16 @@
+.container {
+	padding: 27px 39px 90px 47px;
+}
+
+.title {
+	font-size: var(--font-size-400);
+}
+
+.list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 14px 15px;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
