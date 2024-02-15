@@ -1,19 +1,22 @@
-import { useAppSelector } from "~/libs/hooks/hooks.js";
+import { MENU_ITEMS } from "~/libs/constants/constants.js";
 
 import { Header } from "../header/header.js";
+import { Sidebar } from "../sidebar/sidebar.js";
+import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
 };
 
 const AuthWrapper: React.FC<Properties> = ({ children }: Properties) => {
-	const { user } = useAppSelector((state) => state.auth);
-
 	return (
-		<>
-			<Header user={user} />
-			{children}
-		</>
+		<div className={styles["page-layout"]}>
+			<Sidebar menuItems={MENU_ITEMS} />
+			<div className={styles["page"]}>
+				<Header />
+				{children}
+			</div>
+		</div>
 	);
 };
 

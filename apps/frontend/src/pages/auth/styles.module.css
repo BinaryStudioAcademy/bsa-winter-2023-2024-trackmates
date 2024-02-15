@@ -30,7 +30,7 @@
 	align-items: center;
 	justify-content: center;
 	width: 454px;
-	height: 685px;
+	min-height: 685px;
 	background-color: #004a40b3;
 	backdrop-filter: blur(5px);
 	border-radius: 37px;
@@ -44,7 +44,7 @@
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
-	padding: 30px 70px 43px 45px;
+	padding: 35px 65px 22px 50px;
 	font-size: 43.71px;
 	font-weight: 700;
 	line-height: 52.89px;
@@ -80,4 +80,82 @@
 	content: "";
 	background-image: url("~/assets/img/sign-up-img.png");
 	background-size: cover;
+}
+
+.logo {
+	position: relative;
+	top: -12px;
+	left: 22px;
+}
+
+.mobile-logo {
+	display: none;
+}
+
+@media screen and (width <= 1024px) {
+	.sign-in::before,
+	.sign-up::before {
+		display: none;
+	}
+}
+
+@media screen and (width <= 768px) {
+	.container {
+		background-image: url("~/assets/img/svg/background-cloud-one.svg"),
+			url("~/assets/img/svg/background-cloud-three.svg"),
+			url("~/assets/img/svg/background-cloud-four.svg"),
+			url("~/assets/img/svg/background-cloud-five.svg"),
+			url("~/assets/img/svg/background-sun.svg");
+		background-position:
+			calc(50% - 330px) 520px,
+			calc(50% + 300px) 640px,
+			calc(50% - 220px) 760px,
+			calc(50% + 230px) 360px,
+			calc(50% + 265px) 340px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.container {
+		padding: 0;
+		background-image: url("~/assets/img/svg/background-cloud-four.svg"),
+			url("~/assets/img/svg/background-cloud-five.svg");
+		background-position:
+			calc(50% - 160px) 90%,
+			calc(50% + 200px) 20%;
+	}
+
+	.form-container {
+		flex-direction: column;
+		justify-content: flex-start;
+		width: 100%;
+		height: 100%;
+		min-height: 100lvh;
+		border-radius: unset;
+	}
+
+	.logo-wrapper {
+		position: unset;
+		column-gap: 10px;
+		justify-content: center;
+		padding-bottom: 10px;
+		font-size: var(--font-size-700);
+		color: var(--main-white);
+		background-color: unset;
+	}
+
+	.logo-wrapper::after {
+		display: none;
+	}
+
+	.logo {
+		display: none;
+	}
+
+	.mobile-logo {
+		position: relative;
+		top: -6px;
+		left: 14px;
+		display: inline;
+	}
 }
