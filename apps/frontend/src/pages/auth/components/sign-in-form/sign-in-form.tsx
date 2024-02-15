@@ -28,7 +28,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		[handleSubmit, onSubmit],
 	);
 
-	const handlePasswordVisibility = useCallback(() => {
+	const handleChangePasswordVisibility = useCallback(() => {
 		setPasswordVisibility(!isPasswordVisible);
 	}, [isPasswordVisible]);
 
@@ -66,7 +66,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					hasVisuallyHiddenLabel
 					icon={<Icon name={isPasswordVisible ? "eye" : "eyeOff"} />}
 					label="eye-icon"
-					onClick={handlePasswordVisibility}
+					onClick={handleChangePasswordVisibility}
 				/>
 			</div>
 			<Button color="primary" label="Log in" type="submit" />
