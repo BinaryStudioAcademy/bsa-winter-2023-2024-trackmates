@@ -15,3 +15,24 @@
 	background-color: var(--color-menu);
 	border-radius: 16px;
 }
+
+.btnWrapper {
+	display: flex;
+	gap: 10px;
+	justify-content: center;
+	width: 100%;
+	padding: 14px 0 13px;
+	background-color: var(--color-menu);
+	border-radius: 0 0 16px 16px;
+}
+
+.btnWrapper::before {
+	position: absolute;
+	top: 230px;
+	left: 255px;
+	width: 176px;
+	height: 176px;
+	content: "";
+	background-image: url("~/assets/img/user-details-img.png");
+	background-size: cover;
+}

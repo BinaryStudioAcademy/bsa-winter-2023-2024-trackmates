@@ -1,5 +1,4 @@
-import profileCharacter from "~/assets/img/user-details-img.png";
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 
 import styles from "./styles.module.css";
@@ -16,14 +15,16 @@ const Profile: React.FC = () => {
 						src={DEFAULT_USER_AVATAR}
 						width="133"
 					/>
-					<Button
-						className={styles["add-course-button"]}
-						color="basic"
-						label="Change the photo"
-						size="small"
-					/>
+					<Button color="secondary" label="Change the photo" size="small" />
 				</header>
-				<Image alt="profile character" src={profileCharacter} width="176" />
+				<form name="profile">
+					<div className={styles["btnWrapper"]}>
+						<Link to="/">
+							<Button color="secondary" label="Cancel" size="small" />
+						</Link>
+						<Button color="basic" label="Update" size="small" type="submit" />
+					</div>
+				</form>
 			</div>
 		</>
 	);
