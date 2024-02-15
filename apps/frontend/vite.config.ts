@@ -39,16 +39,12 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 			name: "Trackmates",
 			screenshots: [
 				{
-					sizes: "320x320",
+					sizes: "1008x717",
 					src: "/assets/screen-desk.png",
 					type: "image/png",
 				},
 				{
-					sizes: "1008x717",
-					src: "/assets/screen-mobile.png",
-					type: "image/png",
-				},
-				{
+					form_factor: "wide",
 					sizes: "1440x1024",
 					src: "/assets/screen-desk-1440-1024.png",
 					type: "image/png",
