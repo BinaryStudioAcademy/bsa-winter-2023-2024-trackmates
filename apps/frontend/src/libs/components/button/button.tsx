@@ -2,6 +2,8 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { Icon } from "../icon/icon.js";
+import { type IconName } from "../icon/libs/types/icon-name.type.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
@@ -10,7 +12,7 @@ type Properties = {
 	color?: "primary";
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
-	icon?: React.ReactNode;
+	iconName?: IconName;
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
@@ -23,7 +25,7 @@ const Button: React.FC<Properties> = ({
 	color = "primary",
 	hasVisuallyHiddenLabel = false,
 	href,
-	icon,
+	iconName,
 	label,
 	onClick,
 	size = "regular",
@@ -37,6 +39,8 @@ const Button: React.FC<Properties> = ({
 		styles[color],
 		className,
 	);
+
+	const icon = iconName ? <Icon name={iconName} /> : null;
 
 	return (
 		<>
