@@ -29,14 +29,16 @@ const { actions, name, reducer } = createSlice({
 			state.user = null;
 			state.dataStatus = DataStatus.REJECTED;
 		});
-		builder.addCase(signUp.fulfilled, (state) => {
+		builder.addCase(signUp.fulfilled, (state, action) => {
 			state.dataStatus = DataStatus.FULFILLED;
+			state.user = action.payload;
 		});
 		builder.addCase(signUp.pending, (state) => {
 			state.dataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(signUp.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
+			state.user = null;
 		});
 
 		builder.addCase(signIn.pending, (state) => {
@@ -44,7 +46,7 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(signIn.fulfilled, (state, action) => {
 			state.dataStatus = DataStatus.FULFILLED;
-			state.user = action.payload.user;
+			state.user = action.payload;
 		});
 		builder.addCase(signIn.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;

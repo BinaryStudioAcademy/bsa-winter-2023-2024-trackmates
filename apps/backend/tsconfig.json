@@ -2,6 +2,7 @@
 	"extends": "../../tsconfig.json",
 	"include": ["**/*.ts", "**/*.js"],
 	"exclude": ["node_modules", "build"],
+	"files": ["index.d.ts"],
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {

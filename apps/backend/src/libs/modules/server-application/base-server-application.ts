@@ -11,12 +11,16 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type Token } from "~/libs/modules/token/token.js";
+import { authorization } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { type UserService } from "~/modules/users/users.js";
 
+import { WHITE_ROUTES } from "./libs/constants/constants.js";
 import {
 	type ServerApplication,
 	type ServerApplicationApi,
@@ -28,7 +32,11 @@ type Constructor = {
 	config: Config;
 	database: Database;
 	logger: Logger;
+	services: {
+		userService: UserService;
+	};
 	title: string;
+	token: Token;
 };
 
 class BaseServerApplication implements ServerApplication {
@@ -42,14 +50,30 @@ class BaseServerApplication implements ServerApplication {
 
 	private logger: Logger;
 
+	private services: {
+		userService: UserService;
+	};
+
 	private title: string;
 
-	public constructor({ apis, config, database, logger, title }: Constructor) {
+	private token: Token;
+
+	public constructor({
+		apis,
+		config,
+		database,
+		logger,
+		services,
+		title,
+		token,
+	}: Constructor) {
 		this.title = title;
+		this.token = token;
 		this.config = config;
 		this.logger = logger;
 		this.database = database;
 		this.apis = apis;
+		this.services = services;
 
 		this.app = Fastify({
 			ignoreTrailingSlash: true,
@@ -99,6 +123,16 @@ class BaseServerApplication implements ServerApplication {
 				return reply.status(HTTPCode.INTERNAL_SERVER_ERROR).send(response);
 			},
 		);
+	}
+
+	private async initPlugins(): Promise<void> {
+		await this.app.register(authorization, {
+			services: {
+				userService: this.services.userService,
+			},
+			token: this.token,
+			whiteRoutes: WHITE_ROUTES,
+		});
 	}
 
 	private async initServe(): Promise<void> {
@@ -156,6 +190,8 @@ class BaseServerApplication implements ServerApplication {
 		this.initValidationCompiler();
 
 		this.initErrorHandler();
+
+		await this.initPlugins();
 
 		this.initRoutes();
 
