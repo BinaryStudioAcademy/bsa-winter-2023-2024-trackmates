@@ -1,1 +1,1 @@
-export { type FriendDto } from "./friend.type.js";
+export { type FriendDto } from "./friend-dto.type.js";
