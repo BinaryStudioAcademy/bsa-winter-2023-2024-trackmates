@@ -1,5 +1,6 @@
 import { APIPath } from "~/libs/enums/enums.js";
 import {
+	type APIHandlerOptions,
 	type APIHandlerResponse,
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
@@ -8,6 +9,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type CourseService } from "./course.service.js";
 import { CoursesApiPath } from "./libs/enums/enums.js";
+import { CourseSearchRequestDto } from "./libs/types/types.js";
 
 class CourseController extends BaseController {
 	private courseService: CourseService;
@@ -18,15 +20,22 @@ class CourseController extends BaseController {
 		this.courseService = courseService;
 
 		this.addRoute({
-			handler: () => this.findAllByVendor(),
+			handler: (options) =>
+				this.findAllByVendor(
+					options as APIHandlerOptions<{ params: CourseSearchRequestDto }>,
+				),
 			method: "GET",
 			path: CoursesApiPath.ROOT,
 		});
 	}
 
-	private async findAllByVendor(): Promise<APIHandlerResponse> {
+	private async findAllByVendor({
+		params,
+	}: APIHandlerOptions<{
+		params: CourseSearchRequestDto;
+	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.findAllByVendor(),
+			payload: await this.courseService.findAllByVendor(params),
 			status: HTTPCode.OK,
 		};
 	}

@@ -11,4 +11,5 @@ const udemy = new Udemy({
 });
 
 export { udemy };
+export { CourseField } from "./libs/enums/enums.js";
 export { type Udemy } from "./udemy.module.js";

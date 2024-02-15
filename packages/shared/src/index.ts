@@ -5,7 +5,11 @@ export {
 	ExceptionMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
-export { HTTPError, ValidationError } from "./libs/exceptions/exceptions.js";
+export {
+	ApplicationError,
+	HTTPError,
+	ValidationError,
+} from "./libs/exceptions/exceptions.js";
 export { configureString } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
@@ -26,7 +30,14 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
-export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
+export {
+	type CourseDto,
+	type CourseInstructorResponseDto,
+	type CourseResponseDto,
+	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
+	CoursesApiPath,
+} from "./modules/courses/courses.js";
 export {
 	type UserAuthResponseDto,
 	type UserGetAllItemResponseDto,
