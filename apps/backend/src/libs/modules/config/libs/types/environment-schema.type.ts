@@ -18,6 +18,11 @@ type EnvironmentSchema = {
 		EXPIRES_IN: string;
 		SECRET: string;
 	};
+	UDEMY: {
+		CLIENT_ID: string;
+		CLIENT_SECRET: string;
+		URL: string;
+	};
 };
 
 export { type EnvironmentSchema };
