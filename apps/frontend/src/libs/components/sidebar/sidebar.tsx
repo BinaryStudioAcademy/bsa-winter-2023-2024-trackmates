@@ -65,7 +65,7 @@ const Sidebar: React.FC = () => {
 						<Button
 							className={styles["menu-item"]}
 							href={href}
-							icon={<Icon className={styles["menu-item-icon"]} name={icon} />}
+							icon={<Icon name={icon} />}
 							key={label}
 							label={label}
 						/>

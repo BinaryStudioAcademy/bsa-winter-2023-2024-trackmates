@@ -25,6 +25,7 @@
 	position: fixed;
 	top: 30px;
 	left: 30px;
+	display: none;
 	fill: var(--main-white);
 }
 
@@ -34,13 +35,10 @@
 	align-items: center;
 	justify-content: flex-start;
 	width: 214px;
-}
-
-.menu-item-icon {
 	fill: var(--main-white);
 }
 
-.menu-item:hover .menu-item-icon {
+.menu-item:hover {
 	fill: var(--main-orange);
 }
 
