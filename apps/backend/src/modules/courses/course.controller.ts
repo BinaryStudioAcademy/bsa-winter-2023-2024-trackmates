@@ -6,16 +6,16 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
-import { type CoursesService } from "./coursses.service.js";
+import { type CourseService } from "./course.service.js";
 import { CoursesApiPath } from "./libs/enums/enums.js";
 
-class CoursesController extends BaseController {
-	private coursesService: CoursesService;
+class CourseController extends BaseController {
+	private courseService: CourseService;
 
-	public constructor(logger: Logger, coursesService: CoursesService) {
+	public constructor(logger: Logger, courseService: CourseService) {
 		super(logger, APIPath.COURSES);
 
-		this.coursesService = coursesService;
+		this.courseService = courseService;
 
 		this.addRoute({
 			handler: () => this.search(),
@@ -26,10 +26,10 @@ class CoursesController extends BaseController {
 
 	private async search(): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.coursesService.search(),
+			payload: await this.courseService.search(),
 			status: HTTPCode.OK,
 		};
 	}
 }
 
-export { CoursesController };
+export { CourseController };

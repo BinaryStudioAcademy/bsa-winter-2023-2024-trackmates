@@ -4,7 +4,7 @@ type Constructor = {
 	udemy: Udemy;
 };
 
-class CoursesService {
+class CourseService {
 	private udemy: Udemy;
 
 	public constructor({ udemy }: Constructor) {
@@ -16,4 +16,4 @@ class CoursesService {
 	}
 }
 
-export { CoursesService };
+export { CourseService };

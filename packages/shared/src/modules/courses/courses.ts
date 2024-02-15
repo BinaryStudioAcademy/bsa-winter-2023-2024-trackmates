@@ -1,1 +1,1 @@
-export { CoursesApiPath } from "./llibs/enums/enums.js";
+export { CoursesApiPath } from "./libs/enums/enums.js";
