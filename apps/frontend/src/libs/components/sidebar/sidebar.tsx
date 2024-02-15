@@ -1,17 +1,21 @@
 import logo from "~/assets/img/svg/auth-circle-mobile-logo.svg";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { type MenuItem } from "~/libs/types/types.js";
 
 import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
 import { Link } from "../link/link.js";
-import { MENU_ITEMS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
 	className?: string | undefined;
+	menuItems: MenuItem[];
 };
 
-const Sidebar: React.FC<Properties> = ({ className }: Properties) => {
+const Sidebar: React.FC<Properties> = ({
+	className,
+	menuItems,
+}: Properties) => {
 	return (
 		<div className={getValidClassNames(className, styles["wrapper"])}>
 			<Link className={styles["title-container"]} to="/">
@@ -20,7 +24,7 @@ const Sidebar: React.FC<Properties> = ({ className }: Properties) => {
 			</Link>
 
 			<nav className={styles["menu"]}>
-				{MENU_ITEMS.map(({ href, icon, label }) => (
+				{menuItems.map(({ href, icon, label }) => (
 					<Button
 						className={styles["menu-item"]}
 						href={href}
