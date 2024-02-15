@@ -44,6 +44,11 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 					type: "image/png",
 				},
 				{
+					sizes: "450x320",
+					src: "/assets/screen-tablet.png",
+					type: "image/png",
+				},
+				{
 					form_factor: "wide",
 					sizes: "1440x1024",
 					src: "/assets/screen-desk-1440-1024.png",
