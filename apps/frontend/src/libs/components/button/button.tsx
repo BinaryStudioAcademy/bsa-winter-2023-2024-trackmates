@@ -1,9 +1,8 @@
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 
 import { Icon } from "../icon/icon.js";
-import { IconName } from "../icon/libs/types/types.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 

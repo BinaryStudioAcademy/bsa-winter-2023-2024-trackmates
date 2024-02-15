@@ -1,7 +1,5 @@
 import { AppRoute } from "~/libs/enums/enums.js";
-import { type ValueOf } from "~/libs/types/types.js";
-
-import { type IconName } from "../../../icon/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 
 const MENU_ITEMS: {
 	href: ValueOf<typeof AppRoute>;
