@@ -26,6 +26,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 					{
 						children: [
 							{
+								element: <ProtectedRoute component={<Friends />} />,
+								path: AppRoute.FRIENDS,
+							},
+							{
 								element: <ProtectedRoute component={<Overview />} />,
 								path: AppRoute.ROOT,
 							},
@@ -36,10 +40,6 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <Auth />,
 								path: AppRoute.SIGN_UP,
-							},
-							{
-								element: <Friends />,
-								path: AppRoute.FRIENDS,
 							},
 						],
 						element: <App />,
