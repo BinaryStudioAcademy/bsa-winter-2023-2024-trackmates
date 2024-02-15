@@ -1,0 +1,40 @@
+.wrapper {
+	display: flex;
+	flex-basis: 270px;
+	flex-direction: column;
+	gap: 76px;
+	padding: 24px 24px 24px 36px;
+	background-color: var(--color-menu);
+}
+
+.title-container {
+	display: flex;
+	align-items: center;
+	color: var(--color-background);
+}
+
+.menu {
+	width: 100%;
+}
+
+.menu-item {
+	display: flex;
+	gap: 16px;
+	align-items: center;
+	justify-content: flex-start;
+	fill: var(--main-white);
+}
+
+.menu-item:hover {
+	fill: var(--main-orange);
+}
+
+.title {
+	font-size: var(--font-size-550);
+}
+
+.logo {
+	width: 55px;
+	height: 49px;
+	margin-bottom: 12px;
+}
