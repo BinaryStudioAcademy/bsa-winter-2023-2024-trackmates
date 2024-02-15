@@ -12,8 +12,8 @@ const userSignIn = z
 		email: z
 			.string()
 			.trim()
-			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-				message: UserValidationMessage.EMAIL_REQUIRE,
+			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.email({
 				message: UserValidationMessage.EMAIL_WRONG,
@@ -21,6 +21,9 @@ const userSignIn = z
 		password: z
 			.string()
 			.trim()
+			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.FIELD_REQUIRE,
+			})
 			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.PASSWORD_SHORT,
 			}),
