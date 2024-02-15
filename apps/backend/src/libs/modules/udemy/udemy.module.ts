@@ -12,7 +12,6 @@ import {
 
 type SearchParameters = {
 	page?: number;
-	pageSize?: number;
 	search?: string;
 };
 
@@ -58,13 +57,12 @@ class Udemy {
 
 	public async getCourses({
 		page = UdemyDefaultSearchParameter.PAGE,
-		pageSize = UdemyDefaultSearchParameter.PAGE_SIZE,
 		search,
 	}: SearchParameters = {}): Promise<Response> {
 		const query = {
 			"fields[course]": Object.values(CourseField).join(","),
 			page,
-			page_size: pageSize,
+			page_size: UdemyDefaultSearchParameter.PAGE_SIZE,
 		};
 
 		const options = this.getOptions(search ? { ...query, search } : query);
