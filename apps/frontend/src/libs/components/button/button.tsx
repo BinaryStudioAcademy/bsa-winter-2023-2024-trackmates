@@ -1,9 +1,8 @@
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 
 import { Icon } from "../icon/icon.js";
-import { type IconName } from "../icon/libs/types/icon-name.type.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
@@ -41,18 +40,19 @@ const Button: React.FC<Properties> = ({
 	);
 
 	const icon = iconName ? <Icon name={iconName} /> : null;
+	const labelStyle = hasVisuallyHiddenLabel ? "visually-hidden" : undefined;
 
 	return (
 		<>
 			{href ? (
 				<Link className={buttonStyles} to={href}>
 					{icon}
-					{!hasVisuallyHiddenLabel && label}
+					<span className={labelStyle}>{label}</span>
 				</Link>
 			) : (
 				<button className={buttonStyles} onClick={onClick} type={type}>
 					{icon}
-					{!hasVisuallyHiddenLabel && label}
+					<span className={labelStyle}>{label}</span>
 				</button>
 			)}
 		</>

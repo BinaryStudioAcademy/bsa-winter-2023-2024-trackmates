@@ -1,8 +1,7 @@
 import EyeIcon from "~/assets/img/svg/eye.svg?react";
 import EyeOffIcon from "~/assets/img/svg/eye-off.svg?react";
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
-
-import { type IconName } from "../types/icon-name.type.js";
+import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
 	IconName,
