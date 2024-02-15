@@ -1,6 +1,4 @@
-import reactLogo from "~/assets/img/react.svg";
 import { RouterOutlet } from "~/libs/components/components.js";
-import { MENU_ITEMS } from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { checkIfSidebarIsShown } from "~/libs/helpers/helpers.js";
 import {
@@ -14,7 +12,6 @@ import { actions as userActions } from "~/modules/users/users.js";
 
 import { Link } from "../link/link.js";
 import { Loader } from "../loader/loader.js";
-import { Sidebar } from "../sidebar/sidebar.js";
 import styles from "./styles.module.css";
 
 const App: React.FC = () => {
@@ -36,8 +33,6 @@ const App: React.FC = () => {
 
 	return (
 		<>
-			<img alt="logo" className="App-logo" src={reactLogo} width="30" />
-
 			<ul className="App-navigation-list">
 				<li>
 					<Link to={AppRoute.ROOT}>Root</Link>
@@ -53,7 +48,6 @@ const App: React.FC = () => {
 
 			{checkIfSidebarIsShown(pathname) ? (
 				<div className={styles["page-layout"]}>
-					<Sidebar menuItems={MENU_ITEMS} />
 					<div className={styles["page"]}>
 						<RouterOutlet />
 					</div>
