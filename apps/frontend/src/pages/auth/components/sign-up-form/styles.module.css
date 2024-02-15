@@ -31,3 +31,18 @@
 .link:hover {
 	text-decoration: underline;
 }
+
+.password-input {
+	position: relative;
+}
+
+.password {
+	padding-right: 50px;
+}
+
+.icon {
+	position: absolute;
+	top: 32px;
+	right: 18px;
+	cursor: pointer;
+}
