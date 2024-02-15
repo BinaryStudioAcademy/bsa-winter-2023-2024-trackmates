@@ -1,7 +1,7 @@
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { HTTPCode, HTTPError, type HTTPOptions } from "./libs/enums/enums.js";
-import { HTTP } from "./libs/types/types.js";
+import { type HTTP } from "./libs/types/types.js";
 
 class BaseHTTP implements HTTP {
 	private checkStatus = async (response: Response): Promise<Response> => {
