@@ -1,1 +1,51 @@
-{"name":"Trackmates","short_name":"Trackmates","start_url":"/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"/","description":"Trackmates","icons":[{"sizes":"192x192","src":"/assets/android-chrome-192x192.png","type":"image/png"},{"sizes":"512x512","src":"/assets/android-chrome-512x512.png","type":"image/png"},{"sizes":"16x16","src":"/assets/favicon-16x16.png","type":"image/png"},{"sizes":"32x32","src":"/assets/favicon-32x32.png","type":"image/png"}],"screenshots":[{"sizes":"1008x717","src":"/assets/screen-desk.png","type":"image/png"},{"sizes":"450x320","src":"/assets/screen-tablet.png","type":"image/png"},{"form_factor":"wide","sizes":"1440x1024","src":"/assets/screen-desk-1440-1024.png","type":"image/png"}],"theme_color":"#0b372f"}
+{
+	"name": "Trackmates",
+	"short_name": "Trackmates",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#ffffff",
+	"lang": "en",
+	"scope": "/",
+	"description": "Trackmates: Your dedicated learning companion. Monitor your progress, achieve goals, and explore your path to success with us",
+	"icons": [
+		{
+			"sizes": "192x192",
+			"src": "/assets/android-chrome-192x192.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "512x512",
+			"src": "/assets/android-chrome-512x512.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "16x16",
+			"src": "/assets/favicon-16x16.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "32x32",
+			"src": "/assets/favicon-32x32.png",
+			"type": "image/png"
+		}
+	],
+	"screenshots": [
+		{
+			"sizes": "1008x717",
+			"src": "/assets/screen-desk.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "450x320",
+			"src": "/assets/screen-tablet.png",
+			"type": "image/png"
+		},
+		{
+			"form_factor": "wide",
+			"sizes": "1440x1024",
+			"src": "/assets/screen-desk-1440-1024.png",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#0b372f"
+}
