@@ -26,7 +26,7 @@ class CourseController extends BaseController {
 
 	private async findAllByVendor(): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.search(),
+			payload: await this.courseService.findAllByVendor(),
 			status: HTTPCode.OK,
 		};
 	}

@@ -11,7 +11,7 @@ class CourseService {
 		this.udemy = udemy;
 	}
 
-	public search(): Promise<unknown> {
+	public findAllByVendor(): Promise<unknown> {
 		return this.udemy.getCourses().then((result) => result.json());
 	}
 }
