@@ -1,4 +1,4 @@
-import logo from "~/assets/img/svg/auth-circle-logo.svg";
+import logo from "~/assets/img/svg/auth-circle-mobile-logo.svg";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
 import { Button } from "../button/button.js";

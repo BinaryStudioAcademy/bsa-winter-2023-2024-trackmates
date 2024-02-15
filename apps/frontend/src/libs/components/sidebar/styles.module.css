@@ -9,7 +9,6 @@
 
 .title-container {
 	display: flex;
-	gap: 8px;
 	align-items: center;
 	color: var(--color-background);
 }
@@ -35,6 +34,7 @@
 }
 
 .logo {
-	width: 34px;
-	height: 34px;
+	width: 55px;
+	height: 49px;
+	margin-bottom: 12px;
 }
