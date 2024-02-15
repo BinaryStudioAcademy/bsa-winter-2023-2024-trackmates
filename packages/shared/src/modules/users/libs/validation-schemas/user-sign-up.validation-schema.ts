@@ -15,7 +15,7 @@ const userSignUp = z
 			.string()
 			.trim()
 			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-				message: UserValidationMessage.EMAIL_REQUIRE,
+				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.email({
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,

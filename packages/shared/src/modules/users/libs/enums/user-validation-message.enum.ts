@@ -2,7 +2,6 @@ import { UserValidationRule } from "./user-validation-rule.enum.js";
 
 const UserValidationMessage = {
 	EMAIL_INVALID_FORMAT: "The email is invalid",
-	EMAIL_REQUIRE: "The field is required",
 	EMAIL_WRONG: "Email is wrong",
 	FIELD_REQUIRE: "The field is required",
 	FIRSTNAME_INVALID_FORMAT: "Only latin letters are allowed",
