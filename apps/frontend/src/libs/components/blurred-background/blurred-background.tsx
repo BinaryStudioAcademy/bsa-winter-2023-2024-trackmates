@@ -1,25 +1,28 @@
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
+import { Button } from "../button/button.js";
 import styles from "./styles.module.css";
 
-type Proprieties = {
+type Properties = {
 	className?: string | undefined;
 	isVisible: boolean;
 	onClick?: () => void;
 };
 
-const BlurredBackground: React.FC<Proprieties> = ({
+const BlurredBackground: React.FC<Properties> = ({
 	className,
 	isVisible,
 	onClick,
-}: Proprieties) => {
+}: Properties) => {
 	if (!isVisible) {
 		return null;
 	}
 
 	return (
-		<button
+		<Button
 			className={getValidClassNames(styles["blurred-background"], className)}
+			hasVisuallyHiddenLabel
+			label="blurred-background"
 			onClick={onClick}
 			type="button"
 		/>
