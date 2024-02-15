@@ -1,4 +1,5 @@
 import logo from "~/assets/img/svg/auth-circle-logo.svg";
+import mobileLogo from "~/assets/img/svg/auth-circle-mobile-logo.svg";
 import logoName from "~/assets/img/svg/logo-title.svg";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
@@ -56,10 +57,11 @@ const Auth: React.FC = () => {
 				)}
 			>
 				<div className={styles["logo-wrapper"]}>
+					<img alt="TrackMates logo" className={styles["logo"]} src={logo} />
 					<img
 						alt="TrackMates logo"
-						className={styles["logo-image"]}
-						src={logo}
+						className={styles["mobile-logo"]}
+						src={mobileLogo}
 					/>
 					<img alt="TrackMates" src={logoName} />
 				</div>
