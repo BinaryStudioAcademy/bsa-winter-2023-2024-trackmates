@@ -14,7 +14,7 @@ const Courses: React.FC<Properties> = ({ courses }: Properties) => {
 			<ul className={styles["list"]}>
 				{courses.map((course) => {
 					return (
-						<li key={course.id}>
+						<li className={styles["item"]} key={course.id}>
 							<Course course={course} />
 						</li>
 					);
