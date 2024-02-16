@@ -12,8 +12,12 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 	} = loadEnv(mode, process.cwd());
 
 	const vitePWA = VitePWA({
+		devOptions: {
+			enabled: true,
+		},
 		manifest: {
-			description: "Trackmates",
+			description:
+				"Trackmates - monitor your progress and the progress of your friends!",
 			icons: [
 				{
 					sizes: "192x192",
@@ -39,16 +43,17 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 			name: "Trackmates",
 			screenshots: [
 				{
-					sizes: "320x320",
+					sizes: "1008x717",
 					src: "/assets/screen-desk.png",
 					type: "image/png",
 				},
 				{
-					sizes: "1008x717",
-					src: "/assets/screen-mobile.png",
+					sizes: "450x320",
+					src: "/assets/screen-tablet.png",
 					type: "image/png",
 				},
 				{
+					form_factor: "wide",
 					sizes: "1440x1024",
 					src: "/assets/screen-desk-1440-1024.png",
 					type: "image/png",
