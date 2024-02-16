@@ -6,8 +6,8 @@ import styles from "./styles.module.css";
 const Friends: React.FC = () => {
 	return (
 		<ul className={styles["wrapper"]}>
-			{DEFAULT_FRIENDS_DATA.map((user) => (
-				<Friend key={user.id} user={user} />
+			{DEFAULT_FRIENDS_DATA.map((friend) => (
+				<Friend friend={friend} key={friend.id} />
 			))}
 		</ul>
 	);

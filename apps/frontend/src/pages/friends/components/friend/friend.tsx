@@ -4,21 +4,19 @@ import { type FriendDto } from "~/libs/types/types.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	user: FriendDto;
+	friend: FriendDto;
 };
 
-const Friend: React.FC<Properties> = ({ user }: Properties) => {
-	const { fullName, imageUrl } = user;
-
+const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
 				<Image
-					alt={`portrait of ${fullName}`}
+					alt={`portrait of ${friend.fullName}`}
 					className={styles["portrait"]}
-					src={imageUrl}
+					src={friend.imageUrl}
 				/>
-				<p className={styles["fullName"]}>{fullName}</p>
+				<p className={styles["fullName"]}>{friend.fullName}</p>
 			</div>
 
 			<div className={styles["actions"]}>
