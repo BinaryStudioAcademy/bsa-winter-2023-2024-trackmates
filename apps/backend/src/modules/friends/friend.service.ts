@@ -1,10 +1,11 @@
-import { ExceptionMessage, FriendError, HTTPCode } from "shared";
+import { FriendError, HTTPCode } from "shared";
 
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 
+import { FriendErrorMessage } from "./libs/enums/enums.js";
 import {
-	type FriendAddNewResponsetDto,
-	type FriendGetAllFriendeDto,
+	type FriendAcceptResponseDto,
+	type FriendResponseDto,
 } from "./libs/types/types.js";
 
 class FriendService {
@@ -14,37 +15,28 @@ class FriendService {
 		this.friendRepository = friendRepository;
 	}
 
-	async getUserFriends(id: number): Promise<FriendGetAllFriendeDto[]> {
+	async getUserFriends(id: number): Promise<FriendResponseDto[]> {
 		return await this.friendRepository.getUserFriends(id);
 	}
 
 	async respondRequest(
 		friendRequestId: number,
 		isAccepted: boolean,
-	): Promise<FriendAddNewResponsetDto | null> {
-		const responseSuccess = await this.friendRepository.respondRequest(
+	): Promise<FriendAcceptResponseDto | number> {
+		return await this.friendRepository.respondRequest(
 			friendRequestId,
 			isAccepted,
 		);
-
-		if (!responseSuccess) {
-			throw new FriendError(
-				ExceptionMessage.UNKNOWN_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
-		}
-
-		return responseSuccess;
 	}
 
 	async sendFriendRequest(
 		id: number,
 		receiverUserId: number,
-	): Promise<FriendAddNewResponsetDto | null> {
+	): Promise<FriendAcceptResponseDto | null> {
 		if (id === receiverUserId) {
 			throw new FriendError(
-				ExceptionMessage.UNKNOWN_ERROR, // cant send req to yourself
-				HTTPCode.BAD_REQUEST, // cant send req to yourself
+				FriendErrorMessage.SEND_REQUEST_TO_YOURSELF,
+				HTTPCode.BAD_REQUEST,
 			);
 		}
 		return await this.friendRepository.createFriendshipInvite(

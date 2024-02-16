@@ -15,6 +15,41 @@ import {
 import { FriendService } from "./friend.service.js";
 import { FriendApiPath } from "./libs/enums/enums.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     FriendRequest:
+ *       type: object
+ *       properties:
+ *         createdAt:
+ *           type: string
+ *         firstUserId:
+ *           type: number
+ *         id:
+ *           type: number
+ *         isInvitationAccepted:
+ *           type: boolean
+ *         secondUserId:
+ *           type: number
+ *         updatedAt:
+ *           type: string
+ *     FriendError:
+ *       type: object
+ *       properties:
+ *         errorType:
+ *           type: string
+ *         message:
+ *           type: string
+ *     FriendRequestWithUser:
+ *       type: object
+ *       properties:
+ *         friendRequest:
+ *           $ref: "#/components/schemas/FriendRequest"
+ *         user:
+ *           $ref: "#/components/schemas/User"
+ */
+
 class FriendController extends BaseController {
 	private friendService: FriendService;
 
@@ -56,6 +91,21 @@ class FriendController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /friend:
+	 *    get:
+	 *      description: Returns an array of FriendRequest with User and UserDetais
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: array
+	 *                items:
+	 *                  $ref: "#/components/schemas/FriendRequestWithUser"
+	 */
 	private async getUserFriends(
 		options: APIHandlerOptions<{
 			user: UserAuthResponseDto;
@@ -69,19 +119,92 @@ class FriendController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /friend/reply:
+	 *    post:
+	 *      description: Reply on friend invite and take this invite obj or nubmer of deleted invite obj
+	 *      requestBody:
+	 *        description: User auth data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                id:
+	 *                  type: number
+	 *                isAccepted:
+	 *                  type: boolean
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    - $ref: "#/components/schemas/FriendRequest"
+	 * 					  - type: number
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/FriendError'
+	 */
 	private async respondRequest(
 		options: APIHandlerOptions<{
 			body: FriendReplyRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		const { id, isAccept } = options.body;
+		const { id, isAccepted } = options.body;
 
 		return {
-			payload: await this.friendService.respondRequest(id, isAccept),
+			payload: await this.friendService.respondRequest(id, isAccepted),
 			status: HTTPCode.OK,
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /friend/request:
+	 *    post:
+	 *      description: Send friend invite and take this invite obj
+	 *      requestBody:
+	 *        description: User auth data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                receiverUserId:
+	 *                  type: number
+	 *                id:
+	 *                  type: string
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/FriendRequest"
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 * 				oneOf:
+	 *              		- $ref: '#/components/schemas/FriendError'
+	 * 					- type: null
+	 */
 	private async sendRequest(
 		options: APIHandlerOptions<{
 			body: FriendAddNewRequestDto;

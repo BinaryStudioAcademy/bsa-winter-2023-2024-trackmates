@@ -1,1 +1,1 @@
-export { FriendApiPath } from "shared";
+export { FriendApiPath, FriendErrorMessage } from "shared";

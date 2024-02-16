@@ -1,8 +1,8 @@
 import { UserAuthResponseDto } from "src/modules/users/users.js";
 
-import { FriendAddNewResponsetDto } from "../../friends.js";
+import { FriendAcceptResponseDto } from "../../friends.js";
 
-type FriendGetAllFriendeDto = FriendAddNewResponsetDto & {
+type FriendResponseDto = FriendAcceptResponseDto & {
 	firstUser?: {
 		id: number;
 		userDetails: UserAuthResponseDto;
@@ -13,4 +13,4 @@ type FriendGetAllFriendeDto = FriendAddNewResponsetDto & {
 	};
 };
 
-export { FriendGetAllFriendeDto };
+export { FriendResponseDto };

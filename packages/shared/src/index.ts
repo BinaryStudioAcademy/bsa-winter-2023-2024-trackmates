@@ -28,12 +28,14 @@ export {
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export {
+	type FriendAcceptResponseDto,
 	type FriendAddNewRequestDto,
-	type FriendAddNewResponsetDto,
 	FriendApiPath,
 	FriendError,
-	type FriendGetAllFriendeDto,
+	FriendErrorMessage,
 	type FriendReplyRequestDto,
+	type FriendResponseDto,
+	RequestSetting,
 } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,

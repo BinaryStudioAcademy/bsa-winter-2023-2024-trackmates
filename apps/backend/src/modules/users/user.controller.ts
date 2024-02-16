@@ -8,7 +8,7 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type UserService } from "~/modules/users/user.service.js";
 
-import { UsersApiPath } from "./libs/enums/enums.js";
+import { RequestSetting, UsersApiPath } from "./libs/enums/enums.js";
 
 /*** @swagger
  * components:
@@ -78,34 +78,18 @@ class UserController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /user/search:
-	 *    post:
-	 *      description: Search user by input value
-	 *      requestBody:
-	 *        description: Input text and setting
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                text:
-	 *                  type: string
-	 *                offset:
-	 *                  type: number
-	 * 				  limit:
-	 * 					type: number
+	 * /search:
+	 *    get:
+	 *      description: Returns an array of users
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  message:
-	 *                    type: array
-	 *                    $ref: "#/components/schemas/User"
+	 *                type: array
+	 *                items:
+	 *                  $ref: "#/components/schemas/User"
 	 */
 	private async searchFriendsByValue(
 		options: APIHandlerOptions<{
@@ -116,9 +100,11 @@ class UserController extends BaseController {
 			};
 		}>,
 	): Promise<APIHandlerResponse> {
-		const one = 1; // for commint only
-		const zero = 0; // for commint only
-		const { limit = one, offset = zero, text } = options.body;
+		const {
+			limit = RequestSetting.DEFAULT_LIMIT,
+			offset = RequestSetting.DEFAULT_OFFSET,
+			text,
+		} = options.body;
 
 		const friends = await this.userService.searchFriendsByValue(
 			limit,

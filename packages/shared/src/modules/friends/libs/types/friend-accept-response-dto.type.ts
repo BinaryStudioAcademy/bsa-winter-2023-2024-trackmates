@@ -1,4 +1,4 @@
-type FriendAddNewResponsetDto = {
+type FriendAcceptResponseDto = {
 	createdAt: string;
 	firstUserId: number;
 	id: number;
@@ -7,4 +7,4 @@ type FriendAddNewResponsetDto = {
 	updatedAt: string;
 };
 
-export { type FriendAddNewResponsetDto };
+export { type FriendAcceptResponseDto };

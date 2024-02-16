@@ -1,6 +1,6 @@
 type FriendReplyRequestDto = {
 	id: number;
-	isAccept: boolean;
+	isAccepted: boolean;
 };
 
 export { type FriendReplyRequestDto };

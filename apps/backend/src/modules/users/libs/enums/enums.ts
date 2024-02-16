@@ -1,1 +1,1 @@
-export { UsersApiPath } from "shared";
+export { RequestSetting, UsersApiPath } from "shared";

@@ -12,9 +12,7 @@ const friendController = new FriendController(logger, friendService);
 export { friendController };
 export { friendService };
 export {
+	type FriendAcceptResponseDto,
 	type FriendAddNewRequestDto,
-	type FriendAddNewResponsetDto,
 	type FriendReplyRequestDto,
 } from "./libs/types/types.js";
-
-// export { FriendApiPath } from "./libs/enums/enums.js";

@@ -1,8 +1,9 @@
-import { ExceptionMessage, FriendError, HTTPCode } from "shared";
+import { FriendError, HTTPCode } from "shared";
 
 import { type FriendModel } from "~/modules/friends/friend.model.js";
 
-import { type FriendAddNewResponsetDto } from "./friend.js";
+import { type FriendAcceptResponseDto } from "./friend.js";
+import { FriendErrorMessage } from "./libs/enums/enums.js";
 
 class FriendRepository {
 	private friendModel: typeof FriendModel;
@@ -14,7 +15,7 @@ class FriendRepository {
 	public async createFriendshipInvite(
 		senderUserId: number,
 		recipientUserId: number,
-	): Promise<FriendAddNewResponsetDto | null> {
+	): Promise<FriendAcceptResponseDto | null> {
 		const existingInvite = await this.getFriendInviteById(
 			senderUserId,
 			recipientUserId,
@@ -69,14 +70,14 @@ class FriendRepository {
 	public async respondRequest(
 		friendRequestId: number,
 		isAccepted: boolean,
-	): Promise<FriendAddNewResponsetDto | null> {
+	): Promise<FriendAcceptResponseDto | number> {
 		const friendRequest = await this.friendModel
 			.query()
 			.findById(friendRequestId);
 
 		if (!friendRequest) {
 			throw new FriendError(
-				ExceptionMessage.UNKNOWN_ERROR,
+				FriendErrorMessage.FRIEND_REQUEST_NOT_EXIST,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -87,8 +88,7 @@ class FriendRepository {
 			});
 		} else {
 			await this.friendModel.query().deleteById(friendRequestId);
-
-			return null;
+			return friendRequest.id;
 		}
 	}
 }
