@@ -1,4 +1,6 @@
 .container {
+	flex-grow: 1;
+	padding: 15px 40px;
 	font-family: Roboto, sans-serif;
 	background-color: var(--color-background);
 }

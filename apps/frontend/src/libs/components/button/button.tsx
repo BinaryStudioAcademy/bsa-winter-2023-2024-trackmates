@@ -9,10 +9,11 @@ import styles from "./styles.module.css";
 type Properties = {
 	className?: string | undefined;
 	color?: "danger" | "primary" | "secondary" | "success";
+	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
 	label: string;
-	onClick?: React.MouseEventHandler;
+	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
 	type?: "button" | "submit";
@@ -21,6 +22,7 @@ type Properties = {
 const Button: React.FC<Properties> = ({
 	className,
 	color = "primary",
+	hasVisuallyHiddenLabel = false,
 	href,
 	iconName,
 	label,
@@ -38,18 +40,21 @@ const Button: React.FC<Properties> = ({
 	);
 
 	const icon = iconName ? <Icon name={iconName} /> : null;
+	const labelStyle = getValidClassNames(
+		hasVisuallyHiddenLabel && "visually-hidden",
+	);
 
 	return (
 		<>
 			{href ? (
 				<Link className={buttonStyles} onClick={onClick} to={href}>
 					{icon}
-					{label}
+					<span className={labelStyle}>{label}</span>
 				</Link>
 			) : (
 				<button className={buttonStyles} onClick={onClick} type={type}>
 					{icon}
-					{label}
+					<span className={labelStyle}>{label}</span>
 				</button>
 			)}
 		</>
