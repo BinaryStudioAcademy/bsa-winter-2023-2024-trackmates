@@ -28,6 +28,7 @@
 	margin: 0;
 	overflow: hidden;
 	font-size: var(--font-size-800);
+	line-height: 1;
 	text-overflow: ellipsis;
 }
 

@@ -1,5 +1,8 @@
 .container {
-	padding: 15px 40px 90px;
+	flex-grow: 1;
+	padding: 15px 40px;
+	font-family: Roboto, sans-serif;
+	background-color: var(--color-background);
 }
 
 @media screen and (width <= 1025px) {
