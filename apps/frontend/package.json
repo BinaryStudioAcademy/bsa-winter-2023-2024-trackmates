@@ -26,8 +26,7 @@
 		"react-redux": "9.1.0",
 		"react-router-dom": "6.21.3",
 		"react-toastify": "10.0.4",
-		"shared": "*",
-		"vite-plugin-svgr": "4.2.0"
+		"shared": "*"
 	},
 	"devDependencies": {
 		"@types/react": "18.2.48",
