@@ -1,6 +1,5 @@
 import { Loader, RouterOutlet } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
-import { checkIfShowLoader } from "~/libs/helpers/helpers.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -30,7 +29,10 @@ const App: React.FC = () => {
 		void dispatch(authActions.getAuthenticatedUser());
 	}, [isRoot, dispatch]);
 
-	if (checkIfShowLoader(authDataStatus)) {
+	if (
+		authDataStatus === DataStatus.IDLE ||
+		authDataStatus === DataStatus.PENDING
+	) {
 		return <Loader color="orange" size="large" />;
 	}
 
@@ -42,7 +44,7 @@ const App: React.FC = () => {
 				))}
 			</ul>
 			<div>
-				{checkIfShowLoader(usersDataStatus) && (
+				{usersDataStatus === DataStatus.PENDING && (
 					<Loader color="orange" size="large" />
 				)}
 				<RouterOutlet />
