@@ -27,6 +27,7 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto } from "./modules/courses/courses.js";
+export { FriendApiPath, FriendError } from "./modules/friend/friend.js";
 export {
 	type UserAuthResponseDto,
 	type UserGetAllItemResponseDto,

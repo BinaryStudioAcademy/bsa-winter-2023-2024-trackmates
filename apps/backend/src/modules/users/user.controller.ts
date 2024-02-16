@@ -1,5 +1,6 @@
 import { APIPath } from "~/libs/enums/enums.js";
 import {
+	APIHandlerOptions,
 	type APIHandlerResponse,
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
@@ -36,6 +37,21 @@ class UserController extends BaseController {
 			method: "GET",
 			path: UsersApiPath.ROOT,
 		});
+
+		this.addRoute({
+			handler: (options) =>
+				this.searchFriendsByValue(
+					options as APIHandlerOptions<{
+						body: {
+							limit?: number;
+							offset?: number;
+							text: string;
+						};
+					}>,
+				),
+			method: "POST",
+			path: UsersApiPath.SEARCH,
+		});
 	}
 
 	/**
@@ -56,6 +72,62 @@ class UserController extends BaseController {
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.userService.findAll(),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /user/search:
+	 *    post:
+	 *      description: Search user by input value
+	 *      requestBody:
+	 *        description: Input text and setting
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                text:
+	 *                  type: string
+	 *                offset:
+	 *                  type: number
+	 * 				  limit:
+	 * 					type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: array
+	 *                    $ref: "#/components/schemas/User"
+	 */
+	private async searchFriendsByValue(
+		options: APIHandlerOptions<{
+			body: {
+				limit?: number;
+				offset?: number;
+				text: string;
+			};
+		}>,
+	): Promise<APIHandlerResponse> {
+		const one = 1; // for commint only
+		const zero = 0; // for commint only
+		const { limit = one, offset = zero, text } = options.body;
+
+		const friends = await this.userService.searchFriendsByValue(
+			limit,
+			offset,
+			text,
+		);
+
+		return {
+			payload: friends,
 			status: HTTPCode.OK,
 		};
 	}

@@ -1,0 +1,1 @@
+export { FriendApiPath } from "shared";
