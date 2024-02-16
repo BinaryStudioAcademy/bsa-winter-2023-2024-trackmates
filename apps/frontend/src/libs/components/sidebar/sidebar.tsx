@@ -1,5 +1,3 @@
-import React from "react";
-
 import logo from "~/assets/img/svg/auth-circle-logo.svg";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
@@ -19,8 +17,8 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 
 	const handleToggleSidebar = useCallback(() => {
-		setOpen(!isOpen);
-	}, [isOpen]);
+		setOpen((isOpen) => !isOpen);
+	}, []);
 
 	return (
 		<>
