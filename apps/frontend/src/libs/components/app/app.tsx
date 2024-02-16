@@ -28,7 +28,7 @@ const App: React.FC = () => {
 
 	return (
 		<>
-			<ul>
+			<ul className="visually-hidden">
 				{users.map((user) => (
 					<li key={user.id}>{user.email}</li>
 				))}
