@@ -1,3 +1,4 @@
+import BurgerIcon from "~/assets/img/svg/burger.svg?react";
 import EyeIcon from "~/assets/img/svg/eye.svg?react";
 import EyeOffIcon from "~/assets/img/svg/eye-off.svg?react";
 import HomeIcon from "~/assets/img/svg/home.svg?react";
@@ -8,6 +9,7 @@ const iconNameToSvg: Record<
 	IconName,
 	React.FC<React.SVGProps<SVGSVGElement>>
 > = {
+	burger: BurgerIcon,
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
