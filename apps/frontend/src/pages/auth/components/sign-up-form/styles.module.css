@@ -32,6 +32,24 @@
 	text-decoration: underline;
 }
 
+.password-input {
+	position: relative;
+}
+
+.password {
+	padding-right: 50px;
+}
+
+.icon {
+	position: absolute;
+	top: 32px;
+	right: 18px;
+	min-height: auto;
+	padding: 0;
+	background-color: transparent;
+	border: unset;
+}
+
 @media screen and (width <= 480px) {
 	.form {
 		max-width: unset;
