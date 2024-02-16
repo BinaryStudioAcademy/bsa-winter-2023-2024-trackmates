@@ -28,6 +28,10 @@ export {
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto } from "./modules/courses/courses.js";
 export {
+	type AvatarUploadResponseDto,
+	ProfileApiPath,
+} from "./modules/profile/profile.js";
+export {
 	type UserAuthResponseDto,
 	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,

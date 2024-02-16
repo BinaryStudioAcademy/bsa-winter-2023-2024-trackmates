@@ -1,3 +1,4 @@
+import fastifyMultipart from "@fastify/multipart";
 import fastifyStatic from "@fastify/static";
 import swagger, { type StaticDocumentSpec } from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
@@ -133,6 +134,7 @@ class BaseServerApplication implements ServerApplication {
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
+		await this.app.register(fastifyMultipart);
 	}
 
 	private async initServe(): Promise<void> {

@@ -28,21 +28,23 @@ class BaseController implements Controller {
 	): Promise<void> {
 		this.logger.info(`${request.method.toUpperCase()} on ${request.url}`);
 
-		const handlerOptions = this.mapRequest(request);
+		const handlerOptions = await this.mapRequest(request);
 		const { payload, status } = await handler(handlerOptions);
 
 		return await reply.status(status).send(payload);
 	}
 
-	private mapRequest(
+	private async mapRequest(
 		request: Parameters<ServerApplicationRouteParameters["handler"]>[0],
-	): APIHandlerOptions {
+	): Promise<APIHandlerOptions> {
 		const { body, params, query, user } = request;
+		const uploadedFile = await request.file();
 
 		return {
 			body,
 			params,
 			query,
+			uploadedFile: uploadedFile ?? null,
 			user: user ?? null,
 		};
 	}
