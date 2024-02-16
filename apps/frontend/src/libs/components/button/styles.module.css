@@ -50,13 +50,13 @@
 }
 
 .success {
-	color: #16a34a;
+	color: var(--color-success);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
 
 .danger {
-	color: #ef4444;
+	color: var(--color-error);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
