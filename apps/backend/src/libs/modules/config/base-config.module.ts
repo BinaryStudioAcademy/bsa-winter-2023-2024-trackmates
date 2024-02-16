@@ -122,6 +122,26 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			UDEMY: {
+				CLIENT_ID: {
+					default: null,
+					doc: "Udemy Affiliate ClientId",
+					env: "UDEMY_CLIENT_ID",
+					format: String,
+				},
+				CLIENT_SECRET: {
+					default: null,
+					doc: "Udemy Affiliate ClientSecret",
+					env: "UDEMY_CLIENT_SECRET",
+					format: String,
+				},
+				URL: {
+					default: null,
+					doc: "API url",
+					env: "UDEMY_URL",
+					format: String,
+				},
+			},
 		});
 	}
 }
