@@ -1,23 +1,32 @@
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 
+import { Icon } from "../icon/icon.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	className?: string | undefined;
 	color?: "primary";
+	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
+	iconName?: IconName;
 	label: string;
+	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
 	type?: "button" | "submit";
 };
 
 const Button: React.FC<Properties> = ({
+	className,
 	color = "primary",
+	hasVisuallyHiddenLabel = false,
 	href,
+	iconName,
 	label,
+	onClick,
 	size = "regular",
 	style = "filled",
 	type = "button",
@@ -27,17 +36,25 @@ const Button: React.FC<Properties> = ({
 		styles[size],
 		styles[style],
 		styles[color],
+		className,
+	);
+
+	const icon = iconName ? <Icon name={iconName} /> : null;
+	const labelStyle = getValidClassNames(
+		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 
 	return (
 		<>
 			{href ? (
 				<Link className={buttonStyles} to={href}>
-					{label}
+					{icon}
+					<span className={labelStyle}>{label}</span>
 				</Link>
 			) : (
-				<button className={buttonStyles} type={type}>
-					{label}
+				<button className={buttonStyles} onClick={onClick} type={type}>
+					{icon}
+					<span className={labelStyle}>{label}</span>
 				</button>
 			)}
 		</>

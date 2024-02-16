@@ -1,8 +1,10 @@
 import { config } from "~/libs/modules/config/config.js";
 import { database } from "~/libs/modules/database/database.js";
 import { logger } from "~/libs/modules/logger/logger.js";
+import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
-import { userController } from "~/modules/users/users.js";
+import { courseController } from "~/modules/courses/courses.js";
+import { userController, userService } from "~/modules/users/users.js";
 
 import { BaseServerApplication } from "./base-server-application.js";
 import { BaseServerApplicationApi } from "./base-server-application-api.js";
@@ -11,6 +13,7 @@ const apiV1 = new BaseServerApplicationApi(
 	"v1",
 	config,
 	...authController.routes,
+	...courseController.routes,
 	...userController.routes,
 );
 const serverApplication = new BaseServerApplication({
@@ -18,7 +21,9 @@ const serverApplication = new BaseServerApplication({
 	config,
 	database,
 	logger,
+	services: { userService },
 	title: "TrackMates",
+	token,
 });
 
 export { serverApplication };
