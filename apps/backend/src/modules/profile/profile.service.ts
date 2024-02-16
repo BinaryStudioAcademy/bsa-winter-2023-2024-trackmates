@@ -1,10 +1,10 @@
 import { MultipartFile } from "@fastify/multipart";
 
-import { S3 } from "~/libs/modules/s3/s3.js";
-import { Service } from "~/libs/types/service.type.js";
+import { type S3 } from "~/libs/modules/s3/s3.js";
+import { type Service } from "~/libs/types/service.type.js";
 import { ProfileRepository } from "~/modules/profile/profile.repository.js";
 
-import { AvatarUploadResponseDto } from "./libs/types/types.js";
+import { type AvatarUploadResponseDto } from "./libs/types/types.js";
 
 class ProfileService implements Service {
 	private profileRepository: ProfileRepository;

@@ -1,4 +1,4 @@
-import { Repository } from "~/libs/types/repository.type.js";
+import { type Repository } from "~/libs/types/repository.type.js";
 
 class ProfileRepository implements Repository {
 	create(payload: unknown): Promise<unknown> {

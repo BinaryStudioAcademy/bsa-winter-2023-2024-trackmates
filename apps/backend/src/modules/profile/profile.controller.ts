@@ -6,8 +6,8 @@ import {
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { Logger } from "~/libs/modules/logger/logger.js";
-import { ProfileService } from "~/modules/profile/profile.service.js";
+import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type ProfileService } from "~/modules/profile/profile.service.js";
 
 import { APIPath, ProfileApiPath } from "./libs/enums/enums.js";
 
