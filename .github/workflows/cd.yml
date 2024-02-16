@@ -39,6 +39,9 @@ jobs:
     needs: release
     if: ${{ needs.release.outputs.release_created }}
     runs-on: ubuntu-latest
+    environment:
+      name: development
+      url: http://development.eu-central-1.elasticbeanstalk.com/
 
     steps:
       - name: Code Checkout
