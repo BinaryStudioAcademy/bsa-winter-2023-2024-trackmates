@@ -7,9 +7,9 @@ type Properties = {
 	user: FriendDto;
 };
 
-const Friend: React.FC<Properties> = ({
-	user: { fullName, imageUrl },
-}: Properties) => {
+const Friend: React.FC<Properties> = ({ user }: Properties) => {
+	const { fullName, imageUrl } = user;
+
 	return (
 		<div className={styles["card"]}>
 			<div className={styles["card-content"]}>
