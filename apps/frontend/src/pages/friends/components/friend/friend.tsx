@@ -7,28 +7,27 @@ import { actions } from "~/modules/friends/friends.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	user: TFriend;
+	friend: TFriend;
 };
 
-const Friend: React.FC<Properties> = ({ user }: Properties) => {
-	const { fullName, id, imageUrl, status } = user;
+const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	const dispatch = useAppDispatch();
 
 	const handleAcceptRequest = useCallback(() => {
-		void dispatch(actions.acceptRequest(id));
-	}, [dispatch, id]);
+		void dispatch(actions.acceptRequest(friend.id));
+	}, [dispatch, friend.id]);
 
 	const handleDenyRequest = useCallback(() => {
-		void dispatch(actions.denyRequest(id));
-	}, [dispatch, id]);
+		void dispatch(actions.denyRequest(friend.id));
+	}, [dispatch, friend.id]);
 
 	const handleSendRequest = useCallback(() => {
 		void dispatch(
 			actions.sendRequest({
-				receiverUserId: id,
+				receiverUserId: friend.id,
 			}),
 		);
-	}, [dispatch, id]);
+	}, [dispatch, friend.id]);
 
 	const buttonStyles = styles["button"];
 
@@ -69,14 +68,14 @@ const Friend: React.FC<Properties> = ({ user }: Properties) => {
 	};
 
 	return (
-		<div className={styles["card"]}>
+		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
 				<Image
-					alt={`portrait of ${fullName}`}
+					alt={`portrait of ${friend.fullName}`}
 					className={styles["portrait"]}
-					src={imageUrl}
+					src={friend.imageUrl}
 				/>
-				<p className={styles["fullName"]}>{fullName}</p>
+				<p className={styles["fullName"]}>{friend.fullName}</p>
 			</div>
 
 			<div
@@ -85,9 +84,9 @@ const Friend: React.FC<Properties> = ({ user }: Properties) => {
 					status === "invited" ? styles["actions-invited"] : "",
 				)}
 			>
-				{actionsMapping[status]}
+				{actionsMapping[friend.status]}
 			</div>
-		</div>
+		</article>
 	);
 };
 

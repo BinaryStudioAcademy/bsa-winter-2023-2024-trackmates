@@ -62,11 +62,11 @@ const Friends: React.FC = () => {
 	}, [friends]);
 
 	return (
-		<section className={styles["wrapper"]}>
+		<ul className={styles["wrapper"]}>
 			{orderedFriends.map((friend) => (
-				<Friend key={friend.id} user={friend} />
+				<Friend friend={friend} key={friend.id} />
 			))}
-		</section>
+		</ul>
 	);
 };
 
