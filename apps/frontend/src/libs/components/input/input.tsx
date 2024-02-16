@@ -11,6 +11,7 @@ import { useFormController } from "~/libs/hooks/hooks.js";
 import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
+	className?: string | undefined;
 	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
@@ -21,6 +22,7 @@ type Properties<T extends FieldValues> = {
 };
 
 const Input = <T extends FieldValues>({
+	className,
 	color = "light",
 	control,
 	errors,
@@ -35,6 +37,7 @@ const Input = <T extends FieldValues>({
 	const hasError = Boolean(error);
 
 	const inputClasses = getValidClassNames(
+		className,
 		styles["input"],
 		styles[color],
 		hasError && styles["error-input"],
