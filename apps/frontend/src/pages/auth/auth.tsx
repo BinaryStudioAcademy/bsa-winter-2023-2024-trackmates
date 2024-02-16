@@ -58,12 +58,15 @@ const Auth: React.FC = () => {
 				)}
 			>
 				<div className={styles["logo-wrapper"]}>
-					<Image alt="TrackMates logo" className={styles["logo"]} src={logo} />
-					<Image
-						alt="TrackMates logo"
-						className={styles["mobile-logo"]}
-						src={mobileLogo}
-					/>
+					<picture>
+						<source media="(max-width: 480px)" srcSet={mobileLogo} />
+						<source media="(min-width: 481px)" srcSet={logo} />
+						<Image
+							alt="TrackMates logo"
+							className={`${styles["logo"]} ${styles["mobile-logo"]}`}
+							src={logo}
+						/>
+					</picture>
 					<Image alt="TrackMates" src={logoName} />
 				</div>
 				{getScreen(pathname)}

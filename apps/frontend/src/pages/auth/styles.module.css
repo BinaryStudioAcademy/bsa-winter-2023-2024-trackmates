@@ -88,10 +88,6 @@
 	left: 12px;
 }
 
-.mobile-logo {
-	display: none;
-}
-
 @media screen and (width <= 1024px) {
 	.sign-in::before,
 	.sign-up::before {
