@@ -1,9 +1,8 @@
 import { Button, Image } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type Friend as TFriend } from "~/libs/types/types.js";
-import { actions } from "~/modules/friends/friends.js";
 
+import { useFriendInteractions } from "../../hooks/hooks.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -11,27 +10,12 @@ type Properties = {
 };
 
 const Friend: React.FC<Properties> = ({ friend }: Properties) => {
-	const dispatch = useAppDispatch();
-
-	const handleAcceptRequest = useCallback(() => {
-		void dispatch(actions.acceptRequest(friend.id));
-	}, [dispatch, friend.id]);
-
-	const handleDenyRequest = useCallback(() => {
-		void dispatch(actions.denyRequest(friend.id));
-	}, [dispatch, friend.id]);
-
-	const handleSendRequest = useCallback(() => {
-		void dispatch(
-			actions.sendRequest({
-				receiverUserId: friend.id,
-			}),
-		);
-	}, [dispatch, friend.id]);
+	const { acceptRequest, denyRequest, sendRequest } =
+		useFriendInteractions(friend);
 
 	const buttonStyles = styles["button"];
 
-	let actionsMapping: Record<TFriend["status"], React.ReactNode> = {
+	const actionsMapping: Record<TFriend["status"], React.ReactNode> = {
 		friend: <p className={styles["info"]}>You are friends</p>,
 		invited: (
 			<>
@@ -40,7 +24,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					color="success"
 					iconName="check"
 					label="Accept"
-					onClick={handleAcceptRequest}
+					onClick={acceptRequest}
 					size="small"
 					type="button"
 				/>
@@ -49,7 +33,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					color="danger"
 					iconName="cross"
 					label="Deny"
-					onClick={handleDenyRequest}
+					onClick={denyRequest}
 					size="small"
 				/>
 			</>
@@ -61,7 +45,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				color="secondary"
 				iconName="add"
 				label="Add friend"
-				onClick={handleSendRequest}
+				onClick={sendRequest}
 				size="small"
 			/>
 		),

@@ -6,4 +6,5 @@ export {
 	ContentType,
 	ExceptionMessage,
 	ServerErrorType,
+	SortOrder,
 } from "shared";
