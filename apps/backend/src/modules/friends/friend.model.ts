@@ -5,6 +5,8 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
+import { UserModel } from "../users/user.model.js";
+
 class FriendModel extends AbstractModel {
 	public static relationMappings = () => {
 		return {
@@ -13,7 +15,7 @@ class FriendModel extends AbstractModel {
 					from: `${DatabaseTableName.FRIENDS}.firstUserId`,
 					to: `${DatabaseTableName.USERS}.id`,
 				},
-				modelClass: FriendModel,
+				modelClass: UserModel,
 				relation: Model.BelongsToOneRelation,
 			},
 			secondUser: {
@@ -21,16 +23,14 @@ class FriendModel extends AbstractModel {
 					from: `${DatabaseTableName.FRIENDS}.secondUserId`,
 					to: `${DatabaseTableName.USERS}.id`,
 				},
-				modelClass: FriendModel,
+				modelClass: UserModel,
 				relation: Model.BelongsToOneRelation,
 			},
 		};
 	};
 
 	public firstUserId!: number;
-
 	public isInvitationAccepted!: boolean;
-
 	public secondUserId!: number;
 
 	public static override get tableName(): string {

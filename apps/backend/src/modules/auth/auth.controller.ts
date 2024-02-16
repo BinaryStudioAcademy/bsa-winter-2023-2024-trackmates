@@ -41,7 +41,9 @@ class AuthController extends BaseController {
 		this.addRoute({
 			handler: (options) =>
 				this.getAuthenticatedUser(
-					options as APIHandlerOptions<{ user: UserAuthResponseDto | null }>,
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto | null;
+					}>,
 				),
 			method: "GET",
 			path: AuthApiPath.AUTHENTICATED_USER,

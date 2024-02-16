@@ -1,37 +1,27 @@
 import { ExceptionMessage, FriendError, HTTPCode } from "shared";
 
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
-import { UserEntity } from "~/modules/users/user.entity.js";
+
+import {
+	type FriendAddNewResponsetDto,
+	type FriendGetAllFriendeDto,
+} from "./libs/types/types.js";
 
 class FriendService {
-	//implements Service
 	private friendRepository: FriendRepository;
 
 	public constructor(friendRepository: FriendRepository) {
 		this.friendRepository = friendRepository;
 	}
 
-	// public async create(): Promise<unknown> {
-	// 	return Promise.resolve(null);
-	// }
-
-	// public delete(): Promise<boolean> {
-	// 	return Promise.resolve(true);
-	// }
-
-	// public find(): Promise<UserEntity | null> {
-	// 	return Promise.resolve(null);
-	// }
-
-	// public async findAll(): Promise<{ items: unknown[] }> {
-	// 	const friend = await this.friendRepository.findAll();
-	// 	return { items: friend };
-	// }
+	async getUserFriends(id: number): Promise<FriendGetAllFriendeDto[]> {
+		return await this.friendRepository.getUserFriends(id);
+	}
 
 	async respondRequest(
 		friendRequestId: number,
 		isAccepted: boolean,
-	): Promise<boolean> {
+	): Promise<FriendAddNewResponsetDto | null> {
 		const responseSuccess = await this.friendRepository.respondRequest(
 			friendRequestId,
 			isAccepted,
@@ -48,16 +38,19 @@ class FriendService {
 	}
 
 	async sendFriendRequest(
-		senderUserId: number,
-		recipientUserId: number,
-	): Promise<boolean> {
+		id: number,
+		receiverUserId: number,
+	): Promise<FriendAddNewResponsetDto | null> {
+		if (id === receiverUserId) {
+			throw new FriendError(
+				ExceptionMessage.UNKNOWN_ERROR, // cant send req to yourself
+				HTTPCode.BAD_REQUEST, // cant send req to yourself
+			);
+		}
 		return await this.friendRepository.createFriendshipInvite(
-			senderUserId,
-			recipientUserId,
+			id,
+			receiverUserId,
 		);
-	}
-	public update(): Promise<UserEntity | null> {
-		return Promise.resolve(null);
 	}
 }
 

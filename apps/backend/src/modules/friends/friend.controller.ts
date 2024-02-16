@@ -7,6 +7,11 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
+import { UserAuthResponseDto } from "../users/users.js";
+import {
+	type FriendAddNewRequestDto,
+	type FriendReplyRequestDto,
+} from "./friend.js";
 import { FriendService } from "./friend.service.js";
 import { FriendApiPath } from "./libs/enums/enums.js";
 
@@ -20,12 +25,20 @@ class FriendController extends BaseController {
 
 		this.addRoute({
 			handler: (options) =>
+				this.getUserFriends(
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto;
+					}>,
+				),
+			method: "GET",
+			path: FriendApiPath.ROOT,
+		});
+		this.addRoute({
+			handler: (options) =>
 				this.sendRequest(
 					options as APIHandlerOptions<{
-						body: {
-							recipientUserId: number;
-							senderUserId: number;
-						};
+						body: FriendAddNewRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "POST",
@@ -35,10 +48,7 @@ class FriendController extends BaseController {
 			handler: (options) =>
 				this.respondRequest(
 					options as APIHandlerOptions<{
-						body: {
-							id: number;
-							isAccept: boolean;
-						};
+						body: FriendReplyRequestDto;
 					}>,
 				),
 			method: "POST",
@@ -46,12 +56,22 @@ class FriendController extends BaseController {
 		});
 	}
 
+	private async getUserFriends(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		const { id } = options.user;
+
+		return {
+			payload: await this.friendService.getUserFriends(id),
+			status: HTTPCode.OK,
+		};
+	}
+
 	private async respondRequest(
 		options: APIHandlerOptions<{
-			body: {
-				id: number;
-				isAccept: boolean;
-			};
+			body: FriendReplyRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		const { id, isAccept } = options.body;
@@ -64,19 +84,15 @@ class FriendController extends BaseController {
 
 	private async sendRequest(
 		options: APIHandlerOptions<{
-			body: {
-				recipientUserId: number;
-				senderUserId: number;
-			};
+			body: FriendAddNewRequestDto;
+			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		const { recipientUserId, senderUserId } = options.body;
+		const { id } = options.user;
+		const { receiverUserId } = options.body;
 
 		return {
-			payload: await this.friendService.sendFriendRequest(
-				senderUserId,
-				recipientUserId,
-			),
+			payload: await this.friendService.sendFriendRequest(id, receiverUserId),
 			status: HTTPCode.OK,
 		};
 	}
