@@ -1,6 +1,5 @@
-import { RouterOutlet } from "~/libs/components/components.js";
+import { Loader, RouterOutlet } from "~/libs/components/components.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
-import { checkIfSidebarIsShown } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -9,10 +8,6 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userActions } from "~/modules/users/users.js";
-
-import { Link } from "../link/link.js";
-import { Loader } from "../loader/loader.js";
-import styles from "./styles.module.css";
 
 const App: React.FC = () => {
 	const { pathname } = useLocation();
@@ -33,47 +28,18 @@ const App: React.FC = () => {
 
 	return (
 		<>
-			<ul className="App-navigation-list">
-				<li>
-					<Link to={AppRoute.ROOT}>Root</Link>
-				</li>
-				<li>
-					<Link to={AppRoute.SIGN_IN}>Sign in</Link>
-				</li>
-				<li>
-					<Link to={AppRoute.SIGN_UP}>Sign up</Link>
-				</li>
+			<ul>
+				{users.map((user) => (
+					<li key={user.id}>{user.email}</li>
+				))}
 			</ul>
-			<p>Current path: {pathname}</p>
-
-			{checkIfSidebarIsShown(pathname) ? (
-				<div className={styles["page-layout"]}>
-					<div className={styles["page"]}>
-						<RouterOutlet />
-					</div>
-				</div>
-			) : (
-				<div>
-					<RouterOutlet />
-				</div>
-			)}
-
-			{isRoot && (
-				<>
-					<h2>Users:</h2>
-					<h3>Status: {dataStatus}</h3>
-					{dataStatus === DataStatus.PENDING && (
-						<Loader color="orange" size="large" />
-					)}
-					<ul>
-						{users.map((user) => (
-							<li key={user.id}>{user.email}</li>
-						))}
-					</ul>
-				</>
-			)}
+			<div>
+				{dataStatus === DataStatus.PENDING && (
+					<Loader color="orange" size="large" />
+				)}
+				<RouterOutlet />
+			</div>
 		</>
 	);
 };
-
 export { App };
