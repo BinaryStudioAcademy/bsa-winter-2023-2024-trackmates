@@ -11,7 +11,7 @@ const Friend: React.FC<Properties> = ({ user }: Properties) => {
 	const { fullName, imageUrl } = user;
 
 	return (
-		<div className={styles["card"]}>
+		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
 				<Image
 					alt={`portrait of ${fullName}`}
@@ -30,7 +30,7 @@ const Friend: React.FC<Properties> = ({ user }: Properties) => {
 					size="small"
 				/>
 			</div>
-		</div>
+		</article>
 	);
 };
 

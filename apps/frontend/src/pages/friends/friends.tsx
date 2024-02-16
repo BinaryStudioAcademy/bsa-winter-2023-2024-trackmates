@@ -5,11 +5,11 @@ import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
 	return (
-		<section className={styles["wrapper"]}>
+		<ul className={styles["wrapper"]}>
 			{DEFAULT_FRIENDS_DATA.map((user) => (
 				<Friend key={user.id} user={user} />
 			))}
-		</section>
+		</ul>
 	);
 };
 
