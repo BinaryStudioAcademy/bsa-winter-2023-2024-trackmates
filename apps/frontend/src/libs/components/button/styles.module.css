@@ -48,3 +48,15 @@
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
+
+.success {
+	color: #16a34a;
+	background-color: var(--main-white);
+	border-color: var(--main-white);
+}
+
+.danger {
+	color: #ef4444;
+	background-color: var(--main-white);
+	border-color: var(--main-white);
+}

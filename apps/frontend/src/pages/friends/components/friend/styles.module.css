@@ -5,7 +5,12 @@
 	background-color: var(--color-menu);
 }
 
-.add-friend-action {
+.actions-invited {
+	flex-direction: column;
+	gap: 16px;
+}
+
+.button {
 	flex: 1;
 }
 
@@ -22,6 +27,10 @@
 .fullName {
 	font-size: var(--font-size-300);
 	font-weight: 500;
+}
+
+.info {
+	color: var(--main-white);
 }
 
 .portrait {

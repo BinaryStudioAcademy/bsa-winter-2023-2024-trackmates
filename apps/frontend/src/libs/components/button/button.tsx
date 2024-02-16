@@ -8,10 +8,11 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	className?: string | undefined;
-	color?: "primary" | "secondary";
+	color?: "danger" | "primary" | "secondary" | "success";
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
 	label: string;
+	onClick?: React.MouseEventHandler;
 	size?: "regular" | "small";
 	style?: "filled" | "outlined";
 	type?: "button" | "submit";
@@ -23,6 +24,7 @@ const Button: React.FC<Properties> = ({
 	href,
 	iconName,
 	label,
+	onClick,
 	size = "regular",
 	style = "filled",
 	type = "button",
@@ -40,12 +42,12 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<Link className={buttonStyles} to={href}>
+				<Link className={buttonStyles} onClick={onClick} to={href}>
 					{icon}
 					{label}
 				</Link>
 			) : (
-				<button className={buttonStyles} type={type}>
+				<button className={buttonStyles} onClick={onClick} type={type}>
 					{icon}
 					{label}
 				</button>
