@@ -33,6 +33,19 @@ class Udemy {
 		this.http = http;
 	}
 
+	private async getCourseByIdWithFields(
+		id: number,
+		fields: Record<string, string>,
+	): Promise<Record<string, unknown>> {
+		const query = {
+			"fields[course]": Object.values(fields).join(","),
+		};
+
+		return await this.load(`${this.baseUrl}${id}`, query)
+			.then((result) => result.json())
+			.then((course) => course as Record<string, unknown>);
+	}
+
 	private gethHeaders(): Headers {
 		const headers = new Headers();
 		const token = btoa(`${this.clientId}:${this.clientSecret}`);
@@ -52,14 +65,14 @@ class Udemy {
 		});
 	}
 
-	public async getCourseDetails(id: number): Promise<Record<string, unknown>> {
-		const query = {
-			"fields[course]": Object.values(CourseDetailsField).join(","),
-		};
+	public async getCourseById(id: number): Promise<Record<string, unknown>> {
+		return await this.getCourseByIdWithFields(id, CourseField);
+	}
 
-		return await this.load(`${this.baseUrl}${id}`, query)
-			.then((result) => result.json())
-			.then((course) => course as Record<string, unknown>);
+	public async getCourseDetailsById(
+		id: number,
+	): Promise<Record<string, unknown>> {
+		return await this.getCourseByIdWithFields(id, CourseDetailsField);
 	}
 
 	public async getCourses({

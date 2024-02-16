@@ -1,3 +1,4 @@
+export { type AddCourseRequestDto } from "./add-course-request-dto.type.js";
 export { type CourseDto } from "./course.type.js";
 export { type CourseInstructorResponseDto } from "./course-instructor-response-dto.type.js";
 export { type CourseResponseDto } from "./course-response-dto.type.js";

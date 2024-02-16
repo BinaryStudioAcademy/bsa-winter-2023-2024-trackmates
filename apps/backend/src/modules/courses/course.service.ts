@@ -5,6 +5,7 @@ import {
 	CourseInstructorFieldsMapping,
 } from "./libs/enums/enums.js";
 import {
+	AddCourseRequestDto,
 	type CourseInstructorResponseDto,
 	type CourseResponseDto,
 	type CourseSearchRequestDto,
@@ -58,6 +59,15 @@ class CourseService {
 		);
 
 		return course as CourseResponseDto;
+	}
+
+	public async addCourse(
+		parameters: Omit<AddCourseRequestDto, "userId">,
+	): Promise<CourseResponseDto> {
+		const { vendorCourseId } = parameters;
+		const item = await this.udemy.getCourseById(vendorCourseId);
+
+		return this.mapToCourse(item);
 	}
 
 	public async findAllByVendor(
