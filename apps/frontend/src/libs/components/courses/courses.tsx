@@ -1,6 +1,6 @@
-import { Course } from "~/libs/components/components.js";
 import { type CourseDto } from "~/libs/types/types.js";
 
+import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
 
 type Properties = {

@@ -61,7 +61,7 @@
 	display: none;
 }
 
-@media screen and (width <= 768px) {
+@media screen and (width <= 1025px) {
 	.menu-item {
 		width: 100%;
 		transition: 0.3s;

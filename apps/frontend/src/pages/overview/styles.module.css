@@ -1,6 +1,5 @@
 .container {
 	padding: 15px 40px 90px;
-	font-family: Roboto, sans-serif;
 }
 
 @media screen and (width <= 1025px) {

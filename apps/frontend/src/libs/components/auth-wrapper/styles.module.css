@@ -6,3 +6,15 @@
 	flex: 1;
 	background-color: var(--color-background);
 }
+
+@media screen and (width <= 1025px) {
+	.page {
+		padding-left: 100px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.page {
+		padding: 0;
+	}
+}
