@@ -1,4 +1,5 @@
 .container {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 17px;
@@ -54,13 +55,9 @@
 	border-radius: 0 0 16px 16px;
 }
 
-.btnWrapper::before {
+.profile-character {
 	position: absolute;
-	bottom: 220px;
-	left: 190px;
-	width: 176px;
-	height: 176px;
-	content: "";
-	background-image: url("~/assets/img/user-details-img.png");
-	background-size: cover;
+	bottom: -7.1%;
+	left: 15%;
+	transform: translateY(-50%);
 }
