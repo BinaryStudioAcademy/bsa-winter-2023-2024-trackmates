@@ -13,11 +13,12 @@ import styles from "./styles.module.css";
 type Properties<T extends FieldValues> = {
 	color?: "dark" | "light";
 	control: Control<T, null>;
-	errors: FieldErrors<T>;
-	label: string;
+	errors?: FieldErrors<T>;
+	label?: string;
 	name: FieldPath<T>;
 	placeholder?: string;
 	type?: "email" | "password" | "text";
+	wide?: boolean;
 };
 
 const Input = <T extends FieldValues>({
@@ -28,16 +29,18 @@ const Input = <T extends FieldValues>({
 	name,
 	placeholder = "",
 	type = "text",
+	wide,
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
 
-	const error = errors[name]?.message;
+	const error = errors?.[name]?.message;
 	const hasError = Boolean(error);
 
 	const inputClasses = getValidClassNames(
 		styles["input"],
 		styles[color],
 		hasError && styles["error-input"],
+		wide && styles["wide"],
 	);
 
 	return (

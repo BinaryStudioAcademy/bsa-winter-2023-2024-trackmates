@@ -11,9 +11,10 @@ type Properties = {
 	color?: "primary";
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
-	label: string;
+	label?: string;
+	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	size?: "regular" | "small";
-	style?: "filled" | "outlined";
+	style?: "clear" | "filled" | "outlined";
 	type?: "button" | "submit";
 };
 
@@ -23,6 +24,7 @@ const Button: React.FC<Properties> = ({
 	href,
 	iconName,
 	label,
+	onClick,
 	size = "regular",
 	style = "filled",
 	type = "button",
@@ -45,7 +47,7 @@ const Button: React.FC<Properties> = ({
 					{label}
 				</Link>
 			) : (
-				<button className={buttonStyles} type={type}>
+				<button className={buttonStyles} onClick={onClick} type={type}>
 					{icon}
 					{label}
 				</button>

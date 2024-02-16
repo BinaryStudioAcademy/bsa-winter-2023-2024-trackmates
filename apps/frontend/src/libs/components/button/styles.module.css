@@ -42,3 +42,10 @@
 	background-color: var(--color-button);
 	border-color: var(--color-button);
 }
+
+.clear {
+	min-height: 0;
+	background-color: transparent;
+	border: none;
+	outline: none;
+}

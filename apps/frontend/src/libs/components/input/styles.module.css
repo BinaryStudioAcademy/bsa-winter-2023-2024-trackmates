@@ -12,9 +12,10 @@
 }
 
 .input {
-	max-height: 37px;
+	max-width: 280px;
+	max-height: 40px;
 	padding: 12px;
-	cursor: pointer;
+	cursor: text;
 	border: none;
 	border-radius: 51px;
 	outline: none;
@@ -56,4 +57,8 @@
 
 .error-input {
 	border: 1px solid var(--color-error);
+}
+
+.wide {
+	max-width: 100%;
 }
