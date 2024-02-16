@@ -1,5 +1,5 @@
 type FriendAddNewRequestDto = {
-	userId: number;
+	receiverUserId: number;
 };
 
 export { type FriendAddNewRequestDto };

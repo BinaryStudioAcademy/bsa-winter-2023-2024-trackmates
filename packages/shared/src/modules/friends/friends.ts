@@ -1,8 +1,9 @@
 export { FriendsApiPath } from "./libs/enums/enums.js";
 export {
+	type FriendAcceptResponseDto,
 	type FriendAddNewRequestDto,
 	type FriendAddNewResponseDto,
-	type FriendDto,
+	type FriendDenyResponseDto,
 	type FriendReplyRequestDto,
-	type FriendReplyResponseDto,
+	type FriendResponseDto,
 } from "./libs/types/types.js";

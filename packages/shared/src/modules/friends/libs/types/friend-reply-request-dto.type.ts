@@ -1,5 +1,5 @@
 type FriendReplyRequestDto = {
-	friendId: number;
+	id: number;
 	isAccepted: boolean;
 };
 

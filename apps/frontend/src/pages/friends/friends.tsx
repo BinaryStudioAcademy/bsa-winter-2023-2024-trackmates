@@ -4,7 +4,7 @@ import {
 	useEffect,
 	useMemo,
 } from "~/libs/hooks/hooks.js";
-import { FriendDto } from "~/libs/types/types.js";
+import { type Friend as TFriend } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
 import { Friend } from "./components/components.js";
@@ -25,24 +25,12 @@ const Friends: React.FC = () => {
 		"https://s3-alpha-sig.figma.com/img/e5a8/4d2a/8468b40071144244537e7aa36b4d9354?Expires=1708905600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=YabQdizET7TaHqgYdN~Kai8uMZBSMzSZ0rZL2goz3TgB0QE14X~jzsIvcN5yRmYT~dT5q3Xo33ThriO0QmovboskT6Um5OagC-Zyj-zu40pczDLI7L7-sw15AXjfIWA1G5nPCPPQ30lmLG999MM-LY9v~a1BnhmwDJ1N9r7bPaBOA8PEEmJ4RDSCfnhJC9sDdHUG8-VJGh04amY7NCrKHJjhTYW5iEIlkFiN5pkl7HhTCh-IWckvqZAeB-qTcfhb6AW60gf0IqzzNIO-KeLz1LdpCvSe0Ynty5W4qkLJFwtqCA2jBPkTRfk~iFgspQtBE7Xy3u~0j4EK8dKxx9~RbQ__";
 	const fullName = "Monica Biluc";
 
-	const friends: FriendDto[] = useMemo(
+	const friends: TFriend[] = useMemo(
 		() => [
-			{ fullName, imageUrl, status: "friend", userId: 1 },
-			{ fullName, imageUrl, status: "friend", userId: 2 },
-			{ fullName, imageUrl, status: "friend", userId: 3 },
-			{ fullName, imageUrl, status: "friend", userId: 4 },
-			{ fullName, imageUrl, status: "invited", userId: 5 },
-			{ fullName, imageUrl, status: "invited", userId: 6 },
-			{ fullName, imageUrl, status: "invited", userId: 7 },
-			{ fullName, imageUrl, status: "invited", userId: 8 },
-			{ fullName, imageUrl, status: "requested", userId: 9 },
-			{ fullName, imageUrl, status: "requested", userId: 10 },
-			{ fullName, imageUrl, status: "requested", userId: 11 },
-			{ fullName, imageUrl, status: "requested", userId: 12 },
-			{ fullName, imageUrl, status: "unknown", userId: 13 },
-			{ fullName, imageUrl, status: "unknown", userId: 14 },
-			{ fullName, imageUrl, status: "unknown", userId: 15 },
-			{ fullName, imageUrl, status: "unknown", userId: 16 },
+			{ fullName, id: 13, imageUrl, status: "unknown" },
+			{ fullName, id: 14, imageUrl, status: "unknown" },
+			{ fullName, id: 15, imageUrl, status: "unknown" },
+			{ fullName, id: 16, imageUrl, status: "unknown" },
 			...friendsData,
 		],
 		[friendsData],
@@ -54,7 +42,7 @@ const Friends: React.FC = () => {
 		const REQUESTED = 2;
 		const UNKNOWN = 4;
 
-		const sortOrder: Record<FriendDto["status"], number> = {
+		const sortOrder: Record<TFriend["status"], number> = {
 			friend: FRIEND,
 			invited: INVITED,
 			requested: REQUESTED,
@@ -76,7 +64,7 @@ const Friends: React.FC = () => {
 	return (
 		<section className={styles["wrapper"]}>
 			{orderedFriends.map((friend) => (
-				<Friend key={friend.userId} user={friend} />
+				<Friend key={friend.id} user={friend} />
 			))}
 		</section>
 	);

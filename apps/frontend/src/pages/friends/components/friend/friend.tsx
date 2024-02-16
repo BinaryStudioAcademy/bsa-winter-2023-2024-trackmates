@@ -1,38 +1,38 @@
 import { Button, Image } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
-import { type FriendDto } from "~/libs/types/types.js";
+import { type Friend as TFriend } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	user: FriendDto;
+	user: TFriend;
 };
 
 const Friend: React.FC<Properties> = ({ user }: Properties) => {
-	const { fullName, imageUrl, status, userId } = user;
+	const { fullName, id, imageUrl, status } = user;
 	const dispatch = useAppDispatch();
 
 	const handleAcceptRequest = useCallback(() => {
-		void dispatch(actions.acceptRequest(userId));
-	}, [dispatch, userId]);
+		void dispatch(actions.acceptRequest(id));
+	}, [dispatch, id]);
 
 	const handleDenyRequest = useCallback(() => {
-		void dispatch(actions.denyRequest(userId));
-	}, [dispatch, userId]);
+		void dispatch(actions.denyRequest(id));
+	}, [dispatch, id]);
 
 	const handleSendRequest = useCallback(() => {
 		void dispatch(
 			actions.sendRequest({
-				userId: userId,
+				receiverUserId: id,
 			}),
 		);
-	}, [dispatch, userId]);
+	}, [dispatch, id]);
 
 	const buttonStyles = styles["button"];
 
-	let actionsMapping: Record<FriendDto["status"], React.ReactNode> = {
+	let actionsMapping: Record<TFriend["status"], React.ReactNode> = {
 		friend: <p className={styles["info"]}>You are friends</p>,
 		invited: (
 			<>
@@ -43,6 +43,7 @@ const Friend: React.FC<Properties> = ({ user }: Properties) => {
 					label="Accept"
 					onClick={handleAcceptRequest}
 					size="small"
+					type="button"
 				/>
 				<Button
 					className={buttonStyles}

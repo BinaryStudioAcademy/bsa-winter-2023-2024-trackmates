@@ -11,7 +11,7 @@ type Properties = {
 	color?: "danger" | "primary" | "secondary" | "success";
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
-	iconName?: IconName;
+	iconName?: IconName | undefined;
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
