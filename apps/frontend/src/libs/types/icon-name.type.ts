@@ -1,3 +1,3 @@
-type IconName = "home" | "plus";
+type IconName = "burger" | "home" | "plus";
 
 export { type IconName };
