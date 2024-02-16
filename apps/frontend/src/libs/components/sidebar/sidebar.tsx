@@ -18,11 +18,7 @@ type Properties = {
 const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const [isOpen, setOpen] = useState<boolean>(false);
 
-	const handleCloseSidebar = useCallback(() => {
-		setOpen(false);
-	}, []);
-
-	const toggleOpenSidebar = useCallback(() => {
+	const handleToggleSidebar = useCallback(() => {
 		setOpen(!isOpen);
 	}, [isOpen]);
 
@@ -36,7 +32,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				hasVisuallyHiddenLabel
 				iconName="burger"
 				label="burger-button"
-				onClick={toggleOpenSidebar}
+				onClick={handleToggleSidebar}
 			/>
 			<div
 				className={getValidClassNames(
@@ -63,7 +59,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 			<BlurredBackground
 				className={styles["blurred-background"]}
 				isVisible={isOpen}
-				onClick={handleCloseSidebar}
+				onClick={handleToggleSidebar}
 			/>
 		</>
 	);

@@ -1,9 +1,9 @@
 .sidebar {
-	z-index: 100;
+	z-index: var(--z-index-medium);
 	display: flex;
 	flex-direction: column;
 	gap: 76px;
-	padding: 24px 24px 24px 36px;
+	padding: 19px 27px 19px 29px;
 	overflow: hidden;
 	background-color: var(--color-menu);
 	transition: 0.3s;
@@ -13,6 +13,7 @@
 	display: flex;
 	gap: 8px;
 	align-items: center;
+	margin-left: 6px;
 	color: var(--color-background);
 	transition: 0.3s;
 }
@@ -24,7 +25,7 @@
 .burger-button {
 	position: fixed;
 	top: 30px;
-	left: 30px;
+	left: 37px;
 	display: none;
 	min-height: auto;
 	padding: 4px;
@@ -62,7 +63,8 @@
 
 @media screen and (width <= 768px) {
 	.menu-item {
-		transition: 0.3s width;
+		width: 100%;
+		transition: 0.3s;
 	}
 
 	.close .menu-item {
@@ -71,10 +73,11 @@
 
 	.title-container {
 		padding-left: 20px;
+		margin-left: 0;
 	}
 
 	.burger-button {
-		z-index: 101;
+		z-index: var(--z-index-high);
 	}
 
 	.sidebar.open .title-container,
@@ -130,7 +133,7 @@
 	}
 
 	.burger-button {
-		z-index: 99;
+		z-index: var(--z-index-low);
 		fill: var(--main-orange);
 	}
 
