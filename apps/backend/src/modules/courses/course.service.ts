@@ -1,5 +1,7 @@
 import { type Udemy } from "~/libs/modules/udemy/udemy.js";
 
+import { CourseEntity } from "./course.entity.js";
+import { CourseRepository } from "./course.repository.js";
 import {
 	CourseFieldsMapping,
 	CourseInstructorFieldsMapping,
@@ -13,13 +15,16 @@ import {
 } from "./libs/types/types.js";
 
 type Constructor = {
+	courseRepository: CourseRepository;
 	udemy: Udemy;
 };
 
 class CourseService {
+	private courseRepository: CourseRepository;
 	private udemy: Udemy;
 
-	public constructor({ udemy }: Constructor) {
+	public constructor({ courseRepository, udemy }: Constructor) {
+		this.courseRepository = courseRepository;
 		this.udemy = udemy;
 	}
 
@@ -64,10 +69,18 @@ class CourseService {
 	public async addCourse(
 		parameters: Omit<AddCourseRequestDto, "userId">,
 	): Promise<CourseResponseDto> {
-		const { vendorCourseId } = parameters;
-		const item = await this.udemy.getCourseById(vendorCourseId);
+		const { vendorCourseId, vendorId } = parameters;
 
-		return this.mapToCourse(item);
+		const item = await this.udemy.getCourseById(vendorCourseId);
+		const course = this.mapToCourse(item);
+
+		const courseEntity = CourseEntity.initializeNew({
+			...course,
+			vendorId,
+		});
+		await this.courseRepository.create(courseEntity);
+
+		return course;
 	}
 
 	public async findAllByVendor(

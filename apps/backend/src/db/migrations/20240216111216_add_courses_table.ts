@@ -1,6 +1,8 @@
 import { type Knex } from "knex";
 
 const TABLE_NAME = "courses";
+const VENDORS_TABLE_NAME = "courses";
+const VENDOR_ID = "id";
 
 const ColumnName = {
 	CREATED_AT: "created_at",
@@ -9,6 +11,7 @@ const ColumnName = {
 	TITLE: "title",
 	UPDATED_AT: "updated_at",
 	URL: "url",
+	VENDOR_ID: "vendor_id",
 } as const;
 
 async function up(knex: Knex): Promise<void> {
@@ -17,6 +20,10 @@ async function up(knex: Knex): Promise<void> {
 		table.text(ColumnName.URL).notNullable();
 		table.text(ColumnName.TITLE).notNullable();
 		table.text(ColumnName.DESCRIPTION);
+		table
+			.integer(ColumnName.VENDOR_ID)
+			.references(VENDOR_ID)
+			.inTable(VENDORS_TABLE_NAME);
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()

@@ -5,7 +5,7 @@ import { CourseInstructorResponseDto } from "./course-instructor-response-dto.ty
 
 type CourseResponseDto = {
 	avgRating: number;
-	headline: string;
+	description: string;
 	id: number;
 	image: string;
 	instructors: CourseInstructorResponseDto[];

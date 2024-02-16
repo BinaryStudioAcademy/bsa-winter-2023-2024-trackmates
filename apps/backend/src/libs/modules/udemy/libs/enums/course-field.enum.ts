@@ -1,6 +1,7 @@
 const CourseField: Record<string, string> = {
 	AVG_RATING: "avg_rating",
 	CATEGORY: "primary_category",
+	DESCRIPTION: "description",
 	HEADLINE: "headline",
 	ID: "id",
 	IMAGE_SMALL: "image_240x135",

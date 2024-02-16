@@ -4,7 +4,7 @@ import { CourseResponseDto } from "../types/types.js";
 
 const CourseFieldsMapping: Record<keyof CourseResponseDto, string> = {
 	avgRating: CourseField["AVG_RATING"] as string,
-	headline: CourseField["HEADLINE"] as string,
+	description: CourseField["DESCRIPTION"] as string,
 	id: CourseField["ID"] as string,
 	image: CourseField["IMAGE_SMALL"] as string,
 	instructors: CourseField["INSTRUCTORS"] as string,
