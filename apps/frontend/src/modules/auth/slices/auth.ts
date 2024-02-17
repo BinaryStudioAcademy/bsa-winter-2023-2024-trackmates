@@ -1,4 +1,9 @@
-import { getAuthenticatedUser, signIn, signUp } from "./actions.js";
+import {
+	getAuthenticatedUser,
+	signIn,
+	signUp,
+	updateProfile,
+} from "./actions.js";
 import { actions } from "./auth.slice.js";
 
 const allActions = {
@@ -6,6 +11,7 @@ const allActions = {
 	getAuthenticatedUser,
 	signIn,
 	signUp,
+	updateProfile,
 };
 
 export { reducer } from "./auth.slice.js";

@@ -3,6 +3,7 @@ type UserAuthResponseDto = {
 	email: string;
 	firstName: string;
 	id: number;
+	imageId: null | number;
 	lastName: string;
 	updatedAt: string;
 };

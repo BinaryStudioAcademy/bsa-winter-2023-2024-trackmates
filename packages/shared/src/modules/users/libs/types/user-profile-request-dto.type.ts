@@ -1,8 +1,9 @@
 type UserProfileRequestDto = {
-	country: string;
+	country?: string | undefined;
 	fullName: string;
-	location: string;
-	timeZone: string;
+	id?: number | undefined;
+	location?: string | undefined;
+	timeZone?: string | undefined;
 };
 
 export { type UserProfileRequestDto };

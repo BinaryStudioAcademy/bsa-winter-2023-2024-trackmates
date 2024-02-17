@@ -4,6 +4,7 @@ import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
+	UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
 } from "~/modules/users/users.js";
@@ -55,4 +56,14 @@ const signUp = createAsyncThunk<
 	return user;
 });
 
-export { getAuthenticatedUser, signIn, signUp };
+const updateProfile = createAsyncThunk<
+	UserAuthResponseDto,
+	UserProfileRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/profile`, async (profilePayload, { extra }) => {
+	const { authApi } = extra;
+
+	return await authApi.update(profilePayload);
+});
+
+export { getAuthenticatedUser, signIn, signUp, updateProfile };

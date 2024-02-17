@@ -2,7 +2,13 @@ import profileCharacter from "~/assets/img/user-details-img.png";
 import { Button, Image, Input, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useAppForm,
+	useAppSelector,
+	useCallback,
+} from "~/libs/hooks/hooks.js";
+import { actions as authActions } from "~/modules/auth/auth.js";
 import {
 	type UserProfileRequestDto,
 	userProfileValidationSchema,
@@ -12,14 +18,26 @@ import { DEFAULT_PROFILE_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
+	const { user } = useAppSelector((state) => ({
+		user: state.auth.user,
+	}));
+	const dispatch = useAppDispatch();
+
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
 		defaultValues: DEFAULT_PROFILE_PAYLOAD,
 		validationSchema: userProfileValidationSchema,
 	});
 
-	const onSubmit = useCallback((): void => {
-		// handle update profile
-	}, []);
+	const onSubmit = useCallback(
+		(formData: UserProfileRequestDto): void => {
+			const payload: UserProfileRequestDto = {
+				...formData,
+				id: user?.id,
+			};
+			void dispatch(authActions.updateProfile(payload));
+		},
+		[dispatch, user?.id],
+	);
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
