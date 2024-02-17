@@ -17,7 +17,7 @@ The product helps the users to track the progress in all their courses from diff
 ## 3. Requirements
 
 - [NodeJS](https://nodejs.org/en) (18.x.x);
-- [npm](https://www.npmjs.com/) (10.x.x);
+- [npm](https://www.npmjs.com/) (>=9.x.x);
 - [PostgreSQL](https://www.postgresql.org/) (15.4)
 
 ## 4. Database Schema

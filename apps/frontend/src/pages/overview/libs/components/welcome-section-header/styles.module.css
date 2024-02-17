@@ -25,6 +25,7 @@
 .welcome-section-header-subtitle {
 	margin: 0;
 	font-size: var(--font-size-800);
+	line-height: 1;
 }
 
 .welcome-character {
