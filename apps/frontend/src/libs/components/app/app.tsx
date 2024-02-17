@@ -12,10 +12,13 @@ import { actions as userActions } from "~/modules/users/users.js";
 const App: React.FC = () => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
-	const { dataStatus, users } = useAppSelector(({ users }) => ({
-		dataStatus: users.dataStatus,
-		users: users.users,
-	}));
+	const { authDataStatus, users, usersDataStatus } = useAppSelector(
+		({ auth, users }) => ({
+			authDataStatus: auth.dataStatus,
+			users: users.users,
+			usersDataStatus: users.dataStatus,
+		}),
+	);
 
 	const isRoot = pathname === AppRoute.ROOT;
 
@@ -26,15 +29,22 @@ const App: React.FC = () => {
 		void dispatch(authActions.getAuthenticatedUser());
 	}, [isRoot, dispatch]);
 
+	if (
+		authDataStatus === DataStatus.IDLE ||
+		authDataStatus === DataStatus.PENDING
+	) {
+		return <Loader color="orange" size="large" />;
+	}
+
 	return (
 		<>
-			<ul>
+			<ul className="visually-hidden">
 				{users.map((user) => (
 					<li key={user.id}>{user.email}</li>
 				))}
 			</ul>
 			<div>
-				{dataStatus === DataStatus.PENDING && (
+				{usersDataStatus === DataStatus.PENDING && (
 					<Loader color="orange" size="large" />
 				)}
 				<RouterOutlet />

@@ -30,7 +30,9 @@ const Friends: React.FC = () => {
 	return (
 		<ul className={styles["wrapper"]}>
 			{orderedFriends.map((friend) => (
-				<Friend friend={friend} key={friend.id} />
+				<li className={styles["friend-item"]} key={friend.id}>
+					<Friend friend={friend} />
+				</li>
 			))}
 		</ul>
 	);

@@ -1,4 +1,4 @@
-import logo from "~/assets/img/svg/auth-circle-logo.svg";
+import logo from "~/assets/img/website-logo.png";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
@@ -40,7 +40,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 			>
 				<Link className={styles["title-container"]} to="/">
 					<Image alt="website logo" className={styles["logo"]} src={logo} />
-					<h1 className={styles["title"]}>TrackMates</h1>
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
