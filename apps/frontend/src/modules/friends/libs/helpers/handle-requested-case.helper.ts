@@ -6,10 +6,10 @@ import { type FriendResponseDto } from "../types/types.js";
 
 const handleRequestedCase = ({
 	id,
-	secondUser,
+	recipientUser,
 }: FriendResponseDto): FriendDto => {
 	return {
-		fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
+		fullName: `${recipientUser?.userDetails.firstName} ${recipientUser?.userDetails.lastName}`,
 		id,
 		imageUrl: TEMPLATE_IMAGE,
 		status: FriendStatus.REQUESTED,

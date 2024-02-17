@@ -5,11 +5,10 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import {
-	type FriendAcceptResponseDto,
 	type FriendAddNewRequestDto,
 	type FriendAddNewResponseDto,
-	type FriendDenyResponseDto,
 	type FriendReplyRequestDto,
+	type FriendReplyResponseDto,
 	type FriendResponseDto,
 } from "./libs/types/types.js";
 
@@ -38,7 +37,7 @@ class FriendsApi extends BaseHTTPApi {
 
 	public async replyToRequest(
 		payload: FriendReplyRequestDto,
-	): Promise<FriendAcceptResponseDto | FriendDenyResponseDto> {
+	): Promise<FriendReplyResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.REPLY, {}),
 			{
@@ -49,9 +48,7 @@ class FriendsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<
-			FriendAcceptResponseDto | FriendDenyResponseDto
-		>();
+		return await response.json<FriendReplyResponseDto>();
 	}
 
 	public async sendRequest(

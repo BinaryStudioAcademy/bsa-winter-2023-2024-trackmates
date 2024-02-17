@@ -6,17 +6,17 @@ import { type FriendResponseDto } from "../types/types.js";
 
 const handleFriendsCase = (
 	currentUserId: number,
-	{ firstUser, firstUserId, id, secondUser }: FriendResponseDto,
+	{ id, recipientUser, senderUser, senderUserId }: FriendResponseDto,
 ): FriendDto => {
-	return currentUserId === firstUserId
+	return currentUserId === senderUserId
 		? {
-				fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
+				fullName: `${recipientUser?.userDetails.firstName} ${recipientUser?.userDetails.lastName}`,
 				id,
 				imageUrl: TEMPLATE_IMAGE,
 				status: FriendStatus.FRIEND,
 			}
 		: {
-				fullName: `${firstUser?.userDetails.firstName} ${firstUser?.userDetails.lastName}`,
+				fullName: `${senderUser?.userDetails.firstName} ${senderUser?.userDetails.lastName}`,
 				id,
 				imageUrl: TEMPLATE_IMAGE,
 				status: FriendStatus.FRIEND,

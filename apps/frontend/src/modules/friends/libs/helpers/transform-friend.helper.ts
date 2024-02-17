@@ -9,7 +9,7 @@ const transformFriend = (currentUserId: number) => {
 	return (friend: FriendResponseDto): FriendDto => {
 		if (friend.isInvitationAccepted) {
 			return handleFriendsCase(currentUserId, friend);
-		} else if (currentUserId === friend.firstUserId) {
+		} else if (currentUserId === friend.senderUserId) {
 			return handleRequestedCase(friend);
 		} else {
 			return handleInvitedCase(friend);

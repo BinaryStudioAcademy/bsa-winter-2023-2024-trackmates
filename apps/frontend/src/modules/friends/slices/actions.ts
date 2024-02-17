@@ -4,10 +4,8 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import {
-	type FriendAcceptResponseDto,
 	type FriendAddNewRequestDto,
 	type FriendAddNewResponseDto,
-	type FriendDenyResponseDto,
 	type FriendResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./friends.slice.js";
@@ -52,10 +50,10 @@ const acceptRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
 	async (acceptRequestPayload, { extra }) => {
 		const { friendsApi } = extra;
 
-		const acceptedResponse = (await friendsApi.replyToRequest({
+		const acceptedResponse = await friendsApi.replyToRequest({
 			id: acceptRequestPayload,
 			isAccepted: true,
-		})) as FriendAcceptResponseDto;
+		});
 		return acceptedResponse.id;
 	},
 );
@@ -65,10 +63,11 @@ const denyRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
 	async (denyRequestPayload, { extra }) => {
 		const { friendsApi } = extra;
 
-		return (await friendsApi.replyToRequest({
+		const denyResponse = await friendsApi.replyToRequest({
 			id: denyRequestPayload,
-			isAccepted: false,
-		})) as FriendDenyResponseDto;
+			isAccepted: true,
+		});
+		return denyResponse.id;
 	},
 );
 

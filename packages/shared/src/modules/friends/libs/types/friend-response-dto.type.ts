@@ -3,11 +3,11 @@ import { UserAuthResponseDto } from "src/modules/users/users.js";
 import { type FriendAddNewResponseDto } from "./friend-add-new-response.dto.type.js";
 
 type FriendResponseDto = FriendAddNewResponseDto & {
-	firstUser?: {
+	recipientUser?: {
 		id: number;
 		userDetails: UserAuthResponseDto;
 	};
-	secondUser?: {
+	senderUser?: {
 		id: number;
 		userDetails: UserAuthResponseDto;
 	};
