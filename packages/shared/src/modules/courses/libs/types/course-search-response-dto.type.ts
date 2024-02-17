@@ -1,7 +1,7 @@
-import { CourseResponseDto } from "./course-response-dto.type.js";
+import { CourseDto } from "./course.type.js";
 
 type CourseSearchResponseDto = {
-	courses: CourseResponseDto[];
+	courses: CourseDto[];
 };
 
 export { type CourseSearchResponseDto };

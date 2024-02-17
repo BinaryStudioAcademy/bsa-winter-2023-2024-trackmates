@@ -2,22 +2,22 @@ import { type Udemy } from "~/libs/modules/udemy/udemy.js";
 
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
+import { CourseFieldsMapping } from "./libs/enums/enums.js";
 import {
-	CourseFieldsMapping,
-	CourseInstructorFieldsMapping,
-} from "./libs/enums/enums.js";
-import {
-	AddCourseRequestDto,
-	type CourseInstructorResponseDto,
-	type CourseResponseDto,
+	type AddCourseRequestDto,
+	type CourseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
+	type VendorResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
 	udemy: Udemy;
 };
+
+//TODO
+const UDEMY_VENDOR = { id: 1, key: "udemy", name: "Udemy" };
 
 class CourseService {
 	private courseRepository: CourseRepository;
@@ -26,17 +26,6 @@ class CourseService {
 	public constructor({ courseRepository, udemy }: Constructor) {
 		this.courseRepository = courseRepository;
 		this.udemy = udemy;
-	}
-
-	private mapInstructorFields(
-		item: Record<string, unknown>,
-	): CourseInstructorResponseDto {
-		const instructor = this.mapItemFields<keyof CourseInstructorResponseDto>(
-			item,
-			CourseInstructorFieldsMapping,
-		);
-
-		return instructor as CourseInstructorResponseDto;
 	}
 
 	private mapItemFields<T extends string>(
@@ -53,26 +42,25 @@ class CourseService {
 		return course;
 	}
 
-	private mapToCourse(item: Record<string, unknown>): CourseResponseDto {
-		const course = this.mapItemFields<keyof CourseResponseDto>(
+	private mapToCourse(
+		item: Record<string, unknown>,
+		vendor: VendorResponseDto,
+	): CourseDto {
+		const course = this.mapItemFields<keyof Omit<CourseDto, "vendor">>(
 			item,
 			CourseFieldsMapping,
 		);
 
-		course.instructors = (course.instructors as Record<string, unknown>[]).map(
-			(item) => this.mapInstructorFields(item),
-		);
-
-		return course as CourseResponseDto;
+		return { ...course, vendor } as CourseDto;
 	}
 
 	public async addCourse(
 		parameters: Omit<AddCourseRequestDto, "userId">,
-	): Promise<CourseResponseDto> {
+	): Promise<CourseDto> {
 		const { vendorCourseId, vendorId } = parameters;
 
 		const item = await this.udemy.getCourseById(vendorCourseId);
-		const course = this.mapToCourse(item);
+		const course = this.mapToCourse(item, UDEMY_VENDOR);
 
 		const courseEntity = CourseEntity.initializeNew({
 			...course,
@@ -87,7 +75,7 @@ class CourseService {
 		parameters: CourseSearchRequestDto,
 	): Promise<CourseSearchResponseDto> {
 		const items = await this.udemy.getCourses(parameters);
-		const courses = items.map((item) => this.mapToCourse(item));
+		const courses = items.map((item) => this.mapToCourse(item, UDEMY_VENDOR));
 
 		return { courses };
 	}

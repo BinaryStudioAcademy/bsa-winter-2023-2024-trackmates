@@ -1,7 +1,10 @@
 const DEFAULT_COURSE_DATA = {
+	description: "UI Styleguide With Figma",
 	image: "/src/assets/img/mock-course-background.png",
-	source: "/src/assets/img/svg/udemy-logo.svg",
+	imageSmall: "/src/assets/img/mock-course-background.png",
 	title: "UI Styleguide With Figma",
+	url: "",
+	vendor: { id: 1, key: "udemy", name: "Udemy" },
 };
 
 export { DEFAULT_COURSE_DATA };

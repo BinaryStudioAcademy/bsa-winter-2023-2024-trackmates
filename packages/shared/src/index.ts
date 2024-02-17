@@ -33,8 +33,6 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
-	type CourseInstructorResponseDto,
-	type CourseResponseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 	CoursesApiPath,
@@ -51,3 +49,4 @@ export {
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
+export { type VendorResponseDto } from "./modules/vendors/vendors.js";
