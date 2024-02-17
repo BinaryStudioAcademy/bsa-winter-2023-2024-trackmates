@@ -5,7 +5,7 @@ type Service<T = unknown> = {
 	findAll(): Promise<{
 		items: T[];
 	}>;
-	update(): Promise<T>;
+	update(payload: unknown): Promise<T>;
 };
 
 export { type Service };

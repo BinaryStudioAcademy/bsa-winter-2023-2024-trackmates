@@ -5,8 +5,8 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
-	useAppSelector,
 	useCallback,
+	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import {
@@ -18,9 +18,7 @@ import { DEFAULT_PROFILE_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
-	const { user } = useAppSelector((state) => ({
-		user: state.auth.user,
-	}));
+	const { userId } = useParams<{ userId: string }>();
 	const dispatch = useAppDispatch();
 
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
@@ -32,11 +30,12 @@ const Profile: React.FC = () => {
 		(formData: UserProfileRequestDto): void => {
 			const payload: UserProfileRequestDto = {
 				...formData,
-				id: user?.id,
+				id: Number(userId),
 			};
+
 			void dispatch(authActions.updateProfile(payload));
 		},
-		[dispatch, user?.id],
+		[dispatch, userId],
 	);
 
 	const handleFormSubmit = useCallback(

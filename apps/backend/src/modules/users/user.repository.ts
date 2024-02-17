@@ -2,6 +2,7 @@ import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { UserProfileRequestDto } from "./libs/types/types.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserRepository implements Repository<UserEntity> {
@@ -116,8 +117,51 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public update(): Promise<UserEntity | null> {
-		return Promise.resolve(null);
+	public async update(data: UserProfileRequestDto): Promise<UserEntity | null> {
+		const { fullName, id } = data;
+
+		const user = await this.userModel
+			.query()
+			.findById(id)
+			.withGraphJoined("userDetails");
+
+		if (!user) {
+			return null;
+		}
+
+		const [firstName, ...lastNameArray] = fullName.split(" ");
+		const lastName = lastNameArray.join(" ");
+		const userDetailsPatch: Partial<UserDetailsModel> = {};
+
+		if (firstName) {
+			userDetailsPatch.firstName = firstName;
+		}
+
+		if (lastName) {
+			userDetailsPatch.lastName = lastName;
+		}
+
+		await this.userDetailsModel
+			.query()
+			.findById(user.userDetails.id)
+			.patch(userDetailsPatch);
+
+		const updatedUser = await this.userModel
+			.query()
+			.findById(id)
+			.withGraphJoined("userDetails");
+		return updatedUser
+			? UserEntity.initialize({
+					createdAt: updatedUser.createdAt,
+					email: updatedUser.email,
+					firstName: updatedUser.userDetails.firstName,
+					id: updatedUser.id,
+					lastName: updatedUser.userDetails.lastName,
+					passwordHash: updatedUser.passwordHash,
+					passwordSalt: updatedUser.passwordSalt,
+					updatedAt: updatedUser.updatedAt,
+				})
+			: null;
 	}
 }
 
