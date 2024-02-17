@@ -7,7 +7,9 @@ const Friends: React.FC = () => {
 	return (
 		<ul className={styles["wrapper"]}>
 			{DEFAULT_FRIENDS_DATA.map((friend) => (
-				<Friend friend={friend} key={friend.id} />
+				<li className={styles["friend-item"]} key={friend.id}>
+					<Friend friend={friend} />
+				</li>
 			))}
 		</ul>
 	);
