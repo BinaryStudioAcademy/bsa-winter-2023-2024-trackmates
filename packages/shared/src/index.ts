@@ -26,7 +26,14 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
-export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
+export {
+	AddCoursePayloadKey,
+	type AddCourseRequestDto,
+	type CourseDto,
+	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
+	CoursesApiPath,
+} from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,

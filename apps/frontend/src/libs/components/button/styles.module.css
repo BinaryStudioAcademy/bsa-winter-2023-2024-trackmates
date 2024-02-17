@@ -44,7 +44,29 @@
 }
 
 .secondary {
-	color: black;
+	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
+}
+
+.secondary.outlined {
+	color: var(--main-white);
+	background-color: transparent;
+}
+
+.secondary:hover {
+	color: var(--main-white);
+	background-color: transparent;
+}
+
+.secondary.outlined:hover {
+	color: var(--color-text-300);
+	background-color: var(--main-white);
+}
+
+.clear {
+	min-height: 0;
+	background-color: transparent;
+	border: none;
+	outline: none;
 }

@@ -1,17 +1,44 @@
 import { Courses } from "~/libs/components/components.js";
-import { DEFAULT_COURSES_DATA } from "~/libs/constants/constants.js";
-import { useAppSelector } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useAppSelector,
+	useCallback,
+	useEffect,
+	useState,
+} from "~/libs/hooks/hooks.js";
+// import { actions as courseActions } from "~/modules/courses/courses.js";
 import { UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { WelcomeHeader } from "./libs/components/components.js";
+import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
-	const { user } = useAppSelector((state) => state.auth);
+	const { courses, user } = useAppSelector((state) => ({
+		courses: state.courses.courses,
+		user: state.auth.user,
+	}));
+	const dispatch = useAppDispatch();
+	const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
+
+	useEffect(() => {
+		// void dispatch(courseActions.loadAll());
+	}, [dispatch]);
+
+	const handleModalOpen = useCallback(() => {
+		setIsAddCourseModalOpen(true);
+	}, [setIsAddCourseModalOpen]);
+	const handleModalClose = useCallback(() => {
+		setIsAddCourseModalOpen(false);
+	}, [setIsAddCourseModalOpen]);
+
 	return (
 		<div className={styles["container"]}>
-			<WelcomeHeader user={user as UserAuthResponseDto} />
-			<Courses courses={DEFAULT_COURSES_DATA} />
+			<WelcomeHeader
+				onAddCourseClick={handleModalOpen}
+				user={user as UserAuthResponseDto}
+			/>
+			<Courses courses={courses} />
+			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
 		</div>
 	);
 };
