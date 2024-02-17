@@ -34,10 +34,8 @@ function up(knex: Knex): Promise<void> {
 			.inTable("users")
 			.notNullable()
 			.onDelete("CASCADE");
-		table
-			.boolean(ColumnName.IS_INVITATION_ACCEPTED)
-			.notNullable()
-			.defaultTo(false);
+		table.boolean(ColumnName.IS_INVITATION_ACCEPTED).nullable().defaultTo(null);
+		table.unique([ColumnName.SENDER_USER_ID, ColumnName.RECIPIENT_USER_ID]);
 	});
 }
 

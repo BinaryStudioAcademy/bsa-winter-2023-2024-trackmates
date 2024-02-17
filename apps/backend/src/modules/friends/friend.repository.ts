@@ -70,16 +70,9 @@ class FriendRepository {
 		friendRequest: FriendAcceptResponseDto;
 		isAccepted: boolean;
 	}): Promise<FriendAcceptResponseDto> {
-		if (isAccepted) {
-			return await this.friendModel
-				.query()
-				.patchAndFetchById(friendRequest.id, {
-					isInvitationAccepted: true,
-				});
-		} else {
-			await this.friendModel.query().deleteById(friendRequest.id);
-			return friendRequest;
-		}
+		return await this.friendModel.query().patchAndFetchById(friendRequest.id, {
+			isInvitationAccepted: isAccepted ? true : false,
+		});
 	}
 }
 
