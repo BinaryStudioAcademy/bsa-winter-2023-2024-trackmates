@@ -1,7 +1,7 @@
 import { Input } from "~/libs/components/components.js";
-import { useAppForm, useEffect } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 
-import { DEFAULT_SEARCH_COURSE_PAYLOAD } from "./libs/constants/constants.js";
+import { DEFAULT_SEARCH_COURSE_PAYLOAD } from "../../constants/constants.js";
 
 type Properties = {
 	onSearchChange: (value: string) => void;
@@ -14,15 +14,13 @@ const SearchCourseForm: React.FC<Properties> = ({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 	});
 
-	const search = watch("search");
-
-	useEffect(() => {
-		onSearchChange(search);
-	}, [search, onSearchChange]);
+	const handleSearchChange = useCallback(() => {
+		onSearchChange(watch("search"));
+	}, [onSearchChange, watch]);
 
 	return (
 		<>
-			<form name="search-course">
+			<form onChange={handleSearchChange}>
 				<Input
 					control={control}
 					name="search"

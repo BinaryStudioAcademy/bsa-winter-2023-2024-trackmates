@@ -4,4 +4,8 @@ const DEFAULT_VENDORS_PAYLOAD = {
 	[AddCoursePayloadKey.VENDORS.UDEMY]: true,
 } as const;
 
-export { DEFAULT_VENDORS_PAYLOAD };
+const DEFAULT_SEARCH_COURSE_PAYLOAD = {
+	[AddCoursePayloadKey.SEARCH]: "",
+};
+
+export { DEFAULT_SEARCH_COURSE_PAYLOAD, DEFAULT_VENDORS_PAYLOAD };

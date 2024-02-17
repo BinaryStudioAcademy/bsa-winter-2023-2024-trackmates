@@ -1,11 +1,11 @@
 import UdemyLogo from "~/assets/img/svg/udemy-logo.svg";
-import { useAppForm, useEffect } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 
+import { DEFAULT_VENDORS_PAYLOAD } from "../../constants/constants.js";
 import { VendorBadge } from "../vendor-badge/vendor-badge.js";
-import { DEFAULT_VENDORS_PAYLOAD } from "./libs/constants/constants.js";
 
 type Properties = {
-	onVendorsChange: (vendors: { udemy: boolean }) => void;
+	onVendorsChange: (vendors: Record<string, boolean>) => void;
 };
 
 const VendorsFilterForm: React.FC<Properties> = ({
@@ -16,15 +16,13 @@ const VendorsFilterForm: React.FC<Properties> = ({
 		mode: "onChange",
 	});
 
-	const vendors = watch();
-
-	useEffect(() => {
-		onVendorsChange(vendors);
-	}, [vendors, onVendorsChange]);
+	const handleToggleVendor = useCallback(() => {
+		onVendorsChange(watch());
+	}, [onVendorsChange, watch]);
 
 	return (
 		<>
-			<form name="vendor-filter">
+			<form onChange={handleToggleVendor}>
 				<VendorBadge control={control} logo={UdemyLogo} name="udemy" />
 			</form>
 		</>

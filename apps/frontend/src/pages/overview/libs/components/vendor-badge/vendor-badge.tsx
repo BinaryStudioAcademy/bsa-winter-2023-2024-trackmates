@@ -24,12 +24,12 @@ const VendorBadge = <T extends FieldValues>({
 
 	return (
 		<>
-			<label className={styles["badge"]} htmlFor="toggle-badge">
+			<label className={styles["badge"]} htmlFor={`${name}-badge`}>
 				<input
 					{...field}
-					checked={field.value}
+					checked={Boolean(field.value)}
 					className="visually-hidden"
-					id="toggle-badge"
+					id={`${name}-badge`}
 					name={name}
 					type="checkbox"
 				/>
