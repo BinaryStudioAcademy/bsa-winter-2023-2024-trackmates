@@ -42,7 +42,7 @@
 	left: 0;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: center;
 	width: 100%;
 	padding: 35px 65px 22px 50px;
 	font-size: 43.71px;
@@ -85,11 +85,7 @@
 .logo {
 	position: relative;
 	top: -12px;
-	left: 22px;
-}
-
-.mobile-logo {
-	display: none;
+	left: 12px;
 }
 
 @media screen and (width <= 1024px) {
@@ -155,7 +151,7 @@
 	.mobile-logo {
 		position: relative;
 		top: -6px;
-		left: 14px;
+		left: 5px;
 		display: inline;
 	}
 }
