@@ -1,6 +1,7 @@
 export { UsersApiPath } from "./libs/enums/enums.js";
 export {
 	type UserAuthResponseDto,
+	type UserGetAllResponseDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
