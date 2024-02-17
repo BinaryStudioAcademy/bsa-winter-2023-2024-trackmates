@@ -1,6 +1,6 @@
-import { UserAuthResponseDto } from "src/modules/users/users.js";
+import { type UserAuthResponseDto } from "src/modules/users/users.js";
 
-import { FriendAcceptResponseDto } from "../../friends.js";
+import { type FriendAcceptResponseDto } from "../../friends.js";
 
 type FriendResponseDto = FriendAcceptResponseDto & {
 	firstUser?: {

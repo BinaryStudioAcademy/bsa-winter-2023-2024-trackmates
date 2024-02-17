@@ -48,7 +48,7 @@ class FriendRepository {
 			})
 			.first();
 
-		return friendInvite || null;
+		return friendInvite ?? null;
 	}
 
 	public async getUserFriends(id: number): Promise<FriendModel[]> {
