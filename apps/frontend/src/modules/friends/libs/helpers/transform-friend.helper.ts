@@ -1,44 +1,18 @@
 import { type Friend } from "~/libs/types/types.js";
 
-import { TEMPLATE_IMAGE } from "../constants/constants.js";
 import { type FriendResponseDto } from "../types/types.js";
+import { handleFriendsCase } from "./handle-friends-case.helper.js";
+import { handleInvitedCase } from "./handle-invited-case.helper.js";
+import { handleRequestedCase } from "./handle-requested-case.helper.js";
 
 const transformFriend = (currentUserId: number) => {
-	return ({
-		firstUser,
-		firstUserId,
-		id,
-		isInvitationAccepted,
-		secondUser,
-	}: FriendResponseDto): Friend => {
-		if (isInvitationAccepted) {
-			return currentUserId === firstUserId
-				? {
-						fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
-						id,
-						imageUrl: TEMPLATE_IMAGE,
-						status: "friend",
-					}
-				: {
-						fullName: `${firstUser?.userDetails.firstName} ${firstUser?.userDetails.lastName}`,
-						id,
-						imageUrl: TEMPLATE_IMAGE,
-						status: "friend",
-					};
-		} else if (currentUserId === firstUserId) {
-			return {
-				fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
-				id,
-				imageUrl: TEMPLATE_IMAGE,
-				status: "requested",
-			};
+	return (friend: FriendResponseDto): Friend => {
+		if (friend.isInvitationAccepted) {
+			return handleFriendsCase(currentUserId, friend);
+		} else if (currentUserId === friend.firstUserId) {
+			return handleRequestedCase(friend);
 		} else {
-			return {
-				fullName: `${firstUser?.userDetails.firstName} ${firstUser?.userDetails.lastName}`,
-				id,
-				imageUrl: TEMPLATE_IMAGE,
-				status: "invited",
-			};
+			return handleInvitedCase(friend);
 		}
 	};
 };
