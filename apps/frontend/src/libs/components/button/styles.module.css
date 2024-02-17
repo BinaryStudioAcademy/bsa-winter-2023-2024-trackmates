@@ -56,12 +56,14 @@
 
 .secondary:hover {
 	color: var(--main-white);
-	background-color: transparent;
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
 
 .secondary.outlined:hover {
 	color: var(--color-text-300);
 	background-color: var(--main-white);
+	border-color: var(--main-white);
 }
 
 .clear {

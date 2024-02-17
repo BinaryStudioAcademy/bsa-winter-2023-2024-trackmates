@@ -48,15 +48,15 @@ class CourseApi extends BaseHTTPApi {
 		return await response.json<CourseDto[]>();
 	}
 	public async search(
-		payload: CourseSearchRequestDto,
+		query: CourseSearchRequestDto,
 	): Promise<CourseSearchResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "POST",
-				payload: JSON.stringify(payload),
+				method: "GET",
+				query,
 			},
 		);
 
