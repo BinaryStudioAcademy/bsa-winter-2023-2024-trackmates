@@ -68,7 +68,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						{isLoading ? (
 							<Loader color="orange" size="large" />
 						) : (
-							<Courses courses={DEFAULT_COURSES_DATA} />
+							<Courses courses={DEFAULT_COURSES_DATA} isNew />
 						)}
 					</div>
 				</div>

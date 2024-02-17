@@ -5,9 +5,10 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	courses: CourseDto[];
+	isNew?: boolean;
 };
 
-const Courses: React.FC<Properties> = ({ courses }: Properties) => {
+const Courses: React.FC<Properties> = ({ courses, isNew }: Properties) => {
 	return (
 		<div className={styles["container"]}>
 			<h2 className={styles["title"]}>Courses</h2>
@@ -15,7 +16,7 @@ const Courses: React.FC<Properties> = ({ courses }: Properties) => {
 				{courses.map((course) => {
 					return (
 						<li className={styles["item"]} key={course.id}>
-							<Course course={course} />
+							<Course course={course} isNew={isNew} />
 						</li>
 					);
 				})}

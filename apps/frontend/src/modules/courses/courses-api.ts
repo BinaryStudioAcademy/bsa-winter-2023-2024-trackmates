@@ -55,7 +55,7 @@ class CourseApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "GET",
+				method: "POST",
 				payload: JSON.stringify(payload),
 			},
 		);

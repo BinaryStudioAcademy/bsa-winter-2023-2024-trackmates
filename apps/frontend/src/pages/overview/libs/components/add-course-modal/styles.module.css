@@ -45,5 +45,6 @@
 
 .course-container {
 	flex-grow: 1;
+	padding-inline: 32px;
 	overflow-y: auto;
 }
