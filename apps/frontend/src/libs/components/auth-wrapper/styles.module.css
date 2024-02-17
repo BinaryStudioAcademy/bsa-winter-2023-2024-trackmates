@@ -1,6 +1,6 @@
 .page-layout {
 	display: flex;
-	height: 100vh;
+	height: 100%;
 }
 
 .page {
@@ -10,7 +10,7 @@
 	background-color: var(--color-background);
 }
 
-@media screen and (width <= 1025px) {
+@media screen and (width <= 1024px) {
 	.page {
 		padding-left: 100px;
 	}
