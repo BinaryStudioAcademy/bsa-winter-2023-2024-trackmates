@@ -28,7 +28,6 @@ class FriendsApi extends BaseHTTPApi {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.ROOT, {}),
 			{
-				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
 			},
