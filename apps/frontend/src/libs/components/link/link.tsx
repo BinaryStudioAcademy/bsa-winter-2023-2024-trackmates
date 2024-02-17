@@ -9,22 +9,16 @@ import styles from "./styles.module.css";
 type Properties = {
 	children: React.ReactNode;
 	className?: string | undefined;
-	onClick?: React.MouseEventHandler | undefined;
 	to: ValueOf<typeof AppRoute>;
 };
 
 const Link: React.FC<Properties> = ({
 	children,
 	className,
-	onClick,
 	to,
 }: Properties) => {
 	return (
-		<NavLink
-			className={getValidClassNames(className, styles["link"])}
-			onClick={onClick}
-			to={to}
-		>
+		<NavLink className={getValidClassNames(className, styles["link"])} to={to}>
 			{children}
 		</NavLink>
 	);

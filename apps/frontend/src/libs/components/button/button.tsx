@@ -47,7 +47,7 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<Link className={buttonStyles} onClick={onClick} to={href}>
+				<Link className={buttonStyles} to={href}>
 					{icon}
 					<span className={labelStyle}>{label}</span>
 				</Link>
