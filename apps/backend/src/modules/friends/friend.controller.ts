@@ -24,13 +24,13 @@ import {
  *       properties:
  *         createdAt:
  *           type: string
- *         firstUserId:
+ *         senderUserId:
  *           type: number
  *         id:
  *           type: number
  *         isInvitationAccepted:
  *           type: boolean
- *         secondUserId:
+ *         recipientUserId:
  *           type: number
  *         updatedAt:
  *           type: string
@@ -81,7 +81,7 @@ class FriendController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) =>
-				this.respondRequest(
+				this.respondToRequest(
 					options as APIHandlerOptions<{
 						body: FriendReplyRequestDto;
 						user: UserAuthResponseDto;
@@ -124,7 +124,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/reply:
 	 *    post:
-	 *      description: Reply on friend invite and take this invite obj or nubmer of deleted invite obj
+	 *      description: Reply to friend invite and return the invite obj or number of deleted invite obj-s
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -156,7 +156,7 @@ class FriendController extends BaseController {
 	 *             schema:
 	 *               $ref: '#/components/schemas/FriendError'
 	 */
-	private async respondRequest(
+	private async respondToRequest(
 		options: APIHandlerOptions<{
 			body: FriendReplyRequestDto;
 			user: UserAuthResponseDto;
@@ -166,7 +166,7 @@ class FriendController extends BaseController {
 		const { id: userId } = options.user;
 
 		return {
-			payload: await this.friendService.respondRequest({
+			payload: await this.friendService.respondToRequest({
 				id,
 				isAccepted,
 				userId,
@@ -179,7 +179,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/request:
 	 *    post:
-	 *      description: Send friend invite and take this invite obj
+	 *      description: Send friend invite and return this invite obj
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true

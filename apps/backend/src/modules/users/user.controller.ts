@@ -40,7 +40,7 @@ class UserController extends BaseController {
 
 		this.addRoute({
 			handler: (options) =>
-				this.searchFriendsByValue(
+				this.searchFriendsByName(
 					options as APIHandlerOptions<{
 						body: {
 							limit?: number;
@@ -91,7 +91,7 @@ class UserController extends BaseController {
 	 *                items:
 	 *                  $ref: "#/components/schemas/User"
 	 */
-	private async searchFriendsByValue(
+	private async searchFriendsByName(
 		options: APIHandlerOptions<{
 			body: {
 				limit?: number;
@@ -106,7 +106,7 @@ class UserController extends BaseController {
 			text,
 		} = options.body;
 
-		const friends = await this.userService.searchFriendsByValue(
+		const friends = await this.userService.searchFriendsByName(
 			limit,
 			offset,
 			text,

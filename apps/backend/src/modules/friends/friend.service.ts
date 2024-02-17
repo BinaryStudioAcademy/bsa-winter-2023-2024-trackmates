@@ -19,7 +19,7 @@ class FriendService {
 		return await this.friendRepository.getUserFriends(id);
 	}
 
-	async respondRequest({
+	async respondToRequest({
 		id,
 		isAccepted,
 		userId,
@@ -28,11 +28,20 @@ class FriendService {
 		isAccepted: boolean;
 		userId: number;
 	}): Promise<FriendAcceptResponseDto | number> {
-		return await this.friendRepository.respondRequest({
+		const responseToRequest = await this.friendRepository.respondToRequest({
 			id,
 			isAccepted,
 			userId,
 		});
+
+		if (!responseToRequest) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		return responseToRequest;
 	}
 
 	async sendFriendRequest(
@@ -45,10 +54,8 @@ class FriendService {
 				HTTPCode.BAD_REQUEST,
 			);
 		}
-		return await this.friendRepository.createFriendshipInvite(
-			id,
-			receiverUserId,
-		);
+
+		return await this.friendRepository.createFriendInvite(id, receiverUserId);
 	}
 }
 

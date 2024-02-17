@@ -1,9 +1,9 @@
 type FriendAcceptResponseDto = {
 	createdAt: string;
-	firstUserId: number;
 	id: number;
 	isInvitationAccepted: boolean;
-	secondUserId: number;
+	recipientUserId: number;
+	senderUserId: number;
 	updatedAt: string;
 };
 

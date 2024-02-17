@@ -10,17 +10,17 @@ import { UserModel } from "../users/user.model.js";
 class FriendModel extends AbstractModel {
 	public static relationMappings = () => {
 		return {
-			firstUser: {
+			recipientUser: {
 				join: {
-					from: `${DatabaseTableName.FRIENDS}.firstUserId`,
+					from: `${DatabaseTableName.FRIENDS}.recipientUserId`,
 					to: `${DatabaseTableName.USERS}.id`,
 				},
 				modelClass: UserModel,
 				relation: Model.BelongsToOneRelation,
 			},
-			secondUser: {
+			senderUser: {
 				join: {
-					from: `${DatabaseTableName.FRIENDS}.secondUserId`,
+					from: `${DatabaseTableName.FRIENDS}.senderUserId`,
 					to: `${DatabaseTableName.USERS}.id`,
 				},
 				modelClass: UserModel,
@@ -29,9 +29,9 @@ class FriendModel extends AbstractModel {
 		};
 	};
 
-	public firstUserId!: number;
 	public isInvitationAccepted!: boolean;
-	public secondUserId!: number;
+	public recipientUserId!: number;
+	public senderUserId!: number;
 
 	public static override get tableName(): string {
 		return DatabaseTableName.FRIENDS;

@@ -116,7 +116,7 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async searchFriendsByValue(
+	public async searchFriendsByName(
 		limit: number,
 		offset: number,
 		value: string,

@@ -62,12 +62,12 @@ class UserService implements Service {
 		return await this.userRepository.getByEmail(email);
 	}
 
-	public async searchFriendsByValue(
+	public async searchFriendsByName(
 		limit: number,
 		offset: number,
 		value: string,
 	): Promise<UserAuthResponseDto[]> {
-		const friends = await this.userRepository.searchFriendsByValue(
+		const friends = await this.userRepository.searchFriendsByName(
 			limit,
 			offset,
 			value,

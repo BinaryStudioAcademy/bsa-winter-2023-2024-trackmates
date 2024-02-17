@@ -4,10 +4,10 @@ const TABLE_NAME = "friends";
 
 const ColumnName = {
 	CREATED_AT: "created_at",
-	FIRST_USER_ID: "first_user_id",
 	ID: "id",
 	IS_INVITATION_ACCEPTED: "is_invitation_accepted",
-	SECOND_USER_ID: "second_user_id",
+	RECIPIENT_USER_ID: "recipient_user_id",
+	SENDER_USER_ID: "sender_user_id",
 	UPDATED_AT: "updated_at",
 } as const;
 
@@ -23,13 +23,13 @@ function up(knex: Knex): Promise<void> {
 			.notNullable()
 			.defaultTo(knex.fn.now());
 		table
-			.integer(ColumnName.FIRST_USER_ID)
+			.integer(ColumnName.SENDER_USER_ID)
 			.references("id")
 			.inTable("users")
 			.notNullable()
 			.onDelete("CASCADE");
 		table
-			.integer(ColumnName.SECOND_USER_ID)
+			.integer(ColumnName.RECIPIENT_USER_ID)
 			.references("id")
 			.inTable("users")
 			.notNullable()
