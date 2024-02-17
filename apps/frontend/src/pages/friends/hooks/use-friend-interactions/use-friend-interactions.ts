@@ -5,15 +5,15 @@ import { actions } from "~/modules/friends/friends.js";
 const useFriendInteractions = (friend: Friend) => {
 	const dispatch = useAppDispatch();
 
-	const acceptRequest = useCallback(() => {
+	const handleAcceptRequest = useCallback(() => {
 		void dispatch(actions.acceptRequest(friend.id));
 	}, [dispatch, friend.id]);
 
-	const denyRequest = useCallback(() => {
+	const handleDenyRequest = useCallback(() => {
 		void dispatch(actions.denyRequest(friend.id));
 	}, [dispatch, friend.id]);
 
-	const sendRequest = useCallback(() => {
+	const handleSendRequest = useCallback(() => {
 		void dispatch(
 			actions.sendRequest({
 				receiverUserId: friend.id,
@@ -22,9 +22,9 @@ const useFriendInteractions = (friend: Friend) => {
 	}, [dispatch, friend.id]);
 
 	return {
-		acceptRequest,
-		denyRequest,
-		sendRequest,
+		handleAcceptRequest,
+		handleDenyRequest,
+		handleSendRequest,
 	};
 };
 

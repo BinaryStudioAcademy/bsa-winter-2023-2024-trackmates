@@ -11,7 +11,7 @@ type Properties = {
 };
 
 const Friend: React.FC<Properties> = ({ friend }: Properties) => {
-	const { acceptRequest, denyRequest, sendRequest } =
+	const { handleAcceptRequest, handleDenyRequest, handleSendRequest } =
 		useFriendInteractions(friend);
 
 	const buttonStyles = styles["button"];
@@ -25,7 +25,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					color="success"
 					iconName="check"
 					label="Accept"
-					onClick={acceptRequest}
+					onClick={handleAcceptRequest}
 					size="small"
 					type="button"
 				/>
@@ -34,7 +34,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					color="danger"
 					iconName="cross"
 					label="Deny"
-					onClick={denyRequest}
+					onClick={handleDenyRequest}
 					size="small"
 				/>
 			</>
@@ -46,7 +46,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				color="secondary"
 				iconName="add"
 				label="Add friend"
-				onClick={sendRequest}
+				onClick={handleSendRequest}
 				size="small"
 			/>
 		),
