@@ -1,9 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { AuthError } from "~/libs/exceptions/exceptions.js";
-import { HTTPCode } from "~/libs/modules/http/http.js";
-import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {
@@ -38,16 +34,9 @@ const sendRequest = createAsyncThunk<
 >(
 	`${sliceName}/send-request`,
 	async (sendRequestPayload, { extra, getState }) => {
-		const { friendsApi, storage } = extra;
+		const { friendsApi } = extra;
 		const { auth } = getState();
 		const userId = auth.user?.id;
-
-		const token = await storage.get(StorageKey.TOKEN);
-		const hasToken = Boolean(token);
-
-		if (!hasToken) {
-			throw new AuthError(ExceptionMessage.UNAUTHORIZED, HTTPCode.UNAUTHORIZED);
-		}
 
 		const friendRequest = await friendsApi.sendRequest(sendRequestPayload);
 		return {
@@ -60,15 +49,7 @@ const sendRequest = createAsyncThunk<
 const acceptRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
 	`${sliceName}/accept-request`,
 	async (acceptRequestPayload, { extra }) => {
-		const { friendsApi, storage } = extra;
-
-		const token = await storage.get(StorageKey.TOKEN);
-
-		const hasToken = Boolean(token);
-
-		if (!hasToken) {
-			throw new AuthError(ExceptionMessage.UNAUTHORIZED, HTTPCode.UNAUTHORIZED);
-		}
+		const { friendsApi } = extra;
 
 		const acceptedResponse = (await friendsApi.replyToRequest({
 			id: acceptRequestPayload,
@@ -81,14 +62,7 @@ const acceptRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
 const denyRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
 	`${sliceName}/deny-request`,
 	async (denyRequestPayload, { extra }) => {
-		const { friendsApi, storage } = extra;
-
-		const token = await storage.get(StorageKey.TOKEN);
-		const hasToken = Boolean(token);
-
-		if (!hasToken) {
-			throw new AuthError(ExceptionMessage.UNAUTHORIZED, HTTPCode.UNAUTHORIZED);
-		}
+		const { friendsApi } = extra;
 
 		return (await friendsApi.replyToRequest({
 			id: denyRequestPayload,
