@@ -1,8 +1,10 @@
 type CourseDto = {
+	description: string;
 	id: string;
 	image: string;
-	source: string;
+	imageSmall: string;
 	title: string;
+	url: string;
 };
 
 export { type CourseDto };

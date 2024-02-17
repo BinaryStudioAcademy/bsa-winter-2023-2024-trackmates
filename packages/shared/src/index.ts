@@ -28,7 +28,10 @@ export {
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	AddCoursePayloadKey,
+	type AddCourseRequestDto,
 	type CourseDto,
+	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
 	CoursesApiPath,
 } from "./modules/courses/courses.js";
 export {
