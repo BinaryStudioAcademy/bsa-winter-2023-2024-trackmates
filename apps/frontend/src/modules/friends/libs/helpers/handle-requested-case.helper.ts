@@ -1,3 +1,4 @@
+import { FriendStatus } from "~/libs/enums/enums.js";
 import { type Friend } from "~/libs/types/types.js";
 
 import { TEMPLATE_IMAGE } from "../constants/constants.js";
@@ -8,7 +9,7 @@ const handleRequestedCase = ({ id, secondUser }: FriendResponseDto): Friend => {
 		fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
 		id,
 		imageUrl: TEMPLATE_IMAGE,
-		status: "requested",
+		status: FriendStatus.REQUESTED,
 	};
 };
 

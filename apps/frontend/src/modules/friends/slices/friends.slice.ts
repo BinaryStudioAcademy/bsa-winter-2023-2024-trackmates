@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus } from "~/libs/enums/enums.js";
+import { DataStatus, FriendStatus } from "~/libs/enums/enums.js";
 import { type Friend, type ValueOf } from "~/libs/types/types.js";
 
 import { transformFriend } from "../libs/helpers/helpers.js";
@@ -22,7 +22,7 @@ const { actions, name, reducer } = createSlice({
 			if (!friend) {
 				return state;
 			}
-			friend.status = "friend";
+			friend.status = FriendStatus.FRIEND;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(acceptRequest.pending, (state) => {

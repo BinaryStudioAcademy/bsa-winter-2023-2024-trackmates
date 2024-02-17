@@ -1,8 +1,11 @@
+import { FriendStatus } from "../enums/enums.js";
+import { type ValueOf } from "./value-of.type.js";
+
 type Friend = {
 	fullName: string;
 	id: number;
 	imageUrl: string;
-	status: "friend" | "invited" | "requested" | "unknown";
+	status: ValueOf<typeof FriendStatus>;
 };
 
 export { type Friend };

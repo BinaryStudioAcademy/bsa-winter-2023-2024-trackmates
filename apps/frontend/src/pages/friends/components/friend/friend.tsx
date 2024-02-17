@@ -1,4 +1,5 @@
 import { Button, Image } from "~/libs/components/components.js";
+import { FriendStatus } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type Friend as TFriend } from "~/libs/types/types.js";
 
@@ -16,8 +17,8 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	const buttonStyles = styles["button"];
 
 	const actionsMapping: Record<TFriend["status"], React.ReactNode> = {
-		friend: <p className={styles["info"]}>You are friends</p>,
-		invited: (
+		[FriendStatus.FRIEND]: <p className={styles["info"]}>You are friends</p>,
+		[FriendStatus.INVITED]: (
 			<>
 				<Button
 					className={buttonStyles}
@@ -38,8 +39,8 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				/>
 			</>
 		),
-		requested: <p className={styles["info"]}>Request sent</p>,
-		unknown: (
+		[FriendStatus.REQUESTED]: <p className={styles["info"]}>Request sent</p>,
+		[FriendStatus.UNKNOWN]: (
 			<Button
 				className={buttonStyles}
 				color="secondary"
@@ -65,7 +66,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			<div
 				className={getValidClassNames(
 					styles["actions"],
-					status === "invited" ? styles["actions-invited"] : "",
+					status === FriendStatus.INVITED ? styles["actions-invited"] : "",
 				)}
 			>
 				{actionsMapping[friend.status]}

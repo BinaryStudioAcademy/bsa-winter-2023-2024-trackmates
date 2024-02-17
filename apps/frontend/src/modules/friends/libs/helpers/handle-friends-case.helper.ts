@@ -1,3 +1,4 @@
+import { FriendStatus } from "~/libs/enums/enums.js";
 import { type Friend } from "~/libs/types/types.js";
 
 import { TEMPLATE_IMAGE } from "../constants/constants.js";
@@ -12,13 +13,13 @@ const handleFriendsCase = (
 				fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
 				id,
 				imageUrl: TEMPLATE_IMAGE,
-				status: "friend",
+				status: FriendStatus.FRIEND,
 			}
 		: {
 				fullName: `${firstUser?.userDetails.firstName} ${firstUser?.userDetails.lastName}`,
 				id,
 				imageUrl: TEMPLATE_IMAGE,
-				status: "friend",
+				status: FriendStatus.FRIEND,
 			};
 };
 
