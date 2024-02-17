@@ -6,10 +6,9 @@
 	"types": "src/index.ts",
 	"engines": {
 		"node": "18.x.x",
-		"npm": "10.x.x"
+		"npm": ">=9.x.x"
 	},
 	"scripts": {
-		"postinstall": "npm run build",
 		"lint:type": "npx tsc --noEmit",
 		"lint:js": "npx eslint . --max-warnings=0 --no-warn-ignored",
 		"lint": "concurrently \"npm:lint:*\"",
