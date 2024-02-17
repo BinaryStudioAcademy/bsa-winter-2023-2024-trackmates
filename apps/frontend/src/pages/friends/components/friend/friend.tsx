@@ -66,7 +66,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			<div
 				className={getValidClassNames(
 					styles["actions"],
-					status === FriendStatus.INVITED ? styles["actions-invited"] : "",
+					status === FriendStatus.INVITED && styles["actions-invited"],
 				)}
 			>
 				{actionsMapping[friend.status]}
