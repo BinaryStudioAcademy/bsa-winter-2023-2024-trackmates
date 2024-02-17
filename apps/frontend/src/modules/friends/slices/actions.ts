@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import {
 	type FriendAcceptResponseDto,
@@ -18,7 +19,7 @@ const loadAll = createAsyncThunk<
 >(`${sliceName}/load-all`, async (_, { extra, getState }) => {
 	const { friendsApi } = extra;
 	const { auth } = getState();
-	const userId = auth.user?.id;
+	const userId = (auth.user as UserAuthResponseDto).id;
 
 	const friends = await friendsApi.getAll();
 	return {
@@ -36,7 +37,7 @@ const sendRequest = createAsyncThunk<
 	async (sendRequestPayload, { extra, getState }) => {
 		const { friendsApi } = extra;
 		const { auth } = getState();
-		const userId = auth.user?.id;
+		const userId = (auth.user as UserAuthResponseDto).id;
 
 		const friendRequest = await friendsApi.sendRequest(sendRequestPayload);
 		return {
