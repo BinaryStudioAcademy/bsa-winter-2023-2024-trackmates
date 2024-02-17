@@ -18,11 +18,12 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(acceptRequest.fulfilled, (state, action) => {
-			const friend = state.friends.find(({ id }) => id === action.payload);
-			if (!friend) {
-				return state;
-			}
-			friend.status = FriendStatus.FRIEND;
+			state.friends = state.friends.map((friend) => {
+				if (friend.id === action.payload) {
+					friend.status = FriendStatus.FRIEND;
+				}
+				return friend;
+			});
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(acceptRequest.pending, (state) => {
