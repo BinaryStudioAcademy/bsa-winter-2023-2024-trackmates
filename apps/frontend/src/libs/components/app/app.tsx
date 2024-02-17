@@ -9,20 +9,24 @@ import { actions as authActions } from "~/modules/auth/auth.js";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { dataStatus } = useAppSelector(({ auth }) => ({
-		dataStatus: auth.dataStatus,
+	const { authDataStatus } = useAppSelector(({ auth }) => ({
+		authDataStatus: auth.dataStatus,
 	}));
 
 	useEffect(() => {
 		void dispatch(authActions.getAuthenticatedUser());
 	}, [dispatch]);
 
+	if (
+		authDataStatus === DataStatus.IDLE ||
+		authDataStatus === DataStatus.PENDING
+	) {
+		return <Loader color="orange" size="large" />;
+	}
+
 	return (
 		<>
 			<div>
-				{dataStatus === DataStatus.PENDING && (
-					<Loader color="orange" size="large" />
-				)}
 				<RouterOutlet />
 			</div>
 		</>
