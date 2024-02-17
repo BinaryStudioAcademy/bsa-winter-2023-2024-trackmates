@@ -92,8 +92,8 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
-    int first_user_id FK
-    int second_user_id FK
+    int sender_user_id FK
+    int recipient_user_id FK
     bool is_invitation_accepted
    }
 
@@ -119,8 +119,8 @@ erDiagram
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
-   users ||--|{ friends : first_user_id
-   users ||--|{ friends : second_user_id
+   users ||--|{ friends : sender_user_id
+   users ||--|{ friends : recipient_user_id
 
    users ||--|{ chat_messages : sender_id
    users ||--|{ chat_messages : receiver_id
