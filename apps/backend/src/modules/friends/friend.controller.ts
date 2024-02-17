@@ -9,11 +9,11 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { UserAuthResponseDto } from "../users/users.js";
 import { FriendService } from "./friend.service.js";
+import { FriendApiPath } from "./libs/enums/enums.js";
 import {
 	type FriendAddNewRequestDto,
 	type FriendReplyRequestDto,
 } from "./libs/types/types.js";
-import { FriendApiPath } from "./libs/enums/enums.js";
 
 /**
  * @swagger
@@ -166,7 +166,11 @@ class FriendController extends BaseController {
 		const { id: userId } = options.user;
 
 		return {
-			payload: await this.friendService.respondRequest({id, userId, isAccepted}),
+			payload: await this.friendService.respondRequest({
+				id,
+				isAccepted,
+				userId,
+			}),
 			status: HTTPCode.OK,
 		};
 	}

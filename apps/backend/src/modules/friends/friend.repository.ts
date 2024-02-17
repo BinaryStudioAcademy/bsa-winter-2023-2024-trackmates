@@ -2,8 +2,8 @@ import { FriendError, HTTPCode } from "shared";
 
 import { type FriendModel } from "~/modules/friends/friend.model.js";
 
-import { type FriendAcceptResponseDto } from "./libs/types/types.js";
 import { FriendErrorMessage } from "./libs/enums/enums.js";
+import { type FriendAcceptResponseDto } from "./libs/types/types.js";
 
 class FriendRepository {
 	private friendModel: typeof FriendModel;
@@ -69,16 +69,14 @@ class FriendRepository {
 
 	async respondRequest({
 		id,
-		userId,
 		isAccepted,
+		userId,
 	}: {
 		id: number;
-		userId: number;
 		isAccepted: boolean;
+		userId: number;
 	}): Promise<FriendAcceptResponseDto | number> {
-		const friendRequest = await this.friendModel
-			.query()
-			.findById(id);
+		const friendRequest = await this.friendModel.query().findById(id);
 
 		if (!friendRequest || friendRequest.secondUserId !== userId) {
 			throw new FriendError(

@@ -11,8 +11,3 @@ const friendController = new FriendController(logger, friendService);
 
 export { friendController };
 export { friendService };
-export {
-	type FriendAcceptResponseDto,
-	type FriendAddNewRequestDto,
-	type FriendReplyRequestDto,
-} from "./libs/types/types.js";
