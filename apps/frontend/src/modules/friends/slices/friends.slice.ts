@@ -49,11 +49,7 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(loadAll.fulfilled, (state, action) => {
 			const { currentUserId, friends } = action.payload;
 
-			if (!currentUserId) {
-				return state;
-			}
-
-			state.friends = friends.map(transformFriend(currentUserId));
+			state.friends = friends.map(transformFriend(currentUserId as number));
 
 			state.dataStatus = DataStatus.FULFILLED;
 		});
