@@ -13,7 +13,14 @@ type State = {
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	user: null,
+	user: {
+		createdAt: "2024-02-15T09:12:31.081Z",
+		email: "test61@gmail.com",
+		firstName: "Machlongerrrname",
+		id: 1,
+		lastName: "Nametoshowdifferenceeeeeeee",
+		updatedAt: "2024-02-15T09:12:31.081Z",
+	},
 };
 
 const { actions, name, reducer } = createSlice({
