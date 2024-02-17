@@ -2,7 +2,7 @@ import { FriendError, HTTPCode } from "shared";
 
 import { type FriendModel } from "~/modules/friends/friend.model.js";
 
-import { type FriendAcceptResponseDto } from "./friend.js";
+import { type FriendAcceptResponseDto } from "./libs/types/types.js";
 import { FriendErrorMessage } from "./libs/enums/enums.js";
 
 class FriendRepository {
@@ -67,27 +67,32 @@ class FriendRepository {
 		return [...friendsForFirstUser, ...friendsForSecondUser];
 	}
 
-	public async respondRequest(
-		friendRequestId: number,
-		isAccepted: boolean,
-	): Promise<FriendAcceptResponseDto | number> {
+	async respondRequest({
+		id,
+		userId,
+		isAccepted,
+	}: {
+		id: number;
+		userId: number;
+		isAccepted: boolean;
+	}): Promise<FriendAcceptResponseDto | number> {
 		const friendRequest = await this.friendModel
 			.query()
-			.findById(friendRequestId);
+			.findById(id);
 
-		if (!friendRequest) {
+		if (!friendRequest || friendRequest.secondUserId !== userId) {
 			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_NOT_EXIST,
+				FriendErrorMessage.FRIEND_REQUEST_ERROR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
 
 		if (isAccepted) {
-			return await this.friendModel.query().patchAndFetchById(friendRequestId, {
+			return await this.friendModel.query().patchAndFetchById(id, {
 				isInvitationAccepted: true,
 			});
 		} else {
-			await this.friendModel.query().deleteById(friendRequestId);
+			await this.friendModel.query().deleteById(id);
 			return friendRequest.id;
 		}
 	}

@@ -19,14 +19,20 @@ class FriendService {
 		return await this.friendRepository.getUserFriends(id);
 	}
 
-	async respondRequest(
-		friendRequestId: number,
-		isAccepted: boolean,
-	): Promise<FriendAcceptResponseDto | number> {
-		return await this.friendRepository.respondRequest(
-			friendRequestId,
+	async respondRequest({
+		id,
+		userId,
+		isAccepted,
+	}: {
+		id: number;
+		userId: number;
+		isAccepted: boolean;
+	}): Promise<FriendAcceptResponseDto | number> {
+		return await this.friendRepository.respondRequest({
+			id,
+			userId,
 			isAccepted,
-		);
+		});
 	}
 
 	async sendFriendRequest(

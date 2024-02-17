@@ -8,11 +8,11 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { UserAuthResponseDto } from "../users/users.js";
+import { FriendService } from "./friend.service.js";
 import {
 	type FriendAddNewRequestDto,
 	type FriendReplyRequestDto,
-} from "./friend.js";
-import { FriendService } from "./friend.service.js";
+} from "./libs/types/types.js";
 import { FriendApiPath } from "./libs/enums/enums.js";
 
 /**
@@ -84,6 +84,7 @@ class FriendController extends BaseController {
 				this.respondRequest(
 					options as APIHandlerOptions<{
 						body: FriendReplyRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "POST",
@@ -158,12 +159,14 @@ class FriendController extends BaseController {
 	private async respondRequest(
 		options: APIHandlerOptions<{
 			body: FriendReplyRequestDto;
+			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		const { id, isAccepted } = options.body;
+		const { id: userId } = options.user;
 
 		return {
-			payload: await this.friendService.respondRequest(id, isAccepted),
+			payload: await this.friendService.respondRequest({id, userId, isAccepted}),
 			status: HTTPCode.OK,
 		};
 	}

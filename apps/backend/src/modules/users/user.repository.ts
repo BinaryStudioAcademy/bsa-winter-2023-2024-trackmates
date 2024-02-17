@@ -117,7 +117,6 @@ class UserRepository implements Repository<UserEntity> {
 	}
 
 	public async searchFriendsByValue(
-		// TODO: SHOULD BE PROMISE
 		limit: number,
 		offset: number,
 		value: string,

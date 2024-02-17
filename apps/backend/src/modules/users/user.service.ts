@@ -66,8 +66,7 @@ class UserService implements Service {
 		limit: number,
 		offset: number,
 		value: string,
-	): Promise<unknown[]> {
-		// TODO: Fix unknown
+	): Promise<UserAuthResponseDto[]> {
 		const friends = await this.userRepository.searchFriendsByValue(
 			limit,
 			offset,
