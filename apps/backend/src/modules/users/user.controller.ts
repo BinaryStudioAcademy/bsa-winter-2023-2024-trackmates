@@ -8,7 +8,7 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type UserService } from "~/modules/users/user.service.js";
 
-import { RequestSetting, UsersApiPath } from "./libs/enums/enums.js";
+import { PaginationDefaultValue, UsersApiPath } from "./libs/enums/enums.js";
 
 /*** @swagger
  * components:
@@ -44,7 +44,7 @@ class UserController extends BaseController {
 					options as APIHandlerOptions<{
 						body: {
 							limit?: number;
-							offset?: number;
+							page?: number;
 							text: string;
 						};
 					}>,
@@ -95,20 +95,20 @@ class UserController extends BaseController {
 		options: APIHandlerOptions<{
 			body: {
 				limit?: number;
-				offset?: number;
+				page?: number;
 				text: string;
 			};
 		}>,
 	): Promise<APIHandlerResponse> {
 		const {
-			limit = RequestSetting.DEFAULT_LIMIT,
-			offset = RequestSetting.DEFAULT_OFFSET,
+			limit = PaginationDefaultValue.DEFAULT_LIMIT,
+			page = PaginationDefaultValue.DEFAULT_OFFSET,
 			text,
 		} = options.body;
 
 		const friends = await this.userService.searchFriendsByName(
 			limit,
-			offset,
+			page,
 			text,
 		);
 

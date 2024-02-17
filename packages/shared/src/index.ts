@@ -31,12 +31,12 @@ export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	type FriendAcceptResponseDto,
 	type FriendAddNewRequestDto,
-	FriendApiPath,
 	FriendError,
 	FriendErrorMessage,
 	type FriendReplyRequestDto,
 	type FriendResponseDto,
-	RequestSetting,
+	FriendsApiPath,
+	PaginationDefaultValue,
 } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,

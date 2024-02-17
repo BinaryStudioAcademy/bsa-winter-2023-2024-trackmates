@@ -18,7 +18,7 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
-import { type FriendService } from "~/modules/friends/friend.service.js";
+import { type FriendService } from "~/modules/friends/friend.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { WHITE_ROUTES } from "./libs/constants/constants.js";

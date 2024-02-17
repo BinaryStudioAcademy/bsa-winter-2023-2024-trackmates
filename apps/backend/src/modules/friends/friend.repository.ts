@@ -10,26 +10,25 @@ class FriendRepository {
 	}
 
 	public async createFriendInvite(
+		id: number,
 		recipientUserId: number,
-		senderUserId: number,
 	): Promise<FriendAcceptResponseDto | null> {
-		const existingInvite = await this.getFriendInviteById(
-			recipientUserId,
-			senderUserId,
-		);
-
-		if (existingInvite) {
-			return null;
-		}
-
 		return await this.friendModel.query().insert({
 			isInvitationAccepted: false,
 			recipientUserId: recipientUserId,
-			senderUserId: senderUserId,
+			senderUserId: id,
 		});
 	}
 
-	public async getFriendInviteById(
+	async getFriendInvitationByRequestId(
+		id: number,
+	): Promise<FriendAcceptResponseDto | null> {
+		const friendRequest = await this.friendModel.query().findById(id);
+
+		return friendRequest ?? null;
+	}
+
+	public async getFriendInvitationByUserId(
 		recipientUserId: number,
 		senderUserId: number,
 	): Promise<FriendModel | null> {
@@ -65,26 +64,20 @@ class FriendRepository {
 	}
 
 	async respondToRequest({
-		id,
+		friendRequest,
 		isAccepted,
-		userId,
 	}: {
-		id: number;
+		friendRequest: FriendAcceptResponseDto;
 		isAccepted: boolean;
-		userId: number;
-	}): Promise<FriendAcceptResponseDto | null> {
-		const friendRequest = await this.friendModel.query().findById(id);
-
-		if (!friendRequest || friendRequest.recipientUserId !== userId) {
-			return null;
-		}
-
+	}): Promise<FriendAcceptResponseDto> {
 		if (isAccepted) {
-			return await this.friendModel.query().patchAndFetchById(id, {
-				isInvitationAccepted: true,
-			});
+			return await this.friendModel
+				.query()
+				.patchAndFetchById(friendRequest.id, {
+					isInvitationAccepted: true,
+				});
 		} else {
-			await this.friendModel.query().deleteById(id);
+			await this.friendModel.query().deleteById(friendRequest.id);
 			return friendRequest;
 		}
 	}

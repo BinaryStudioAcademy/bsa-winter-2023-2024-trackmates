@@ -9,7 +9,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { FriendService } from "./friend.service.js";
-import { FriendApiPath } from "./libs/enums/enums.js";
+import { FriendsApiPath } from "./libs/enums/enums.js";
 import {
 	type FriendAddNewRequestDto,
 	type FriendReplyRequestDto,
@@ -54,7 +54,7 @@ class FriendController extends BaseController {
 	private friendService: FriendService;
 
 	public constructor(logger: Logger, friendService: FriendService) {
-		super(logger, APIPath.FRIEND);
+		super(logger, APIPath.FRIENDS);
 
 		this.friendService = friendService;
 
@@ -66,7 +66,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: FriendApiPath.ROOT,
+			path: FriendsApiPath.ROOT,
 		});
 		this.addRoute({
 			handler: (options) =>
@@ -77,7 +77,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "POST",
-			path: FriendApiPath.REQUEST,
+			path: FriendsApiPath.REQUEST,
 		});
 		this.addRoute({
 			handler: (options) =>
@@ -88,7 +88,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "POST",
-			path: FriendApiPath.REPLY,
+			path: FriendsApiPath.REPLY,
 		});
 	}
 

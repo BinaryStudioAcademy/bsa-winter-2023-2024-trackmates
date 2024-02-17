@@ -1,7 +1,7 @@
 export {
-	FriendApiPath,
 	FriendErrorMessage,
-	RequestSetting,
+	FriendsApiPath,
+	PaginationDefaultValue,
 } from "./libs/enums/enums.js";
 export { FriendError } from "./libs/exceptions/exceptions.js";
 export {
@@ -10,4 +10,4 @@ export {
 	type FriendDto,
 	type FriendReplyRequestDto,
 	type FriendResponseDto,
-} from "./libs/types/type.js";
+} from "./libs/types/types.js";

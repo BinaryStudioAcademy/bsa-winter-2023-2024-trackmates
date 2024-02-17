@@ -1,1 +1,1 @@
-export { RequestSetting, UsersApiPath } from "shared";
+export { PaginationDefaultValue, UsersApiPath } from "shared";

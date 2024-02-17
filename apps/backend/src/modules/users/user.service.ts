@@ -64,12 +64,12 @@ class UserService implements Service {
 
 	public async searchFriendsByName(
 		limit: number,
-		offset: number,
+		page: number,
 		value: string,
 	): Promise<UserAuthResponseDto[]> {
 		const friends = await this.userRepository.searchFriendsByName(
 			limit,
-			offset,
+			page,
 			value,
 		);
 

@@ -118,7 +118,7 @@ class UserRepository implements Repository<UserEntity> {
 
 	public async searchFriendsByName(
 		limit: number,
-		offset: number,
+		page: number,
 		value: string,
 	): Promise<UserEntity[]> {
 		let query = this.userModel
@@ -137,7 +137,7 @@ class UserRepository implements Repository<UserEntity> {
 				.distinct();
 		}
 
-		const users = await query.offset(offset).limit(limit).execute();
+		const users = await query.offset(page).limit(limit).execute();
 
 		return users.map((user) =>
 			UserEntity.initialize({

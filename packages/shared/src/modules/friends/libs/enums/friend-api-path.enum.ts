@@ -1,8 +1,8 @@
-const FriendApiPath = {
+const FriendsApiPath = {
 	REPLY: "/reply",
 	REQUEST: "/request",
 	ROOT: "/",
 	SEARCH: "/search",
 } as const;
 
-export { FriendApiPath };
+export { FriendsApiPath };

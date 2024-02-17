@@ -1,8 +1,10 @@
-import { FriendError, HTTPCode } from "shared";
-
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 
-import { FriendErrorMessage } from "./libs/enums/enums.js";
+import {
+	FriendError,
+	FriendErrorMessage,
+	HTTPCode,
+} from "./libs/enums/enums.js";
 import {
 	type FriendAcceptResponseDto,
 	type FriendResponseDto,
@@ -28,20 +30,21 @@ class FriendService {
 		isAccepted: boolean;
 		userId: number;
 	}): Promise<FriendAcceptResponseDto | number> {
-		const responseToRequest = await this.friendRepository.respondToRequest({
-			id,
-			isAccepted,
-			userId,
-		});
+		const friendRequest =
+			await this.friendRepository.getFriendInvitationByRequestId(id);
 
-		if (!responseToRequest) {
+		if (!friendRequest || friendRequest.recipientUserId !== userId) {
+			// if you try delete not your request you will get error too
 			throw new FriendError(
 				FriendErrorMessage.FRIEND_REQUEST_ERROR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
 
-		return responseToRequest;
+		return await this.friendRepository.respondToRequest({
+			friendRequest,
+			isAccepted,
+		});
 	}
 
 	async sendFriendRequest(
@@ -51,6 +54,19 @@ class FriendService {
 		if (id === receiverUserId) {
 			throw new FriendError(
 				FriendErrorMessage.SEND_REQUEST_TO_YOURSELF,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		const existingInvite =
+			await this.friendRepository.getFriendInvitationByUserId(
+				id,
+				receiverUserId,
+			);
+
+		if (existingInvite) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_REQUEST_EXIST,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
