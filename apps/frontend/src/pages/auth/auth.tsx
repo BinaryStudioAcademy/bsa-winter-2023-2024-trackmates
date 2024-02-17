@@ -62,7 +62,10 @@ const Auth: React.FC = () => {
 						<source media="(min-width: 481px)" srcSet={logo} />
 						<Image
 							alt="TrackMates logo"
-							className={`${styles["logo"]} ${styles["mobile-logo"]}`}
+							className={getValidClassNames(
+								styles["logo"],
+								styles["mobile-logo"],
+							)}
 							src={logo}
 						/>
 					</picture>
