@@ -19,7 +19,11 @@ const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
 				<div className={styles["welcome-character"]}>
 					<div className={styles["particle"]} />
 					<div className={styles["particle"]} />
-					<img alt="welcome character" src={welcomeCharacter} />
+					<img
+						alt="welcome character"
+						className={styles["image"]}
+						src={welcomeCharacter}
+					/>
 					<div className={styles["particle"]} />
 				</div>
 			</div>
