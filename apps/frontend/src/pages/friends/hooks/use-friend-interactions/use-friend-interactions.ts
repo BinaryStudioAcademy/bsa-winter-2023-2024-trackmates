@@ -1,8 +1,8 @@
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
-import { type Friend } from "~/libs/types/types.js";
+import { type FriendDto } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
-const useFriendInteractions = (friend: Friend) => {
+const useFriendInteractions = (friend: FriendDto) => {
 	const dispatch = useAppDispatch();
 
 	const handleAcceptRequest = useCallback(() => {

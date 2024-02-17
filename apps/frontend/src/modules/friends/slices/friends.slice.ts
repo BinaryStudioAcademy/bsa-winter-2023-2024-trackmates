@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus, FriendStatus } from "~/libs/enums/enums.js";
-import { type Friend, type ValueOf } from "~/libs/types/types.js";
+import { type FriendDto, type ValueOf } from "~/libs/types/types.js";
 
 import { transformFriend } from "../libs/helpers/helpers.js";
 import { acceptRequest, denyRequest, loadAll, sendRequest } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	friends: Friend[];
+	friends: FriendDto[];
 };
 
 const initialState: State = {

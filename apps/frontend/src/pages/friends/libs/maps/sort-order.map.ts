@@ -1,8 +1,8 @@
-import { Friend } from "~/libs/types/types.js";
+import { type FriendDto } from "~/libs/types/types.js";
 
 import { StatusRank } from "../enums/enums.js";
 
-const sortOrder: Record<Friend["status"], number> = {
+const sortOrder: Record<FriendDto["status"], number> = {
 	friend: StatusRank.FRIEND,
 	invited: StatusRank.INVITED,
 	requested: StatusRank.REQUESTED,

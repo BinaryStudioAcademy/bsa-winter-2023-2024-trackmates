@@ -1,5 +1,5 @@
 import { FriendStatus } from "~/libs/enums/enums.js";
-import { type Friend } from "~/libs/types/types.js";
+import { type FriendDto } from "~/libs/types/types.js";
 
 import { TEMPLATE_IMAGE } from "../constants/constants.js";
 import { type FriendResponseDto } from "../types/types.js";
@@ -7,7 +7,7 @@ import { type FriendResponseDto } from "../types/types.js";
 const handleFriendsCase = (
 	currentUserId: number,
 	{ firstUser, firstUserId, id, secondUser }: FriendResponseDto,
-): Friend => {
+): FriendDto => {
 	return currentUserId === firstUserId
 		? {
 				fullName: `${secondUser?.userDetails.firstName} ${secondUser?.userDetails.lastName}`,
