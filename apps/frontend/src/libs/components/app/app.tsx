@@ -1,66 +1,34 @@
-import reactLogo from "~/assets/img/react.svg";
-import { Link, Loader, RouterOutlet } from "~/libs/components/components.js";
-import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
+import { Loader, RouterOutlet } from "~/libs/components/components.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
-	useLocation,
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
-import { actions as userActions } from "~/modules/users/users.js";
 
 const App: React.FC = () => {
-	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
-	const { dataStatus, users } = useAppSelector(({ users }) => ({
-		dataStatus: users.dataStatus,
-		users: users.users,
+	const { authDataStatus } = useAppSelector(({ auth }) => ({
+		authDataStatus: auth.dataStatus,
 	}));
 
-	const isRoot = pathname === AppRoute.ROOT;
-
 	useEffect(() => {
-		if (isRoot) {
-			void dispatch(userActions.loadAll());
-		}
 		void dispatch(authActions.getAuthenticatedUser());
-	}, [isRoot, dispatch]);
+	}, [dispatch]);
+
+	if (
+		authDataStatus === DataStatus.IDLE ||
+		authDataStatus === DataStatus.PENDING
+	) {
+		return <Loader color="orange" size="large" />;
+	}
 
 	return (
 		<>
-			<img alt="logo" className="App-logo" src={reactLogo} width="30" />
-
-			<ul className="App-navigation-list">
-				<li>
-					<Link to={AppRoute.ROOT}>Root</Link>
-				</li>
-				<li>
-					<Link to={AppRoute.SIGN_IN}>Sign in</Link>
-				</li>
-				<li>
-					<Link to={AppRoute.SIGN_UP}>Sign up</Link>
-				</li>
-			</ul>
-			<p>Current path: {pathname}</p>
-
 			<div>
 				<RouterOutlet />
 			</div>
-			{isRoot && (
-				<>
-					<h2>Users:</h2>
-					<h3>Status: {dataStatus}</h3>
-					{dataStatus === DataStatus.PENDING && (
-						<Loader color="orange" size="large" />
-					)}
-					<ul>
-						{users.map((user) => (
-							<li key={user.id}>{user.email}</li>
-						))}
-					</ul>
-				</>
-			)}
 		</>
 	);
 };

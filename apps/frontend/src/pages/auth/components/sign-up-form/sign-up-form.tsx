@@ -1,6 +1,6 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
 import {
 	type UserSignUpRequestDto,
 	userSignUpValidationSchema,
@@ -19,12 +19,18 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		validationSchema: userSignUpValidationSchema,
 	});
 
+	const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
+
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
 		},
 		[handleSubmit, onSubmit],
 	);
+
+	const handleChangePasswordVisibility = useCallback(() => {
+		setPasswordVisibility(!isPasswordVisible);
+	}, [isPasswordVisible]);
 
 	return (
 		<form className={styles["form"]} onSubmit={handleFormSubmit}>
@@ -62,14 +68,24 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				name="email"
 				type="text"
 			/>
-			<Input
-				color="dark"
-				control={control}
-				errors={errors}
-				label="Password"
-				name="password"
-				type="password"
-			/>
+			<div className={styles["password-input"]}>
+				<Input
+					className={styles["password"]}
+					color="dark"
+					control={control}
+					errors={errors}
+					label="Password"
+					name="password"
+					type={isPasswordVisible ? "text" : "password"}
+				/>
+				<Button
+					className={styles["icon"]}
+					hasVisuallyHiddenLabel
+					iconName={isPasswordVisible ? "eye" : "eyeOff"}
+					label="eye-icon"
+					onClick={handleChangePasswordVisibility}
+				/>
+			</div>
 			<Button color="primary" label="Create an account" type="submit" />
 		</form>
 	);

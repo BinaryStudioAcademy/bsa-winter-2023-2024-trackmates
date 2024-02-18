@@ -15,10 +15,10 @@ const userSignUp = z
 			.string()
 			.trim()
 			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
-				message: UserValidationMessage.EMAIL_REQUIRE,
+				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.email({
-				message: UserValidationMessage.EMAIL_WRONG,
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			})
 			.regex(
 				/^[\w%+-](([\w%+-]|\.(?=.)){0,33}[\w%+-])?@[\w%+][\w%+-.]{1,33}[\w%+]$/,
@@ -29,6 +29,9 @@ const userSignUp = z
 		firstName: z
 			.string()
 			.trim()
+			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.FIELD_REQUIRE,
+			})
 			.min(UserValidationRule.FIRSTNAME_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIRSTNAME_MIN_LENGTH,
 			})
@@ -41,6 +44,9 @@ const userSignUp = z
 		lastName: z
 			.string()
 			.trim()
+			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.FIELD_REQUIRE,
+			})
 			.min(UserValidationRule.LASTNAME_MINIMUM_LENGTH, {
 				message: UserValidationMessage.LASTNAME_MIN_LENGTH,
 			})
@@ -53,15 +59,18 @@ const userSignUp = z
 		password: z
 			.string()
 			.trim()
-			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-				message: UserValidationMessage.PASSWORD_SHORT,
+			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.FIELD_REQUIRE,
 			})
-			.regex(
-				/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!"#$%&'()-_`{|}~])[\d!"#$%&'()-_`a-z{|}~]{8,}$/,
-				{
-					message: UserValidationMessage.PASSWORD_WEAK,
-				},
-			),
+			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
+				message: UserValidationMessage.PASSWORD_MIN_LENGTH,
+			})
+			.max(UserValidationRule.PASSWORD_MAX_LENGTH, {
+				message: UserValidationMessage.PASSSWORD_MAX_LENGTH,
+			})
+			.regex(/^[\w!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]{8,26}$/, {
+				message: UserValidationMessage.PASSWORD_INVALID_FORMAT,
+			}),
 	})
 	.required();
 

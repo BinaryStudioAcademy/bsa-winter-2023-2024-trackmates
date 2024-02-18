@@ -1,7 +1,9 @@
 .welcome-section-header {
+	position: relative;
 	display: flex;
 	gap: 50px;
 	align-items: center;
+	justify-content: space-between;
 	width: 100%;
 	padding: 30px;
 	background-color: var(--color-menu);
@@ -9,10 +11,10 @@
 }
 
 .welcome-section-header-content {
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
+	max-width: 600px;
 	color: var(--main-white);
 }
 
@@ -24,13 +26,16 @@
 
 .welcome-section-header-subtitle {
 	margin: 0;
+	overflow: hidden;
 	font-size: var(--font-size-800);
+	line-height: 1;
+	text-overflow: ellipsis;
 }
 
 .welcome-character {
 	position: absolute;
 	top: 50%;
-	right: 0;
+	right: 240px;
 	display: flex;
 	gap: 20px;
 	transform: translateY(-50%);
@@ -68,4 +73,97 @@
 
 .add-course-button:hover {
 	color: var(--main-white);
+}
+
+@media screen and (width <= 1400px) {
+	.welcome-section-header-content {
+		max-width: 400px;
+	}
+}
+
+@media screen and (width <= 1290px) {
+	.welcome-section-header {
+		gap: 20px;
+	}
+
+	.welcome-section-header-content {
+		max-width: 350px;
+	}
+
+	.welcome-section-header-subtitle {
+		font-size: var(--font-size-600);
+	}
+}
+
+@media screen and (width <= 1150px) {
+	.image {
+		width: 100%;
+		height: auto;
+	}
+
+	.welcome-character {
+		top: 25%;
+		right: 265px;
+		width: 140px;
+		height: auto;
+	}
+}
+
+@media screen and (width <= 820px) {
+	.image {
+		display: none;
+	}
+
+	.welcome-character {
+		left: 300px;
+	}
+}
+
+@media screen and (width <= 768px) {
+	.welcome-section-header {
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.welcome-character {
+		top: 65%;
+		left: 40px;
+	}
+
+	.welcome-section-header-content {
+		align-self: self-start;
+		width: 100%;
+		max-width: 400px;
+	}
+
+	.welcome-section-header-subtitle {
+		font-size: var(--font-size-600);
+	}
+
+	.welcome-section-header-actions {
+		align-self: self-end;
+	}
+}
+
+@media screen and (width <= 600px) {
+	.welcome-section-header-content {
+		max-width: 270px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.welcome-character {
+		top: 63%;
+		left: 35px;
+	}
+
+	.welcome-section-header-subtitle {
+		font-size: var(--font-size-500);
+	}
+
+	.add-course-button {
+		min-height: 40px;
+		padding: 8px 20px;
+		font-size: var(--font-size-200);
+	}
 }
