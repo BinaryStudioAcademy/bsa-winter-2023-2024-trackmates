@@ -1,9 +1,10 @@
 import { Button, Image } from "~/libs/components/components.js";
 import { FriendStatus } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type FriendDto } from "~/libs/types/types.js";
+import { actions } from "~/modules/friends/friends.js";
 
-import { useFriendInteractions } from "../../hooks/hooks.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -11,8 +12,23 @@ type Properties = {
 };
 
 const Friend: React.FC<Properties> = ({ friend }: Properties) => {
-	const { handleAcceptRequest, handleDenyRequest, handleSendRequest } =
-		useFriendInteractions(friend);
+	const dispatch = useAppDispatch();
+
+	const handleAcceptRequest = useCallback(() => {
+		void dispatch(actions.acceptRequest(friend.id));
+	}, [dispatch, friend.id]);
+
+	const handleDenyRequest = useCallback(() => {
+		void dispatch(actions.denyRequest(friend.id));
+	}, [dispatch, friend.id]);
+
+	const handleSendRequest = useCallback(() => {
+		void dispatch(
+			actions.sendRequest({
+				receiverUserId: friend.id,
+			}),
+		);
+	}, [dispatch, friend.id]);
 
 	const buttonStyles = styles["button"];
 
