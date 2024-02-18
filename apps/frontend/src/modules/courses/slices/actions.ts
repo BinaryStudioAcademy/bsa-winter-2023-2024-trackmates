@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { NotificationMessage } from "~/libs/enums/enums.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {
@@ -12,10 +13,13 @@ import { name as sliceName } from "./courses.slice.js";
 
 const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 	`${sliceName}/add`,
-	(requestPayload, { extra }) => {
-		const { courseApi } = extra;
+	async (requestPayload, { extra }) => {
+		const { courseApi, notification } = extra;
 
-		return courseApi.add(requestPayload);
+		const newCourse = await courseApi.add(requestPayload);
+		notification.success(NotificationMessage.COURSE_ADDED);
+
+		return newCourse;
 	},
 );
 
