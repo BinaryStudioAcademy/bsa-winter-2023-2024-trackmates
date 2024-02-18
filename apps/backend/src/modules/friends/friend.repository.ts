@@ -78,9 +78,17 @@ class FriendRepository {
 		friendRequest: FriendAcceptResponseDto;
 		isAccepted: boolean;
 	}): Promise<FriendAcceptResponseDto> {
-		return await this.friendModel.query().patchAndFetchById(friendRequest.id, {
-			isInvitationAccepted: isAccepted ? true : false,
-		});
+		const response = await this.friendModel
+			.query()
+			.patchAndFetchById(friendRequest.id, {
+				isInvitationAccepted: isAccepted ? true : false,
+			});
+
+		if (!isAccepted) {
+			await this.friendModel.query().deleteById(friendRequest.id);
+		}
+
+		return response;
 	}
 
 	public async searchFriendsByName(
