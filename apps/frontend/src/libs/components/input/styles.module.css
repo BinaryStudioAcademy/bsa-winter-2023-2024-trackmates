@@ -14,7 +14,6 @@
 .input {
 	max-height: 37px;
 	padding: 12px;
-	cursor: pointer;
 	border: none;
 	border-radius: 51px;
 	outline: none;
@@ -49,6 +48,10 @@
 }
 
 .error {
+	position: absolute;
+	right: 0;
+	bottom: -19px;
+	width: 100%;
 	font-size: var(--font-size-100);
 	color: var(--color-error);
 	text-align: end;
