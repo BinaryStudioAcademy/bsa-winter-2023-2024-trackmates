@@ -8,6 +8,7 @@ type CourseDto = {
 	title: string;
 	url: string;
 	vendor: VendorResponseDto;
+	vendorCourseId: string;
 };
 
 export { type CourseDto };

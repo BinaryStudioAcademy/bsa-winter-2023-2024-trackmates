@@ -7,9 +7,15 @@ class CourseEntity implements Entity {
 
 	private id: null | number;
 
+	private image: string;
+
+	private imageSmall: string;
+
 	private title: string;
 
 	private url: string;
+
+	private vendorCourseId: string;
 
 	private vendorId: number;
 
@@ -19,25 +25,34 @@ class CourseEntity implements Entity {
 		createdAt,
 		description,
 		id,
+		image,
+		imageSmall,
 		title,
 		updatedAt,
 		url,
+		vendorCourseId,
 		vendorId,
 	}: {
 		createdAt: string;
 		description: string;
 		id: null | number;
+		image: string;
+		imageSmall: string;
 		title: string;
 		updatedAt: string;
 		url: string;
+		vendorCourseId: string;
 		vendorId: number;
 	}) {
 		this.createdAt = createdAt;
 		this.description = description;
 		this.id = id;
+		this.image = image;
+		this.imageSmall = imageSmall;
 		this.title = title;
 		this.updatedAt = updatedAt;
 		this.url = url;
+		this.vendorCourseId = vendorCourseId;
 		this.vendorId = vendorId;
 	}
 
@@ -45,66 +60,86 @@ class CourseEntity implements Entity {
 		createdAt,
 		description,
 		id,
+		image,
+		imageSmall,
 		title,
 		updatedAt,
 		url,
+		vendorCourseId,
 		vendorId,
 	}: {
 		createdAt: string;
 		description: string;
 		id: null | number;
+		image: string;
+		imageSmall: string;
 		title: string;
 		updatedAt: string;
 		url: string;
+		vendorCourseId: string;
 		vendorId: number;
 	}): CourseEntity {
 		return new CourseEntity({
 			createdAt,
 			description,
 			id,
+			image,
+			imageSmall,
 			title,
 			updatedAt,
 			url,
+			vendorCourseId,
 			vendorId,
 		});
 	}
 
 	public static initializeNew({
 		description,
+		image,
+		imageSmall,
 		title,
 		url,
+		vendorCourseId,
 		vendorId,
 	}: {
 		description: string;
+		image: string;
+		imageSmall: string;
 		title: string;
 		url: string;
+		vendorCourseId: string;
 		vendorId: number;
 	}): CourseEntity {
 		return new CourseEntity({
 			createdAt: "",
 			description,
 			id: null,
+			image,
+			imageSmall,
 			title,
 			updatedAt: "",
 			url,
+			vendorCourseId,
 			vendorId,
 		});
 	}
 
 	public toNewObject(): {
-		createdAt: string;
 		description: string;
+		image: string;
+		imageSmall: string;
 		title: string;
-		updatedAt: string;
 		url: string;
+		vendorCourseId: string;
 		vendorId: number;
 	} {
 		return {
-			createdAt: this.createdAt,
 			description: this.description,
+			image: this.image,
+			imageSmall: this.imageSmall,
 			title: this.title,
-			updatedAt: this.updatedAt,
 			url: this.url,
+			vendorCourseId: this.vendorCourseId,
 			vendorId: this.vendorId,
 		};
 	}
@@ -113,18 +148,24 @@ class CourseEntity implements Entity {
 		createdAt: string;
 		description: string;
 		id: number;
+		image: string;
+		imageSmall: string;
 		title: string;
 		updatedAt: string;
 		url: string;
+		vendorCourseId: string;
 		vendorId: number;
 	} {
 		return {
 			createdAt: this.createdAt,
 			description: this.description,
 			id: this.id as number,
+			image: this.image,
+			imageSmall: this.imageSmall,
 			title: this.title,
 			updatedAt: this.updatedAt,
 			url: this.url,
+			vendorCourseId: this.vendorCourseId,
 			vendorId: this.vendorId,
 		};
 	}

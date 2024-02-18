@@ -7,6 +7,7 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
+import { UserAuthResponseDto } from "../users/users.js";
 import { type CourseService } from "./course.service.js";
 import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
@@ -38,6 +39,7 @@ class CourseController extends BaseController {
 				this.addCourse(
 					options as APIHandlerOptions<{
 						body: AddCourseRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "POST",
@@ -47,11 +49,16 @@ class CourseController extends BaseController {
 
 	private async addCourse({
 		body,
+		user,
 	}: APIHandlerOptions<{
 		body: AddCourseRequestDto;
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.addCourse(body),
+			payload: await this.courseService.addCourse({
+				...body,
+				userId: user.id,
+			}),
 			status: HTTPCode.CREATED,
 		};
 	}

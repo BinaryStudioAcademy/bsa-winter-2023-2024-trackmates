@@ -4,7 +4,6 @@ import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
 import { CourseFieldsMapping } from "./libs/enums/enums.js";
 import {
-	type AddCourseRequestDto,
 	type CourseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
@@ -54,11 +53,15 @@ class CourseService {
 		return { ...course, vendor } as CourseDto;
 	}
 
-	public async addCourse(
-		parameters: Omit<AddCourseRequestDto, "userId">,
-	): Promise<CourseDto> {
-		const { vendorCourseId, vendorId } = parameters;
-
+	public async addCourse({
+		userId,
+		vendorCourseId,
+		vendorId,
+	}: {
+		userId: number;
+		vendorCourseId: number;
+		vendorId: number;
+	}): Promise<CourseDto> {
 		const item = await this.udemy.getCourseById(vendorCourseId);
 		const course = this.mapToCourse(item, UDEMY_VENDOR);
 
@@ -66,7 +69,8 @@ class CourseService {
 			...course,
 			vendorId,
 		});
-		await this.courseRepository.create(courseEntity);
+
+		await this.courseRepository.addCourse(userId, courseEntity);
 
 		return course;
 	}
