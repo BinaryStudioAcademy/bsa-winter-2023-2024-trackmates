@@ -27,16 +27,15 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
+export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,
-	type UserGetAllItemResponseDto,
 	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
-	UsersApiPath,
 	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,

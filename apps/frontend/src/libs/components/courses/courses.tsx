@@ -1,6 +1,6 @@
-import { Course } from "~/libs/components/components.js";
 import { type CourseDto } from "~/libs/types/types.js";
 
+import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -14,7 +14,7 @@ const Courses: React.FC<Properties> = ({ courses }: Properties) => {
 			<ul className={styles["list"]}>
 				{courses.map((course) => {
 					return (
-						<li key={course.id}>
+						<li className={styles["item"]} key={course.id}>
 							<Course course={course} />
 						</li>
 					);

@@ -4,6 +4,7 @@ export { type MenuItem } from "./menu-item.type.js";
 export { type ValueOf } from "./value-of.type.js";
 export {
 	type CourseDto,
+	type FriendDto,
 	type ServerErrorDetail,
 	type ServerErrorResponse,
 	type ValidationSchema,

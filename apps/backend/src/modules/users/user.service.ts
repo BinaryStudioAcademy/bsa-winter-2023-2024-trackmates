@@ -1,10 +1,8 @@
-import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
-import { AuthError } from "./libs/exceptions/exceptions.js";
 import {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
@@ -68,14 +66,6 @@ class UserService implements Service {
 	public async update(
 		userRequestDto: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
-		const user = await this.userRepository.findById(userRequestDto.id);
-
-		const hasUser = Boolean(user);
-
-		if (!hasUser) {
-			throw new AuthError(ExceptionMessage.USER_NOT_FOUND, HTTPCode.NOT_FOUND);
-		}
-
 		const updatedUser = await this.userRepository.update(userRequestDto);
 
 		return updatedUser?.toObject() ?? null;

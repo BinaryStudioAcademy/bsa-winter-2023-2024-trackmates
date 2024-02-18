@@ -11,7 +11,7 @@ import {
 	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
-import { AuthApiPath, UsersApiPath } from "./libs/enums/enums.js";
+import { AuthApiPath } from "./libs/enums/enums.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -72,7 +72,7 @@ class AuthApi extends BaseHTTPApi {
 		payload: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(`${UsersApiPath.PROFILE}/${payload.id}`, {}),
+			this.getFullEndpoint(`${AuthApiPath.PROFILE}/${payload.id}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: false,

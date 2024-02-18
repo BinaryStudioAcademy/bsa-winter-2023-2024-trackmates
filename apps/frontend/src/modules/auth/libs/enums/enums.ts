@@ -1,1 +1,1 @@
-export { AuthApiPath, UsersApiPath } from "shared";
+export { AuthApiPath } from "shared";

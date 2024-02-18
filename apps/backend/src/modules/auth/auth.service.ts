@@ -2,7 +2,9 @@ import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { Token } from "~/libs/modules/token/token.js";
 import {
+	UserAuthResponseDto,
 	UserEntity,
+	UserProfileRequestDto,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
@@ -90,6 +92,18 @@ class AuthService {
 			token: await this.token.create({ userId: newUser.id }),
 			user: newUser,
 		};
+	}
+
+	public async updateUser(
+		userRequestDto: UserProfileRequestDto,
+	): Promise<UserAuthResponseDto | null> {
+		const user = await this.userService.findById(userRequestDto.id);
+		const hasUser = Boolean(user);
+		if (!hasUser) {
+			throw new AuthError(ExceptionMessage.USER_NOT_FOUND, HTTPCode.NOT_FOUND);
+		}
+
+		return await this.userService.update(userRequestDto);
 	}
 }
 

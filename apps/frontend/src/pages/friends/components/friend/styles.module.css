@@ -1,0 +1,32 @@
+.actions {
+	display: flex;
+	gap: 24px;
+	padding: 12px;
+	background-color: var(--color-menu);
+}
+
+.add-friend-action {
+	flex: 1;
+}
+
+.card {
+	overflow: hidden;
+	border-radius: 12px;
+	box-shadow: 0 0 5px rgba(0 0 0 / 10%);
+}
+
+.card-content {
+	padding: 12px;
+}
+
+.fullName {
+	font-size: var(--font-size-300);
+	font-weight: 500;
+}
+
+.portrait {
+	aspect-ratio: 1 / 1;
+	border-radius: 12px;
+	object-fit: cover;
+	object-position: center;
+}
