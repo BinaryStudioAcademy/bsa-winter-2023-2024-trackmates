@@ -17,29 +17,52 @@ class CourseRepository implements Repository<CourseEntity> {
 		this.userModel = userModel;
 	}
 
-	public async addCourse(userId: number, entity: CourseEntity) {
-		const course = entity.toNewObject();
-		const existedEntity = await this.findByVendorCourseId(
-			course.vendorCourseId,
-		);
+	private async createCourseWithRelation(
+		courseEntity: CourseEntity,
+		userId: number,
+	) {
+		return await this.userModel
+			.relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.insert(courseEntity.toNewObject())
+			.returning("*")
+			.execute();
+	}
 
-		if (!existedEntity) {
-			return await this.userModel
-				.relatedQuery(DatabaseTableName.COURSES)
-				.for(userId)
-				.insert(course)
-				.returning("*")
-				.execute();
+	private async createRelationWithUser(
+		courseEntity: CourseEntity,
+		userId: number,
+	) {
+		const course = courseEntity.toObject();
+		const isCourseRelatedWithUser = !!(await this.userModel
+			.relatedQuery("courses")
+			.for(userId)
+			.findOne("vendorCourseId", course.vendorCourseId));
+
+		if (isCourseRelatedWithUser) {
+			throw new Error(`Course "${course.title}" was already added for user`);
 		}
 
-		const existedCourse = existedEntity.toObject();
 		await this.userModel
 			.relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
-			.relate(existedCourse.id)
+			.relate(course.id)
 			.execute();
+	}
 
-		return existedCourse;
+	public async addCourseToUser(entity: CourseEntity, userId: number) {
+		const course = entity.toNewObject();
+		const existedCourseEntity = await this.findByVendorCourseId(
+			course.vendorCourseId,
+		);
+
+		if (!existedCourseEntity) {
+			return await this.createCourseWithRelation(entity, userId);
+		}
+
+		await this.createRelationWithUser(existedCourseEntity, userId);
+
+		return existedCourseEntity;
 	}
 
 	public async create(entity: CourseEntity): Promise<CourseEntity> {
@@ -50,19 +73,6 @@ class CourseRepository implements Repository<CourseEntity> {
 			.execute();
 
 		return CourseEntity.initialize(course);
-
-		// return CourseEntity.initialize({
-		// 	createdAt: course.createdAt,
-		// 	description: course.description,
-		// 	id: course.id,
-		// 	image: course.image,
-		// 	imageSmall: course.imageSmall,
-		// 	title: course.title,
-		// 	updatedAt: course.updatedAt,
-		// 	url: course.url,
-		// 	vendorCourseId: course.vendorCourseId,
-		// 	vendorId: course.vendorId,
-		// });
 	}
 
 	public delete(): Promise<boolean> {

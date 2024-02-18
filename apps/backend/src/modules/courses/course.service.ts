@@ -72,7 +72,7 @@ class CourseService {
 			vendorId,
 		});
 
-		await this.courseRepository.addCourse(userId, courseEntity);
+		await this.courseRepository.addCourseToUser(courseEntity, userId);
 
 		return course;
 	}
