@@ -19,15 +19,15 @@ const Course: React.FC<Properties> = ({
 	isNew,
 	onAddCourse,
 }: Properties) => {
-	const { id, image, title, vendor } = course;
+	const { image, title, vendor, vendorCourseId } = course;
 	const source = VendorsLogoPath[vendor.key] || "";
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
-			vendorCourseId: id,
+			vendorCourseId: vendorCourseId,
 			vendorId: vendor.id,
 		});
-	}, [onAddCourse, id, vendor.id]);
+	}, [onAddCourse, vendor.id, vendorCourseId]);
 
 	return (
 		<article className={styles["container"]}>
