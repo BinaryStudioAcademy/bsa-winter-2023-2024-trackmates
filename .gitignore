@@ -11,3 +11,6 @@ build
 # misc
 .DS_Store
 .env
+
+# dev-dist
+dev-dist

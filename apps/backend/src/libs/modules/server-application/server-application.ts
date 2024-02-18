@@ -4,7 +4,7 @@ import { logger } from "~/libs/modules/logger/logger.js";
 import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
 import { courseController } from "~/modules/courses/courses.js";
-import { userController, userService } from "~/modules/users/users.js";
+import { userService } from "~/modules/users/users.js";
 import { vendorController } from "~/modules/vendors/vendors.js";
 
 import { BaseServerApplication } from "./base-server-application.js";
@@ -15,7 +15,6 @@ const apiV1 = new BaseServerApplicationApi(
 	config,
 	...authController.routes,
 	...courseController.routes,
-	...userController.routes,
 	...vendorController.routes,
 );
 const serverApplication = new BaseServerApplication({
