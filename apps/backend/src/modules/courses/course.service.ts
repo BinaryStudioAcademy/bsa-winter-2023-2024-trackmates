@@ -59,10 +59,12 @@ class CourseService {
 		vendorId,
 	}: {
 		userId: number;
-		vendorCourseId: number;
+		vendorCourseId: string;
 		vendorId: number;
 	}): Promise<CourseDto> {
-		const item = await this.udemy.getCourseById(vendorCourseId);
+		const item = await this.udemy.getCourseById(
+			Number.parseInt(vendorCourseId),
+		);
 		const course = this.mapToCourse(item, UDEMY_VENDOR);
 
 		const courseEntity = CourseEntity.initializeNew({
