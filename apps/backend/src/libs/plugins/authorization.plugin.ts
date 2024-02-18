@@ -1,5 +1,6 @@
 import { type FastifyRequest } from "fastify";
 import fp from "fastify-plugin";
+import { JWTExpired } from "jose/errors";
 
 import { ExceptionMessage, FastifyHook } from "~/libs/enums/enums.js";
 import { HTTPCode, HTTPHeader } from "~/libs/modules/http/http.js";
@@ -30,7 +31,7 @@ const authorization = fp<Options>(
 
 			if (!authHeader) {
 				throw new AuthError(
-					ExceptionMessage.USER_NOT_FOUND,
+					ExceptionMessage.UNAUTHORIZED,
 					HTTPCode.UNAUTHORIZED,
 				);
 			}
@@ -39,7 +40,7 @@ const authorization = fp<Options>(
 
 			if (!jwtToken) {
 				throw new AuthError(
-					ExceptionMessage.USER_NOT_FOUND,
+					ExceptionMessage.UNAUTHORIZED,
 					HTTPCode.UNAUTHORIZED,
 				);
 			}
@@ -51,15 +52,19 @@ const authorization = fp<Options>(
 
 				if (!user) {
 					throw new AuthError(
-						ExceptionMessage.USER_NOT_FOUND,
+						ExceptionMessage.UNAUTHORIZED,
 						HTTPCode.UNAUTHORIZED,
 					);
 				}
 
 				request.user = user;
-			} catch {
+			} catch (error) {
+				const isJwtExpiredError = error instanceof JWTExpired;
+
 				throw new AuthError(
-					ExceptionMessage.USER_NOT_FOUND,
+					isJwtExpiredError
+						? ExceptionMessage.TOKEN_EXPIRED
+						: ExceptionMessage.UNAUTHORIZED,
 					HTTPCode.UNAUTHORIZED,
 				);
 			}

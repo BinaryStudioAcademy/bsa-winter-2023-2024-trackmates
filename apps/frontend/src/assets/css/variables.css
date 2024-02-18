@@ -20,4 +20,7 @@
 	--font-size-700: 30px;
 	--font-size-800: 42px;
 	--container-width: 1000px;
+	--z-index-low: 10;
+	--z-index-medium: 100;
+	--z-index-high: 1000;
 }
