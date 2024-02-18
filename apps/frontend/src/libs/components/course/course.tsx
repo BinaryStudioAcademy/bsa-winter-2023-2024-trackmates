@@ -15,14 +15,14 @@ type Properties = {
 
 const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { id, imageSmall, title, vendor } = course;
+	const { id, image, title, vendor } = course;
 	const source = VendorsLogoPath[vendor.key] || "";
 
 	const handleAddCourse = useCallback(() => {
 		void dispatch(
 			courseActions.add({
 				vendorCourseId: id,
-				vendorId: 0,
+				vendorId: 1,
 			}),
 		);
 	}, [dispatch, id]);
@@ -34,14 +34,14 @@ const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
 					<Image alt="Course source logo" src={source} />
 				</div>
 				<div className={styles["image-container"]}>
-					<Image alt="Course" src={imageSmall} />
+					<Image alt="Course" src={image} />
 				</div>
 				<div className={styles["info-container"]}>
 					<h2 className={styles["title"]}>{title}</h2>
 				</div>
 			</div>
 			{isNew && (
-				<div className={styles["toolbar"]}>
+				<div className={styles["actions"]}>
 					<Button
 						color="secondary"
 						label="Read more"

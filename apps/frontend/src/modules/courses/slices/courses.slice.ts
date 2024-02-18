@@ -1,6 +1,5 @@
 import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
-import { DEFAULT_COURSES_DATA } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
@@ -15,7 +14,7 @@ type State = {
 };
 
 const initialState: State = {
-	courses: DEFAULT_COURSES_DATA,
+	courses: [],
 	dataStatus: DataStatus.IDLE,
 	searchDataStatus: DataStatus.IDLE,
 	searchedCourses: [],
@@ -32,7 +31,7 @@ const { actions, name, reducer } = createSlice({
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadAll.fulfilled, (state, action) => {
-			state.courses = action.payload;
+			state.courses = action.payload.courses;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadAll.pending, (state) => {
