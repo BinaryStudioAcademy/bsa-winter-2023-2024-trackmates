@@ -7,7 +7,11 @@ import {
 	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
-import { actions as courseActions } from "~/modules/courses/courses.js";
+import {
+	type CourseSearchRequestDto,
+	actions as courseActions,
+} from "~/modules/courses/courses.js";
+import { actions as vendorActions } from "~/modules/vendors/vendors.js";
 
 import { useSearchCourseFilter } from "../../hooks/hooks.js";
 import { SearchCourseForm } from "../search-course-form/search-course-form.js";
@@ -19,12 +23,14 @@ type Properties = {
 };
 
 const SEARCH_COURSES_DELAY_MS = 500;
+const ZERO_LENGTH = 0;
 
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { courses, isLoading } = useAppSelector((state) => ({
+	const { courses, isLoading, vendors } = useAppSelector((state) => ({
 		courses: state.courses.searchedCourses,
 		isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
+		vendors: state.vendors.vendors,
 	}));
 
 	const { handleChangeSearch, handleChangeVendors, searchCourseFilter } =
@@ -32,20 +38,20 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearchCourses = useCallback(
-		debounce((filter: typeof searchCourseFilter) => {
-			void dispatch(
-				courseActions.search({
-					search: filter.search,
-					vendorId: 1,
-				}),
-			);
+		debounce((filter: CourseSearchRequestDto) => {
+			void dispatch(courseActions.search(filter));
 		}, SEARCH_COURSES_DELAY_MS),
 		[dispatch],
 	);
 
 	useEffect(() => {
-		debouncedSearchCourses(searchCourseFilter);
+		if (vendors.length === ZERO_LENGTH) {
+			void dispatch(vendorActions.loadAll());
+		}
+	}, [dispatch, vendors]);
 
+	useEffect(() => {
+		debouncedSearchCourses(searchCourseFilter);
 		return () => {
 			debouncedSearchCourses.clear();
 		};
@@ -61,7 +67,12 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 				<div className={styles["content"]}>
 					<div className={styles["toolbar"]}>
 						<p className={styles["results-count"]}>{courses.length} results</p>
-						<VendorsFilterForm onVendorsChange={handleChangeVendors} />
+						{vendors.length > ZERO_LENGTH && (
+							<VendorsFilterForm
+								onVendorsChange={handleChangeVendors}
+								vendors={vendors}
+							/>
+						)}
 					</div>
 					<div className={styles["course-container"]}>
 						{isLoading ? (

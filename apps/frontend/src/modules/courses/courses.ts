@@ -15,5 +15,6 @@ export { AddCoursePayloadKey } from "./libs/enums/enums.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
+	type CourseSearchRequestDto,
 } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/courses.js";

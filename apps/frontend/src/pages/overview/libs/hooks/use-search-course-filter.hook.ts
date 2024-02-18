@@ -1,11 +1,9 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
 import { useCallback, useReducer } from "~/libs/hooks/hooks.js";
+import { CourseSearchRequestDto } from "~/modules/courses/courses.js";
 
-type State = {
-	search: string;
-	vendors: string[];
-};
+type State = CourseSearchRequestDto;
 
 const FilterAction = {
 	SET_SEARCH: createAction<State["search"]>("setSearch"),
