@@ -1,6 +1,5 @@
 type AddCourseRequestDto = {
-	userId: number;
-	vendorCourseId: number;
+	vendorCourseId: string;
 	vendorId: number;
 };
 

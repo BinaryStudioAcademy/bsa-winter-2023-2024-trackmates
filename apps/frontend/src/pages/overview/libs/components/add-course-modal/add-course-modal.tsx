@@ -1,5 +1,6 @@
 import { Courses, Loader, Modal } from "~/libs/components/components.js";
 import { DEFAULT_COURSES_DATA } from "~/libs/constants/constants.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import { debounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -23,7 +24,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { isLoading } = useAppSelector((state) => ({
 		courses: state.courses.searchedCourses,
-		isLoading: state.courses.searchDataStatus === "pending",
+		isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
 	}));
 
 	const { handleChangeSearch, handleChangeVendors, searchCourseFilter } =

@@ -10,7 +10,7 @@ import {
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
-const add = createAsyncThunk<null, AddCourseRequestDto, AsyncThunkConfig>(
+const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 	`${sliceName}/add`,
 	(requestPayload, { extra }) => {
 		const { courseApi } = extra;

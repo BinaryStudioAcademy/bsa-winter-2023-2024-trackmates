@@ -1,4 +1,5 @@
-import { Courses } from "~/libs/components/components.js";
+import { Courses, Loader } from "~/libs/components/components.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -6,22 +7,23 @@ import {
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
-// import { actions as courseActions } from "~/modules/courses/courses.js";
+import { actions as courseActions } from "~/modules/courses/courses.js";
 import { UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
-	const { courses, user } = useAppSelector((state) => ({
+	const { courses, isLoading, user } = useAppSelector((state) => ({
 		courses: state.courses.courses,
+		isLoading: state.courses.dataStatus === DataStatus.PENDING,
 		user: state.auth.user,
 	}));
 	const dispatch = useAppDispatch();
 	const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
 
 	useEffect(() => {
-		// void dispatch(courseActions.loadAll());
+		void dispatch(courseActions.loadAll());
 	}, [dispatch]);
 
 	const handleModalOpen = useCallback(() => {
@@ -37,7 +39,12 @@ const Overview: React.FC = () => {
 				onAddCourseClick={handleModalOpen}
 				user={user as UserAuthResponseDto}
 			/>
-			<Courses courses={courses} />
+			{isLoading ? (
+				<Loader color="orange" size="large" />
+			) : (
+				<Courses courses={courses} />
+			)}
+
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
 		</div>
 	);

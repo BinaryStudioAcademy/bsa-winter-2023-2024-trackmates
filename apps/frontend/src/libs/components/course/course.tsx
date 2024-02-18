@@ -1,6 +1,10 @@
 import UdemyLogo from "~/assets/img/svg/udemy-logo.svg";
 import { Button, Image } from "~/libs/components/components.js";
-import { type CourseDto } from "~/modules/courses/courses.js";
+import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
+import {
+	type CourseDto,
+	actions as courseActions,
+} from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";
 
@@ -10,7 +14,18 @@ type Properties = {
 };
 
 const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
-	const { image, title } = course;
+	const dispatch = useAppDispatch();
+	const { id, image, title } = course;
+
+	const handleAddCourse = useCallback(() => {
+		void dispatch(
+			courseActions.add({
+				vendorCourseId: id,
+				vendorId: 0,
+			}),
+		);
+	}, [dispatch, id]);
+
 	return (
 		<article className={styles["container"]}>
 			<div className={styles["content"]}>
@@ -36,6 +51,7 @@ const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
 						color="secondary"
 						iconName="plusOutlined"
 						label="Add"
+						onClick={handleAddCourse}
 						size="small"
 						style="filled"
 					/>

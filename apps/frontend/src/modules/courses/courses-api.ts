@@ -22,7 +22,7 @@ class CourseApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.COURSES, storage });
 	}
 
-	public async add(payload: AddCourseRequestDto): Promise<null> {
+	public async add(payload: AddCourseRequestDto): Promise<CourseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
 			{
@@ -33,7 +33,7 @@ class CourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<null>();
+		return await response.json<CourseDto>();
 	}
 	public async getAll(): Promise<CourseDto[]> {
 		const response = await this.load(

@@ -1,4 +1,3 @@
-import UdemyLogo from "~/assets/img/svg/udemy-logo.svg";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 
 import { DEFAULT_VENDORS_PAYLOAD } from "../../constants/constants.js";
@@ -23,7 +22,7 @@ const VendorsFilterForm: React.FC<Properties> = ({
 	return (
 		<>
 			<form onChange={handleToggleVendor}>
-				<VendorBadge control={control} logo={UdemyLogo} name="udemy" />
+				<VendorBadge control={control} name="udemy" />
 			</form>
 		</>
 	);
