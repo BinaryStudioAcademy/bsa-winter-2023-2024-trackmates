@@ -1,4 +1,9 @@
-import { type CourseDto } from "~/modules/courses/courses.js";
+import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
+import {
+	type AddCourseRequestDto,
+	type CourseDto,
+	actions as courseActions,
+} from "~/modules/courses/courses.js";
 
 import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
@@ -9,6 +14,15 @@ type Properties = {
 };
 
 const Courses: React.FC<Properties> = ({ courses, isNew }: Properties) => {
+	const dispatch = useAppDispatch();
+
+	const handleAddCourse = useCallback(
+		(payload: AddCourseRequestDto) => {
+			void dispatch(courseActions.add(payload));
+		},
+		[dispatch],
+	);
+
 	return (
 		<div className={styles["container"]}>
 			<h2 className={styles["title"]}>Courses</h2>
@@ -16,7 +30,11 @@ const Courses: React.FC<Properties> = ({ courses, isNew }: Properties) => {
 				{courses.map((course) => {
 					return (
 						<li className={styles["item"]} key={course.id}>
-							<Course course={course} isNew={isNew} />
+							<Course
+								course={course}
+								isNew={isNew}
+								onAddCourse={handleAddCourse}
+							/>
 						</li>
 					);
 				})}

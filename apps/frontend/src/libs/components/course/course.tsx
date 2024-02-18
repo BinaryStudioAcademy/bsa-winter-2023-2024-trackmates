@@ -1,9 +1,9 @@
 import { Button, Image } from "~/libs/components/components.js";
 import { VendorsLogoPath } from "~/libs/enums/enums.js";
-import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
+import { useCallback } from "~/libs/hooks/hooks.js";
 import {
+	type AddCourseRequestDto,
 	type CourseDto,
-	actions as courseActions,
 } from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";
@@ -11,21 +11,23 @@ import styles from "./styles.module.css";
 type Properties = {
 	course: CourseDto;
 	isNew?: boolean | undefined;
+	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
 };
 
-const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
-	const dispatch = useAppDispatch();
+const Course: React.FC<Properties> = ({
+	course,
+	isNew,
+	onAddCourse,
+}: Properties) => {
 	const { id, image, title, vendor } = course;
 	const source = VendorsLogoPath[vendor.key] || "";
 
 	const handleAddCourse = useCallback(() => {
-		void dispatch(
-			courseActions.add({
-				vendorCourseId: id,
-				vendorId: 1,
-			}),
-		);
-	}, [dispatch, id]);
+		onAddCourse?.({
+			vendorCourseId: id,
+			vendorId: vendor.id,
+		});
+	}, [onAddCourse, id, vendor.id]);
 
 	return (
 		<article className={styles["container"]}>

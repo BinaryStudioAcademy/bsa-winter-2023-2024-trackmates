@@ -11,5 +11,9 @@ const courseApi = new CourseApi({
 });
 
 export { courseApi };
-export { type CourseDto } from "./libs/types/types.js";
+export { AddCoursePayloadKey } from "./libs/enums/enums.js";
+export {
+	type AddCourseRequestDto,
+	type CourseDto,
+} from "./libs/types/types.js";
 export { actions, reducer } from "./slices/courses.js";

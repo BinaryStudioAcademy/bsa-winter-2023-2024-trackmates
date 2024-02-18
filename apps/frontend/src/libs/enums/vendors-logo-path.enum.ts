@@ -1,5 +1,7 @@
+import UdemyLogo from "~/assets/img/svg/udemy-logo.svg";
+
 const VendorsLogoPath: Record<string, string> = {
-	udemy: "/src/assets/img/svg/udemy-logo.svg",
+	udemy: UdemyLogo,
 } as const;
 
 export { VendorsLogoPath };

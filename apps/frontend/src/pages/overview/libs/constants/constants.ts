@@ -1,4 +1,4 @@
-import { AddCoursePayloadKey } from "~/modules/courses/libs/enums/enums.js";
+import { AddCoursePayloadKey } from "~/modules/courses/courses.js";
 
 const DEFAULT_VENDORS_PAYLOAD = {
 	[AddCoursePayloadKey.VENDORS.UDEMY]: true,

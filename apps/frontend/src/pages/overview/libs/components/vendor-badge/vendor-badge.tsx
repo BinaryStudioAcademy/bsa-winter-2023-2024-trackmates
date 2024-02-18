@@ -4,8 +4,8 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 
-import UdemyLogo from "~/assets/img/svg/udemy-logo.svg";
 import { Image } from "~/libs/components/components.js";
+import { VendorsLogoPath } from "~/libs/enums/enums.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
@@ -20,6 +20,7 @@ const VendorBadge = <T extends FieldValues>({
 	name,
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
+	const vendorLogo = VendorsLogoPath[name];
 
 	return (
 		<>
@@ -32,7 +33,7 @@ const VendorBadge = <T extends FieldValues>({
 					name={name}
 					type="checkbox"
 				/>
-				<Image alt={`Vendor ${name}`} src={UdemyLogo} />
+				{vendorLogo && <Image alt={`Vendor ${name}`} src={vendorLogo} />}
 			</label>
 		</>
 	);

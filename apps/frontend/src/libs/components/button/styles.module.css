@@ -49,15 +49,15 @@
 	border-color: var(--main-white);
 }
 
-.secondary.outlined {
-	color: var(--main-white);
-	background-color: transparent;
-}
-
 .secondary:hover {
 	color: var(--main-white);
 	background-color: var(--color-button);
 	border-color: var(--color-button);
+}
+
+.secondary.outlined {
+	color: var(--main-white);
+	background-color: transparent;
 }
 
 .secondary.outlined:hover {

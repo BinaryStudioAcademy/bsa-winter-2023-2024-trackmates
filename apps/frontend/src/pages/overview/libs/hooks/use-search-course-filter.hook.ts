@@ -1,7 +1,6 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
 import { useCallback, useReducer } from "~/libs/hooks/hooks.js";
-import { AddCoursePayloadKey } from "~/modules/courses/libs/enums/enums.js";
 
 type State = {
 	search: string;
@@ -15,7 +14,7 @@ const FilterAction = {
 
 const searchCourseFilterInitialState: State = {
 	search: "",
-	vendors: [AddCoursePayloadKey.VENDORS.UDEMY],
+	vendors: [],
 };
 
 const searchCourseFilterReducer = createReducer(
