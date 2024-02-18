@@ -45,7 +45,7 @@ class CourseService {
 		item: Record<string, unknown>,
 		vendor: VendorResponseDto,
 	): CourseDto {
-		const course = this.mapItemFields<keyof Omit<CourseDto, "vendor">>(
+		const course = this.mapItemFields<keyof Omit<CourseDto, "id" | "vendor">>(
 			item,
 			CourseFieldsMapping,
 		);
