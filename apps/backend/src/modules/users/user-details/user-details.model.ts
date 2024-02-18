@@ -5,11 +5,20 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
+import { FileModel } from "../../files/file.model.js";
 import { UserModel } from "../user.model.js";
 
 class UserDetailsModel extends AbstractModel {
 	public static relationMappings = () => {
 		return {
+			avatarFile: {
+				join: {
+					from: `${DatabaseTableName.USER_DETAILS}.avatarFileId`,
+					to: `${DatabaseTableName.FILES}.id`,
+				},
+				modelClass: FileModel,
+				relation: Model.HasOneRelation,
+			},
 			user: {
 				join: {
 					from: `${DatabaseTableName.USER_DETAILS}.userId`,
@@ -20,6 +29,10 @@ class UserDetailsModel extends AbstractModel {
 			},
 		};
 	};
+
+	public avatarFile?: FileModel;
+
+	public avatarFileId!: number;
 
 	public firstName!: string;
 

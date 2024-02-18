@@ -1,4 +1,3 @@
-import fastifyMultipart from "@fastify/multipart";
 import fastifyStatic from "@fastify/static";
 import swagger, { type StaticDocumentSpec } from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
@@ -13,7 +12,7 @@ import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type Token } from "~/libs/modules/token/token.js";
-import { authorization } from "~/libs/plugins/plugins.js";
+import { authorization, fileUpload } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
@@ -134,7 +133,7 @@ class BaseServerApplication implements ServerApplication {
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
-		await this.app.register(fastifyMultipart);
+		await this.app.register(fileUpload);
 	}
 
 	private async initServe(): Promise<void> {

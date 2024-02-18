@@ -1,5 +1,6 @@
 type AvatarUploadResponseDto = {
-	location: null | string;
+	contentType: string;
+	url: string;
 };
 
 export { type AvatarUploadResponseDto };

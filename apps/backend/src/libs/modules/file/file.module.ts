@@ -1,11 +1,10 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
-import { Readable } from "node:stream";
 
 import { type Config } from "../config/config.js";
-import { type S3 } from "./libs/types/types.js";
+import { type File } from "./libs/types/types.js";
 
-class BaseS3 implements S3 {
+class BaseFile implements File {
 	accessKeyId: string;
 	bucket: string;
 	region: string;
@@ -18,7 +17,7 @@ class BaseS3 implements S3 {
 		this.secretAccessKey = config.ENV.AWS_S3.AWS_SECRET_ACCESS_KEY;
 	}
 
-	async upload(file: Readable, fileName: string): Promise<null | string> {
+	async upload(file: Buffer, fileName: string): Promise<string> {
 		return await new Upload({
 			client: new S3Client({
 				credentials: {
@@ -35,8 +34,14 @@ class BaseS3 implements S3 {
 			},
 		})
 			.done()
-			.then((result) => result.Location ?? null);
+			.then((result) => {
+				if (result.Location) {
+					return result.Location;
+				}
+				//TODO
+				throw new Error("error");
+			});
 	}
 }
 
-export { BaseS3 };
+export { BaseFile };

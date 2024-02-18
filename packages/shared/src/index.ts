@@ -29,8 +29,8 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export {
 	type AvatarUploadResponseDto,
-	ProfileApiPath,
-} from "./modules/profile/profile.js";
+	FilesApiPath,
+} from "./modules/files/files.js";
 export {
 	type UserAuthResponseDto,
 	type UserGetAllItemResponseDto,

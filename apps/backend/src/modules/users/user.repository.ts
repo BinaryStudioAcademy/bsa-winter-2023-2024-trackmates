@@ -2,6 +2,7 @@ import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { RelationName } from "./libs/enums/enums.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserRepository implements Repository<UserEntity> {
@@ -13,6 +14,14 @@ class UserRepository implements Repository<UserEntity> {
 	) {
 		this.userModel = userModel;
 		this.userDetailsModel = userDetailsModel;
+	}
+
+	public async addAvatar(id: number, fileId: number): Promise<void> {
+		await this.userDetailsModel
+			.query()
+			.where("userId", id)
+			.patch({ avatarFileId: fileId })
+			.execute();
 	}
 
 	public async create(entity: UserEntity): Promise<UserEntity> {
@@ -35,6 +44,7 @@ class UserRepository implements Repository<UserEntity> {
 			.execute();
 
 		return UserEntity.initialize({
+			avatarUrl: "",
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
@@ -57,11 +67,14 @@ class UserRepository implements Repository<UserEntity> {
 	public async findAll(): Promise<UserEntity[]> {
 		const users = await this.userModel
 			.query()
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.execute();
 
 		return users.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -78,11 +91,14 @@ class UserRepository implements Repository<UserEntity> {
 		const user = await this.userModel
 			.query()
 			.findById(id)
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.execute();
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -99,11 +115,14 @@ class UserRepository implements Repository<UserEntity> {
 		const user = await this.userModel
 			.query()
 			.findOne({ email })
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.execute();
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,

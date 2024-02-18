@@ -26,3 +26,4 @@ export {
 } from "./libs/validation-schemas/validation-schemas.js";
 export { UserEntity } from "./user.entity.js";
 export { type UserService } from "./user.service.js";
+export { UserDetailsModel } from "./user-details/user-details.model.js";
