@@ -62,20 +62,6 @@ class UserService implements Service {
 		return await this.userRepository.getByEmail(email);
 	}
 
-	public async searchFriendsByName(
-		limit: number,
-		page: number,
-		value: string,
-	): Promise<UserAuthResponseDto[]> {
-		const friends = await this.userRepository.searchFriendsByName(
-			limit,
-			page,
-			value,
-		);
-
-		return friends.map((friend) => friend.toObject());
-	}
-
 	public update(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}

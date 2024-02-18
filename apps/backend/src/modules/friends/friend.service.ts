@@ -1,5 +1,6 @@
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 
+import { UserModel } from "../users/user.model.js";
 import {
 	FriendError,
 	FriendErrorMessage,
@@ -45,6 +46,14 @@ class FriendService {
 			friendRequest,
 			isAccepted,
 		});
+	}
+
+	public async searchFriendsByName(
+		limit: number,
+		page: number,
+		value: string,
+	): Promise<UserModel[]> {
+		return await this.friendRepository.searchFriendsByName(limit, page, value);
 	}
 
 	async sendFriendRequest(

@@ -1,1 +1,1 @@
-export { PaginationDefaultValue, UsersApiPath } from "shared";
+export { UsersApiPath } from "shared";

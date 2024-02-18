@@ -9,7 +9,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { FriendService } from "./friend.service.js";
-import { FriendsApiPath } from "./libs/enums/enums.js";
+import { FriendsApiPath, PaginationDefaultValue } from "./libs/enums/enums.js";
 import {
 	type FriendAddNewRequestDto,
 	type FriendReplyRequestDto,
@@ -48,6 +48,13 @@ import {
  *           $ref: "#/components/schemas/FriendRequest"
  *         user:
  *           $ref: "#/components/schemas/User"
+ *     UserWithFriendRelation:
+ *       type: object
+ *       properties:
+ *         user:
+ *           $ref: "#/components/schemas/User"
+ *         friendRequest:
+ *           $ref: "#/components/schemas/FriendRequest"
  */
 
 class FriendController extends BaseController {
@@ -89,6 +96,20 @@ class FriendController extends BaseController {
 				),
 			method: "POST",
 			path: FriendsApiPath.REPLY,
+		});
+		this.addRoute({
+			handler: (options) =>
+				this.searchFriendsByName(
+					options as APIHandlerOptions<{
+						body: {
+							limit?: number;
+							page?: number;
+							text: string;
+						};
+					}>,
+				),
+			method: "POST",
+			path: FriendsApiPath.SEARCH,
 		});
 	}
 
@@ -171,6 +192,66 @@ class FriendController extends BaseController {
 				isAccepted,
 				userId,
 			}),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friend/search:
+	 *    post:
+	 *      description: Search UserWithFriendRealtion by name
+	 *      requestBody:
+	 *        description: value and request limit and offset
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                limit:
+	 *                  type: number
+	 *                page:
+	 *                  type: number
+	 *                text:
+	 *                  type: string
+	 *              required:
+	 *                - text
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/UserWithFriendRelation"
+	 */
+	private async searchFriendsByName(
+		options: APIHandlerOptions<{
+			body: {
+				limit?: number;
+				page?: number;
+				text: string;
+			};
+		}>,
+	): Promise<APIHandlerResponse> {
+		const {
+			limit = PaginationDefaultValue.DEFAULT_LIMIT,
+			page = PaginationDefaultValue.DEFAULT_OFFSET,
+			text,
+		} = options.body;
+
+		const friends = await this.friendService.searchFriendsByName(
+			limit,
+			page,
+			text,
+		);
+
+		return {
+			payload: friends,
 			status: HTTPCode.OK,
 		};
 	}

@@ -3,4 +3,5 @@ export {
 	FriendErrorMessage,
 	FriendsApiPath,
 	HTTPCode,
+	PaginationDefaultValue,
 } from "shared";

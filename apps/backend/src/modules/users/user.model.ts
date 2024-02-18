@@ -5,11 +5,28 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
+import { FriendModel } from "../friends/friend.model.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserModel extends AbstractModel {
 	public static relationMappings = () => {
 		return {
+			recipientUser: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					to: `${DatabaseTableName.FRIENDS}.recipientUserId`,
+				},
+				modelClass: FriendModel,
+				relation: Model.HasManyRelation,
+			},
+			senderUser: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					to: `${DatabaseTableName.FRIENDS}.senderUserId`,
+				},
+				modelClass: FriendModel,
+				relation: Model.HasManyRelation,
+			},
 			userDetails: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
@@ -22,6 +39,8 @@ class UserModel extends AbstractModel {
 	};
 
 	public email!: string;
+
+	public friendModel!: FriendModel[];
 
 	public passwordHash!: string;
 

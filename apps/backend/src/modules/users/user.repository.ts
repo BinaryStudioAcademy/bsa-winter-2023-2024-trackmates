@@ -116,43 +116,6 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async searchFriendsByName(
-		limit: number,
-		page: number,
-		value: string,
-	): Promise<UserEntity[]> {
-		let query = this.userModel
-			.query()
-			.withGraphJoined("userDetails")
-			.select("*");
-
-		if (value) {
-			query = query
-				.whereRaw("LOWER(user_details.first_name) LIKE ?", [
-					`%${value.toLowerCase()}%`,
-				])
-				.orWhereRaw("LOWER(user_details.last_name) LIKE ?", [
-					`%${value.toLowerCase()}%`,
-				])
-				.distinct();
-		}
-
-		const users = await query.offset(page).limit(limit).execute();
-
-		return users.map((user) =>
-			UserEntity.initialize({
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				updatedAt: user.updatedAt,
-			}),
-		);
-	}
-
 	public update(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}

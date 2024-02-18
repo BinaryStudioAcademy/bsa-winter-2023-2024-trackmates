@@ -1,4 +1,4 @@
-import { Model } from "objection";
+import { Model, Modifiers, QueryBuilder } from "objection";
 
 import {
 	AbstractModel,
@@ -32,6 +32,18 @@ class FriendModel extends AbstractModel {
 	public isInvitationAccepted!: boolean;
 	public recipientUserId!: number;
 	public senderUserId!: number;
+
+	public static override get modifiers(): Modifiers<QueryBuilder<FriendModel>> {
+		return {
+			getIdWithStatus(builder): QueryBuilder<FriendModel> {
+				return builder.select(
+					"senderUserId",
+					"recipientUserId",
+					"isInvitationAccepted",
+				);
+			},
+		};
+	}
 
 	public static override get tableName(): string {
 		return DatabaseTableName.FRIENDS;
