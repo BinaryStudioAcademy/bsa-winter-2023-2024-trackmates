@@ -6,5 +6,6 @@
 }
 
 .friend-item {
+	display: flex;
 	list-style: none;
 }

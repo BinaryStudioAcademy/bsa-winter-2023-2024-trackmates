@@ -1,6 +1,8 @@
 .actions {
 	display: flex;
+	flex: 1;
 	gap: 24px;
+	align-items: center;
 	padding: 12px;
 	background-color: var(--color-menu);
 }
@@ -15,6 +17,8 @@
 }
 
 .card {
+	display: flex;
+	flex-direction: column;
 	overflow: hidden;
 	border-radius: 12px;
 	box-shadow: 0 0 5px rgba(0 0 0 / 10%);
