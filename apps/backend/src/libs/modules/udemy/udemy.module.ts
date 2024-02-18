@@ -1,6 +1,7 @@
+import { ApplicationError } from "~/libs/exceptions/exceptions.js";
+
 import { ContentType, type HTTP, HTTPHeader } from "../http/http.js";
 import {
-	CourseDetailsField,
 	CourseField,
 	UdemyDefaultSearchParameter,
 } from "./libs/enums/enums.js";
@@ -50,19 +51,21 @@ class Udemy {
 		});
 	}
 
-	public async getCourseDetails(id: number): Promise<Response> {
+	public async getCourseById(id: number): Promise<Record<string, unknown>> {
 		const query = {
-			"fields[course]": Object.values(CourseDetailsField).join(","),
+			"fields[course]": Object.values(CourseField).join(","),
 		};
 
-		return await this.load(`${this.baseUrl}${id}`, query);
+		return await this.load(`${this.baseUrl}${id}`, query)
+			.then((result) => result.json())
+			.then((course) => course as Record<string, unknown>);
 	}
 
 	public async getCourses({
 		page = UdemyDefaultSearchParameter.PAGE,
 		pageSize = UdemyDefaultSearchParameter.PAGE_SIZE,
 		search,
-	}: SearchParameters = {}): Promise<Response> {
+	}: SearchParameters): Promise<Record<string, unknown>[]> {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
 			page,
@@ -73,7 +76,15 @@ class Udemy {
 			query["search"] = search;
 		}
 
-		return await this.load(this.baseUrl, query);
+		const result = await this.load(this.baseUrl, query).then(
+			async (result) => (await result.json()) as Record<"results", unknown>,
+		);
+
+		if (!result.results) {
+			throw new ApplicationError({ message: "Wrong response from Udemy API" });
+		}
+
+		return result.results as Record<string, unknown>[];
 	}
 }
 

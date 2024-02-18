@@ -43,6 +43,9 @@ class BaseDatabase implements Database {
 				max: this.appConfig.ENV.DB.POOL_MAX,
 				min: this.appConfig.ENV.DB.POOL_MIN,
 			},
+			seeds: {
+				directory: "src/db/seeds",
+			},
 			...knexSnakeCaseMappers({ underscoreBetweenUppercaseLetters: true }),
 		};
 	}

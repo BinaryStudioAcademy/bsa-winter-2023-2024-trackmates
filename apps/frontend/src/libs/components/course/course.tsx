@@ -1,5 +1,5 @@
-import UdemyLogo from "~/assets/img/svg/udemy-logo.svg";
 import { Button, Image } from "~/libs/components/components.js";
+import { VendorsLogoPath } from "~/libs/enums/enums.js";
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type CourseDto,
@@ -15,7 +15,8 @@ type Properties = {
 
 const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { id, image, title } = course;
+	const { id, imageSmall, title, vendor } = course;
+	const source = VendorsLogoPath[vendor.key] || "";
 
 	const handleAddCourse = useCallback(() => {
 		void dispatch(
@@ -30,10 +31,10 @@ const Course: React.FC<Properties> = ({ course, isNew }: Properties) => {
 		<article className={styles["container"]}>
 			<div className={styles["content"]}>
 				<div className={styles["source-container"]}>
-					<Image alt="Course source logo" src={UdemyLogo} />
+					<Image alt="Course source logo" src={source} />
 				</div>
 				<div className={styles["image-container"]}>
-					<Image alt="Course" src={image} />
+					<Image alt="Course" src={imageSmall} />
 				</div>
 				<div className={styles["info-container"]}>
 					<h2 className={styles["title"]}>{title}</h2>

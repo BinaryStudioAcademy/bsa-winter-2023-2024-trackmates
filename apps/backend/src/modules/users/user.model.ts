@@ -5,11 +5,24 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
+import { CourseModel } from "../courses/course.model.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserModel extends AbstractModel {
 	public static relationMappings = () => {
 		return {
+			courses: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					through: {
+						from: `${DatabaseTableName.COURSES_TO_USERS}.userId`,
+						to: `${DatabaseTableName.COURSES_TO_USERS}.courseId`,
+					},
+					to: `${DatabaseTableName.COURSES}.id`,
+				},
+				modelClass: CourseModel,
+				relation: Model.ManyToManyRelation,
+			},
 			userDetails: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,

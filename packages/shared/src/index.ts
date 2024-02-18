@@ -5,7 +5,11 @@ export {
 	ExceptionMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
-export { HTTPError, ValidationError } from "./libs/exceptions/exceptions.js";
+export {
+	ApplicationError,
+	HTTPError,
+	ValidationError,
+} from "./libs/exceptions/exceptions.js";
 export { configureString, configureUrl } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
@@ -45,3 +49,7 @@ export {
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
+export {
+	type VendorResponseDto,
+	VendorsApiPath,
+} from "./modules/vendors/vendors.js";

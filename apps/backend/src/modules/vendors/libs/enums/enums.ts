@@ -1,0 +1,1 @@
+export { VendorsApiPath } from "shared";
