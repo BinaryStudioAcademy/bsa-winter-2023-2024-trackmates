@@ -96,6 +96,14 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			OPENAI: {
+				API_KEY: {
+					default: null,
+					doc: "OpenAI API key",
+					env: "OPENAI_API_KEY",
+					format: String,
+				},
+			},
 			UDEMY: {
 				CLIENT_ID: {
 					default: null,

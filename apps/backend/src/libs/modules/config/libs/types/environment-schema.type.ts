@@ -18,6 +18,9 @@ type EnvironmentSchema = {
 		EXPIRES_IN: string;
 		SECRET: string;
 	};
+	OPENAI: {
+		API_KEY: string;
+	};
 	UDEMY: {
 		CLIENT_ID: string;
 		CLIENT_SECRET: string;
