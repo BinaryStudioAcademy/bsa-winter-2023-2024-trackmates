@@ -1,10 +1,14 @@
-import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { type VendorResponseDto } from "~/modules/vendors/vendors.js";
 
+import {
+	getDefaultVendors,
+	getVendorsFromForm,
+} from "../../helpers/helpers.js";
 import { VendorBadge } from "../vendor-badge/vendor-badge.js";
 
 type Properties = {
-	onVendorsChange: (vendors: Record<string, boolean>) => void;
+	onVendorsChange: (vendors: string[]) => void;
 	vendors: VendorResponseDto[];
 };
 
@@ -13,23 +17,17 @@ const VendorsFilterForm: React.FC<Properties> = ({
 	vendors,
 }: Properties) => {
 	const { control, watch } = useAppForm({
-		defaultValues: Object.fromEntries(
-			vendors.map((vendor) => [vendor.key, true]),
-		),
+		defaultValues: getDefaultVendors(vendors),
 		mode: "onChange",
 	});
 
-	const handleToggleVendor = useCallback(() => {
-		onVendorsChange(watch());
+	const handleChangeVendor = useCallback(() => {
+		onVendorsChange(getVendorsFromForm(watch()));
 	}, [onVendorsChange, watch]);
-
-	useEffect(() => {
-		handleToggleVendor();
-	}, [handleToggleVendor]);
 
 	return (
 		<>
-			<form onChange={handleToggleVendor}>
+			<form onChange={handleChangeVendor}>
 				{vendors.map((vendor) => (
 					<VendorBadge control={control} key={vendor.id} name={vendor.key} />
 				))}

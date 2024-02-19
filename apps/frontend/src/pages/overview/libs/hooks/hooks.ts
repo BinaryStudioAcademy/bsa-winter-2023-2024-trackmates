@@ -1,1 +1,1 @@
-export { useSearchCourseFilter } from "./use-search-course-filter.hook.js";
+export { useSearchCourse } from "./use-search-course.hook.js";

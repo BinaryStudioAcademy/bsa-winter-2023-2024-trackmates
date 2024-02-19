@@ -20,7 +20,7 @@ const VendorBadge = <T extends FieldValues>({
 	name,
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
-	const vendorLogo = VendorsLogoPath[name];
+	const vendorLogo = VendorsLogoPath[name] || "";
 
 	return (
 		<>
@@ -33,7 +33,7 @@ const VendorBadge = <T extends FieldValues>({
 					name={name}
 					type="checkbox"
 				/>
-				{vendorLogo && <Image alt={`Vendor ${name}`} src={vendorLogo} />}
+				<Image alt={name} src={vendorLogo} />
 			</label>
 		</>
 	);

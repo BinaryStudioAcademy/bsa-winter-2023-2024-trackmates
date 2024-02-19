@@ -29,7 +29,7 @@ const Courses: React.FC<Properties> = ({ courses, isNew }: Properties) => {
 			<ul className={styles["list"]}>
 				{courses.map((course) => {
 					return (
-						<li className={styles["item"]} key={course.id}>
+						<li className={styles["item"]} key={course.vendorCourseId}>
 							<Course
 								course={course}
 								isNew={isNew}
