@@ -1,5 +1,5 @@
 const FriendsApiPath = {
-	GET_POTENTIAL_FRIEND: "/get-potential-friend",
+	GET_POTENTIAL_FRIENDS: "/get-potential-friends",
 	REPLY: "/reply",
 	REQUEST: "/request",
 	ROOT: "/",

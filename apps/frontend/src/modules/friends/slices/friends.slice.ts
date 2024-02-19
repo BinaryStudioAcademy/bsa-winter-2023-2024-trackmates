@@ -68,7 +68,7 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(sendRequest.fulfilled, (state, action) => {
 			state.friends = [...state.friends, action.payload];
 			state.potentialFriends = state.potentialFriends.filter((friend) => {
-				return friend.id === action.payload.recipientUserId;
+				return friend.id !== action.payload.recipientUserId;
 			});
 			state.dataStatus = DataStatus.FULFILLED;
 		});
