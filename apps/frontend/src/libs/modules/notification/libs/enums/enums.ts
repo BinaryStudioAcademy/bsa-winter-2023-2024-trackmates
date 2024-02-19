@@ -1,2 +1,2 @@
-export { NotificationMessages } from "./notification-messages.enum.js";
+export { NotificationMessage } from "./notification-message.enum.js";
 export { NotificationType } from "./notification-type.enum.js";
