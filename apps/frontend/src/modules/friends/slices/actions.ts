@@ -1,74 +1,61 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
+import {
+	type AsyncThunkConfig,
+	type FriendResponseDto,
+} from "~/libs/types/types.js";
 
 import {
 	type FriendAddNewRequestDto,
 	type FriendAddNewResponseDto,
-	type FriendResponseDto,
+	type FriendReplyResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./friends.slice.js";
 
 const loadAll = createAsyncThunk<
-	{ currentUserId: number | undefined; friends: FriendResponseDto[] },
+	FriendResponseDto[],
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/load-all`, async (_, { extra, getState }) => {
+>(`${sliceName}/load-all`, (_, { extra }) => {
 	const { friendsApi } = extra;
-	const { auth } = getState();
-	const userId = (auth.user as UserAuthResponseDto).id;
 
-	const friends = await friendsApi.getAll();
-	return {
-		currentUserId: userId,
-		friends,
-	};
+	return friendsApi.getAll();
 });
 
 const sendRequest = createAsyncThunk<
-	{ currentUserId: number | undefined; friendRequest: FriendAddNewResponseDto },
+	FriendAddNewResponseDto,
 	FriendAddNewRequestDto,
 	AsyncThunkConfig
->(
-	`${sliceName}/send-request`,
-	async (sendRequestPayload, { extra, getState }) => {
-		const { friendsApi } = extra;
-		const { auth } = getState();
-		const userId = (auth.user as UserAuthResponseDto).id;
+>(`${sliceName}/send-request`, (sendRequestPayload, { extra }) => {
+	const { friendsApi } = extra;
 
-		const friendRequest = await friendsApi.sendRequest(sendRequestPayload);
-		return {
-			currentUserId: userId,
-			friendRequest,
-		};
-	},
-);
+	return friendsApi.sendRequest(sendRequestPayload);
+});
 
-const acceptRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
-	`${sliceName}/accept-request`,
-	async (acceptRequestPayload, { extra }) => {
-		const { friendsApi } = extra;
+const acceptRequest = createAsyncThunk<
+	FriendReplyResponseDto,
+	number,
+	AsyncThunkConfig
+>(`${sliceName}/accept-request`, (acceptRequestPayload, { extra }) => {
+	const { friendsApi } = extra;
 
-		const acceptedResponse = await friendsApi.replyToRequest({
-			id: acceptRequestPayload,
-			isAccepted: true,
-		});
-		return acceptedResponse.id;
-	},
-);
+	return friendsApi.replyToRequest({
+		id: acceptRequestPayload,
+		isAccepted: true,
+	});
+});
 
-const denyRequest = createAsyncThunk<number, number, AsyncThunkConfig>(
-	`${sliceName}/deny-request`,
-	async (denyRequestPayload, { extra }) => {
-		const { friendsApi } = extra;
+const denyRequest = createAsyncThunk<
+	FriendReplyResponseDto,
+	number,
+	AsyncThunkConfig
+>(`${sliceName}/deny-request`, (denyRequestPayload, { extra }) => {
+	const { friendsApi } = extra;
 
-		const denyResponse = await friendsApi.replyToRequest({
-			id: denyRequestPayload,
-			isAccepted: true,
-		});
-		return denyResponse.id;
-	},
-);
+	return friendsApi.replyToRequest({
+		id: denyRequestPayload,
+		isAccepted: false,
+	});
+});
 
 export { acceptRequest, denyRequest, loadAll, sendRequest };

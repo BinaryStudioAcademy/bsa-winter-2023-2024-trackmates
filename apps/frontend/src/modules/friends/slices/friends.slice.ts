@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus, FriendStatus } from "~/libs/enums/enums.js";
-import { type FriendDto, type ValueOf } from "~/libs/types/types.js";
+import { DataStatus } from "~/libs/enums/enums.js";
+import { type FriendResponseDto, type ValueOf } from "~/libs/types/types.js";
 
-import { transformFriend } from "../libs/helpers/helpers.js";
 import { acceptRequest, denyRequest, loadAll, sendRequest } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	friends: FriendDto[];
+	friends: FriendResponseDto[];
 };
 
 const initialState: State = {
@@ -19,8 +18,8 @@ const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(acceptRequest.fulfilled, (state, action) => {
 			state.friends = state.friends.map((friend) => {
-				if (friend.id === action.payload) {
-					friend.status = FriendStatus.FRIEND;
+				if (friend.id === action.payload.id) {
+					friend.isInvitationAccepted = true;
 				}
 				return friend;
 			});
@@ -34,7 +33,9 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(denyRequest.fulfilled, (state, action) => {
-			state.friends = state.friends.filter(({ id }) => id !== action.payload);
+			state.friends = state.friends.filter(
+				({ id }) => id !== action.payload.id,
+			);
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(denyRequest.pending, (state) => {
@@ -48,10 +49,7 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(loadAll.fulfilled, (state, action) => {
-			const { currentUserId, friends } = action.payload;
-
-			state.friends = friends.map(transformFriend(currentUserId as number));
-
+			state.friends = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadAll.rejected, (state) => {
@@ -59,16 +57,7 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(sendRequest.fulfilled, (state, action) => {
-			const { currentUserId, friendRequest } = action.payload;
-
-			if (!currentUserId) {
-				return state;
-			}
-
-			state.friends = [
-				...state.friends,
-				transformFriend(currentUserId)(friendRequest),
-			];
+			state.friends = [...state.friends, action.payload];
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(sendRequest.pending, (state) => {

@@ -7,11 +7,6 @@
 	background-color: var(--color-menu);
 }
 
-.actions-invited {
-	flex-direction: column;
-	gap: 16px;
-}
-
 .button {
 	flex: 1;
 }
