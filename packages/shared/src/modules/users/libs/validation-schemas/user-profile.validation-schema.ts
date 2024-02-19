@@ -7,15 +7,31 @@ type UserProfileRequestValidationDto = {
 	lastName: z.ZodString;
 };
 
-const userProfile = z
-	.object<UserProfileRequestValidationDto>({
-		firstName: z.string().trim().min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
-			message: UserValidationMessage.FIELD_REQUIRE,
+const userProfile = z.object<UserProfileRequestValidationDto>({
+	firstName: z
+		.string()
+		.trim()
+		.min(UserValidationRule.FIRSTNAME_MINIMUM_LENGTH, {
+			message: UserValidationMessage.FIRSTNAME_MIN_LENGTH,
+		})
+		.max(UserValidationRule.FIRSTNAME_MAX_LENGTH, {
+			message: UserValidationMessage.FIRSTNAME_MAX_LENGTH,
+		})
+		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{2,16}(?<!['-])$/, {
+			message: UserValidationMessage.FIRSTNAME_INVALID_FORMAT,
 		}),
-		lastName: z.string().trim().min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
-			message: UserValidationMessage.FIELD_REQUIRE,
+	lastName: z
+		.string()
+		.trim()
+		.min(UserValidationRule.LASTNAME_MINIMUM_LENGTH, {
+			message: UserValidationMessage.LASTNAME_MIN_LENGTH,
+		})
+		.max(UserValidationRule.LASTNAME_MAX_LENGTH, {
+			message: UserValidationMessage.LASTNAME_MAX_LENGTH,
+		})
+		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{3,25}(?<!['-])$/, {
+			message: UserValidationMessage.LASTNAME_INVALID_FORMAT,
 		}),
-	})
-	.required();
+});
 
 export { userProfile };
