@@ -18,6 +18,7 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { FilesContentType } from "~/modules/files/files.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
@@ -133,7 +134,10 @@ class BaseServerApplication implements ServerApplication {
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
-		await this.app.register(fileUpload);
+
+		await this.app.register(fileUpload, {
+			allowedExtensions: [FilesContentType.JPEG, FilesContentType.PNG],
+		});
 	}
 
 	private async initServe(): Promise<void> {

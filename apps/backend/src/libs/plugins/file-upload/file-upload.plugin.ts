@@ -6,27 +6,33 @@ import { FilesContentType } from "~/modules/files/files.js";
 
 import { ValueOf } from "./libs/types/types.js";
 
-const fileUpload = fastifyPlugin(async (fastify) => {
-	fastify.decorate("uploadedFile", null);
+type Options = {
+	allowedExtensions: ValueOf<typeof FilesContentType>[];
+};
 
-	await fastify.register(fastifyMultipart);
+const fileUpload = fastifyPlugin<Options>(
+	async (fastify, { allowedExtensions }) => {
+		fastify.decorate("uploadedFile", null);
 
-	fastify.addHook(FastifyHook.PRE_HANDLER, async (request) => {
-		if (!request.isMultipart()) {
-			return;
-		}
+		await fastify.register(fastifyMultipart);
 
-		const data = await request.file();
+		fastify.addHook(FastifyHook.PRE_HANDLER, async (request) => {
+			if (!request.isMultipart()) {
+				return;
+			}
 
-		if (data && data.mimetype in Object.values(FilesContentType)) {
-			const buffer = await data.toBuffer();
-			request.uploadedFile = {
-				buffer,
-				contentType: data.mimetype as ValueOf<typeof FilesContentType>,
-				fileName: data.filename,
-			};
-		}
-	});
-});
+			const data = await request.file();
+
+			if (data && data.mimetype in allowedExtensions) {
+				const buffer = await data.toBuffer();
+				request.uploadedFile = {
+					buffer,
+					contentType: data.mimetype as ValueOf<typeof FilesContentType>,
+					fileName: data.filename,
+				};
+			}
+		});
+	},
+);
 
 export { fileUpload };
