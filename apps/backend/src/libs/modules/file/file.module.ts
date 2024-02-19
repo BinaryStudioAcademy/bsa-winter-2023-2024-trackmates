@@ -1,8 +1,15 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 
-import { ExceptionMessage, HTTPCode } from "./libs/enums/enums.js";
-import { HTTPError } from "./libs/exceptions/exceptions.js";
+import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
+import { HTTPError } from "~/libs/exceptions/exceptions.js";
+
+type Constructor = {
+	accessKeyId: string;
+	bucket: string;
+	region: string;
+	secretAccessKey: string;
+};
 
 class File {
 	accessKeyId: string;
@@ -10,16 +17,11 @@ class File {
 	region: string;
 	secretAccessKey: string;
 
-	constructor(config: {
-		accessKeyId: string;
-		bucket: string;
-		region: string;
-		secretAccessKey: string;
-	}) {
-		this.accessKeyId = config.accessKeyId;
-		this.bucket = config.bucket;
-		this.region = config.region;
-		this.secretAccessKey = config.secretAccessKey;
+	constructor({ accessKeyId, bucket, region, secretAccessKey }: Constructor) {
+		this.accessKeyId = accessKeyId;
+		this.bucket = bucket;
+		this.region = region;
+		this.secretAccessKey = secretAccessKey;
 	}
 
 	async upload(file: Buffer, fileName: string): Promise<string> {

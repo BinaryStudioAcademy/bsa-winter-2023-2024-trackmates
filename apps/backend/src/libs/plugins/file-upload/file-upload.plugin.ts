@@ -1,13 +1,11 @@
 import fastifyMultipart from "@fastify/multipart";
 import fastifyPlugin from "fastify-plugin";
 
-import { FastifyHook } from "~/libs/enums/enums.js";
-import { FilesContentType } from "~/modules/files/files.js";
-
-import { ValueOf } from "./libs/types/types.js";
+import { ContentType, FastifyHook } from "~/libs/enums/enums.js";
+import { ValueOf } from "~/libs/types/types.js";
 
 type Options = {
-	allowedExtensions: ValueOf<typeof FilesContentType>[];
+	allowedExtensions: ValueOf<typeof ContentType>[];
 };
 
 const fileUpload = fastifyPlugin<Options>(
@@ -25,14 +23,12 @@ const fileUpload = fastifyPlugin<Options>(
 
 			if (
 				data &&
-				allowedExtensions.includes(
-					data.mimetype as ValueOf<typeof FilesContentType>,
-				)
+				allowedExtensions.includes(data.mimetype as ValueOf<typeof ContentType>)
 			) {
 				const buffer = await data.toBuffer();
 				request.uploadedFile = {
 					buffer,
-					contentType: data.mimetype as ValueOf<typeof FilesContentType>,
+					contentType: data.mimetype as ValueOf<typeof ContentType>,
 					fileName: data.filename,
 				};
 			}

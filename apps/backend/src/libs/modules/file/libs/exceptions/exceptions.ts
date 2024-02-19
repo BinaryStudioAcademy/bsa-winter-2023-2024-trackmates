@@ -1,1 +1,0 @@
-export { HTTPError } from "shared";

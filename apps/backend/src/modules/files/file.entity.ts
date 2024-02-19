@@ -1,10 +1,10 @@
+import { ContentType } from "~/libs/enums/enums.js";
 import { type Entity } from "~/libs/types/types.js";
 
-import { FilesContentType } from "./libs/enums/files-content-type.enum.js";
 import { type ValueOf } from "./libs/types/types.js";
 
 class FileEntity implements Entity {
-	private contentType: ValueOf<typeof FilesContentType>;
+	private contentType: ValueOf<typeof ContentType>;
 
 	private createdAt: string;
 
@@ -21,7 +21,7 @@ class FileEntity implements Entity {
 		updatedAt,
 		url,
 	}: {
-		contentType: ValueOf<typeof FilesContentType>;
+		contentType: ValueOf<typeof ContentType>;
 		createdAt: string;
 		id: null | number;
 		updatedAt: string;
@@ -41,7 +41,7 @@ class FileEntity implements Entity {
 		updatedAt,
 		url,
 	}: {
-		contentType: ValueOf<typeof FilesContentType>;
+		contentType: ValueOf<typeof ContentType>;
 		createdAt: string;
 		id: null | number;
 		updatedAt: string;
@@ -60,7 +60,7 @@ class FileEntity implements Entity {
 		contentType,
 		url,
 	}: {
-		contentType: ValueOf<typeof FilesContentType>;
+		contentType: ValueOf<typeof ContentType>;
 		url: string;
 	}): FileEntity {
 		return new FileEntity({
@@ -73,7 +73,7 @@ class FileEntity implements Entity {
 	}
 
 	public toNewObject(): {
-		contentType: ValueOf<typeof FilesContentType>;
+		contentType: ValueOf<typeof ContentType>;
 		createdAt: string;
 		updatedAt: string;
 		url: string;
@@ -87,7 +87,7 @@ class FileEntity implements Entity {
 	}
 
 	public toObject(): {
-		contentType: ValueOf<typeof FilesContentType>;
+		contentType: ValueOf<typeof ContentType>;
 		createdAt: string;
 		id: number;
 		updatedAt: string;

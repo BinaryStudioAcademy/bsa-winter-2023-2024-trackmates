@@ -1,10 +1,9 @@
-import { type ValueOf } from "shared";
-
-import { FilesContentType } from "../enums/enums.js";
+import { ContentType } from "~/libs/enums/enums.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
 type UploadedFile = {
 	buffer: Buffer;
-	contentType: ValueOf<typeof FilesContentType>;
+	contentType: ValueOf<typeof ContentType>;
 	fileName: string;
 };
 

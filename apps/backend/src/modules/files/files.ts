@@ -12,5 +12,4 @@ const fileService = new FileService(file, fileRepository, userService);
 const fileController = new FileController(logger, fileService);
 
 export { fileController };
-export { FilesContentType } from "./libs/enums/enums.js";
 export { type UploadedFile } from "./libs/types/types.js";
