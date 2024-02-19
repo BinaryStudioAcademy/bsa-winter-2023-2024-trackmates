@@ -6,7 +6,7 @@
 	max-width: 253px;
 	margin-top: 141px;
 	margin-bottom: 68px;
-	color: #ffffff;
+	color: var(--main-white);
 }
 
 .title {
