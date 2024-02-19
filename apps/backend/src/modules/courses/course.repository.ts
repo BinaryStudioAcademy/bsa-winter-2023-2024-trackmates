@@ -3,6 +3,7 @@ import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
 import { Repository } from "~/libs/types/types.js";
 
 import { UserModel } from "../users/user.model.js";
+import { VendorEntity } from "../vendors/vendor.entity.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseModel } from "./course.model.js";
 
@@ -27,9 +28,11 @@ class CourseRepository implements Repository<CourseEntity> {
 			.for(userId)
 			.insert(courseEntity.toNewObject())
 			.returning("*")
+			.withGraphFetched("vendor")
+			.castTo<CourseModel>()
 			.execute();
 
-		return CourseEntity.initialize(courseModel as CourseModel);
+		return this.modelToEntity(courseModel);
 	}
 
 	private async createRelationWithUser(
@@ -54,6 +57,22 @@ class CourseRepository implements Repository<CourseEntity> {
 			.relate(course.id)
 			.returning("*")
 			.execute();
+	}
+
+	private modelToEntity(courseModel: CourseModel): CourseEntity {
+		return CourseEntity.initialize({
+			createdAt: courseModel.createdAt,
+			description: courseModel.description,
+			id: courseModel.id,
+			image: courseModel.image,
+			imageSmall: courseModel.imageSmall,
+			title: courseModel.title,
+			updatedAt: courseModel.updatedAt,
+			url: courseModel.url,
+			vendor: VendorEntity.initialize(courseModel.vendor),
+			vendorCourseId: courseModel.vendorCourseId,
+			vendorId: courseModel.vendorId,
+		});
 	}
 
 	public async addCourseToUser(
@@ -81,7 +100,7 @@ class CourseRepository implements Repository<CourseEntity> {
 			.returning("*")
 			.execute();
 
-		return CourseEntity.initialize(course);
+		return this.modelToEntity(course);
 	}
 
 	public delete(): Promise<boolean> {
@@ -102,7 +121,7 @@ class CourseRepository implements Repository<CourseEntity> {
 			.where("userId", userId)
 			.execute();
 
-		return courses.map((model) => CourseEntity.initialize(model));
+		return courses.map((model) => this.modelToEntity(model));
 	}
 
 	public async findByVendorCourseId(
@@ -110,9 +129,10 @@ class CourseRepository implements Repository<CourseEntity> {
 	): Promise<CourseEntity | null> {
 		const course = await this.courseModel
 			.query()
+			.withGraphFetched("vendor")
 			.findOne("vendorCourseId", vendorCourseId)
 			.execute();
-		return course ? CourseEntity.initialize(course) : null;
+		return course ? this.modelToEntity(course) : null;
 	}
 
 	public update(): Promise<CourseEntity | null> {

@@ -1,0 +1,1 @@
+export { UserCoursesApiPath } from "shared";

@@ -70,16 +70,12 @@ class VendorEntity implements Entity {
 	}
 
 	public toNewObject(): {
-		createdAt: string;
 		key: string;
 		name: string;
-		updatedAt: string;
 	} {
 		return {
-			createdAt: this.createdAt,
 			key: this.key,
 			name: this.name,
-			updatedAt: this.updatedAt,
 		};
 	}
 
