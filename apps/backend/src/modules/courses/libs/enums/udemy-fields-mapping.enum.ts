@@ -2,7 +2,7 @@ import { CourseField } from "~/libs/modules/udemy/udemy.js";
 
 import { CourseDto } from "../types/types.js";
 
-const CourseFieldsMapping: Record<
+const UdemyFieldsMapping: Record<
 	keyof Omit<CourseDto, "id" | "vendor">,
 	string
 > = {
@@ -14,4 +14,4 @@ const CourseFieldsMapping: Record<
 	vendorCourseId: CourseField["ID"] as string,
 } as const;
 
-export { CourseFieldsMapping };
+export { UdemyFieldsMapping };

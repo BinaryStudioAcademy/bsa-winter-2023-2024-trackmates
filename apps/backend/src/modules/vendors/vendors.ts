@@ -10,3 +10,5 @@ const vendorService = new VendorService({ vendorRepository });
 const vendorController = new VendorController(logger, vendorService);
 
 export { vendorController, vendorService };
+export { type VendorApi } from "./libs/types/types.js";
+export { type VendorService } from "./vendor.service.js";

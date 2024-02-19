@@ -1,10 +1,9 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
-import { type Udemy } from "~/libs/modules/udemy/udemy.js";
 
-import { VendorService } from "../vendors/vendor.service.js";
+import { type VendorApi, type VendorService } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
-import { CourseFieldsMapping } from "./libs/enums/enums.js";
+import { CourseFieldsMapping } from "./libs/types/types.js";
 import {
 	type CourseDto,
 	type CourseSearchRequestDto,
@@ -12,49 +11,55 @@ import {
 	type VendorResponseDto,
 } from "./libs/types/types.js";
 
+type CourseFieldForMap = keyof Omit<CourseDto, "id" | "vendor">;
+
 type Constructor = {
 	courseRepository: CourseRepository;
-	udemy: Udemy;
 	vendorService: VendorService;
-};
-
-type CourseFieldForMap = keyof Omit<CourseDto, "id" | "vendor">;
-//todo move
-const VendorsCourseMappings: Record<
-	string,
-	Record<CourseFieldForMap, string>
-> = {
-	udemy: CourseFieldsMapping, // todo rename UdemyCourseFieldsMapping
+	vendorsApiMap: Record<string, VendorApi>;
+	vendorsFieldsMappingMap: Record<string, CourseFieldsMapping>;
 };
 
 class CourseService {
 	private courseRepository: CourseRepository;
-	private udemy: Udemy;
 	private vendorService: VendorService;
+	private vendorsApiMap: Record<string, VendorApi>;
+	private vendorsFieldsMappingMap: Record<string, CourseFieldsMapping>;
 
-	public constructor({ courseRepository, udemy, vendorService }: Constructor) {
+	public constructor({
+		courseRepository,
+		vendorService,
+		vendorsApiMap,
+		vendorsFieldsMappingMap,
+	}: Constructor) {
 		this.courseRepository = courseRepository;
-		this.udemy = udemy;
+		this.vendorsApiMap = vendorsApiMap;
+		this.vendorsFieldsMappingMap = vendorsFieldsMappingMap;
 		this.vendorService = vendorService;
 	}
 
-	private async findAllByVendor(
-		parameters: CourseSearchRequestDto,
-		vendor: VendorResponseDto,
-	): Promise<CourseDto[]> {
-		const coursesVendorService = this.getCoursesVendorService(vendor);
-		const items = await coursesVendorService.getCourses(parameters);
-		return items.map((item) => this.mapVendorCourse(item, vendor));
+	private getVendorApi(vendorKey: string): VendorApi {
+		const vendorModule = this.vendorsApiMap[vendorKey];
+
+		if (!vendorModule) {
+			throw new ApplicationError({
+				message: `Not found api for vendor with key "${vendorKey}"`,
+			});
+		}
+
+		return vendorModule;
 	}
 
-	// todo create CourseVendorService
-	private getCoursesVendorService(vendor: VendorResponseDto): Udemy {
-		if (vendor.key === "udemy") {
-			return this.udemy;
+	private getVendorFieldsMapping(vendorKey: string): CourseFieldsMapping {
+		const vendorFieldsMapping = this.vendorsFieldsMappingMap[vendorKey];
+
+		if (!vendorFieldsMapping) {
+			throw new ApplicationError({
+				message: `Not found fields mapping for vendor with key "${vendorKey}"`,
+			});
 		}
-		throw new ApplicationError({
-			message: `Not found vendor with key "${vendor.key}"`,
-		});
+
+		return vendorFieldsMapping;
 	}
 
 	private mapItemFields<T extends string>(
@@ -77,7 +82,7 @@ class CourseService {
 	): CourseDto {
 		const course = this.mapItemFields<CourseFieldForMap>(
 			item,
-			VendorsCourseMappings[vendor.key] as Record<CourseFieldForMap, string>,
+			this.getVendorFieldsMapping(vendor.key),
 		);
 
 		return { ...course, vendor } as CourseDto;
@@ -98,11 +103,12 @@ class CourseService {
 				message: `Not found vendor with id "${vendorId}"`,
 			});
 		}
-		const coursesVendorService = this.getCoursesVendorService(vendor);
 
-		const item = await coursesVendorService.getCourseById(vendorCourseId);
+		const item = await this.getVendorApi(vendor.key).getCourseById(
+			vendorCourseId,
+		);
+
 		const course = this.mapVendorCourse(item, vendor);
-
 		const courseEntity = CourseEntity.initializeNew({
 			...course,
 			vendorId,
@@ -111,6 +117,15 @@ class CourseService {
 		await this.courseRepository.addCourseToUser(courseEntity, userId);
 
 		return course;
+	}
+
+	public async findAllByVendor(
+		parameters: CourseSearchRequestDto,
+		vendor: VendorResponseDto,
+	): Promise<CourseDto[]> {
+		const items = await this.getVendorApi(vendor.key).getCourses(parameters);
+
+		return items.map((item) => this.mapVendorCourse(item, vendor));
 	}
 
 	public async findAllByVendors(

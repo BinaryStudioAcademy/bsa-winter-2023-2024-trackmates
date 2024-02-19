@@ -1,3 +1,5 @@
+export { type CourseFieldsMapping } from "./course-fields-mapping.type.js";
+
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
