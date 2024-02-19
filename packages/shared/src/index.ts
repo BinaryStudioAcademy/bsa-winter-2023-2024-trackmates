@@ -36,7 +36,6 @@ export {
 	type FriendReplyRequestDto,
 	type FriendResponseDto,
 	FriendsApiPath,
-	PaginationDefaultValue,
 } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,

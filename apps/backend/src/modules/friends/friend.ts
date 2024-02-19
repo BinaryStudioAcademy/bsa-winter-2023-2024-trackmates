@@ -11,5 +11,3 @@ const friendService = new FriendService(friendRepository);
 const friendController = new FriendController(logger, friendService);
 
 export { friendController };
-export { friendService };
-export { type FriendService } from "./friend.service.js";

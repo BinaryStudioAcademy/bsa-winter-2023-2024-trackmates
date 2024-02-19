@@ -18,7 +18,6 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
-import { type FriendService } from "~/modules/friends/friend.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
@@ -34,7 +33,6 @@ type Constructor = {
 	database: Database;
 	logger: Logger;
 	services: {
-		friendService: FriendService;
 		userService: UserService;
 	};
 	title: string;
@@ -53,7 +51,6 @@ class BaseServerApplication implements ServerApplication {
 	private logger: Logger;
 
 	private services: {
-		friendService: FriendService;
 		userService: UserService;
 	};
 

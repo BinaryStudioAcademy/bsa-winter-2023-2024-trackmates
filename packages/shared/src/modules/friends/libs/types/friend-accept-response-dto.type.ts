@@ -1,7 +1,7 @@
 type FriendAcceptResponseDto = {
 	createdAt: string;
 	id: number;
-	isInvitationAccepted: boolean;
+	isInvitationAccepted: boolean | null;
 	recipientUserId: number;
 	senderUserId: number;
 	updatedAt: string;

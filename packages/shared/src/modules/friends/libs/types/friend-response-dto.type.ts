@@ -1,16 +1,20 @@
-import { type UserAuthResponseDto } from "src/modules/users/users.js";
-
-import { type FriendAcceptResponseDto } from "../../friends.js";
+import { FriendAcceptResponseDto } from "./friend-accept-response-dto.type.js";
 
 type FriendResponseDto = FriendAcceptResponseDto & {
 	recipientUser?: {
 		id: number;
-		userDetails: UserAuthResponseDto;
-	};
+		userDetails?: {
+			firstName: string;
+			lastName: string;
+		};
+	} | null;
 	senderUser?: {
 		id: number;
-		userDetails: UserAuthResponseDto;
-	};
+		userDetails?: {
+			firstName: string;
+			lastName: string;
+		};
+	} | null;
 };
 
 export { FriendResponseDto };

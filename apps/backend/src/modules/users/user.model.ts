@@ -40,11 +40,13 @@ class UserModel extends AbstractModel {
 
 	public email!: string;
 
-	public friendModel!: FriendModel[];
-
 	public passwordHash!: string;
 
 	public passwordSalt!: string;
+
+	public recipientUser!: FriendModel[];
+
+	public senderUser!: FriendModel[];
 
 	public userDetails!: UserDetailsModel;
 

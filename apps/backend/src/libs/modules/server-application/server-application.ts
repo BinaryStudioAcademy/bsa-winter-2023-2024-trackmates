@@ -4,7 +4,7 @@ import { logger } from "~/libs/modules/logger/logger.js";
 import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
 import { courseController } from "~/modules/courses/courses.js";
-import { friendController, friendService } from "~/modules/friends/friend.js";
+import { friendController } from "~/modules/friends/friend.js";
 import { userService } from "~/modules/users/users.js";
 
 import { BaseServerApplication } from "./base-server-application.js";
@@ -22,7 +22,7 @@ const serverApplication = new BaseServerApplication({
 	config,
 	database,
 	logger,
-	services: { friendService, userService },
+	services: { userService },
 	title: "TrackMates",
 	token,
 });

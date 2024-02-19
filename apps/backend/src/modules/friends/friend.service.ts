@@ -1,6 +1,8 @@
+import { UserAuthResponseDto } from "shared";
+
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 
-import { UserModel } from "../users/user.model.js";
+import { FriendEntity } from "./friend.entity.js";
 import {
 	FriendError,
 	FriendErrorMessage,
@@ -18,45 +20,7 @@ class FriendService {
 		this.friendRepository = friendRepository;
 	}
 
-	async getUserFriends(id: number): Promise<FriendResponseDto[]> {
-		return await this.friendRepository.getUserFriends(id);
-	}
-
-	async respondToRequest({
-		id,
-		isAccepted,
-		userId,
-	}: {
-		id: number;
-		isAccepted: boolean;
-		userId: number;
-	}): Promise<FriendAcceptResponseDto | number> {
-		const friendRequest =
-			await this.friendRepository.getFriendInvitationByRequestId(id);
-
-		if (!friendRequest || friendRequest.recipientUserId !== userId) {
-			// if you try delete not your request you will get error too
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
-		}
-
-		return await this.friendRepository.respondToRequest({
-			friendRequest,
-			isAccepted,
-		});
-	}
-
-	public async searchFriendsByName(
-		limit: number,
-		page: number,
-		value: string,
-	): Promise<UserModel[]> {
-		return await this.friendRepository.searchFriendsByName(limit, page, value);
-	}
-
-	async sendFriendRequest(
+	async createFriendRequest(
 		id: number,
 		receiverUserId: number,
 	): Promise<FriendAcceptResponseDto | null> {
@@ -80,7 +44,64 @@ class FriendService {
 			);
 		}
 
-		return await this.friendRepository.createFriendInvite(id, receiverUserId);
+		const friendRequest = await this.friendRepository.create(
+			FriendEntity.initializeNew({
+				recipientUser: null,
+				recipientUserId: receiverUserId,
+				senderUser: null,
+				senderUserId: id,
+			}),
+		);
+
+		return friendRequest.toObject();
+	}
+
+	async getPotentialFriends(id: number): Promise<UserAuthResponseDto[]> {
+		const friends = await this.friendRepository.getPotentialFriends(id);
+
+		return friends.map((friend) => friend.toObject());
+	}
+
+	async getUserFriends(id: number): Promise<FriendResponseDto[]> {
+		const friends = await this.friendRepository.getUserFriends(id);
+
+		return friends.map((friend) => friend.toObject());
+	}
+
+	async respondToFriendRequestt({
+		id,
+		isAccepted,
+		userId,
+	}: {
+		id: number;
+		isAccepted: boolean;
+		userId: number;
+	}): Promise<FriendAcceptResponseDto | null> {
+		const friendRequest =
+			await this.friendRepository.getFriendInvitationByRequestId(id);
+
+		if (!friendRequest || friendRequest.recipientUserId !== userId) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		const updatedFriendRequest =
+			await this.friendRepository.respondToFriendRequest({
+				friendRequest,
+				isAccepted,
+			});
+
+		return updatedFriendRequest?.toObject() ?? null;
+	}
+
+	public async searchFriendsByName(
+		value: string,
+	): Promise<UserAuthResponseDto[]> {
+		const friends = await this.friendRepository.searchFriendsByName(value);
+
+		return friends.map((friend) => friend.toObject());
 	}
 }
 
