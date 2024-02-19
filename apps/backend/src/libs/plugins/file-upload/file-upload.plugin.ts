@@ -23,7 +23,12 @@ const fileUpload = fastifyPlugin<Options>(
 
 			const data = await request.file();
 
-			if (data && data.mimetype in allowedExtensions) {
+			if (
+				data &&
+				allowedExtensions.includes(
+					data.mimetype as ValueOf<typeof FilesContentType>,
+				)
+			) {
 				const buffer = await data.toBuffer();
 				request.uploadedFile = {
 					buffer,
