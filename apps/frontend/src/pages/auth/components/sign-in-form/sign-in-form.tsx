@@ -49,6 +49,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				errors={errors}
 				label="Email"
 				name="email"
+				placeholder="email@example.com"
 				type="text"
 			/>
 			<div className={styles["password-input"]}>
@@ -59,6 +60,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					errors={errors}
 					label="Password"
 					name="password"
+					placeholder="••••••••"
 					type={isPasswordVisible ? "text" : "password"}
 				/>
 				<Button
