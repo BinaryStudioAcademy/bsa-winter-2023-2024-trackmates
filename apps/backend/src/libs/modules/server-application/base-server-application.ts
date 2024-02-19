@@ -7,6 +7,7 @@ import { fileURLToPath } from "node:url";
 
 import { ContentType, ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
+import { getSizeInMb } from "~/libs/helpers/helpers.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
@@ -133,9 +134,10 @@ class BaseServerApplication implements ServerApplication {
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
-
+		const sizeInMB = 5;
 		await this.app.register(fileUpload, {
 			allowedExtensions: [ContentType.JPEG, ContentType.PNG],
+			fileSize: getSizeInMb(sizeInMB),
 		});
 	}
 

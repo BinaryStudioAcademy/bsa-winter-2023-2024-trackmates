@@ -6,13 +6,16 @@ import { ValueOf } from "~/libs/types/types.js";
 
 type Options = {
 	allowedExtensions: ValueOf<typeof ContentType>[];
+	fileSize: number;
 };
 
 const fileUpload = fastifyPlugin<Options>(
-	async (fastify, { allowedExtensions }) => {
+	async (fastify, { allowedExtensions, fileSize }) => {
 		fastify.decorate("uploadedFile", null);
 
-		await fastify.register(fastifyMultipart);
+		await fastify.register(fastifyMultipart, {
+			limits: { fileSize },
+		});
 
 		fastify.addHook(FastifyHook.PRE_HANDLER, async (request) => {
 			if (!request.isMultipart()) {
