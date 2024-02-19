@@ -1,4 +1,4 @@
-import { UploadButton } from "~/libs/components/components.js";
+import { Image, UploadButton } from "~/libs/components/components.js";
 import { useCallback, useRef } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
@@ -23,7 +23,7 @@ const Avatar: React.FC<Properties> = ({
 	return (
 		<div className={styles["avatar"]}>
 			{selectedFile ? (
-				<img
+				<Image
 					alt="Selected file"
 					className={styles["avatarImage"]}
 					src={URL.createObjectURL(selectedFile)}
