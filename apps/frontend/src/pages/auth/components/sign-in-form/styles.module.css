@@ -54,6 +54,7 @@
 	.form {
 		max-width: unset;
 		padding: 0 30px;
+		margin-top: 0;
 	}
 
 	.button {
