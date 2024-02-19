@@ -8,6 +8,7 @@ import {
 	useCallback,
 	useParams,
 } from "~/libs/hooks/hooks.js";
+import { notification } from "~/libs/modules/notification/notification.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import {
 	type UserProfileRequestDto,
@@ -33,7 +34,9 @@ const Profile: React.FC = () => {
 				id: Number(userId),
 			};
 
-			void dispatch(authActions.updateProfile(payload));
+			void dispatch(authActions.updateProfile(payload)).then(() => {
+				notification.success("Your profile is updated");
+			});
 		},
 		[dispatch, userId],
 	);
