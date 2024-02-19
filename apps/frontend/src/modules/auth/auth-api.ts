@@ -72,10 +72,10 @@ class AuthApi extends BaseHTTPApi {
 		payload: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(AuthApiPath.PROFILE, {}),
+			this.getFullEndpoint(`${AuthApiPath.PROFILE}/${payload.id}`, {}),
 			{
 				contentType: ContentType.JSON,
-				hasAuth: false,
+				hasAuth: true,
 				method: "PUT",
 				payload: JSON.stringify(payload),
 			},

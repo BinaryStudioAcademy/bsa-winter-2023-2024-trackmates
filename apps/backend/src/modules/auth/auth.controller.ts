@@ -71,7 +71,7 @@ class AuthController extends BaseController {
 					}>,
 				),
 			method: "PUT",
-			path: AuthApiPath.PROFILE,
+			path: `${AuthApiPath.PROFILE}/:id`,
 			validation: {
 				body: userProfileValidationSchema,
 			},
