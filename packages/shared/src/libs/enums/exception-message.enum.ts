@@ -2,6 +2,7 @@ const ExceptionMessage = {
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
 	INCORRECT_CREDENTIALS: "Incorrect credentials.",
 	INVALID_TOKEN: "Token is invalid.",
+	NO_FILE_PRESENTED: "No file presented or format is uncorrect.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",
 	UNKNOWN_ERROR: "Unknown error occurred.",
