@@ -1,5 +1,4 @@
 import { Image } from "~/libs/components/components.js";
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
 import styles from "./styles.module.css";
 
@@ -25,7 +24,7 @@ const Friend: React.FC<Properties> = ({
 				<p className={styles["fullName"]}>{fullName}</p>
 			</div>
 
-			<div className={getValidClassNames(styles["actions"])}>{children}</div>
+			<div className={styles["actions"]}>{children}</div>
 		</article>
 	);
 };

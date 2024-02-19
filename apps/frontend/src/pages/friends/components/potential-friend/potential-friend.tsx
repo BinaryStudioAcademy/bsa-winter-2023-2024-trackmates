@@ -1,7 +1,7 @@
 import { Button } from "~/libs/components/components.js";
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/friends/friends.js";
-import { UserAuthResponseDto } from "~/modules/users/users.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Friend } from "../friend/friend.js";
 import styles from "./styles.module.css";
