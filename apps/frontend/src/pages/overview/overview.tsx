@@ -3,14 +3,13 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
-	useCallback,
 	useEffect,
-	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 import { UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
+import { useAddCourseModal } from "./libs/hooks/hooks.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
@@ -20,18 +19,12 @@ const Overview: React.FC = () => {
 		user: state.auth.user,
 	}));
 	const dispatch = useAppDispatch();
-	const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
+	const { handleModalClose, handleModalOpen, isAddCourseModalOpen } =
+		useAddCourseModal();
 
 	useEffect(() => {
 		void dispatch(courseActions.loadAll());
 	}, [dispatch]);
-
-	const handleModalOpen = useCallback(() => {
-		setIsAddCourseModalOpen(true);
-	}, [setIsAddCourseModalOpen]);
-	const handleModalClose = useCallback(() => {
-		setIsAddCourseModalOpen(false);
-	}, [setIsAddCourseModalOpen]);
 
 	return (
 		<div className={styles["container"]}>
