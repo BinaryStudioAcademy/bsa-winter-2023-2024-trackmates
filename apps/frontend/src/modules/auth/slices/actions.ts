@@ -61,9 +61,33 @@ const updateProfile = createAsyncThunk<
 	UserProfileRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/profile`, async (profilePayload, { extra }) => {
-	const { authApi } = extra;
+	const { authApi, notification } = extra;
 
-	return await authApi.update(profilePayload);
+	const user = await authApi.update(profilePayload);
+
+	notification.success("Your profile has been updated");
+
+	return user;
 });
 
-export { getAuthenticatedUser, signIn, signUp, updateProfile };
+const updateUserAvatar = createAsyncThunk<
+	UserAuthResponseDto,
+	FormData,
+	AsyncThunkConfig
+>(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {
+	const { authApi, notification } = extra;
+
+	const user = await authApi.updateAvatar(payload);
+
+	notification.success("Your avatar has been successfully changed");
+
+	return user;
+});
+
+export {
+	getAuthenticatedUser,
+	signIn,
+	signUp,
+	updateProfile,
+	updateUserAvatar,
+};

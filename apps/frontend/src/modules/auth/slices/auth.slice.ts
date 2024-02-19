@@ -9,6 +9,7 @@ import {
 	signIn,
 	signUp,
 	updateProfile,
+	updateUserAvatar,
 } from "./actions.js";
 
 type State = {
@@ -64,6 +65,16 @@ const { actions, name, reducer } = createSlice({
 			state.user = { ...state.user, ...action.payload };
 		});
 		builder.addCase(updateProfile.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+		builder.addCase(updateUserAvatar.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(updateUserAvatar.fulfilled, (state, action) => {
+			state.dataStatus = DataStatus.FULFILLED;
+			state.user = action.payload;
+		});
+		builder.addCase(updateUserAvatar.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 	},

@@ -83,6 +83,20 @@ class AuthApi extends BaseHTTPApi {
 
 		return await response.json<UserAuthResponseDto>();
 	}
+
+	public async updateAvatar(payload: FormData): Promise<UserAuthResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.AVATAR, {}),
+			{
+				contentType: ContentType.FORM_DATA,
+				hasAuth: true,
+				method: "PUT",
+				payload,
+			},
+		);
+
+		return await response.json<UserAuthResponseDto>();
+	}
 }
 
 export { AuthApi };

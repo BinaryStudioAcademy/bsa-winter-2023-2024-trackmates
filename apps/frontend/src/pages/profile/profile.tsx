@@ -8,7 +8,6 @@ import {
 	useParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import { notification } from "~/libs/modules/notification/notification.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import {
 	type UserProfileRequestDto,
@@ -31,10 +30,16 @@ const Profile: React.FC = () => {
 
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>): void => {
-			const file = [...(event.target.files || [])].shift();
+			const [file] = event.target.files ?? [];
 			setSelectedFile(file ?? null);
+
+			if (file) {
+				const formData = new FormData();
+				formData.append("file", file);
+				void dispatch(authActions.updateUserAvatar(formData));
+			}
 		},
-		[],
+		[dispatch],
 	);
 
 	const onSubmit = useCallback(
@@ -44,9 +49,7 @@ const Profile: React.FC = () => {
 				id: Number(userId),
 			};
 
-			void dispatch(authActions.updateProfile(payload)).then(() => {
-				notification.success("Your profile has been updated");
-			});
+			void dispatch(authActions.updateProfile(payload));
 		},
 		[dispatch, userId],
 	);
