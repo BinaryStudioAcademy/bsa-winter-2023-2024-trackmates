@@ -4,9 +4,7 @@
 	flex-direction: column;
 	gap: 17px;
 	justify-content: center;
-	max-width: 1086px;
-	min-height: 685px;
-	padding: 15px 40px;
+	padding: 73px 41px 155px;
 	background-color: var(--color-background);
 }
 
@@ -38,6 +36,9 @@
 }
 
 .fieldset {
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
 	width: 280px;
 	padding: 0;
 	margin-top: 49px;
@@ -57,7 +58,13 @@
 
 .profile-character {
 	position: absolute;
-	bottom: -7.1%;
+	bottom: 8%;
 	left: 15%;
 	transform: translateY(-50%);
+}
+
+@media screen and (width <= 768px) {
+	.profile-character {
+		display: none;
+	}
 }

@@ -1,7 +1,8 @@
 type UserProfileRequestDto = {
 	country?: string | undefined;
-	fullName: string;
+	firstName: string;
 	id: number;
+	lastName: string;
 	location?: string | undefined;
 	timeZone?: string | undefined;
 };

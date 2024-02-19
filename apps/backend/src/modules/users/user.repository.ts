@@ -118,50 +118,27 @@ class UserRepository implements Repository<UserEntity> {
 	}
 
 	public async update(data: UserProfileRequestDto): Promise<UserEntity | null> {
-		const { fullName, id } = data;
-
 		const user = await this.userModel
 			.query()
-			.findById(id)
+			.findById(data.id)
 			.withGraphJoined("userDetails");
 
 		if (!user) {
 			return null;
 		}
 
-		const [firstName, ...lastNameArray] = fullName.split(" ");
-		const lastName = lastNameArray.join(" ");
-		const userDetailsPatch: Partial<UserDetailsModel> = {};
+		const updatedUser = await user.$query().patchAndFetch(data).execute();
 
-		if (firstName) {
-			userDetailsPatch.firstName = firstName;
-		}
-
-		if (lastName) {
-			userDetailsPatch.lastName = lastName;
-		}
-
-		await this.userDetailsModel
-			.query()
-			.findById(user.userDetails.id)
-			.patch(userDetailsPatch);
-
-		const updatedUser = await this.userModel
-			.query()
-			.findById(id)
-			.withGraphJoined("userDetails");
-		return updatedUser
-			? UserEntity.initialize({
-					createdAt: updatedUser.createdAt,
-					email: updatedUser.email,
-					firstName: updatedUser.userDetails.firstName,
-					id: updatedUser.id,
-					lastName: updatedUser.userDetails.lastName,
-					passwordHash: updatedUser.passwordHash,
-					passwordSalt: updatedUser.passwordSalt,
-					updatedAt: updatedUser.updatedAt,
-				})
-			: null;
+		return UserEntity.initialize({
+			createdAt: updatedUser.createdAt,
+			email: updatedUser.email,
+			firstName: updatedUser.userDetails.firstName,
+			id: updatedUser.id,
+			lastName: updatedUser.userDetails.lastName,
+			passwordHash: updatedUser.passwordHash,
+			passwordSalt: updatedUser.passwordSalt,
+			updatedAt: updatedUser.updatedAt,
+		});
 	}
 }
 

@@ -70,8 +70,16 @@ const Profile: React.FC = () => {
 							color="light"
 							control={control}
 							errors={errors}
-							label="Full Name"
-							name="fullName"
+							label="First Name"
+							name="firstName"
+							type="text"
+						/>
+						<Input
+							color="light"
+							control={control}
+							errors={errors}
+							label="Last Name"
+							name="lastName"
 							type="text"
 						/>
 					</fieldset>
