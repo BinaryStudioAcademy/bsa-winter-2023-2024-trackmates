@@ -40,10 +40,7 @@ export {
 	CoursesApiPath,
 } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
-export {
-	type GetUserCoursesResponseDto,
-	UserCoursesApiPath,
-} from "./modules/user-courses/users-courses.js";
+export { UserCoursesApiPath } from "./modules/user-courses/users-courses.js";
 export {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,

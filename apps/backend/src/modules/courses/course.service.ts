@@ -1,5 +1,6 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 
+import { UserCourseService } from "../user-courses/user-course.service.js";
 import { type VendorApi, type VendorService } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
@@ -15,6 +16,7 @@ type CourseFieldForMap = keyof Omit<CourseDto, "id" | "vendor">;
 
 type Constructor = {
 	courseRepository: CourseRepository;
+	userCourseService: UserCourseService;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
 	vendorsFieldsMappingMap: Record<string, CourseFieldsMapping>;
@@ -22,20 +24,34 @@ type Constructor = {
 
 class CourseService {
 	private courseRepository: CourseRepository;
+	private userCourseService: UserCourseService;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
 	private vendorsFieldsMappingMap: Record<string, CourseFieldsMapping>;
 
 	public constructor({
 		courseRepository,
+		userCourseService,
 		vendorService,
 		vendorsApiMap,
 		vendorsFieldsMappingMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
+		this.userCourseService = userCourseService;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorsFieldsMappingMap = vendorsFieldsMappingMap;
 		this.vendorService = vendorService;
+	}
+
+	private async filterCourses(
+		courses: CourseDto[],
+		userId: number,
+	): Promise<CourseDto[]> {
+		const userCoursesIds = await this.userCourseService
+			.findAllByUser(userId)
+			.then((courses) => courses.map(({ id }) => id));
+
+		return courses.filter(({ id }) => !userCoursesIds.includes(id));
 	}
 
 	private getVendorApi(vendorKey: string): VendorApi {
@@ -130,7 +146,7 @@ class CourseService {
 
 	public async findAllByVendors(
 		parameters: CourseSearchRequestDto,
-		// userId: number,
+		userId: number,
 	): Promise<CourseSearchResponseDto> {
 		const { vendors: vendorsKeys } = parameters;
 		const vendors = await this.vendorService.findAllByKeys(vendorsKeys);
@@ -141,14 +157,10 @@ class CourseService {
 			courses = [...courses, ...vendorCourses];
 		}
 
-		// courses = await this.filterCourses(courses, userId);
+		courses = await this.filterCourses(courses, userId);
 
 		return { courses };
 	}
-
-	// private filterCourses(courses: CourseDto[], userId: number): Promise<CourseDto[]> {
-	// 	return Promise.resolve(courses);
-	// }
 }
 
 export { CourseService };

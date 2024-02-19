@@ -35,8 +35,9 @@ class UserCourseController extends BaseController {
 	}: APIHandlerOptions<{
 		params: { userId: number };
 	}>): Promise<APIHandlerResponse> {
+		const courses = await this.userCourseService.findAllByUser(userId);
 		return {
-			payload: await this.userCourseService.findAllByUser(userId),
+			payload: { courses },
 			status: HTTPCode.OK,
 		};
 	}

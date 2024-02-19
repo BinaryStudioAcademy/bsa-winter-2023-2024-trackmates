@@ -14,4 +14,4 @@ const userCourseController = new UserCourseController(
 	userCourseService,
 );
 
-export { userCourseController };
+export { userCourseController, userCourseService };

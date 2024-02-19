@@ -25,7 +25,7 @@ class CourseController extends BaseController {
 
 		this.addRoute({
 			handler: (options) =>
-				this.findAllByVendor(
+				this.findAllByVendors(
 					options as APIHandlerOptions<{
 						query: CourseSearchRequestDto;
 						user: UserAuthResponseDto;
@@ -64,15 +64,15 @@ class CourseController extends BaseController {
 		};
 	}
 
-	private async findAllByVendor({
+	private async findAllByVendors({
 		query,
-		// user,
+		user,
 	}: APIHandlerOptions<{
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.findAllByVendors(query),
+			payload: await this.courseService.findAllByVendors(query, user.id),
 			status: HTTPCode.OK,
 		};
 	}
