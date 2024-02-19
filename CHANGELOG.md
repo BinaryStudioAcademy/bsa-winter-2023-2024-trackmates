@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.0.0...v1.0.1) (2024-02-19)
+
+
+### Bug Fixes
+
+* sign page scroll tm-115 ([#118](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/118)) ([f0255eb](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f0255eb50d5f0294069c781fc0253730bd2d9086))
+
 ## 1.0.0 (2024-02-18)
 
 
