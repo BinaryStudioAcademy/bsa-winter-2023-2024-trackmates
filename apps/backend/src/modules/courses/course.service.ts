@@ -148,8 +148,10 @@ class CourseService {
 		parameters: CourseSearchRequestDto,
 		userId: number,
 	): Promise<CourseSearchResponseDto> {
-		const { vendors: vendorsKeys } = parameters;
-		const vendors = await this.vendorService.findAllByKeys(vendorsKeys);
+		const { vendors: keysString } = parameters;
+		const vendors = keysString
+			? await this.vendorService.findAllByKeys(keysString.split(","))
+			: await this.vendorService.findAll();
 
 		let courses: CourseDto[] = [];
 		for (const vendor of vendors) {
