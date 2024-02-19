@@ -7,7 +7,7 @@ import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
-	type CourseSearchRequestDto,
+	type CourseSearchFilterDto,
 	type CourseSearchResponseDto,
 } from "./libs/types/types.js";
 
@@ -48,7 +48,7 @@ class CourseApi extends BaseHTTPApi {
 		return await response.json<CourseSearchResponseDto>();
 	}
 	public async search(
-		query: CourseSearchRequestDto,
+		filter: CourseSearchFilterDto,
 	): Promise<CourseSearchResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
@@ -56,7 +56,7 @@ class CourseApi extends BaseHTTPApi {
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
-				query,
+				query: filter,
 			},
 		);
 

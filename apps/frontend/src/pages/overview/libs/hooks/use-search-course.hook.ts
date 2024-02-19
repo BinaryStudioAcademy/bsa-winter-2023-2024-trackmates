@@ -8,7 +8,7 @@ import {
 	useReducer,
 } from "~/libs/hooks/hooks.js";
 import {
-	type CourseSearchRequestDto,
+	type CourseSearchFilterDto,
 	actions as courseActions,
 } from "~/modules/courses/courses.js";
 import {
@@ -18,7 +18,7 @@ import {
 
 import { SEARCH_COURSES_DELAY_MS } from "../constants/constants.js";
 
-type State = CourseSearchRequestDto;
+type State = CourseSearchFilterDto;
 
 const FilterAction = {
 	SET_SEARCH: createAction<State["search"]>("setSearch"),

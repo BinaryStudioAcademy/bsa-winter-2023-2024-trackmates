@@ -35,6 +35,7 @@ export {
 	AddCoursePayloadKey,
 	type AddCourseRequestDto,
 	type CourseDto,
+	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 	CoursesApiPath,
