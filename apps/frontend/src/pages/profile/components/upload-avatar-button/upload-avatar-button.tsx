@@ -1,11 +1,11 @@
-import { Button } from "~/libs/components/components.js";
+import { UploadButton } from "~/libs/components/components.js";
 import { useCallback, useRef } from "~/libs/hooks/hooks.js";
 
 type Properties = {
 	handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const UploadButton: React.FC<Properties> = ({
+const UploadAvatarButton: React.FC<Properties> = ({
 	handleFileChange,
 }: Properties) => {
 	const inputReference = useRef<HTMLInputElement>(null);
@@ -17,22 +17,14 @@ const UploadButton: React.FC<Properties> = ({
 	}, []);
 
 	return (
-		<Button
-			color="secondary"
+		<UploadButton
+			color="basic"
+			inputRef={inputReference}
 			label="Change the photo"
+			onChange={handleFileChange}
 			onClick={handleClick}
-			size="small"
-			type="button"
-		>
-			<input
-				accept={"image/*"}
-				hidden
-				onChange={handleFileChange}
-				ref={inputReference}
-				type="file"
-			/>
-		</Button>
+		/>
 	);
 };
 
-export { UploadButton };
+export { UploadAvatarButton };

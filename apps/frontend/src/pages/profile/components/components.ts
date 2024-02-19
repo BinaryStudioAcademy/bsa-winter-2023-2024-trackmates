@@ -1,2 +1,2 @@
 export { Avatar } from "./avatar/avatar.js";
-export { UploadButton } from "./upload-button/upload-button.js";
+export { UploadAvatarButton } from "./upload-avatar-button/upload-avatar-button.js";

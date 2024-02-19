@@ -1,3 +1,4 @@
+import { UploadButton } from "~/libs/components/components.js";
 import { useCallback, useRef } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
@@ -28,20 +29,13 @@ const Avatar: React.FC<Properties> = ({
 					src={URL.createObjectURL(selectedFile)}
 				/>
 			) : (
-				<button
-					className={styles["noImage"]}
+				<UploadButton
+					color="noImage"
+					inputRef={inputReference}
+					label="Upload image here"
+					onChange={handleFileChange}
 					onClick={handleClick}
-					type="button"
-				>
-					Upload image here
-					<input
-						accept={"image/*"}
-						hidden
-						onChange={handleFileChange}
-						ref={inputReference}
-						type="file"
-					/>
-				</button>
+				/>
 			)}
 		</div>
 	);

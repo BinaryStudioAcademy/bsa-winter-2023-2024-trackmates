@@ -15,7 +15,7 @@ import {
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
-import { Avatar, UploadButton } from "./components/components.js";
+import { Avatar, UploadAvatarButton } from "./components/components.js";
 import { DEFAULT_PROFILE_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
@@ -69,7 +69,7 @@ const Profile: React.FC = () => {
 							selectedFile={selectedFile}
 						/>
 						<div>
-							<UploadButton handleFileChange={handleFileChange} />
+							<UploadAvatarButton handleFileChange={handleFileChange} />
 						</div>
 					</div>
 					<div className={styles["profile-form"]}>
