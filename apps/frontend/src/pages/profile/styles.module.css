@@ -4,7 +4,7 @@
 	flex-direction: column;
 	gap: 17px;
 	justify-content: center;
-	padding: 73px 41px 155px;
+	padding: 33px 41px 155px;
 	background-color: var(--color-background);
 }
 
@@ -14,25 +14,25 @@
 	color: var(--color-text-300);
 }
 
-.profile-header {
+.profile-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 520px;
+	background-color: var(--main-white);
+	border-radius: 16px 16px 0 0;
+}
+
+.avatar-container {
 	display: flex;
 	gap: 50px;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
 	padding: 30px;
+	margin-bottom: 17px;
 	background-color: var(--color-menu);
 	border-radius: 16px;
-}
-
-.profile-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 520px;
-	background-color: var(--main-white);
-	border-radius: 16px 16px 0 0;
 }
 
 .fieldset {

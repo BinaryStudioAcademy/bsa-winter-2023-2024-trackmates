@@ -7,6 +7,7 @@ import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	children?: React.ReactNode;
 	className?: string | undefined;
 	color?: "basic" | "primary" | "secondary";
 	hasVisuallyHiddenLabel?: boolean;
@@ -20,6 +21,7 @@ type Properties = {
 };
 
 const Button: React.FC<Properties> = ({
+	children,
 	className,
 	color = "primary",
 	hasVisuallyHiddenLabel = false,
@@ -49,6 +51,7 @@ const Button: React.FC<Properties> = ({
 			{href ? (
 				<Link className={buttonStyles} to={href}>
 					{icon}
+					{children}
 					<span className={labelStyle}>{label}</span>
 				</Link>
 			) : (

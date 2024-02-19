@@ -1,12 +1,12 @@
 import profileCharacter from "~/assets/img/user-details-img.png";
 import { Button, Image, Input, Link } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useCallback,
 	useParams,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { notification } from "~/libs/modules/notification/notification.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
@@ -15,10 +15,12 @@ import {
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
+import { Avatar, UploadButton } from "./components/components.js";
 import { DEFAULT_PROFILE_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const { userId } = useParams<{ userId: string }>();
 	const dispatch = useAppDispatch();
 
@@ -26,6 +28,14 @@ const Profile: React.FC = () => {
 		defaultValues: DEFAULT_PROFILE_PAYLOAD,
 		validationSchema: userProfileValidationSchema,
 	});
+
+	const handleFileChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>): void => {
+			const file = [...(event.target.files || [])].shift();
+			setSelectedFile(file ?? null);
+		},
+		[],
+	);
 
 	const onSubmit = useCallback(
 		(formData: UserProfileRequestDto): void => {
@@ -52,40 +62,36 @@ const Profile: React.FC = () => {
 		<>
 			<div className={styles["container"]}>
 				<span className={styles["profile-title"]}>My profile</span>
-				<header className={styles["profile-header"]}>
-					<Image
-						alt="user avatar"
-						height="133"
-						shape="circle"
-						src={DEFAULT_USER_AVATAR}
-						width="133"
-					/>
-					<Button color="secondary" label="Change the photo" size="small" />
-				</header>
-				<form
-					className={styles["profile-form"]}
-					name="profile"
-					onSubmit={handleFormSubmit}
-				>
-					{" "}
-					<fieldset className={styles["fieldset"]}>
-						<Input
-							color="light"
-							control={control}
-							errors={errors}
-							label="First Name"
-							name="firstName"
-							type="text"
+				<form name="profile" onSubmit={handleFormSubmit}>
+					<div className={styles["avatar-container"]}>
+						<Avatar
+							handleFileChange={handleFileChange}
+							selectedFile={selectedFile}
 						/>
-						<Input
-							color="light"
-							control={control}
-							errors={errors}
-							label="Last Name"
-							name="lastName"
-							type="text"
-						/>
-					</fieldset>
+						<div>
+							<UploadButton handleFileChange={handleFileChange} />
+						</div>
+					</div>
+					<div className={styles["profile-form"]}>
+						<fieldset className={styles["fieldset"]}>
+							<Input
+								color="light"
+								control={control}
+								errors={errors}
+								label="First Name"
+								name="firstName"
+								type="text"
+							/>
+							<Input
+								color="light"
+								control={control}
+								errors={errors}
+								label="Last Name"
+								name="lastName"
+								type="text"
+							/>
+						</fieldset>
+					</div>
 					<Image
 						alt="profile character"
 						className={styles["profile-character"]}
