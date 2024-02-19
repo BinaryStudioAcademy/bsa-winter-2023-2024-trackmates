@@ -35,7 +35,7 @@ const Profile: React.FC = () => {
 			};
 
 			void dispatch(authActions.updateProfile(payload)).then(() => {
-				notification.success("Your profile is updated");
+				notification.success("Your profile has been updated");
 			});
 		},
 		[dispatch, userId],
