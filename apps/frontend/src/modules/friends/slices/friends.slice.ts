@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
-import {
-	NotificationMessage,
-	notification,
-} from "~/libs/modules/notification/notification.js";
 import { type FriendResponseDto, type ValueOf } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../../auth/auth.js";
@@ -30,7 +26,6 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(acceptRequest.fulfilled, (state, action) => {
-			notification.success(NotificationMessage.FRIEND_INVITE_ACCEPT_SUCCESS);
 			state.friends = state.friends.map((friend) => {
 				if (friend.id === action.payload.id) {
 					friend.isInvitationAccepted = true;
@@ -47,7 +42,6 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(denyRequest.fulfilled, (state, action) => {
-			notification.success(NotificationMessage.FRIEND_INVITE_DENY_SUCCESS);
 			state.friends = state.friends.filter(
 				({ id }) => id !== action.payload.id,
 			);
@@ -76,7 +70,6 @@ const { actions, name, reducer } = createSlice({
 			state.potentialFriends = state.potentialFriends.filter((friend) => {
 				return friend.id === action.payload.recipientUserId;
 			});
-			notification.success(NotificationMessage.FRIEND_REQUEST_SEND_SUCCESS);
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(sendRequest.pending, (state) => {

@@ -1,6 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
+	NotificationMessage,
+	notification,
+} from "~/libs/modules/notification/notification.js";
+import {
 	type AsyncThunkConfig,
 	type FriendResponseDto,
 } from "~/libs/types/types.js";
@@ -37,36 +41,48 @@ const sendRequest = createAsyncThunk<
 	FriendAddNewResponseDto,
 	FriendAddNewRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/send-request`, (sendRequestPayload, { extra }) => {
+>(`${sliceName}/send-request`, async (sendRequestPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.sendRequest(sendRequestPayload);
+	const response = await friendsApi.sendRequest(sendRequestPayload);
+
+	notification.success(NotificationMessage.FRIEND_REQUEST_SEND_SUCCESS);
+
+	return response;
 });
 
 const acceptRequest = createAsyncThunk<
 	FriendReplyResponseDto,
 	number,
 	AsyncThunkConfig
->(`${sliceName}/accept-request`, (acceptRequestPayload, { extra }) => {
+>(`${sliceName}/accept-request`, async (acceptRequestPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.replyToRequest({
+	const response = await friendsApi.replyToRequest({
 		id: acceptRequestPayload,
 		isAccepted: true,
 	});
+
+	notification.success(NotificationMessage.FRIEND_INVITE_ACCEPT_SUCCESS);
+
+	return response;
 });
 
 const denyRequest = createAsyncThunk<
 	FriendReplyResponseDto,
 	number,
 	AsyncThunkConfig
->(`${sliceName}/deny-request`, (denyRequestPayload, { extra }) => {
+>(`${sliceName}/deny-request`, async (denyRequestPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.replyToRequest({
+	const response = await friendsApi.replyToRequest({
 		id: denyRequestPayload,
 		isAccepted: false,
 	});
+
+	notification.success(NotificationMessage.FRIEND_INVITE_DENY_SUCCESS);
+
+	return response;
 });
 
 export {
