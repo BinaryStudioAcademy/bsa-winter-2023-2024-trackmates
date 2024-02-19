@@ -23,8 +23,10 @@ const Overview: React.FC = () => {
 		useAddCourseModal();
 
 	useEffect(() => {
-		void dispatch(courseActions.loadAll());
-	}, [dispatch]);
+		if (user) {
+			void dispatch(courseActions.loadAll(user.id));
+		}
+	}, [dispatch, user]);
 
 	return (
 		<div className={styles["container"]}>
@@ -35,7 +37,7 @@ const Overview: React.FC = () => {
 			{isLoading ? (
 				<Loader color="orange" size="large" />
 			) : (
-				<Courses courses={courses} />
+				<Courses courses={courses} title="Courses" />
 			)}
 
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}

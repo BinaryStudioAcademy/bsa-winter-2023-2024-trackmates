@@ -11,9 +11,14 @@ import styles from "./styles.module.css";
 type Properties = {
 	courses: CourseDto[];
 	isNew?: boolean;
+	title?: string;
 };
 
-const Courses: React.FC<Properties> = ({ courses, isNew }: Properties) => {
+const Courses: React.FC<Properties> = ({
+	courses,
+	isNew,
+	title,
+}: Properties) => {
 	const dispatch = useAppDispatch();
 
 	const handleAddCourse = useCallback(
@@ -25,7 +30,7 @@ const Courses: React.FC<Properties> = ({ courses, isNew }: Properties) => {
 
 	return (
 		<div className={styles["container"]}>
-			<h2 className={styles["title"]}>Courses</h2>
+			<h2 className={styles["title"]}>{title}</h2>
 			<ul className={styles["list"]}>
 				{courses.map((course) => {
 					return (

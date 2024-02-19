@@ -3,7 +3,7 @@ import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 
-import { CoursesApiPath } from "./libs/enums/enums.js";
+import { CoursesApiPath, UserCoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
@@ -19,12 +19,12 @@ type Constructor = {
 
 class CourseApi extends BaseHTTPApi {
 	public constructor({ baseUrl, http, storage }: Constructor) {
-		super({ baseUrl, http, path: APIPath.COURSES, storage });
+		super({ baseUrl, http, path: "", storage });
 	}
 
 	public async add(payload: AddCourseRequestDto): Promise<CourseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
+			this.getFullEndpoint(`${APIPath.COURSES}${CoursesApiPath.ROOT}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -35,9 +35,12 @@ class CourseApi extends BaseHTTPApi {
 
 		return await response.json<CourseDto>();
 	}
-	public async getAll(): Promise<CourseSearchResponseDto> {
+	public async getAll(id: number): Promise<CourseSearchResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
+			this.getFullEndpoint(
+				`${APIPath.USER_COURSES}${UserCoursesApiPath.ROOT}${id}`,
+				{},
+			),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -51,7 +54,7 @@ class CourseApi extends BaseHTTPApi {
 		filter: CourseSearchFilterDto,
 	): Promise<CourseSearchResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
+			this.getFullEndpoint(`${APIPath.COURSES}${CoursesApiPath.ROOT}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,

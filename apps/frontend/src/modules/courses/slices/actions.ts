@@ -25,12 +25,12 @@ const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 
 const loadAll = createAsyncThunk<
 	CourseSearchResponseDto,
-	undefined,
+	number,
 	AsyncThunkConfig
->(`${sliceName}/load-all`, (_, { extra }) => {
+>(`${sliceName}/load-all`, (userId, { extra }) => {
 	const { courseApi } = extra;
 
-	return courseApi.getAll();
+	return courseApi.getAll(userId);
 });
 
 const search = createAsyncThunk<
