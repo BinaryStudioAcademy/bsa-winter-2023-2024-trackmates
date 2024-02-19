@@ -4,7 +4,10 @@ import { type FileRepository } from "~/modules/files/file.repository.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { FileEntity } from "./file.entity.js";
-import { type AvatarUploadResponseDto } from "./libs/types/types.js";
+import {
+	type AvatarUploadResponseDto,
+	type UploadedFile,
+} from "./libs/types/types.js";
 
 class FileService implements Service {
 	private file: File;
@@ -38,11 +41,7 @@ class FileService implements Service {
 	}
 	async uploadAvatar(
 		userId: number,
-		uploadedFile: {
-			buffer: Buffer;
-			contentType: string;
-			fileName: string;
-		},
+		uploadedFile: UploadedFile,
 	): Promise<AvatarUploadResponseDto> {
 		const { buffer, contentType, fileName } = uploadedFile;
 		const url = await this.file.upload(buffer, fileName);

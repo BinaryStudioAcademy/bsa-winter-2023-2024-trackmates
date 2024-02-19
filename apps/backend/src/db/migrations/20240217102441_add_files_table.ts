@@ -35,7 +35,7 @@ function up(knex: Knex): Promise<void> {
 			table
 				.integer(DetailsColumnName.AVATAR_FILE_ID)
 				.unique()
-				.references("id")
+				.references(ColumnName.ID)
 				.inTable(TABLE_NAME);
 		});
 }

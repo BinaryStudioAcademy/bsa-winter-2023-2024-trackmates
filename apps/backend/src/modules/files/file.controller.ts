@@ -1,5 +1,3 @@
-import { UserAuthResponseDto } from "shared";
-
 import {
 	APIHandlerOptions,
 	type APIHandlerResponse,
@@ -10,7 +8,10 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type FileService } from "~/modules/files/file.service.js";
 
 import { APIPath, FilesApiPath } from "./libs/enums/enums.js";
-import { UploadedFile } from "./libs/types/types.js";
+import {
+	type UploadedFile,
+	type UserAuthResponseDto,
+} from "./libs/types/types.js";
 
 class FileController extends BaseController {
 	private fileService: FileService;
@@ -29,7 +30,7 @@ class FileController extends BaseController {
 					}>,
 				),
 			method: "POST",
-			path: FilesApiPath.UPLOAD,
+			path: FilesApiPath.UPLOAD_AVATAR,
 		});
 	}
 

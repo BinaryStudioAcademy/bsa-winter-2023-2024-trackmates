@@ -1,20 +1,25 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 
-import { type Config } from "../config/config.js";
-import { type File } from "./libs/types/types.js";
+import { ExceptionMessage, HTTPCode } from "./libs/enums/enums.js";
+import { HTTPError } from "./libs/exceptions/exceptions.js";
 
-class BaseFile implements File {
+class File {
 	accessKeyId: string;
 	bucket: string;
 	region: string;
 	secretAccessKey: string;
 
-	constructor(config: Config) {
-		this.accessKeyId = config.ENV.AWS_S3.AWS_ACCESS_KEY_ID;
-		this.bucket = config.ENV.AWS_S3.S3_BUCKET;
-		this.region = config.ENV.AWS_S3.S3_REGION;
-		this.secretAccessKey = config.ENV.AWS_S3.AWS_SECRET_ACCESS_KEY;
+	constructor(config: {
+		accessKeyId: string;
+		bucket: string;
+		region: string;
+		secretAccessKey: string;
+	}) {
+		this.accessKeyId = config.accessKeyId;
+		this.bucket = config.bucket;
+		this.region = config.region;
+		this.secretAccessKey = config.secretAccessKey;
 	}
 
 	async upload(file: Buffer, fileName: string): Promise<string> {
@@ -38,10 +43,12 @@ class BaseFile implements File {
 				if (result.Location) {
 					return result.Location;
 				}
-				//TODO
-				throw new Error("error");
+				throw new HTTPError({
+					message: ExceptionMessage.UNKNOWN_ERROR,
+					status: HTTPCode.INTERNAL_SERVER_ERROR,
+				});
 			});
 	}
 }
 
-export { BaseFile };
+export { File };

@@ -1,5 +1,5 @@
 const FilesApiPath = {
-	UPLOAD: "/upload-avatar",
+	UPLOAD_AVATAR: "/upload-avatar",
 } as const;
 
 export { FilesApiPath };
