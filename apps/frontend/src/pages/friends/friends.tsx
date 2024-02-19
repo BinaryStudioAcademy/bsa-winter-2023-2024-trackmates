@@ -1,30 +1,9 @@
 import { Tab, TabList, TabPanel, Tabs } from "~/libs/components/components.js";
-import {
-	useAppDispatch,
-	useAppSelector,
-	useEffect,
-	useMemo,
-} from "~/libs/hooks/hooks.js";
-import { actions } from "~/modules/friends/friends.js";
 
-import { Friend } from "./components/components.js";
+import { MyFriends, PotentialFriends } from "./components/components.js";
 import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
-	const { friends, user } = useAppSelector(({ auth, friends }) => ({
-		friends: friends.friends,
-		user: auth.user,
-	}));
-	const dispatch = useAppDispatch();
-
-	useEffect(() => {
-		void dispatch(actions.loadAll());
-	}, [dispatch]);
-
-	const friendsWithoutMyRequests = useMemo(() => {
-		return friends.filter((friend) => friend.senderUserId !== user?.id);
-	}, [friends, user?.id]);
-
 	return (
 		<Tabs className={styles["wrapper"]}>
 			<TabList className={styles["tab-list"]}>
@@ -41,15 +20,11 @@ const Friends: React.FC = () => {
 					My Friends
 				</Tab>
 			</TabList>
-			<TabPanel>Here will be a list of potential friends</TabPanel>
 			<TabPanel>
-				<ul className={styles["friends"]}>
-					{friendsWithoutMyRequests.map((friend) => (
-						<li className={styles["friend-item"]} key={friend.id}>
-							<Friend friend={friend} />
-						</li>
-					))}
-				</ul>
+				<PotentialFriends />
+			</TabPanel>
+			<TabPanel>
+				<MyFriends />
 			</TabPanel>
 		</Tabs>
 	);

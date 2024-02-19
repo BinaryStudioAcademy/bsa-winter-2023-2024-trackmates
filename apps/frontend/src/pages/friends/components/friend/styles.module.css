@@ -7,13 +7,10 @@
 	background-color: var(--color-menu);
 }
 
-.button {
-	flex: 1;
-}
-
 .card {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	overflow: hidden;
 	border-radius: 12px;
 	box-shadow: 0 0 5px rgba(0 0 0 / 10%);
@@ -27,10 +24,6 @@
 	font-size: var(--font-size-300);
 	font-weight: 500;
 	color: var(--color-text-300);
-}
-
-.info {
-	color: var(--main-white);
 }
 
 .portrait {

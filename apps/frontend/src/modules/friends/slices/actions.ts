@@ -5,12 +5,23 @@ import {
 	type FriendResponseDto,
 } from "~/libs/types/types.js";
 
+import { type UserAuthResponseDto } from "../../auth/auth.js";
 import {
 	type FriendAddNewRequestDto,
 	type FriendAddNewResponseDto,
 	type FriendReplyResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./friends.slice.js";
+
+const getPotentialFriends = createAsyncThunk<
+	UserAuthResponseDto[],
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/get-potential-friends`, (_, { extra }) => {
+	const { friendsApi } = extra;
+
+	return friendsApi.getAllPotentialFriends();
+});
 
 const loadAll = createAsyncThunk<
 	FriendResponseDto[],
@@ -19,7 +30,7 @@ const loadAll = createAsyncThunk<
 >(`${sliceName}/load-all`, (_, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getAll();
+	return friendsApi.getAllFriends();
 });
 
 const sendRequest = createAsyncThunk<
@@ -58,4 +69,10 @@ const denyRequest = createAsyncThunk<
 	});
 });
 
-export { acceptRequest, denyRequest, loadAll, sendRequest };
+export {
+	acceptRequest,
+	denyRequest,
+	getPotentialFriends,
+	loadAll,
+	sendRequest,
+};

@@ -4,6 +4,7 @@ import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 import { type FriendResponseDto } from "~/libs/types/types.js";
 
+import { type UserAuthResponseDto } from "../auth/auth.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import {
 	type FriendAddNewRequestDto,
@@ -23,7 +24,7 @@ class FriendsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.FRIENDS, storage });
 	}
 
-	public async getAll(): Promise<FriendResponseDto[]> {
+	public async getAllFriends(): Promise<FriendResponseDto[]> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.ROOT, {}),
 			{
@@ -33,6 +34,18 @@ class FriendsApi extends BaseHTTPApi {
 		);
 
 		return await response.json<FriendResponseDto[]>();
+	}
+
+	public async getAllPotentialFriends(): Promise<UserAuthResponseDto[]> {
+		const response = await this.load(
+			this.getFullEndpoint(FriendsApiPath.GET_POTENTIAL_FRIEND, {}),
+			{
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<UserAuthResponseDto[]>();
 	}
 
 	public async replyToRequest(

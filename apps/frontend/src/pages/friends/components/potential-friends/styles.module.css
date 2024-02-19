@@ -1,0 +1,11 @@
+.friends {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 16px;
+	padding: 0;
+}
+
+.friend-item {
+	display: flex;
+	list-style: none;
+}

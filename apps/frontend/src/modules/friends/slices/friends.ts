@@ -1,10 +1,17 @@
-import { acceptRequest, denyRequest, loadAll, sendRequest } from "./actions.js";
+import {
+	acceptRequest,
+	denyRequest,
+	getPotentialFriends,
+	loadAll,
+	sendRequest,
+} from "./actions.js";
 import { actions } from "./friends.slice.js";
 
 const allActions = {
 	...actions,
 	acceptRequest,
 	denyRequest,
+	getPotentialFriends,
 	loadAll,
 	sendRequest,
 };

@@ -1,17 +1,6 @@
 .wrapper {
+	min-height: 100vh;
 	padding: 16px;
-}
-
-.friends {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 16px;
-	padding: 0;
-}
-
-.friend-item {
-	display: flex;
-	list-style: none;
 }
 
 .tab-list {

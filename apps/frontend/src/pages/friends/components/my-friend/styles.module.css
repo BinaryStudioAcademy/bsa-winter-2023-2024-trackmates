@@ -1,0 +1,7 @@
+.button {
+	flex: 1;
+}
+
+.info {
+	color: var(--main-white);
+}
