@@ -69,7 +69,12 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					onClick={handleChangePasswordVisibility}
 				/>
 			</div>
-			<Button color="primary" label="Log in" type="submit" />
+			<Button
+				className={styles["button"]}
+				color="primary"
+				label="Log in"
+				type="submit"
+			/>
 		</form>
 	);
 };
