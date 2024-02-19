@@ -20,7 +20,7 @@ const UploadAvatarButton: React.FC<Properties> = ({
 		<UploadButton
 			color="basic"
 			inputRef={inputReference}
-			label="Change the photo"
+			label="Change photo"
 			onChange={handleFileChange}
 			onClick={handleClick}
 		/>
