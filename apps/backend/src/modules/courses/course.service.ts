@@ -123,7 +123,7 @@ class CourseService {
 		let courses: CourseDto[] = [];
 		for (const vendor of vendors) {
 			const vendorCourses = await this.findAllByVendor(parameters, vendor);
-			courses = { ...courses, ...vendorCourses };
+			courses = [...courses, ...vendorCourses];
 		}
 
 		// courses = await this.filterCourses(courses, userId);
