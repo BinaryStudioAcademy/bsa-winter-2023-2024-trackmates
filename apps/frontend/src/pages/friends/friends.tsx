@@ -1,3 +1,4 @@
+import { Tab, TabList, TabPanel, Tabs } from "~/libs/components/components.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -25,13 +26,32 @@ const Friends: React.FC = () => {
 	}, [friends, user?.id]);
 
 	return (
-		<ul className={styles["wrapper"]}>
-			{friendsWithoutMyRequests.map((friend) => (
-				<li className={styles["friend-item"]} key={friend.id}>
-					<Friend friend={friend} />
-				</li>
-			))}
-		</ul>
+		<Tabs className={styles["wrapper"]}>
+			<TabList className={styles["tab-list"]}>
+				<Tab
+					className={styles["tab"]}
+					selectedClassName={styles["tab--selected"]}
+				>
+					Find the friends
+				</Tab>
+				<Tab
+					className={styles["tab"]}
+					selectedClassName={styles["tab--selected"]}
+				>
+					My Friends
+				</Tab>
+			</TabList>
+			<TabPanel>Here will be a list of potential friends</TabPanel>
+			<TabPanel>
+				<ul className={styles["friends"]}>
+					{friendsWithoutMyRequests.map((friend) => (
+						<li className={styles["friend-item"]} key={friend.id}>
+							<Friend friend={friend} />
+						</li>
+					))}
+				</ul>
+			</TabPanel>
+		</Tabs>
 	);
 };
 
