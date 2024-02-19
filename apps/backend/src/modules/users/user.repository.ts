@@ -118,26 +118,40 @@ class UserRepository implements Repository<UserEntity> {
 	}
 
 	public async update(data: UserProfileRequestDto): Promise<UserEntity | null> {
-		const user = await this.userModel
-			.query()
-			.findById(data.id)
-			.withGraphJoined("userDetails");
+		const user = await this.userModel.query().findById(data.id).execute();
 
 		if (!user) {
 			return null;
 		}
 
-		const updatedUser = await user.$query().patchAndFetch(data).execute();
+		const updatedUserDetails = (await this.userDetailsModel
+			.query()
+			.patch({
+				firstName: data.firstName,
+				lastName: data.lastName,
+			})
+			.where({
+				userId: data.id,
+			})
+			.execute()
+			.then(() => {
+				return this.userDetailsModel
+					.query()
+					.findOne({
+						userId: data.id,
+					})
+					.execute();
+			})) as UserDetailsModel;
 
 		return UserEntity.initialize({
-			createdAt: updatedUser.createdAt,
-			email: updatedUser.email,
-			firstName: updatedUser.userDetails.firstName,
-			id: updatedUser.id,
-			lastName: updatedUser.userDetails.lastName,
-			passwordHash: updatedUser.passwordHash,
-			passwordSalt: updatedUser.passwordSalt,
-			updatedAt: updatedUser.updatedAt,
+			createdAt: user.createdAt,
+			email: user.email,
+			firstName: updatedUserDetails.firstName,
+			id: user.id,
+			lastName: updatedUserDetails.lastName,
+			passwordHash: user.passwordHash,
+			passwordSalt: user.passwordSalt,
+			updatedAt: user.updatedAt,
 		});
 	}
 }
