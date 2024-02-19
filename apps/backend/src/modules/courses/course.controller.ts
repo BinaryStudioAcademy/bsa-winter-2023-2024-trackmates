@@ -28,6 +28,7 @@ class CourseController extends BaseController {
 				this.findAllByVendor(
 					options as APIHandlerOptions<{
 						query: CourseSearchRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "GET",
@@ -65,11 +66,13 @@ class CourseController extends BaseController {
 
 	private async findAllByVendor({
 		query,
+		// user,
 	}: APIHandlerOptions<{
 		query: CourseSearchRequestDto;
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.findAllByVendor(query),
+			payload: await this.courseService.findAllByVendors(query),
 			status: HTTPCode.OK,
 		};
 	}

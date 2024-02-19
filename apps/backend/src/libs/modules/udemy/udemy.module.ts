@@ -51,7 +51,7 @@ class Udemy {
 		});
 	}
 
-	public async getCourseById(id: number): Promise<Record<string, unknown>> {
+	public async getCourseById(id: string): Promise<Record<string, unknown>> {
 		const query = {
 			"fields[course]": Object.values(CourseField).join(","),
 		};

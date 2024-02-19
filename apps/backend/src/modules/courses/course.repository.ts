@@ -1,3 +1,4 @@
+import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
 import { Repository } from "~/libs/types/types.js";
 
@@ -20,13 +21,15 @@ class CourseRepository implements Repository<CourseEntity> {
 	private async createCourseWithRelation(
 		courseEntity: CourseEntity,
 		userId: number,
-	) {
-		return await this.userModel
+	): Promise<CourseEntity> {
+		const courseModel = await this.userModel
 			.relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
 			.insert(courseEntity.toNewObject())
 			.returning("*")
 			.execute();
+
+		return CourseEntity.initialize(courseModel as CourseModel);
 	}
 
 	private async createRelationWithUser(
@@ -40,17 +43,23 @@ class CourseRepository implements Repository<CourseEntity> {
 			.findOne("vendorCourseId", course.vendorCourseId));
 
 		if (isCourseRelatedWithUser) {
-			throw new Error(`Course "${course.title}" was already added for user`);
+			throw new ApplicationError({
+				message: `Course "${course.title}" was already added for user`,
+			});
 		}
 
 		await this.userModel
 			.relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
 			.relate(course.id)
+			.returning("*")
 			.execute();
 	}
 
-	public async addCourseToUser(entity: CourseEntity, userId: number) {
+	public async addCourseToUser(
+		entity: CourseEntity,
+		userId: number,
+	): Promise<CourseEntity> {
 		const course = entity.toNewObject();
 		const existedCourseEntity = await this.findByVendorCourseId(
 			course.vendorCourseId,
@@ -85,6 +94,15 @@ class CourseRepository implements Repository<CourseEntity> {
 
 	public findAll(): Promise<CourseEntity[]> {
 		return Promise.resolve([]);
+	}
+
+	public async findByUserId(userId: number): Promise<CourseEntity[]> {
+		const courses = await this.courseModel
+			.query()
+			.where("userId", userId)
+			.execute();
+
+		return courses.map((model) => CourseEntity.initialize(model));
 	}
 
 	public async findByVendorCourseId(

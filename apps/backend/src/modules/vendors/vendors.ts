@@ -9,4 +9,4 @@ const vendorRepository = new VendorRepository(VendorModel);
 const vendorService = new VendorService({ vendorRepository });
 const vendorController = new VendorController(logger, vendorService);
 
-export { vendorController };
+export { vendorController, vendorService };
