@@ -1,6 +1,5 @@
-import { UserAuthResponseDto } from "shared";
-
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { FriendEntity } from "./friend.entity.js";
 import {
