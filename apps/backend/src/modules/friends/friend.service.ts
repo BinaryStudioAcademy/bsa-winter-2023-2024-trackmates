@@ -7,7 +7,7 @@ import {
 	FriendErrorMessage,
 	HTTPCode,
 } from "./libs/enums/enums.js";
-import { type FriendFollowSuccesResponseDto } from "./libs/types/types.js";
+import { type FriendFollowSuccessResponseDto } from "./libs/types/types.js";
 
 class FriendService {
 	private friendRepository: FriendRepository;
@@ -19,7 +19,7 @@ class FriendService {
 	async createSubscribe(
 		id: number,
 		receiverUserId: number,
-	): Promise<FriendFollowSuccesResponseDto | null> {
+	): Promise<FriendFollowSuccessResponseDto | null> {
 		if (id === receiverUserId) {
 			throw new FriendError(
 				FriendErrorMessage.SEND_REQUEST_TO_YOURSELF,
@@ -27,11 +27,10 @@ class FriendService {
 			);
 		}
 
-		const subscribeExist =
-			await this.friendRepository.getFriendInvitationByUserId(
-				id,
-				receiverUserId,
-			);
+		const subscribeExist = await this.friendRepository.getSubscribeByUserId(
+			id,
+			receiverUserId,
+		);
 
 		if (subscribeExist) {
 			throw new FriendError(
@@ -40,7 +39,7 @@ class FriendService {
 			);
 		}
 
-		const friendRequest = await this.friendRepository.create(
+		const subscription = await this.friendRepository.create(
 			FriendsEntity.initializeNew({
 				recipientUser: null,
 				recipientUserId: receiverUserId,
@@ -49,14 +48,14 @@ class FriendService {
 			}),
 		);
 
-		return friendRequest.toObject();
+		return subscription.toObject();
 	}
 
 	async deleteSubscribe(id: number, userId: number): Promise<boolean> {
-		const friendRequest =
-			await this.friendRepository.getFriendInvitationByRequestId(id);
+		const subscription =
+			await this.friendRepository.getSubscribeByRequestId(id);
 
-		if (!friendRequest || friendRequest.senderUserId !== userId) {
+		if (!subscription || subscription.senderUserId !== userId) {
 			throw new FriendError(
 				FriendErrorMessage.FRIEND_REQUEST_ERROR,
 				HTTPCode.BAD_REQUEST,
@@ -64,26 +63,26 @@ class FriendService {
 		}
 
 		return await this.friendRepository.deleteSubscribe({
-			friendRequest,
+			subscription,
 		});
 	}
 
 	async getPotentialFollowers(id: number): Promise<UserAuthResponseDto[]> {
-		const friends = await this.friendRepository.getPotentialFollowers(id);
+		const followers = await this.friendRepository.getPotentialFollowers(id);
 
-		return friends.map((friend) => friend.toObject());
+		return followers.map((user) => user.toObject());
 	}
 
 	async getUserFollowers(id: number): Promise<UserAuthResponseDto[]> {
-		const friends = await this.friendRepository.getUserFollowers(id);
+		const followers = await this.friendRepository.getUserFollowers(id);
 
-		return friends.map((friend) => friend.toObject());
+		return followers.map((user) => user.toObject());
 	}
 
 	async getUserFollowings(id: number): Promise<UserAuthResponseDto[]> {
-		const friends = await this.friendRepository.getUserFollowings(id);
+		const folowings = await this.friendRepository.getUserFollowings(id);
 
-		return friends.map((friend) => friend.toObject());
+		return folowings.map((user) => user.toObject());
 	}
 
 	public async searchUserByName({
@@ -95,13 +94,13 @@ class FriendService {
 		id: number;
 		value: string;
 	}): Promise<UserAuthResponseDto[]> {
-		const friends = await this.friendRepository.searchUserByName({
+		const users = await this.friendRepository.searchUserByName({
 			filter,
 			id,
 			value,
 		});
 
-		return friends.map((friend) => friend.toObject());
+		return users.map((user) => user.toObject());
 	}
 }
 

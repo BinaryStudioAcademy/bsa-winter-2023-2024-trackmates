@@ -1,4 +1,4 @@
-type FriendFollowSuccesResponseDto = {
+type FriendFollowSuccessResponseDto = {
 	createdAt: string;
 	id: number;
 	isFollowing: boolean | null;
@@ -7,4 +7,4 @@ type FriendFollowSuccesResponseDto = {
 	updatedAt: string;
 };
 
-export { type FriendFollowSuccesResponseDto };
+export { type FriendFollowSuccessResponseDto };

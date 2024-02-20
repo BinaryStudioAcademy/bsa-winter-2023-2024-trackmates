@@ -21,7 +21,7 @@ class FriendRepository implements Repository<FriendsEntity> {
 	public async create(entity: FriendsEntity): Promise<FriendsEntity> {
 		const { recipientUserId, senderUserId } = entity.toNewObject();
 
-		const friendRequest = await this.friendModel
+		const subscription = await this.friendModel
 			.query()
 			.insert({
 				recipientUserId,
@@ -31,14 +31,14 @@ class FriendRepository implements Repository<FriendsEntity> {
 			.execute();
 
 		return FriendsEntity.initialize({
-			createdAt: friendRequest.createdAt,
-			id: friendRequest.id,
-			isFollowing: friendRequest.isFollowing,
-			recipientUser: friendRequest.recipientUser ?? null,
-			recipientUserId: friendRequest.recipientUserId,
-			senderUser: friendRequest.senderUser ?? null,
-			senderUserId: friendRequest.senderUserId,
-			updatedAt: friendRequest.updatedAt,
+			createdAt: subscription.createdAt,
+			id: subscription.id,
+			isFollowing: subscription.isFollowing,
+			recipientUser: subscription.recipientUser ?? null,
+			recipientUserId: subscription.recipientUserId,
+			senderUser: subscription.senderUser ?? null,
+			senderUserId: subscription.senderUserId,
+			updatedAt: subscription.updatedAt,
 		});
 	}
 
@@ -47,15 +47,15 @@ class FriendRepository implements Repository<FriendsEntity> {
 	}
 
 	public async deleteSubscribe({
-		friendRequest,
+		subscription,
 	}: {
-		friendRequest: FriendsEntity;
+		subscription: FriendsEntity;
 	}): Promise<boolean> {
-		const deletedFriend = await this.friendModel
+		const deletedSubscribe = await this.friendModel
 			.query()
-			.deleteById(friendRequest.id as number);
+			.deleteById(subscription.id as number);
 
-		return deletedFriend ? true : false;
+		return deletedSubscribe ? true : false;
 	}
 
 	find(): Promise<null> {
@@ -65,30 +65,52 @@ class FriendRepository implements Repository<FriendsEntity> {
 		return Promise.resolve([]);
 	}
 
-	async getFriendInvitationByRequestId(
-		id: number,
-	): Promise<FriendsEntity | null> {
-		const friendRequest = await this.friendModel
+	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
+		const filteredFollowers = await this.userModel
+			.query()
+			.whereNot("users.id", id)
+			.withGraphJoined("userDetails")
+			.withGraphJoined("recipientUser")
+			.whereNotExists(
+				UserModel.relatedQuery("recipientUser").where("senderUserId", id),
+			);
+
+		return filteredFollowers.map((user) =>
+			UserEntity.initialize({
+				createdAt: user.createdAt,
+				email: user.email,
+				firstName: user.userDetails.firstName,
+				id: user.id,
+				lastName: user.userDetails.lastName,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				updatedAt: user.updatedAt,
+			}),
+		);
+	}
+
+	async getSubscribeByRequestId(id: number): Promise<FriendsEntity | null> {
+		const subscription = await this.friendModel
 			.query()
 			.findById(id)
 			.returning("*")
 			.execute();
 
-		return friendRequest
+		return subscription
 			? FriendsEntity.initialize({
-					createdAt: friendRequest.createdAt,
-					id: friendRequest.id,
-					isFollowing: friendRequest.isFollowing,
-					recipientUser: friendRequest.recipientUser ?? null,
-					recipientUserId: friendRequest.recipientUserId,
-					senderUser: friendRequest.senderUser ?? null,
-					senderUserId: friendRequest.senderUserId,
-					updatedAt: friendRequest.updatedAt,
+					createdAt: subscription.createdAt,
+					id: subscription.id,
+					isFollowing: subscription.isFollowing,
+					recipientUser: subscription.recipientUser ?? null,
+					recipientUserId: subscription.recipientUserId,
+					senderUser: subscription.senderUser ?? null,
+					senderUserId: subscription.senderUserId,
+					updatedAt: subscription.updatedAt,
 				})
 			: null;
 	}
 
-	public async getFriendInvitationByUserId(
+	public async getSubscribeByUserId(
 		id: number,
 		recipientUserId: number,
 	): Promise<FriendsEntity | null> {
@@ -112,30 +134,6 @@ class FriendRepository implements Repository<FriendsEntity> {
 					updatedAt: friendRequest.updatedAt,
 				})
 			: null;
-	}
-
-	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
-		const filteredFriends = await this.userModel
-			.query()
-			.whereNot("users.id", id)
-			.withGraphJoined("userDetails")
-			.withGraphJoined("recipientUser")
-			.whereNotExists(
-				UserModel.relatedQuery("recipientUser").where("senderUserId", id),
-			);
-
-		return filteredFriends.map((user) =>
-			UserEntity.initialize({
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				updatedAt: user.updatedAt,
-			}),
-		);
 	}
 
 	public async getUserFollowers(id: number): Promise<UserEntity[]> {

@@ -130,8 +130,8 @@ class FriendController extends BaseController {
 						query: {
 							filter: string;
 							text: string;
-							user: UserAuthResponseDto;
 						};
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "GET",
@@ -348,15 +348,16 @@ class FriendController extends BaseController {
 			query: {
 				filter: string;
 				text: string;
-				user: UserAuthResponseDto;
 			};
+			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		const { filter, text, user } = options.query;
+		const { filter, text } = options.query;
+		const { id } = options.user;
 
 		const friends = await this.friendService.searchUserByName({
 			filter,
-			id: user.id,
+			id,
 			value: text,
 		});
 
