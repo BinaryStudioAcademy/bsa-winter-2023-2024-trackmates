@@ -39,6 +39,7 @@ export {
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 	CoursesApiPath,
+	addCourseValidationSchema,
 } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export { UserCoursesApiPath } from "./modules/user-courses/users-courses.js";

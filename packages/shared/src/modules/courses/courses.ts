@@ -6,3 +6,4 @@ export {
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 } from "./libs/types/types.js";
+export { addCourse as addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";

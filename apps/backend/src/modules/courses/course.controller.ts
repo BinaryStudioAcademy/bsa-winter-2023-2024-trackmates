@@ -14,6 +14,7 @@ import {
 	AddCourseRequestDto,
 	CourseSearchRequestDto,
 } from "./libs/types/types.js";
+import { addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /*** @swagger
  * components:
@@ -71,6 +72,9 @@ class CourseController extends BaseController {
 				),
 			method: "POST",
 			path: CoursesApiPath.ROOT,
+			validation: {
+				body: addCourseValidationSchema,
+			},
 		});
 	}
 

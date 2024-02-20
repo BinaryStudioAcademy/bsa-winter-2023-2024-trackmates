@@ -1,0 +1,1 @@
+export { addCourseValidationSchema } from "shared";
