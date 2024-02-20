@@ -124,24 +124,21 @@ class UserRepository implements Repository<UserEntity> {
 			return null;
 		}
 
-		const updatedUserDetails = (await this.userDetailsModel
+		const userDetails = await this.userDetailsModel
 			.query()
-			.patch({
+			.findOne({ userId: data.id })
+			.execute();
+
+		if (!userDetails) {
+			return null;
+		}
+
+		const updatedUserDetails = await this.userDetailsModel
+			.query()
+			.patchAndFetchById(userDetails.id, {
 				firstName: data.firstName,
 				lastName: data.lastName,
-			})
-			.where({
-				userId: data.id,
-			})
-			.execute()
-			.then(() => {
-				return this.userDetailsModel
-					.query()
-					.findOne({
-						userId: data.id,
-					})
-					.execute();
-			})) as UserDetailsModel;
+			});
 
 		return UserEntity.initialize({
 			createdAt: user.createdAt,
