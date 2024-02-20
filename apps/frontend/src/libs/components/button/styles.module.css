@@ -48,15 +48,3 @@
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
-
-.success {
-	color: var(--color-success);
-	background-color: var(--main-white);
-	border-color: var(--main-white);
-}
-
-.danger {
-	color: var(--color-error);
-	background-color: var(--main-white);
-	border-color: var(--main-white);
-}
