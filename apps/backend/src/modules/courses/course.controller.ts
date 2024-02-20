@@ -15,6 +15,32 @@ import {
 	CourseSearchRequestDto,
 } from "./libs/types/types.js";
 
+/*** @swagger
+ * components:
+ *    schemas:
+ *      Course:
+ *        type: object
+ *        properties:
+ *          description:
+ *            type: string
+ *          id:
+ *            type: number
+ *            format: number
+ *            minimum: 1
+ *          image:
+ *            type: string
+ *          imageSmall:
+ *            type: string
+ *          title:
+ *            type: string
+ *          url:
+ *            type: string
+ *          vendor:
+ *            type: object
+ *            $ref: "#/components/schemas/Vendor"
+ *          vendorCourseId:
+ *            type: string
+ */
 class CourseController extends BaseController {
 	private courseService: CourseService;
 
@@ -48,6 +74,33 @@ class CourseController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /courses:
+	 *    post:
+	 *      description: Fetch course from vendor API and add for user in DB
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                vendorCourseId:
+	 *                  type: string
+	 *                vendorId:
+	 *                  type: number
+	 *                  format: number
+	 *                  minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
 	private async addCourse({
 		body,
 		user,
@@ -64,6 +117,39 @@ class CourseController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /courses:
+	 *    get:
+	 *      description: Return courses from vendors
+	 *      parameters:
+	 *        - name: page
+	 *          in: query
+	 *          type: number
+	 *        - name: pageSize
+	 *          in: query
+	 *          type: number
+	 *        - name: search
+	 *          in: query
+	 *          type: string
+	 *        - name: vendors
+	 *          in: query
+	 *          type: string
+	 *          description: keys of vendors separated by commas. Example - "udemy,coursera"
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Course"
+	 */
 	private async findAllByVendors({
 		query,
 		user,

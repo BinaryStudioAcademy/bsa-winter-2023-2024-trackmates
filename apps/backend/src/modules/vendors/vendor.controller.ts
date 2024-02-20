@@ -9,7 +9,8 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { VendorsApiPath } from "./libs/enums/enums.js";
 import { VendorService } from "./vendor.service.js";
 
-/*** @swagger
+/***
+ * @swagger
  * components:
  *    schemas:
  *      Vendor:
@@ -17,6 +18,8 @@ import { VendorService } from "./vendor.service.js";
  *        properties:
  *          id:
  *            type: number
+ *            format: number
+ *            minimum: 1
  *          key:
  *            type: string
  *          name:
@@ -39,7 +42,7 @@ class VendorController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /vendors/:
+	 * /vendors:
 	 *    get:
 	 *      description: Return vendors of courses
 	 *      responses:
@@ -48,11 +51,10 @@ class VendorController extends BaseController {
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  message:
-	 *                    type: object
-	 *                    $ref: "#/components/schemas/Vendor"
+	 *                type: array
+	 *                items:
+	 *                  type: object
+	 *                  $ref: "#/components/schemas/Vendor"
 	 */
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {

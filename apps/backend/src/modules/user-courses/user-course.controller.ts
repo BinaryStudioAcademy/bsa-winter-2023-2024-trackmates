@@ -30,6 +30,29 @@ class UserCourseController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /user-courses:
+	 *    get:
+	 *      description: Return all user courses
+	 *      parameters:
+	 *        - name: userId
+	 *          in: query
+	 *          type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Course"
+	 */
 	private async findAllByUser({
 		params: { userId },
 	}: APIHandlerOptions<{
