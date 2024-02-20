@@ -1,5 +1,6 @@
+import { RefObject } from "react";
+
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { RefObject } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
 
