@@ -2,7 +2,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { HTTPError } from "~/libs/exceptions/exceptions.js";
+import { HTTPError } from "~/libs/modules/http/http.js";
 
 type Constructor = {
 	accessKeyId: string;

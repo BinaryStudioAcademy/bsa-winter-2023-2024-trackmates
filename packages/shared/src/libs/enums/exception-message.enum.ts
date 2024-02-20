@@ -1,5 +1,6 @@
 const ExceptionMessage = {
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
+	FILE_IS_TO_LARGE: "File is too large.",
 	INCORRECT_CREDENTIALS: "Incorrect credentials.",
 	INVALID_TOKEN: "Token is invalid.",
 	NO_FILE_PRESENTED: "No file presented or format is uncorrect.",

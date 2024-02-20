@@ -134,7 +134,7 @@ class BaseServerApplication implements ServerApplication {
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
-		const sizeInMB = 5;
+		const sizeInMB = 100;
 		await this.app.register(fileUpload, {
 			allowedExtensions: [ContentType.JPEG, ContentType.PNG],
 			fileSize: getSizeInMb(sizeInMB),
