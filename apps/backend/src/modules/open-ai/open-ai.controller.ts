@@ -10,6 +10,33 @@ import { OpenAiApiPath } from "./libs/enums/enums.js";
 import { type RecommendedCoursesRequestDto } from "./libs/types/types.js";
 import { type OpenAiService } from "./open-ai.service.js";
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      Course:
+ *        type: object
+ *        properties:
+ *          description:
+ *            type: string
+ *          id:
+ *            type: number
+ *            format: number
+ *            minimum: 1
+ *          image:
+ *            type: string
+ *          imageSmall:
+ *            type: string
+ *          title:
+ *            type: string
+ *          url:
+ *            type: string
+ *          vendor:
+ *            type: object
+ *            $ref: "#/components/schemas/Vendor"
+ *          vendorCourseId:
+ *            type: string
+ */
 class OpenAiController extends BaseController {
 	private openAiService: OpenAiService;
 
@@ -30,6 +57,43 @@ class OpenAiController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /recommended-courses:
+	 *    get:
+	 *      description: Return recommended courses from OpenAI
+	 *      parameters:
+	 * 				- name: count
+	 * 					in: query
+	 * 					type: number
+	 * 					description: number of recommended courses to return
+	 *        - name: page
+	 *          in: query
+	 *          type: number
+	 *        - name: pageSize
+	 *          in: query
+	 *          type: number
+	 *        - name: search
+	 *          in: query
+	 *          type: string
+	 *        - name: vendors
+	 *          in: query
+	 *          type: string
+	 *          description: keys of vendors separated by commas. Example - "udemy,coursera"
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Course"
+	 */
 	private async getRecommendedCourses({
 		query,
 	}: APIHandlerOptions<{
