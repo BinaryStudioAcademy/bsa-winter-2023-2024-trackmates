@@ -11,3 +11,4 @@ const friendService = new FriendService(friendRepository);
 const friendController = new FriendController(logger, friendService);
 
 export { friendController };
+export { FriendRequestValidationSchema } from "./libs/validation-schemas/validation-schemas.js";

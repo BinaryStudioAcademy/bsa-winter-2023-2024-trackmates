@@ -1,19 +1,19 @@
 import { type Entity } from "~/libs/types/types.js";
 
-import { UserDetailsModel } from "../users/user-details/user-details.model.js";
+import { UserModel } from "../users/user.model.js";
 
-class FriendEntity implements Entity {
+class FriendsEntity implements Entity {
 	private createdAt: string;
 
 	public id: null | number;
 
-	public isInvitationAccepted: boolean | null;
+	public isFollowing: boolean;
 
-	public recipientUser: UserDetailsModel | null;
+	public recipientUser: UserModel | null;
 
 	public recipientUserId: number;
 
-	public senderUser: UserDetailsModel | null;
+	public senderUser: UserModel | null;
 
 	public senderUserId: number;
 
@@ -22,7 +22,7 @@ class FriendEntity implements Entity {
 	private constructor({
 		createdAt,
 		id,
-		isInvitationAccepted,
+		isFollowing,
 		recipientUser,
 		recipientUserId,
 		senderUser,
@@ -31,16 +31,16 @@ class FriendEntity implements Entity {
 	}: {
 		createdAt: string;
 		id: null | number;
-		isInvitationAccepted: boolean | null;
-		recipientUser: UserDetailsModel | null;
+		isFollowing: boolean;
+		recipientUser: UserModel | null;
 		recipientUserId: number;
-		senderUser: UserDetailsModel | null;
+		senderUser: UserModel | null;
 		senderUserId: number;
 		updatedAt: string;
 	}) {
 		this.createdAt = createdAt;
 		this.id = id;
-		this.isInvitationAccepted = isInvitationAccepted;
+		this.isFollowing = isFollowing;
 		this.recipientUser = recipientUser;
 		this.recipientUserId = recipientUserId;
 		this.senderUser = senderUser;
@@ -51,7 +51,7 @@ class FriendEntity implements Entity {
 	public static initialize({
 		createdAt,
 		id,
-		isInvitationAccepted,
+		isFollowing,
 		recipientUser,
 		recipientUserId,
 		senderUser,
@@ -60,17 +60,17 @@ class FriendEntity implements Entity {
 	}: {
 		createdAt: string;
 		id: null | number;
-		isInvitationAccepted: boolean | null;
-		recipientUser: UserDetailsModel | null;
+		isFollowing: boolean;
+		recipientUser: UserModel | null;
 		recipientUserId: number;
-		senderUser: UserDetailsModel | null;
+		senderUser: UserModel | null;
 		senderUserId: number;
 		updatedAt: string;
-	}): FriendEntity {
-		return new FriendEntity({
+	}): FriendsEntity {
+		return new FriendsEntity({
 			createdAt,
 			id,
-			isInvitationAccepted,
+			isFollowing,
 			recipientUser,
 			recipientUserId,
 			senderUser,
@@ -85,15 +85,15 @@ class FriendEntity implements Entity {
 		senderUser,
 		senderUserId,
 	}: {
-		recipientUser: UserDetailsModel | null;
+		recipientUser: UserModel | null;
 		recipientUserId: number;
-		senderUser: UserDetailsModel | null;
+		senderUser: UserModel | null;
 		senderUserId: number;
-	}): FriendEntity {
-		return new FriendEntity({
+	}): FriendsEntity {
+		return new FriendsEntity({
 			createdAt: "",
 			id: null,
-			isInvitationAccepted: null,
+			isFollowing: true,
 			recipientUser: recipientUser,
 			recipientUserId,
 			senderUser: senderUser,
@@ -104,14 +104,14 @@ class FriendEntity implements Entity {
 
 	public toNewObject(): {
 		createdAt: string;
-		isInvitationAccepted: boolean | null;
+		isFollowing: boolean;
 		recipientUserId: number;
 		senderUserId: number;
 		updatedAt: string;
 	} {
 		return {
 			createdAt: this.createdAt,
-			isInvitationAccepted: this.isInvitationAccepted,
+			isFollowing: this.isFollowing,
 			recipientUserId: this.recipientUserId,
 			senderUserId: this.senderUserId,
 			updatedAt: this.updatedAt,
@@ -121,26 +121,26 @@ class FriendEntity implements Entity {
 	public toObject(): {
 		createdAt: string;
 		id: number;
-		isInvitationAccepted: boolean | null;
-		recipientUser?: UserDetailsModel | null;
+		isFollowing: boolean;
+		recipientUser?: UserModel | null;
 		recipientUserId: number;
-		senderUser?: UserDetailsModel | null;
+		senderUser?: UserModel | null;
 		senderUserId: number;
 		updatedAt: string;
 	} {
 		const newObject: {
 			createdAt: string;
 			id: number;
-			isInvitationAccepted: boolean | null;
-			recipientUser?: UserDetailsModel | null;
+			isFollowing: boolean;
+			recipientUser?: UserModel | null;
 			recipientUserId: number;
-			senderUser?: UserDetailsModel | null;
+			senderUser?: UserModel | null;
 			senderUserId: number;
 			updatedAt: string;
 		} = {
 			createdAt: this.createdAt,
 			id: this.id as number,
-			isInvitationAccepted: this.isInvitationAccepted,
+			isFollowing: this.isFollowing,
 			recipientUserId: this.recipientUserId,
 			senderUserId: this.senderUserId,
 			updatedAt: this.updatedAt,
@@ -158,4 +158,4 @@ class FriendEntity implements Entity {
 	}
 }
 
-export { FriendEntity };
+export { FriendsEntity };

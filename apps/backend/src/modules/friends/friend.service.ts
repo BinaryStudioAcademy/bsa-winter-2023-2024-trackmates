@@ -1,16 +1,13 @@
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { FriendEntity } from "./friend.entity.js";
+import { FriendsEntity } from "./friend.entity.js";
 import {
 	FriendError,
 	FriendErrorMessage,
 	HTTPCode,
 } from "./libs/enums/enums.js";
-import {
-	type FriendAcceptResponseDto,
-	type FriendResponseDto,
-} from "./libs/types/types.js";
+import { type FriendFollowSuccesResponseDto } from "./libs/types/types.js";
 
 class FriendService {
 	private friendRepository: FriendRepository;
@@ -19,10 +16,10 @@ class FriendService {
 		this.friendRepository = friendRepository;
 	}
 
-	async createFriendRequest(
+	async createSubscribe(
 		id: number,
 		receiverUserId: number,
-	): Promise<FriendAcceptResponseDto | null> {
+	): Promise<FriendFollowSuccesResponseDto | null> {
 		if (id === receiverUserId) {
 			throw new FriendError(
 				FriendErrorMessage.SEND_REQUEST_TO_YOURSELF,
@@ -30,13 +27,13 @@ class FriendService {
 			);
 		}
 
-		const existingInvite =
+		const subscribeExist =
 			await this.friendRepository.getFriendInvitationByUserId(
 				id,
 				receiverUserId,
 			);
 
-		if (existingInvite) {
+		if (subscribeExist) {
 			throw new FriendError(
 				FriendErrorMessage.FRIEND_REQUEST_EXIST,
 				HTTPCode.BAD_REQUEST,
@@ -44,7 +41,7 @@ class FriendService {
 		}
 
 		const friendRequest = await this.friendRepository.create(
-			FriendEntity.initializeNew({
+			FriendsEntity.initializeNew({
 				recipientUser: null,
 				recipientUserId: receiverUserId,
 				senderUser: null,
@@ -55,50 +52,54 @@ class FriendService {
 		return friendRequest.toObject();
 	}
 
-	async getPotentialFriends(id: number): Promise<UserAuthResponseDto[]> {
-		const friends = await this.friendRepository.getPotentialFriends(id);
-
-		return friends.map((friend) => friend.toObject());
-	}
-
-	async getUserFriends(id: number): Promise<FriendResponseDto[]> {
-		const friends = await this.friendRepository.getUserFriends(id);
-
-		return friends.map((friend) => friend.toObject());
-	}
-
-	async respondToFriendRequestt({
-		id,
-		isAccepted,
-		userId,
-	}: {
-		id: number;
-		isAccepted: boolean;
-		userId: number;
-	}): Promise<FriendAcceptResponseDto | null> {
+	async deleteSubscribe(id: number, userId: number): Promise<boolean> {
 		const friendRequest =
 			await this.friendRepository.getFriendInvitationByRequestId(id);
 
-		if (!friendRequest || friendRequest.recipientUserId !== userId) {
+		if (!friendRequest || friendRequest.senderUserId !== userId) {
 			throw new FriendError(
 				FriendErrorMessage.FRIEND_REQUEST_ERROR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
 
-		const updatedFriendRequest =
-			await this.friendRepository.respondToFriendRequest({
-				friendRequest,
-				isAccepted,
-			});
-
-		return updatedFriendRequest?.toObject() ?? null;
+		return await this.friendRepository.deleteSubscribe({
+			friendRequest,
+		});
 	}
 
-	public async searchFriendsByName(
-		value: string,
-	): Promise<UserAuthResponseDto[]> {
-		const friends = await this.friendRepository.searchFriendsByName(value);
+	async getPotentialFollowers(id: number): Promise<UserAuthResponseDto[]> {
+		const friends = await this.friendRepository.getPotentialFollowers(id);
+
+		return friends.map((friend) => friend.toObject());
+	}
+
+	async getUserFollowers(id: number): Promise<UserAuthResponseDto[]> {
+		const friends = await this.friendRepository.getUserFollowers(id);
+
+		return friends.map((friend) => friend.toObject());
+	}
+
+	async getUserFollowings(id: number): Promise<UserAuthResponseDto[]> {
+		const friends = await this.friendRepository.getUserFollowings(id);
+
+		return friends.map((friend) => friend.toObject());
+	}
+
+	public async searchUserByName({
+		filter,
+		id,
+		value,
+	}: {
+		filter: string;
+		id: number;
+		value: string;
+	}): Promise<UserAuthResponseDto[]> {
+		const friends = await this.friendRepository.searchUserByName({
+			filter,
+			id,
+			value,
+		});
 
 		return friends.map((friend) => friend.toObject());
 	}

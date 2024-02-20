@@ -1,0 +1,1 @@
+export { FriendRequestValidationSchema } from "shared";

@@ -94,7 +94,7 @@ erDiagram
     dateTime updated_at
     int sender_user_id FK
     int recipient_user_id FK
-    bool is_invitation_accepted
+    bool is_following
    }
 
    files {

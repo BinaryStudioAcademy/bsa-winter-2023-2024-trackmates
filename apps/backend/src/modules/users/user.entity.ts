@@ -102,6 +102,14 @@ class UserEntity implements Entity {
 		});
 	}
 
+	getFirstName(): string {
+		return this.firstName;
+	}
+
+	getLastName(): string {
+		return this.lastName;
+	}
+
 	public toNewObject(): {
 		createdAt: string;
 		email: string;

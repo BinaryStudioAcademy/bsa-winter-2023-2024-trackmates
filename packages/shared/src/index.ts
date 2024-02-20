@@ -29,13 +29,13 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {
-	type FriendAcceptResponseDto,
-	type FriendAddNewRequestDto,
+	FriendApiPath,
 	FriendError,
 	FriendErrorMessage,
-	type FriendReplyRequestDto,
-	type FriendResponseDto,
-	FriendsApiPath,
+	FriendFilter,
+	type FriendFollowSuccesResponseDto,
+	type FriendFollowingRequestDto,
+	FriendRequestValidationSchema,
 } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,

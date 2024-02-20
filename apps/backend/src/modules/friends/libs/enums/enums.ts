@@ -1,6 +1,7 @@
 export {
+	FriendApiPath,
 	FriendError,
 	FriendErrorMessage,
-	FriendsApiPath,
+	FriendFilter,
 	HTTPCode,
 } from "shared";

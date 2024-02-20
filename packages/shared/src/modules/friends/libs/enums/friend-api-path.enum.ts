@@ -1,9 +1,10 @@
-const FriendsApiPath = {
-	GET_POTENTIAL_FRIENDS: "/get-potential-friends",
-	REPLY: "/reply",
-	REQUEST: "/request",
+const FriendApiPath = {
+	FOLLOW: "/follow",
+	FOLLOWERS: "/followers",
+	FOLLOWINGS: "/followings",
 	ROOT: "/",
 	SEARCH: "/search",
+	UNFOLLOW: "/unfollow",
 } as const;
 
-export { FriendsApiPath };
+export { FriendApiPath };

@@ -1,5 +1,3 @@
-export { type FriendAcceptResponseDto } from "./friend-accept-response-dto.type.js";
-export { type FriendAddNewRequestDto } from "./friend-add-new-request-dto.type.js";
 export { type FriendDto } from "./friend-dto.type.js";
-export { type FriendReplyRequestDto } from "./friend-reply-request-dto.type.js";
-export { type FriendResponseDto } from "./friend-response-dto.type.js";
+export { type FriendFollowSuccesResponseDto } from "./friend-follow-succes-response-dto.type.js";
+export { type FriendFollowingRequestDto } from "./friend-following-request-dto.type.js";
