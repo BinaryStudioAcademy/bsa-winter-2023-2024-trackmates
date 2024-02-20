@@ -1,5 +1,5 @@
 import profileCharacter from "~/assets/img/user-details-img.png";
-import { Button, Image, Input, Link } from "~/libs/components/components.js";
+import { Button, Image, Input } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -103,15 +103,14 @@ const Profile: React.FC = () => {
 						width="176"
 					/>
 					<div className={styles["btnWrapper"]}>
-						<Link to={AppRoute.ROOT}>
-							<Button
-								className={styles["button"]}
-								color="secondary"
-								label="Cancel"
-								size="small"
-								style="outlined"
-							/>
-						</Link>
+						<Button
+							className={styles["button"]}
+							color="secondary"
+							href={AppRoute.ROOT}
+							label="Cancel"
+							size="small"
+							style="outlined"
+						/>
 						<Button
 							className={styles["button"]}
 							color="secondary"
