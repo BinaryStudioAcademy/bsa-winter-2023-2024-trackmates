@@ -3,7 +3,7 @@ import { type Knex } from "knex";
 const TableName = {
 	DETAILS_TABLE_NAME: "user_details",
 	FILES: "files",
-};
+} as const;
 
 const ColumnName = {
 	CONTENT_TYPE: "content_type",
