@@ -2,7 +2,6 @@ import { openAi } from "~/libs/modules/open-ai/open-ai.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type CourseService } from "../courses/courses.js";
-import { type CourseSearchResponseDto } from "../courses/libs/types/types.js";
 import {
 	OpenAiDefaultParameter,
 	OpenAiErrorMessage,
@@ -15,6 +14,7 @@ import {
 	type CourseOpenAiRequest,
 	type CourseOpenAiResponse,
 	type RecommendedCoursesRequestDto,
+	type RecommendedCoursesResponseDto,
 } from "./libs/types/types.js";
 
 class OpenAiService {
@@ -65,7 +65,7 @@ class OpenAiService {
 
 	public async getSortedByAiCourses(
 		parameters: RecommendedCoursesRequestDto,
-	): Promise<CourseSearchResponseDto> {
+	): Promise<RecommendedCoursesResponseDto> {
 		const coursesResponse =
 			await this.courseService.findAllByVendor(parameters);
 		const courses = coursesResponse.courses;
@@ -84,7 +84,7 @@ class OpenAiService {
 			recommendedCourses.length < count ? recommendedCourses.length : count,
 		);
 
-		return { courses: recommendedCourses } as CourseSearchResponseDto;
+		return { courses: recommendedCourses } as RecommendedCoursesResponseDto;
 	}
 }
 
