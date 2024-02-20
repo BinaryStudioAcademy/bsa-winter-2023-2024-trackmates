@@ -129,7 +129,12 @@ class CourseService {
 
 		const course = this.mapVendorCourse(item, vendor);
 		const courseEntity = CourseEntity.initializeNew({
-			...course,
+			description: course.description,
+			image: course.image,
+			imageSmall: course.imageSmall,
+			title: course.title,
+			url: course.url,
+			vendorCourseId: course.vendorCourseId,
 			vendorId,
 		});
 

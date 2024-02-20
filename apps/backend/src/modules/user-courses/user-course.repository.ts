@@ -15,18 +15,38 @@ class UserCourseRepository implements Repository<CourseEntity> {
 	}
 
 	private modelToEntity(courseModel: CourseModel): CourseEntity {
+		const {
+			createdAt,
+			description,
+			id,
+			image,
+			imageSmall,
+			title,
+			updatedAt,
+			url,
+			vendor,
+			vendorCourseId,
+			vendorId,
+		} = courseModel;
+
 		return CourseEntity.initialize({
-			createdAt: courseModel.createdAt,
-			description: courseModel.description,
-			id: courseModel.id,
-			image: courseModel.image,
-			imageSmall: courseModel.imageSmall,
-			title: courseModel.title,
-			updatedAt: courseModel.updatedAt,
-			url: courseModel.url,
-			vendor: VendorEntity.initialize(courseModel.vendor),
-			vendorCourseId: courseModel.vendorCourseId,
-			vendorId: courseModel.vendorId,
+			createdAt,
+			description,
+			id,
+			image,
+			imageSmall,
+			title,
+			updatedAt,
+			url,
+			vendor: VendorEntity.initialize({
+				createdAt: vendor.createdAt,
+				id: vendor.id,
+				key: vendor.key,
+				name: vendor.name,
+				updatedAt: vendor.updatedAt,
+			}),
+			vendorCourseId,
+			vendorId,
 		});
 	}
 
