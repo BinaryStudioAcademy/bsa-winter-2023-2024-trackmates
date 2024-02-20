@@ -1,5 +1,4 @@
 import logo from "~/assets/img/svg/logo.svg";
-import mobileLogo from "~/assets/img/svg/mobile-logo.svg";
 import { Image } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
@@ -57,18 +56,7 @@ const Auth: React.FC = () => {
 				)}
 			>
 				<div className={styles["logo-wrapper"]}>
-					<picture>
-						<source media="(max-width: 480px)" srcSet={mobileLogo} />
-						<source media="(min-width: 481px)" srcSet={logo} />
-						<Image
-							alt="TrackMates logo"
-							className={getValidClassNames(
-								styles["logo"],
-								styles["mobile-logo"],
-							)}
-							src={logo}
-						/>
-					</picture>
+					<Image alt="TrackMates logo" className={styles["logo"]} src={logo} />
 				</div>
 				{getScreen(pathname)}
 			</div>
