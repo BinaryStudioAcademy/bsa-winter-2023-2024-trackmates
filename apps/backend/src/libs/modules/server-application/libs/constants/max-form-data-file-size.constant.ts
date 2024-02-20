@@ -1,0 +1,3 @@
+const MAX_FORM_DATA_FILE_SIZE = 100;
+
+export { MAX_FORM_DATA_FILE_SIZE };

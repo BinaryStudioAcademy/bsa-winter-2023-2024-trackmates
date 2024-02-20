@@ -21,7 +21,10 @@ import {
 } from "~/libs/types/types.js";
 import { type UserService } from "~/modules/users/users.js";
 
-import { WHITE_ROUTES } from "./libs/constants/constants.js";
+import {
+	MAX_FORM_DATA_FILE_SIZE,
+	WHITE_ROUTES,
+} from "./libs/constants/constants.js";
 import {
 	type ServerApplication,
 	type ServerApplicationApi,
@@ -134,10 +137,9 @@ class BaseServerApplication implements ServerApplication {
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
 		});
-		const sizeInMB = 100;
 		await this.app.register(fileUpload, {
 			allowedExtensions: [ContentType.JPEG, ContentType.PNG],
-			fileSize: getSizeInMb(sizeInMB),
+			fileSize: getSizeInMb(MAX_FORM_DATA_FILE_SIZE),
 		});
 	}
 

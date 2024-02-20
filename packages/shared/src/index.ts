@@ -1,3 +1,4 @@
+export { MAX_FILE_SIZE } from "./libs/constants/constants.js";
 export {
 	APIPath,
 	AppEnvironment,

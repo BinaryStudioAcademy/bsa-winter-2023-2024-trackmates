@@ -1,6 +1,7 @@
 import fastifyMultipart from "@fastify/multipart";
 import fastifyPlugin from "fastify-plugin";
 
+import { MAX_FILE_SIZE } from "~/libs/constants/constants.js";
 import {
 	ContentType,
 	ExceptionMessage,
@@ -33,8 +34,7 @@ const fileUpload = fastifyPlugin<Options>(
 				allowedExtensions.includes(data.mimetype as ValueOf<typeof ContentType>)
 			) {
 				const buffer = await data.toBuffer();
-				const maxFileSize = 5;
-				if (buffer.byteLength > getSizeInMb(maxFileSize)) {
+				if (buffer.byteLength > getSizeInMb(MAX_FILE_SIZE)) {
 					throw new HTTPError({
 						message: ExceptionMessage.FILE_IS_TO_LARGE,
 						status: HTTPCode.BAD_REQUEST,

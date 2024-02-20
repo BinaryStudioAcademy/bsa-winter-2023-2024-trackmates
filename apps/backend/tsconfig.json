@@ -1,6 +1,10 @@
 {
 	"extends": "../../tsconfig.json",
-	"include": ["**/*.ts", "**/*.js"],
+	"include": [
+		"**/*.ts",
+		"**/*.js",
+		"../frontend/src/libs/constants/file-size.constants.ts",
+	],
 	"exclude": ["node_modules", "build"],
 	"files": ["index.d.ts"],
 	"compilerOptions": {
