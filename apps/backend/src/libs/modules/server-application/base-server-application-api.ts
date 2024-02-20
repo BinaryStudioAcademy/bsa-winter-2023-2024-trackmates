@@ -29,11 +29,10 @@ class BaseServerApplicationApi implements ServerApplicationApi {
 	}
 
 	public generateDoc(title: string): ReturnType<typeof swaggerJsdoc> {
-		const isDeployedApplication =
-			this.config.ENV.APP.ENVIRONMENT === AppEnvironment.PRODUCTION ||
-			this.config.ENV.APP.ENVIRONMENT === AppEnvironment.DEVELOPMENT;
+		const isDevelopmentApplication =
+			this.config.ENV.APP.ENVIRONMENT === AppEnvironment.LOCAL;
 
-		const controllerExtension = isDeployedApplication ? "js" : "ts";
+		const controllerExtension = isDevelopmentApplication ? "ts" : "js";
 
 		return swaggerJsdoc({
 			apis: [`src/modules/**/*.controller.${controllerExtension}`],
