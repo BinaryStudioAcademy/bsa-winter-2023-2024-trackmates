@@ -36,17 +36,17 @@ import { type FriendFollowingRequestDto } from "./libs/types/types.js";
  *       type: object
  *       properties:
  *         createdAt:
- * 			  type: string;
+ *           type: string;
  *         email:
- *			  type string;
+ *           type string;
  *         firstName:
- *			  type string;
+ *           type string;
  *         id:
- *			  type number;
+ *           type number;
  *         lastName:
- *			  type string;
+ *           type string;
  *         updatedAt:
- *			  type string;
+ *           type string;
  *     FollowError:
  *       type: object
  *       properties:

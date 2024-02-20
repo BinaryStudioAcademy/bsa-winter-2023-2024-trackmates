@@ -102,11 +102,11 @@ class UserEntity implements Entity {
 		});
 	}
 
-	getFirstName(): string {
+	public getFirstName(): string {
 		return this.firstName;
 	}
 
-	getLastName(): string {
+	public getLastName(): string {
 		return this.lastName;
 	}
 

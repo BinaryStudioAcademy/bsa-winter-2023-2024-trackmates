@@ -55,7 +55,7 @@ class FriendRepository implements Repository<FriendsEntity> {
 			.query()
 			.deleteById(friendRequest.id as number);
 
-		return !!deletedFriend;
+		return deletedFriend ? true : false;
 	}
 
 	find(): Promise<null> {
