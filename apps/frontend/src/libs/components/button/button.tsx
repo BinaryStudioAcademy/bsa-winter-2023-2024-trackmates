@@ -12,10 +12,10 @@ type Properties = {
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
-	label: string;
+	label?: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
-	style?: "filled" | "outlined";
+	style?: "clear" | "filled" | "outlined";
 	type?: "button" | "submit";
 };
 

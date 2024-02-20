@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
+import { type UserAuthResponseDto } from "../users/users.js";
 import { RecommendedCoursesApiPath } from "./libs/enums/enums.js";
 import { type RecommendedCoursesRequestDto } from "./libs/types/types.js";
 import { type OpenAiService } from "./open-ai.service.js";
@@ -50,6 +51,7 @@ class OpenAiController extends BaseController {
 				this.getRecommendedCourses(
 					options as APIHandlerOptions<{
 						query: RecommendedCoursesRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "GET",
@@ -96,11 +98,13 @@ class OpenAiController extends BaseController {
 	 */
 	private async getRecommendedCourses({
 		query,
+		user,
 	}: APIHandlerOptions<{
 		query: RecommendedCoursesRequestDto;
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.openAiService.getSortedByAiCourses(query),
+			payload: await this.openAiService.getSortedByAiCourses(query, user.id),
 			status: HTTPCode.OK,
 		};
 	}

@@ -65,9 +65,12 @@ class OpenAiService {
 
 	public async getSortedByAiCourses(
 		parameters: RecommendedCoursesRequestDto,
+		userId: number,
 	): Promise<RecommendedCoursesResponseDto> {
-		const coursesResponse =
-			await this.courseService.findAllByVendor(parameters);
+		const coursesResponse = await this.courseService.findAllByVendors(
+			parameters,
+			userId,
+		);
 		const courses = coursesResponse.courses;
 		const coursesOpenAiRequest = this.mapToCourseOpenAiRequest(courses);
 		const openAiRequest = this.getOpenAiRequest(

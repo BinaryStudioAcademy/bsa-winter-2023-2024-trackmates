@@ -12,16 +12,20 @@ class VendorService {
 		this.vendorRepository = vendorRepository;
 	}
 
-	public async findAll(): Promise<VendorResponseDto[] | null> {
+	public async findAll(): Promise<VendorResponseDto[]> {
 		const entities = await this.vendorRepository.findAll();
 		return entities.map((entity) => entity.toObject());
 	}
 
-	// public async findById(id: number): Promise<VendorResponseDto | null> {
-	// 	const entity = await this.vendorRepository.findById(id);
+	public async findAllByKeys(keys: string[]): Promise<VendorResponseDto[]> {
+		const vendors = await this.findAll();
+		return vendors.filter(({ key }) => keys.includes(key));
+	}
 
-	// 	return entity ? entity.toObject() : null;
-	// }
+	public async findById(id: number): Promise<VendorResponseDto | null> {
+		const entity = await this.vendorRepository.findById(id);
+		return entity ? entity.toObject() : null;
+	}
 }
 
 export { VendorService };

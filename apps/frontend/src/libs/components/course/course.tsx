@@ -1,29 +1,65 @@
-import { Image } from "~/libs/components/components.js";
+import { Button, Image } from "~/libs/components/components.js";
 import { VendorsLogoPath } from "~/libs/enums/enums.js";
-import { type CourseDto } from "~/libs/types/types.js";
+import { useCallback } from "~/libs/hooks/hooks.js";
+import {
+	type AddCourseRequestDto,
+	type CourseDto,
+} from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";
 
-//TODO I think, low-level component do not have to depend from dto types
 type Properties = {
 	course: CourseDto;
+	isNew?: boolean | undefined;
+	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
 };
 
-const Course: React.FC<Properties> = ({ course }: Properties) => {
-	const { imageSmall, title, vendor } = course;
+const Course: React.FC<Properties> = ({
+	course,
+	isNew,
+	onAddCourse,
+}: Properties) => {
+	const { image, title, vendor, vendorCourseId } = course;
 	const source = VendorsLogoPath[vendor.key] || "";
+
+	const handleAddCourse = useCallback(() => {
+		onAddCourse?.({
+			vendorCourseId: vendorCourseId,
+			vendorId: vendor.id,
+		});
+	}, [onAddCourse, vendor.id, vendorCourseId]);
 
 	return (
 		<article className={styles["container"]}>
-			<div className={styles["source-container"]}>
-				<Image alt="Course source logo" src={source} />
+			<div className={styles["content"]}>
+				<div className={styles["source-container"]}>
+					<Image alt="Course source logo" src={source} />
+				</div>
+				<div className={styles["image-container"]}>
+					<Image alt="Course" src={image} />
+				</div>
+				<div className={styles["info-container"]}>
+					<h2 className={styles["title"]}>{title}</h2>
+				</div>
 			</div>
-			<div className={styles["image-container"]}>
-				<Image alt="Course" src={imageSmall} />
-			</div>
-			<div className={styles["info-container"]}>
-				<h2 className={styles["title"]}>{title}</h2>
-			</div>
+			{isNew && (
+				<div className={styles["actions"]}>
+					<Button
+						color="secondary"
+						label="Read more"
+						size="small"
+						style="outlined"
+					/>
+					<Button
+						color="secondary"
+						iconName="plusOutlined"
+						label="Add"
+						onClick={handleAddCourse}
+						size="small"
+						style="filled"
+					/>
+				</div>
+			)}
 		</article>
 	);
 };

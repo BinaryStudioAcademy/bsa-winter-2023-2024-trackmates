@@ -5,6 +5,7 @@ import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
 import { courseController } from "~/modules/courses/courses.js";
 import { openAiController } from "~/modules/open-ai/open-ai.js";
+import { userCourseController } from "~/modules/user-courses/user-courses.js";
 import { userService } from "~/modules/users/users.js";
 import { vendorController } from "~/modules/vendors/vendors.js";
 
@@ -18,6 +19,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...courseController.routes,
 	...openAiController.routes,
 	...vendorController.routes,
+	...userCourseController.routes,
 );
 const serverApplication = new BaseServerApplication({
 	apis: [apiV1],

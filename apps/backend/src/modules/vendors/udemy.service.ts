@@ -1,10 +1,15 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 
-import { ContentType, type HTTP, HTTPHeader } from "../http/http.js";
+import {
+	ContentType,
+	type HTTP,
+	HTTPHeader,
+} from "../../libs/modules/http/http.js";
 import {
 	CourseField,
 	UdemyDefaultSearchParameter,
 } from "./libs/enums/enums.js";
+import { VendorService } from "./libs/types/types.js";
 
 type SearchParameters = {
 	page?: number;
@@ -19,7 +24,7 @@ type Constructor = {
 	http: HTTP;
 };
 
-class Udemy {
+class UdemyService implements VendorService {
 	private baseUrl: string;
 	private clientId: string;
 	private clientSecret: string;
@@ -51,7 +56,7 @@ class Udemy {
 		});
 	}
 
-	public async getCourseById(id: number): Promise<Record<string, unknown>> {
+	public async getCourseById(id: string): Promise<Record<string, unknown>> {
 		const query = {
 			"fields[course]": Object.values(CourseField).join(","),
 		};
@@ -88,4 +93,4 @@ class Udemy {
 	}
 }
 
-export { Udemy };
+export { UdemyService };

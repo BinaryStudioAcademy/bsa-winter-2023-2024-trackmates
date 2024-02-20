@@ -20,16 +20,12 @@ async function up(knex: Knex): Promise<void> {
 			.integer(ColumnName.COURSE_ID)
 			.references(ID)
 			.inTable(COURSES_TABLE_NAME)
-			.notNullable()
-			.unique();
-
+			.notNullable();
 		table
 			.integer(ColumnName.USER_ID)
 			.references(ID)
 			.inTable(USERS_TABLE_NAME)
-			.notNullable()
-			.unique();
-
+			.notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()
@@ -38,6 +34,10 @@ async function up(knex: Knex): Promise<void> {
 			.dateTime(ColumnName.UPDATED_AT)
 			.notNullable()
 			.defaultTo(knex.fn.now());
+		table.unique([ColumnName.COURSE_ID, ColumnName.USER_ID], {
+			indexName: "course_id_user_id_index",
+			useConstraint: true,
+		});
 	});
 }
 

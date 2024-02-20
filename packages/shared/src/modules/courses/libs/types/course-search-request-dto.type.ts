@@ -1,8 +1,8 @@
 type CourseSearchRequestDto = {
 	page?: number;
 	pageSize?: number;
-	search?: string;
-	vendorId: number;
+	search: string;
+	vendors?: string;
 };
 
 export { type CourseSearchRequestDto };

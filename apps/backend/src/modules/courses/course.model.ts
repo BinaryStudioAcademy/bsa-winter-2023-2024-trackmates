@@ -5,8 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
-import { VendorModel } from "../vendors/vendor.model.js";
-// import { UserModel } from "../users/user.model.js";
+import { VendorModel } from "../vendors/vendors.js";
 
 class CourseModel extends AbstractModel {
 	public static relationMappings = () => {
@@ -19,18 +18,6 @@ class CourseModel extends AbstractModel {
 				modelClass: VendorModel,
 				relation: Model.HasOneRelation,
 			},
-			// users: {
-			// 	relation: Model.ManyToManyRelation,
-			// 	modelClass: UserModel,
-			// 	join: {
-			// 		from: 'course.id',
-			// 		through: {
-			// 			from: 'courses_to_users.courseId',
-			// 			to: 'courses_to_users.userId'
-			// 		},
-			// 		to: 'users.id'
-			// 	}
-			// }
 		};
 	};
 
@@ -43,6 +30,8 @@ class CourseModel extends AbstractModel {
 	public title!: string;
 
 	public url!: string;
+
+	public vendor!: VendorModel;
 
 	public vendorCourseId!: string;
 

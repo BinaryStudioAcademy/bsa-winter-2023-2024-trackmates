@@ -1,9 +1,11 @@
 import AddIcon from "~/assets/img/svg/add.svg?react";
 import BurgerIcon from "~/assets/img/svg/burger.svg?react";
+import CrossIcon from "~/assets/img/svg/cross-mark.svg?react";
 import EyeIcon from "~/assets/img/svg/eye.svg?react";
 import EyeOffIcon from "~/assets/img/svg/eye-off.svg?react";
 import HomeIcon from "~/assets/img/svg/home.svg?react";
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
+import PlusOutlinedIcon from "~/assets/img/svg/plus-outlined.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -12,10 +14,12 @@ const iconNameToSvg: Record<
 > = {
 	add: AddIcon,
 	burger: BurgerIcon,
+	cross: CrossIcon,
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
 	plus: PlusIcon,
+	plusOutlined: PlusOutlinedIcon,
 };
 
 export { iconNameToSvg };

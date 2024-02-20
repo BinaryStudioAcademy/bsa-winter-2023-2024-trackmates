@@ -1,7 +1,9 @@
+import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
 import { Repository } from "~/libs/types/types.js";
 
 import { UserModel } from "../users/user.model.js";
+import { VendorEntity } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseModel } from "./course.model.js";
 
@@ -17,52 +19,102 @@ class CourseRepository implements Repository<CourseEntity> {
 		this.userModel = userModel;
 	}
 
-	public async addCourse(userId: number, entity: CourseEntity) {
-		const course = entity.toNewObject();
-		const existedEntity = await this.findByVendorCourseId(
-			course.vendorCourseId,
-		);
+	private async createCourseWithRelation(
+		courseEntity: CourseEntity,
+		userId: number,
+	): Promise<CourseEntity> {
+		const courseModel = await this.userModel
+			.relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.insert(courseEntity.toNewObject())
+			.returning("*")
+			.withGraphFetched("vendor")
+			.castTo<CourseModel>()
+			.execute();
 
-		if (!existedEntity) {
-			return await this.userModel
-				.relatedQuery(DatabaseTableName.COURSES)
-				.for(userId)
-				.insert(course)
-				.returning("*")
-				.execute();
+		return this.modelToEntity(courseModel);
+	}
+
+	private async createRelationWithUser(
+		courseEntity: CourseEntity,
+		userId: number,
+	) {
+		const course = courseEntity.toObject();
+		const isCourseRelatedWithUser = !!(await this.userModel
+			.relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.findOne("vendorCourseId", course.vendorCourseId));
+
+		if (isCourseRelatedWithUser) {
+			throw new ApplicationError({
+				message: `Course "${course.title}" was already added for user`,
+			});
 		}
 
-		const existedCourse = existedEntity.toObject();
 		await this.userModel
 			.relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
-			.relate(existedCourse.id)
-			.execute();
-
-		return existedCourse;
-	}
-
-	public async create(entity: CourseEntity): Promise<CourseEntity> {
-		const course = await this.courseModel
-			.query()
-			.insert(entity.toNewObject())
+			.relate(course.id)
 			.returning("*")
 			.execute();
+	}
 
-		return CourseEntity.initialize(course);
+	private modelToEntity(courseModel: CourseModel): CourseEntity {
+		const {
+			createdAt,
+			description,
+			id,
+			image,
+			imageSmall,
+			title,
+			updatedAt,
+			url,
+			vendor,
+			vendorCourseId,
+			vendorId,
+		} = courseModel;
 
-		// return CourseEntity.initialize({
-		// 	createdAt: course.createdAt,
-		// 	description: course.description,
-		// 	id: course.id,
-		// 	image: course.image,
-		// 	imageSmall: course.imageSmall,
-		// 	title: course.title,
-		// 	updatedAt: course.updatedAt,
-		// 	url: course.url,
-		// 	vendorCourseId: course.vendorCourseId,
-		// 	vendorId: course.vendorId,
-		// });
+		return CourseEntity.initialize({
+			createdAt,
+			description,
+			id,
+			image,
+			imageSmall,
+			title,
+			updatedAt,
+			url,
+			vendor: VendorEntity.initialize({
+				createdAt: vendor.createdAt,
+				id: vendor.id,
+				key: vendor.key,
+				name: vendor.name,
+				updatedAt: vendor.updatedAt,
+			}),
+			vendorCourseId,
+			vendorId,
+		});
+	}
+
+	public async addCourseToUser(
+		entity: CourseEntity,
+		userId: number,
+	): Promise<CourseEntity> {
+		const course = entity.toNewObject();
+		const existedCourseEntity = await this.findByVendorCourseId(
+			course.vendorCourseId,
+		);
+
+		if (!existedCourseEntity) {
+			return await this.createCourseWithRelation(entity, userId);
+		}
+
+		await this.createRelationWithUser(existedCourseEntity, userId);
+
+		return existedCourseEntity;
+	}
+
+	public create(entity: CourseEntity): Promise<CourseEntity> {
+		return Promise.resolve(entity);
 	}
 
 	public delete(): Promise<boolean> {
@@ -82,9 +134,10 @@ class CourseRepository implements Repository<CourseEntity> {
 	): Promise<CourseEntity | null> {
 		const course = await this.courseModel
 			.query()
+			.withGraphFetched("vendor")
 			.findOne("vendorCourseId", vendorCourseId)
 			.execute();
-		return course ? CourseEntity.initialize(course) : null;
+		return course ? this.modelToEntity(course) : null;
 	}
 
 	public update(): Promise<CourseEntity | null> {

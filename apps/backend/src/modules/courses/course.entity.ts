@@ -1,5 +1,7 @@
 import { type Entity } from "~/libs/types/types.js";
 
+import { VendorEntity } from "../vendors/vendors.js";
+
 class CourseEntity implements Entity {
 	private createdAt: string;
 
@@ -14,6 +16,8 @@ class CourseEntity implements Entity {
 	private title: string;
 
 	private url: string;
+
+	private vendor: VendorEntity | null;
 
 	private vendorCourseId: string;
 
@@ -30,6 +34,7 @@ class CourseEntity implements Entity {
 		title,
 		updatedAt,
 		url,
+		vendor = null,
 		vendorCourseId,
 		vendorId,
 	}: {
@@ -41,6 +46,7 @@ class CourseEntity implements Entity {
 		title: string;
 		updatedAt: string;
 		url: string;
+		vendor?: VendorEntity | null;
 		vendorCourseId: string;
 		vendorId: number;
 	}) {
@@ -52,6 +58,7 @@ class CourseEntity implements Entity {
 		this.title = title;
 		this.updatedAt = updatedAt;
 		this.url = url;
+		this.vendor = vendor;
 		this.vendorCourseId = vendorCourseId;
 		this.vendorId = vendorId;
 	}
@@ -65,6 +72,7 @@ class CourseEntity implements Entity {
 		title,
 		updatedAt,
 		url,
+		vendor = null,
 		vendorCourseId,
 		vendorId,
 	}: {
@@ -76,6 +84,7 @@ class CourseEntity implements Entity {
 		title: string;
 		updatedAt: string;
 		url: string;
+		vendor?: VendorEntity | null;
 		vendorCourseId: string;
 		vendorId: number;
 	}): CourseEntity {
@@ -88,6 +97,7 @@ class CourseEntity implements Entity {
 			title,
 			updatedAt,
 			url,
+			vendor,
 			vendorCourseId,
 			vendorId,
 		});
@@ -119,6 +129,7 @@ class CourseEntity implements Entity {
 			title,
 			updatedAt: "",
 			url,
+			vendor: null,
 			vendorCourseId,
 			vendorId,
 		});
@@ -153,6 +164,7 @@ class CourseEntity implements Entity {
 		title: string;
 		updatedAt: string;
 		url: string;
+		vendor: ReturnType<VendorEntity["toObject"]>;
 		vendorCourseId: string;
 		vendorId: number;
 	} {
@@ -165,6 +177,7 @@ class CourseEntity implements Entity {
 			title: this.title,
 			updatedAt: this.updatedAt,
 			url: this.url,
+			vendor: (this.vendor as VendorEntity).toObject(),
 			vendorCourseId: this.vendorCourseId,
 			vendorId: this.vendorId,
 		};
