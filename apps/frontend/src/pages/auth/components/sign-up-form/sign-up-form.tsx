@@ -50,6 +50,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				errors={errors}
 				label="First name"
 				name="firstName"
+				placeholder="First name"
 				type="text"
 			/>
 			<Input
@@ -58,6 +59,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				errors={errors}
 				label="Last name"
 				name="lastName"
+				placeholder="Last name"
 				type="text"
 			/>
 			<Input
@@ -66,6 +68,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				errors={errors}
 				label="Email"
 				name="email"
+				placeholder="email@example.com"
 				type="text"
 			/>
 			<div className={styles["password-input"]}>
@@ -76,6 +79,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					errors={errors}
 					label="Password"
 					name="password"
+					placeholder="••••••••"
 					type={isPasswordVisible ? "text" : "password"}
 				/>
 				<Button
@@ -86,7 +90,12 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					onClick={handleChangePasswordVisibility}
 				/>
 			</div>
-			<Button color="primary" label="Create an account" type="submit" />
+			<Button
+				className={styles["button"]}
+				color="primary"
+				label="Create an account"
+				type="submit"
+			/>
 		</form>
 	);
 };
