@@ -56,12 +56,31 @@ class UserRepository implements Repository<UserEntity> {
 		});
 	}
 
-	public delete(): Promise<boolean> {
-		return Promise.resolve(true);
+	public async delete(userId: number): Promise<number> {
+		return await this.userModel.query().deleteById(userId).execute();
 	}
 
-	public find(): Promise<UserEntity | null> {
-		return Promise.resolve(null);
+	public async find(userId: number): Promise<UserEntity | null> {
+		const user = await this.userModel
+			.query()
+			.findById(userId)
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
+			.execute();
+		return user
+			? UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
 	}
 
 	public async findAll(): Promise<UserEntity[]> {
@@ -135,8 +154,15 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public update(): Promise<UserEntity | null> {
-		return Promise.resolve(null);
+	public update(
+		userId: number,
+		partialUser: Partial<UserEntity>,
+	): Promise<UserEntity> {
+		return this.userModel
+			.query()
+			.patchAndFetchById(userId, partialUser)
+			.castTo<UserEntity>()
+			.execute();
 	}
 }
 

@@ -29,13 +29,13 @@ export {
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export {
-	type AvatarUploadResponseDto,
+	type FileUploadResponseDto,
 	FilesApiPath,
 } from "./modules/files/files.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,
-	type UserGetAllResponseDto,
+	type UserGetAllItemResponseDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,

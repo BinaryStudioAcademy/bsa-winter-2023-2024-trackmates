@@ -1,1 +1,1 @@
-export { type AvatarUploadResponseDto } from "./avatar-upload-response-dto.js";
+export { type FileUploadResponseDto } from "./file-upload-response-dto.js";

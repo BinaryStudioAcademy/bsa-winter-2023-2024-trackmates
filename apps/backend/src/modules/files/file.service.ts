@@ -1,11 +1,13 @@
+import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { type File } from "~/libs/modules/file/file.js";
+import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/service.type.js";
 import { type FileRepository } from "~/modules/files/file.repository.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { FileEntity } from "./file.entity.js";
 import {
-	type AvatarUploadResponseDto,
+	type FileUploadResponseDto,
 	type UploadedFile,
 } from "./libs/types/types.js";
 
@@ -24,25 +26,59 @@ class FileService implements Service {
 		this.userService = userService;
 	}
 
-	create(payload: unknown): Promise<unknown> {
-		return Promise.resolve(payload);
+	async create(uploadedFile: UploadedFile): Promise<FileUploadResponseDto> {
+		const { buffer, contentType, fileName } = uploadedFile;
+		const url = await this.file.upload(buffer, fileName);
+		const file = await this.fileRepository.create(
+			FileEntity.initializeNew({ contentType, url }),
+		);
+		return file.toObject();
 	}
-	delete(): Promise<boolean> {
-		return Promise.resolve(true);
+
+	async delete(fileId: number): Promise<number> {
+		const file = await this.fileRepository.find(fileId);
+		if (!file) {
+			throw new HTTPError({
+				message: ExceptionMessage.FILE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+		return await this.fileRepository.delete(fileId);
 	}
-	find(): Promise<null> {
-		return Promise.resolve(null);
+
+	async find(fileId: number): Promise<FileEntity> {
+		const file = await this.fileRepository.find(fileId);
+		if (!file) {
+			throw new HTTPError({
+				message: ExceptionMessage.FILE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+		return file;
 	}
-	findAll(): Promise<{ items: [] }> {
-		return Promise.resolve({ items: [] });
+
+	async findAll(): Promise<FileEntity[]> {
+		return await this.fileRepository.findAll();
 	}
-	update(): Promise<null> {
-		return Promise.resolve(null);
+
+	async update(
+		fileId: number,
+		partialFile: Partial<FileEntity>,
+	): Promise<FileEntity> {
+		const file = await this.fileRepository.find(fileId);
+		if (!file) {
+			throw new HTTPError({
+				message: ExceptionMessage.FILE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+		return await this.fileRepository.update(fileId, partialFile);
 	}
+
 	async uploadAvatar(
 		userId: number,
 		uploadedFile: UploadedFile,
-	): Promise<AvatarUploadResponseDto> {
+	): Promise<FileUploadResponseDto> {
 		const { buffer, contentType, fileName } = uploadedFile;
 		const url = await this.file.upload(buffer, fileName);
 		const file = await this.fileRepository.create(

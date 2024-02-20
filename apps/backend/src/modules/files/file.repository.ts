@@ -27,17 +27,29 @@ class FileRepository implements Repository<FileEntity> {
 			url: createdFile.url,
 		});
 	}
-	delete(): Promise<boolean> {
-		return Promise.resolve(true);
+
+	async delete(fileId: number): Promise<number> {
+		return await this.fileModel.query().deleteById(fileId).execute();
 	}
-	find(): Promise<null> {
-		return Promise.resolve(null);
+
+	async find(fileId: number): Promise<FileEntity | null> {
+		const file = await this.fileModel.query().findById(fileId);
+		return file ? FileEntity.initialize(file) : null;
 	}
-	findAll(): Promise<FileEntity[]> {
-		return Promise.resolve([]);
+
+	async findAll(): Promise<FileEntity[]> {
+		return await this.fileModel.query().castTo<FileEntity[]>().execute();
 	}
-	update(): Promise<null> {
-		return Promise.resolve(null);
+
+	async update(
+		fileId: number,
+		partialFile: Partial<FileEntity>,
+	): Promise<FileEntity> {
+		return await this.fileModel
+			.query()
+			.patchAndFetchById(fileId, partialFile)
+			.castTo<FileEntity>()
+			.execute();
 	}
 }
 

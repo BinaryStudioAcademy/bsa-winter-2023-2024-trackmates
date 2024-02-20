@@ -1,2 +1,2 @@
 export { FilesApiPath } from "./libs/enums/enums.js";
-export { type AvatarUploadResponseDto } from "./libs/types/types.js";
+export { type FileUploadResponseDto } from "./libs/types/types.js";

@@ -1,11 +1,13 @@
+import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import {
 	type UserAuthResponseDto,
-	type UserGetAllResponseDto,
+	type UserGetAllItemResponseDto,
 	type UserSignUpRequestDto,
 } from "./libs/types/types.js";
 
@@ -40,20 +42,25 @@ class UserService implements Service {
 		return user.toObject();
 	}
 
-	public delete(): Promise<boolean> {
-		return Promise.resolve(true);
+	public async delete(userId: number): Promise<number> {
+		const user = await this.userRepository.find(userId);
+		if (!user) {
+			throw new HTTPError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+		return await this.userRepository.delete(userId);
 	}
 
 	public find(): Promise<UserEntity | null> {
 		return Promise.resolve(null);
 	}
 
-	public async findAll(): Promise<UserGetAllResponseDto> {
+	public async findAll(): Promise<UserGetAllItemResponseDto[]> {
 		const users = await this.userRepository.findAll();
 
-		return {
-			items: users.map((user) => user.toObject()),
-		};
+		return users.map((user) => user.toObject());
 	}
 
 	public async findById(id: number): Promise<UserAuthResponseDto | null> {
