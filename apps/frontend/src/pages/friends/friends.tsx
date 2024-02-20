@@ -4,20 +4,20 @@ import { MyFriends, PotentialFriends } from "./components/components.js";
 import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
+	const tabClassName = styles["tab"];
+	const selectedTabClassName = styles["tab--selected"];
+
 	return (
 		<Tabs className={styles["wrapper"]}>
 			<TabList className={styles["tab-list"]}>
-				<Tab
-					className={styles["tab"]}
-					selectedClassName={styles["tab--selected"]}
-				>
+				<Tab className={tabClassName} selectedClassName={selectedTabClassName}>
 					Find the friends
 				</Tab>
-				<Tab
-					className={styles["tab"]}
-					selectedClassName={styles["tab--selected"]}
-				>
-					My Friends
+				<Tab className={tabClassName} selectedClassName={selectedTabClassName}>
+					Followers
+				</Tab>
+				<Tab className={tabClassName} selectedClassName={selectedTabClassName}>
+					Following
 				</Tab>
 			</TabList>
 			<TabPanel>
