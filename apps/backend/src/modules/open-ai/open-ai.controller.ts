@@ -63,10 +63,10 @@ class OpenAiController extends BaseController {
 	 *    get:
 	 *      description: Return recommended courses from OpenAI
 	 *      parameters:
-	 * 				- name: count
-	 * 					in: query
-	 * 					type: number
-	 * 					description: number of recommended courses to return
+	 *        - name: count
+	 *          in: query
+	 *          type: number
+	 *          description: number of recommended courses to return
 	 *        - name: page
 	 *          in: query
 	 *          type: number
