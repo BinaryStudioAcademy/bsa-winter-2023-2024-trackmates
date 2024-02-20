@@ -44,20 +44,24 @@
 }
 
 .secondary {
-	color: black;
+	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
 
-.secondary.outlined,
 .secondary:hover {
 	color: var(--main-white);
+	background-color: var(--color-button);
+	border-color: var(--color-button);
+}
+
+.secondary.outlined {
+	color: var(--main-white);
 	background-color: transparent;
-	border-color: var(--main-white);
 }
 
 .secondary.outlined:hover {
-	color: black;
+	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
