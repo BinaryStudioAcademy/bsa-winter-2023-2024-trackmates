@@ -27,10 +27,8 @@ class OpenAiService {
 	private getOpenAiRequest<T extends object>(
 		prompt: ValueOf<typeof Prompt>,
 		body: T,
-		count: number = OpenAiDefaultParameter.COUNT,
 	) {
-		const itemsCount = Object.keys(body).length;
-		return `${prompt}${count > itemsCount ? itemsCount : count}\n\n${JSON.stringify(body)}`;
+		return `${prompt}\n\n${JSON.stringify(body)}`;
 	}
 
 	private async getResponseFromOpenAi(request: string) {
@@ -75,14 +73,18 @@ class OpenAiService {
 		const openAiRequest = this.getOpenAiRequest(
 			Prompt.SORT_COURSES_BY_RECOMMENDATIONS,
 			coursesOpenAiRequest,
-			parameters.count,
 		);
 
 		const openAiResponse = await this.getResponseFromOpenAi(openAiRequest);
 		const parsedResponse = JSON.parse(openAiResponse) as CourseOpenAiResponse;
-		const mappedResponse = this.mapToCourses(parsedResponse, courses);
+		const recommendedCourses = this.mapToCourses(parsedResponse, courses);
 
-		return { courses: mappedResponse } as CourseSearchResponseDto;
+		const count = parameters.count ?? OpenAiDefaultParameter.COUNT;
+		recommendedCourses.splice(
+			recommendedCourses.length < count ? recommendedCourses.length : count,
+		);
+
+		return { courses: recommendedCourses } as CourseSearchResponseDto;
 	}
 }
 
