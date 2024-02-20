@@ -1,7 +1,6 @@
 const NotificationMessage = {
-	FRIEND_INVITE_ACCEPT_SUCCESS: "Invite accepted successfully.",
-	FRIEND_INVITE_DENY_SUCCESS: "Invite denied successfully.",
-	FRIEND_REQUEST_SEND_SUCCESS: "Request sent successfully.",
+	FRIEND_FOLLOW_SUCCESS: "Followed successfully.",
+	FRIEND_UNFOLLOW_SUCCESS: "Unfollowed successfully.",
 } as const;
 
 export { NotificationMessage };

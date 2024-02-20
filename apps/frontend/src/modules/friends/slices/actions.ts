@@ -52,7 +52,7 @@ const follow = createAsyncThunk<
 
 	const response = await friendsApi.follow(followPayload);
 
-	notification.success(NotificationMessage.FRIEND_REQUEST_SEND_SUCCESS);
+	notification.success(NotificationMessage.FRIEND_FOLLOW_SUCCESS);
 
 	return response;
 });
@@ -66,7 +66,7 @@ const unfollow = createAsyncThunk<
 
 	const response = await friendsApi.unfollow(unfollowPayload);
 
-	notification.success(NotificationMessage.FRIEND_INVITE_ACCEPT_SUCCESS);
+	notification.success(NotificationMessage.FRIEND_UNFOLLOW_SUCCESS);
 
 	return response;
 });
