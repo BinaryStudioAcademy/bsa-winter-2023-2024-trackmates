@@ -68,11 +68,11 @@ const Profile: React.FC = () => {
 				<form name="profile" onSubmit={handleFormSubmit}>
 					<div className={styles["avatar-container"]}>
 						<Avatar
-							handleFileChange={handleFileChange}
+							onFileChange={handleFileChange}
 							selectedFile={selectedFile}
 						/>
 						<div>
-							<UploadAvatarButton handleFileChange={handleFileChange} />
+							<UploadAvatarButton onFileChange={handleFileChange} />
 						</div>
 					</div>
 					<div className={styles["profile-form"]}>

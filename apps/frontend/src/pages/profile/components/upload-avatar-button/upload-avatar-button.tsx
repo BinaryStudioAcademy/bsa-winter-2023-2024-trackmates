@@ -2,17 +2,24 @@ import { UploadButton } from "~/libs/components/components.js";
 import { useCallback, useRef } from "~/libs/hooks/hooks.js";
 
 type Properties = {
-	handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const UploadAvatarButton: React.FC<Properties> = ({
-	handleFileChange,
+	onFileChange,
 }: Properties) => {
 	const inputReference = useRef<HTMLInputElement>(null);
 
 	const handleClick = useCallback((): void => {
 		inputReference.current?.click();
 	}, []);
+
+	const handleFileChange = useCallback(
+		(event_: React.ChangeEvent<HTMLInputElement>): void => {
+			onFileChange(event_);
+		},
+		[onFileChange],
+	);
 
 	return (
 		<UploadButton

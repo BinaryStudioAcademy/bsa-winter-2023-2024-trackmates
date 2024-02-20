@@ -4,12 +4,12 @@ import { useCallback, useRef } from "~/libs/hooks/hooks.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	selectedFile: File | null;
 };
 
 const Avatar: React.FC<Properties> = ({
-	handleFileChange,
+	onFileChange,
 	selectedFile,
 }: Properties) => {
 	const inputReference = useRef<HTMLInputElement>(null);
@@ -17,6 +17,13 @@ const Avatar: React.FC<Properties> = ({
 	const handleClick = useCallback((): void => {
 		inputReference.current?.click();
 	}, []);
+
+	const handleFileChange = useCallback(
+		(event_: React.ChangeEvent<HTMLInputElement>): void => {
+			onFileChange(event_);
+		},
+		[onFileChange],
+	);
 
 	return (
 		<div className={styles["avatar"]}>
