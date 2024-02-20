@@ -24,7 +24,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					className={styles["add-friend-action"]}
 					color="secondary"
 					iconName="add"
-					label="Add friend"
+					label="Follow"
 					size="small"
 				/>
 			</div>
