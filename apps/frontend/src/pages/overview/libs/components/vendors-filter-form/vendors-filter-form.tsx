@@ -6,6 +6,7 @@ import {
 	getVendorsFromForm,
 } from "../../helpers/helpers.js";
 import { VendorBadge } from "../vendor-badge/vendor-badge.js";
+import styles from "./styles.module.css";
 
 type Properties = {
 	onVendorsChange: (vendors: string[]) => void;
@@ -28,9 +29,11 @@ const VendorsFilterForm: React.FC<Properties> = ({
 	return (
 		<>
 			<form onChange={handleChangeVendor}>
-				{vendors.map((vendor) => (
-					<VendorBadge control={control} key={vendor.id} name={vendor.key} />
-				))}
+				<fieldset className={styles["vendors-container"]}>
+					{vendors.map((vendor) => (
+						<VendorBadge control={control} key={vendor.id} name={vendor.key} />
+					))}
+				</fieldset>
 			</form>
 		</>
 	);

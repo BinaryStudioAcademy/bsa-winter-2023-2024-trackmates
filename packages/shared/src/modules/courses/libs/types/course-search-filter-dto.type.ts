@@ -1,6 +1,5 @@
-import { CourseSearchRequestDto } from "./course-search-request-dto.type.js";
-
-type CourseSearchFilterDto = Omit<CourseSearchRequestDto, "vendors"> & {
+type CourseSearchFilterDto = {
+	search: string;
 	vendors: string[];
 };
 
