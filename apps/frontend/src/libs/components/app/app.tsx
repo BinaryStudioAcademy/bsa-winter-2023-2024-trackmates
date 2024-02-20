@@ -26,9 +26,7 @@ const App: React.FC = () => {
 
 	return (
 		<>
-			<div>
-				<RouterOutlet />
-			</div>
+			<RouterOutlet />
 		</>
 	);
 };
