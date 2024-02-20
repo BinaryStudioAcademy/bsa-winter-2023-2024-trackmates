@@ -14,6 +14,10 @@ import {
 	reducer as coursesReducer,
 } from "~/modules/courses/courses.js";
 import {
+	userCourseApi,
+	reducer as userCoursesReducer,
+} from "~/modules/user-courses/user-courses.js";
+import {
 	vendorApi,
 	reducer as vendorsReducer,
 } from "~/modules/vendors/vendors.js";
@@ -24,6 +28,7 @@ import { handleError } from "./middlewares/middlewares.js";
 type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	courses: ReturnType<typeof coursesReducer>;
+	userCourses: ReturnType<typeof userCoursesReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
 
@@ -32,6 +37,7 @@ type ExtraArguments = {
 	courseApi: typeof courseApi;
 	notification: typeof notification;
 	storage: typeof storage;
+	userCourseApi: typeof userCourseApi;
 	vendorApi: typeof vendorApi;
 };
 
@@ -57,6 +63,7 @@ class Store {
 			reducer: {
 				auth: authReducer,
 				courses: coursesReducer,
+				userCourses: userCoursesReducer,
 				vendors: vendorsReducer,
 			},
 		});
@@ -68,6 +75,7 @@ class Store {
 			courseApi,
 			notification,
 			storage,
+			userCourseApi,
 			vendorApi,
 		};
 	}

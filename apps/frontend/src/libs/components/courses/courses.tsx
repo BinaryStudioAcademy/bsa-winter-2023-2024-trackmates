@@ -2,8 +2,8 @@ import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
-	actions as courseActions,
 } from "~/modules/courses/courses.js";
+import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
 
 import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
@@ -23,7 +23,7 @@ const Courses: React.FC<Properties> = ({
 
 	const handleAddCourse = useCallback(
 		(payload: AddCourseRequestDto) => {
-			void dispatch(courseActions.add(payload));
+			void dispatch(userCourseActions.add(payload));
 		},
 		[dispatch],
 	);
