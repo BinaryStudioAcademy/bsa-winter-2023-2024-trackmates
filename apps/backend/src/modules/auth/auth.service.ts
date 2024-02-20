@@ -98,7 +98,7 @@ class AuthService {
 		userRequestDto: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
 		const user = await this.userService.findById(userRequestDto.id);
-		const hasUser = Boolean(user);
+		const hasUser = user !== null;
 		if (!hasUser) {
 			throw new AuthError(ExceptionMessage.USER_NOT_FOUND, HTTPCode.NOT_FOUND);
 		}

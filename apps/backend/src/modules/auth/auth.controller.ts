@@ -1,3 +1,5 @@
+import { UsersApiPath } from "shared";
+
 import { APIPath } from "~/libs/enums/enums.js";
 import {
 	type APIHandlerOptions,
@@ -71,7 +73,7 @@ class AuthController extends BaseController {
 					}>,
 				),
 			method: "PATCH",
-			path: `${AuthApiPath.PROFILE}/:id`,
+			path: `${UsersApiPath.PROFILE}/:id`,
 			validation: {
 				body: userProfileValidationSchema,
 			},
