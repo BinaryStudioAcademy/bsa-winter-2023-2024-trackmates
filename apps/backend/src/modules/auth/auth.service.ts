@@ -4,7 +4,7 @@ import { Token } from "~/libs/modules/token/token.js";
 import {
 	UserAuthResponseDto,
 	UserEntity,
-	UserProfileRequestDto,
+	type UserProfileRequestDto,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,

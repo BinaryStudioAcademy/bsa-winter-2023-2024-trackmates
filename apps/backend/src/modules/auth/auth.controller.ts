@@ -8,7 +8,7 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
 	type UserAuthResponseDto,
-	UserProfileRequestDto,
+	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
 	userProfileValidationSchema,
