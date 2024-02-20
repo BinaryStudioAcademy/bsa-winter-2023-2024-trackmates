@@ -1,4 +1,4 @@
-import { Tab, TabList, TabPanel, Tabs } from "~/libs/components/components.js";
+import { Tabs } from "~/libs/components/components.js";
 
 import {
 	Followers,
@@ -8,32 +8,16 @@ import {
 import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
-	const tabClassName = styles["tab"];
-	const selectedTabClassName = styles["tab--selected"];
+	const TABS = {
+		"Find the friends": <PotentialFriends />,
+		Followers: <Followers />,
+		Followings: <Followings />,
+	};
 
 	return (
-		<Tabs className={styles["wrapper"]}>
-			<TabList className={styles["tab-list"]}>
-				<Tab className={tabClassName} selectedClassName={selectedTabClassName}>
-					Find the friends
-				</Tab>
-				<Tab className={tabClassName} selectedClassName={selectedTabClassName}>
-					Followers
-				</Tab>
-				<Tab className={tabClassName} selectedClassName={selectedTabClassName}>
-					Following
-				</Tab>
-			</TabList>
-			<TabPanel>
-				<PotentialFriends />
-			</TabPanel>
-			<TabPanel>
-				<Followers />
-			</TabPanel>
-			<TabPanel>
-				<Followings />
-			</TabPanel>
-		</Tabs>
+		<div className={styles["wrapper"]}>
+			<Tabs tabs={TABS} />
+		</div>
 	);
 };
 
