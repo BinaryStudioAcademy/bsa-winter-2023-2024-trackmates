@@ -1,10 +1,15 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 
-import { ContentType, type HTTP, HTTPHeader } from "../http/http.js";
+import {
+	ContentType,
+	type HTTP,
+	HTTPHeader,
+} from "../../libs/modules/http/http.js";
+import { VendorService } from "./libs/types/types.js";
 import {
 	CourseField,
 	UdemyDefaultSearchParameter,
-} from "./libs/enums/enums.js";
+} from "./libs/types/udemy/enums/enums.js";
 
 type SearchParameters = {
 	page?: number;
@@ -19,7 +24,7 @@ type Constructor = {
 	http: HTTP;
 };
 
-class Udemy {
+class UdemyService implements VendorService {
 	private baseUrl: string;
 	private clientId: string;
 	private clientSecret: string;
@@ -88,4 +93,4 @@ class Udemy {
 	}
 }
 
-export { Udemy };
+export { UdemyService };

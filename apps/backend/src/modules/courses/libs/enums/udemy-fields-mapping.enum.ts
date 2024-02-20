@@ -1,4 +1,4 @@
-import { CourseField } from "~/libs/modules/udemy/udemy.js";
+import { CourseField } from "~/modules/vendors/vendors.js";
 
 import { CourseDto } from "../types/types.js";
 
