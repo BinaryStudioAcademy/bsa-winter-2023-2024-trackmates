@@ -49,9 +49,12 @@ class CourseService {
 	): Promise<CourseDto[]> {
 		const userCoursesIds = await this.userCourseService
 			.findAllByUser(userId)
-			.then((courses) => courses.map(({ id }) => id));
+			.then((courses) => courses.map(({ vendorCourseId }) => vendorCourseId));
 
-		return courses.filter(({ id }) => !userCoursesIds.includes(id));
+		return courses.filter(
+			({ vendorCourseId }) =>
+				!userCoursesIds.includes(vendorCourseId.toString()),
+		);
 	}
 
 	private getVendorApi(vendorKey: string): VendorApi {
