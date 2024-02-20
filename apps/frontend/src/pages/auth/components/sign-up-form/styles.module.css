@@ -6,7 +6,7 @@
 	max-width: 253px;
 	margin-top: 141px;
 	margin-bottom: 68px;
-	color: #ffffff;
+	color: var(--main-white);
 }
 
 .title {
@@ -55,5 +55,9 @@
 		max-width: unset;
 		padding: 0 30px;
 		margin-top: 0;
+	}
+
+	.button {
+		margin-top: 24px;
 	}
 }
