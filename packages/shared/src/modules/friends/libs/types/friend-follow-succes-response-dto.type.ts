@@ -1,7 +1,7 @@
 type FriendFollowSuccessResponseDto = {
 	createdAt: string;
 	id: number;
-	isFollowing: boolean | null;
+	isFollowing: boolean;
 	recipientUserId: number;
 	senderUserId: number;
 	updatedAt: string;
