@@ -76,7 +76,7 @@ class AuthApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "PUT",
+				method: "PATCH",
 				payload: JSON.stringify(payload),
 			},
 		);
@@ -90,7 +90,7 @@ class AuthApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.FORM_DATA,
 				hasAuth: true,
-				method: "PUT",
+				method: "PATCH",
 				payload,
 			},
 		);

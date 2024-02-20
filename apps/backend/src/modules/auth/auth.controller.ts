@@ -70,7 +70,7 @@ class AuthController extends BaseController {
 						body: UserProfileRequestDto;
 					}>,
 				),
-			method: "PUT",
+			method: "PATCH",
 			path: `${AuthApiPath.PROFILE}/:id`,
 			validation: {
 				body: userProfileValidationSchema,
@@ -189,7 +189,7 @@ class AuthController extends BaseController {
 	/**
 	 * @swagger
 	 * /auth/profile:
-	 *    put:
+	 *    patch:
 	 *      description: Updates a user's details
 	 *      parameters:
 	 *        - in: path
