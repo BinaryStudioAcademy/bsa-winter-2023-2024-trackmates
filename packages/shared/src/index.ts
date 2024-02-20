@@ -39,6 +39,10 @@ export {
 } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {
+	OpenAiApiPath,
+	type RecommendedCoursesRequestDto,
+} from "./modules/open-ai/open-ai.js";
+export {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
 	type UserSignInRequestDto,

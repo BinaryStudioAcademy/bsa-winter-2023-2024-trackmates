@@ -1,3 +1,3 @@
-type CourseOpenAIResponse = number[];
+type CourseOpenAiResponse = number[];
 
-export { type CourseOpenAIResponse };
+export { type CourseOpenAiResponse };

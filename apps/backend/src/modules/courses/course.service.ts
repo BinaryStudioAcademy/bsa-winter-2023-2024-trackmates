@@ -1,6 +1,5 @@
 import { type Udemy } from "~/libs/modules/udemy/udemy.js";
 
-import { type OpenAIService } from "../open-ai/open-ai.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
 import { CourseFieldsMapping } from "./libs/enums/enums.js";
@@ -13,7 +12,6 @@ import {
 
 type Constructor = {
 	courseRepository: CourseRepository;
-	openAIService: OpenAIService;
 	udemy: Udemy;
 };
 
@@ -22,12 +20,10 @@ const UDEMY_VENDOR = { id: 1, key: "udemy", name: "Udemy" };
 
 class CourseService {
 	private courseRepository: CourseRepository;
-	private openAIService: OpenAIService;
 	private udemy: Udemy;
 
-	public constructor({ courseRepository, openAIService, udemy }: Constructor) {
+	public constructor({ courseRepository, udemy }: Constructor) {
 		this.courseRepository = courseRepository;
-		this.openAIService = openAIService;
 		this.udemy = udemy;
 	}
 
@@ -87,10 +83,7 @@ class CourseService {
 		const items = await this.udemy.getCourses(parameters);
 		const courses = items.map((item) => this.mapToCourse(item, UDEMY_VENDOR));
 
-		const sortedCourses =
-			await this.openAIService.getSortedByAICourses(courses);
-
-		return { courses: sortedCourses };
+		return { courses };
 	}
 }
 

@@ -1,25 +1,40 @@
-import { openAI } from "~/libs/modules/open-ai/open-ai.js";
-import { ValueOf } from "~/libs/types/types.js";
+import { openAi } from "~/libs/modules/open-ai/open-ai.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
+import { type CourseService } from "../courses/courses.js";
+import { type CourseSearchResponseDto } from "../courses/libs/types/types.js";
 import {
 	OpenAIErrorMessage,
 	OpenAIProperties,
+	OpenAiDefaultParameter,
 	Prompt,
 } from "./libs/enums/enums.js";
 import { ApplicationError } from "./libs/exceptions/exceptions.js";
 import {
 	type CourseDto,
-	type CourseOpenAIRequest,
-	type CourseOpenAIResponse,
+	type CourseOpenAiRequest,
+	type CourseOpenAiResponse,
+	type RecommendedCoursesRequestDto,
 } from "./libs/types/types.js";
 
-class OpenAIService {
-	private getOpenAIRequest<T>(prompt: ValueOf<typeof Prompt>, body: T) {
-		return `${prompt}\n\n${JSON.stringify(body)}`;
+class OpenAiService {
+	private courseService: CourseService;
+
+	public constructor(courseService: CourseService) {
+		this.courseService = courseService;
 	}
 
-	private async getResponseFromOpenAI(request: string) {
-		const response = await openAI.chat.completions.create({
+	private getOpenAiRequest<T extends object>(
+		prompt: ValueOf<typeof Prompt>,
+		body: T,
+		count: number = OpenAiDefaultParameter.COUNT,
+	) {
+		const itemsCount = Object.keys(body).length;
+		return `${prompt}${count > itemsCount ? itemsCount : count}\n\n${JSON.stringify(body)}`;
+	}
+
+	private async getResponseFromOpenAi(request: string) {
+		const response = await openAi.chat.completions.create({
 			messages: [{ content: request, role: OpenAIProperties.ROLE }],
 			model: OpenAIProperties.MODEL,
 			response_format: OpenAIProperties.RESPONSE_FORMAT,
@@ -28,13 +43,15 @@ class OpenAIService {
 
 		const [messageContent] = response.choices;
 		if (!messageContent || !messageContent.message.content) {
-			throw new ApplicationError({ message: OpenAIErrorMessage.NO_RESPONSE });
+			throw new ApplicationError({
+				message: OpenAIErrorMessage.WRONG_RESPONSE,
+			});
 		}
 
 		return messageContent.message.content;
 	}
 
-	private mapToCourseOpenAIRequest(courses: CourseDto[]): CourseOpenAIRequest {
+	private mapToCourseOpenAiRequest(courses: CourseDto[]): CourseOpenAiRequest {
 		return courses.map((course) => ({
 			description: course.description,
 			id: course.id,
@@ -43,32 +60,31 @@ class OpenAIService {
 	}
 
 	private mapToCourses(
-		response: CourseOpenAIResponse,
+		response: CourseOpenAiResponse,
 		courses: CourseDto[],
 	): CourseDto[] {
-		return response.map((id) => {
-			const courseById = courses[id];
-			if (!courseById) {
-				throw new ApplicationError({
-					message: OpenAIErrorMessage.WRONG_RESPONSE,
-				});
-			}
-			return courseById;
-		});
+		return courses.filter((_, index) => response.includes(index));
 	}
 
-	public async getSortedByAICourses(courses: CourseDto[]) {
-		const coursesOpenAIRequest = this.mapToCourseOpenAIRequest(courses);
-		const request = this.getOpenAIRequest(
+	public async getSortedByAiCourses(
+		parameters: RecommendedCoursesRequestDto,
+	): Promise<CourseSearchResponseDto> {
+		const coursesResponse =
+			await this.courseService.findAllByVendor(parameters);
+		const courses = coursesResponse.courses;
+		const coursesOpenAIRequest = this.mapToCourseOpenAiRequest(courses);
+		const openAiRequest = this.getOpenAiRequest(
 			Prompt.SORT_COURSES_BY_RECOMMENDATIONS,
 			coursesOpenAIRequest,
+			parameters.count,
 		);
 
-		const response = await this.getResponseFromOpenAI(request);
-		const parsedResponse = JSON.parse(response) as CourseOpenAIResponse;
+		const openAiResponse = await this.getResponseFromOpenAi(openAiRequest);
+		const parsedResponse = JSON.parse(openAiResponse) as CourseOpenAiResponse;
+		const mappedResponse = this.mapToCourses(parsedResponse, courses);
 
-		return this.mapToCourses(parsedResponse, courses);
+		return { courses: mappedResponse } as CourseSearchResponseDto;
 	}
 }
 
-export { OpenAIService };
+export { OpenAiService };
