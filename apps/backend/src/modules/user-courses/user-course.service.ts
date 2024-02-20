@@ -1,4 +1,4 @@
-import { CourseDto } from "../courses/libs/types/types.js";
+import { CourseDto } from "../courses/courses.js";
 import { UserCourseRepository } from "./user-course.repository.js";
 
 type Constructor = {

@@ -23,4 +23,6 @@ export { udemyService };
 export { vendorController, vendorService };
 export { CourseField } from "./libs/enums/enums.js";
 export { type VendorService as VendorApi } from "./libs/types/types.js";
+export { VendorEntity } from "./vendor.entity.js";
+export { VendorModel } from "./vendor.model.js";
 export { type VendorService } from "./vendor.service.js";

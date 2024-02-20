@@ -5,7 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
-import { VendorModel } from "../vendors/vendor.model.js";
+import { VendorModel } from "../vendors/vendors.js";
 
 class CourseModel extends AbstractModel {
 	public static relationMappings = () => {

@@ -26,3 +26,6 @@ const courseService = new CourseService({
 const courseController = new CourseController(logger, courseService);
 
 export { courseController };
+export { CourseEntity } from "./course.entity.js";
+export { CourseModel } from "./course.model.js";
+export { type CourseDto } from "./libs/types/types.js";

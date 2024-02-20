@@ -3,7 +3,7 @@ import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
 import { Repository } from "~/libs/types/types.js";
 
 import { UserModel } from "../users/user.model.js";
-import { VendorEntity } from "../vendors/vendor.entity.js";
+import { VendorEntity } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseModel } from "./course.model.js";
 
@@ -41,7 +41,7 @@ class CourseRepository implements Repository<CourseEntity> {
 	) {
 		const course = courseEntity.toObject();
 		const isCourseRelatedWithUser = !!(await this.userModel
-			.relatedQuery("courses")
+			.relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
 			.findOne("vendorCourseId", course.vendorCourseId));
 

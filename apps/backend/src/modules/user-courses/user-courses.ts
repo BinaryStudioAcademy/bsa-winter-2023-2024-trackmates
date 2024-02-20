@@ -15,3 +15,4 @@ const userCourseController = new UserCourseController(
 );
 
 export { userCourseController, userCourseService };
+export { type UserCourseService } from "./user-course.service.js";
