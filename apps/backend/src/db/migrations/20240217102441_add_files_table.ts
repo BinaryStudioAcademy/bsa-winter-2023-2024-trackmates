@@ -1,8 +1,9 @@
 import { type Knex } from "knex";
 
-const TABLE_NAME = "files";
-
-const DETAILS_TABLE_NAME = "user_details";
+const TableName = {
+	DETAILS_TABLE_NAME: "user_details",
+	FILES: "files",
+};
 
 const ColumnName = {
 	CONTENT_TYPE: "content_type",
@@ -18,7 +19,7 @@ const DetailsColumnName = {
 
 function up(knex: Knex): Promise<void> {
 	return knex.schema
-		.createTable(TABLE_NAME, (table) => {
+		.createTable(TableName.FILES, (table) => {
 			table.increments(ColumnName.ID).primary();
 			table.string(ColumnName.URL);
 			table.enum(ColumnName.CONTENT_TYPE, ["image/jpeg", "image/png"]);
@@ -31,21 +32,21 @@ function up(knex: Knex): Promise<void> {
 				.notNullable()
 				.defaultTo(knex.fn.now());
 		})
-		.table(DETAILS_TABLE_NAME, (table) => {
+		.table(TableName.DETAILS_TABLE_NAME, (table) => {
 			table
 				.integer(DetailsColumnName.AVATAR_FILE_ID)
 				.unique()
 				.references(ColumnName.ID)
-				.inTable(TABLE_NAME);
+				.inTable(TableName.FILES);
 		});
 }
 
 function down(knex: Knex): Promise<void> {
 	return knex.schema
-		.table(DETAILS_TABLE_NAME, (table) => {
+		.table(TableName.DETAILS_TABLE_NAME, (table) => {
 			table.dropColumn(DetailsColumnName.AVATAR_FILE_ID);
 		})
-		.dropTableIfExists(TABLE_NAME);
+		.dropTableIfExists(TableName.FILES);
 }
 
 export { down, up };
