@@ -1,4 +1,4 @@
-export { OpenAiApiPath } from "./libs/enums/enums.js";
+export { RecommendedCoursesApiPath } from "./libs/enums/enums.js";
 export {
 	type RecommendedCoursesRequestDto,
 	type RecommendedCoursesResponseDto,

@@ -6,7 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
-import { OpenAiApiPath } from "./libs/enums/enums.js";
+import { RecommendedCoursesApiPath } from "./libs/enums/enums.js";
 import { type RecommendedCoursesRequestDto } from "./libs/types/types.js";
 import { type OpenAiService } from "./open-ai.service.js";
 
@@ -53,7 +53,7 @@ class OpenAiController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: OpenAiApiPath.ROOT,
+			path: RecommendedCoursesApiPath.ROOT,
 		});
 	}
 
