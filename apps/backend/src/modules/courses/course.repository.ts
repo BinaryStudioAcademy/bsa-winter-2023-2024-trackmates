@@ -113,14 +113,8 @@ class CourseRepository implements Repository<CourseEntity> {
 		return existedCourseEntity;
 	}
 
-	public async create(entity: CourseEntity): Promise<CourseEntity> {
-		const course = await this.courseModel
-			.query()
-			.insert(entity.toNewObject())
-			.returning("*")
-			.execute();
-
-		return this.modelToEntity(course);
+	public create(entity: CourseEntity): Promise<CourseEntity> {
+		return Promise.resolve(entity);
 	}
 
 	public delete(): Promise<boolean> {
@@ -133,15 +127,6 @@ class CourseRepository implements Repository<CourseEntity> {
 
 	public findAll(): Promise<CourseEntity[]> {
 		return Promise.resolve([]);
-	}
-
-	public async findByUserId(userId: number): Promise<CourseEntity[]> {
-		const courses = await this.courseModel
-			.query()
-			.where("userId", userId)
-			.execute();
-
-		return courses.map((model) => this.modelToEntity(model));
 	}
 
 	public async findByVendorCourseId(
