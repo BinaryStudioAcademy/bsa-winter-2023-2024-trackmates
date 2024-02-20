@@ -15,9 +15,7 @@ const Avatar: React.FC<Properties> = ({
 	const inputReference = useRef<HTMLInputElement>(null);
 
 	const handleClick = useCallback((): void => {
-		if (inputReference.current) {
-			inputReference.current.click();
-		}
+		inputReference.current?.click();
 	}, []);
 
 	return (
