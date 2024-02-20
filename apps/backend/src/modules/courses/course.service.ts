@@ -104,7 +104,10 @@ class CourseService {
 			this.getVendorFieldsMapping(vendor.key),
 		);
 
-		return { ...course, vendor } as CourseDto;
+		const vendorCourseId = (
+			course.vendorCourseId as number | string
+		).toString();
+		return { ...course, vendor, vendorCourseId } as CourseDto;
 	}
 
 	public async addCourse({
