@@ -1,11 +1,8 @@
 import { CourseField } from "~/modules/vendors/vendors.js";
 
-import { CourseDto } from "../types/types.js";
+import { type CourseFieldsMapping } from "../types/types.js";
 
-const UdemyFieldsMapping: Record<
-	keyof Omit<CourseDto, "id" | "vendor">,
-	string
-> = {
+const UdemyFieldsMapping: CourseFieldsMapping = {
 	description: CourseField["DESCRIPTION"] as string,
 	image: CourseField["IMAGE"] as string,
 	imageSmall: CourseField["IMAGE_SMALL"] as string,
