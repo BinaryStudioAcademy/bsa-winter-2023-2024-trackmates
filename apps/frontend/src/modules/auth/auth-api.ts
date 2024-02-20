@@ -1,3 +1,5 @@
+import { UsersApiPath } from "shared";
+
 import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
@@ -72,7 +74,7 @@ class AuthApi extends BaseHTTPApi {
 		payload: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(`${AuthApiPath.PROFILE}/${payload.id}`, {}),
+			this.getFullEndpoint(`${UsersApiPath.PROFILE}/${payload.id}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -86,7 +88,7 @@ class AuthApi extends BaseHTTPApi {
 
 	public async updateAvatar(payload: FormData): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(AuthApiPath.AVATAR, {}),
+			this.getFullEndpoint(UsersApiPath.AVATAR, {}),
 			{
 				contentType: ContentType.FORM_DATA,
 				hasAuth: true,
