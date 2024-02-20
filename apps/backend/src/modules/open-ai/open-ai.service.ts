@@ -54,7 +54,6 @@ class OpenAiService {
 	private mapToCourseOpenAiRequest(courses: CourseDto[]): CourseOpenAiRequest {
 		return courses.map((course) => ({
 			description: course.description,
-			id: course.id,
 			title: course.title,
 		}));
 	}
@@ -72,10 +71,10 @@ class OpenAiService {
 		const coursesResponse =
 			await this.courseService.findAllByVendor(parameters);
 		const courses = coursesResponse.courses;
-		const coursesOpenAIRequest = this.mapToCourseOpenAiRequest(courses);
+		const coursesOpenAiRequest = this.mapToCourseOpenAiRequest(courses);
 		const openAiRequest = this.getOpenAiRequest(
 			Prompt.SORT_COURSES_BY_RECOMMENDATIONS,
-			coursesOpenAIRequest,
+			coursesOpenAiRequest,
 			parameters.count,
 		);
 

@@ -1,5 +1,5 @@
 import { type CourseDto } from "./types.js";
 
-type CourseOpenAiRequest = Pick<CourseDto, "description" | "id" | "title">[];
+type CourseOpenAiRequest = Pick<CourseDto, "description" | "title">[];
 
 export { type CourseOpenAiRequest };
