@@ -4,9 +4,9 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseService } from "../courses/courses.js";
 import { type CourseSearchResponseDto } from "../courses/libs/types/types.js";
 import {
-	OpenAIErrorMessage,
-	OpenAIProperties,
 	OpenAiDefaultParameter,
+	OpenAiErrorMessage,
+	OpenAiProperties,
 	Prompt,
 } from "./libs/enums/enums.js";
 import { ApplicationError } from "./libs/exceptions/exceptions.js";
@@ -35,16 +35,16 @@ class OpenAiService {
 
 	private async getResponseFromOpenAi(request: string) {
 		const response = await openAi.chat.completions.create({
-			messages: [{ content: request, role: OpenAIProperties.ROLE }],
-			model: OpenAIProperties.MODEL,
-			response_format: OpenAIProperties.RESPONSE_FORMAT,
-			temperature: OpenAIProperties.TEMPERATURE,
+			messages: [{ content: request, role: OpenAiProperties.ROLE }],
+			model: OpenAiProperties.MODEL,
+			response_format: OpenAiProperties.RESPONSE_FORMAT,
+			temperature: OpenAiProperties.TEMPERATURE,
 		});
 
 		const [messageContent] = response.choices;
 		if (!messageContent || !messageContent.message.content) {
 			throw new ApplicationError({
-				message: OpenAIErrorMessage.WRONG_RESPONSE,
+				message: OpenAiErrorMessage.WRONG_RESPONSE,
 			});
 		}
 

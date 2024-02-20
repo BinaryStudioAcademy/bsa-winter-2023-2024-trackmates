@@ -1,5 +1,5 @@
-const OpenAIErrorMessage = {
+const OpenAiErrorMessage = {
 	WRONG_RESPONSE: "Wrong response from OpenAI",
 } as const;
 
-export { OpenAIErrorMessage };
+export { OpenAiErrorMessage };
