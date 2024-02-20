@@ -5,11 +5,11 @@ import {
 	type HTTP,
 	HTTPHeader,
 } from "../../libs/modules/http/http.js";
-import { VendorService } from "./libs/types/types.js";
 import {
 	CourseField,
 	UdemyDefaultSearchParameter,
-} from "./libs/types/udemy/enums/enums.js";
+} from "./libs/enums/enums.js";
+import { VendorService } from "./libs/types/types.js";
 
 type SearchParameters = {
 	page?: number;
