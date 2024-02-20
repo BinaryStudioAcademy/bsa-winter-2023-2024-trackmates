@@ -104,9 +104,21 @@ const Profile: React.FC = () => {
 					/>
 					<div className={styles["btnWrapper"]}>
 						<Link to={AppRoute.ROOT}>
-							<Button color="secondary" label="Cancel" size="small" />
+							<Button
+								className={styles["button"]}
+								color="secondary"
+								label="Cancel"
+								size="small"
+								style="outlined"
+							/>
 						</Link>
-						<Button color="basic" label="Update" size="small" type="submit" />
+						<Button
+							className={styles["button"]}
+							color="secondary"
+							label="Update"
+							size="small"
+							type="submit"
+						/>
 					</div>
 				</form>
 			</div>

@@ -8,7 +8,7 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	className?: string | undefined;
-	color?: "basic" | "primary" | "secondary";
+	color?: "primary" | "secondary";
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;

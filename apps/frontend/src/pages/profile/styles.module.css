@@ -56,6 +56,10 @@
 	border-radius: 0 0 16px 16px;
 }
 
+.button {
+	width: 114px;
+}
+
 .profile-character {
 	position: absolute;
 	bottom: 8%;
