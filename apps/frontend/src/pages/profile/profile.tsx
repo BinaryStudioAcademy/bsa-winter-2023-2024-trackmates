@@ -8,7 +8,7 @@ import {
 	useParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import { actions as authActions } from "~/modules/auth/auth.js";
+import { actions as usersActions } from "~/modules/users/users.js";
 import {
 	type UserProfileRequestDto,
 	userProfileValidationSchema,
@@ -36,7 +36,7 @@ const Profile: React.FC = () => {
 			if (file) {
 				const formData = new FormData();
 				formData.append("file", file);
-				void dispatch(authActions.updateUserAvatar(formData));
+				void dispatch(usersActions.updateUserAvatar(formData));
 			}
 		},
 		[dispatch],
@@ -49,7 +49,7 @@ const Profile: React.FC = () => {
 				id: Number(userId),
 			};
 
-			void dispatch(authActions.updateProfile(payload));
+			void dispatch(usersActions.updateProfile(payload));
 		},
 		[dispatch, userId],
 	);

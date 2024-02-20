@@ -1,5 +1,3 @@
-import { UsersApiPath } from "shared";
-
 import { APIPath } from "~/libs/enums/enums.js";
 import {
 	type APIHandlerOptions,
@@ -10,10 +8,8 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
 	type UserAuthResponseDto,
-	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
-	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "~/modules/users/users.js";
@@ -62,20 +58,6 @@ class AuthController extends BaseController {
 			path: AuthApiPath.SIGN_IN,
 			validation: {
 				body: userSignInValidationSchema,
-			},
-		});
-
-		this.addRoute({
-			handler: (options) =>
-				this.updateUser(
-					options as APIHandlerOptions<{
-						body: UserProfileRequestDto;
-					}>,
-				),
-			method: "PATCH",
-			path: `${UsersApiPath.PROFILE}/:id`,
-			validation: {
-				body: userProfileValidationSchema,
 			},
 		});
 	}
@@ -185,48 +167,6 @@ class AuthController extends BaseController {
 		return {
 			payload: await this.authService.signUp(options.body),
 			status: HTTPCode.CREATED,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /auth/profile:
-	 *    patch:
-	 *      description: Updates a user's details
-	 *      parameters:
-	 *        - in: path
-	 *          name: id
-	 *          description: ID of the user to update
-	 *          required: true
-	 *          schema:
-	 *            type: integer
-	 *            minimum: 1
-	 *        - in: body
-	 *          name: user
-	 *          description: Updated user object
-	 *          required: true
-	 *          schema:
-	 *            $ref: '#/components/schemas/ProfileUpdate'
-	 *      responses:
-	 *        '200':
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: '#/components/schemas/Profile'
-	 *        '404':
-	 *          description: User not found
-	 *        '500':
-	 *          description: Internal server error
-	 */
-	private async updateUser(
-		options: APIHandlerOptions<{
-			body: UserProfileRequestDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.authService.updateUser(options.body),
-			status: HTTPCode.OK,
 		};
 	}
 }

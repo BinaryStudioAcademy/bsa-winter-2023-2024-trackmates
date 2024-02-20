@@ -1,12 +1,9 @@
-import { UsersApiPath } from "shared";
-
 import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 import {
 	type UserAuthResponseDto,
-	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
@@ -68,36 +65,6 @@ class AuthApi extends BaseHTTPApi {
 		);
 
 		return await response.json<UserSignUpResponseDto>();
-	}
-
-	public async update(
-		payload: UserProfileRequestDto,
-	): Promise<UserAuthResponseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(`${UsersApiPath.PROFILE}/${payload.id}`, {}),
-			{
-				contentType: ContentType.JSON,
-				hasAuth: true,
-				method: "PATCH",
-				payload: JSON.stringify(payload),
-			},
-		);
-
-		return await response.json<UserAuthResponseDto>();
-	}
-
-	public async updateAvatar(payload: FormData): Promise<UserAuthResponseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(UsersApiPath.AVATAR, {}),
-			{
-				contentType: ContentType.FORM_DATA,
-				hasAuth: true,
-				method: "PATCH",
-				payload,
-			},
-		);
-
-		return await response.json<UserAuthResponseDto>();
 	}
 }
 
