@@ -1,6 +1,10 @@
 import { Tab, TabList, TabPanel, Tabs } from "~/libs/components/components.js";
 
-import { MyFriends, PotentialFriends } from "./components/components.js";
+import {
+	Followers,
+	Followings,
+	PotentialFriends,
+} from "./components/components.js";
 import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
@@ -24,7 +28,10 @@ const Friends: React.FC = () => {
 				<PotentialFriends />
 			</TabPanel>
 			<TabPanel>
-				<MyFriends />
+				<Followers />
+			</TabPanel>
+			<TabPanel>
+				<Followings />
 			</TabPanel>
 		</Tabs>
 	);

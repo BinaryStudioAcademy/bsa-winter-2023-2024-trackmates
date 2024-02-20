@@ -2,15 +2,12 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
-import { type FriendResponseDto } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../auth/auth.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import {
-	type FriendAddNewRequestDto,
-	type FriendAddNewResponseDto,
-	type FriendReplyRequestDto,
-	type FriendReplyResponseDto,
+	type FriendFollowRequestDto,
+	type FriendUnfollowRequestDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -24,21 +21,25 @@ class FriendsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.FRIENDS, storage });
 	}
 
-	public async getAllFriends(): Promise<FriendResponseDto[]> {
+	public async follow(
+		payload: FriendFollowRequestDto,
+	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(FriendsApiPath.ROOT, {}),
+			this.getFullEndpoint(FriendsApiPath.FOLLOW, {}),
 			{
+				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "GET",
+				method: "POST",
+				payload: JSON.stringify(payload),
 			},
 		);
 
-		return await response.json<FriendResponseDto[]>();
+		return await response.json<UserAuthResponseDto>();
 	}
 
 	public async getAllPotentialFriends(): Promise<UserAuthResponseDto[]> {
 		const response = await this.load(
-			this.getFullEndpoint(FriendsApiPath.GET_POTENTIAL_FRIENDS, {}),
+			this.getFullEndpoint(FriendsApiPath.ROOT, {}),
 			{
 				hasAuth: true,
 				method: "GET",
@@ -48,27 +49,35 @@ class FriendsApi extends BaseHTTPApi {
 		return await response.json<UserAuthResponseDto[]>();
 	}
 
-	public async replyToRequest(
-		payload: FriendReplyRequestDto,
-	): Promise<FriendReplyResponseDto> {
+	public async getFollowers(): Promise<UserAuthResponseDto[]> {
 		const response = await this.load(
-			this.getFullEndpoint(FriendsApiPath.REPLY, {}),
+			this.getFullEndpoint(FriendsApiPath.FOLLOWERS, {}),
 			{
-				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "POST",
-				payload: JSON.stringify(payload),
+				method: "GET",
 			},
 		);
 
-		return await response.json<FriendReplyResponseDto>();
+		return await response.json<UserAuthResponseDto[]>();
 	}
 
-	public async sendRequest(
-		payload: FriendAddNewRequestDto,
-	): Promise<FriendAddNewResponseDto> {
+	public async getFollowings(): Promise<UserAuthResponseDto[]> {
 		const response = await this.load(
-			this.getFullEndpoint(FriendsApiPath.REQUEST, {}),
+			this.getFullEndpoint(FriendsApiPath.FOLLOWINGS, {}),
+			{
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<UserAuthResponseDto[]>();
+	}
+
+	public async unfollow(
+		payload: FriendUnfollowRequestDto,
+	): Promise<UserAuthResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(FriendsApiPath.UNFOLLOW, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -77,7 +86,7 @@ class FriendsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<FriendAddNewResponseDto>();
+		return await response.json<UserAuthResponseDto>();
 	}
 }
 

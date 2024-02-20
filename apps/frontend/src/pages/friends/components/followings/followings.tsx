@@ -7,17 +7,17 @@ import { actions } from "~/modules/friends/friends.js";
 
 import { FriendList } from "../friend-list/friend-list.js";
 
-const PotentialFriends: React.FC = () => {
-	const { potentialFriends } = useAppSelector(({ friends }) => ({
-		potentialFriends: friends.potentialFriends,
+const Followings: React.FC = () => {
+	const { followings } = useAppSelector(({ friends }) => ({
+		followings: friends.followings,
 	}));
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		void dispatch(actions.getPotentialFriends());
+		void dispatch(actions.getFollowings());
 	}, [dispatch]);
 
-	return <FriendList friends={potentialFriends} />;
+	return <FriendList friends={followings} />;
 };
 
-export { PotentialFriends };
+export { Followings };

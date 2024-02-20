@@ -11,4 +11,4 @@ const friendsApi = new FriendsApi({
 });
 
 export { friendsApi };
-export { actions, reducer } from "./slices/friends.js";
+export { actions, reducer, selectors } from "./slices/friends.js";

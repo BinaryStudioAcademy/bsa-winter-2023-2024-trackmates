@@ -8,6 +8,10 @@
 	background-color: var(--color-menu);
 }
 
+.button {
+	flex: 1;
+}
+
 .card {
 	display: flex;
 	flex-direction: column;

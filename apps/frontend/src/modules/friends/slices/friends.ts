@@ -1,20 +1,26 @@
 import {
-	acceptRequest,
-	denyRequest,
+	follow,
+	getFollowers,
+	getFollowings,
 	getPotentialFriends,
-	loadAll,
-	sendRequest,
+	unfollow,
 } from "./actions.js";
 import { actions } from "./friends.slice.js";
+import { checkIsFollowingFriend } from "./selectors.js";
 
 const allActions = {
 	...actions,
-	acceptRequest,
-	denyRequest,
+	follow,
+	getFollowers,
+	getFollowings,
 	getPotentialFriends,
-	loadAll,
-	sendRequest,
+	unfollow,
+};
+
+const allSelectors = {
+	checkIsFollowingFriend,
 };
 
 export { allActions as actions };
 export { reducer } from "./friends.slice.js";
+export { allSelectors as selectors };

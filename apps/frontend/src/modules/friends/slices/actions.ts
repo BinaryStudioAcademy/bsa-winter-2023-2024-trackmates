@@ -4,16 +4,12 @@ import {
 	NotificationMessage,
 	notification,
 } from "~/libs/modules/notification/notification.js";
-import {
-	type AsyncThunkConfig,
-	type FriendResponseDto,
-} from "~/libs/types/types.js";
+import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../../auth/auth.js";
 import {
-	type FriendAddNewRequestDto,
-	type FriendAddNewResponseDto,
-	type FriendReplyResponseDto,
+	type FriendFollowRequestDto,
+	type FriendUnfollowRequestDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./friends.slice.js";
 
@@ -27,68 +23,52 @@ const getPotentialFriends = createAsyncThunk<
 	return friendsApi.getAllPotentialFriends();
 });
 
-const loadAll = createAsyncThunk<
-	FriendResponseDto[],
+const getFollowers = createAsyncThunk<
+	UserAuthResponseDto[],
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/load-all`, (_, { extra }) => {
+>(`${sliceName}/get-followers`, (_, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getAllFriends();
+	return friendsApi.getFollowers();
 });
 
-const sendRequest = createAsyncThunk<
-	FriendAddNewResponseDto,
-	FriendAddNewRequestDto,
+const getFollowings = createAsyncThunk<
+	UserAuthResponseDto[],
+	undefined,
 	AsyncThunkConfig
->(`${sliceName}/send-request`, async (sendRequestPayload, { extra }) => {
+>(`${sliceName}/get-followings`, (_, { extra }) => {
 	const { friendsApi } = extra;
 
-	const response = await friendsApi.sendRequest(sendRequestPayload);
+	return friendsApi.getFollowings();
+});
+
+const follow = createAsyncThunk<
+	UserAuthResponseDto,
+	FriendFollowRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/follow`, async (followPayload, { extra }) => {
+	const { friendsApi } = extra;
+
+	const response = await friendsApi.follow(followPayload);
 
 	notification.success(NotificationMessage.FRIEND_REQUEST_SEND_SUCCESS);
 
 	return response;
 });
 
-const acceptRequest = createAsyncThunk<
-	FriendReplyResponseDto,
-	number,
+const unfollow = createAsyncThunk<
+	UserAuthResponseDto,
+	FriendUnfollowRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/accept-request`, async (acceptRequestPayload, { extra }) => {
+>(`${sliceName}/unfollow`, async (unfollowPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	const response = await friendsApi.replyToRequest({
-		id: acceptRequestPayload,
-		isAccepted: true,
-	});
+	const response = await friendsApi.unfollow(unfollowPayload);
 
 	notification.success(NotificationMessage.FRIEND_INVITE_ACCEPT_SUCCESS);
 
 	return response;
 });
 
-const denyRequest = createAsyncThunk<
-	FriendReplyResponseDto,
-	number,
-	AsyncThunkConfig
->(`${sliceName}/deny-request`, async (denyRequestPayload, { extra }) => {
-	const { friendsApi } = extra;
-
-	const response = await friendsApi.replyToRequest({
-		id: denyRequestPayload,
-		isAccepted: false,
-	});
-
-	notification.success(NotificationMessage.FRIEND_INVITE_DENY_SUCCESS);
-
-	return response;
-});
-
-export {
-	acceptRequest,
-	denyRequest,
-	getPotentialFriends,
-	loadAll,
-	sendRequest,
-};
+export { follow, getFollowers, getFollowings, getPotentialFriends, unfollow };
