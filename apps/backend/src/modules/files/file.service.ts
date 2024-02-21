@@ -1,11 +1,11 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { type File } from "~/libs/modules/file/file.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/service.type.js";
 import { type FileRepository } from "~/modules/files/file.repository.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { FileEntity } from "./file.entity.js";
+import { type File } from "./file.module.js";
 import {
 	type FileUploadResponseDto,
 	type UploadedFile,
