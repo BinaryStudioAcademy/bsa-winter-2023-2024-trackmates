@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.0...v1.1.1) (2024-02-20)
+
+
+### Bug Fixes
+
+* **frontend:** The Overview page doesn't occupy 100% of the screen height tm-121 ([#125](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/125)) ([2266b63](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2266b63f17fe6122b8bf18ed618604e06f0ed8c4))
+
 ## [1.1.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.0.1...v1.1.0) (2024-02-20)
 
 
