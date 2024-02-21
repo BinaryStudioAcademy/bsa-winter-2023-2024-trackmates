@@ -8,14 +8,17 @@
 
 .header {
 	flex-shrink: 0;
-	padding: 20px 32px;
 	background-color: var(--main-white);
 }
 
 .title {
-	margin: 14px 0;
+	margin: 34px 32px 14px;
 	font-size: var(--font-size-400);
 	color: var(--color-text-300);
+}
+
+.search-input {
+	margin: 0 32px 14px;
 }
 
 .content {
@@ -29,6 +32,7 @@
 	justify-content: space-between;
 	width: 100%;
 	padding: 8px 32px;
+	background-color: var(--color-background);
 }
 
 .results-count {
@@ -37,6 +41,14 @@
 	margin: 0;
 	font-weight: 500;
 	color: var(--color-text-200);
+}
+
+.vendors-container {
+	display: flex;
+	gap: 8px;
+	padding: 0;
+	margin: 0;
+	border: none;
 }
 
 .bages {

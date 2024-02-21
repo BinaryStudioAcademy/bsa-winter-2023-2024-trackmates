@@ -3,13 +3,14 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useCallback,
 	useEffect,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
-import { useAddCourseModal } from "./libs/hooks/hooks.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
@@ -19,8 +20,13 @@ const Overview: React.FC = () => {
 		user: state.auth.user as UserAuthResponseDto,
 	}));
 	const dispatch = useAppDispatch();
-	const { handleModalClose, handleModalOpen, isAddCourseModalOpen } =
-		useAddCourseModal();
+	const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
+	const handleModalOpen = useCallback(() => {
+		setIsAddCourseModalOpen(true);
+	}, [setIsAddCourseModalOpen]);
+	const handleModalClose = useCallback(() => {
+		setIsAddCourseModalOpen(false);
+	}, [setIsAddCourseModalOpen]);
 
 	useEffect(() => {
 		void dispatch(userCourseActions.loadMyCourses(user.id));

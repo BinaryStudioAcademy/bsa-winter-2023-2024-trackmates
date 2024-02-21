@@ -13,14 +13,16 @@ import styles from "./styles.module.css";
 type Properties<T extends FieldValues> = {
 	control: Control<T, null>;
 	name: FieldPath<T>;
+	vendorKey: string;
 };
 
 const VendorBadge = <T extends FieldValues>({
 	control,
 	name,
+	vendorKey,
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
-	const vendorLogo = VendorsLogoPath[name] ?? "";
+	const vendorLogo = VendorsLogoPath[vendorKey] ?? "";
 
 	return (
 		<>

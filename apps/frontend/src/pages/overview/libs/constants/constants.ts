@@ -2,7 +2,7 @@ import { CourseSearchFilterDto } from "~/modules/courses/courses.js";
 
 const DEFAULT_SEARCH_COURSE_PAYLOAD: CourseSearchFilterDto = {
 	search: "",
-	vendors: [],
+	vendorsKeys: [],
 };
 
 const SEARCH_COURSES_DELAY_MS = 500;
