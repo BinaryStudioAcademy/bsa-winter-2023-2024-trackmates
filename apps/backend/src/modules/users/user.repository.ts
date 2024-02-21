@@ -44,7 +44,7 @@ class UserRepository implements Repository<UserEntity> {
 			.execute();
 
 		return UserEntity.initialize({
-			avatarUrl: "",
+			avatarUrl: null,
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
