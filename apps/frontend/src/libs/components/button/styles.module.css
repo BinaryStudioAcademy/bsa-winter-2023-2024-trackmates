@@ -3,6 +3,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font: inherit;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
@@ -47,4 +48,12 @@
 	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
+	stroke: var(--color-menu);
+}
+
+.secondary:hover {
+	color: var(--main-white);
+	background-color: transparent;
+	border-color: var(--main-white);
+	stroke: var(--main-white);
 }
