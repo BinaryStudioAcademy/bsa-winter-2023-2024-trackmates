@@ -121,12 +121,12 @@ class ChatMessageController extends BaseController {
 	 *                      $ref: "#/components/schemas/Chat"
 	 */
 	private async findAllChatsByUserId({
-		user: { id },
+		user,
 	}: APIHandlerOptions<{
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatMessageService.findAllChatsByUserId(id),
+			payload: await this.chatMessageService.findAllChatsByUserId(user.id),
 			status: HTTPCode.OK,
 		};
 	}
@@ -155,16 +155,16 @@ class ChatMessageController extends BaseController {
 	 *                      $ref: "#/components/schemas/ChatMessage"
 	 */
 	private async findAllMessagesByChatId({
-		params: { chatId },
-		user: { id },
+		params,
+		user,
 	}: APIHandlerOptions<{
 		params: Record<"chatId", string>;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.chatMessageService.findAllMessagesByChatId(
-				chatId,
-				id,
+				params.chatId,
+				user.id,
 			),
 			status: HTTPCode.OK,
 		};
@@ -199,13 +199,13 @@ class ChatMessageController extends BaseController {
 	 */
 	private async sendMessage({
 		body,
-		user: { id },
+		user,
 	}: APIHandlerOptions<{
 		body: MessageSendRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatMessageService.sendMessage(body, id),
+			payload: await this.chatMessageService.sendMessage(body, user.id),
 			status: HTTPCode.CREATED,
 		};
 	}
