@@ -65,12 +65,9 @@ class UserService implements Service {
 
 	public async update(
 		userId: number,
-		userRequestDto: UserProfileRequestDto,
+		userProfile: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
-		const updatedUser = await this.userRepository.update(
-			userId,
-			userRequestDto,
-		);
+		const updatedUser = await this.userRepository.update(userId, userProfile);
 
 		return updatedUser?.toObject() ?? null;
 	}
