@@ -14,15 +14,6 @@
 	color: var(--color-text-300);
 }
 
-.profile-form {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	height: 520px;
-	background-color: var(--main-white);
-	border-radius: 16px 16px 0 0;
-}
-
 .avatar-container {
 	display: flex;
 	gap: 19px;
@@ -33,6 +24,46 @@
 	margin-bottom: 17px;
 	background-color: var(--color-menu);
 	border-radius: 16px;
+}
+
+.profile-image-wrapper {
+	width: 133px;
+	height: 133px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.profile-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.upload-button {
+	min-height: 32px;
+	padding: 4px 16px;
+	font-size: var(--font-size-200);
+	color: var(--main-white);
+	text-decoration: none;
+	cursor: pointer;
+	background-color: transparent;
+	border: 1px solid var(--main-white);
+	border-radius: 26px;
+}
+
+.upload-button:hover {
+	color: var(--color-text-300);
+	cursor: pointer;
+	background-color: var(--main-white);
+}
+
+.profile-inputs {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 520px;
+	background-color: var(--main-white);
+	border-radius: 16px 16px 0 0;
 }
 
 .fieldset {
