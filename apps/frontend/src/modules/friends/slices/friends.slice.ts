@@ -77,6 +77,16 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(unfollow.fulfilled, (state, action) => {
+			if (
+				!state.potentialFriends.some((user) => user.id === action.payload.id)
+			) {
+				state.potentialFriends = [
+					...state.potentialFriends,
+					state.followings.find(
+						(user) => user.id === action.payload.id,
+					) as UserAuthResponseDto,
+				];
+			}
 			state.followings = state.followings.filter(
 				(user) => user.id !== action.payload.id,
 			);
