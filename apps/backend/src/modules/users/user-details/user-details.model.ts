@@ -1,4 +1,4 @@
-import { Model, Modifiers, QueryBuilder } from "objection";
+import { Model } from "objection";
 
 import {
 	AbstractModel,
@@ -26,16 +26,6 @@ class UserDetailsModel extends AbstractModel {
 	public lastName!: string;
 
 	public userId!: number;
-
-	public static override get modifiers(): Modifiers<
-		QueryBuilder<UserDetailsModel>
-	> {
-		return {
-			selectFirstNameLastName(builder): QueryBuilder<UserDetailsModel> {
-				return builder.select("firstName", "lastName");
-			},
-		};
-	}
 
 	public static override get tableName(): string {
 		return DatabaseTableName.USER_DETAILS;

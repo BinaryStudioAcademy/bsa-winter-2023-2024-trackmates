@@ -2,8 +2,8 @@ const FriendApiPath = {
 	FOLLOW: "/follow",
 	FOLLOWERS: "/followers",
 	FOLLOWINGS: "/followings",
+	POTENTIAL_FOLLOWING: "/potential-following",
 	ROOT: "/",
-	SEARCH: "/search",
 	UNFOLLOW: "/unfollow",
 } as const;
 

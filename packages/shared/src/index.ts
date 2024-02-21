@@ -32,7 +32,6 @@ export {
 	FriendApiPath,
 	FriendError,
 	FriendErrorMessage,
-	FriendFilter,
 	type FriendFollowResponseDto,
 	type FriendFollowingRequestDto,
 	FriendRequestValidationSchema,

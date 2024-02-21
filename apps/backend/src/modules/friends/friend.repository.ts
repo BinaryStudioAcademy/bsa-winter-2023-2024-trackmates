@@ -4,7 +4,6 @@ import { type FriendModel } from "~/modules/friends/friend.model.js";
 import { UserEntity } from "../users/user.entity.js";
 import { UserModel } from "../users/user.model.js";
 import { FriendsEntity } from "./friend.entity.js";
-import { FriendFilter } from "./libs/enums/enums.js";
 
 class FriendRepository implements Repository<FriendsEntity> {
 	private friendModel: typeof FriendModel;
@@ -42,15 +41,44 @@ class FriendRepository implements Repository<FriendsEntity> {
 		});
 	}
 
-	public delete(): Promise<boolean> {
-		return Promise.resolve(true);
+	public async delete(id: number): Promise<boolean> {
+		const deletedSubscribe = await this.friendModel.query().deleteById(id);
+
+		return deletedSubscribe ? true : false;
 	}
 
-	public find(): Promise<null> {
-		return Promise.resolve(null);
+	public async find(id: number): Promise<FriendsEntity | null> {
+		const subscription = await this.friendModel.query().findById(id);
+
+		return subscription
+			? FriendsEntity.initialize({
+					createdAt: subscription.createdAt,
+					id: subscription.id,
+					isFollowing: subscription.isFollowing,
+					recipientUser: subscription.recipientUser ?? null,
+					recipientUserId: subscription.recipientUserId,
+					senderUser: subscription.senderUser ?? null,
+					senderUserId: subscription.senderUserId,
+					updatedAt: subscription.updatedAt,
+				})
+			: null;
 	}
-	public findAll(): Promise<FriendsEntity[]> {
-		return Promise.resolve([]);
+
+	public async findAll(): Promise<FriendsEntity[]> {
+		const subscriptions = await this.friendModel.query();
+
+		return subscriptions.map((subscription) =>
+			FriendsEntity.initialize({
+				createdAt: subscription.createdAt,
+				id: subscription.id,
+				isFollowing: subscription.isFollowing,
+				recipientUser: subscription.recipientUser ?? null,
+				recipientUserId: subscription.recipientUserId,
+				senderUser: subscription.senderUser ?? null,
+				senderUserId: subscription.senderUserId,
+				updatedAt: subscription.updatedAt,
+			}),
+		);
 	}
 
 	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
@@ -134,7 +162,6 @@ class FriendRepository implements Repository<FriendsEntity> {
 	public async getUserFollowers(id: number): Promise<UserEntity[]> {
 		const userFollowers = await this.friendModel
 			.query()
-			.modify("getIdWithStatus")
 			.where("recipientUserId", id)
 			.where("isFollowing", true)
 			.withGraphJoined("senderUser")
@@ -163,7 +190,6 @@ class FriendRepository implements Repository<FriendsEntity> {
 	public async getUserFollowings(id: number): Promise<UserEntity[]> {
 		const userFollowers = await this.friendModel
 			.query()
-			.modify("getIdWithStatus")
 			.where("senderUserId", id)
 			.where("isFollowing", true)
 			.withGraphJoined("recipientUser")
@@ -189,66 +215,30 @@ class FriendRepository implements Repository<FriendsEntity> {
 		return users as UserEntity[];
 	}
 
-	public async searchUserByName({
-		filter = FriendFilter.UNFOLLOW,
-		id,
-		value,
-	}: {
-		filter: string;
-		id: number;
-		value: string;
-	}): Promise<UserEntity[]> {
-		let users: UserEntity[] = [];
+	public async update(id: number): Promise<FriendsEntity | null> {
+		const subscription = await this.friendModel.query().findById(id);
 
-		switch (filter) {
-			case FriendFilter.FOLLOWINGS: {
-				users = await this.getUserFollowings(id);
-				break;
-			}
-			case FriendFilter.FOLLOWERS: {
-				users = await this.getUserFollowers(id);
-				break;
-			}
-			default: {
-				users = await this.getPotentialFollowers(id);
-				break;
-			}
+		if (subscription) {
+			const currentFollowingStatus = subscription.isFollowing;
+			const updatedSubscription = await this.friendModel
+				.query()
+				.patchAndFetchById(id, {
+					isFollowing: !currentFollowingStatus,
+				});
+
+			return FriendsEntity.initialize({
+				createdAt: updatedSubscription.createdAt,
+				id: updatedSubscription.id,
+				isFollowing: updatedSubscription.isFollowing,
+				recipientUser: updatedSubscription.recipientUser ?? null,
+				recipientUserId: updatedSubscription.recipientUserId,
+				senderUser: updatedSubscription.senderUser ?? null,
+				senderUserId: updatedSubscription.senderUserId,
+				updatedAt: updatedSubscription.updatedAt,
+			});
 		}
 
-		return users.filter(
-			(user) =>
-				user.getFirstName().toLowerCase().includes(value.toLowerCase()) ||
-				user.getLastName().toLowerCase().includes(value.toLowerCase()),
-		);
-	}
-
-	public update(): Promise<null> {
-		return Promise.resolve(null);
-	}
-
-	public async updateSubscribe({
-		subscription,
-	}: {
-		subscription: FriendsEntity;
-	}): Promise<FriendsEntity> {
-		const currentFollowingStatus = subscription.isFollowing;
-
-		const updatedSubscription = await this.friendModel
-			.query()
-			.patchAndFetchById(subscription.id as number, {
-				isFollowing: !currentFollowingStatus,
-			});
-
-		return FriendsEntity.initialize({
-			createdAt: updatedSubscription.createdAt,
-			id: updatedSubscription.id,
-			isFollowing: updatedSubscription.isFollowing,
-			recipientUser: updatedSubscription.recipientUser ?? null,
-			recipientUserId: updatedSubscription.recipientUserId,
-			senderUser: updatedSubscription.senderUser ?? null,
-			senderUserId: updatedSubscription.senderUserId,
-			updatedAt: updatedSubscription.updatedAt,
-		});
+		return null;
 	}
 }
 

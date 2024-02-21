@@ -45,10 +45,18 @@ class FriendService {
 		}
 
 		if (!subscribeExist.isFollowing) {
-			const updatedSubscription = await this.friendRepository.updateSubscribe({
-				subscription: subscribeExist,
-			});
-			return updatedSubscription.toObject();
+			const updatedSubscription = await this.friendRepository.update(
+				subscribeExist.id as number,
+			);
+
+			if (updatedSubscription) {
+				return updatedSubscription.toObject();
+			} else {
+				throw new FriendError(
+					FriendErrorMessage.FRIEND_UPDATE_ERROR,
+					HTTPCode.BAD_REQUEST,
+				);
+			}
 		}
 
 		throw new FriendError(
@@ -75,24 +83,6 @@ class FriendService {
 		return folowings.map((user) => user.toObject());
 	}
 
-	public async searchUserByName({
-		filter,
-		id,
-		value,
-	}: {
-		filter: string;
-		id: number;
-		value: string;
-	}): Promise<UserAuthResponseDto[]> {
-		const users = await this.friendRepository.searchUserByName({
-			filter,
-			id,
-			value,
-		});
-
-		return users.map((user) => user.toObject());
-	}
-
 	async unsubscribe(
 		id: number,
 		userId: number,
@@ -110,16 +100,23 @@ class FriendService {
 
 		if (!subscription.isFollowing) {
 			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				FriendErrorMessage.FRIEND_UNFOLLOW_ERROR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
 
-		const updatedSubscription = await this.friendRepository.updateSubscribe({
-			subscription,
-		});
+		const updatedSubscription = await this.friendRepository.update(
+			subscription.id as number,
+		);
 
-		return updatedSubscription.toObject();
+		if (updatedSubscription) {
+			return updatedSubscription.toObject();
+		} else {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
 	}
 }
 

@@ -1,4 +1,4 @@
-import { Model, Modifiers, QueryBuilder } from "objection";
+import { Model } from "objection";
 
 import {
 	AbstractModel,
@@ -44,19 +44,7 @@ class UserModel extends AbstractModel {
 
 	public passwordSalt!: string;
 
-	public recipientUser!: FriendModel[];
-
-	public senderUser!: FriendModel[];
-
 	public userDetails!: UserDetailsModel;
-
-	public static override get modifiers(): Modifiers<QueryBuilder<UserModel>> {
-		return {
-			onlyId(builder): QueryBuilder<UserModel> {
-				return builder.select("id");
-			},
-		};
-	}
 
 	public static override get tableName(): string {
 		return DatabaseTableName.USERS;

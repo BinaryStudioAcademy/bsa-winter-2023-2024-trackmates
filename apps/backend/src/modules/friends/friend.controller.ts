@@ -121,21 +121,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: FriendApiPath.ROOT,
-		});
-		this.addRoute({
-			handler: (options) =>
-				this.searchUserByName(
-					options as APIHandlerOptions<{
-						query: {
-							filter: string;
-							text: string;
-						};
-						user: UserAuthResponseDto;
-					}>,
-				),
-			method: "GET",
-			path: FriendApiPath.SEARCH,
+			path: FriendApiPath.POTENTIAL_FOLLOWING,
 		});
 	}
 
@@ -263,58 +249,6 @@ class FriendController extends BaseController {
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.friendService.getUserFollowings(options.user.id),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /friend/search:
-	 *    get:
-	 *      description: Search User by name with current filter
-	 *      parameters:
-	 *        - in: query
-	 *          name: text
-	 *          schema:
-	 *            type: string
-	 *          required: true
-	 *        - in: query
-	 *          name: filter
-	 *          schema:
-	 *            type: string
-	 *          required: false
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: array
-	 *                properties:
-	 *                  message:
-	 *                    type: object
-	 *                    $ref: "#/components/schemas/User"
-	 */
-	private async searchUserByName(
-		options: APIHandlerOptions<{
-			query: {
-				filter: string;
-				text: string;
-			};
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		const { filter, text } = options.query;
-		const { id } = options.user;
-
-		const friends = await this.friendService.searchUserByName({
-			filter,
-			id,
-			value: text,
-		});
-
-		return {
-			payload: friends,
 			status: HTTPCode.OK,
 		};
 	}

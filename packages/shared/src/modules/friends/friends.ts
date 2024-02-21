@@ -1,8 +1,4 @@
-export {
-	FriendApiPath,
-	FriendErrorMessage,
-	FriendFilter,
-} from "./libs/enums/enums.js";
+export { FriendApiPath, FriendErrorMessage } from "./libs/enums/enums.js";
 export { FriendError } from "./libs/exceptions/exceptions.js";
 export {
 	type FriendDto,
