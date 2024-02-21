@@ -1,11 +1,10 @@
-import { useSearchParams } from "react-router-dom";
-
 import { Link } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
