@@ -4,6 +4,8 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { type UserProfileRequestDto } from "~/modules/users/users.js";
 
+import { NotificationMessage } from "../enums/enums.js";
+
 const SLICE_NAME = "users";
 
 const updateProfile = createAsyncThunk<
@@ -15,7 +17,7 @@ const updateProfile = createAsyncThunk<
 
 	const user = await userApi.update(id, profilePayload);
 
-	notification.success("Your profile has been updated");
+	notification.success(NotificationMessage.PROFILE_UPDATED);
 
 	return user;
 });
@@ -29,7 +31,7 @@ const updateUserAvatar = createAsyncThunk<
 
 	const user = await userApi.updateAvatar(payload);
 
-	notification.success("Your avatar has been successfully changed");
+	notification.success(NotificationMessage.AVATAR_CHANGED);
 
 	return user;
 });
