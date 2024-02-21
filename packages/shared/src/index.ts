@@ -42,11 +42,6 @@ export {
 	addCourseValidationSchema,
 } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
-export {
-	RecommendedCoursesApiPath,
-	type RecommendedCoursesRequestDto,
-	type RecommendedCoursesResponseDto,
-} from "./modules/recommended-courses/recommended-courses.js";
 export { UserCoursesApiPath } from "./modules/user-courses/users-courses.js";
 export {
 	type UserAuthResponseDto,
