@@ -23,6 +23,7 @@
 
 .card-content {
 	padding: 12px;
+	background-color: var(--main-white);
 }
 
 .fullName {
