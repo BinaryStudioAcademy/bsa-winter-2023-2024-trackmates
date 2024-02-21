@@ -2,7 +2,10 @@ import { type Knex } from "knex";
 
 import { MessageStatus } from "~/modules/chat-message/libs/enums/enums.js";
 
-const TABLE_NAME = "chat_messages";
+const TableName = {
+	CHAT_MESSAGES: "chat_messages",
+	USERS: "users",
+} as const;
 
 const ColumnName = {
 	CHAT_ID: "chat_id",
@@ -16,7 +19,7 @@ const ColumnName = {
 } as const;
 
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.createTable(TABLE_NAME, (table) => {
+	await knex.schema.createTable(TableName.CHAT_MESSAGES, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.dateTime(ColumnName.CREATED_AT)
@@ -30,12 +33,12 @@ async function up(knex: Knex): Promise<void> {
 			.integer(ColumnName.SENDER_ID)
 			.notNullable()
 			.references("id")
-			.inTable("users");
+			.inTable(TableName.USERS);
 		table
 			.integer(ColumnName.RECEIVER_ID)
 			.notNullable()
 			.references("id")
-			.inTable("users");
+			.inTable(TableName.USERS);
 		table.uuid(ColumnName.CHAT_ID).notNullable().defaultTo(knex.fn.uuid());
 		table
 			.enum(ColumnName.STATUS, [MessageStatus.READ, MessageStatus.UNREAD])
@@ -46,7 +49,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.dropTableIfExists(TABLE_NAME);
+	await knex.schema.dropTableIfExists(TableName.CHAT_MESSAGES);
 }
 
 export { down, up };
