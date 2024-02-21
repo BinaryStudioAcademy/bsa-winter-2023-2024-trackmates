@@ -6,7 +6,7 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
-	type CourseResponseDto,
+	type CoursesResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-courses.slice.js";
 
@@ -23,7 +23,7 @@ const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 );
 
 const loadMyCourses = createAsyncThunk<
-	CourseResponseDto,
+	CoursesResponseDto,
 	number,
 	AsyncThunkConfig
 >(`${sliceName}/load-all`, (userId, { extra }) => {

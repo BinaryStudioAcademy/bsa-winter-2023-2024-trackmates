@@ -1,7 +1,7 @@
 import { type CourseDto } from "./course.type.js";
 
-type CourseResponseDto = {
+type CoursesResponseDto = {
 	courses: CourseDto[];
 };
 
-export { type CourseResponseDto };
+export { type CoursesResponseDto };

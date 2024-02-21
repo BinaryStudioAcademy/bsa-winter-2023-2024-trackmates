@@ -35,11 +35,11 @@ export {
 	type AddCourseRequestDto,
 	type CourseDto,
 	CourseError,
-	type CourseResponseDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 	CoursesApiPath,
+	type CoursesResponseDto,
 	addCourseValidationSchema,
 } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";

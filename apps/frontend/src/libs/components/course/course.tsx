@@ -10,15 +10,10 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	course: CourseDto;
-	isNew?: boolean | undefined;
-	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
+	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
 };
 
-const Course: React.FC<Properties> = ({
-	course,
-	isNew,
-	onAddCourse,
-}: Properties) => {
+const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 	const { image, title, vendor, vendorCourseId } = course;
 	const source = VendorsLogoPath[vendor.key] ?? "";
 
@@ -42,7 +37,7 @@ const Course: React.FC<Properties> = ({
 					<h2 className={styles["title"]}>{title}</h2>
 				</div>
 			</div>
-			{isNew && (
+			{onAddCourse && (
 				<div className={styles["actions"]}>
 					<Button
 						color="secondary"
