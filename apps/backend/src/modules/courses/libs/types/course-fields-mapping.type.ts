@@ -1,7 +1,10 @@
 import { type CourseDto } from "./types.js";
 
 type CourseFieldsMapping = Record<
-	keyof Omit<CourseDto, "id" | "vendor">,
+	keyof Pick<
+		CourseDto,
+		"description" | "image" | "imageSmall" | "title" | "url" | "vendorCourseId"
+	>,
 	string
 >;
 

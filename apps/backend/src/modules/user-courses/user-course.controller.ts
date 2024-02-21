@@ -26,7 +26,7 @@ class UserCourseController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: UserCoursesApiPath.USER,
+			path: UserCoursesApiPath.$USER_ID,
 		});
 	}
 

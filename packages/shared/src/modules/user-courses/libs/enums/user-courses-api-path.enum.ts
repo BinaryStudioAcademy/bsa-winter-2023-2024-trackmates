@@ -1,6 +1,6 @@
 const UserCoursesApiPath = {
+	$USER_ID: "/:userId",
 	ROOT: "/",
-	USER: "/:userId",
 } as const;
 
 export { UserCoursesApiPath };
