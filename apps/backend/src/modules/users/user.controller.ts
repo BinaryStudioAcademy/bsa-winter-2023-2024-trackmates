@@ -31,7 +31,7 @@ class UserController extends BaseController {
 					}>,
 				),
 			method: "PATCH",
-			path: `${UsersApiPath.PROFILE}/:id`,
+			path: `${UsersApiPath.ROOT}:id`,
 			validation: {
 				body: userProfileValidationSchema,
 			},
@@ -40,7 +40,7 @@ class UserController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /users/profile/{id}:
+	 * /users/{id}:
 	 *    patch:
 	 *      description: Updates a user's details
 	 *      parameters:

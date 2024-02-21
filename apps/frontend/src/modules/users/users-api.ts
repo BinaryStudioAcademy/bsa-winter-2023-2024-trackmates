@@ -25,7 +25,7 @@ class UserApi extends BaseHTTPApi {
 		payload: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(`${UsersApiPath.PROFILE}/${id}`, {}),
+			this.getFullEndpoint(`${UsersApiPath.ROOT}/${id}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
