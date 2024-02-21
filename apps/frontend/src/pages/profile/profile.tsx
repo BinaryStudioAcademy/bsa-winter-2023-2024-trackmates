@@ -54,7 +54,7 @@ const Profile: React.FC = () => {
 		[dispatch],
 	);
 
-	const onSubmit = useCallback(
+	const handleInputChange = useCallback(
 		(formData: UserProfileRequestDto): void => {
 			if (!userId) {
 				return;
@@ -72,9 +72,9 @@ const Profile: React.FC = () => {
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
-			void handleSubmit(onSubmit)(event_);
+			void handleSubmit(handleInputChange)(event_);
 		},
-		[handleSubmit, onSubmit],
+		[handleSubmit, handleInputChange],
 	);
 
 	return (
