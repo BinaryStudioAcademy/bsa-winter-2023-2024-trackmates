@@ -38,17 +38,18 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				setIsFollowing(false);
 			});
 	}, [dispatch, friend.id]);
-	const fullName = `${friend.firstName} ${friend.lastName}`;
 
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
 				<Image
-					alt={`portrait of ${fullName}`}
+					alt="User avatar"
 					className={styles["portrait"]}
 					src={friendImage}
 				/>
-				<p className={styles["fullName"]}>{fullName}</p>
+				<p
+					className={styles["fullName"]}
+				>{`${friend.firstName} ${friend.lastName}`}</p>
 			</div>
 
 			<div className={styles["actions"]}>
