@@ -5,6 +5,7 @@ import {
 	type VendorService,
 } from "~/modules/vendors/vendors.js";
 
+import { type OpenAiService } from "../open-ai/open-ai.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
 import {
@@ -18,6 +19,7 @@ type CourseFieldForMap = keyof Omit<CourseDto, "id" | "vendor">;
 
 type Constructor = {
 	courseRepository: CourseRepository;
+	openAiService: OpenAiService;
 	userCourseService: UserCourseService;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
@@ -26,6 +28,7 @@ type Constructor = {
 
 class CourseService {
 	private courseRepository: CourseRepository;
+	private openAiService: OpenAiService;
 	private userCourseService: UserCourseService;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
@@ -33,12 +36,14 @@ class CourseService {
 
 	public constructor({
 		courseRepository,
+		openAiService,
 		userCourseService,
 		vendorService,
 		vendorsApiMap,
 		vendorsFieldsMappingMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
+		this.openAiService = openAiService;
 		this.userCourseService = userCourseService;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorsFieldsMappingMap = vendorsFieldsMappingMap;
@@ -174,7 +179,13 @@ class CourseService {
 
 		courses = await this.filterCourses(courses, userId);
 
-		return { courses };
+		const openAiResponse = await this.openAiService.call(courses);
+		const sortedCourses = courses.map((_, index) => {
+			const courseIndex = openAiResponse[index] as number;
+			return courses[courseIndex] as CourseDto;
+		});
+
+		return { courses: sortedCourses };
 	}
 }
 

@@ -3,6 +3,7 @@ import { userCourseService } from "~/modules/user-courses/user-courses.js";
 import { UserModel } from "~/modules/users/user.model.js";
 import { udemyService, vendorService } from "~/modules/vendors/vendors.js";
 
+import { openAiService } from "../open-ai/open-ai.js";
 import { CourseController } from "./course.controller.js";
 import { CourseModel } from "./course.model.js";
 import { CourseRepository } from "./course.repository.js";
@@ -18,6 +19,7 @@ const vendorsFieldsMappingMap = {
 const courseRepository = new CourseRepository(CourseModel, UserModel);
 const courseService = new CourseService({
 	courseRepository,
+	openAiService,
 	userCourseService,
 	vendorService,
 	vendorsApiMap,
@@ -25,8 +27,7 @@ const courseService = new CourseService({
 });
 const courseController = new CourseController(logger, courseService);
 
-export { courseController, courseService };
+export { courseController };
 export { CourseEntity } from "./course.entity.js";
 export { CourseModel } from "./course.model.js";
-export { type CourseService } from "./course.service.js";
 export { type CourseDto } from "./libs/types/types.js";

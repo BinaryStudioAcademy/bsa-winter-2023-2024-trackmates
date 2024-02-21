@@ -1,10 +1,12 @@
-import { logger } from "~/libs/modules/logger/logger.js";
-import { courseService } from "~/modules/courses/courses.js";
+import { config } from "~/libs/modules/config/config.js";
+import { openAi } from "~/libs/modules/open-ai/open-ai.js";
 
-import { OpenAiController } from "./open-ai.controller.js";
 import { OpenAiService } from "./open-ai.service.js";
 
-const openAiService = new OpenAiService(courseService);
-const openAiController = new OpenAiController(logger, openAiService);
+const openAiService = new OpenAiService({
+	model: config.ENV.OPENAI.MODEL,
+	openAi,
+});
 
-export { openAiController };
+export { openAiService };
+export { type OpenAiService } from "./open-ai.service.js";

@@ -1,1 +1,1 @@
-export { ApplicationError } from "~/libs/exceptions/exceptions.js";
+export { OpenAiError } from "./open-ai-error.exception.js";

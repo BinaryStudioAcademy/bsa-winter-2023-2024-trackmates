@@ -20,6 +20,7 @@ type EnvironmentSchema = {
 	};
 	OPENAI: {
 		API_KEY: string;
+		MODEL: string;
 	};
 	UDEMY: {
 		CLIENT_ID: string;
