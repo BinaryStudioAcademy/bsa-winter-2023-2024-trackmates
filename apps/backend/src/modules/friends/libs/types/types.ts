@@ -1,4 +1,4 @@
 export {
-	type FriendFollowSuccessResponseDto,
+	type FriendFollowResponseDto,
 	type FriendFollowingRequestDto,
 } from "shared";

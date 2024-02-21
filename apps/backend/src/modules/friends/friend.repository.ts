@@ -42,26 +42,14 @@ class FriendRepository implements Repository<FriendsEntity> {
 		});
 	}
 
-	delete(): Promise<boolean> {
+	public delete(): Promise<boolean> {
 		return Promise.resolve(true);
 	}
 
-	public async deleteSubscribe({
-		subscription,
-	}: {
-		subscription: FriendsEntity;
-	}): Promise<boolean> {
-		const deletedSubscribe = await this.friendModel
-			.query()
-			.deleteById(subscription.id as number);
-
-		return deletedSubscribe ? true : false;
-	}
-
-	find(): Promise<null> {
+	public find(): Promise<null> {
 		return Promise.resolve(null);
 	}
-	findAll(): Promise<FriendsEntity[]> {
+	public findAll(): Promise<FriendsEntity[]> {
 		return Promise.resolve([]);
 	}
 
@@ -72,7 +60,9 @@ class FriendRepository implements Repository<FriendsEntity> {
 			.withGraphJoined("userDetails")
 			.withGraphJoined("recipientUser")
 			.whereNotExists(
-				UserModel.relatedQuery("recipientUser").where("senderUserId", id),
+				UserModel.relatedQuery("recipientUser")
+					.where("isFollowing", true)
+					.andWhere("senderUserId", id),
 			);
 
 		return filteredFollowers.map((user) =>
@@ -89,12 +79,17 @@ class FriendRepository implements Repository<FriendsEntity> {
 		);
 	}
 
-	async getSubscribeByRequestId(id: number): Promise<FriendsEntity | null> {
+	async getSubscribeByRequestId(
+		id: number,
+		userId: number,
+	): Promise<FriendsEntity | null> {
 		const subscription = await this.friendModel
 			.query()
-			.findById(id)
-			.returning("*")
-			.execute();
+			.where({
+				recipientUserId: id,
+				senderUserId: userId,
+			})
+			.first();
 
 		return subscription
 			? FriendsEntity.initialize({
@@ -227,8 +222,33 @@ class FriendRepository implements Repository<FriendsEntity> {
 		);
 	}
 
-	update(): Promise<null> {
+	public update(): Promise<null> {
 		return Promise.resolve(null);
+	}
+
+	public async updateSubscribe({
+		subscription,
+	}: {
+		subscription: FriendsEntity;
+	}): Promise<FriendsEntity> {
+		const currentFollowingStatus = subscription.isFollowing;
+
+		const updatedSubscription = await this.friendModel
+			.query()
+			.patchAndFetchById(subscription.id as number, {
+				isFollowing: !currentFollowingStatus,
+			});
+
+		return FriendsEntity.initialize({
+			createdAt: updatedSubscription.createdAt,
+			id: updatedSubscription.id,
+			isFollowing: updatedSubscription.isFollowing,
+			recipientUser: updatedSubscription.recipientUser ?? null,
+			recipientUserId: updatedSubscription.recipientUserId,
+			senderUser: updatedSubscription.senderUser ?? null,
+			senderUserId: updatedSubscription.senderUserId,
+			updatedAt: updatedSubscription.updatedAt,
+		});
 	}
 }
 

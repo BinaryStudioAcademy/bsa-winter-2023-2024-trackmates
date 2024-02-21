@@ -7,7 +7,7 @@ import {
 	FriendErrorMessage,
 	HTTPCode,
 } from "./libs/enums/enums.js";
-import { type FriendFollowSuccessResponseDto } from "./libs/types/types.js";
+import { type FriendFollowResponseDto } from "./libs/types/types.js";
 
 class FriendService {
 	private friendRepository: FriendRepository;
@@ -19,7 +19,7 @@ class FriendService {
 	async createSubscribe(
 		id: number,
 		receiverUserId: number,
-	): Promise<FriendFollowSuccessResponseDto | null> {
+	): Promise<FriendFollowResponseDto | null> {
 		if (id === receiverUserId) {
 			throw new FriendError(
 				FriendErrorMessage.SEND_REQUEST_TO_YOURSELF,
@@ -32,39 +32,29 @@ class FriendService {
 			receiverUserId,
 		);
 
-		if (subscribeExist) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_EXIST,
-				HTTPCode.BAD_REQUEST,
+		if (!subscribeExist) {
+			const subscription = await this.friendRepository.create(
+				FriendsEntity.initializeNew({
+					recipientUser: null,
+					recipientUserId: receiverUserId,
+					senderUser: null,
+					senderUserId: id,
+				}),
 			);
+			return subscription.toObject();
 		}
 
-		const subscription = await this.friendRepository.create(
-			FriendsEntity.initializeNew({
-				recipientUser: null,
-				recipientUserId: receiverUserId,
-				senderUser: null,
-				senderUserId: id,
-			}),
+		if (!subscribeExist.isFollowing) {
+			const updatedSubscription = await this.friendRepository.updateSubscribe({
+				subscription: subscribeExist,
+			});
+			return updatedSubscription.toObject();
+		}
+
+		throw new FriendError(
+			FriendErrorMessage.FRIEND_REQUEST_EXIST,
+			HTTPCode.BAD_REQUEST,
 		);
-
-		return subscription.toObject();
-	}
-
-	async deleteSubscribe(id: number, userId: number): Promise<boolean> {
-		const subscription =
-			await this.friendRepository.getSubscribeByRequestId(id);
-
-		if (!subscription || subscription.senderUserId !== userId) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
-		}
-
-		return await this.friendRepository.deleteSubscribe({
-			subscription,
-		});
 	}
 
 	async getPotentialFollowers(id: number): Promise<UserAuthResponseDto[]> {
@@ -101,6 +91,35 @@ class FriendService {
 		});
 
 		return users.map((user) => user.toObject());
+	}
+
+	async unsubscribe(
+		id: number,
+		userId: number,
+	): Promise<FriendFollowResponseDto> {
+		const subscription = await this.friendRepository.getSubscribeByRequestId(
+			id,
+			userId,
+		);
+		if (!subscription || subscription.senderUserId !== userId) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		if (!subscription.isFollowing) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		const updatedSubscription = await this.friendRepository.updateSubscribe({
+			subscription,
+		});
+
+		return updatedSubscription.toObject();
 	}
 }
 

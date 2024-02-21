@@ -80,13 +80,13 @@ class FriendController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) =>
-				this.deleteSubscribe(
+				this.unsubscribe(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				),
-			method: "DELETE",
+			method: "PATCH",
 			path: FriendApiPath.UNFOLLOW,
 			validation: {
 				body: FriendRequestValidationSchema,
@@ -186,54 +186,6 @@ class FriendController extends BaseController {
 				options.body.id,
 			),
 			status: HTTPCode.CREATED,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /friend/unfollow:
-	 *    post:
-	 *      description: deleted a subscribe
-	 *      requestBody:
-	 *        description: User auth data
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                id:
-	 *                  type: number
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
-	 *                    description: Indicates whether the unsubscribe operation was successful (true) or not (false).
-	 *       400:
-	 *         description: Bad request
-	 *         content:
-	 *           application/json:
-	 *             schema:
-	 *               $ref: '#/components/schemas/FriendError'
-	 */
-	private async deleteSubscribe(
-		options: APIHandlerOptions<{
-			body: FriendFollowingRequestDto;
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.friendService.deleteSubscribe(
-				options.body.id,
-				options.user.id,
-			),
-			status: HTTPCode.OK,
 		};
 	}
 
@@ -363,6 +315,54 @@ class FriendController extends BaseController {
 
 		return {
 			payload: friends,
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friend/unfollow:
+	 *    post:
+	 *      description: update user status isFollow and return updated user
+	 *      requestBody:
+	 *        description: User auth data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                id:
+	 *                  type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 *                    description: Indicates whether the unsubscribe operation was successful (true) or not (false).
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/FriendError'
+	 */
+	private async unsubscribe(
+		options: APIHandlerOptions<{
+			body: FriendFollowingRequestDto;
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.unsubscribe(
+				options.body.id,
+				options.user.id,
+			),
 			status: HTTPCode.OK,
 		};
 	}

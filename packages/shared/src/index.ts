@@ -33,7 +33,7 @@ export {
 	FriendError,
 	FriendErrorMessage,
 	FriendFilter,
-	type FriendFollowSuccessResponseDto,
+	type FriendFollowResponseDto,
 	type FriendFollowingRequestDto,
 	FriendRequestValidationSchema,
 } from "./modules/friends/friends.js";
