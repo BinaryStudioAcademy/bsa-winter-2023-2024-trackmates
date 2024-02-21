@@ -83,7 +83,7 @@ class FriendsApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "DELETE",
+				method: "PATCH",
 				payload: JSON.stringify(payload),
 			},
 		);
