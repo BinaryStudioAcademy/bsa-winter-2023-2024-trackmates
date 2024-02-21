@@ -37,10 +37,10 @@ class ChatMessageService {
 		chatId: string,
 		userId: number,
 	): Promise<MessageGetAllResponseDto> {
-		const userIsChatOwner =
+		const isUserChatOwner =
 			await this.chatMessageRepository.checkIfUserIsChatOwner(userId, chatId);
 
-		if (!userIsChatOwner) {
+		if (!isUserChatOwner) {
 			throw new HTTPError({
 				message: ExceptionMessage.NO_PERMISSION,
 				status: HTTPCode.FORBIDDEN,
