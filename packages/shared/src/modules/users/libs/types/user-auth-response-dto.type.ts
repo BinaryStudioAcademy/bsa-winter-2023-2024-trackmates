@@ -1,5 +1,5 @@
 type UserAuthResponseDto = {
-	avatarUrl?: string;
+	avatarUrl: null | string;
 	createdAt: string;
 	email: string;
 	firstName: string;
