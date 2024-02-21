@@ -5,7 +5,6 @@ const ColumnName = {
 	DESCRIPTION: "description",
 	ID: "id",
 	IMAGE: "image",
-	IMAGE_SMALL: "image_small",
 	TITLE: "title",
 	UPDATED_AT: "updated_at",
 	URL: "url",
@@ -24,7 +23,6 @@ async function up(knex: Knex): Promise<void> {
 		table.text(ColumnName.TITLE).notNullable();
 		table.text(ColumnName.DESCRIPTION);
 		table.text(ColumnName.IMAGE);
-		table.text(ColumnName.IMAGE_SMALL);
 		table.text(ColumnName.URL).notNullable();
 		table.string(ColumnName.VENDOR_COURSE_ID).notNullable().unique();
 		table

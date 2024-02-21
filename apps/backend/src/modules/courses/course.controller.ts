@@ -30,8 +30,6 @@ import { addCourseValidationSchema } from "./libs/validation-schemas/validation-
  *            minimum: 1
  *          image:
  *            type: string
- *          imageSmall:
- *            type: string
  *          title:
  *            type: string
  *          url:
@@ -161,8 +159,13 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
+		const { search, vendorsKeys } = query;
 		return {
-			payload: await this.courseService.findAllByVendors(query, user.id),
+			payload: await this.courseService.findAllByVendors({
+				search,
+				userId: user.id,
+				vendorsKeys,
+			}),
 			status: HTTPCode.OK,
 		};
 	}

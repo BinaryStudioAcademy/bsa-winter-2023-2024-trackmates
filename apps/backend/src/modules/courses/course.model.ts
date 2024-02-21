@@ -24,8 +24,6 @@ class CourseModel extends AbstractModel {
 
 	public image!: string;
 
-	public imageSmall!: string;
-
 	public title!: string;
 
 	public url!: string;

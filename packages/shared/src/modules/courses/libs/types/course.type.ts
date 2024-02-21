@@ -4,7 +4,6 @@ type CourseDto = {
 	description: string;
 	id: number;
 	image: string;
-	imageSmall: string;
 	title: string;
 	url: string;
 	vendor: VendorResponseDto;

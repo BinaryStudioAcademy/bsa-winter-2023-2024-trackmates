@@ -14,12 +14,6 @@ import {
 } from "./libs/enums/enums.js";
 import { type VendorService } from "./libs/types/types.js";
 
-type SearchParameters = {
-	page?: number;
-	pageSize?: number;
-	search?: string;
-};
-
 type Constructor = {
 	baseUrl: string;
 	clientId: string;
@@ -68,15 +62,11 @@ class UdemyService implements VendorService {
 		return (await result.json()) as Record<string, unknown>;
 	}
 
-	public async getCourses({
-		page = UdemyDefaultSearchParameter.PAGE,
-		pageSize = UdemyDefaultSearchParameter.PAGE_SIZE,
-		search,
-	}: SearchParameters): Promise<Record<string, unknown>[]> {
+	public async getCourses(search: string): Promise<Record<string, unknown>[]> {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
-			page,
-			page_size: pageSize,
+			page: UdemyDefaultSearchParameter.PAGE,
+			page_size: UdemyDefaultSearchParameter.PAGE_SIZE,
 		};
 
 		if (search) {
