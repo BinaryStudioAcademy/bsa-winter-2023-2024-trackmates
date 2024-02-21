@@ -1,6 +1,5 @@
 type UserProfileRequestDto = {
 	firstName: string;
-	id: number;
 	lastName: string;
 };
 
