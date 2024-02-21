@@ -4,14 +4,13 @@ import { HTTPError } from "~/libs/modules/http/http.js";
 import { type UserRepository } from "../users/users.js";
 import { ChatMessageEntity } from "./chat-message.entity.js";
 import { type ChatMessageRepository } from "./chat-message.repository.js";
+import { EMPTY_CHAT_LENGTH } from "./libs/constants/chat-message.constants.js";
 import {
 	type ChatGetAllResponseDto,
 	type MessageGetAllResponseDto,
 	type MessageResponseDto,
 	type MessageSendRequestDto,
 } from "./libs/types/types.js";
-
-const ARRAY_EMPTY_LENGTH = 0;
 
 class ChatMessageService {
 	private chatMessageRepository: ChatMessageRepository;
@@ -51,7 +50,7 @@ class ChatMessageService {
 		const chatMessages =
 			await this.chatMessageRepository.findAllMessagesByChatId(chatId);
 
-		if (chatMessages.length === ARRAY_EMPTY_LENGTH) {
+		if (chatMessages.length === EMPTY_CHAT_LENGTH) {
 			throw new HTTPError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
 				status: HTTPCode.BAD_REQUEST,
