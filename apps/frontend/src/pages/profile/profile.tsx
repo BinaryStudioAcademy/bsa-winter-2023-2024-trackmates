@@ -4,27 +4,38 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
+	useAppSelector,
 	useCallback,
 	useParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import { actions as usersActions } from "~/modules/users/users.js";
+import {
+	UserAuthResponseDto,
+	actions as usersActions,
+} from "~/modules/users/users.js";
 import {
 	type UserProfileRequestDto,
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
 import { Avatar, UploadAvatarButton } from "./components/components.js";
-import { DEFAULT_PROFILE_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const { userId } = useParams<{ userId: string }>();
+	const user = useAppSelector(({ auth }) => {
+		return auth.user as UserAuthResponseDto;
+	});
 	const dispatch = useAppDispatch();
 
+	const defaultValues = {
+		firstName: user.firstName,
+		lastName: user.lastName,
+	};
+
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
-		defaultValues: DEFAULT_PROFILE_PAYLOAD,
+		defaultValues: defaultValues,
 		validationSchema: userProfileValidationSchema,
 	});
 
