@@ -38,7 +38,7 @@ class ChatMessageApi extends BaseHTTPApi {
 		chatId: string,
 	): Promise<MessageGetAllResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(ChatMessageApiPath.$CHAT_ID, { id: chatId }),
+			this.getFullEndpoint(ChatMessageApiPath.$CHAT_ID, { chatId }),
 			{ hasAuth: true, method: "GET" },
 		);
 

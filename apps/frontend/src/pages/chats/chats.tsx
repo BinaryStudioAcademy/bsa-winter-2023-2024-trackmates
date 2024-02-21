@@ -11,6 +11,7 @@ import {
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import {
+	type ChatItemResponseDto,
 	type MessageSendRequestDto,
 	actions as chatMessageActions,
 } from "~/modules/chat-message/chat-message.js";
@@ -20,12 +21,12 @@ import { DEFAULT_MESSAGE_PAYLOAD } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const receiver = {
-	createdAt: "",
-	email: "",
-	firstName: "FirstName",
-	id: 1,
-	lastName: "LastName",
-	updatedAt: "",
+	createdAt: "2024-02-18T15:55:25.409Z",
+	email: "test1@gmail.com",
+	firstName: "Anna",
+	id: 2,
+	lastName: "Maksai",
+	updatedAt: "2024-02-18T15:55:25.409Z",
 };
 
 const Chats: React.FC = () => {
@@ -45,7 +46,7 @@ const Chats: React.FC = () => {
 			return (
 				Boolean(id) &&
 				Boolean(chats) &&
-				chats.some((element) => element.id === id)
+				chats.some((element: ChatItemResponseDto) => element.id === id)
 			);
 		},
 		[chats],
@@ -92,7 +93,7 @@ const Chats: React.FC = () => {
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />
-				{Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH ? (
+				{isValidChatId(String(id)) || Boolean(userId) ? (
 					<Chat messages={messages} onSubmit={onSubmit} receiver={receiver} />
 				) : (
 					<EmptyChat />
