@@ -1,0 +1,1 @@
+export { CourseError } from "shared";

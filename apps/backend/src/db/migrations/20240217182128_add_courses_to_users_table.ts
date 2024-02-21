@@ -1,10 +1,5 @@
 import { type Knex } from "knex";
 
-const TABLE_NAME = "courses_to_users";
-const COURSES_TABLE_NAME = "courses";
-const USERS_TABLE_NAME = "users";
-const ID = "id";
-
 const ColumnName = {
 	COURSE_ID: "course_id",
 	CREATED_AT: "created_at",
@@ -13,18 +8,24 @@ const ColumnName = {
 	USER_ID: "user_id",
 } as const;
 
+const TableName = {
+	COURSES: "courses",
+	COURSES_TO_USERS: "courses_to_users",
+	USERS: "users",
+};
+
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.createTable(TABLE_NAME, (table) => {
+	await knex.schema.createTable(TableName.COURSES_TO_USERS, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.integer(ColumnName.COURSE_ID)
-			.references(ID)
-			.inTable(COURSES_TABLE_NAME)
+			.references(ColumnName.ID)
+			.inTable(TableName.COURSES)
 			.notNullable();
 		table
 			.integer(ColumnName.USER_ID)
-			.references(ID)
-			.inTable(USERS_TABLE_NAME)
+			.references(ColumnName.ID)
+			.inTable(TableName.USERS)
 			.notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)
@@ -42,7 +43,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.dropTableIfExists(TABLE_NAME);
+	await knex.schema.dropTableIfExists(TableName.COURSES_TO_USERS);
 }
 
 export { down, up };

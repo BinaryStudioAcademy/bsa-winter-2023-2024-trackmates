@@ -8,7 +8,7 @@ import {
 	type AddCourseRequestDto,
 	type CourseDto,
 	type CourseSearchFilterDto,
-	type CourseSearchResponseDto,
+	type CoursesResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -35,9 +35,9 @@ class CourseApi extends BaseHTTPApi {
 
 		return await response.json<CourseDto>();
 	}
-	public async search(
+	public async getAll(
 		filter: CourseSearchFilterDto,
-	): Promise<CourseSearchResponseDto> {
+	): Promise<CoursesResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
 			{
@@ -48,7 +48,7 @@ class CourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<CourseSearchResponseDto>();
+		return await response.json<CoursesResponseDto>();
 	}
 }
 

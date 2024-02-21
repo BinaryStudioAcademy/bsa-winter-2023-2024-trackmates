@@ -1,9 +1,8 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { useHandleClickOutside, useRef } from "~/libs/hooks/hooks.js";
 
 import { Button } from "../button/button.js";
 import { Portal } from "../portal/portal.js";
-import { useModal } from "./hooks/hooks.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -17,37 +16,36 @@ const Modal: React.FC<Properties> = ({
 	isOpen,
 	onClose,
 }: Properties) => {
-	const { handleDisableContentContainerClick, handleOutsideClick } = useModal({
-		onClose,
+	const contentReference = useRef<HTMLDivElement>(null);
+	useHandleClickOutside({
+		onClick: onClose,
+		ref: contentReference,
 	});
-
-	if (!isOpen) {
-		return null;
-	}
 
 	return (
 		<Portal>
-			<div
+			<dialog
+				aria-modal
 				className={getValidClassNames(styles["modal"])}
-				onClick={handleOutsideClick}
-				role="button"
-				tabIndex={0}
+				open={isOpen}
 			>
 				<div
 					className={styles["content"]}
-					onClick={handleDisableContentContainerClick}
+					ref={contentReference}
 					role="button"
 					tabIndex={0}
 				>
 					{children}
 					<Button
 						className={styles["close-btn"]}
+						hasVisuallyHiddenLabel
 						iconName="cross"
+						label="Close modal"
 						onClick={onClose}
 						style="clear"
 					/>
 				</div>
-			</div>
+			</dialog>
 		</Portal>
 	);
 };

@@ -12,7 +12,7 @@ import {
 	actions as courseActions,
 } from "~/modules/courses/courses.js";
 import {
-	VendorResponseDto,
+	type VendorResponseDto,
 	actions as vendorActions,
 } from "~/modules/vendors/vendors.js";
 

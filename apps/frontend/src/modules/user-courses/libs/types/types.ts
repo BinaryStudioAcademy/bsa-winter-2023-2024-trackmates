@@ -1,5 +1,5 @@
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
-	type CourseSearchResponseDto,
+	type CoursesResponseDto,
 } from "shared";

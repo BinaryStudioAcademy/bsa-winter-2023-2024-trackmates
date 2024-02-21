@@ -1,7 +1,7 @@
 import { config } from "~/libs/modules/config/config.js";
+import { http } from "~/libs/modules/http/http.js";
 import { logger } from "~/libs/modules/logger/logger.js";
 
-import { http } from "../../libs/modules/http/http.js";
 import { UdemyService } from "./udemy.service.js";
 import { VendorController } from "./vendor.controller.js";
 import { VendorModel } from "./vendor.model.js";

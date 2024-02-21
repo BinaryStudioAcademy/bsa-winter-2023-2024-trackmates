@@ -1,6 +1,12 @@
 import { Courses, Loader, Modal } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
-import { useAppSelector } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useAppSelector,
+	useCallback,
+} from "~/libs/hooks/hooks.js";
+import { type AddCourseRequestDto } from "~/modules/courses/courses.js";
+import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
 
 import { useSearchCourse } from "../../hooks/hooks.js";
 import { SearchCourseForm } from "../search-course-form/search-course-form.js";
@@ -14,13 +20,23 @@ type Properties = {
 const ZERO_LENGTH = 0;
 
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
-	const { courses, isLoading, vendors } = useAppSelector((state) => ({
-		courses: state.courses.searchedCourses,
-		isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
-		vendors: state.vendors.vendors,
-	}));
+	const dispatch = useAppDispatch();
+	const { courses, isLoading, vendors } = useAppSelector((state) => {
+		return {
+			courses: state.courses.searchedCourses,
+			isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
+			vendors: state.vendors.vendors,
+		};
+	});
 
 	const { handleChangeSearch, handleChangeVendors } = useSearchCourse();
+
+	const handleAddCourse = useCallback(
+		(payload: AddCourseRequestDto) => {
+			void dispatch(userCourseActions.add(payload));
+		},
+		[dispatch],
+	);
 
 	return (
 		<Modal isOpen onClose={onClose}>
@@ -43,7 +59,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						{isLoading ? (
 							<Loader color="orange" size="large" />
 						) : (
-							<Courses courses={courses} isNew />
+							<Courses courses={courses} onAddCourse={handleAddCourse} />
 						)}
 					</div>
 				</div>

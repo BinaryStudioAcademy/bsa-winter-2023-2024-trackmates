@@ -1,9 +1,9 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
-import { Repository } from "~/libs/types/types.js";
+import { type Repository } from "~/libs/types/types.js";
+import { UserModel } from "~/modules/users/user.model.js";
+import { VendorEntity } from "~/modules/vendors/vendors.js";
 
-import { UserModel } from "../users/user.model.js";
-import { VendorEntity } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseModel } from "./course.model.js";
 
@@ -40,12 +40,14 @@ class CourseRepository implements Repository<CourseEntity> {
 		userId: number,
 	) {
 		const course = courseEntity.toObject();
-		const isCourseRelatedWithUser = !!(await this.userModel
+		const courseRelatedWithUser = await this.userModel
 			.relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
-			.findOne("vendorCourseId", course.vendorCourseId));
+			.findOne("vendorCourseId", course.vendorCourseId);
 
-		if (isCourseRelatedWithUser) {
+		const hasUserTheCourse = Boolean(courseRelatedWithUser);
+
+		if (hasUserTheCourse) {
 			throw new ApplicationError({
 				message: `Course "${course.title}" was already added for user`,
 			});
@@ -65,7 +67,6 @@ class CourseRepository implements Repository<CourseEntity> {
 			description,
 			id,
 			image,
-			imageSmall,
 			title,
 			updatedAt,
 			url,
@@ -79,7 +80,6 @@ class CourseRepository implements Repository<CourseEntity> {
 			description,
 			id,
 			image,
-			imageSmall,
 			title,
 			updatedAt,
 			url,
@@ -100,17 +100,17 @@ class CourseRepository implements Repository<CourseEntity> {
 		userId: number,
 	): Promise<CourseEntity> {
 		const course = entity.toNewObject();
-		const existedCourseEntity = await this.findByVendorCourseId(
+		const existingCourse = await this.findByVendorCourseId(
 			course.vendorCourseId,
 		);
 
-		if (!existedCourseEntity) {
+		if (!existingCourse) {
 			return await this.createCourseWithRelation(entity, userId);
 		}
 
-		await this.createRelationWithUser(existedCourseEntity, userId);
+		await this.createRelationWithUser(existingCourse, userId);
 
-		return existedCourseEntity;
+		return existingCourse;
 	}
 
 	public create(entity: CourseEntity): Promise<CourseEntity> {

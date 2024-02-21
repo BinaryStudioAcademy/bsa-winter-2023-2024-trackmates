@@ -4,18 +4,18 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {
 	type CourseSearchFilterDto,
-	type CourseSearchResponseDto,
+	type CoursesResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
 const search = createAsyncThunk<
-	CourseSearchResponseDto,
+	CoursesResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
 >(`${sliceName}/search`, (requestPayload, { extra }) => {
 	const { courseApi } = extra;
 
-	return courseApi.search(requestPayload);
+	return courseApi.getAll(requestPayload);
 });
 
 export { search };

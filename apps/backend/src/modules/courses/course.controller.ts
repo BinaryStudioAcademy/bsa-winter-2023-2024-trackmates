@@ -6,13 +6,13 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { UserAuthResponseDto } from "../users/users.js";
 import { type CourseService } from "./course.service.js";
 import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
-	AddCourseRequestDto,
-	CourseSearchRequestDto,
+	type AddCourseRequestDto,
+	type CourseSearchRequestDto,
 } from "./libs/types/types.js";
 import { addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
@@ -29,8 +29,6 @@ import { addCourseValidationSchema } from "./libs/validation-schemas/validation-
  *            format: number
  *            minimum: 1
  *          image:
- *            type: string
- *          imageSmall:
  *            type: string
  *          title:
  *            type: string
@@ -161,8 +159,13 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
+		const { search, vendorsKeys } = query;
 		return {
-			payload: await this.courseService.findAllByVendors(query, user.id),
+			payload: await this.courseService.findAllByVendors({
+				search,
+				userId: user.id,
+				vendorsKeys,
+			}),
 			status: HTTPCode.OK,
 		};
 	}

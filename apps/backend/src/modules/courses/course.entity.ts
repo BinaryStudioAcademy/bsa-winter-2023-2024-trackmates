@@ -1,6 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
-
-import { VendorEntity } from "../vendors/vendors.js";
+import { VendorEntity } from "~/modules/vendors/vendors.js";
 
 class CourseEntity implements Entity {
 	private createdAt: string;
@@ -10,8 +9,6 @@ class CourseEntity implements Entity {
 	private id: null | number;
 
 	private image: string;
-
-	private imageSmall: string;
 
 	private title: string;
 
@@ -30,7 +27,6 @@ class CourseEntity implements Entity {
 		description,
 		id,
 		image,
-		imageSmall,
 		title,
 		updatedAt,
 		url,
@@ -42,7 +38,6 @@ class CourseEntity implements Entity {
 		description: string;
 		id: null | number;
 		image: string;
-		imageSmall: string;
 		title: string;
 		updatedAt: string;
 		url: string;
@@ -54,7 +49,6 @@ class CourseEntity implements Entity {
 		this.description = description;
 		this.id = id;
 		this.image = image;
-		this.imageSmall = imageSmall;
 		this.title = title;
 		this.updatedAt = updatedAt;
 		this.url = url;
@@ -68,7 +62,6 @@ class CourseEntity implements Entity {
 		description,
 		id,
 		image,
-		imageSmall,
 		title,
 		updatedAt,
 		url,
@@ -80,7 +73,6 @@ class CourseEntity implements Entity {
 		description: string;
 		id: null | number;
 		image: string;
-		imageSmall: string;
 		title: string;
 		updatedAt: string;
 		url: string;
@@ -93,7 +85,6 @@ class CourseEntity implements Entity {
 			description,
 			id,
 			image,
-			imageSmall,
 			title,
 			updatedAt,
 			url,
@@ -106,7 +97,6 @@ class CourseEntity implements Entity {
 	public static initializeNew({
 		description,
 		image,
-		imageSmall,
 		title,
 		url,
 		vendorCourseId,
@@ -114,7 +104,6 @@ class CourseEntity implements Entity {
 	}: {
 		description: string;
 		image: string;
-		imageSmall: string;
 		title: string;
 		url: string;
 		vendorCourseId: string;
@@ -125,7 +114,6 @@ class CourseEntity implements Entity {
 			description,
 			id: null,
 			image,
-			imageSmall,
 			title,
 			updatedAt: "",
 			url,
@@ -138,7 +126,6 @@ class CourseEntity implements Entity {
 	public toNewObject(): {
 		description: string;
 		image: string;
-		imageSmall: string;
 		title: string;
 		url: string;
 		vendorCourseId: string;
@@ -147,7 +134,6 @@ class CourseEntity implements Entity {
 		return {
 			description: this.description,
 			image: this.image,
-			imageSmall: this.imageSmall,
 			title: this.title,
 			url: this.url,
 			vendorCourseId: this.vendorCourseId,
@@ -160,7 +146,6 @@ class CourseEntity implements Entity {
 		description: string;
 		id: number;
 		image: string;
-		imageSmall: string;
 		title: string;
 		updatedAt: string;
 		url: string;
@@ -173,7 +158,6 @@ class CourseEntity implements Entity {
 			description: this.description,
 			id: this.id as number,
 			image: this.image,
-			imageSmall: this.imageSmall,
 			title: this.title,
 			updatedAt: this.updatedAt,
 			url: this.url,

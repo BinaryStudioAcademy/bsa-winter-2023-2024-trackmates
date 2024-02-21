@@ -61,7 +61,3 @@
 .error-input {
 	border: 1px solid var(--color-error);
 }
-
-.wide {
-	max-width: 100%;
-}

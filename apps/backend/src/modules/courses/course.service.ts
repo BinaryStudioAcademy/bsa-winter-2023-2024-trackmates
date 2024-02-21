@@ -1,14 +1,16 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
+import { UserCourseService } from "~/modules/user-courses/user-courses.js";
+import {
+	type VendorApi,
+	type VendorService,
+} from "~/modules/vendors/vendors.js";
 
-import { UserCourseService } from "../user-courses/user-courses.js";
-import { type VendorApi, type VendorService } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
-import { CourseFieldsMapping } from "./libs/types/types.js";
 import {
 	type CourseDto,
-	type CourseSearchRequestDto,
-	type CourseSearchResponseDto,
+	type CourseFieldsMapping,
+	type CoursesResponseDto,
 	type VendorResponseDto,
 } from "./libs/types/types.js";
 
@@ -51,10 +53,9 @@ class CourseService {
 			.findAllByUser(userId)
 			.then((courses) => courses.map(({ vendorCourseId }) => vendorCourseId));
 
-		return courses.filter(
-			({ vendorCourseId }) =>
-				!userCoursesIds.includes(vendorCourseId.toString()),
-		);
+		return courses.filter(({ vendorCourseId }) => {
+			return !userCoursesIds.includes(vendorCourseId.toString());
+		});
 	}
 
 	private getVendorApi(vendorKey: string): VendorApi {
@@ -134,7 +135,6 @@ class CourseService {
 		const courseEntity = CourseEntity.initializeNew({
 			description: course.description,
 			image: course.image,
-			imageSmall: course.imageSmall,
 			title: course.title,
 			url: course.url,
 			vendorCourseId: course.vendorCourseId,
@@ -147,28 +147,30 @@ class CourseService {
 	}
 
 	public async findAllByVendor(
-		parameters: CourseSearchRequestDto,
+		search: string,
 		vendor: VendorResponseDto,
 	): Promise<CourseDto[]> {
-		const items = await this.getVendorApi(vendor.key).getCourses(parameters);
+		const items = await this.getVendorApi(vendor.key).getCourses(search);
 
 		return items.map((item) => this.mapVendorCourse(item, vendor));
 	}
 
-	public async findAllByVendors(
-		parameters: CourseSearchRequestDto,
-		userId: number,
-	): Promise<CourseSearchResponseDto> {
-		const { vendors: keysString } = parameters;
-		const vendors = keysString
-			? await this.vendorService.findAllByKeys(keysString.split(","))
+	public async findAllByVendors(parameters: {
+		search: string;
+		userId: number;
+		vendorsKeys: string | undefined;
+	}): Promise<CoursesResponseDto> {
+		const { search, userId, vendorsKeys } = parameters;
+		const vendors = vendorsKeys
+			? await this.vendorService.findAllByKeys(vendorsKeys.split(","))
 			: await this.vendorService.findAll();
 
-		let courses: CourseDto[] = [];
-		for (const vendor of vendors) {
-			const vendorCourses = await this.findAllByVendor(parameters, vendor);
-			courses = [...courses, ...vendorCourses];
-		}
+		const vendorsCourses = await Promise.all(
+			vendors.map(async (vendor) => {
+				return await this.findAllByVendor(search, vendor);
+			}),
+		);
+		let courses = vendorsCourses.flat();
 
 		courses = await this.filterCourses(courses, userId);
 

@@ -24,6 +24,9 @@ async function up(knex: Knex): Promise<void> {
 			.notNullable()
 			.defaultTo(knex.fn.now());
 	});
+
+	await knex(TABLE_NAME).del();
+	await knex(TABLE_NAME).insert([{ key: "udemy", name: "Udemy" }]);
 }
 
 async function down(knex: Knex): Promise<void> {

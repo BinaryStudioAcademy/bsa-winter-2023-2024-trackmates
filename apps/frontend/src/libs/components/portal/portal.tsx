@@ -8,7 +8,7 @@ type Properties = {
 	children: React.ReactNode;
 };
 
-const noOverflowClass = styles["no-overflow"] as string;
+const NO_OVERFLOW_CLASS = styles["no-overflow"] as string;
 
 const Portal: React.FC<Properties> = ({ children }: Properties) => {
 	const portalContainer = useMemo(() => {
@@ -19,15 +19,16 @@ const Portal: React.FC<Properties> = ({ children }: Properties) => {
 	}, []);
 
 	useEffect(() => {
-		const wasOverflowHidden = document.body.classList.contains(noOverflowClass);
+		const wasOverflowHidden =
+			document.body.classList.contains(NO_OVERFLOW_CLASS);
 		document.body.append(portalContainer);
-		document.body.classList.add(noOverflowClass);
+		document.body.classList.add(NO_OVERFLOW_CLASS);
 
 		return () => {
 			portalContainer.remove();
 
 			if (!wasOverflowHidden) {
-				document.body.classList.remove(noOverflowClass);
+				document.body.classList.remove(NO_OVERFLOW_CLASS);
 			}
 		};
 	}, [portalContainer]);
