@@ -4,7 +4,7 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { type UserProfileRequestDto } from "~/modules/users/users.js";
 
-import { name as sliceName } from "./users.slice.js";
+const sliceName = "users";
 
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
