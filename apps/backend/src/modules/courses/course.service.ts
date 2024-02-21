@@ -9,19 +9,15 @@ import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
 import {
 	type CourseDto,
-	type CourseFieldsMapping,
 	type CoursesResponseDto,
 	type VendorResponseDto,
 } from "./libs/types/types.js";
-
-type CourseFieldForMap = keyof Omit<CourseDto, "id" | "vendor">;
 
 type Constructor = {
 	courseRepository: CourseRepository;
 	userCourseService: UserCourseService;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
-	vendorsFieldsMappingMap: Record<string, CourseFieldsMapping>;
 };
 
 class CourseService {
@@ -29,19 +25,16 @@ class CourseService {
 	private userCourseService: UserCourseService;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
-	private vendorsFieldsMappingMap: Record<string, CourseFieldsMapping>;
 
 	public constructor({
 		courseRepository,
 		userCourseService,
 		vendorService,
 		vendorsApiMap,
-		vendorsFieldsMappingMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
 		this.userCourseService = userCourseService;
 		this.vendorsApiMap = vendorsApiMap;
-		this.vendorsFieldsMappingMap = vendorsFieldsMappingMap;
 		this.vendorService = vendorService;
 	}
 
@@ -70,47 +63,6 @@ class CourseService {
 		return vendorModule;
 	}
 
-	private getVendorFieldsMapping(vendorKey: string): CourseFieldsMapping {
-		const vendorFieldsMapping = this.vendorsFieldsMappingMap[vendorKey];
-
-		if (!vendorFieldsMapping) {
-			throw new ApplicationError({
-				message: `Not found fields mapping for vendor with key "${vendorKey}"`,
-			});
-		}
-
-		return vendorFieldsMapping;
-	}
-
-	private mapItemFields<T extends string>(
-		item: Record<string, unknown>,
-		mapping: Record<T, string>,
-	): Record<T, unknown> {
-		const mappingEntries = Object.entries(mapping) as [T, string][];
-		const course = {} as Record<T, unknown>;
-
-		for (const [to, from] of mappingEntries) {
-			course[to] = item[from];
-		}
-
-		return course;
-	}
-
-	private mapVendorCourse(
-		item: Record<string, unknown>,
-		vendor: VendorResponseDto,
-	): CourseDto {
-		const course = this.mapItemFields<CourseFieldForMap>(
-			item,
-			this.getVendorFieldsMapping(vendor.key),
-		);
-
-		const vendorCourseId = (
-			course.vendorCourseId as number | string
-		).toString();
-		return { ...course, vendor, vendorCourseId } as CourseDto;
-	}
-
 	public async addCourse({
 		userId,
 		vendorCourseId,
@@ -127,11 +79,10 @@ class CourseService {
 			});
 		}
 
-		const item = await this.getVendorApi(vendor.key).getCourseById(
+		const course = await this.getVendorApi(vendor.key).getCourseById(
 			vendorCourseId,
 		);
 
-		const course = this.mapVendorCourse(item, vendor);
 		const courseEntity = CourseEntity.initializeNew({
 			description: course.description,
 			image: course.image,
@@ -141,9 +92,12 @@ class CourseService {
 			vendorId,
 		});
 
-		await this.courseRepository.addCourseToUser(courseEntity, userId);
+		const addedCourse = await this.courseRepository.addCourseToUser(
+			courseEntity,
+			userId,
+		);
 
-		return course;
+		return addedCourse.toObject();
 	}
 
 	public async findAllByVendor(
@@ -152,7 +106,7 @@ class CourseService {
 	): Promise<CourseDto[]> {
 		const items = await this.getVendorApi(vendor.key).getCourses(search);
 
-		return items.map((item) => this.mapVendorCourse(item, vendor));
+		return items.map((item) => ({ ...item, id: null, vendor }));
 	}
 
 	public async findAllByVendors(parameters: {

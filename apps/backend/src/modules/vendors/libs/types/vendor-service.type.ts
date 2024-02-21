@@ -1,6 +1,22 @@
+import { CourseDto } from "shared";
+
 type VendorService = {
-	getCourseById(id: string): Promise<Record<string, unknown>>;
-	getCourses(search: string): Promise<Record<string, unknown>[]>;
+	getCourseById(
+		id: string,
+	): Promise<
+		Pick<
+			CourseDto,
+			"description" | "image" | "title" | "url" | "vendorCourseId"
+		>
+	>;
+	getCourses(
+		search: string,
+	): Promise<
+		Pick<
+			CourseDto,
+			"description" | "image" | "title" | "url" | "vendorCourseId"
+		>[]
+	>;
 };
 
 export { type VendorService };

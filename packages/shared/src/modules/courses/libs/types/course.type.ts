@@ -2,7 +2,7 @@ import { type VendorResponseDto } from "../../../vendors/vendors.js";
 
 type CourseDto = {
 	description: string;
-	id: number;
+	id: null | number;
 	image: string;
 	title: string;
 	url: string;
