@@ -37,7 +37,6 @@ export {
 	CourseError,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
-	type CourseSearchResponseDto,
 	CoursesApiPath,
 	type CoursesResponseDto,
 	addCourseValidationSchema,

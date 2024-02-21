@@ -5,7 +5,6 @@ export {
 	type CourseDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
-	type CourseSearchResponseDto,
 	type CoursesResponseDto,
 } from "./libs/types/types.js";
 export { addCourse as addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";

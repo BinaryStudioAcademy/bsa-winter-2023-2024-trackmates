@@ -10,7 +10,7 @@ import { CourseRepository } from "./course.repository.js";
 import {
 	type CourseDto,
 	type CourseFieldsMapping,
-	type CourseSearchResponseDto,
+	type CoursesResponseDto,
 	type VendorResponseDto,
 } from "./libs/types/types.js";
 
@@ -159,7 +159,7 @@ class CourseService {
 		search: string;
 		userId: number;
 		vendorsKeys: string | undefined;
-	}): Promise<CourseSearchResponseDto> {
+	}): Promise<CoursesResponseDto> {
 		const { search, userId, vendorsKeys } = parameters;
 		const vendors = vendorsKeys
 			? await this.vendorService.findAllByKeys(vendorsKeys.split(","))
