@@ -26,7 +26,7 @@ const Friends: React.FC = () => {
 	}, [dispatch]);
 
 	const TABS = {
-		"Find the friends": <FriendList friends={potentialFriends} />,
+		"Find friends": <FriendList friends={potentialFriends} />,
 		Followers: <FriendList friends={followers} />,
 		Followings: <FriendList friends={followings} />,
 	};
