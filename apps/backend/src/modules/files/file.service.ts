@@ -35,7 +35,7 @@ class FileService implements Service {
 		return file.toObject();
 	}
 
-	async delete(fileId: number): Promise<number> {
+	async delete(fileId: number): Promise<boolean> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
 			throw new HTTPError({

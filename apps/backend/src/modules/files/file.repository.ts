@@ -28,8 +28,8 @@ class FileRepository implements Repository<FileEntity> {
 		});
 	}
 
-	async delete(fileId: number): Promise<number> {
-		return await this.fileModel.query().deleteById(fileId).execute();
+	async delete(fileId: number): Promise<boolean> {
+		return Boolean(await this.fileModel.query().deleteById(fileId).execute());
 	}
 
 	async find(fileId: number): Promise<FileEntity | null> {

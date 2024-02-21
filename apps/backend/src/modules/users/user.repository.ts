@@ -56,8 +56,8 @@ class UserRepository implements Repository<UserEntity> {
 		});
 	}
 
-	public async delete(userId: number): Promise<number> {
-		return await this.userModel.query().deleteById(userId).execute();
+	public async delete(userId: number): Promise<boolean> {
+		return Boolean(await this.userModel.query().deleteById(userId).execute());
 	}
 
 	public async find(userId: number): Promise<UserEntity | null> {
