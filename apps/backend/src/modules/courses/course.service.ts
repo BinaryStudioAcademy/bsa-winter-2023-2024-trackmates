@@ -54,10 +54,9 @@ class CourseService {
 			.findAllByUser(userId)
 			.then((courses) => courses.map(({ vendorCourseId }) => vendorCourseId));
 
-		return courses.filter(
-			({ vendorCourseId }) =>
-				!userCoursesIds.includes(vendorCourseId.toString()),
-		);
+		return courses.filter(({ vendorCourseId }) => {
+			return !userCoursesIds.includes(vendorCourseId.toString());
+		});
 	}
 
 	private getVendorApi(vendorKey: string): VendorApi {

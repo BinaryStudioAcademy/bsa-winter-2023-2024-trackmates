@@ -1,4 +1,5 @@
 export { CoursesApiPath } from "./libs/enums/enums.js";
+export { CourseError } from "./libs/exceptions/exceptions.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,

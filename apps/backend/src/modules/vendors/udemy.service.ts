@@ -1,9 +1,12 @@
-import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import {
 	ContentType,
 	type HTTP,
+	HTTPCode,
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
+// import from ~/modules/courses/courses.ts here causes round dependency
+// and error "ReferenceError: Cannot access 'UserModel' before initialization"
+import { CourseError } from "~/modules/courses/libs/exceptions/exceptions.js";
 
 import {
 	CourseField,
@@ -60,10 +63,9 @@ class UdemyService implements VendorService {
 		const query = {
 			"fields[course]": Object.values(CourseField).join(","),
 		};
+		const result = await this.load(`${this.baseUrl}${id}`, query);
 
-		return await this.load(`${this.baseUrl}${id}`, query)
-			.then((result) => result.json())
-			.then((course) => course as Record<string, unknown>);
+		return (await result.json()) as Record<string, unknown>;
 	}
 
 	public async getCourses({
@@ -86,7 +88,10 @@ class UdemyService implements VendorService {
 		);
 
 		if (!result.results) {
-			throw new ApplicationError({ message: "Wrong response from Udemy API" });
+			throw new CourseError(
+				"Wrong response from Udemy API",
+				HTTPCode.INTERNAL_SERVER_ERROR,
+			);
 		}
 
 		return result.results as Record<string, unknown>[];

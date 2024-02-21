@@ -34,6 +34,7 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
+	CourseError,
 	type CourseResponseDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
