@@ -121,38 +121,34 @@ class UserRepository implements Repository<UserEntity> {
 		userId: number,
 		data: UserProfileRequestDto,
 	): Promise<UserEntity | null> {
-		const user = await this.userModel.query().findById(userId).execute();
-
-		if (!user) {
-			return null;
-		}
-
-		const userDetails = await this.userDetailsModel
+		const userDetails = (await this.userDetailsModel
 			.query()
 			.findOne({ userId: userId })
+			.execute()) as UserDetailsModel;
+
+		await this.userDetailsModel.query().patchAndFetchById(userDetails.id, {
+			firstName: data.firstName,
+			lastName: data.lastName,
+		});
+
+		const user = await this.userModel
+			.query()
+			.findById(userId)
+			.withGraphJoined("userDetails")
 			.execute();
 
-		if (!userDetails) {
-			return null;
-		}
-
-		const updatedUserDetails = await this.userDetailsModel
-			.query()
-			.patchAndFetchById(userDetails.id, {
-				firstName: data.firstName,
-				lastName: data.lastName,
-			});
-
-		return UserEntity.initialize({
-			createdAt: user.createdAt,
-			email: user.email,
-			firstName: updatedUserDetails.firstName,
-			id: user.id,
-			lastName: updatedUserDetails.lastName,
-			passwordHash: user.passwordHash,
-			passwordSalt: user.passwordSalt,
-			updatedAt: user.updatedAt,
-		});
+		return user
+			? UserEntity.initialize({
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
 	}
 }
 
