@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
@@ -52,7 +52,7 @@ const Tabs: React.FC<Properties> = ({ tabs }: Properties) => {
 			{Object.values(tabs).map(
 				(content, index) =>
 					index === activeTabIndex && (
-						<React.Fragment key={index}>{content}</React.Fragment>
+						<Fragment key={index}>{content}</Fragment>
 					),
 			)}
 		</>
