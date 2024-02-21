@@ -6,3 +6,7 @@ export {
 	type MessageResponseDto,
 	type MessageSendRequestDto,
 } from "./libs/types/types.js";
+export {
+	chatParameters as chatParametersValidationSchema,
+	messageSend as messageSendValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";

@@ -10,6 +10,10 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 import { type ChatMessageService } from "./chat-message.service.js";
 import { ChatMessageApiPath } from "./libs/enums/enums.js";
 import { type MessageSendRequestDto } from "./libs/types/types.js";
+import {
+	chatParametersValidationSchema,
+	messageSendValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -65,6 +69,9 @@ class ChatMessageController extends BaseController {
 				),
 			method: "GET",
 			path: ChatMessageApiPath.CHAT_ID,
+			validation: {
+				params: chatParametersValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -77,6 +84,9 @@ class ChatMessageController extends BaseController {
 				),
 			method: "POST",
 			path: ChatMessageApiPath.ROOT,
+			validation: {
+				body: messageSendValidationSchema,
+			},
 		});
 
 		this.addRoute({
