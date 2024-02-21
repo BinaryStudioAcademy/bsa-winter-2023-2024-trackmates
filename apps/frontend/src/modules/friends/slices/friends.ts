@@ -6,7 +6,6 @@ import {
 	unfollow,
 } from "./actions.js";
 import { actions } from "./friends.slice.js";
-import { checkIsFollowingFriend } from "./selectors.js";
 
 const allActions = {
 	...actions,
@@ -17,10 +16,5 @@ const allActions = {
 	unfollow,
 };
 
-const allSelectors = {
-	checkIsFollowingFriend,
-};
-
 export { allActions as actions };
 export { reducer } from "./friends.slice.js";
-export { allSelectors as selectors };

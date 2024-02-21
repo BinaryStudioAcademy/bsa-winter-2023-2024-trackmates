@@ -6,7 +6,7 @@ import {
 	useCallback,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import { actions, selectors } from "~/modules/friends/friends.js";
+import { actions } from "~/modules/friends/friends.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import styles from "./styles.module.css";
@@ -18,7 +18,7 @@ type Properties = {
 const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	const [isFollowing, setIsFollowing] = useState<boolean>(
 		useAppSelector((state) =>
-			selectors.checkIsFollowingFriend(state, friend.id),
+			state.friends.followings.some((user) => user.id === friend.id),
 		),
 	);
 	const dispatch = useAppDispatch();
