@@ -6,8 +6,8 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { type UserAuthResponseDto } from "../users/users.js";
 import { type CourseService } from "./course.service.js";
 import { CoursesApiPath } from "./libs/enums/enums.js";
 import {

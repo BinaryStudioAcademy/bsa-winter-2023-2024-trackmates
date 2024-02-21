@@ -1,7 +1,10 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
+import { UserCourseService } from "~/modules/user-courses/user-courses.js";
+import {
+	type VendorApi,
+	type VendorService,
+} from "~/modules/vendors/vendors.js";
 
-import { UserCourseService } from "../user-courses/user-courses.js";
-import { type VendorApi, type VendorService } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
 import {

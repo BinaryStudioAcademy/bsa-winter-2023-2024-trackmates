@@ -1,8 +1,8 @@
 import { logger } from "~/libs/modules/logger/logger.js";
+import { userCourseService } from "~/modules/user-courses/user-courses.js";
+import { UserModel } from "~/modules/users/user.model.js";
+import { udemyService, vendorService } from "~/modules/vendors/vendors.js";
 
-import { userCourseService } from "../user-courses/user-courses.js";
-import { UserModel } from "../users/user.model.js";
-import { udemyService, vendorService } from "../vendors/vendors.js";
 import { CourseController } from "./course.controller.js";
 import { CourseModel } from "./course.model.js";
 import { CourseRepository } from "./course.repository.js";

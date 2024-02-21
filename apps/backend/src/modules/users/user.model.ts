@@ -4,8 +4,8 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
+import { CourseModel } from "~/modules/courses/course.model.js";
 
-import { CourseModel } from "../courses/course.model.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserModel extends AbstractModel {
