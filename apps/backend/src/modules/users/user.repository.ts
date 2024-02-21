@@ -36,6 +36,7 @@ class UserRepository implements Repository<UserEntity> {
 			.execute();
 
 		return UserEntity.initialize({
+			avatarUrl: null,
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
@@ -63,6 +64,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return users.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -84,6 +86,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -105,6 +108,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -139,6 +143,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
