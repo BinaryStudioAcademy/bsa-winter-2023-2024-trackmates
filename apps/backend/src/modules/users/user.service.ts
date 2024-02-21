@@ -8,7 +8,7 @@ import { type UserRepository } from "~/modules/users/user.repository.js";
 import { UserError } from "./libs/exceptions/exceptions.js";
 import {
 	type UserAuthResponseDto,
-	type UserGetAllItemResponseDto,
+	type UserGetAllResponseDto,
 	type UserSignUpRequestDto,
 } from "./libs/types/types.js";
 
@@ -55,10 +55,10 @@ class UserService implements Service {
 		return Promise.resolve(null);
 	}
 
-	public async findAll(): Promise<UserGetAllItemResponseDto[]> {
+	public async findAll(): Promise<UserGetAllResponseDto> {
 		const users = await this.userRepository.findAll();
 
-		return users.map((user) => user.toObject());
+		return { items: users.map((user) => user.toObject()) };
 	}
 
 	public async findById(id: number): Promise<UserAuthResponseDto | null> {
