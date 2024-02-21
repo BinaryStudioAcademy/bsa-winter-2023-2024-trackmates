@@ -10,12 +10,10 @@ import {
 	useState,
 } from "~/libs/hooks/hooks.js";
 import {
-	UserAuthResponseDto,
-	actions as usersActions,
-} from "~/modules/users/users.js";
-import {
+	type UserAuthResponseDto,
 	type UserProfileRequestDto,
 	userProfileValidationSchema,
+	actions as usersActions,
 } from "~/modules/users/users.js";
 
 import { Avatar, UploadAvatarButton } from "./components/components.js";
