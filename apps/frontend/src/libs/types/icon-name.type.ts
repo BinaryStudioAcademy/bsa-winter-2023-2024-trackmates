@@ -1,3 +1,11 @@
-type IconName = "add" | "burger" | "eye" | "eyeOff" | "home" | "plus";
+type IconName =
+	| "add"
+	| "burger"
+	| "chats"
+	| "eye"
+	| "eyeOff"
+	| "home"
+	| "message"
+	| "plus";
 
 export { type IconName };

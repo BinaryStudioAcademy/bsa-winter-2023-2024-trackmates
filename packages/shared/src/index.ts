@@ -1,3 +1,4 @@
+export { ARRAY_EMPTY_LENGTH } from "./libs/constants/constants.js";
 export {
 	APIPath,
 	AppEnvironment,
@@ -26,6 +27,14 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	ChatApiPath,
+	type ChatGetAllResponseDto,
+	type ChatItemResponseDto,
+	type MessageGetAllResponseDto,
+	type MessageResponseDto,
+	type MessageSendRequestDto,
+} from "./modules/chat/chat.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {

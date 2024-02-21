@@ -9,16 +9,19 @@ import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
+import { chatApi, reducer as chatReducer } from "~/modules/chat/chat.js";
 
 import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
 
 type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
+	chat: ReturnType<typeof chatReducer>;
 };
 
 type ExtraArguments = {
 	authApi: typeof authApi;
+	chatApi: typeof chatApi;
 	notification: typeof notification;
 	storage: typeof storage;
 };
@@ -44,6 +47,7 @@ class Store {
 			},
 			reducer: {
 				auth: authReducer,
+				chat: chatReducer,
 			},
 		});
 	}
@@ -51,6 +55,7 @@ class Store {
 	public get extraArguments(): ExtraArguments {
 		return {
 			authApi,
+			chatApi,
 			notification,
 			storage,
 		};

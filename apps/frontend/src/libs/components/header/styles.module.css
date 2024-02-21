@@ -14,3 +14,16 @@
 	display: flex;
 	column-gap: 24px;
 }
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	border: unset;
+	fill: var(--color-text-200);
+}
+
+.icon-button:hover {
+	padding: 0;
+	border: unset;
+	fill: var(--main-orange);
+}

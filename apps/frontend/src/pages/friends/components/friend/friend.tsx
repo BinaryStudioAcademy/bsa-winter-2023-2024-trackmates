@@ -1,4 +1,5 @@
 import { Button, Image } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { type FriendDto } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
@@ -8,6 +9,9 @@ type Properties = {
 };
 
 const Friend: React.FC<Properties> = ({ friend }: Properties) => {
+	const chatRouteByUser =
+		`${AppRoute.CHATS}?user=${friend.id}` as typeof AppRoute.CHATS;
+
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
@@ -24,8 +28,17 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					className={styles["add-friend-action"]}
 					color="secondary"
 					iconName="add"
-					label="Follow"
+					label="Add friend"
 					size="small"
+				/>
+				<Button
+					className={styles["start-chat"]}
+					color="transparent"
+					hasVisuallyHiddenLabel
+					href={chatRouteByUser}
+					iconName="chats"
+					label="Start chat"
+					style="outlined"
 				/>
 			</div>
 		</article>

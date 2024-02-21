@@ -1,0 +1,21 @@
+.container {
+	max-height: calc(100vh - 98px);
+	padding: 30px 30px 90px;
+	font-family: Roboto, sans-serif;
+}
+
+.title {
+	margin-bottom: 10px;
+	font-size: var(--font-size-400);
+}
+
+.chat-container {
+	display: grid;
+	grid-template-columns: 300px auto;
+	height: 100%;
+	overflow: hidden;
+	background-color: var(--main-white);
+	border-top: 30px solid var(--color-menu);
+	border-bottom: 30px solid var(--color-menu);
+	border-radius: 16px;
+}

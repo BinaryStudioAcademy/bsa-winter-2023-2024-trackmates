@@ -48,3 +48,11 @@
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
+
+.transparent {
+	background-color: transparent;
+}
+
+.transpatent:hover {
+	background-color: transparent;
+}

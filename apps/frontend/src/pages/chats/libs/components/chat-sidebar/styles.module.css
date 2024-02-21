@@ -1,0 +1,31 @@
+.chats {
+	max-height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	list-style: none;
+	border-right: 1px solid var(--color-text-100);
+}
+
+.chats::-webkit-scrollbar {
+	width: 5px;
+}
+
+.chats::-webkit-scrollbar-thumb {
+	background-color: var(--color-text-100);
+	border-radius: 50px;
+}
+
+.chats::-webkit-scrollbar-track {
+	background-color: #ffffff;
+}
+
+.empty-chat-list {
+	text-align: center;
+}
+
+.link {
+	color: var(--color-button);
+	text-decoration: none;
+	transition: 0.1s color ease;
+}

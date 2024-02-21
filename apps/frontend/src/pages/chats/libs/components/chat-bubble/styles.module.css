@@ -1,0 +1,59 @@
+.container {
+	max-width: 70%;
+}
+
+.left {
+	justify-self: start;
+}
+
+.right {
+	justify-self: end;
+}
+
+.sender-container {
+	display: grid;
+	grid-template-columns: min-content min-content;
+	gap: 10px;
+	padding: 0 10px;
+}
+
+.sender-name {
+	color: var(--color-text-300);
+}
+
+.date {
+	color: var(--color-text-200);
+}
+
+.sender-name,
+.date {
+	white-space: nowrap;
+}
+
+.right .sender-container {
+	justify-content: end;
+}
+
+.right .sender-container .date {
+	order: 1;
+}
+
+.right .sender-container .sender-name {
+	order: 2;
+}
+
+.message-container {
+	padding: 10px;
+	background-color: var(--color-background);
+	border: 1px solid var(--color-background);
+	border-radius: 15px;
+}
+
+.message-container:hover {
+	border: 1px solid var(--modal-container-background);
+}
+
+.message {
+	margin: 0;
+	color: var(--color-text-300);
+}

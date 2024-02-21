@@ -1,0 +1,39 @@
+.form {
+	display: grid;
+	grid-template-columns: 20fr 1fr;
+	gap: 15px;
+	align-items: center;
+}
+
+.input {
+	max-height: none;
+	overflow-y: auto;
+	border-radius: 8px;
+}
+
+.input::-webkit-scrollbar {
+	width: 5px;
+}
+
+.input::-webkit-scrollbar-thumb {
+	background-color: var(--color-text-100);
+	border-radius: 50px;
+}
+
+.input::-webkit-scrollbar-track {
+	background-color: #ffffff;
+}
+
+.icon {
+	justify-self: end;
+	width: 40px;
+	height: 40px;
+	min-height: 30px;
+	padding: 0;
+	border-radius: 50%;
+	fill: var(--main-white);
+}
+
+.icon:hover {
+	fill: var(--main-orange);
+}

@@ -14,8 +14,9 @@ type Properties<T extends FieldValues> = {
 	className?: string | undefined;
 	color?: "dark" | "light";
 	control: Control<T, null>;
-	errors: FieldErrors<T>;
-	label: string;
+	errors?: FieldErrors<T>;
+	isMultiline?: boolean;
+	label?: string;
 	name: FieldPath<T>;
 	placeholder?: string;
 	type?: "email" | "password" | "text";
@@ -26,6 +27,7 @@ const Input = <T extends FieldValues>({
 	color = "light",
 	control,
 	errors,
+	isMultiline = false,
 	label,
 	name,
 	placeholder = "",
@@ -33,7 +35,7 @@ const Input = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
 
-	const error = errors[name]?.message;
+	const error = errors?.[name]?.message;
 	const hasError = Boolean(error);
 
 	const inputClasses = getValidClassNames(
@@ -46,12 +48,21 @@ const Input = <T extends FieldValues>({
 	return (
 		<label className={styles["container"]}>
 			<span className={styles["heading"]}>{label}</span>
-			<input
-				className={inputClasses}
-				{...field}
-				placeholder={placeholder}
-				type={type}
-			/>
+			{isMultiline ? (
+				<textarea
+					className={inputClasses}
+					{...field}
+					placeholder={placeholder}
+					rows={2}
+				/>
+			) : (
+				<input
+					className={inputClasses}
+					{...field}
+					placeholder={placeholder}
+					type={type}
+				/>
+			)}
 			{hasError && <span className={styles["error"]}>{error as string}</span>}
 		</label>
 	);
