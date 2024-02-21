@@ -1,4 +1,4 @@
-import { CourseDto } from "./types.js";
+import { type CourseDto } from "./types.js";
 
 type CourseFieldsMapping = Record<
 	keyof Omit<CourseDto, "id" | "vendor">,

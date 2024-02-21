@@ -1,15 +1,15 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
-
 import {
 	ContentType,
 	type HTTP,
 	HTTPHeader,
-} from "../../libs/modules/http/http.js";
+} from "~/libs/modules/http/http.js";
+
 import {
 	CourseField,
 	UdemyDefaultSearchParameter,
 } from "./libs/enums/enums.js";
-import { VendorService } from "./libs/types/types.js";
+import { type VendorService } from "./libs/types/types.js";
 
 type SearchParameters = {
 	page?: number;

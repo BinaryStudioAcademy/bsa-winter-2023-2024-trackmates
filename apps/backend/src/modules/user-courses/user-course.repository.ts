@@ -1,6 +1,6 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
-import { Repository } from "~/libs/types/types.js";
+import { type Repository } from "~/libs/types/types.js";
 
 import { CourseEntity, CourseModel } from "../courses/courses.js";
 import { UserModel } from "../users/user.model.js";

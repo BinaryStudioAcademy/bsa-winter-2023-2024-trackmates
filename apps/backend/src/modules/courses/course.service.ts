@@ -4,9 +4,9 @@ import { UserCourseService } from "../user-courses/user-courses.js";
 import { type VendorApi, type VendorService } from "../vendors/vendors.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
-import { CourseFieldsMapping } from "./libs/types/types.js";
 import {
 	type CourseDto,
+	type CourseFieldsMapping,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 	type VendorResponseDto,

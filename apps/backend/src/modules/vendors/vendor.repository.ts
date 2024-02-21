@@ -1,4 +1,4 @@
-import { Repository } from "~/libs/types/types.js";
+import { type Repository } from "~/libs/types/types.js";
 
 import { VendorEntity } from "./vendor.entity.js";
 import { VendorModel } from "./vendor.model.js";

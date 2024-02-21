@@ -1,5 +1,5 @@
-import { CourseDto } from "../courses/courses.js";
-import { UserCourseRepository } from "./user-course.repository.js";
+import { type CourseDto } from "../courses/courses.js";
+import { type UserCourseRepository } from "./user-course.repository.js";
 
 type Constructor = {
 	userCourseRepository: UserCourseRepository;

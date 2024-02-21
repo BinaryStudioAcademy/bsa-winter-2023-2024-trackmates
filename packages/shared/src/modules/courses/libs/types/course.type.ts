@@ -1,4 +1,4 @@
-import { VendorResponseDto } from "../../../vendors/vendors.js";
+import { type VendorResponseDto } from "../../../vendors/vendors.js";
 
 type CourseDto = {
 	description: string;

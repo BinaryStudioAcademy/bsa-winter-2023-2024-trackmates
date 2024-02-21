@@ -7,12 +7,12 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
-import { UserAuthResponseDto } from "../users/users.js";
+import { type UserAuthResponseDto } from "../users/users.js";
 import { type CourseService } from "./course.service.js";
 import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
-	AddCourseRequestDto,
-	CourseSearchRequestDto,
+	type AddCourseRequestDto,
+	type CourseSearchRequestDto,
 } from "./libs/types/types.js";
 import { addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
