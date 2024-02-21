@@ -32,7 +32,6 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
-	AddCoursePayloadKey,
 	type AddCourseRequestDto,
 	type CourseDto,
 	type CourseSearchFilterDto,

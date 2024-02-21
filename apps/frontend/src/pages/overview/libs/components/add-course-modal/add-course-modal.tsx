@@ -14,11 +14,13 @@ type Properties = {
 const ZERO_LENGTH = 0;
 
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
-	const { courses, isLoading, vendors } = useAppSelector((state) => ({
-		courses: state.courses.searchedCourses,
-		isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
-		vendors: state.vendors.vendors,
-	}));
+	const { courses, isLoading, vendors } = useAppSelector((state) => {
+		return {
+			courses: state.courses.searchedCourses,
+			isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
+			vendors: state.vendors.vendors,
+		};
+	});
 
 	const { handleChangeSearch, handleChangeVendors } = useSearchCourse();
 

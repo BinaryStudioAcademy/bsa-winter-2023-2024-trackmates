@@ -1,7 +1,8 @@
-import { AddCoursePayloadKey } from "~/modules/courses/courses.js";
+import { CourseSearchFilterDto } from "~/modules/courses/courses.js";
 
-const DEFAULT_SEARCH_COURSE_PAYLOAD = {
-	[AddCoursePayloadKey.SEARCH]: "",
+const DEFAULT_SEARCH_COURSE_PAYLOAD: CourseSearchFilterDto = {
+	search: "",
+	vendors: [],
 };
 
 const SEARCH_COURSES_DELAY_MS = 500;

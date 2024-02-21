@@ -1,1 +1,1 @@
-export { AddCoursePayloadKey, CoursesApiPath } from "shared";
+export { CoursesApiPath } from "shared";
