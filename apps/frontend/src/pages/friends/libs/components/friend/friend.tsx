@@ -24,25 +24,19 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	const dispatch = useAppDispatch();
 
 	const handleFollow = useCallback(() => {
-		dispatch(actions.follow({ id: friend.id }))
+		void dispatch(actions.follow({ id: friend.id }))
 			.unwrap()
-			.then(
-				() => {
-					setIsFollowing(true);
-				},
-				() => {},
-			);
+			.then(() => {
+				setIsFollowing(true);
+			});
 	}, [dispatch, friend.id]);
 
 	const handleUnfollow = useCallback(() => {
-		dispatch(actions.unfollow({ id: friend.id }))
+		void dispatch(actions.unfollow({ id: friend.id }))
 			.unwrap()
-			.then(
-				() => {
-					setIsFollowing(false);
-				},
-				() => {},
-			);
+			.then(() => {
+				setIsFollowing(false);
+			});
 	}, [dispatch, friend.id]);
 	const fullName = `${friend.firstName} ${friend.lastName}`;
 
