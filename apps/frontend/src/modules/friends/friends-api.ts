@@ -9,7 +9,6 @@ import {
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
 	type FriendUnfollowRequestDto,
-	type FriendUnfollowResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -75,9 +74,7 @@ class FriendsApi extends BaseHTTPApi {
 		return await response.json<UserAuthResponseDto[]>();
 	}
 
-	public async unfollow(
-		payload: FriendUnfollowRequestDto,
-	): Promise<FriendUnfollowResponseDto> {
+	public async unfollow(payload: FriendUnfollowRequestDto): Promise<boolean> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.UNFOLLOW, {}),
 			{
@@ -88,7 +85,7 @@ class FriendsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<FriendUnfollowResponseDto>();
+		return await response.json<boolean>();
 	}
 }
 
