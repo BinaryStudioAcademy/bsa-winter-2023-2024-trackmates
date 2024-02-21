@@ -61,7 +61,12 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(follow.fulfilled, (state, action) => {
-			state.followings = [...state.followings, action.payload];
+			state.followings = [
+				...state.followings,
+				state.potentialFriends.find(
+					(friend) => friend.id === action.payload.id,
+				) as UserAuthResponseDto,
+			];
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(follow.pending, (state) => {

@@ -7,7 +7,9 @@ import { type UserAuthResponseDto } from "../auth/auth.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import {
 	type FriendFollowRequestDto,
+	type FriendFollowResponseDto,
 	type FriendUnfollowRequestDto,
+	type FriendUnfollowResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -23,7 +25,7 @@ class FriendsApi extends BaseHTTPApi {
 
 	public async follow(
 		payload: FriendFollowRequestDto,
-	): Promise<UserAuthResponseDto> {
+	): Promise<FriendFollowResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOW, {}),
 			{
@@ -34,7 +36,7 @@ class FriendsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<UserAuthResponseDto>();
+		return await response.json<FriendFollowResponseDto>();
 	}
 
 	public async getAllPotentialFriends(): Promise<UserAuthResponseDto[]> {
@@ -75,18 +77,18 @@ class FriendsApi extends BaseHTTPApi {
 
 	public async unfollow(
 		payload: FriendUnfollowRequestDto,
-	): Promise<UserAuthResponseDto> {
+	): Promise<FriendUnfollowResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.UNFOLLOW, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "POST",
+				method: "DELETE",
 				payload: JSON.stringify(payload),
 			},
 		);
 
-		return await response.json<UserAuthResponseDto>();
+		return await response.json<FriendUnfollowResponseDto>();
 	}
 }
 

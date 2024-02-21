@@ -29,7 +29,9 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export {
 	type FriendFollowRequestDto,
+	type FriendFollowResponseDto,
 	type FriendUnfollowRequestDto,
+	type FriendUnfollowResponseDto,
 	FriendsApiPath,
 } from "./modules/friends/friends.js";
 export {

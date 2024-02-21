@@ -44,31 +44,31 @@ const getFollowings = createAsyncThunk<
 });
 
 const follow = createAsyncThunk<
-	UserAuthResponseDto,
+	FriendFollowRequestDto,
 	FriendFollowRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/follow`, async (followPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	const response = await friendsApi.follow(followPayload);
+	await friendsApi.follow(followPayload);
 
 	notification.success(NotificationMessage.FRIEND_FOLLOW_SUCCESS);
 
-	return response;
+	return followPayload;
 });
 
 const unfollow = createAsyncThunk<
-	UserAuthResponseDto,
+	FriendUnfollowRequestDto,
 	FriendUnfollowRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/unfollow`, async (unfollowPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	const response = await friendsApi.unfollow(unfollowPayload);
+	await friendsApi.unfollow(unfollowPayload);
 
 	notification.success(NotificationMessage.FRIEND_UNFOLLOW_SUCCESS);
 
-	return response;
+	return unfollowPayload;
 });
 
 export { follow, getFollowers, getFollowings, getPotentialFriends, unfollow };
