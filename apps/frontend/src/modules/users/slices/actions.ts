@@ -4,13 +4,13 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { type UserProfileRequestDto } from "~/modules/users/users.js";
 
-const sliceName = "users";
+const SLICE_NAME = "users";
 
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
 	{ id: string; profilePayload: UserProfileRequestDto },
 	AsyncThunkConfig
->(`${sliceName}/profile`, async ({ id, profilePayload }, { extra }) => {
+>(`${SLICE_NAME}/profile`, async ({ id, profilePayload }, { extra }) => {
 	const { notification, userApi } = extra;
 
 	const user = await userApi.update(id, profilePayload);
@@ -24,7 +24,7 @@ const updateUserAvatar = createAsyncThunk<
 	UserAuthResponseDto,
 	FormData,
 	AsyncThunkConfig
->(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {
+>(`${SLICE_NAME}/update-user-avatar`, async (payload, { extra }) => {
 	const { notification, userApi } = extra;
 
 	const user = await userApi.updateAvatar(payload);
