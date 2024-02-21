@@ -117,8 +117,11 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async update(data: UserProfileRequestDto): Promise<UserEntity | null> {
-		const user = await this.userModel.query().findById(data.id).execute();
+	public async update(
+		data: UserProfileRequestDto,
+		userId: number,
+	): Promise<UserEntity | null> {
+		const user = await this.userModel.query().findById(userId).execute();
 
 		if (!user) {
 			return null;
@@ -126,7 +129,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		const userDetails = await this.userDetailsModel
 			.query()
-			.findOne({ userId: data.id })
+			.findOne({ userId: userId })
 			.execute();
 
 		if (!userDetails) {

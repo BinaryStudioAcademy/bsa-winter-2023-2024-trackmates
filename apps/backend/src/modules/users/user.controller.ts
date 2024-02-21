@@ -27,6 +27,7 @@ class UserController extends BaseController {
 				this.updateUser(
 					options as APIHandlerOptions<{
 						body: UserProfileRequestDto;
+						params: Record<"id", string>;
 					}>,
 				),
 			method: "PATCH",
@@ -39,7 +40,7 @@ class UserController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /auth/profile:
+	 * /users/profile/{id}:
 	 *    patch:
 	 *      description: Updates a user's details
 	 *      parameters:
@@ -48,8 +49,7 @@ class UserController extends BaseController {
 	 *          description: ID of the user to update
 	 *          required: true
 	 *          schema:
-	 *            type: integer
-	 *            minimum: 1
+	 *            type: string
 	 *        - in: body
 	 *          name: user
 	 *          description: Updated user object
@@ -68,13 +68,16 @@ class UserController extends BaseController {
 	 *        '500':
 	 *          description: Internal server error
 	 */
+
 	private async updateUser(
 		options: APIHandlerOptions<{
 			body: UserProfileRequestDto;
+			params: { id: string };
 		}>,
 	): Promise<APIHandlerResponse> {
+		const userId = Number.parseInt(options.params.id, 10);
 		return {
-			payload: await this.userService.update(options.body),
+			payload: await this.userService.update(options.body, userId),
 			status: HTTPCode.OK,
 		};
 	}
