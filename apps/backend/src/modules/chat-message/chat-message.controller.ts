@@ -68,7 +68,7 @@ class ChatMessageController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: ChatMessageApiPath.CHAT_ID,
+			path: ChatMessageApiPath.$CHAT_ID,
 			validation: {
 				params: chatParametersValidationSchema,
 			},

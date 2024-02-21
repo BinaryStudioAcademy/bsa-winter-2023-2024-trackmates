@@ -1,5 +1,5 @@
 const ChatMessageApiPath = {
-	CHAT_ID: "/:chatId",
+	$CHAT_ID: "/:chatId",
 	ROOT: "/",
 } as const;
 
