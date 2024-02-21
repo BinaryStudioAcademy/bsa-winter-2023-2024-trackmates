@@ -26,7 +26,6 @@ const SearchCourseForm: React.FC<Properties> = ({
 					name="search"
 					placeholder="Course name..."
 					type="text"
-					wide
 				/>
 			</form>
 		</>

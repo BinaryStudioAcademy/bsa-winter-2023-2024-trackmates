@@ -1,5 +1,5 @@
 import { type ContentType, ServerErrorType } from "~/libs/enums/enums.js";
-import { configureString, configureUrl } from "~/libs/helpers/helpers.js";
+import { configureString } from "~/libs/helpers/helpers.js";
 import {
 	type HTTP,
 	type HTTPCode,
@@ -69,7 +69,15 @@ class BaseHTTPApi implements HTTPApi {
 		path: string,
 		queryParameters?: T | undefined,
 	): string {
-		return configureUrl({ path, queryParameters });
+		if (!queryParameters) {
+			return path;
+		}
+
+		const query = new URLSearchParams(
+			queryParameters as Record<string, string>,
+		).toString();
+
+		return `${path}?${query}`;
 	}
 
 	private async handleError(response: Response): Promise<never> {

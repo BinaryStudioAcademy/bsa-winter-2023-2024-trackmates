@@ -20,7 +20,7 @@ const Course: React.FC<Properties> = ({
 	onAddCourse,
 }: Properties) => {
 	const { image, title, vendor, vendorCourseId } = course;
-	const source = VendorsLogoPath[vendor.key] || "";
+	const source = VendorsLogoPath[vendor.key] ?? "";
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
