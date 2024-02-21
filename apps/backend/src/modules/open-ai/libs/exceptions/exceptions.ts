@@ -1,1 +1,1 @@
-export { OpenAiError } from "./open-ai-error.exception.js";
+export { OpenAIError } from "./open-ai-error.exception.js";

@@ -5,10 +5,10 @@ type Constructor = {
 	message: string;
 };
 
-class OpenAiError extends ApplicationError {
+class OpenAIError extends ApplicationError {
 	public constructor({ cause, message }: Constructor) {
 		super({ cause, message });
 	}
 }
 
-export { OpenAiError };
+export { OpenAIError };
