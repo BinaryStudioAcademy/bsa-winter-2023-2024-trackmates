@@ -11,8 +11,8 @@ import { type ChatMessageService } from "./chat-message.service.js";
 import { ChatMessageApiPath } from "./libs/enums/enums.js";
 import { type MessageSendRequestDto } from "./libs/types/types.js";
 import {
+	chatMessageSendValidationSchema,
 	chatParametersValidationSchema,
-	messageSendValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -85,7 +85,7 @@ class ChatMessageController extends BaseController {
 			method: "POST",
 			path: ChatMessageApiPath.ROOT,
 			validation: {
-				body: messageSendValidationSchema,
+				body: chatMessageSendValidationSchema,
 			},
 		});
 

@@ -34,9 +34,9 @@ export {
 	type MessageResponseDto,
 	type MessageSendRequestDto,
 	MessageStatus,
+	chatMessageSendValidationSchema,
 	chatParametersValidationSchema,
-	messageSendValidationSchema,
-} from "./modules/chat/chat.js";
+} from "./modules/chat-message/chat.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {

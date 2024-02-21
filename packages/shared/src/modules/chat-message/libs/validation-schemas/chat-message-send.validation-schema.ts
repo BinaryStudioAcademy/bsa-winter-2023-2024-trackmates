@@ -5,11 +5,11 @@ type MessageSendValidationDto = {
 	receiverId: z.ZodNumber;
 };
 
-const messageSend = z
+const chatMessageSend = z
 	.object<MessageSendValidationDto>({
 		message: z.string().trim(),
 		receiverId: z.number(),
 	})
 	.required();
 
-export { messageSend };
+export { chatMessageSend };

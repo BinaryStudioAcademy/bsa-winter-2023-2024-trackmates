@@ -1,4 +1,4 @@
 export {
+	chatMessageSendValidationSchema,
 	chatParametersValidationSchema,
-	messageSendValidationSchema,
 } from "shared";
