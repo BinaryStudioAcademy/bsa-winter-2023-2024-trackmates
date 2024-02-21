@@ -9,6 +9,7 @@
 
 .add-friend-action {
 	flex: 1;
+	cursor: pointer;
 }
 
 .card {
