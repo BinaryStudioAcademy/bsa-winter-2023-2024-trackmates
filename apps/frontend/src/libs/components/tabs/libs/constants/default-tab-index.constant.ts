@@ -1,3 +1,0 @@
-const DEFAULT_TAB_INDEX = 0;
-
-export { DEFAULT_TAB_INDEX };

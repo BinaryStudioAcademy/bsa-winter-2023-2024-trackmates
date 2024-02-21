@@ -1,3 +1,35 @@
 .wrapper {
 	padding: 16px;
 }
+
+.link-list {
+	display: flex;
+	width: min-content;
+	padding: 0;
+	list-style: none;
+	background-color: var(--main-white);
+	border-radius: 150px;
+}
+
+.link-item {
+	width: max-content;
+	padding: 8px 36px;
+	font: inherit;
+	font-size: var(--font-size-300);
+	color: var(--color-text-200);
+	text-wrap: nowrap;
+	border-radius: 150px;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+
+.link {
+	color: inherit;
+	text-decoration: none;
+}
+
+.active {
+	color: var(--main-white);
+	background-color: var(--main-orange);
+}

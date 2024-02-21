@@ -9,16 +9,21 @@ import styles from "./styles.module.css";
 type Properties = {
 	children: React.ReactNode;
 	className?: string | undefined;
+	searchParams?: string;
 	to: ValueOf<typeof AppRoute>;
 };
 
 const Link: React.FC<Properties> = ({
 	children,
 	className,
+	searchParams,
 	to,
 }: Properties) => {
 	return (
-		<NavLink className={getValidClassNames(className, styles["link"])} to={to}>
+		<NavLink
+			className={getValidClassNames(className, styles["link"])}
+			to={searchParams ? `${to}?${searchParams}` : to}
+		>
 			{children}
 		</NavLink>
 	);

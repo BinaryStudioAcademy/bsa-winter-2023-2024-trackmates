@@ -8,6 +8,5 @@ export { Loader } from "./loader/loader.js";
 export { Notification } from "./notification/notification.js";
 export { ProtectedRoute } from "./protected-route/protected-route.js";
 export { RouterProvider } from "./router-provider/router-provider.js";
-export { Tabs } from "./tabs/tabs.js";
 export { Provider as StoreProvider } from "react-redux";
 export { Navigate, Outlet as RouterOutlet } from "react-router-dom";
