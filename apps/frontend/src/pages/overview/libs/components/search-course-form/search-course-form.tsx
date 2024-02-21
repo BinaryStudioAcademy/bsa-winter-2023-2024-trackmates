@@ -10,7 +10,7 @@ type Properties = {
 const SearchCourseForm: React.FC<Properties> = ({
 	onSearchChange,
 }: Properties) => {
-	const { control, watch } = useAppForm({
+	const { control, errors, watch } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 	});
 
@@ -23,6 +23,9 @@ const SearchCourseForm: React.FC<Properties> = ({
 			<form onChange={handleSearchChange}>
 				<Input
 					control={control}
+					errors={errors}
+					hasVisuallyHiddenLabel
+					label="Search course"
 					name="search"
 					placeholder="Course name..."
 					type="text"

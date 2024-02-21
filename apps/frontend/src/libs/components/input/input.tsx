@@ -14,8 +14,9 @@ type Properties<T extends FieldValues> = {
 	className?: string | undefined;
 	color?: "dark" | "light";
 	control: Control<T, null>;
-	errors?: FieldErrors<T>;
-	label?: string;
+	errors: FieldErrors<T>;
+	hasVisuallyHiddenLabel?: boolean;
+	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
 	type?: "email" | "password" | "text";
@@ -26,6 +27,7 @@ const Input = <T extends FieldValues>({
 	color = "light",
 	control,
 	errors,
+	hasVisuallyHiddenLabel,
 	label,
 	name,
 	placeholder = "",
@@ -33,7 +35,7 @@ const Input = <T extends FieldValues>({
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
 
-	const error = errors?.[name]?.message;
+	const error = errors[name]?.message;
 	const hasError = Boolean(error);
 
 	const inputClasses = getValidClassNames(
@@ -42,10 +44,14 @@ const Input = <T extends FieldValues>({
 		styles[color],
 		hasError && styles["error-input"],
 	);
+	const labelClasses = getValidClassNames(
+		styles["heading"],
+		hasVisuallyHiddenLabel && "visually-hidden",
+	);
 
 	return (
 		<label className={styles["container"]}>
-			<span className={styles["heading"]}>{label}</span>
+			<span className={labelClasses}>{label}</span>
 			<input
 				className={inputClasses}
 				{...field}
