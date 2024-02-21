@@ -99,7 +99,7 @@ class UserEntity implements Entity {
 		passwordSalt: string;
 	}): UserEntity {
 		return new UserEntity({
-			avatarUrl: "",
+			avatarUrl: null,
 			createdAt: "",
 			email,
 			firstName,
