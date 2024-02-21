@@ -44,7 +44,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							},
 							{
 								element: <ProtectedRoute component={<Profile />} />,
-								path: AppRoute.PROFILE_$ID,
+								path: AppRoute.PROFILE_USER_$ID,
 							},
 						],
 						element: <App />,
