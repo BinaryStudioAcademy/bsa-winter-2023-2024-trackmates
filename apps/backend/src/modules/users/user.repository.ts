@@ -125,10 +125,10 @@ class UserRepository implements Repository<UserEntity> {
 		userId: number,
 		data: UserProfileRequestDto,
 	): Promise<UserEntity | null> {
-		const userDetails = (await this.userDetailsModel
+		const userDetails = await this.userDetailsModel
 			.query()
 			.findOne({ userId: userId })
-			.execute()) as UserDetailsModel;
+			.castTo<UserDetailsModel>();
 
 		await this.userDetailsModel.query().patchAndFetchById(userDetails.id, {
 			firstName: data.firstName,
