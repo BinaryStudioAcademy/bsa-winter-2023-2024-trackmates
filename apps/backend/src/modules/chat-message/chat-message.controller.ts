@@ -11,6 +11,42 @@ import { type ChatMessageService } from "./chat-message.service.js";
 import { ChatMessageApiPath } from "./libs/enums/enums.js";
 import { type MessageSendRequestDto } from "./libs/types/types.js";
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      ChatMessage:
+ *        type: object
+ *        properties:
+ *          chatId:
+ *            type: string
+ *          id:
+ *            type: number
+ *            minimum: 1
+ *          message:
+ *            type: string
+ *          receiverUser:
+ *            type: object
+ *            $ref: "#/components/schemas/User"
+ *          senderUser:
+ *            type: object
+ *            $ref: "#/components/schemas/User"
+ *          status:
+ *            type: string
+ *      Chat:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: string
+ *          interlocutor:
+ *            type: object
+ *            $ref: "#/components/schemas/User"
+ *          lastMessage:
+ *            type: object
+ *            $ref: "#/components/schemas/ChatMessage"
+ *          unreadMessageCount:
+ *            type: number
+ */
 class ChatMessageController extends BaseController {
 	private chatMessageService: ChatMessageService;
 
@@ -55,6 +91,25 @@ class ChatMessageController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /chats:
+	 *    get:
+	 *      description: Return all user's chats
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  chats:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Chat"
+	 */
 	private async findAllChatsByUserId({
 		user: { id },
 	}: APIHandlerOptions<{
@@ -66,6 +121,29 @@ class ChatMessageController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chats/{chatId}:
+	 *    get:
+	 *      description: Return all chat's messages
+	 *      parameters:
+	 *        - name: chatId
+	 *          in: params
+	 *          type: uuid
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  messages:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async findAllMessagesByChatId({
 		params: { chatId },
 		user: { id },
@@ -82,6 +160,33 @@ class ChatMessageController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chats:
+	 *    post:
+	 *      description: Create a new message
+	 *      requestBody:
+	 *        description: Message data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                receiverId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *                message:
+	 *                  type: string
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async sendMessage({
 		body,
 		user: { id },
