@@ -75,9 +75,9 @@ class UserController extends BaseController {
 			params: { id: string };
 		}>,
 	): Promise<APIHandlerResponse> {
-		const userId = Number.parseInt(options.params.id, 10);
+		const userId = Number(options.params.id);
 		return {
-			payload: await this.userService.update(options.body, userId),
+			payload: await this.userService.update(userId, options.body),
 			status: HTTPCode.OK,
 		};
 	}

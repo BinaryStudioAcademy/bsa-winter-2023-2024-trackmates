@@ -64,12 +64,12 @@ class UserService implements Service {
 	}
 
 	public async update(
-		userRequestDto: UserProfileRequestDto,
 		userId: number,
+		userRequestDto: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
 		const updatedUser = await this.userRepository.update(
-			userRequestDto,
 			userId,
+			userRequestDto,
 		);
 
 		return updatedUser?.toObject() ?? null;
