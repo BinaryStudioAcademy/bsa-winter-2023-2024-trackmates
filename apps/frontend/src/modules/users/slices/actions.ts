@@ -8,12 +8,12 @@ import { name as sliceName } from "./users.slice.js";
 
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
-	UserProfileRequestDto,
+	{ id: string; profilePayload: UserProfileRequestDto },
 	AsyncThunkConfig
->(`${sliceName}/profile`, async (profilePayload, { extra }) => {
+>(`${sliceName}/profile`, async ({ id, profilePayload }, { extra }) => {
 	const { notification, userApi } = extra;
 
-	const user = await userApi.update(profilePayload);
+	const user = await userApi.update(id, profilePayload);
 
 	notification.success("Your profile has been updated");
 

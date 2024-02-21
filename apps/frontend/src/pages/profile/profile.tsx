@@ -44,12 +44,16 @@ const Profile: React.FC = () => {
 
 	const onSubmit = useCallback(
 		(formData: UserProfileRequestDto): void => {
-			const payload: UserProfileRequestDto = {
-				...formData,
-				id: Number(userId),
-			};
+			if (!userId) {
+				return;
+			}
 
-			void dispatch(usersActions.updateProfile(payload));
+			void dispatch(
+				usersActions.updateProfile({
+					id: userId,
+					profilePayload: formData,
+				}),
+			);
 		},
 		[dispatch, userId],
 	);

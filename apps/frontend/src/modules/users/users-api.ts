@@ -21,10 +21,11 @@ class UserApi extends BaseHTTPApi {
 	}
 
 	public async update(
+		id: string,
 		payload: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(`${UsersApiPath.PROFILE}/${payload.id}`, {}),
+			this.getFullEndpoint(`${UsersApiPath.PROFILE}/${id}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
