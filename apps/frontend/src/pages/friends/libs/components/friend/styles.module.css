@@ -17,8 +17,13 @@
 	flex-direction: column;
 	width: 100%;
 	overflow: hidden;
+	border: 1px solid transparent;
 	border-radius: 12px;
 	box-shadow: 0 0 5px rgba(0 0 0 / 10%);
+}
+
+.card:hover {
+	border: 1px solid var(--color-menu);
 }
 
 .card-content {

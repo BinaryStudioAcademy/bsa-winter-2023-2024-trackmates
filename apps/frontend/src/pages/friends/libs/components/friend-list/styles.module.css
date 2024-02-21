@@ -7,5 +7,11 @@
 
 .friend-item {
 	display: flex;
+	overflow: hidden;
 	list-style: none;
+	cursor: pointer;
+}
+
+.friend-item:hover {
+	box-shadow: 3px 11px 22px -14px #00000080;
 }
