@@ -39,11 +39,8 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 			vendors: state.vendors.vendors,
 		};
 	});
-	const { control, errors, watch } = useAppForm({
-		defaultValues: {
-			search: DEFAULT_SEARCH_COURSE_PAYLOAD.search,
-			vendors: getDefaultVendors(vendors),
-		},
+	const { control, errors, getValues, setValue } = useAppForm({
+		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
 	});
 
@@ -54,24 +51,34 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		[dispatch],
 	);
 
-	const handleSearchCourses = useCallback(() => {
+	const handleSearchCourses = () => {
+		const formData = getValues();
 		void dispatch(
 			courseActions.search({
-				search: watch("search"),
-				vendorsKeys: getVendorsFromForm(watch("vendors")),
+				search: formData.search,
+				vendorsKeys: getVendorsFromForm(formData.vendors),
 			}),
 		);
-	}, [dispatch, watch]);
+	};
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const debouncedSearchCourses = useCallback(
-		debounce(handleSearchCourses, SEARCH_COURSES_DELAY_MS),
-		[handleSearchCourses],
+	const debouncedSearchCourses = debounce(
+		handleSearchCourses,
+		SEARCH_COURSES_DELAY_MS,
 	);
 
 	useEffect(() => {
-		void dispatch(vendorActions.loadAll());
-	}, [dispatch]);
+		void dispatch(vendorActions.loadAll())
+			.unwrap()
+			.then((vendors) => {
+				setValue("vendors", getDefaultVendors(vendors));
+			});
+	}, [dispatch, setValue]);
+
+	useEffect(() => {
+		return () => {
+			debouncedSearchCourses.clear();
+		};
+	}, [debouncedSearchCourses]);
 
 	return (
 		<Modal isOpen onClose={onClose}>
