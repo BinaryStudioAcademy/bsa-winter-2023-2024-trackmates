@@ -29,7 +29,7 @@ class ChatMessageService {
 	): Promise<ChatGetAllResponseDto> {
 		const chats = await this.chatMessageRepository.findAllChatsByUserId(userId);
 		return {
-			chats: chats.map((chat) => chat.toObject()),
+			items: chats.map((chat) => chat.toObject()),
 		};
 	}
 
@@ -58,7 +58,7 @@ class ChatMessageService {
 		}
 
 		return {
-			messages: chatMessages.map((chatMessage) => chatMessage.toObject()),
+			items: chatMessages.map((chatMessage) => chatMessage.toObject()),
 		};
 	}
 

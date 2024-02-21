@@ -114,7 +114,7 @@ class ChatMessageController extends BaseController {
 	 *              schema:
 	 *                type: object
 	 *                properties:
-	 *                  chats:
+	 *                  items:
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
@@ -148,7 +148,7 @@ class ChatMessageController extends BaseController {
 	 *              schema:
 	 *                type: object
 	 *                properties:
-	 *                  messages:
+	 *                  items:
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
