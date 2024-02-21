@@ -29,6 +29,7 @@ export {
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export {
+	FileError,
 	type FileUploadResponseDto,
 	FilesApiPath,
 } from "./modules/files/files.js";

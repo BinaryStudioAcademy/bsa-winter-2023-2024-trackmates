@@ -2,12 +2,13 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
 
 import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/service.type.js";
 import { type FileRepository } from "~/modules/files/file.repository.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { FileEntity } from "./file.entity.js";
+import { FileError } from "./libs/exceptions/exceptions.js";
 import {
 	type FileUploadResponseDto,
 	type UploadedFile,
@@ -62,10 +63,10 @@ class FileService implements Service {
 				if (result.Location) {
 					return result.Location;
 				}
-				throw new HTTPError({
-					message: ExceptionMessage.UNKNOWN_ERROR,
-					status: HTTPCode.INTERNAL_SERVER_ERROR,
-				});
+				throw new FileError(
+					ExceptionMessage.UNKNOWN_ERROR,
+					HTTPCode.INTERNAL_SERVER_ERROR,
+				);
 			});
 	}
 
@@ -81,10 +82,7 @@ class FileService implements Service {
 	async delete(fileId: number): Promise<boolean> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
-			throw new HTTPError({
-				message: ExceptionMessage.FILE_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
+			throw new FileError(ExceptionMessage.FILE_NOT_FOUND, HTTPCode.NOT_FOUND);
 		}
 		return await this.fileRepository.delete(fileId);
 	}
@@ -92,10 +90,7 @@ class FileService implements Service {
 	async find(fileId: number): Promise<FileEntity> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
-			throw new HTTPError({
-				message: ExceptionMessage.FILE_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
+			throw new FileError(ExceptionMessage.FILE_NOT_FOUND, HTTPCode.NOT_FOUND);
 		}
 		return file;
 	}
@@ -110,10 +105,7 @@ class FileService implements Service {
 	): Promise<FileEntity> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
-			throw new HTTPError({
-				message: ExceptionMessage.FILE_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
+			throw new FileError(ExceptionMessage.FILE_NOT_FOUND, HTTPCode.NOT_FOUND);
 		}
 		return await this.fileRepository.update(fileId, payload);
 	}
