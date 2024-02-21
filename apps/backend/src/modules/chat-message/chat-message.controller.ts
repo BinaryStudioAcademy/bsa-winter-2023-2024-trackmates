@@ -55,7 +55,7 @@ class ChatMessageController extends BaseController {
 	private chatMessageService: ChatMessageService;
 
 	public constructor(logger: Logger, chatMessageService: ChatMessageService) {
-		super(logger, APIPath.CHAT);
+		super(logger, APIPath.CHATS);
 
 		this.chatMessageService = chatMessageService;
 
