@@ -5,10 +5,10 @@ import Fastify, { type FastifyError } from "fastify";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { MAX_FILE_SIZE } from "~/libs/constants/constants.js";
+import { MAX_FILE_SIZE_IN_MB } from "~/libs/constants/constants.js";
 import { ContentType, ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
-import { getSizeInMb } from "~/libs/helpers/helpers.js";
+import { getSizeInBytes } from "~/libs/helpers/helpers.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
@@ -137,7 +137,7 @@ class BaseServerApplication implements ServerApplication {
 		});
 		await this.app.register(fileUpload, {
 			allowedExtensions: [ContentType.JPEG, ContentType.PNG],
-			fileSize: getSizeInMb(MAX_FILE_SIZE),
+			fileSize: getSizeInBytes(MAX_FILE_SIZE_IN_MB),
 		});
 	}
 

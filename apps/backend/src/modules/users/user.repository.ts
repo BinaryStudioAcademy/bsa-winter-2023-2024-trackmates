@@ -156,11 +156,11 @@ class UserRepository implements Repository<UserEntity> {
 
 	public update(
 		userId: number,
-		partialUser: Partial<UserEntity>,
+		payload: Partial<UserEntity>,
 	): Promise<UserEntity> {
 		return this.userModel
 			.query()
-			.patchAndFetchById(userId, partialUser)
+			.patchAndFetchById(userId, payload)
 			.castTo<UserEntity>()
 			.execute();
 	}

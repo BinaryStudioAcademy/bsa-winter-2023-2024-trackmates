@@ -106,7 +106,7 @@ class FileService implements Service {
 
 	async update(
 		fileId: number,
-		partialFile: Partial<FileEntity>,
+		payload: Partial<FileEntity>,
 	): Promise<FileEntity> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
@@ -115,7 +115,7 @@ class FileService implements Service {
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
-		return await this.fileRepository.update(fileId, partialFile);
+		return await this.fileRepository.update(fileId, payload);
 	}
 
 	async uploadAvatar(

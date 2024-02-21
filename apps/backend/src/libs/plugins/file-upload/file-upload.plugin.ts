@@ -38,7 +38,7 @@ const fileUpload = fastifyPlugin<Options>(
 
 				if (data.file.truncated) {
 					throw new HTTPError({
-						message: ExceptionMessage.FILE_IS_TO_LARGE,
+						message: ExceptionMessage.FILE_IS_TOO_LARGE,
 						status: HTTPCode.BAD_REQUEST,
 					});
 				}

@@ -1,1 +1,1 @@
-export { getSizeInMb } from "shared";
+export { getSizeInBytes } from "shared";

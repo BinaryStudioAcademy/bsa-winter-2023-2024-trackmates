@@ -43,11 +43,11 @@ class FileRepository implements Repository<FileEntity> {
 
 	async update(
 		fileId: number,
-		partialFile: Partial<FileEntity>,
+		payload: Partial<FileEntity>,
 	): Promise<FileEntity> {
 		return await this.fileModel
 			.query()
-			.patchAndFetchById(fileId, partialFile)
+			.patchAndFetchById(fileId, payload)
 			.castTo<FileEntity>()
 			.execute();
 	}

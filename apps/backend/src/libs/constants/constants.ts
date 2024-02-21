@@ -1,1 +1,1 @@
-export { MAX_FILE_SIZE } from "shared";
+export { MAX_FILE_SIZE_IN_MB } from "shared";
