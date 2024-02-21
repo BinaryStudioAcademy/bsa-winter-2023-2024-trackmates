@@ -1,7 +1,7 @@
 import { Link } from "~/libs/components/components.js";
 import { ARRAY_EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
-import { type ChatItemResponseDto } from "~/modules/chat/chat.js";
+import { type ChatItemResponseDto } from "~/modules/chat-message/chat-message.js";
 
 import { ChatLink } from "../chat-link/chat-link.js";
 import styles from "./styles.module.css";
@@ -13,7 +13,7 @@ type Properties = {
 const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
 	return (
 		<ul className={styles["chats"]}>
-			{chats.length > ARRAY_EMPTY_LENGTH ? (
+			{Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH ? (
 				chats.map((item) => {
 					return (
 						<li key={item.id}>

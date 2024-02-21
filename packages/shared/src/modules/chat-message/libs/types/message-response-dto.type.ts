@@ -1,6 +1,6 @@
-import { type ValueOf } from "../../../../libs/types/types.js";
+import { type ValueOf } from "../../../../libs/types/value-of.type.js";
 import { type UserAuthResponseDto } from "../../../users/users.js";
-import { MessageStatus } from "../enums/enums.js";
+import { MessageStatus } from "../enums/message-status.enum.js";
 
 type MessageResponseDto = {
 	chatId: string;

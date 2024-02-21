@@ -1,6 +1,6 @@
 import { Image } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { type MessageResponseDto } from "~/modules/chat/chat.js";
+import { type MessageResponseDto } from "~/modules/chat-message/chat-message.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";

@@ -8,16 +8,16 @@ import {
 	type MessageResponseDto,
 	type MessageSendRequestDto,
 } from "../libs/types/types.js";
-import { name as sliceName } from "./chat.slice.js";
+import { name as sliceName } from "./chat-message.slice.js";
 
 const getAllChats = createAsyncThunk<
 	ChatGetAllResponseDto,
 	undefined,
 	AsyncThunkConfig
 >(`${sliceName}/get-all-chats`, async (_payload, { extra }) => {
-	const { chatApi } = extra;
+	const { chatMessageApi } = extra;
 
-	return await chatApi.getAllChats();
+	return await chatMessageApi.getAllChats();
 });
 
 const getAllMessages = createAsyncThunk<
@@ -25,9 +25,9 @@ const getAllMessages = createAsyncThunk<
 	string,
 	AsyncThunkConfig
 >(`${sliceName}/get-all-messages`, async (chatId, { extra }) => {
-	const { chatApi } = extra;
+	const { chatMessageApi } = extra;
 
-	return await chatApi.getAllMessages(chatId);
+	return await chatMessageApi.getAllMessages(chatId);
 });
 
 const sendMessage = createAsyncThunk<
@@ -35,9 +35,9 @@ const sendMessage = createAsyncThunk<
 	MessageSendRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/send-message`, async (messagePayload, { extra }) => {
-	const { chatApi } = extra;
+	const { chatMessageApi } = extra;
 
-	return await chatApi.sendMessage(messagePayload);
+	return await chatMessageApi.sendMessage(messagePayload);
 });
 
 export { getAllChats, getAllMessages, sendMessage };

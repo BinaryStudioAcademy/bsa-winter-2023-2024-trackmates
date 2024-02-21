@@ -1,6 +1,6 @@
 import { formatDate, getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppSelector } from "~/libs/hooks/hooks.js";
-import { MessageResponseDto } from "~/modules/chat/chat.js";
+import { MessageResponseDto } from "~/modules/chat-message/chat-message.js";
 
 import styles from "./styles.module.css";
 

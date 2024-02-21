@@ -12,8 +12,8 @@ import {
 } from "~/libs/hooks/hooks.js";
 import {
 	type MessageSendRequestDto,
-	actions as chatActions,
-} from "~/modules/chat/chat.js";
+	actions as chatMessageActions,
+} from "~/modules/chat-message/chat-message.js";
 
 import { Chat, ChatSidebar, EmptyChat } from "./libs/components/components.js";
 import { DEFAULT_MESSAGE_PAYLOAD } from "./libs/constants/constants.js";
@@ -35,14 +35,18 @@ const Chats: React.FC = () => {
 	const { search } = useLocation();
 	const queryParameters = new URLSearchParams(search);
 	const userId = queryParameters.get("user");
-	const { chats, messages } = useAppSelector(({ chat }) => ({
-		chats: chat.chats,
-		messages: chat.currentMessages,
+	const { chats, messages } = useAppSelector(({ chatMessage }) => ({
+		chats: chatMessage.chats,
+		messages: chatMessage.currentMessages,
 	}));
 
 	const isValidChatId = useCallback(
 		(id: string): boolean => {
-			return Boolean(id) && chats.some((element) => element.id === id);
+			return (
+				Boolean(id) &&
+				Boolean(chats) &&
+				chats.some((element) => element.id === id)
+			);
 		},
 		[chats],
 	);
@@ -60,12 +64,12 @@ const Chats: React.FC = () => {
 	}, [navigate, userId, messages]);
 
 	useEffect(() => {
-		void dispatch(chatActions.getAllChats());
+		void dispatch(chatMessageActions.getAllChats());
 	}, [dispatch]);
 
 	useEffect(() => {
 		if (isValidChatId(String(id))) {
-			void dispatch(chatActions.getAllMessages(String(id)));
+			void dispatch(chatMessageActions.getAllMessages(String(id)));
 		}
 	}, [dispatch, id, isValidChatId, chats]);
 
@@ -75,7 +79,7 @@ const Chats: React.FC = () => {
 				message: payload.message,
 				receiverId: Number(userId),
 			};
-			void dispatch(chatActions.sendMessage(messagePayload));
+			void dispatch(chatMessageActions.sendMessage(messagePayload));
 			if (!isValidChatId(String(id))) {
 				navigateToNewChat();
 			}
@@ -88,10 +92,10 @@ const Chats: React.FC = () => {
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />
-				{chats.length === ARRAY_EMPTY_LENGTH ? (
-					<EmptyChat />
-				) : (
+				{Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH ? (
 					<Chat messages={messages} onSubmit={onSubmit} receiver={receiver} />
+				) : (
+					<EmptyChat />
 				)}
 			</div>
 		</div>

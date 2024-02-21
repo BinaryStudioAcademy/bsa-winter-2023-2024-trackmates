@@ -8,7 +8,7 @@ import { UserDetailsModel } from "./user-details/user-details.model.js";
 const userRepository = new UserRepository(UserModel, UserDetailsModel);
 const userService = new UserService(encrypt, userRepository);
 
-export { userService };
+export { userRepository, userService };
 
 export {
 	type UserAuthResponseDto,
@@ -22,4 +22,6 @@ export {
 	userSignUpValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 export { UserEntity } from "./user.entity.js";
+export { UserModel } from "./user.model.js";
+export { type UserRepository } from "./user.repository.js";
 export { type UserService } from "./user.service.js";

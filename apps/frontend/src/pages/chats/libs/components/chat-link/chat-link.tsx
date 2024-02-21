@@ -2,7 +2,7 @@ import { Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
 import { configureString, formatDate } from "~/libs/helpers/helpers.js";
-import { type ChatItemResponseDto } from "~/modules/chat/chat.js";
+import { type ChatItemResponseDto } from "~/modules/chat-message/chat-message.js";
 
 import styles from "./styles.module.css";
 

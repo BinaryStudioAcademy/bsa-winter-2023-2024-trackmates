@@ -24,7 +24,7 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(getAllChats.fulfilled, (state, action) => {
-			state.chats = action.payload.chats;
+			state.chats = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getAllChats.pending, (state) => {
@@ -36,7 +36,7 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(getAllMessages.fulfilled, (state, action) => {
-			state.currentMessages = action.payload.messages;
+			state.currentMessages = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getAllMessages.pending, (state) => {
