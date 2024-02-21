@@ -12,7 +12,6 @@
 		"lint": "concurrently \"npm:lint:*\"",
 		"start:dev": "tsx src/index.ts",
 		"migrate:dev": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:latest",
-		"migrate:dev:list": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:list",
 		"migrate:dev:make": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:make -x ts",
 		"migrate:dev:down": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:down",
 		"migrate:dev:rollback": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:rollback --all",
@@ -20,8 +19,6 @@
 		"build:copy": "cp -r package.json build",
 		"prestart": "npm run migrate",
 		"migrate": "knex migrate:latest",
-		"seed:dev:make": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js seed:make -x ts",
-		"seed:dev:run": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js seed:run",
 		"start": "node ./src/index.js"
 	},
 	"dependencies": {
