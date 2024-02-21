@@ -6,7 +6,7 @@ import {
 	useEffect,
 } from "~/libs/hooks/hooks.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
-import { UserAuthResponseDto } from "~/modules/users/users.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import { useAddCourseModal } from "./libs/hooks/hooks.js";

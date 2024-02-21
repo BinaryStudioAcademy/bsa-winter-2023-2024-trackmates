@@ -42,7 +42,9 @@ const Modal: React.FC<Properties> = ({
 					{children}
 					<Button
 						className={styles["close-btn"]}
+						hasVisuallyHiddenLabel
 						iconName="cross"
+						label="Close modal"
 						onClick={onClose}
 						style="clear"
 					/>

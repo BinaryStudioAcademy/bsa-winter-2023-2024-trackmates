@@ -12,7 +12,7 @@ type Properties = {
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
-	label?: string;
+	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
 	style?: "clear" | "filled" | "outlined";
