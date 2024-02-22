@@ -177,7 +177,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
-					avatarUrl: null,
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
