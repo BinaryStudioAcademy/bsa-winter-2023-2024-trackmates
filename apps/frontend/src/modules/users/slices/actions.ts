@@ -9,7 +9,7 @@ import { name as sliceName } from "./users.slice.js";
 
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
-	{ id: string; profilePayload: UserProfileRequestDto },
+	{ id: number; profilePayload: UserProfileRequestDto },
 	AsyncThunkConfig
 >(`${sliceName}/profile`, async ({ id, profilePayload }, { extra }) => {
 	const { notification, userApi } = extra;

@@ -7,7 +7,6 @@ import {
 	useAppForm,
 	useAppSelector,
 	useCallback,
-	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
@@ -20,7 +19,6 @@ import {
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
-	const { userId } = useParams<{ userId: string }>();
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
 	});
@@ -49,18 +47,18 @@ const Profile: React.FC = () => {
 
 	const handleInputChange = useCallback(
 		(formData: UserProfileRequestDto): void => {
-			if (!userId) {
+			if (!user.id) {
 				return;
 			}
 
 			void dispatch(
 				usersActions.updateProfile({
-					id: userId,
+					id: user.id,
 					profilePayload: formData,
 				}),
 			);
 		},
-		[dispatch, userId],
+		[dispatch, user.id],
 	);
 
 	const handleFormSubmit = useCallback(
