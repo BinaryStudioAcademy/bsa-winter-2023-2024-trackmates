@@ -27,13 +27,11 @@ const Profile: React.FC = () => {
 	const inputReference = useRef<HTMLInputElement>(null);
 	const dispatch = useAppDispatch();
 
-	const defaultValues = {
-		firstName: user.firstName,
-		lastName: user.lastName,
-	};
-
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
-		defaultValues: defaultValues,
+		defaultValues: {
+			firstName: user.firstName,
+			lastName: user.lastName,
+		},
 		validationSchema: userProfileValidationSchema,
 	});
 
