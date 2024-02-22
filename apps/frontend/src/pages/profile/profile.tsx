@@ -139,4 +139,5 @@ const Profile: React.FC = () => {
 		</>
 	);
 };
+
 export { Profile };

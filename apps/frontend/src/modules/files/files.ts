@@ -11,5 +11,4 @@ const filesApi = new FilesApi({
 });
 
 export { filesApi };
-
 export { actions } from "./slices/files.js";

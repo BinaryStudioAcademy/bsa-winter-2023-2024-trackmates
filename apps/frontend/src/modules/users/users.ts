@@ -9,9 +9,7 @@ const userApi = new UserApi({
 	http,
 	storage,
 });
-
 export { userApi };
-
 export {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
