@@ -9,6 +9,7 @@ import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
+import { userApi } from "~/modules/users/users.js";
 
 import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
@@ -21,6 +22,7 @@ type ExtraArguments = {
 	authApi: typeof authApi;
 	notification: typeof notification;
 	storage: typeof storage;
+	userApi: typeof userApi;
 };
 
 class Store {
@@ -53,6 +55,7 @@ class Store {
 			authApi,
 			notification,
 			storage,
+			userApi,
 		};
 	}
 }

@@ -2,6 +2,7 @@ import { Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { type UserProfileRequestDto } from "./libs/types/types.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserRepository implements Repository<UserEntity> {
@@ -35,6 +36,7 @@ class UserRepository implements Repository<UserEntity> {
 			.execute();
 
 		return UserEntity.initialize({
+			avatarUrl: null,
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
@@ -62,6 +64,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return users.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -83,6 +86,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -104,6 +108,7 @@ class UserRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -116,8 +121,39 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public update(): Promise<UserEntity | null> {
-		return Promise.resolve(null);
+	public async update(
+		userId: number,
+		data: UserProfileRequestDto,
+	): Promise<UserEntity | null> {
+		const userDetails = await this.userDetailsModel
+			.query()
+			.findOne({ userId: userId })
+			.castTo<UserDetailsModel>();
+
+		await this.userDetailsModel.query().patchAndFetchById(userDetails.id, {
+			firstName: data.firstName,
+			lastName: data.lastName,
+		});
+
+		const user = await this.userModel
+			.query()
+			.findById(userId)
+			.withGraphJoined("userDetails")
+			.execute();
+
+		return user
+			? UserEntity.initialize({
+					avatarUrl: null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
 	}
 }
 
