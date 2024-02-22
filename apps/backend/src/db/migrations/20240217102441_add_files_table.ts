@@ -6,16 +6,13 @@ const TableName = {
 } as const;
 
 const ColumnName = {
+	AVATAR_FILE_ID: "avatar_file_id",
 	CONTENT_TYPE: "content_type",
 	CREATED_AT: "created_at",
 	ID: "id",
 	UPDATED_AT: "updated_at",
 	URL: "url",
 } as const;
-
-const DetailsColumnName = {
-	AVATAR_FILE_ID: "avatar_file_id",
-};
 
 function up(knex: Knex): Promise<void> {
 	return knex.schema
@@ -34,7 +31,7 @@ function up(knex: Knex): Promise<void> {
 		})
 		.table(TableName.DETAILS_TABLE_NAME, (table) => {
 			table
-				.integer(DetailsColumnName.AVATAR_FILE_ID)
+				.integer(ColumnName.AVATAR_FILE_ID)
 				.unique()
 				.references(ColumnName.ID)
 				.inTable(TableName.FILES);
@@ -44,7 +41,7 @@ function up(knex: Knex): Promise<void> {
 function down(knex: Knex): Promise<void> {
 	return knex.schema
 		.table(TableName.DETAILS_TABLE_NAME, (table) => {
-			table.dropColumn(DetailsColumnName.AVATAR_FILE_ID);
+			table.dropColumn(ColumnName.AVATAR_FILE_ID);
 		})
 		.dropTableIfExists(TableName.FILES);
 }

@@ -4,11 +4,12 @@ import {
 	type APIHandlerResponse,
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
-import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type FileService } from "~/modules/files/file.service.js";
 
 import { APIPath, FilesApiPath } from "./libs/enums/enums.js";
+import { FileError } from "./libs/exceptions/exceptions.js";
 import {
 	type UploadedFile,
 	type UserAuthResponseDto,
@@ -104,7 +105,7 @@ class FileController extends BaseController {
 		}>,
 	): Promise<APIHandlerResponse> {
 		if (!options.uploadedFile) {
-			throw new HTTPError({
+			throw new FileError({
 				message: ExceptionMessage.NO_FILE_PRESENTED,
 				status: HTTPCode.BAD_REQUEST,
 			});
