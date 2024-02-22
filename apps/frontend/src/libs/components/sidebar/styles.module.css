@@ -121,6 +121,9 @@
 	}
 
 	.burger-button {
+		position: absolute;
+		top: 23px;
+		left: 33px;
 		z-index: var(--z-index-low);
 		fill: var(--main-orange);
 	}

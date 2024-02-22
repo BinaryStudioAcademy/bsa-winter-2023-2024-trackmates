@@ -2,6 +2,7 @@
 	max-width: 1500px;
 	padding: 27px 0 90px;
 	margin: auto;
+	color: var(--color-text-300);
 }
 
 .title {
@@ -35,7 +36,7 @@
 
 @media screen and (width <= 640px) {
 	.container {
-		max-width: 380px;
+		max-width: 350px;
 	}
 
 	.list {

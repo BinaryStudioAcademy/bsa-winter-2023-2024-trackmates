@@ -1,3 +1,5 @@
+import { CourseError, HTTPCode } from "shared";
+
 import { type Repository } from "~/libs/types/types.js";
 
 import { VendorEntity } from "./vendor.entity.js";
@@ -10,16 +12,41 @@ class VendorRepository implements Repository<VendorEntity> {
 		this.vendorModel = vendorModel;
 	}
 
-	public create(): Promise<VendorEntity> {
-		throw new Error("Method not implemented.");
+	public async create(vendor: VendorEntity): Promise<VendorEntity> {
+		const vendorModel = await this.vendorModel
+			.query()
+			.insert(vendor.toNewObject())
+			.returning("*")
+			.castTo<VendorModel>()
+			.execute();
+
+		return VendorEntity.initialize({
+			createdAt: vendorModel.createdAt,
+			id: vendorModel.id,
+			key: vendorModel.key,
+			name: vendorModel.name,
+			updatedAt: vendorModel.updatedAt,
+		});
 	}
 
-	public delete(): Promise<boolean> {
-		return Promise.resolve(true);
+	public async delete(id: number): Promise<boolean> {
+		const itemsCount = await this.vendorModel.query().deleteById(id).execute();
+
+		return Boolean(itemsCount);
 	}
 
-	public find(): Promise<VendorEntity | null> {
-		return Promise.resolve(null);
+	public async find(id: number): Promise<VendorEntity | null> {
+		const vendor = await this.vendorModel.query().findById(id).execute();
+
+		return vendor
+			? VendorEntity.initialize({
+					createdAt: vendor.createdAt,
+					id: vendor.id,
+					key: vendor.key,
+					name: vendor.name,
+					updatedAt: vendor.updatedAt,
+				})
+			: null;
 	}
 
 	public async findAll(): Promise<VendorEntity[]> {
@@ -36,22 +63,33 @@ class VendorRepository implements Repository<VendorEntity> {
 		});
 	}
 
-	public async findById(id: number): Promise<VendorEntity | null> {
-		const vendor = await this.vendorModel.query().findById(id).execute();
+	public async update(
+		id: number,
+		entity: VendorEntity,
+	): Promise<VendorEntity | null> {
+		const vendor = entity.toNewObject();
+		const vendorModel = await this.vendorModel
+			.query()
+			.findById(id)
+			.patch(vendor)
+			.returning("*")
+			.castTo<VendorModel>()
+			.execute();
 
-		return vendor
-			? VendorEntity.initialize({
-					createdAt: vendor.createdAt,
-					id: vendor.id,
-					key: vendor.key,
-					name: vendor.name,
-					updatedAt: vendor.updatedAt,
-				})
-			: null;
-	}
+		if (!vendorModel.id) {
+			throw new CourseError(
+				`Not found vendor with id '${id}'`,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
 
-	public update(): Promise<VendorEntity | null> {
-		return Promise.resolve(null);
+		return VendorEntity.initialize({
+			createdAt: vendorModel.createdAt,
+			id: vendorModel.id,
+			key: vendorModel.key,
+			name: vendorModel.name,
+			updatedAt: vendorModel.updatedAt,
+		});
 	}
 }
 

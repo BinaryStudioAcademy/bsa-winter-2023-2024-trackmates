@@ -7,12 +7,22 @@ import {
 // import from ~/modules/courses/courses.ts here causes round dependency
 // and error "ReferenceError: Cannot access 'UserModel' before initialization"
 import { CourseError } from "~/modules/courses/libs/exceptions/exceptions.js";
+import { type CourseDto } from "~/modules/courses/libs/types/types.js";
 
 import {
 	CourseField,
 	UdemyDefaultSearchParameter,
+	UdemyFieldsMapping,
 } from "./libs/enums/enums.js";
 import { type VendorService } from "./libs/types/types.js";
+
+type CourseFieldForMap =
+	| "description"
+	| "image"
+	| "title"
+	| "url"
+	| "vendorCourseId";
+type Course = Pick<CourseDto, CourseFieldForMap>;
 
 type Constructor = {
 	baseUrl: string;
@@ -53,16 +63,44 @@ class UdemyService implements VendorService {
 		});
 	}
 
-	public async getCourseById(id: string): Promise<Record<string, unknown>> {
+	private mapItemFields<T extends string>(
+		item: Record<string, unknown>,
+		mapping: Record<T, string>,
+	): Record<T, unknown> {
+		const mappingEntries = Object.entries(mapping) as [T, string][];
+		const course = {} as Record<T, unknown>;
+
+		for (const [to, from] of mappingEntries) {
+			course[to] = item[from];
+		}
+
+		return course;
+	}
+
+	private mapToCourse(item: Record<string, unknown>): Course {
+		const course = this.mapItemFields<CourseFieldForMap>(
+			item,
+			UdemyFieldsMapping,
+		);
+
+		const vendorCourseId = (
+			course.vendorCourseId as number | string
+		).toString();
+
+		return { ...course, vendorCourseId } as Course;
+	}
+
+	public async getCourseById(id: string): Promise<Course> {
 		const query = {
 			"fields[course]": Object.values(CourseField).join(","),
 		};
 		const result = await this.load(`${this.baseUrl}${id}`, query);
+		const item = (await result.json()) as Record<string, unknown>;
 
-		return (await result.json()) as Record<string, unknown>;
+		return this.mapToCourse(item);
 	}
 
-	public async getCourses(search: string): Promise<Record<string, unknown>[]> {
+	public async getCourses(search: string): Promise<Course[]> {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
 			page: UdemyDefaultSearchParameter.PAGE,
@@ -84,7 +122,9 @@ class UdemyService implements VendorService {
 			);
 		}
 
-		return result.results as Record<string, unknown>[];
+		return (result.results as Record<string, unknown>[]).map((item) =>
+			this.mapToCourse(item),
+		);
 	}
 }
 

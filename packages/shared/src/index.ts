@@ -8,14 +8,14 @@ export {
 } from "./libs/enums/enums.js";
 export {
 	ApplicationError,
-	HTTPError,
 	ValidationError,
 } from "./libs/exceptions/exceptions.js";
-export { configureString } from "./libs/helpers/helpers.js";
+export { configureString, debounce } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
 	type HTTP,
 	HTTPCode,
+	HTTPError,
 	HTTPHeader,
 	type HTTPMethod,
 	type HTTPOptions,
@@ -54,6 +54,7 @@ export {
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
 export {
+	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,
 } from "./modules/vendors/vendors.js";

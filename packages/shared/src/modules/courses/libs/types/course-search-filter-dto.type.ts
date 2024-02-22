@@ -1,6 +1,6 @@
 type CourseSearchFilterDto = {
 	search: string;
-	vendors: string[];
+	vendorsKeys: string[];
 };
 
 export { type CourseSearchFilterDto };

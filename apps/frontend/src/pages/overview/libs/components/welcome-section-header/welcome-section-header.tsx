@@ -35,7 +35,7 @@ const WelcomeHeader: React.FC<Properties> = ({
 				<Button
 					className={styles["add-course-button"]}
 					iconName="plus"
-					label="Add the course"
+					label="Add course"
 					onClick={onAddCourseClick}
 				/>
 			</div>
