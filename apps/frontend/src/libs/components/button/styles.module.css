@@ -3,7 +3,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font: inherit;
+	font-family: inherit;
+	font-weight: inherit;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
