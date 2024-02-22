@@ -1,6 +1,6 @@
-import { type HTTPCode } from "../../../libs/modules/http/http.js";
-import { type ValueOf } from "../../../libs/types/types.js";
-import { ApplicationError } from "../application-error/application-error.exception.js";
+import { ApplicationError } from "../../../../../exceptions/exceptions.js";
+import { type ValueOf } from "../../../../../types/types.js";
+import { type HTTPCode } from "../../enums/enums.js";
 
 type Constructor = {
 	cause?: unknown;
