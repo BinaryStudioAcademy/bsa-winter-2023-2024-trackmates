@@ -2,7 +2,7 @@
 	display: flex;
 	gap: 24px;
 	padding: 12px;
-	font-family: Roboto, sans-serif;
+	font-family: Roboto, Arial, sans-serif;
 	font-weight: 500;
 	background-color: var(--color-menu);
 }
@@ -28,7 +28,7 @@
 }
 
 .fullName {
-	font-family: Roboto, sans-serif;
+	font-family: Roboto, Arial, sans-serif;
 	font-size: var(--font-size-300);
 	font-weight: 500;
 	color: var(--color-text-300);
