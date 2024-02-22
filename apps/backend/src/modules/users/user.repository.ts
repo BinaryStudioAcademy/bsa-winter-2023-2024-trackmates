@@ -3,6 +3,7 @@ import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
 import { RelationName } from "./libs/enums/enums.js";
+import { type UserProfileRequestDto } from "./libs/types/types.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserRepository implements Repository<UserEntity> {
@@ -153,16 +154,39 @@ class UserRepository implements Repository<UserEntity> {
 				})
 			: null;
 	}
-
-	public update(
+	public async update(
 		userId: number,
-		payload: Partial<UserEntity>,
-	): Promise<UserEntity> {
-		return this.userModel
+		data: UserProfileRequestDto,
+	): Promise<UserEntity | null> {
+		const userDetails = await this.userDetailsModel
 			.query()
-			.patchAndFetchById(userId, payload)
-			.castTo<UserEntity>()
+			.findOne({ userId: userId })
+			.castTo<UserDetailsModel>();
+
+		await this.userDetailsModel.query().patchAndFetchById(userDetails.id, {
+			firstName: data.firstName,
+			lastName: data.lastName,
+		});
+
+		const user = await this.userModel
+			.query()
+			.findById(userId)
+			.withGraphJoined("userDetails")
 			.execute();
+
+		return user
+			? UserEntity.initialize({
+					avatarUrl: null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
 	}
 }
 

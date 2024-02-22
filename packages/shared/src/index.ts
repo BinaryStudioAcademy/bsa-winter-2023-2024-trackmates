@@ -39,10 +39,13 @@ export {
 	type UserAuthResponseDto,
 	UserError,
 	type UserGetAllResponseDto,
+	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	UsersApiPath,
+	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";

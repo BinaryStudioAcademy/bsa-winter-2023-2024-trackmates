@@ -9,6 +9,7 @@ import { UserError } from "./libs/exceptions/exceptions.js";
 import {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
+	type UserProfileRequestDto,
 	type UserSignUpRequestDto,
 } from "./libs/types/types.js";
 
@@ -74,8 +75,13 @@ class UserService implements Service {
 		return await this.userRepository.getByEmail(email);
 	}
 
-	public update(): Promise<UserEntity | null> {
-		return Promise.resolve(null);
+	public async update(
+		userId: number,
+		userProfile: UserProfileRequestDto,
+	): Promise<UserAuthResponseDto | null> {
+		const updatedUser = await this.userRepository.update(userId, userProfile);
+
+		return updatedUser?.toObject() ?? null;
 	}
 }
 
