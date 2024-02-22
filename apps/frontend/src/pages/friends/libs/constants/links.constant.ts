@@ -1,17 +1,17 @@
-import { Category } from "../enums/enums.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 
 const LINKS = [
 	{
-		category: undefined,
 		title: "Find friends",
+		to: AppRoute.FRIENDS,
 	},
 	{
-		category: Category.FOLLOWERS,
 		title: "Followers",
+		to: AppRoute.FRIENDS_FOLLOWERS,
 	},
 	{
-		category: Category.FOLLOWINGS,
 		title: "Followings",
+		to: AppRoute.FRIENDS_FOLLOWINGS,
 	},
 ];
 

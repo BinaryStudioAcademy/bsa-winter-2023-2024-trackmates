@@ -1,4 +1,5 @@
 import { Link } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -6,12 +7,10 @@ import {
 	useEffect,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
 import { FriendList } from "./libs/components/components.js";
 import { LINKS } from "./libs/constants/constants.js";
-import { Category } from "./libs/enums/enums.js";
 import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
@@ -25,9 +24,7 @@ const Friends: React.FC = () => {
 		},
 	);
 	const dispatch = useAppDispatch();
-	const [, category] = useLocation()
-		.pathname.split("/")
-		.filter((segment) => segment !== "");
+	const { pathname } = useLocation();
 
 	useEffect(() => {
 		void dispatch(actions.getFollowings());
@@ -35,10 +32,20 @@ const Friends: React.FC = () => {
 		void dispatch(actions.getPotentialFriends());
 	}, [dispatch]);
 
-	const categoryToFriends = {
-		[Category.FOLLOWERS]: <FriendList friends={followers} />,
-		[Category.FOLLOWINGS]: <FriendList friends={followings} />,
-		[Category.POTENTIAL_FRIENDS]: <FriendList friends={potentialFriends} />,
+	const getScreen = (screen: string): React.ReactNode => {
+		switch (screen) {
+			case AppRoute.FRIENDS: {
+				return <FriendList friends={followings} />;
+			}
+			case AppRoute.FRIENDS_FOLLOWERS: {
+				return <FriendList friends={followers} />;
+			}
+			case AppRoute.FRIENDS_FOLLOWINGS: {
+				return <FriendList friends={potentialFriends} />;
+			}
+		}
+
+		return null;
 	};
 
 	return (
@@ -48,20 +55,17 @@ const Friends: React.FC = () => {
 					<li
 						className={getValidClassNames(
 							styles["link-item"],
-							link.category === category && styles["active"],
+							link.to === pathname && styles["active"],
 						)}
 						key={index}
 					>
-						<Link
-							className={styles["link"]}
-							to={link.category ? `/friends/${link.category}` : "/friends"}
-						>
+						<Link className={styles["link"]} to={link.to}>
 							{link.title}
 						</Link>
 					</li>
 				))}
 			</ul>
-			{categoryToFriends[(category ?? "") as ValueOf<typeof Category>]}
+			{getScreen(pathname)}
 		</div>
 	);
 };

@@ -31,11 +31,11 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							},
 							{
 								element: <ProtectedRoute component={<Friends />} />,
-								path: AppRoute.FOLLOWERS,
+								path: AppRoute.FRIENDS_FOLLOWERS,
 							},
 							{
 								element: <ProtectedRoute component={<Friends />} />,
-								path: AppRoute.FOLLOWINGS,
+								path: AppRoute.FRIENDS_FOLLOWINGS,
 							},
 							{
 								element: <ProtectedRoute component={<Overview />} />,
