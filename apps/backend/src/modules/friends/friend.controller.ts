@@ -114,6 +114,9 @@ class FriendController extends BaseController {
 				),
 			method: "GET",
 			path: FriendsApiPath.ID,
+			validation: {
+				params: FriendRequestValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) =>

@@ -90,7 +90,7 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.USER_FOLLOWERS}.following_id`,
 			)
 			.where(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, id)
-			.withGraphJoined(DatabaseTableName.USER_DETAILS);
+			.withGraphJoined("userDetails");
 
 		return followings.map((user) =>
 			UserEntity.initialize({
@@ -119,7 +119,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.whereNull(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`)
 			.orWhere(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, "<>", id)
 			.andWhere(`${DatabaseTableName.USERS}.id`, "<>", id)
-			.withGraphJoined(DatabaseTableName.USER_DETAILS);
+			.withGraphJoined("userDetails");
 
 		return potentialFollowers.map((user) =>
 			UserEntity.initialize({
