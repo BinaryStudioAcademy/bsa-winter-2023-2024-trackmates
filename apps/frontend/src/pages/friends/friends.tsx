@@ -4,7 +4,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
-	useSearchParams,
+	useLocation,
 } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
@@ -25,9 +25,9 @@ const Friends: React.FC = () => {
 		},
 	);
 	const dispatch = useAppDispatch();
-
-	const [searchParameters] = useSearchParams();
-	const category = searchParameters.get("category");
+	const [, category] = useLocation()
+		.pathname.split("/")
+		.filter((segment) => segment !== "");
 
 	useEffect(() => {
 		void dispatch(actions.getFollowings());
@@ -54,8 +54,7 @@ const Friends: React.FC = () => {
 					>
 						<Link
 							className={styles["link"]}
-							searchParams={link.category ? `category=${link.category}` : ""}
-							to="/friends"
+							to={link.category ? `/friends/${link.category}` : "/friends"}
 						>
 							{link.title}
 						</Link>

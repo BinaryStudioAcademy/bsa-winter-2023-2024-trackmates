@@ -2,7 +2,7 @@ import { Category } from "../enums/enums.js";
 
 const LINKS = [
 	{
-		category: null,
+		category: undefined,
 		title: "Find friends",
 	},
 	{
