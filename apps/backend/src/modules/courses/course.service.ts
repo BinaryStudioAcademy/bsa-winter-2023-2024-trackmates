@@ -75,10 +75,10 @@ class CourseService {
 			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the same length as the input array. Returned array must contains indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: the input data to analyze is [{0}, {1}, {2}]. After analyzing, the output should be like: [1, 2, 0]. Please make sure that the returned array has the same length as the input array.";
 		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
 		const response = await this.openAI.call(request);
-		const parsedResponse = JSON.parse(response) as number[];
+		const courseSortedIndexes = JSON.parse(response) as number[];
 
 		return courses.map((_, index) => {
-			const courseIndex = parsedResponse[index] as number;
+			const courseIndex = courseSortedIndexes[index] as number;
 
 			return courses[courseIndex] as CourseDto;
 		});
