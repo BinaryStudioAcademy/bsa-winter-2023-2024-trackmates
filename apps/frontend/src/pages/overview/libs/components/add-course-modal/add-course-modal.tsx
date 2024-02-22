@@ -51,7 +51,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		[dispatch],
 	);
 
-	const handleSearchCourses = () => {
+	const handleSearchCourses = (): void => {
 		const formData = getValues();
 		void dispatch(
 			courseActions.search({

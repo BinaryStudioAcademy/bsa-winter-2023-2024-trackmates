@@ -3,7 +3,7 @@ import { CourseError, HTTPCode } from "shared";
 import { type Repository } from "~/libs/types/types.js";
 
 import { VendorEntity } from "./vendor.entity.js";
-import { VendorModel } from "./vendor.model.js";
+import { type VendorModel } from "./vendor.model.js";
 
 class VendorRepository implements Repository<VendorEntity> {
 	private vendorModel: typeof VendorModel;

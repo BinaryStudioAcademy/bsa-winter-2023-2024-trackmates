@@ -1,11 +1,11 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
-import { UserModel } from "~/modules/users/user.model.js";
+import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
 import { CourseEntity } from "./course.entity.js";
-import { CourseModel } from "./course.model.js";
+import { type CourseModel } from "./course.model.js";
 
 class CourseRepository implements Repository<CourseEntity> {
 	private courseModel: typeof CourseModel;
@@ -38,7 +38,7 @@ class CourseRepository implements Repository<CourseEntity> {
 	private async createRelationWithUser(
 		courseEntity: CourseEntity,
 		userId: number,
-	) {
+	): Promise<void> {
 		const course = courseEntity.toObject();
 		const courseRelatedWithUser = await this.userModel
 			.relatedQuery(DatabaseTableName.COURSES)
@@ -137,6 +137,7 @@ class CourseRepository implements Repository<CourseEntity> {
 			.withGraphFetched("vendor")
 			.findOne("vendorCourseId", vendorCourseId)
 			.execute();
+
 		return course ? this.modelToEntity(course) : null;
 	}
 

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
+import { actions as usersActions } from "~/modules/users/users.js";
 
 import { getAuthenticatedUser, signIn, signUp } from "./actions.js";
 
@@ -49,6 +50,30 @@ const { actions, name, reducer } = createSlice({
 			state.user = action.payload;
 		});
 		builder.addCase(signIn.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(usersActions.updateProfile.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(usersActions.updateProfile.fulfilled, (state, action) => {
+			state.dataStatus = DataStatus.FULFILLED;
+			state.user = { ...state.user, ...action.payload };
+		});
+		builder.addCase(usersActions.updateProfile.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+		builder.addCase(usersActions.updateUserAvatar.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(
+			usersActions.updateUserAvatar.fulfilled,
+			(state, action) => {
+				state.dataStatus = DataStatus.FULFILLED;
+				state.user = action.payload;
+			},
+		);
+		builder.addCase(usersActions.updateUserAvatar.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 	},

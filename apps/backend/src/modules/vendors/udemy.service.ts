@@ -22,6 +22,7 @@ type CourseFieldForMap =
 	| "title"
 	| "url"
 	| "vendorCourseId";
+
 type Course = Pick<CourseDto, CourseFieldForMap>;
 
 type Constructor = {

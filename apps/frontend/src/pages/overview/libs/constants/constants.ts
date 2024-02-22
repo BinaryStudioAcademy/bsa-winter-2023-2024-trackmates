@@ -1,4 +1,4 @@
-import { CourseSearchFilterDto } from "~/modules/courses/courses.js";
+import { type CourseSearchFilterDto } from "~/modules/courses/courses.js";
 
 const DEFAULT_SEARCH_COURSE_PAYLOAD: Omit<
 	CourseSearchFilterDto,

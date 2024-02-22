@@ -1,6 +1,6 @@
 import reactPlugin from "@vitejs/plugin-react";
 import { fileURLToPath } from "node:url";
-import { ConfigEnv, defineConfig, loadEnv } from "vite";
+import { type ConfigEnv, defineConfig, loadEnv } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import svgr from "vite-plugin-svgr";
 
