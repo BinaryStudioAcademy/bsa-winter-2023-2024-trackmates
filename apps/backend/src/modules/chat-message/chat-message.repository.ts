@@ -1,10 +1,12 @@
-import { Repository } from "~/libs/types/types.js";
+import { type Repository } from "~/libs/types/types.js";
 
 import { UserEntity } from "../users/users.js";
 import { ChatEntity } from "./chat.entity.js";
 import { ChatMessageEntity } from "./chat-message.entity.js";
 import { type ChatMessageModel } from "./chat-message.model.js";
 import { MessageStatus } from "./libs/enums/enums.js";
+
+const RELATIONS = "[receiverUser.userDetails, senderUser.userDetails]";
 
 class ChatMessageRepository implements Repository<ChatMessageEntity> {
 	private chatMessageModel: typeof ChatMessageModel;
@@ -46,7 +48,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 					: { message, receiverId, senderId },
 			)
 			.returning("*")
-			.withGraphFetched("[receiverUser.userDetails, senderUser.userDetails]")
+			.withGraphFetched(RELATIONS)
 			.execute();
 
 		return ChatMessageEntity.initialize({
@@ -79,16 +81,86 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 		});
 	}
 
-	public delete(): Promise<boolean> {
-		return Promise.resolve(true);
+	public async delete(id: number): Promise<boolean> {
+		const deletedMessageCount = await this.chatMessageModel
+			.query()
+			.deleteById(id)
+			.execute();
+
+		return Boolean(deletedMessageCount);
 	}
 
-	public find(): Promise<ChatMessageEntity | null> {
-		return Promise.resolve(null);
+	public async find(id: number): Promise<ChatMessageEntity | null> {
+		const chatMessageById = await this.chatMessageModel.query().findById(id);
+
+		return chatMessageById
+			? ChatMessageEntity.initialize({
+					chatId: chatMessageById.chatId,
+					createdAt: chatMessageById.createdAt,
+					id: chatMessageById.id,
+					message: chatMessageById.message,
+					receiverUser: UserEntity.initialize({
+						createdAt: chatMessageById.receiverUser.createdAt,
+						email: chatMessageById.receiverUser.email,
+						firstName: chatMessageById.receiverUser.userDetails.firstName,
+						id: chatMessageById.receiverUser.id,
+						lastName: chatMessageById.receiverUser.userDetails.lastName,
+						passwordHash: chatMessageById.receiverUser.passwordHash,
+						passwordSalt: chatMessageById.receiverUser.passwordSalt,
+						updatedAt: chatMessageById.receiverUser.updatedAt,
+					}),
+					senderUser: UserEntity.initialize({
+						createdAt: chatMessageById.senderUser.createdAt,
+						email: chatMessageById.senderUser.email,
+						firstName: chatMessageById.senderUser.userDetails.firstName,
+						id: chatMessageById.senderUser.id,
+						lastName: chatMessageById.senderUser.userDetails.lastName,
+						passwordHash: chatMessageById.senderUser.passwordHash,
+						passwordSalt: chatMessageById.senderUser.passwordSalt,
+						updatedAt: chatMessageById.senderUser.updatedAt,
+					}),
+					status: chatMessageById.status,
+					updatedAt: chatMessageById.updatedAt,
+				})
+			: null;
 	}
 
-	public findAll(): Promise<ChatMessageEntity[]> {
-		return Promise.resolve([]);
+	public async findAll(): Promise<ChatMessageEntity[]> {
+		const chatMessages = await this.chatMessageModel
+			.query()
+			.withGraphFetched(RELATIONS)
+			.execute();
+
+		return chatMessages.map((chatMessage) =>
+			ChatMessageEntity.initialize({
+				chatId: chatMessage.chatId,
+				createdAt: chatMessage.createdAt,
+				id: chatMessage.id,
+				message: chatMessage.message,
+				receiverUser: UserEntity.initialize({
+					createdAt: chatMessage.receiverUser.createdAt,
+					email: chatMessage.receiverUser.email,
+					firstName: chatMessage.receiverUser.userDetails.firstName,
+					id: chatMessage.receiverUser.id,
+					lastName: chatMessage.receiverUser.userDetails.lastName,
+					passwordHash: chatMessage.receiverUser.passwordHash,
+					passwordSalt: chatMessage.receiverUser.passwordSalt,
+					updatedAt: chatMessage.receiverUser.updatedAt,
+				}),
+				senderUser: UserEntity.initialize({
+					createdAt: chatMessage.senderUser.createdAt,
+					email: chatMessage.senderUser.email,
+					firstName: chatMessage.senderUser.userDetails.firstName,
+					id: chatMessage.senderUser.id,
+					lastName: chatMessage.senderUser.userDetails.lastName,
+					passwordHash: chatMessage.senderUser.passwordHash,
+					passwordSalt: chatMessage.senderUser.passwordSalt,
+					updatedAt: chatMessage.senderUser.updatedAt,
+				}),
+				status: chatMessage.status,
+				updatedAt: chatMessage.updatedAt,
+			}),
+		);
 	}
 
 	public async findAllChatsByUserId(userId: number) {
@@ -118,7 +190,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.select("*")
 			.from("chatMessagesCte")
 			.orderBy("chatMessagesCte.createdAt", "desc")
-			.withGraphFetched("[receiverUser.userDetails, senderUser.userDetails]")
+			.withGraphFetched(RELATIONS)
 			.castTo<(ChatMessageModel & { unreadMessageCount: number })[]>()
 			.execute();
 
@@ -178,7 +250,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.query()
 			.where({ chatId })
 			.orderBy("createdAt", "desc")
-			.withGraphFetched("[senderUser.userDetails, receiverUser.userDetails]")
+			.withGraphFetched(RELATIONS)
 			.execute();
 
 		return chatMessages.map((chatMessage) =>
@@ -227,8 +299,50 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 		return chatMessage?.chatId ?? null;
 	}
 
-	public update(): Promise<ChatMessageEntity | null> {
-		return Promise.resolve(null);
+	public async update(
+		id: number,
+		chatMessage: ChatMessageEntity,
+	): Promise<ChatMessageEntity | null> {
+		const { status } = chatMessage.toObject();
+		const updatedChatMessage = await this.chatMessageModel
+			.query()
+			.updateAndFetchById(id, {
+				status,
+			})
+			.withGraphFetched(RELATIONS)
+			.castTo<ChatMessageModel | undefined>()
+			.execute();
+
+		return updatedChatMessage
+			? ChatMessageEntity.initialize({
+					chatId: updatedChatMessage.chatId,
+					createdAt: updatedChatMessage.createdAt,
+					id: updatedChatMessage.id,
+					message: updatedChatMessage.message,
+					receiverUser: UserEntity.initialize({
+						createdAt: updatedChatMessage.receiverUser.createdAt,
+						email: updatedChatMessage.receiverUser.email,
+						firstName: updatedChatMessage.receiverUser.userDetails.firstName,
+						id: updatedChatMessage.receiverUser.id,
+						lastName: updatedChatMessage.receiverUser.userDetails.lastName,
+						passwordHash: updatedChatMessage.receiverUser.passwordHash,
+						passwordSalt: updatedChatMessage.receiverUser.passwordSalt,
+						updatedAt: updatedChatMessage.receiverUser.updatedAt,
+					}),
+					senderUser: UserEntity.initialize({
+						createdAt: updatedChatMessage.senderUser.createdAt,
+						email: updatedChatMessage.senderUser.email,
+						firstName: updatedChatMessage.senderUser.userDetails.firstName,
+						id: updatedChatMessage.senderUser.id,
+						lastName: updatedChatMessage.senderUser.userDetails.lastName,
+						passwordHash: updatedChatMessage.senderUser.passwordHash,
+						passwordSalt: updatedChatMessage.senderUser.passwordSalt,
+						updatedAt: updatedChatMessage.senderUser.updatedAt,
+					}),
+					status: updatedChatMessage.status,
+					updatedAt: updatedChatMessage.updatedAt,
+				})
+			: null;
 	}
 }
 
