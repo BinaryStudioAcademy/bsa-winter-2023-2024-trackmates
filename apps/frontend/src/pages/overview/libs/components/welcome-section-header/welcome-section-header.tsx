@@ -31,7 +31,7 @@ const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
 				<Button
 					className={styles["add-course-button"]}
 					iconName="plus"
-					label="Add the course"
+					label="Add course"
 				/>
 			</div>
 		</header>
