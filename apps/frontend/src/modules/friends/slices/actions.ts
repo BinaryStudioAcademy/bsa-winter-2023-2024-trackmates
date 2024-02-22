@@ -1,9 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import {
-	NotificationMessage,
-	notification,
-} from "~/libs/modules/notification/notification.js";
+import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../../auth/auth.js";
@@ -48,7 +45,7 @@ const follow = createAsyncThunk<
 	FriendFollowRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/follow`, async (followPayload, { extra }) => {
-	const { friendsApi } = extra;
+	const { friendsApi, notification } = extra;
 
 	await friendsApi.follow(followPayload);
 
@@ -62,7 +59,7 @@ const unfollow = createAsyncThunk<
 	FriendUnfollowRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/unfollow`, async (unfollowPayload, { extra }) => {
-	const { friendsApi } = extra;
+	const { friendsApi, notification } = extra;
 
 	await friendsApi.unfollow(unfollowPayload);
 
