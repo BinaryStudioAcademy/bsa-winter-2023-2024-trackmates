@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
-import { type UserAuthResponseDto } from "../../auth/auth.js";
 import {
 	type FriendFollowRequestDto,
 	type FriendUnfollowRequestDto,
