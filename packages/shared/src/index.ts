@@ -54,6 +54,7 @@ export {
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
 export {
+	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,
 } from "./modules/vendors/vendors.js";
