@@ -4,8 +4,9 @@
 	gap: 27px;
 	width: 100%;
 	max-width: 253px;
-	margin-bottom: 30px;
-	color: #ffffff;
+	margin-top: 141px;
+	margin-bottom: 190px;
+	color: var(--main-white);
 }
 
 .title {
@@ -53,5 +54,10 @@
 	.form {
 		max-width: unset;
 		padding: 0 30px;
+		margin-top: 0;
+	}
+
+	.button {
+		margin-top: 24px;
 	}
 }
