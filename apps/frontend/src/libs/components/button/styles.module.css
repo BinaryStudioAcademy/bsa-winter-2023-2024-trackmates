@@ -46,7 +46,7 @@
 }
 
 .secondary {
-	color: var(--color-text-300);
+	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }

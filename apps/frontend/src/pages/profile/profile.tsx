@@ -124,7 +124,6 @@ const Profile: React.FC = () => {
 							href={AppRoute.ROOT}
 							label="Cancel"
 							size="small"
-							style="outlined"
 						/>
 						<Button
 							className={styles["button"]}
