@@ -59,7 +59,11 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(usersActions.updateProfile.fulfilled, (state, action) => {
 			state.dataStatus = DataStatus.FULFILLED;
-			state.user = { ...state.user, ...action.payload };
+			state.user = {
+				...state.user,
+				...action.payload,
+				avatarUrl: state.user?.avatarUrl ?? null,
+			};
 		});
 		builder.addCase(usersActions.updateProfile.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
