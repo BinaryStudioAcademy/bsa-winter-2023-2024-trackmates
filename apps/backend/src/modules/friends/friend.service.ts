@@ -1,13 +1,11 @@
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { FriendsEntity } from "./friend.entity.js";
 import {
 	FriendError,
 	FriendErrorMessage,
 	HTTPCode,
 } from "./libs/enums/enums.js";
-import { type FriendFollowResponseDto } from "./libs/types/types.js";
 
 class FriendService {
 	private friendRepository: FriendRepository;
@@ -17,52 +15,54 @@ class FriendService {
 	}
 
 	async createSubscribe(
-		id: number,
-		receiverUserId: number,
-	): Promise<FriendFollowResponseDto | null> {
-		if (id === receiverUserId) {
+		followerUserId: number,
+		followingUserId: number,
+	): Promise<UserAuthResponseDto | null> {
+		if (followerUserId === followingUserId) {
 			throw new FriendError(
-				FriendErrorMessage.SEND_REQUEST_TO_YOURSELF,
+				FriendErrorMessage.FRIEND_SEND_REQUEST_TO_YOURSELF,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
 
-		const subscribeExist = await this.friendRepository.getSubscribeByUserId(
-			id,
-			receiverUserId,
-		);
-
-		if (!subscribeExist) {
-			const subscription = await this.friendRepository.create(
-				FriendsEntity.initializeNew({
-					recipientUser: null,
-					recipientUserId: receiverUserId,
-					senderUser: null,
-					senderUserId: id,
-				}),
-			);
-			return subscription.toObject();
-		}
-
-		if (!subscribeExist.isFollowing) {
-			const updatedSubscription = await this.friendRepository.update(
-				subscribeExist.id as number,
+		const isSubscribeExist =
+			await this.friendRepository.getSubscriptionByRequestId(
+				followerUserId,
+				followingUserId,
 			);
 
-			if (updatedSubscription) {
-				return updatedSubscription.toObject();
-			} else {
-				throw new FriendError(
-					FriendErrorMessage.FRIEND_UPDATE_ERROR,
-					HTTPCode.BAD_REQUEST,
-				);
-			}
+		if (!isSubscribeExist) {
+			const followingUser = await this.friendRepository.create({
+				followerUserId,
+				followingUserId,
+			});
+
+			return followingUser?.toObject() ?? null;
 		}
 
 		throw new FriendError(
-			FriendErrorMessage.FRIEND_REQUEST_EXIST,
+			FriendErrorMessage.FRIEND_IS_ALREADY_TRACKING,
 			HTTPCode.BAD_REQUEST,
 		);
+	}
+
+	async find(id: number): Promise<UserAuthResponseDto | null> {
+		const foundUser = await this.friendRepository.find(id);
+
+		if (!foundUser) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_SEARCH_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		return foundUser.toObject();
+	}
+
+	async findAll(id: number): Promise<UserAuthResponseDto[]> {
+		const foundUsers = await this.friendRepository.findAll(id);
+
+		return foundUsers.map((user) => user.toObject());
 	}
 
 	async getPotentialFollowers(id: number): Promise<UserAuthResponseDto[]> {
@@ -83,40 +83,33 @@ class FriendService {
 		return folowings.map((user) => user.toObject());
 	}
 
-	async unsubscribe(
-		id: number,
-		userId: number,
-	): Promise<FriendFollowResponseDto> {
-		const subscription = await this.friendRepository.getSubscribeByRequestId(
-			id,
-			userId,
-		);
-		if (!subscription || subscription.senderUserId !== userId) {
+	async unfollow(id: number, userId: number): Promise<boolean> {
+		const isFollowingNow =
+			await this.friendRepository.getSubscriptionByRequestId(id, userId);
+
+		if (!isFollowingNow) {
 			throw new FriendError(
 				FriendErrorMessage.FRIEND_REQUEST_ERROR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
 
-		if (!subscription.isFollowing) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_UNFOLLOW_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
-		}
+		const isDeletedSuccess = await this.friendRepository.delete(id, userId);
 
-		const updatedSubscription = await this.friendRepository.update(
-			subscription.id as number,
-		);
-
-		if (updatedSubscription) {
-			return updatedSubscription.toObject();
-		} else {
+		if (!isDeletedSuccess) {
 			throw new FriendError(
 				FriendErrorMessage.FRIEND_UPDATE_ERROR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
+
+		return isDeletedSuccess;
+	}
+
+	async update(id: number): Promise<UserAuthResponseDto> {
+		const updatedUser = await this.friendRepository.update(id);
+
+		return updatedUser.toObject();
 	}
 }
 

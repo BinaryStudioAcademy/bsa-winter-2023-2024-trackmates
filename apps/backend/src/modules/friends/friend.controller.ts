@@ -8,9 +8,9 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
-import { FriendRequestValidationSchema } from "./friend.js";
 import { FriendService } from "./friend.service.js";
-import { FriendApiPath } from "./libs/enums/enums.js";
+import { FriendRequestValidationSchema } from "./friends.js";
+import { FriendsApiPath } from "./libs/enums/enums.js";
 import { type FriendFollowingRequestDto } from "./libs/types/types.js";
 
 /**
@@ -47,7 +47,7 @@ import { type FriendFollowingRequestDto } from "./libs/types/types.js";
  *           type string;
  *         updatedAt:
  *           type string;
- *     FollowError:
+ *     Error:
  *       type: object
  *       properties:
  *         errorType:
@@ -73,24 +73,57 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "POST",
-			path: FriendApiPath.FOLLOW,
+			path: FriendsApiPath.FOLLOW,
 			validation: {
 				body: FriendRequestValidationSchema,
 			},
 		});
 		this.addRoute({
 			handler: (options) =>
-				this.unsubscribe(
+				this.unfollow(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				),
-			method: "PATCH",
-			path: FriendApiPath.UNFOLLOW,
+			method: "DELETE",
+			path: FriendsApiPath.UNFOLLOW,
 			validation: {
 				body: FriendRequestValidationSchema,
 			},
+		});
+		this.addRoute({
+			handler: (options) =>
+				this.update(
+					options as APIHandlerOptions<{
+						body: FriendFollowingRequestDto;
+					}>,
+				),
+			method: "PATCH",
+			path: FriendsApiPath.UPDATE,
+			validation: {
+				body: FriendRequestValidationSchema,
+			},
+		});
+		this.addRoute({
+			handler: (options) =>
+				this.find(
+					options as APIHandlerOptions<{
+						params: FriendFollowingRequestDto;
+					}>,
+				),
+			method: "GET",
+			path: FriendsApiPath.ID,
+		});
+		this.addRoute({
+			handler: (options) =>
+				this.findAll(
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto;
+					}>,
+				),
+			method: "GET",
+			path: FriendsApiPath.ROOT,
 		});
 		this.addRoute({
 			handler: (options) =>
@@ -100,9 +133,8 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: FriendApiPath.FOLLOWERS,
+			path: FriendsApiPath.FOLLOWERS,
 		});
-
 		this.addRoute({
 			handler: (options) =>
 				this.getUserFollowings(
@@ -111,7 +143,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: FriendApiPath.FOLLOWINGS,
+			path: FriendsApiPath.FOLLOWINGS,
 		});
 		this.addRoute({
 			handler: (options) =>
@@ -121,7 +153,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: FriendApiPath.POTENTIAL_FOLLOWING,
+			path: FriendsApiPath.POTENTIAL_FOLLOWINGS,
 		});
 	}
 
@@ -129,7 +161,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/follow:
 	 *    post:
-	 *      description: Create follow relation and return this follow obj
+	 *      description: Create follow relation and return user whicn user follow
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -177,7 +209,73 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend:
+	 * /friend/:id:
+	 *    get:
+	 *      description: Returns found user
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: array
+	 *                items:
+	 *                  $ref: "#/components/schemas/User"
+	 * 	          400:
+	 *          description: Bad request
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                $ref: "#/components/schemas/Error"
+	 */
+	private async find(
+		options: APIHandlerOptions<{
+			params: {
+				id: number;
+			};
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.find(options.params.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friend/:
+	 *    get:
+	 *      description: Returns array of all users
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: array
+	 *                items:
+	 *                  $ref: "#/components/schemas/User"
+	 * 	          400:
+	 *          description: Bad request
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                $ref: "#/components/schemas/Error"
+	 */
+	private async findAll(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.findAll(options.user.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friend/potential-following:
 	 *    get:
 	 *      description: Returns an array of User that the user does not follow
 	 *      responses:
@@ -257,7 +355,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/unfollow:
 	 *    post:
-	 *      description: update user status isFollow and return updated user
+	 *      description: detele follow relation
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -286,17 +384,54 @@ class FriendController extends BaseController {
 	 *             schema:
 	 *               $ref: '#/components/schemas/FriendError'
 	 */
-	private async unsubscribe(
+	private async unfollow(
 		options: APIHandlerOptions<{
 			body: FriendFollowingRequestDto;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.friendService.unsubscribe(
+			payload: await this.friendService.unfollow(
 				options.body.id,
 				options.user.id,
 			),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friend/update:
+	 *    patch:
+	 *      description: Update a user record
+	 *      requestBody:
+	 *        description: Request body for updating a user
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              $ref: "#/components/schemas/FriendFollowingRequestDto"
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                $ref: "#/components/schemas/User"
+	 *        400:
+	 *          description: Bad request
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                $ref: "#/components/schemas/Error"
+	 */
+	private async update(
+		options: APIHandlerOptions<{
+			body: FriendFollowingRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.update(options.body.id),
 			status: HTTPCode.OK,
 		};
 	}

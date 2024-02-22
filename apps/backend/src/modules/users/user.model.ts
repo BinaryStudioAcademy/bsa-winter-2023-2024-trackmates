@@ -5,28 +5,11 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
-import { FriendModel } from "../friends/friend.model.js";
 import { UserDetailsModel } from "./user-details/user-details.model.js";
 
 class UserModel extends AbstractModel {
 	public static relationMappings = () => {
 		return {
-			recipientUser: {
-				join: {
-					from: `${DatabaseTableName.USERS}.id`,
-					to: `${DatabaseTableName.FRIENDS}.recipientUserId`,
-				},
-				modelClass: FriendModel,
-				relation: Model.HasManyRelation,
-			},
-			senderUser: {
-				join: {
-					from: `${DatabaseTableName.USERS}.id`,
-					to: `${DatabaseTableName.FRIENDS}.senderUserId`,
-				},
-				modelClass: FriendModel,
-				relation: Model.HasManyRelation,
-			},
 			userDetails: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
@@ -34,6 +17,18 @@ class UserModel extends AbstractModel {
 				},
 				modelClass: UserDetailsModel,
 				relation: Model.HasOneRelation,
+			},
+			userFollowers: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					through: {
+						from: "user_followers.follower_id",
+						to: "user_followers.following_id",
+					},
+					to: `${DatabaseTableName.USERS}.id`,
+				},
+				modelClass: UserModel,
+				relation: Model.ManyToManyRelation,
 			},
 		};
 	};

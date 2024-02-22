@@ -1,4 +1,1 @@
-export {
-	type FriendFollowResponseDto,
-	type FriendFollowingRequestDto,
-} from "shared";
+export { type FriendFollowingRequestDto } from "shared";

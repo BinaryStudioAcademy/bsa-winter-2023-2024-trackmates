@@ -1,99 +1,96 @@
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
-import { type FriendModel } from "~/modules/friends/friend.model.js";
 
 import { UserEntity } from "../users/user.entity.js";
 import { UserModel } from "../users/user.model.js";
-import { FriendsEntity } from "./friend.entity.js";
 
-class FriendRepository implements Repository<FriendsEntity> {
-	private friendModel: typeof FriendModel;
+class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
 
-	public constructor(
-		friendModel: typeof FriendModel,
-		userModel: typeof UserModel,
-	) {
-		this.friendModel = friendModel;
+	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
 	}
 
-	public async create(entity: FriendsEntity): Promise<FriendsEntity> {
-		const { recipientUserId, senderUserId } = entity.toNewObject();
+	public async create({
+		followerUserId,
+		followingUserId,
+	}: {
+		followerUserId: number;
+		followingUserId: number;
+	}): Promise<UserEntity | null> {
+		await this.userModel
+			.relatedQuery("userFollowers")
+			.for(followerUserId)
+			.relate(followingUserId);
 
-		const subscription = await this.friendModel
+		const followingUser = await this.userModel
 			.query()
-			.insert({
-				recipientUserId,
-				senderUserId,
-			})
-			.returning("*")
-			.execute();
+			.findById(followingUserId)
+			.withGraphJoined("userDetails");
 
-		return FriendsEntity.initialize({
-			createdAt: subscription.createdAt,
-			id: subscription.id,
-			isFollowing: subscription.isFollowing,
-			recipientUser: subscription.recipientUser ?? null,
-			recipientUserId: subscription.recipientUserId,
-			senderUser: subscription.senderUser ?? null,
-			senderUserId: subscription.senderUserId,
-			updatedAt: subscription.updatedAt,
-		});
-	}
-
-	public async delete(id: number): Promise<boolean> {
-		const deletedSubscribe = await this.friendModel.query().deleteById(id);
-
-		return deletedSubscribe ? true : false;
-	}
-
-	public async find(id: number): Promise<FriendsEntity | null> {
-		const subscription = await this.friendModel.query().findById(id);
-
-		return subscription
-			? FriendsEntity.initialize({
-					createdAt: subscription.createdAt,
-					id: subscription.id,
-					isFollowing: subscription.isFollowing,
-					recipientUser: subscription.recipientUser ?? null,
-					recipientUserId: subscription.recipientUserId,
-					senderUser: subscription.senderUser ?? null,
-					senderUserId: subscription.senderUserId,
-					updatedAt: subscription.updatedAt,
+		return followingUser
+			? UserEntity.initialize({
+					createdAt: followingUser.createdAt,
+					email: followingUser.email,
+					firstName: followingUser.userDetails.firstName,
+					id: followingUser.id,
+					lastName: followingUser.userDetails.lastName,
+					passwordHash: followingUser.passwordHash,
+					passwordSalt: followingUser.passwordSalt,
+					updatedAt: followingUser.updatedAt,
 				})
 			: null;
 	}
 
-	public async findAll(): Promise<FriendsEntity[]> {
-		const subscriptions = await this.friendModel.query();
+	public async delete(id: number, userId: number): Promise<boolean> {
+		const deletedSubscription = await this.userModel
+			.query()
+			.from(DatabaseTableName.USER_FOLLOWERS)
+			.select("*")
+			.where({
+				follower_id: userId,
+				following_id: id,
+			})
+			.first()
+			.delete();
 
-		return subscriptions.map((subscription) =>
-			FriendsEntity.initialize({
-				createdAt: subscription.createdAt,
-				id: subscription.id,
-				isFollowing: subscription.isFollowing,
-				recipientUser: subscription.recipientUser ?? null,
-				recipientUserId: subscription.recipientUserId,
-				senderUser: subscription.senderUser ?? null,
-				senderUserId: subscription.senderUserId,
-				updatedAt: subscription.updatedAt,
-			}),
-		);
+		return Boolean(deletedSubscription);
 	}
 
-	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
-		const filteredFollowers = await this.userModel
+	public async find(id: number): Promise<UserEntity | null> {
+		const user = await this.userModel
 			.query()
-			.whereNot("users.id", id)
+			.findById(id)
 			.withGraphJoined("userDetails")
-			.withGraphJoined("recipientUser")
-			.whereNotExists(
-				UserModel.relatedQuery("recipientUser")
-					.where("isFollowing", true)
-					.andWhere("senderUserId", id),
-			);
+			.execute();
 
-		return filteredFollowers.map((user) =>
+		return user
+			? UserEntity.initialize({
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
+	}
+
+	public async findAll(id: number): Promise<UserEntity[]> {
+		const followings = await this.userModel
+			.query()
+			.join(
+				DatabaseTableName.USER_FOLLOWERS,
+				`${DatabaseTableName.USERS}.id`,
+				"=",
+				`${DatabaseTableName.USER_FOLLOWERS}.following_id`,
+			)
+			.where(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, id)
+			.withGraphJoined(DatabaseTableName.USER_DETAILS);
+
+		return followings.map((user) =>
 			UserEntity.initialize({
 				createdAt: user.createdAt,
 				email: user.email,
@@ -107,138 +104,121 @@ class FriendRepository implements Repository<FriendsEntity> {
 		);
 	}
 
-	async getSubscribeByRequestId(
-		id: number,
-		userId: number,
-	): Promise<FriendsEntity | null> {
-		const subscription = await this.friendModel
+	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
+		const potentialFollowers = await this.userModel
 			.query()
-			.where({
-				recipientUserId: id,
-				senderUserId: userId,
-			})
-			.first();
+			.leftJoin(
+				DatabaseTableName.USER_FOLLOWERS,
+				`${DatabaseTableName.USERS}.id`,
+				"=",
+				`${DatabaseTableName.USER_FOLLOWERS}.following_id`,
+			)
+			.whereNull(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`)
+			.orWhere(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, "<>", id)
+			.andWhere(`${DatabaseTableName.USERS}.id`, "<>", id)
+			.withGraphJoined(DatabaseTableName.USER_DETAILS);
 
-		return subscription
-			? FriendsEntity.initialize({
-					createdAt: subscription.createdAt,
-					id: subscription.id,
-					isFollowing: subscription.isFollowing,
-					recipientUser: subscription.recipientUser ?? null,
-					recipientUserId: subscription.recipientUserId,
-					senderUser: subscription.senderUser ?? null,
-					senderUserId: subscription.senderUserId,
-					updatedAt: subscription.updatedAt,
-				})
-			: null;
+		return potentialFollowers.map((user) =>
+			UserEntity.initialize({
+				createdAt: user.createdAt,
+				email: user.email,
+				firstName: user.userDetails.firstName,
+				id: user.id,
+				lastName: user.userDetails.lastName,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				updatedAt: user.updatedAt,
+			}),
+		);
 	}
 
-	public async getSubscribeByUserId(
+	public async getSubscriptionByRequestId(
 		id: number,
-		recipientUserId: number,
-	): Promise<FriendsEntity | null> {
-		const friendRequest = await this.friendModel
+		userId: number,
+	): Promise<boolean> {
+		const subscription = await this.userModel
 			.query()
+			.from(DatabaseTableName.USER_FOLLOWERS)
+			.select("*")
 			.where({
-				recipientUserId: recipientUserId,
-				senderUserId: id,
+				follower_id: userId,
+				following_id: id,
 			})
 			.first();
 
-		return friendRequest
-			? FriendsEntity.initialize({
-					createdAt: friendRequest.createdAt,
-					id: friendRequest.id,
-					isFollowing: friendRequest.isFollowing,
-					recipientUser: friendRequest.recipientUser ?? null,
-					recipientUserId: friendRequest.recipientUserId,
-					senderUser: friendRequest.senderUser ?? null,
-					senderUserId: friendRequest.senderUserId,
-					updatedAt: friendRequest.updatedAt,
-				})
-			: null;
+		return Boolean(subscription);
 	}
 
 	public async getUserFollowers(id: number): Promise<UserEntity[]> {
-		const userFollowers = await this.friendModel
+		const userFollowers = await this.userModel
 			.query()
-			.where("recipientUserId", id)
-			.where("isFollowing", true)
-			.withGraphJoined("senderUser")
-			.withGraphFetched("senderUser.userDetails");
+			.leftJoin(
+				DatabaseTableName.USER_FOLLOWERS,
+				"users.id",
+				"=",
+				"user_followers.following_id",
+			)
+			.where("user_followers.follower_id", "=", id)
+			.withGraphJoined("userDetails");
 
-		const users = userFollowers.map((friend) => {
-			const userDetails = friend.senderUser?.userDetails;
-
-			return friend.senderUser && userDetails
-				? UserEntity.initialize({
-						createdAt: friend.senderUser.createdAt,
-						email: friend.senderUser.email,
-						firstName: userDetails.firstName,
-						id: friend.senderUser.id,
-						lastName: userDetails.lastName,
-						passwordHash: friend.senderUser.passwordHash,
-						passwordSalt: friend.senderUser.passwordSalt,
-						updatedAt: friend.senderUser.updatedAt,
-					})
-				: null;
-		});
-
-		return users as UserEntity[];
+		return userFollowers.map((user) =>
+			UserEntity.initialize({
+				createdAt: user.createdAt,
+				email: user.email,
+				firstName: user.userDetails.firstName,
+				id: user.id,
+				lastName: user.userDetails.lastName,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				updatedAt: user.updatedAt,
+			}),
+		);
 	}
 
 	public async getUserFollowings(id: number): Promise<UserEntity[]> {
-		const userFollowers = await this.friendModel
+		const userFollowings = await this.userModel
 			.query()
-			.where("senderUserId", id)
-			.where("isFollowing", true)
-			.withGraphJoined("recipientUser")
-			.withGraphFetched("recipientUser.userDetails");
+			.leftJoin(
+				DatabaseTableName.USER_FOLLOWERS,
+				"users.id",
+				"=",
+				"user_followers.follower_id",
+			)
+			.where("user_followers.following_id", "=", id)
+			.withGraphJoined("userDetails");
 
-		const users = userFollowers.map((friend) => {
-			const userDetails = friend.recipientUser?.userDetails;
-
-			return friend.recipientUser && userDetails
-				? UserEntity.initialize({
-						createdAt: friend.recipientUser.createdAt,
-						email: friend.recipientUser.email,
-						firstName: userDetails.firstName,
-						id: friend.recipientUser.id,
-						lastName: userDetails.lastName,
-						passwordHash: friend.recipientUser.passwordHash,
-						passwordSalt: friend.recipientUser.passwordSalt,
-						updatedAt: friend.recipientUser.updatedAt,
-					})
-				: null;
-		});
-
-		return users as UserEntity[];
+		return userFollowings.map((user) =>
+			UserEntity.initialize({
+				createdAt: user.createdAt,
+				email: user.email,
+				firstName: user.userDetails.firstName,
+				id: user.id,
+				lastName: user.userDetails.lastName,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				updatedAt: user.updatedAt,
+			}),
+		);
 	}
 
-	public async update(id: number): Promise<FriendsEntity | null> {
-		const subscription = await this.friendModel.query().findById(id);
-
-		if (subscription) {
-			const currentFollowingStatus = subscription.isFollowing;
-			const updatedSubscription = await this.friendModel
-				.query()
-				.patchAndFetchById(id, {
-					isFollowing: !currentFollowingStatus,
-				});
-
-			return FriendsEntity.initialize({
-				createdAt: updatedSubscription.createdAt,
-				id: updatedSubscription.id,
-				isFollowing: updatedSubscription.isFollowing,
-				recipientUser: updatedSubscription.recipientUser ?? null,
-				recipientUserId: updatedSubscription.recipientUserId,
-				senderUser: updatedSubscription.senderUser ?? null,
-				senderUserId: updatedSubscription.senderUserId,
-				updatedAt: updatedSubscription.updatedAt,
+	public async update(id: number): Promise<UserEntity> {
+		const updatedSubscription = await this.userModel
+			.query()
+			.withGraphFetched("userDetails")
+			.patchAndFetchById(id, {
+				updatedAt: this.userModel.raw("?", [new Date()]),
 			});
-		}
 
-		return null;
+		return UserEntity.initialize({
+			createdAt: updatedSubscription.createdAt,
+			email: updatedSubscription.email,
+			firstName: updatedSubscription.userDetails.firstName,
+			id: updatedSubscription.id,
+			lastName: updatedSubscription.userDetails.lastName,
+			passwordHash: updatedSubscription.passwordHash,
+			passwordSalt: updatedSubscription.passwordSalt,
+			updatedAt: updatedSubscription.updatedAt,
+		});
 	}
 }
 

@@ -1,7 +1,7 @@
 const DatabaseTableName = {
-	FRIENDS: "friends",
 	MIGRATIONS: "migrations",
 	USER_DETAILS: "user_details",
+	USER_FOLLOWERS: "user_followers",
 	USERS: "users",
 } as const;
 
