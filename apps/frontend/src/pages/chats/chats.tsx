@@ -1,17 +1,12 @@
-import { ARRAY_EMPTY_LENGTH } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/app-route.enum.js";
-import { configureString } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useEffect,
 	useLocation,
-	useNavigate,
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import {
-	type ChatItemResponseDto,
 	type MessageSendRequestDto,
 	actions as chatMessageActions,
 } from "~/modules/chat-message/chat-message.js";
@@ -32,47 +27,29 @@ const receiver = {
 const Chats: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams<{ id: string }>();
-	const navigate = useNavigate();
 	const { search } = useLocation();
 	const queryParameters = new URLSearchParams(search);
 	const userId = queryParameters.get("user");
-	const { chats, messages } = useAppSelector(({ chatMessage }) => ({
+
+	const { chats, currentMessages } = useAppSelector(({ chatMessage }) => ({
 		chats: chatMessage.chats,
-		messages: chatMessage.currentMessages,
+		currentMessages: chatMessage.currentMessages,
 	}));
 
-	const isValidChatId = useCallback(
-		(id: string): boolean => {
-			return (
-				Boolean(id) &&
-				Boolean(chats) &&
-				chats.some((element: ChatItemResponseDto) => element.id === id)
-			);
-		},
-		[chats],
-	);
+	const isId = Boolean(id);
+	const isUser = Boolean(userId);
 
-	const navigateToNewChat = useCallback(() => {
-		const chatId = messages[ARRAY_EMPTY_LENGTH]?.chatId;
-		if (chatId) {
-			const chatRouteById = configureString(AppRoute.CHATS_$ID, {
-				id: String(chatId),
-			});
-			const chatRouteWithUser =
-				`${chatRouteById}?user=${userId}` as typeof AppRoute.CHATS_$ID;
-			navigate(chatRouteWithUser);
+	useEffect(() => {
+		if (isId) {
+			void dispatch(chatMessageActions.getAllChats());
 		}
-	}, [navigate, userId, messages]);
+	}, [dispatch, isId]);
 
 	useEffect(() => {
-		void dispatch(chatMessageActions.getAllChats());
-	}, [dispatch]);
-
-	useEffect(() => {
-		if (isValidChatId(String(id))) {
+		if (isId) {
 			void dispatch(chatMessageActions.getAllMessages(String(id)));
 		}
-	}, [dispatch, id, isValidChatId, chats]);
+	}, [dispatch, id, isId, chats]);
 
 	const onSubmit = useCallback(
 		(payload: typeof DEFAULT_MESSAGE_PAYLOAD): void => {
@@ -80,12 +57,14 @@ const Chats: React.FC = () => {
 				message: payload.message,
 				receiverId: Number(userId),
 			};
-			void dispatch(chatMessageActions.sendMessage(messagePayload));
-			if (!isValidChatId(String(id))) {
-				navigateToNewChat();
+
+			if (isId) {
+				void dispatch(chatMessageActions.sendMessage(messagePayload));
+			} else {
+				void dispatch(chatMessageActions.createChat(messagePayload));
 			}
 		},
-		[dispatch, id, isValidChatId, navigateToNewChat, userId],
+		[dispatch, isId, userId],
 	);
 
 	return (
@@ -93,8 +72,12 @@ const Chats: React.FC = () => {
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />
-				{isValidChatId(String(id)) || Boolean(userId) ? (
-					<Chat messages={messages} onSubmit={onSubmit} receiver={receiver} />
+				{isId && isUser ? (
+					<Chat
+						messages={currentMessages}
+						onSubmit={onSubmit}
+						receiver={receiver}
+					/>
 				) : (
 					<EmptyChat />
 				)}

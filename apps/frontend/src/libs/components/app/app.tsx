@@ -4,18 +4,29 @@ import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
+	useNavigate,
 } from "~/libs/hooks/hooks.js";
+import { actions as appActions } from "~/modules/app/app.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { authDataStatus } = useAppSelector(({ auth }) => ({
+	const navigate = useNavigate();
+	const { authDataStatus, redirectTo } = useAppSelector(({ app, auth }) => ({
 		authDataStatus: auth.dataStatus,
+		redirectTo: app.redirectTo,
 	}));
 
 	useEffect(() => {
 		void dispatch(authActions.getAuthenticatedUser());
 	}, [dispatch]);
+
+	useEffect(() => {
+		if (redirectTo) {
+			navigate(redirectTo);
+			dispatch(appActions.navigate(null));
+		}
+	}, [dispatch, navigate, redirectTo]);
 
 	if (
 		authDataStatus === DataStatus.IDLE ||

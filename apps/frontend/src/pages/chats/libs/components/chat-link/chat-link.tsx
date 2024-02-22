@@ -1,7 +1,11 @@
 import { Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
-import { configureString, formatDate } from "~/libs/helpers/helpers.js";
+import {
+	configureString,
+	createQueryLink,
+	formatDate,
+} from "~/libs/helpers/helpers.js";
 import { type ChatItemResponseDto } from "~/modules/chat-message/chat-message.js";
 
 import styles from "./styles.module.css";
@@ -14,9 +18,12 @@ const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
 	const { id, interlocutor, lastMessage } = chat;
 	const chatRouteById = configureString(AppRoute.CHATS_$ID, {
 		id: String(id),
-	});
-	const chatRouteWithUser =
-		`${chatRouteById}?user=${interlocutor.id}` as typeof AppRoute.CHATS_$ID;
+	}) as typeof AppRoute.CHATS_$ID;
+	const chatRouteWithUser = createQueryLink(
+		chatRouteById,
+		"user",
+		String(interlocutor.id),
+	) as typeof AppRoute.CHATS_$ID;
 
 	return (
 		<Link className={styles["container"]} to={chatRouteWithUser}>

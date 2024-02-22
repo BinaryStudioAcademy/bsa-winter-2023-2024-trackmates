@@ -7,7 +7,12 @@ import {
 	type ChatItemResponseDto,
 	type MessageResponseDto,
 } from "../libs/types/types.js";
-import { getAllChats, getAllMessages, sendMessage } from "./actions.js";
+import {
+	createChat,
+	getAllChats,
+	getAllMessages,
+	sendMessage,
+} from "./actions.js";
 
 type State = {
 	chats: ChatItemResponseDto[];
@@ -23,6 +28,17 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
+		builder.addCase(createChat.fulfilled, (state) => {
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(createChat.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(createChat.rejected, (state) => {
+			state.chats = [];
+			state.dataStatus = DataStatus.REJECTED;
+		});
+
 		builder.addCase(getAllChats.fulfilled, (state, action) => {
 			state.chats = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
@@ -47,8 +63,7 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(sendMessage.fulfilled, (state, action) => {
-			state.currentMessages = [...state.currentMessages, action.payload];
+		builder.addCase(sendMessage.fulfilled, (state) => {
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(sendMessage.pending, (state) => {

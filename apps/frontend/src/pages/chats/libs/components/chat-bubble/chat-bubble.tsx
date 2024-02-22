@@ -31,7 +31,7 @@ const ChatBubble: React.FC<Properties> = ({ messageData }: Properties) => {
 				<span className={styles["date"]}>{formatDate(createdAt)}</span>
 			</div>
 			<div className={styles["message-container"]}>
-				<p className={styles["message"]}>{message}</p>
+				<span className={styles["message"]}>{message}</span>
 			</div>
 		</li>
 	);
