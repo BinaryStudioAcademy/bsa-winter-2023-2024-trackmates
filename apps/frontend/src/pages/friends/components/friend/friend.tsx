@@ -23,6 +23,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				<Button
 					className={styles["add-friend-action"]}
 					color="secondary"
+					iconClassName={styles["icon"]}
 					iconName="add"
 					label="Follow"
 					size="small"

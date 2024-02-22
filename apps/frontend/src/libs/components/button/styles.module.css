@@ -50,16 +50,8 @@
 	border-color: var(--main-white);
 }
 
-.icon {
-	stroke: var(--color-menu);
-}
-
 .secondary:hover {
 	color: var(--main-white);
 	background-color: transparent;
 	border-color: var(--main-white);
-}
-
-.secondary:hover .icon {
-	stroke: var(--main-white);
 }
