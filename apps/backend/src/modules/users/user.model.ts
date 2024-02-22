@@ -1,14 +1,14 @@
-import { Model } from "objection";
+import { Model, type RelationMappings } from "objection";
 
 import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 
-import { UserDetailsModel } from "./user-details/user-details.model.js";
+import { UserDetailsModel } from "./user-details.model.js";
 
 class UserModel extends AbstractModel {
-	public static relationMappings = () => {
+	public static relationMappings = (): RelationMappings => {
 		return {
 			userDetails: {
 				join: {

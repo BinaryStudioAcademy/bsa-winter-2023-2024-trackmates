@@ -10,7 +10,7 @@ let FlatConfig;
 
 /** @type {FlatConfig} */
 const ignoresConfig = {
-	ignores: ["build"],
+	ignores: ["build", "dev-dist"],
 };
 
 /** @type {FlatConfig} */
