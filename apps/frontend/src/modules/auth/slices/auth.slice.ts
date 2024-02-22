@@ -71,7 +71,12 @@ const { actions, name, reducer } = createSlice({
 			filesActions.updateUserAvatar.fulfilled,
 			(state, action) => {
 				state.dataStatus = DataStatus.FULFILLED;
-				state.user = action.payload;
+				state.user
+					? (state.user = {
+							...state.user,
+							avatarUrl: action.payload.url,
+						})
+					: null;
 			},
 		);
 		builder.addCase(filesActions.updateUserAvatar.rejected, (state) => {

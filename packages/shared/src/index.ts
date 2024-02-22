@@ -39,6 +39,7 @@ export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,
 	UserError,
+	type UserFileResponseDto,
 	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,

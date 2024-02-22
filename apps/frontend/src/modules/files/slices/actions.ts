@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import { NotificationMessage } from "../libs/enums/enums.js";
+import { type UserFileResponseDto } from "../libs/types/type.js";
 import { name as sliceName } from "./files.slice.js";
 
 const updateUserAvatar = createAsyncThunk<
-	UserAuthResponseDto,
+	UserFileResponseDto,
 	FormData,
 	AsyncThunkConfig
 >(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {

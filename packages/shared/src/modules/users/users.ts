@@ -2,6 +2,7 @@ export { UsersApiPath } from "./libs/enums/enums.js";
 export { UserError } from "./libs/exceptions/exceptions.js";
 export {
 	type UserAuthResponseDto,
+	type UserFileResponseDto,
 	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,
