@@ -16,11 +16,13 @@ import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
 	const { followers, followings, potentialFriends } = useAppSelector(
-		({ friends }) => ({
-			followers: friends.followers,
-			followings: friends.followings,
-			potentialFriends: friends.potentialFriends,
-		}),
+		({ friends }) => {
+			return {
+				followers: friends.followers,
+				followings: friends.followings,
+				potentialFriends: friends.potentialFriends,
+			};
+		},
 	);
 	const dispatch = useAppDispatch();
 
