@@ -87,6 +87,7 @@ const { actions, name, reducer } = createSlice({
 					) as UserAuthResponseDto,
 				];
 			}
+
 			state.followings = state.followings.filter(
 				(user) => user.id !== action.payload.id,
 			);

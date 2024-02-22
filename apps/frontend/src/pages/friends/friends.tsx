@@ -37,9 +37,11 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS: {
 				return <FriendList friends={followings} />;
 			}
+
 			case AppRoute.FRIENDS_FOLLOWERS: {
 				return <FriendList friends={followers} />;
 			}
+
 			case AppRoute.FRIENDS_FOLLOWINGS: {
 				return <FriendList friends={potentialFriends} />;
 			}
