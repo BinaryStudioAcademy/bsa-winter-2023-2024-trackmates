@@ -63,10 +63,10 @@ class FileService implements Service {
 				if (result.Location) {
 					return result.Location;
 				}
-				throw new FileError(
-					ExceptionMessage.UNKNOWN_ERROR,
-					HTTPCode.INTERNAL_SERVER_ERROR,
-				);
+				throw new FileError({
+					message: ExceptionMessage.UNKNOWN_ERROR,
+					status: HTTPCode.INTERNAL_SERVER_ERROR,
+				});
 			});
 	}
 
@@ -82,7 +82,10 @@ class FileService implements Service {
 	async delete(fileId: number): Promise<boolean> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
-			throw new FileError(ExceptionMessage.FILE_NOT_FOUND, HTTPCode.NOT_FOUND);
+			throw new FileError({
+				message: ExceptionMessage.FILE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
 		}
 		return await this.fileRepository.delete(fileId);
 	}
@@ -90,7 +93,10 @@ class FileService implements Service {
 	async find(fileId: number): Promise<FileEntity> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
-			throw new FileError(ExceptionMessage.FILE_NOT_FOUND, HTTPCode.NOT_FOUND);
+			throw new FileError({
+				message: ExceptionMessage.FILE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
 		}
 		return file;
 	}
@@ -105,7 +111,10 @@ class FileService implements Service {
 	): Promise<FileEntity> {
 		const file = await this.fileRepository.find(fileId);
 		if (!file) {
-			throw new FileError(ExceptionMessage.FILE_NOT_FOUND, HTTPCode.NOT_FOUND);
+			throw new FileError({
+				message: ExceptionMessage.FILE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
 		}
 		return await this.fileRepository.update(fileId, payload);
 	}

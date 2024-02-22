@@ -46,7 +46,10 @@ class UserService implements Service {
 	public async delete(userId: number): Promise<boolean> {
 		const user = await this.userRepository.find(userId);
 		if (!user) {
-			throw new UserError(ExceptionMessage.USER_NOT_FOUND, HTTPCode.NOT_FOUND);
+			throw new UserError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
 		}
 		return await this.userRepository.delete(userId);
 	}
