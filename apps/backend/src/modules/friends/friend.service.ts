@@ -14,7 +14,7 @@ class FriendService {
 		this.friendRepository = friendRepository;
 	}
 
-	public async createSubscribe(
+	public async createSubscription(
 		followerUserId: number,
 		followingUserId: number,
 	): Promise<UserAuthResponseDto | null> {
@@ -44,6 +44,32 @@ class FriendService {
 			FriendErrorMessage.FRIEND_IS_ALREADY_TRACKING,
 			HTTPCode.BAD_REQUEST,
 		);
+	}
+
+	public async deleteSubscription(
+		id: number,
+		userId: number,
+	): Promise<boolean> {
+		const isFollowingNow =
+			await this.friendRepository.getSubscriptionByRequestId(id, userId);
+
+		if (!isFollowingNow) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		const isDeletedSuccess = await this.friendRepository.delete(id, userId);
+
+		if (!isDeletedSuccess) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		return isDeletedSuccess;
 	}
 
 	public async find(id: number): Promise<UserAuthResponseDto | null> {
@@ -83,29 +109,6 @@ class FriendService {
 		const folowings = await this.friendRepository.getUserFollowings(id);
 
 		return folowings.map((user) => user.toObject());
-	}
-
-	public async unfollow(id: number, userId: number): Promise<boolean> {
-		const isFollowingNow =
-			await this.friendRepository.getSubscriptionByRequestId(id, userId);
-
-		if (!isFollowingNow) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
-		}
-
-		const isDeletedSuccess = await this.friendRepository.delete(id, userId);
-
-		if (!isDeletedSuccess) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_UPDATE_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
-		}
-
-		return isDeletedSuccess;
 	}
 
 	public async update(id: number): Promise<UserAuthResponseDto> {

@@ -17,21 +17,6 @@ import { type FriendFollowingRequestDto } from "./libs/types/types.js";
  * @swagger
  * components:
  *   schemas:
- *     FriendFollowSuccesResponseDto:
- *       type: object
- *       properties:
- *         createdAt:
- *           type: string
- *         senderUserId:
- *           type: number
- *         id:
- *           type: number
- *         isFollowing:
- *           type: boolean
- *         recipientUserId:
- *           type: number
- *         updatedAt:
- *           type: string
  *     User:
  *       type: object
  *       properties:
@@ -66,7 +51,7 @@ class FriendController extends BaseController {
 
 		this.addRoute({
 			handler: (options) =>
-				this.createSubscribe(
+				this.createSubscription(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 						user: UserAuthResponseDto;
@@ -80,7 +65,7 @@ class FriendController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) =>
-				this.unfollow(
+				this.deleteSubscription(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 						user: UserAuthResponseDto;
@@ -164,7 +149,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/follow:
 	 *    post:
-	 *      description: Create follow relation and return user whicn user follow
+	 *      description: Create follow relation and return user whicn we started follow
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -185,28 +170,76 @@ class FriendController extends BaseController {
 	 *                properties:
 	 *                  message:
 	 *                    type: object
-	 *                    $ref: "#/components/schemas/FriendFollowSuccesResponseDto"
+	 *                    $ref: "#/components/schemas/User"
 	 *       400:
 	 *         description: Bad request
 	 *         content:
 	 *           application/json:
 	 *             schema:
-	 * 				oneOf:
-	 *              	- $ref: '#/components/schemas/FriendError'
-	 * 					- type: null
+	 * 	             oneOf:
+	 *                  - $ref: '#/components/schemas/FriendError'
+	 *                  - type: null
 	 */
-	private async createSubscribe(
+	private async createSubscription(
 		options: APIHandlerOptions<{
 			body: FriendFollowingRequestDto;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.friendService.createSubscribe(
+			payload: await this.friendService.createSubscription(
 				options.user.id,
 				options.body.id,
 			),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friend/unfollow:
+	 *    post:
+	 *      description: detele follow relation
+	 *      requestBody:
+	 *        description: User auth data
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                id:
+	 *                  type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 *                    description: Indicates whether the unsubscribe operation was successful (true) or not (false).
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/FriendError'
+	 */
+	private async deleteSubscription(
+		options: APIHandlerOptions<{
+			body: FriendFollowingRequestDto;
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.deleteSubscription(
+				options.body.id,
+				options.user.id,
+			),
+			status: HTTPCode.OK,
 		};
 	}
 
@@ -258,12 +291,6 @@ class FriendController extends BaseController {
 	 *                type: array
 	 *                items:
 	 *                  $ref: "#/components/schemas/User"
-	 * 	          400:
-	 *          description: Bad request
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: "#/components/schemas/Error"
 	 */
 	private async findAll(
 		options: APIHandlerOptions<{
@@ -356,54 +383,6 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/unfollow:
-	 *    post:
-	 *      description: detele follow relation
-	 *      requestBody:
-	 *        description: User auth data
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                id:
-	 *                  type: number
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
-	 *                    description: Indicates whether the unsubscribe operation was successful (true) or not (false).
-	 *       400:
-	 *         description: Bad request
-	 *         content:
-	 *           application/json:
-	 *             schema:
-	 *               $ref: '#/components/schemas/FriendError'
-	 */
-	private async unfollow(
-		options: APIHandlerOptions<{
-			body: FriendFollowingRequestDto;
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.friendService.unfollow(
-				options.body.id,
-				options.user.id,
-			),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
 	 * /friend/update:
 	 *    patch:
 	 *      description: Update a user record
@@ -421,12 +400,6 @@ class FriendController extends BaseController {
 	 *            application/json:
 	 *              schema:
 	 *                $ref: "#/components/schemas/User"
-	 *        400:
-	 *          description: Bad request
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: "#/components/schemas/Error"
 	 */
 	private async update(
 		options: APIHandlerOptions<{
