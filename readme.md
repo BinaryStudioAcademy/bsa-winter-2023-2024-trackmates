@@ -118,8 +118,8 @@ erDiagram
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
-   users ||--|{ friends : follower_id
-   users ||--|{ friends : following_id
+   users ||--|{ user_followers : follower_id
+   users ||--|{ user_followers : following_id
 
    users ||--|{ chat_messages : sender_id
    users ||--|{ chat_messages : receiver_id
