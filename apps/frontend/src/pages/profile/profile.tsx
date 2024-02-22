@@ -87,6 +87,12 @@ const Profile: React.FC = () => {
 								className={styles["profile-image"]}
 								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
 							/>
+							<input
+								accept="image/*"
+								className={styles["file-input"]}
+								onChange={handleFileChange}
+								type="file"
+							/>
 						</div>
 						<button
 							className={styles["upload-button"]}
