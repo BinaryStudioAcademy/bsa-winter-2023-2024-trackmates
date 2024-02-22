@@ -20,7 +20,9 @@ const Overview: React.FC = () => {
 		user: state.auth.user as UserAuthResponseDto,
 	}));
 	const dispatch = useAppDispatch();
-	const [isAddCourseModalOpen, setIsAddCourseModalOpen] = useState(false);
+	const [isAddCourseModalOpen, setIsAddCourseModalOpen] =
+		useState<boolean>(false);
+
 	const handleModalOpen = useCallback(() => {
 		setIsAddCourseModalOpen(true);
 	}, [setIsAddCourseModalOpen]);
