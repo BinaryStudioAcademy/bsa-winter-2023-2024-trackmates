@@ -1,7 +1,7 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
-import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { Service } from "~/libs/types/types.js";
+import { type Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
@@ -46,12 +46,14 @@ class UserService implements Service {
 
 	public async delete(userId: number): Promise<boolean> {
 		const user = await this.userRepository.find(userId);
+
 		if (!user) {
 			throw new UserError({
 				message: ExceptionMessage.USER_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
+
 		return await this.userRepository.delete(userId);
 	}
 

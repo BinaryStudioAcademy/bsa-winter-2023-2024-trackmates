@@ -1,4 +1,4 @@
-import { ContentType } from "~/libs/enums/enums.js";
+import { type ContentType } from "~/libs/enums/enums.js";
 import { type Entity } from "~/libs/types/types.js";
 
 import { type ValueOf } from "./libs/types/types.js";

@@ -62,8 +62,10 @@ const jsConfig = {
 				selector: "TSEnumDeclaration,ClassDeclaration[abstract=true]",
 			},
 			{
-				message: "TAvoid import/export type { Type } from './module'. Prefer import/export { type Type } from './module'.",
-				selector: "ImportDeclaration[importKind=type],ExportNamedDeclaration[exportKind=type]",
+				message:
+					"TAvoid import/export type { Type } from './module'. Prefer import/export { type Type } from './module'.",
+				selector:
+					"ImportDeclaration[importKind=type],ExportNamedDeclaration[exportKind=type]",
 			},
 		],
 		quotes: ["error", "double"],
@@ -138,11 +140,43 @@ const typescriptConfig = {
 	},
 	rules: {
 		...ts.configs["strict-type-checked"].rules,
+		"@typescript-eslint/consistent-type-exports": ["error"],
+		"@typescript-eslint/consistent-type-imports": [
+			"error",
+			{
+				fixStyle: "inline-type-imports",
+			},
+		],
+		"@typescript-eslint/explicit-function-return-type": [
+			"error",
+			{
+				allowTypedFunctionExpressions: true,
+			},
+		],
+		"@typescript-eslint/explicit-member-accessibility": ["error"],
 		"@typescript-eslint/no-magic-numbers": [
 			"error",
 			{
 				ignoreEnums: true,
 				ignoreReadonlyClassProperties: true,
+			},
+		],
+		"@typescript-eslint/padding-line-between-statements": [
+			"error",
+			{
+				blankLine: "never",
+				next: "export",
+				prev: "export",
+			},
+			{
+				blankLine: "always",
+				next: "*",
+				prev: ["block-like", "throw", "type"],
+			},
+			{
+				blankLine: "always",
+				next: ["return", "block-like", "throw", "type"],
+				prev: "*",
 			},
 		],
 		"@typescript-eslint/return-await": ["error", "always"],
@@ -158,6 +192,7 @@ const jsdocConfig = {
 	rules: {
 		...jsdoc.configs["recommended-typescript-flavor-error"].rules,
 		"jsdoc/no-undefined-types": ["error"],
+		"jsdoc/require-returns-description": ["off"],
 	},
 };
 
@@ -175,6 +210,12 @@ const overridesConfigs = [
 		],
 		rules: {
 			"import/no-default-export": ["off"],
+		},
+	},
+	{
+		files: ["*.js"],
+		rules: {
+			"@typescript-eslint/explicit-function-return-type": ["off"],
 		},
 	},
 ];

@@ -1,6 +1,6 @@
-import { Model } from "objection";
+import { Model, type RelationMappings } from "objection";
 
-import { ContentType } from "~/libs/enums/enums.js";
+import { type ContentType } from "~/libs/enums/enums.js";
 import {
 	AbstractModel,
 	DatabaseTableName,
@@ -10,7 +10,7 @@ import { UserDetailsModel } from "~/modules/users/users.js";
 import { type ValueOf } from "./libs/types/types.js";
 
 class FileModel extends AbstractModel {
-	public static relationMappings = () => {
+	public static relationMappings = (): RelationMappings => {
 		return {
 			userDetails: {
 				join: {

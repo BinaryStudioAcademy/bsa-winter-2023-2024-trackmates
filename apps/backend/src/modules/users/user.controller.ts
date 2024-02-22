@@ -76,6 +76,7 @@ class UserController extends BaseController {
 		}>,
 	): Promise<APIHandlerResponse> {
 		const userId = Number(options.params.id);
+
 		return {
 			payload: await this.userService.update(userId, options.body),
 			status: HTTPCode.OK,

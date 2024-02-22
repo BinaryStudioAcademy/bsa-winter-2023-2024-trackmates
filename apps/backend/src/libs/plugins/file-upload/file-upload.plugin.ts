@@ -2,7 +2,7 @@ import fastifyMultipart from "@fastify/multipart";
 import fastifyPlugin from "fastify-plugin";
 
 import {
-	ContentType,
+	type ContentType,
 	ExceptionMessage,
 	FastifyHook,
 } from "~/libs/enums/enums.js";

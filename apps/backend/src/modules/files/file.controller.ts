@@ -1,6 +1,6 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import {
-	APIHandlerOptions,
+	type APIHandlerOptions,
 	type APIHandlerResponse,
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
@@ -30,7 +30,7 @@ import {
 class FileController extends BaseController {
 	private fileService: FileService;
 
-	constructor(logger: Logger, fileService: FileService) {
+	public constructor(logger: Logger, fileService: FileService) {
 		super(logger, APIPath.FILES);
 
 		this.fileService = fileService;
@@ -98,7 +98,7 @@ class FileController extends BaseController {
 	 *                  message:
 	 *                    type: string
 	 */
-	async uploadAvatar(
+	public async uploadAvatar(
 		options: APIHandlerOptions<{
 			uploadedFile: UploadedFile | null;
 			user: UserAuthResponseDto;
@@ -110,6 +110,7 @@ class FileController extends BaseController {
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
+
 		return {
 			payload: await this.fileService.uploadAvatar(
 				options.user.id,
