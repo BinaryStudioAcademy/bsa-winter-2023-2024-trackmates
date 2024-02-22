@@ -5,11 +5,14 @@
 	align-items: center;
 	min-height: 60px;
 	padding: 12px;
+	font-family: Roboto, Arial, sans-serif;
+	font-weight: 500;
 	background-color: var(--color-menu);
 }
 
 .button {
 	flex: 1;
+	cursor: pointer;
 }
 
 .card {
@@ -20,7 +23,6 @@
 	background-color: var(--main-white);
 	border: 1px solid transparent;
 	border-radius: 12px;
-	box-shadow: 0 0 5px rgba(0 0 0 / 10%);
 }
 
 .card:hover {
@@ -33,6 +35,7 @@
 }
 
 .fullName {
+	font-family: Roboto, Arial, sans-serif;
 	font-size: var(--font-size-300);
 	font-weight: 500;
 	color: var(--color-text-300);
