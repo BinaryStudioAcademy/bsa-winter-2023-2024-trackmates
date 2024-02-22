@@ -1,3 +1,5 @@
+import { ref } from "objection";
+
 import { type Repository } from "~/libs/types/types.js";
 
 import { UserEntity } from "../users/users.js";
@@ -173,19 +175,21 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 					.select(
 						"*",
 						this.chatMessageModel
-							.relatedQuery("selfChatMessages")
+							.query()
 							.where({
-								"selfChatMessages.receiverId": userId,
+								chatId: ref("cm.chatId"),
+								receiverId: userId,
 								status: MessageStatus.UNREAD,
 							})
 							.count()
 							.as("unreadMessageCount"),
 					)
+					.alias("cm")
 					.distinctOn("chatId")
 					.where({ receiverId: userId })
 					.orWhere({ senderId: userId })
 					.orderBy("chatId")
-					.orderBy("chatMessages.createdAt", "desc"),
+					.orderBy("cm.createdAt", "desc"),
 			)
 			.select("*")
 			.from("chatMessagesCte")

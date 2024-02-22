@@ -20,14 +20,6 @@ class ChatMessageModel extends AbstractModel {
 				modelClass: UserModel,
 				relation: Model.BelongsToOneRelation,
 			},
-			selfChatMessages: {
-				join: {
-					from: `${DatabaseTableName.CHAT_MESSAGES}.chatId`,
-					to: `${DatabaseTableName.CHAT_MESSAGES}.chatId`,
-				},
-				modelClass: ChatMessageModel,
-				relation: Model.HasManyRelation,
-			},
 			senderUser: {
 				join: {
 					from: `${DatabaseTableName.CHAT_MESSAGES}.senderId`,
