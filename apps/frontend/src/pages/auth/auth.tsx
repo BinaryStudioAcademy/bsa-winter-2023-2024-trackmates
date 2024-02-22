@@ -1,9 +1,10 @@
 import logo from "~/assets/img/svg/logo.svg";
-import { Image } from "~/libs/components/components.js";
+import { Image, Navigate } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
+	useAppSelector,
 	useCallback,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
@@ -17,8 +18,10 @@ import { SignInForm, SignUpForm } from "./components/components.js";
 import styles from "./styles.module.css";
 
 const Auth: React.FC = () => {
+	const { user } = useAppSelector((state) => state.auth);
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
+	const hasUser = user !== null;
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
@@ -46,6 +49,10 @@ const Auth: React.FC = () => {
 
 		return null;
 	};
+
+	if (hasUser) {
+		return <Navigate to={AppRoute.ROOT} />;
+	}
 
 	return (
 		<main className={styles["container"]}>
