@@ -10,9 +10,3 @@
 		padding: 15px 20px;
 	}
 }
-
-@media screen and (width <= 480px) {
-	.container {
-		padding: 10px;
-	}
-}
