@@ -37,7 +37,7 @@ const Auth: React.FC = () => {
 		[dispatch],
 	);
 
-	const getScreen = (screen: string): React.ReactNode => {
+	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.SIGN_IN: {
 				return <SignInForm onSubmit={handleSignInSubmit} />;
@@ -65,7 +65,7 @@ const Auth: React.FC = () => {
 				<div className={styles["logo-wrapper"]}>
 					<Image alt="TrackMates logo" className={styles["logo"]} src={logo} />
 				</div>
-				{getScreen(pathname)}
+				{handleScreenRender(pathname)}
 			</div>
 		</main>
 	);
