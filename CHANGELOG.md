@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.3...v1.1.4) (2024-02-22)
+
+
+### Bug Fixes
+
+* **frontend:** Create Friend component tm-82 ([#140](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/140)) ([598fb66](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/598fb66ba5673681650796fdca876bff3880b13c))
+
 ## [1.1.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.2...v1.1.3) (2024-02-22)
 
 
