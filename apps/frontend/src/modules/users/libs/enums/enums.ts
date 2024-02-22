@@ -1,1 +1,1 @@
-export { UsersApiPath } from "shared";
+export { NotificationMessage, UsersApiPath } from "shared";

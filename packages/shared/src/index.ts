@@ -3,6 +3,7 @@ export {
 	AppEnvironment,
 	ContentType,
 	ExceptionMessage,
+	NotificationMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
@@ -28,6 +29,7 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
+export { FilesApiPath } from "./modules/files/files.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,

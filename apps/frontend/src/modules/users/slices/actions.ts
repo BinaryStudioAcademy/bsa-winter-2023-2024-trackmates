@@ -4,7 +4,7 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { type UserProfileRequestDto } from "~/modules/users/users.js";
 
-import { NotificationMessage } from "../enums/enums.js";
+import { NotificationMessage } from "../libs/enums/enums.js";
 import { name as sliceName } from "./users.slice.js";
 
 const updateProfile = createAsyncThunk<
@@ -21,18 +21,4 @@ const updateProfile = createAsyncThunk<
 	return user;
 });
 
-const updateUserAvatar = createAsyncThunk<
-	UserAuthResponseDto,
-	FormData,
-	AsyncThunkConfig
->(`${sliceName}/update-user-avatar`, async (payload, { extra }) => {
-	const { notification, userApi } = extra;
-
-	const user = await userApi.updateAvatar(payload);
-
-	notification.success(NotificationMessage.AVATAR_CHANGED);
-
-	return user;
-});
-
-export { updateProfile, updateUserAvatar };
+export { updateProfile };

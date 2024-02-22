@@ -9,6 +9,7 @@ import {
 	useCallback,
 	useParams,
 } from "~/libs/hooks/hooks.js";
+import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
@@ -40,7 +41,7 @@ const Profile: React.FC = () => {
 			if (file) {
 				const formData = new FormData();
 				formData.append("file", file);
-				void dispatch(usersActions.updateUserAvatar(formData));
+				void dispatch(filesActions.updateUserAvatar(formData));
 			}
 		},
 		[dispatch],
