@@ -1,5 +1,5 @@
-import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { Service } from "~/libs/types/types.js";
+import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { type Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 

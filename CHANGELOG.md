@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.2.0...v1.2.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* **frontend:** add public route for signin signup tm-145 ([#147](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/147)) ([053a9d0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/053a9d09b11cb6a60511d9cfa08384444acecd5a))
+
 ## [1.2.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.4...v1.2.0) (2024-02-22)
 
 
