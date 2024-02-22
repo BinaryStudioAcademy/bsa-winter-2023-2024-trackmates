@@ -8,7 +8,7 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
-import { FriendService } from "./friend.service.js";
+import { type FriendService } from "./friend.service.js";
 import { FriendRequestValidationSchema } from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import { type FriendFollowingRequestDto } from "./libs/types/types.js";

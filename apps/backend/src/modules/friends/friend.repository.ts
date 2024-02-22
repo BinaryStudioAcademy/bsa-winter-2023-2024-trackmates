@@ -2,7 +2,7 @@ import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
 import { UserEntity } from "../users/user.entity.js";
-import { UserModel } from "../users/user.model.js";
+import { type UserModel } from "../users/user.model.js";
 
 class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
@@ -30,6 +30,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return followingUser
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: followingUser.createdAt,
 					email: followingUser.email,
 					firstName: followingUser.userDetails.firstName,
@@ -66,6 +67,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
+					avatarUrl: null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -92,6 +94,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return followings.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -120,6 +123,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return potentialFollowers.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -163,6 +167,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return userFollowers.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -189,6 +194,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return userFollowings.map((user) =>
 			UserEntity.initialize({
+				avatarUrl: null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -210,6 +216,7 @@ class FriendRepository implements Repository<UserEntity> {
 			});
 
 		return UserEntity.initialize({
+			avatarUrl: null,
 			createdAt: updatedSubscription.createdAt,
 			email: updatedSubscription.email,
 			firstName: updatedSubscription.userDetails.firstName,

@@ -14,7 +14,7 @@ class FriendService {
 		this.friendRepository = friendRepository;
 	}
 
-	async createSubscribe(
+	public async createSubscribe(
 		followerUserId: number,
 		followingUserId: number,
 	): Promise<UserAuthResponseDto | null> {
@@ -46,7 +46,7 @@ class FriendService {
 		);
 	}
 
-	async find(id: number): Promise<UserAuthResponseDto | null> {
+	public async find(id: number): Promise<UserAuthResponseDto | null> {
 		const foundUser = await this.friendRepository.find(id);
 
 		if (!foundUser) {
@@ -59,31 +59,33 @@ class FriendService {
 		return foundUser.toObject();
 	}
 
-	async findAll(id: number): Promise<UserAuthResponseDto[]> {
+	public async findAll(id: number): Promise<UserAuthResponseDto[]> {
 		const foundUsers = await this.friendRepository.findAll(id);
 
 		return foundUsers.map((user) => user.toObject());
 	}
 
-	async getPotentialFollowers(id: number): Promise<UserAuthResponseDto[]> {
+	public async getPotentialFollowers(
+		id: number,
+	): Promise<UserAuthResponseDto[]> {
 		const followers = await this.friendRepository.getPotentialFollowers(id);
 
 		return followers.map((user) => user.toObject());
 	}
 
-	async getUserFollowers(id: number): Promise<UserAuthResponseDto[]> {
+	public async getUserFollowers(id: number): Promise<UserAuthResponseDto[]> {
 		const followers = await this.friendRepository.getUserFollowers(id);
 
 		return followers.map((user) => user.toObject());
 	}
 
-	async getUserFollowings(id: number): Promise<UserAuthResponseDto[]> {
+	public async getUserFollowings(id: number): Promise<UserAuthResponseDto[]> {
 		const folowings = await this.friendRepository.getUserFollowings(id);
 
 		return folowings.map((user) => user.toObject());
 	}
 
-	async unfollow(id: number, userId: number): Promise<boolean> {
+	public async unfollow(id: number, userId: number): Promise<boolean> {
 		const isFollowingNow =
 			await this.friendRepository.getSubscriptionByRequestId(id, userId);
 
@@ -106,7 +108,7 @@ class FriendService {
 		return isDeletedSuccess;
 	}
 
-	async update(id: number): Promise<UserAuthResponseDto> {
+	public async update(id: number): Promise<UserAuthResponseDto> {
 		const updatedUser = await this.friendRepository.update(id);
 
 		return updatedUser.toObject();

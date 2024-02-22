@@ -9,6 +9,7 @@ type Properties = {
 
 const Course: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, source, title } = course;
+
 	return (
 		<article className={styles["container"]}>
 			<div className={styles["source-container"]}>

@@ -5,12 +5,13 @@ export {
 	ExceptionMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
-export { HTTPError, ValidationError } from "./libs/exceptions/exceptions.js";
+export { ValidationError } from "./libs/exceptions/exceptions.js";
 export { configureString } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
 	type HTTP,
 	HTTPCode,
+	HTTPError,
 	HTTPHeader,
 	type HTTPMethod,
 	type HTTPOptions,
@@ -38,10 +39,13 @@ export {
 export {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
+	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	UsersApiPath,
+	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";

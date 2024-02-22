@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.2.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.2.0...v1.2.1) (2024-02-22)
+
+
+### Bug Fixes
+
+* **frontend:** add public route for signin signup tm-145 ([#147](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/147)) ([053a9d0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/053a9d09b11cb6a60511d9cfa08384444acecd5a))
+
+## [1.2.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.4...v1.2.0) (2024-02-22)
+
+
+### Features
+
+* **frontend/backend:** add user details screen tm-42 ([#124](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/124)) ([ff88b30](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ff88b306054ff92f3d1fb8818de609face0a0a19))
+
+## [1.1.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.3...v1.1.4) (2024-02-22)
+
+
+### Bug Fixes
+
+* **frontend:** Create Friend component tm-82 ([#140](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/140)) ([598fb66](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/598fb66ba5673681650796fdca876bff3880b13c))
+
+## [1.1.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.2...v1.1.3) (2024-02-22)
+
+
+### Bug Fixes
+
+* **backend:** fix swagger issue in deployed application tm-128 ([#129](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/129)) ([4d372c2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4d372c255b611e18fb3034b80d91586988277de7))
+
+## [1.1.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.1...v1.1.2) (2024-02-21)
+
+
+### Bug Fixes
+
+* **frontend:** Create Friend component tm-82 ([#137](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/137)) ([ba0bae5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ba0bae5afacf6a3da3668ca94317e9a3b844cc0a))
+
 ## [1.1.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.1.0...v1.1.1) (2024-02-20)
 
 

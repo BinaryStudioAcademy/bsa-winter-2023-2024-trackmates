@@ -1,4 +1,4 @@
-import { JWTVerifyResult } from "jose";
+import { type JWTVerifyResult } from "jose";
 
 import { type TokenPayload } from "./types.js";
 
