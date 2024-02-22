@@ -8,7 +8,6 @@ import {
 	useAppSelector,
 	useCallback,
 	useParams,
-	useRef,
 } from "~/libs/hooks/hooks.js";
 import {
 	type UserAuthResponseDto,
@@ -24,7 +23,6 @@ const Profile: React.FC = () => {
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
 	});
-	const inputReference = useRef<HTMLInputElement>(null);
 	const dispatch = useAppDispatch();
 
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
@@ -34,10 +32,6 @@ const Profile: React.FC = () => {
 		},
 		validationSchema: userProfileValidationSchema,
 	});
-
-	const handleClick = useCallback((): void => {
-		inputReference.current?.click();
-	}, []);
 
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -94,20 +88,6 @@ const Profile: React.FC = () => {
 								type="file"
 							/>
 						</div>
-						<button
-							className={styles["upload-button"]}
-							onClick={handleClick}
-							type="button"
-						>
-							<span>Change photo</span>
-							<input
-								accept={"image/*"}
-								hidden
-								onChange={handleFileChange}
-								ref={inputReference}
-								type="file"
-							/>
-						</button>
 					</div>
 					<div className={styles["profile-inputs"]}>
 						<fieldset className={styles["fieldset"]}>

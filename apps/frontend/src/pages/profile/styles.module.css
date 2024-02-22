@@ -49,24 +49,6 @@
 	opacity: 0;
 }
 
-.upload-button {
-	min-height: 32px;
-	padding: 4px 16px;
-	font-size: var(--font-size-200);
-	color: var(--main-white);
-	text-decoration: none;
-	cursor: pointer;
-	background-color: transparent;
-	border: 1px solid var(--main-white);
-	border-radius: 26px;
-}
-
-.upload-button:hover {
-	color: var(--color-text-300);
-	cursor: pointer;
-	background-color: var(--main-white);
-}
-
 .profile-inputs {
 	display: flex;
 	flex-direction: column;
