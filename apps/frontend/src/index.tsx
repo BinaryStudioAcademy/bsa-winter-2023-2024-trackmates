@@ -16,6 +16,7 @@ import { Auth } from "~/pages/auth/auth.jsx";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Overview } from "./pages/overview/overview.js";
+import { Profile } from "./pages/profile/profile.js";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
@@ -48,6 +49,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <Auth />,
 								path: AppRoute.SIGN_UP,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.PROFILE_USER_$ID,
 							},
 						],
 						element: <App />,
