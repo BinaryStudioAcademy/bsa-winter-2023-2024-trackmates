@@ -1,8 +1,8 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
-import { CourseEntity, CourseModel } from "~/modules/courses/courses.js";
-import { UserModel } from "~/modules/users/user.model.js";
+import { CourseEntity, type CourseModel } from "~/modules/courses/courses.js";
+import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
 class UserCourseRepository implements Repository<CourseEntity> {

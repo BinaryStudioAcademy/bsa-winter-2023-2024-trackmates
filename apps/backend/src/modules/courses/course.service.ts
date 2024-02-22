@@ -1,13 +1,13 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
-import { UserCourseService } from "~/modules/user-courses/user-courses.js";
+import { type UserCourseService } from "~/modules/user-courses/user-courses.js";
 import {
 	type VendorApi,
 	type VendorService,
 } from "~/modules/vendors/vendors.js";
 
 import { CourseEntity } from "./course.entity.js";
-import { CourseRepository } from "./course.repository.js";
+import { type CourseRepository } from "./course.repository.js";
 import {
 	type CourseDto,
 	type CoursesResponseDto,
@@ -79,6 +79,7 @@ class CourseService {
 
 		return courses.map((_, index) => {
 			const courseIndex = parsedResponse[index] as number;
+
 			return courses[courseIndex] as CourseDto;
 		});
 	}
@@ -93,6 +94,7 @@ class CourseService {
 		vendorId: number;
 	}): Promise<CourseDto> {
 		const vendor = await this.vendorService.findById(vendorId);
+
 		if (!vendor) {
 			throw new ApplicationError({
 				message: `Not found vendor with id "${vendorId}"`,

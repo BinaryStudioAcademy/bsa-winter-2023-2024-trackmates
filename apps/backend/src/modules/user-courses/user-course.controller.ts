@@ -8,7 +8,7 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
-import { UserCourseService } from "./user-course.service.js";
+import { type UserCourseService } from "./user-course.service.js";
 
 class UserCourseController extends BaseController {
 	private userCourseService: UserCourseService;
@@ -59,6 +59,7 @@ class UserCourseController extends BaseController {
 		params: { userId: number };
 	}>): Promise<APIHandlerResponse> {
 		const courses = await this.userCourseService.findAllByUser(userId);
+
 		return {
 			payload: { courses },
 			status: HTTPCode.OK,

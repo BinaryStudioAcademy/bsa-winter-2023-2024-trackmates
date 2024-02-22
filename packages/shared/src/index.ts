@@ -46,10 +46,13 @@ export { UserCoursesApiPath } from "./modules/user-courses/users-courses.js";
 export {
 	type UserAuthResponseDto,
 	type UserGetAllResponseDto,
+	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	UsersApiPath,
+	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";

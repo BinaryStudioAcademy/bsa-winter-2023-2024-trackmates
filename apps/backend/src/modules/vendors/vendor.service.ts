@@ -5,7 +5,7 @@ import {
 	type VendorResponseDto,
 } from "./libs/types/types.js";
 import { VendorEntity } from "./vendor.entity.js";
-import { VendorRepository } from "./vendor.repository.js";
+import { type VendorRepository } from "./vendor.repository.js";
 
 type Constructor = {
 	vendorRepository: VendorRepository;
@@ -48,16 +48,19 @@ class VendorService {
 
 	public async findAll(): Promise<VendorResponseDto[]> {
 		const entities = await this.vendorRepository.findAll();
+
 		return entities.map((entity) => entity.toObject());
 	}
 
 	public async findAllByKeys(keys: string[]): Promise<VendorResponseDto[]> {
 		const vendors = await this.findAll();
+
 		return vendors.filter(({ key }) => keys.includes(key));
 	}
 
 	public async findById(id: number): Promise<VendorResponseDto | null> {
 		const entity = await this.vendorRepository.find(id);
+
 		return entity ? entity.toObject() : null;
 	}
 

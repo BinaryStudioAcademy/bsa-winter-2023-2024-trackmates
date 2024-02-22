@@ -9,7 +9,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { VendorsApiPath } from "./libs/enums/enums.js";
 import { type VendorRequestDto } from "./libs/types/types.js";
-import { VendorService } from "./vendor.service.js";
+import { type VendorService } from "./vendor.service.js";
 
 /***
  * @swagger
@@ -141,6 +141,7 @@ class VendorController extends BaseController {
 		params: { vendorId: number };
 	}>): Promise<APIHandlerResponse> {
 		const success = await this.vendorService.delete(vendorId);
+
 		return {
 			payload: { success },
 			status: HTTPCode.OK,

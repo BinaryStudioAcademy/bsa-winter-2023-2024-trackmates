@@ -3,17 +3,20 @@ function debounce<T extends unknown[]>(
 	delay: number,
 ): ((...arguments_: T) => void) & { clear: () => void } {
 	let timer: null | number = null;
-	const debouncedFunction = (...arguments_: T) => {
+
+	const debouncedFunction = (...arguments_: T): void => {
 		if (timer) {
 			clearTimeout(timer);
 		}
+
 		timer = Number(
 			setTimeout(() => {
 				callback(...arguments_);
 			}, delay),
 		);
 	};
-	const clear = () => {
+
+	const clear = (): void => {
 		if (timer) {
 			clearTimeout(timer);
 			timer = null;

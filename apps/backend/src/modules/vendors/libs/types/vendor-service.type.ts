@@ -1,4 +1,4 @@
-import { CourseDto } from "shared";
+import { type CourseDto } from "shared";
 
 type VendorService = {
 	getCourseById(

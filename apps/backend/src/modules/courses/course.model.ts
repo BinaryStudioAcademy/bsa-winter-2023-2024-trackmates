@@ -1,4 +1,4 @@
-import { Model } from "objection";
+import { Model, type RelationMappings } from "objection";
 
 import {
 	AbstractModel,
@@ -7,7 +7,7 @@ import {
 import { VendorModel } from "~/modules/vendors/vendors.js";
 
 class CourseModel extends AbstractModel {
-	public static relationMappings = () => {
+	public static relationMappings = (): RelationMappings => {
 		return {
 			vendor: {
 				join: {

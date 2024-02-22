@@ -12,12 +12,12 @@ class OpenAI {
 	private model: string;
 	private openAI: LibraryOpenAI;
 
-	constructor({ apiKey, model }: Constructor) {
+	public constructor({ apiKey, model }: Constructor) {
 		this.model = model;
 		this.openAI = new LibraryOpenAI({ apiKey });
 	}
 
-	public async call(request: string) {
+	public async call(request: string): Promise<string> {
 		const response = await this.openAI.chat.completions.create({
 			messages: [{ content: request, role: "user" }],
 			model: this.model,
@@ -26,6 +26,7 @@ class OpenAI {
 		});
 
 		const [choice] = response.choices;
+
 		if (!choice || !choice.message.content) {
 			throw new OpenAIError({
 				message: OpenAIErrorMessage.WRONG_RESPONSE,

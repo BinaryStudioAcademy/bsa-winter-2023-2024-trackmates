@@ -17,6 +17,7 @@ import {
 	userCourseApi,
 	reducer as userCoursesReducer,
 } from "~/modules/user-courses/user-courses.js";
+import { userApi } from "~/modules/users/users.js";
 import {
 	vendorApi,
 	reducer as vendorsReducer,
@@ -37,6 +38,7 @@ type ExtraArguments = {
 	courseApi: typeof courseApi;
 	notification: typeof notification;
 	storage: typeof storage;
+	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
 	vendorApi: typeof vendorApi;
 };
@@ -75,6 +77,7 @@ class Store {
 			courseApi,
 			notification,
 			storage,
+			userApi,
 			userCourseApi,
 			vendorApi,
 		};

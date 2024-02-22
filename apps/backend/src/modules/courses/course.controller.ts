@@ -160,6 +160,7 @@ class CourseController extends BaseController {
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		const { search, vendorsKeys } = query;
+
 		return {
 			payload: await this.courseService.findAllByVendors({
 				search,

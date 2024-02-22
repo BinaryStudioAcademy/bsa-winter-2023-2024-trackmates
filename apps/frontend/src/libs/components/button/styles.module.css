@@ -46,7 +46,7 @@
 }
 
 .secondary {
-	color: var(--color-menu);
+	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
@@ -63,7 +63,7 @@
 }
 
 .secondary.outlined:hover {
-	color: var(--color-text-300);
+	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
