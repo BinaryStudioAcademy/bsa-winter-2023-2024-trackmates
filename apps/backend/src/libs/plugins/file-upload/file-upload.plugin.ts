@@ -6,8 +6,9 @@ import {
 	ExceptionMessage,
 	FastifyHook,
 } from "~/libs/enums/enums.js";
-import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { FileError } from "~/modules/files/files.js";
 
 type Options = {
 	allowedExtensions: ValueOf<typeof ContentType>[];
@@ -37,7 +38,7 @@ const fileUpload = fastifyPlugin<Options>(
 				const buffer = await data.toBuffer();
 
 				if (data.file.truncated) {
-					throw new HTTPError({
+					throw new FileError({
 						message: ExceptionMessage.FILE_IS_TOO_LARGE,
 						status: HTTPCode.BAD_REQUEST,
 					});
