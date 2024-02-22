@@ -1,11 +1,11 @@
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
+import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
 import { UserCourseService } from "~/modules/user-courses/user-courses.js";
 import {
 	type VendorApi,
 	type VendorService,
 } from "~/modules/vendors/vendors.js";
 
-import { type OpenAIService } from "../open-ai/open-ai.js";
 import { CourseEntity } from "./course.entity.js";
 import { CourseRepository } from "./course.repository.js";
 import {
@@ -19,7 +19,7 @@ type CourseFieldForMap = keyof Omit<CourseDto, "id" | "vendor">;
 
 type Constructor = {
 	courseRepository: CourseRepository;
-	openAIService: OpenAIService;
+	openAI: OpenAI;
 	userCourseService: UserCourseService;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
@@ -28,7 +28,7 @@ type Constructor = {
 
 class CourseService {
 	private courseRepository: CourseRepository;
-	private openAIService: OpenAIService;
+	private openAI: OpenAI;
 	private userCourseService: UserCourseService;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
@@ -36,14 +36,14 @@ class CourseService {
 
 	public constructor({
 		courseRepository,
-		openAIService,
+		openAI,
 		userCourseService,
 		vendorService,
 		vendorsApiMap,
 		vendorsFieldsMappingMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
-		this.openAIService = openAIService;
+		this.openAI = openAI;
 		this.userCourseService = userCourseService;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorsFieldsMappingMap = vendorsFieldsMappingMap;
@@ -116,6 +116,21 @@ class CourseService {
 		return { ...course, vendor, vendorCourseId } as CourseDto;
 	}
 
+	private async sortCoursesByOpenAI(
+		courses: CourseDto[],
+	): Promise<CourseDto[]> {
+		const prompt =
+			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the same length as the input array. Returned array must contains indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: the input data to analyze is [{0}, {1}, {2}]. After analyzing, the output should be like: [1, 2, 0]. Please make sure that the returned array has the same length as the input array.";
+		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
+		const response = await this.openAI.call(request);
+		const parsedResponse = JSON.parse(response) as number[];
+
+		return courses.map((_, index) => {
+			const courseIndex = parsedResponse[index] as number;
+			return courses[courseIndex] as CourseDto;
+		});
+	}
+
 	public async addCourse({
 		userId,
 		vendorCourseId,
@@ -178,12 +193,7 @@ class CourseService {
 		let courses = vendorsCourses.flat();
 
 		courses = await this.filterCourses(courses, userId);
-
-		const openAIResponse = await this.openAIService.call(courses);
-		const sortedCourses = courses.map((_, index) => {
-			const courseIndex = openAIResponse[index] as number;
-			return courses[courseIndex] as CourseDto;
-		});
+		const sortedCourses = await this.sortCoursesByOpenAI(courses);
 
 		return { courses: sortedCourses };
 	}

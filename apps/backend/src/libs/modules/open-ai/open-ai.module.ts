@@ -1,25 +1,23 @@
-import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
+import { OpenAI as LibraryOpenAI } from "openai";
 
-import { OpenAIErrorMessage, Prompt } from "./libs/enums/enums.js";
+import { OpenAIErrorMessage } from "./libs/enums/enums.js";
 import { OpenAIError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
+	apiKey: string;
 	model: string;
-	openAI: OpenAI;
 };
 
-class OpenAIService {
+class OpenAI {
 	private model: string;
-	private openAI: OpenAI;
+	private openAI: LibraryOpenAI;
 
-	constructor({ model, openAI }: Constructor) {
+	constructor({ apiKey, model }: Constructor) {
 		this.model = model;
-		this.openAI = openAI;
+		this.openAI = new LibraryOpenAI({ apiKey });
 	}
 
-	public async call(courses: { description: string; title: string }[]) {
-		const request = `${Prompt.SORT_COURSES}\n\n${JSON.stringify(courses)}`;
-
+	public async call(request: string) {
 		const response = await this.openAI.chat.completions.create({
 			messages: [{ content: request, role: "user" }],
 			model: this.model,
@@ -34,8 +32,8 @@ class OpenAIService {
 			});
 		}
 
-		return JSON.parse(choice.message.content) as number[];
+		return choice.message.content;
 	}
 }
 
-export { OpenAIService };
+export { OpenAI };
