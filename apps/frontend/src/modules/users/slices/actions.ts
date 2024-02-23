@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { type UserProfileRequestDto } from "~/modules/users/users.js";
 
-import { NotificationMessage } from "../libs/enums/enums.js";
 import { name as sliceName } from "./users.slice.js";
 
 const updateProfile = createAsyncThunk<
