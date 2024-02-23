@@ -206,7 +206,7 @@ class CourseService {
 		courses = await this.filterCourses(courses, userId);
 		const sortedCourses = await this.sortCoursesByOpenAI(courses);
 
-		return { courses: sortedCourses };
+		return { courses: sortedCourses.filter(Boolean) };
 	}
 
 	public async update(id: number): Promise<CourseDto | null> {
