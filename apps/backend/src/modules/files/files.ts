@@ -21,4 +21,5 @@ const fileService = new FileService({
 const fileController = new FileController(logger, fileService);
 
 export { fileController };
+export { FileError } from "./libs/exceptions/exceptions.js";
 export { type UploadedFile } from "./libs/types/types.js";
