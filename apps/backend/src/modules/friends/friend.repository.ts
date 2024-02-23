@@ -49,8 +49,8 @@ class FriendRepository implements Repository<UserEntity> {
 			.from(DatabaseTableName.USER_FOLLOWERS)
 			.select("*")
 			.where({
-				follower_id: userId,
-				following_id: id,
+				follower_id: id,
+				following_id: userId,
 			})
 			.first()
 			.delete();

@@ -34,13 +34,15 @@ export {
 	type FileUploadResponseDto,
 	FilesApiPath,
 } from "./modules/files/files.js";
-export { type FriendDto } from "./modules/friends/friends.js";
 export {
 	FriendError,
 	FriendErrorMessage,
+	type FriendFollowRequestDto,
+	type FriendFollowResponseDto,
 	type FriendFollowingRequestDto,
 	FriendRequestParametersValidationSchema,
 	FriendRequestValidationSchema,
+	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 } from "./modules/friends/friends.js";
 export {

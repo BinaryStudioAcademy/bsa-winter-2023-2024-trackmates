@@ -152,7 +152,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/follow:
 	 *    post:
-	 *      description: Create follow relation and return user whicn we started follow
+	 *      description: Create follow relation and return user which we started to follow
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -174,12 +174,12 @@ class FriendController extends BaseController {
 	 *                  message:
 	 *                    type: object
 	 *                    $ref: "#/components/schemas/User"
-	 *       400:
-	 *         description: Bad request
-	 *         content:
-	 *           application/json:
-	 *             schema:
-	 * 	             oneOf:
+	 *        400:
+	 *          description: Bad request
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                oneOf:
 	 *                  - $ref: '#/components/schemas/FriendError'
 	 *                  - type: null
 	 */
@@ -202,7 +202,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friend/unfollow:
 	 *    post:
-	 *      description: detele follow relation
+	 *      description: Delete follow relation
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -224,12 +224,12 @@ class FriendController extends BaseController {
 	 *                  success:
 	 *                    type: boolean
 	 *                    description: Indicates whether the unsubscribe operation was successful (true) or not (false).
-	 *       400:
-	 *         description: Bad request
-	 *         content:
-	 *           application/json:
-	 *             schema:
-	 *               $ref: '#/components/schemas/FriendError'
+	 *        400:
+	 *          description: Bad request
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                $ref: '#/components/schemas/Error'
 	 */
 	private async deleteSubscription(
 		options: APIHandlerOptions<{
@@ -239,8 +239,8 @@ class FriendController extends BaseController {
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.friendService.deleteSubscription(
-				options.body.id,
 				options.user.id,
+				options.body.id,
 			),
 			status: HTTPCode.OK,
 		};
@@ -260,7 +260,7 @@ class FriendController extends BaseController {
 	 *                type: array
 	 *                items:
 	 *                  $ref: "#/components/schemas/User"
-	 * 	          400:
+	 *        400:
 	 *          description: Bad request
 	 *          content:
 	 *            application/json:
@@ -395,7 +395,7 @@ class FriendController extends BaseController {
 	 *        content:
 	 *          application/json:
 	 *            schema:
-	 *              $ref: "#/components/schemas/FriendFollowingRequestDto"
+	 *              $ref: "#/components/schemas/FriendFollowRequestDto"
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

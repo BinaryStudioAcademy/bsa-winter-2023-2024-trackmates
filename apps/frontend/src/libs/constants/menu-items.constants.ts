@@ -8,6 +8,11 @@ const MENU_ITEMS: MenuItem[] = [
 		icon: "home",
 		label: "Overview",
 	},
+	{
+		href: AppRoute.FRIENDS,
+		icon: "pie",
+		label: "Friends",
+	},
 ];
 
 export { MENU_ITEMS };
