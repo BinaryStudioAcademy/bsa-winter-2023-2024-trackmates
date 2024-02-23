@@ -58,6 +58,7 @@ class VendorService {
 		return vendors.filter(({ key }) => keys.includes(key));
 	}
 
+	// todo find
 	public async findById(id: number): Promise<VendorResponseDto | null> {
 		const entity = await this.vendorRepository.find(id);
 
@@ -76,7 +77,7 @@ class VendorService {
 			}),
 		);
 
-		return updatedVendor?.toObject() ?? null;
+		return updatedVendor ? updatedVendor.toObject() : null;
 	}
 }
 

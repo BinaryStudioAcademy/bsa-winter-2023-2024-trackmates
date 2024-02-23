@@ -37,7 +37,7 @@ class VendorController extends BaseController {
 
 		this.addRoute({
 			handler: (options) =>
-				this.createVendor(
+				this.create(
 					options as APIHandlerOptions<{
 						body: VendorRequestDto;
 					}>,
@@ -46,13 +46,8 @@ class VendorController extends BaseController {
 			path: VendorsApiPath.ROOT,
 		});
 		this.addRoute({
-			handler: () => this.findAll(),
-			method: "GET",
-			path: VendorsApiPath.ROOT,
-		});
-		this.addRoute({
 			handler: (options) =>
-				this.findById(
+				this.find(
 					options as APIHandlerOptions<{
 						params: { vendorId: number };
 					}>,
@@ -61,8 +56,13 @@ class VendorController extends BaseController {
 			path: VendorsApiPath.$VENDOR_ID,
 		});
 		this.addRoute({
+			handler: () => this.findAll(),
+			method: "GET",
+			path: VendorsApiPath.ROOT,
+		});
+		this.addRoute({
 			handler: (options) =>
-				this.deleteVendor(
+				this.delete(
 					options as APIHandlerOptions<{
 						params: { vendorId: number };
 					}>,
@@ -72,7 +72,7 @@ class VendorController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) =>
-				this.updateVendor(
+				this.update(
 					options as APIHandlerOptions<{
 						body: VendorRequestDto;
 						params: { vendorId: number };
@@ -108,7 +108,7 @@ class VendorController extends BaseController {
 	 *                  type: object
 	 *                  $ref: "#/components/schemas/Vendor"
 	 */
-	private async createVendor({
+	private async create({
 		body,
 	}: APIHandlerOptions<{
 		body: VendorRequestDto;
@@ -135,7 +135,7 @@ class VendorController extends BaseController {
 	 *                  success:
 	 *                    type: string
 	 */
-	private async deleteVendor({
+	private async delete({
 		params: { vendorId },
 	}: APIHandlerOptions<{
 		params: { vendorId: number };
@@ -144,6 +144,31 @@ class VendorController extends BaseController {
 
 		return {
 			payload: { success },
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /vendors/:id:
+	 *    get:
+	 *      description: Return vendor by id
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Vendor"
+	 */
+	private async find({
+		params: { vendorId },
+	}: APIHandlerOptions<{
+		params: { vendorId: number };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.vendorService.find(vendorId),
 			status: HTTPCode.OK,
 		};
 	}
@@ -174,31 +199,6 @@ class VendorController extends BaseController {
 	/**
 	 * @swagger
 	 * /vendors/:id:
-	 *    get:
-	 *      description: Return vendor by id
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                $ref: "#/components/schemas/Vendor"
-	 */
-	private async findById({
-		params: { vendorId },
-	}: APIHandlerOptions<{
-		params: { vendorId: number };
-	}>): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.vendorService.find(vendorId),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /vendors/:id:
 	 *    put:
 	 *      description: Update vendor and return it
 	 *      requestBody:
@@ -217,7 +217,7 @@ class VendorController extends BaseController {
 	 *                  type: object
 	 *                  $ref: "#/components/schemas/Vendor"
 	 */
-	private async updateVendor({
+	private async update({
 		body,
 		params: { vendorId },
 	}: APIHandlerOptions<{
