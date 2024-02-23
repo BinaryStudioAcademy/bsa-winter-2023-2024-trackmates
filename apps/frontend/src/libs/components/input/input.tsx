@@ -6,8 +6,14 @@ import {
 } from "react-hook-form";
 
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useFormController } from "~/libs/hooks/hooks.js";
+import {
+	useEffect,
+	useFormController,
+	useRef,
+	useState,
+} from "~/libs/hooks/hooks.js";
 
+import { MINIMAL_NUMBER_OF_LINES } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
@@ -32,6 +38,28 @@ const Input = <T extends FieldValues>({
 	type = "text",
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
+	const textReference = useRef<HTMLSpanElement | null>(null);
+
+	const [isMultiline, setIsMultiline] = useState(false);
+
+	useEffect(() => {
+		const checkMultiline = (): void => {
+			const element = textReference.current;
+
+			if (element) {
+				const lineHeight = Number.parseFloat(
+					window.getComputedStyle(element).lineHeight,
+				);
+
+				const containerHeight = element.clientHeight;
+				const numberOfLines = Math.round(containerHeight / lineHeight);
+
+				setIsMultiline(numberOfLines > MINIMAL_NUMBER_OF_LINES);
+			}
+		};
+
+		checkMultiline();
+	});
 
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
@@ -52,7 +80,17 @@ const Input = <T extends FieldValues>({
 				placeholder={placeholder}
 				type={type}
 			/>
-			{hasError && <span className={styles["error"]}>{error as string}</span>}
+			{hasError && (
+				<span
+					className={getValidClassNames(
+						styles["error"],
+						isMultiline && styles["error-two-lines"],
+					)}
+					ref={textReference}
+				>
+					{error as string}
+				</span>
+			)}
 		</label>
 	);
 };

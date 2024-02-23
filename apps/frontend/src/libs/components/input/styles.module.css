@@ -51,10 +51,15 @@
 	position: absolute;
 	right: 0;
 	bottom: -19px;
+	display: block;
 	width: 100%;
 	font-size: var(--font-size-100);
 	color: var(--color-error);
 	text-align: end;
+}
+
+.error-two-lines {
+	bottom: -38px;
 }
 
 .error-input {
