@@ -5,14 +5,16 @@ import Fastify, { type FastifyError } from "fastify";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { ServerErrorType } from "~/libs/enums/enums.js";
+import { MAX_FILE_SIZE_IN_MB } from "~/libs/constants/constants.js";
+import { ContentType, ServerErrorType } from "~/libs/enums/enums.js";
 import { type ValidationError } from "~/libs/exceptions/exceptions.js";
+import { getSizeInBytes } from "~/libs/helpers/helpers.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type Token } from "~/libs/modules/token/token.js";
-import { authorization } from "~/libs/plugins/plugins.js";
+import { authorization, fileUpload } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
@@ -132,6 +134,10 @@ class BaseServerApplication implements ServerApplication {
 			},
 			token: this.token,
 			whiteRoutes: WHITE_ROUTES,
+		});
+		await this.app.register(fileUpload, {
+			allowedExtensions: [ContentType.JPEG, ContentType.PNG],
+			fileSize: getSizeInBytes(MAX_FILE_SIZE_IN_MB),
 		});
 	}
 
