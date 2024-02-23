@@ -17,20 +17,8 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		.max(UserValidationRule.FIRST_NAME_MAX_LENGTH, {
 			message: UserValidationMessage.FIRST_NAME_MAX_LENGTH,
 		})
-		.regex(/^['A-Za-z-]*$/, {
+		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{2,16}(?<!['-])$/, {
 			message: UserValidationMessage.FIRST_NAME_INVALID_CHARACTERS,
-		})
-		.regex(/^[^-]*-?[^-]*$/, {
-			message: UserValidationMessage.FIRST_NAME_INVALID_CHARACTERS,
-		})
-		.regex(/^[^']*'?[^']*$/, {
-			message: UserValidationMessage.FIRST_NAME_INVALID_CHARACTERS,
-		})
-		.regex(/^(?!.*['-]{2})['A-Za-z-]*$/, {
-			message: UserValidationMessage.ADJACENT_HYPHEN_APOSTROPHE,
-		})
-		.regex(/^(?!['-])(?!.*['-]$)['A-Za-z-]*$/, {
-			message: UserValidationMessage.FIRST_LAST_CHARACTERS_ONLY_LETTERS,
 		}),
 	lastName: z
 		.string()
@@ -41,20 +29,8 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		.max(UserValidationRule.LAST_NAME_MAX_LENGTH, {
 			message: UserValidationMessage.LAST_NAME_MAX_LENGTH,
 		})
-		.regex(/^['A-Za-z-]*$/, {
+		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{3,25}(?<!['-])$/, {
 			message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
-		})
-		.regex(/^[^-]*-?[^-]*$/, {
-			message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
-		})
-		.regex(/^[^']*'?[^']*$/, {
-			message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
-		})
-		.regex(/^(?!.*['-]{2})['A-Za-z-]*$/, {
-			message: UserValidationMessage.ADJACENT_HYPHEN_APOSTROPHE,
-		})
-		.regex(/^(?!['-])(?!.*['-]$)['A-Za-z-]*$/, {
-			message: UserValidationMessage.FIRST_LAST_CHARACTERS_ONLY_LETTERS,
 		}),
 });
 
