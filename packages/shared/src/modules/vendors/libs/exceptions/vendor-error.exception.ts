@@ -1,0 +1,13 @@
+import {
+	type HTTPCode,
+	HTTPError,
+} from "../../../../libs/modules/http/http.js";
+import { type ValueOf } from "../../../../libs/types/types.js";
+
+class VendorError extends HTTPError {
+	public constructor(message: string, status: ValueOf<typeof HTTPCode>) {
+		super({ message, status });
+	}
+}
+
+export { VendorError };

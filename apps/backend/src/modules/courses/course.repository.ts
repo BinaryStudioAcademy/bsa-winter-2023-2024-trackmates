@@ -6,6 +6,7 @@ import { VendorEntity } from "~/modules/vendors/vendors.js";
 
 import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
+import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
 
 class CourseRepository implements Repository<CourseEntity> {
@@ -67,7 +68,7 @@ class CourseRepository implements Repository<CourseEntity> {
 
 		if (hasUserTheCourse) {
 			throw new CourseError(
-				`Course "${course.title}" was already added for user`,
+				CourseErrorMessage.COURSE_IS_ALREADY_ADDED_FOR_USER,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -195,7 +196,7 @@ class CourseRepository implements Repository<CourseEntity> {
 
 		if (!user) {
 			throw new CourseError(
-				`Not found user with id ${userId}`,
+				CourseErrorMessage.NOT_FOUND_USER,
 				HTTPCode.BAD_REQUEST,
 			);
 		}

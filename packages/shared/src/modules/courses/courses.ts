@@ -1,4 +1,4 @@
-export { CoursesApiPath } from "./libs/enums/enums.js";
+export { CourseErrorMessage, CoursesApiPath } from "./libs/enums/enums.js";
 export { CourseError } from "./libs/exceptions/exceptions.js";
 export {
 	type AddCourseRequestDto,

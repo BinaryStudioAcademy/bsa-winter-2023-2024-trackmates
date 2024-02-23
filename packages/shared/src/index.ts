@@ -40,6 +40,7 @@ export {
 	type AddCourseRequestDto,
 	type CourseDto,
 	CourseError,
+	CourseErrorMessage,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	CoursesApiPath,
@@ -73,6 +74,8 @@ export {
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
 export {
+	VendorError,
+	VendorErrorMessage,
 	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,

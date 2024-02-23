@@ -1,7 +1,8 @@
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
-import { CourseError } from "~/modules/courses/libs/exceptions/exceptions.js";
 
+import { VendorErrorMessage } from "./libs/enums/enums.js";
+import { VendorError } from "./libs/exceptions/exceptions.js";
 import { VendorEntity } from "./vendor.entity.js";
 import { type VendorModel } from "./vendor.model.js";
 
@@ -77,8 +78,8 @@ class VendorRepository implements Repository<VendorEntity> {
 			.execute();
 
 		if (!vendorModel.id) {
-			throw new CourseError(
-				`Not found vendor with id '${id}'`,
+			throw new VendorError(
+				VendorErrorMessage.NOT_FOUND_VENDOR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}

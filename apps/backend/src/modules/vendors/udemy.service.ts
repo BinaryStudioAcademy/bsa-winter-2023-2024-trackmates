@@ -4,14 +4,15 @@ import {
 	HTTPCode,
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
-import { CourseError } from "~/modules/courses/libs/exceptions/exceptions.js";
 import { type CourseDto } from "~/modules/courses/libs/types/types.js";
 
 import {
 	CourseField,
 	UdemyDefaultSearchParameter,
 	UdemyFieldsMapping,
+	VendorErrorMessage,
 } from "./libs/enums/enums.js";
+import { VendorError } from "./libs/exceptions/exceptions.js";
 import { type VendorService } from "./libs/types/types.js";
 
 type CourseFieldForMap =
@@ -115,8 +116,8 @@ class UdemyService implements VendorService {
 		);
 
 		if (!result.results) {
-			throw new CourseError(
-				"Wrong response from Udemy API",
+			throw new VendorError(
+				VendorErrorMessage.WRONG_RESPONSE_FROM_VENDOR_API,
 				HTTPCode.INTERNAL_SERVER_ERROR,
 			);
 		}

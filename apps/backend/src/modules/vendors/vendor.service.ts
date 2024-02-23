@@ -1,5 +1,7 @@
-import { CourseError, HTTPCode } from "shared";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 
+import { VendorErrorMessage } from "./libs/enums/enums.js";
+import { VendorError } from "./libs/exceptions/exceptions.js";
 import {
 	type VendorRequestDto,
 	type VendorResponseDto,
@@ -37,8 +39,8 @@ class VendorService {
 		const entity = await this.vendorRepository.find(id);
 
 		if (!entity) {
-			throw new CourseError(
-				`Not found vendor with id '${id}'`,
+			throw new VendorError(
+				VendorErrorMessage.NOT_FOUND_VENDOR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}

@@ -7,6 +7,7 @@ import {
 
 import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
+import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
 import {
 	type CourseDto,
@@ -121,7 +122,7 @@ class CourseService {
 
 		if (existingCourse) {
 			throw new CourseError(
-				`Course with vendorCourseId '${vendorCourseId}' already exists!`,
+				CourseErrorMessage.COURSE_IS_ALREADY_EXISTS,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -141,7 +142,7 @@ class CourseService {
 
 		if (!entity) {
 			throw new CourseError(
-				`Not found course with id '${id}'`,
+				CourseErrorMessage.NOT_FOUND_COURSE,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -192,7 +193,7 @@ class CourseService {
 
 		if (!existingCourse) {
 			throw new CourseError(
-				`Not found course with id '${id}'!`,
+				CourseErrorMessage.NOT_FOUND_COURSE,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
