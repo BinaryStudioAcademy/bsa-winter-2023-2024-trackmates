@@ -21,11 +21,27 @@ const userSignUp = z
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			})
 			.regex(
-				/^[\w%+-](([\w%+-]|\.(?=.)){0,33}[\w%+-])?@[\w%+][\w%+-.]{1,33}[\w%+]$/,
+				new RegExp(
+					`^[a-zA-Z0-9._%+-]{1,${UserValidationRule.EMAIL_LOCAL_PART_MAX_LENGTH}}(?=@)`,
+				),
 				{
-					message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+					message: UserValidationMessage.EMAIL_LOCAL_PART_MAX_LENGTH,
 				},
-			),
+			)
+			.regex(
+				new RegExp(
+					`(?<=@)[a-zA-Z0-9.-]{1,${UserValidationRule.EMAIL_DOMAIN_PART_MAX_LENGTH}}$`,
+				),
+				{
+					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAX_LENGTH,
+				},
+			)
+			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^[^_][\w.]*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			}),
 		firstName: z
 			.string()
 			.trim()

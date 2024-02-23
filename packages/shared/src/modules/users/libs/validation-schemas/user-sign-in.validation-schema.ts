@@ -12,11 +12,11 @@ const userSignIn = z
 		email: z
 			.string()
 			.trim()
-			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.email({
-				message: UserValidationMessage.EMAIL_WRONG,
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			}),
 		password: z
 			.string()

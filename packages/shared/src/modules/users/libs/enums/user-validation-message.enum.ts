@@ -3,8 +3,11 @@ import { UserValidationRule } from "./user-validation-rule.enum.js";
 const UserValidationMessage = {
 	ADJACENT_HYPHEN_APOSTROPHE:
 		"Hyphen and apostrophe can’t be next to each other",
-	EMAIL_INVALID_FORMAT: "The email is invalid",
-	EMAIL_WRONG: "Email is wrong",
+	EMAIL_DOMAIN_PART_MAX_LENGTH:
+		"Domain part must not be more than 35 characters long",
+	EMAIL_INVALID_FORMAT: "Email is invalid",
+	EMAIL_LOCAL_PART_MAX_LENGTH:
+		"Local part must not be more than 35 characters long",
 	FIELD_REQUIRE: "This field is required",
 	FIRST_LAST_CHARACTERS_ONLY_LETTERS:
 		"First and last characters must be letters",
