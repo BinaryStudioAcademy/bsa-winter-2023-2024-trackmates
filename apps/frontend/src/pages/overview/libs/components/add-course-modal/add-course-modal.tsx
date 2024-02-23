@@ -39,7 +39,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 			vendors: state.vendors.vendors,
 		};
 	});
-	const { control, errors, getValues, setValue } = useAppForm({
+	const { control, errors, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
 	});
@@ -51,18 +51,23 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		[dispatch],
 	);
 
-	const handleSearchCourses = (): void => {
-		const formData = getValues();
+	const handleSearchCourses = (
+		filterFormData: typeof DEFAULT_SEARCH_COURSE_PAYLOAD,
+	): void => {
 		void dispatch(
 			courseActions.search({
-				search: formData.search,
-				vendorsKeys: getVendorsFromForm(formData.vendors),
+				search: filterFormData.search,
+				vendorsKeys: getVendorsFromForm(filterFormData.vendors),
 			}),
 		);
 	};
 
+	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
+		void handleSubmit(handleSearchCourses)(event_);
+	};
+
 	const debouncedSearchCourses = debounce(
-		handleSearchCourses,
+		handleFormChange,
 		SEARCH_COURSES_DELAY_MS,
 	);
 

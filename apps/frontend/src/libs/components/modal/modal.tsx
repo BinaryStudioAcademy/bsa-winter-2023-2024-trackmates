@@ -16,7 +16,7 @@ const Modal: React.FC<Properties> = ({
 	isOpen,
 	onClose,
 }: Properties) => {
-	const contentReference = useRef<HTMLDivElement>(null);
+	const contentReference = useRef<HTMLDivElement | null>(null);
 	useHandleClickOutside({
 		onClick: onClose,
 		ref: contentReference,
