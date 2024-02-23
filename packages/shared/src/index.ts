@@ -39,6 +39,7 @@ export {
 	FriendError,
 	FriendErrorMessage,
 	type FriendFollowingRequestDto,
+	FriendRequestParametersValidationSchema,
 	FriendRequestValidationSchema,
 	FriendsApiPath,
 } from "./modules/friends/friends.js";

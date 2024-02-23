@@ -4,4 +4,7 @@ export {
 	type FriendDto,
 	type FriendFollowingRequestDto,
 } from "./libs/types/types.js";
-export { friendRequest as FriendRequestValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+export {
+	friendRequest as FriendRequestValidationSchema,
+	friendRequestParameters as FriendRequestParametersValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";

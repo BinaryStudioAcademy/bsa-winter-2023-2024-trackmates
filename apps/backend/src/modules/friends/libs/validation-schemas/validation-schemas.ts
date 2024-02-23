@@ -1,1 +1,4 @@
-export { FriendRequestValidationSchema } from "shared";
+export {
+	FriendRequestParametersValidationSchema,
+	FriendRequestValidationSchema,
+} from "shared";

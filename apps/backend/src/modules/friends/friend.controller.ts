@@ -9,7 +9,10 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type FriendService } from "./friend.service.js";
-import { FriendRequestValidationSchema } from "./friends.js";
+import {
+	FriendRequestParametersValidationSchema,
+	FriendRequestValidationSchema,
+} from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import { type FriendFollowingRequestDto } from "./libs/types/types.js";
 
@@ -100,7 +103,7 @@ class FriendController extends BaseController {
 			method: "GET",
 			path: FriendsApiPath.ID,
 			validation: {
-				params: FriendRequestValidationSchema,
+				params: FriendRequestParametersValidationSchema,
 			},
 		});
 		this.addRoute({

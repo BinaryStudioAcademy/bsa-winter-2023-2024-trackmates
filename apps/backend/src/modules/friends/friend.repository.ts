@@ -30,7 +30,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return followingUser
 			? UserEntity.initialize({
-					avatarUrl: null,
+					avatarUrl: followingUser.userDetails.avatarFile?.url ?? null,
 					createdAt: followingUser.createdAt,
 					email: followingUser.email,
 					firstName: followingUser.userDetails.firstName,
@@ -67,7 +67,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return user
 			? UserEntity.initialize({
-					avatarUrl: null,
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
@@ -94,7 +94,7 @@ class FriendRepository implements Repository<UserEntity> {
 
 		return followings.map((user) =>
 			UserEntity.initialize({
-				avatarUrl: null,
+				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -110,6 +110,7 @@ class FriendRepository implements Repository<UserEntity> {
 	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
 		const potentialFollowers = await this.userModel
 			.query()
+			.where("users.id", "<>", id)
 			.leftJoin(
 				DatabaseTableName.USER_FOLLOWERS,
 				`${DatabaseTableName.USERS}.id`,
@@ -118,12 +119,11 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.whereNull(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`)
 			.orWhere(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, "<>", id)
-			.andWhere(`${DatabaseTableName.USERS}.id`, "<>", id)
 			.withGraphJoined("userDetails");
 
 		return potentialFollowers.map((user) =>
 			UserEntity.initialize({
-				avatarUrl: null,
+				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -160,14 +160,14 @@ class FriendRepository implements Repository<UserEntity> {
 				DatabaseTableName.USER_FOLLOWERS,
 				"users.id",
 				"=",
-				"user_followers.following_id",
+				"user_followers.follower_id",
 			)
-			.where("user_followers.follower_id", "=", id)
+			.where("user_followers.following_id", "=", id)
 			.withGraphJoined("userDetails");
 
 		return userFollowers.map((user) =>
 			UserEntity.initialize({
-				avatarUrl: null,
+				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -187,14 +187,14 @@ class FriendRepository implements Repository<UserEntity> {
 				DatabaseTableName.USER_FOLLOWERS,
 				"users.id",
 				"=",
-				"user_followers.follower_id",
+				"user_followers.following_id",
 			)
-			.where("user_followers.following_id", "=", id)
+			.where("user_followers.follower_id", "=", id)
 			.withGraphJoined("userDetails");
 
 		return userFollowings.map((user) =>
 			UserEntity.initialize({
-				avatarUrl: null,
+				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
@@ -216,7 +216,7 @@ class FriendRepository implements Repository<UserEntity> {
 			});
 
 		return UserEntity.initialize({
-			avatarUrl: null,
+			avatarUrl: updatedSubscription.userDetails.avatarFile?.url ?? null,
 			createdAt: updatedSubscription.createdAt,
 			email: updatedSubscription.email,
 			firstName: updatedSubscription.userDetails.firstName,

@@ -3,12 +3,12 @@ import { z } from "zod";
 import { FriendRequestValidationMessage } from "../enums/enums.js";
 
 type FriendRequestValidationSchema = {
-	id: z.ZodString;
+	id: z.ZodNumber;
 };
 
 const friendRequest = z
 	.object<FriendRequestValidationSchema>({
-		id: z.string().trim().regex(/^\d+$/, {
+		id: z.number().int().positive({
 			message: FriendRequestValidationMessage.ID_INVALID,
 		}),
 	})
