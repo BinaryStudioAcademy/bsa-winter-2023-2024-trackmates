@@ -17,6 +17,28 @@ const userSignIn = z
 			})
 			.email({
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(
+				new RegExp(
+					`^[a-zA-Z0-9._%+-]{1,${UserValidationRule.EMAIL_LOCAL_PART_MAX_LENGTH}}(?=@)`,
+				),
+				{
+					message: UserValidationMessage.EMAIL_LOCAL_PART_MAX_LENGTH,
+				},
+			)
+			.regex(
+				new RegExp(
+					`(?<=@)[a-zA-Z0-9.-]{1,${UserValidationRule.EMAIL_DOMAIN_PART_MAX_LENGTH}}$`,
+				),
+				{
+					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAX_LENGTH,
+				},
+			)
+			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^[^_][\w.]*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			}),
 		password: z
 			.string()
