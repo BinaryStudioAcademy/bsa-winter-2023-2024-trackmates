@@ -41,6 +41,9 @@ const userSignUp = z
 			})
 			.regex(/^[^_][\w.]*(?=@)/, {
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/(?<=@)(?!.*['-]{2})[\d.A-Za-z-]*$/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			}),
 		firstName: z
 			.string()
