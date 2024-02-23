@@ -19,10 +19,10 @@ const UserValidationMessage = {
 		"Latin letters, hyphen and apostrophe are allowed",
 	LAST_NAME_MAX_LENGTH: `Last name must not be more than ${UserValidationRule.LAST_NAME_MAX_LENGTH} characters long`,
 	LAST_NAME_MIN_LENGTH: `Last name must be at least ${UserValidationRule.LAST_NAME_MINIMUM_LENGTH} characters long`,
-	PASSSWORD_MAX_LENGTH: `The field shouldn't contain more than ${UserValidationRule.PASSWORD_MAX_LENGTH} characters`,
 	PASSWORD_INVALID_FORMAT:
-		"Only Latin letters, digits and special characters are allowed",
-	PASSWORD_MIN_LENGTH: `The field should contain at least ${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters`,
+		"Latin letters, digits and special characters are allowed",
+	PASSWORD_MAX_LENGTH: `Password must not be more than ${UserValidationRule.PASSWORD_MAX_LENGTH} characters long`,
+	PASSWORD_MIN_LENGTH: `Password must be at least ${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters long`,
 	PASSWORD_SHORT: `Password is too short (${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters at least)`,
 } as const;
 

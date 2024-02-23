@@ -106,9 +106,9 @@ const userSignUp = z
 				message: UserValidationMessage.PASSWORD_MIN_LENGTH,
 			})
 			.max(UserValidationRule.PASSWORD_MAX_LENGTH, {
-				message: UserValidationMessage.PASSSWORD_MAX_LENGTH,
+				message: UserValidationMessage.PASSWORD_MAX_LENGTH,
 			})
-			.regex(/^[\w!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]{8,26}$/, {
+			.regex(/^[\w!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]{8,26}$/, {
 				message: UserValidationMessage.PASSWORD_INVALID_FORMAT,
 			}),
 	})
