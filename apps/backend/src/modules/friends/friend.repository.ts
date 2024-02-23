@@ -227,7 +227,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.withGraphFetched("userDetails")
 			.patchAndFetchById(id, {
-				id: id,
+				id,
 			});
 
 		return UserEntity.initialize({

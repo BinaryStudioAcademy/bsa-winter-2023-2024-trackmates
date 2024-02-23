@@ -31,19 +31,19 @@ class FriendService {
 				followingUserId,
 			);
 
-		if (!isSubscriptionExist) {
-			const followingUser = await this.friendRepository.create({
-				followerUserId,
-				followingUserId,
-			});
-
-			return followingUser?.toObject() ?? null;
+		if (isSubscriptionExist) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_IS_ALREADY_FOLLOWING,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
-		throw new FriendError(
-			FriendErrorMessage.FRIEND_IS_ALREADY_FOLLOWING,
-			HTTPCode.BAD_REQUEST,
-		);
+		const followingUser = await this.friendRepository.create({
+			followerUserId,
+			followingUserId,
+		});
+
+		return followingUser?.toObject() ?? null;
 	}
 
 	public async delete(id: number): Promise<boolean> {
