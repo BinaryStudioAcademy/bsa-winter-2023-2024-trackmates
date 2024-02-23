@@ -1,6 +1,6 @@
-import { CourseError, HTTPCode } from "shared";
-
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
+import { CourseError } from "~/modules/courses/libs/exceptions/exceptions.js";
 
 import { VendorEntity } from "./vendor.entity.js";
 import { type VendorModel } from "./vendor.model.js";

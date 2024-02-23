@@ -4,8 +4,6 @@ import {
 	HTTPCode,
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
-// import from ~/modules/courses/courses.ts here causes round dependency
-// and error "ReferenceError: Cannot access 'UserModel' before initialization"
 import { CourseError } from "~/modules/courses/libs/exceptions/exceptions.js";
 import { type CourseDto } from "~/modules/courses/libs/types/types.js";
 
@@ -45,7 +43,7 @@ class UdemyService implements VendorService {
 		this.http = http;
 	}
 
-	private gethHeaders(): Headers {
+	private getHeaders(): Headers {
 		const headers = new Headers();
 		const token = btoa(`${this.clientId}:${this.clientSecret}`);
 
@@ -57,7 +55,7 @@ class UdemyService implements VendorService {
 
 	private load(url: string, query: Record<string, unknown>): Promise<Response> {
 		return this.http.load(url, {
-			headers: this.gethHeaders(),
+			headers: this.getHeaders(),
 			method: "GET",
 			payload: null,
 			query,

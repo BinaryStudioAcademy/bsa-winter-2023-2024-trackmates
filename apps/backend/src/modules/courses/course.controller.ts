@@ -17,7 +17,8 @@ import {
 } from "./libs/types/types.js";
 import { addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
-/*** @swagger
+/**
+ * @swagger
  * components:
  *    schemas:
  *      Course:

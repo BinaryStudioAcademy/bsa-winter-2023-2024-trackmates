@@ -1,11 +1,12 @@
-import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
 import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
+import { CourseError } from "./libs/exceptions/exceptions.js";
 
 class CourseRepository implements Repository<CourseEntity> {
 	private courseModel: typeof CourseModel;
@@ -65,9 +66,10 @@ class CourseRepository implements Repository<CourseEntity> {
 		const hasUserTheCourse = Boolean(courseRelatedWithUser);
 
 		if (hasUserTheCourse) {
-			throw new ApplicationError({
-				message: `Course "${course.title}" was already added for user`,
-			});
+			throw new CourseError(
+				`Course "${course.title}" was already added for user`,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		await this.userModel
@@ -192,9 +194,10 @@ class CourseRepository implements Repository<CourseEntity> {
 		const user = await this.userModel.query().findById(userId);
 
 		if (!user) {
-			throw new ApplicationError({
-				message: `Not found user with id ${userId}`,
-			});
+			throw new CourseError(
+				`Not found user with id ${userId}`,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		const courseModels = await user
