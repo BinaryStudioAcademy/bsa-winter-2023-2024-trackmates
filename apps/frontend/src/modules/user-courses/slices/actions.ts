@@ -13,9 +13,9 @@ import { name as sliceName } from "./user-courses.slice.js";
 const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 	`${sliceName}/add`,
 	async (requestPayload, { extra }) => {
-		const { courseApi, notification } = extra;
+		const { notification, userCourseApi } = extra;
 
-		const newCourse = await courseApi.add(requestPayload);
+		const newCourse = await userCourseApi.add(requestPayload);
 		notification.success(NotificationMessage.COURSE_ADDED);
 
 		return newCourse;

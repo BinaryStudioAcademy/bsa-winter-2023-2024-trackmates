@@ -21,11 +21,13 @@ async function up(knex: Knex): Promise<void> {
 			.integer(ColumnName.COURSE_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.COURSES)
+			.onDelete("CASCADE")
 			.notNullable();
 		table
 			.integer(ColumnName.USER_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.USERS)
+			.onDelete("CASCADE")
 			.notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)

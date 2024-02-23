@@ -1,7 +1,5 @@
-import {
-	type AddCourseRequestDto,
-	type CourseDto,
-} from "~/modules/courses/courses.js";
+import { type CourseDto } from "~/modules/courses/courses.js";
+import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
 import { Course } from "../course/course.js";
 import styles from "./styles.module.css";

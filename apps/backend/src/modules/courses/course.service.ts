@@ -1,6 +1,6 @@
+import { HTTPCode } from "~/libs/enums/enums.js";
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
-import { type UserCourseService } from "~/modules/user-courses/user-courses.js";
 import {
 	type VendorApi,
 	type VendorService,
@@ -8,6 +8,7 @@ import {
 
 import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
+import { CourseError } from "./libs/exceptions/exceptions.js";
 import {
 	type CourseDto,
 	type CoursesResponseDto,
@@ -17,7 +18,6 @@ import {
 type Constructor = {
 	courseRepository: CourseRepository;
 	openAI: OpenAI;
-	userCourseService: UserCourseService;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
 };
@@ -25,20 +25,17 @@ type Constructor = {
 class CourseService {
 	private courseRepository: CourseRepository;
 	private openAI: OpenAI;
-	private userCourseService: UserCourseService;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
 
 	public constructor({
 		courseRepository,
 		openAI,
-		userCourseService,
 		vendorService,
 		vendorsApiMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
 		this.openAI = openAI;
-		this.userCourseService = userCourseService;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorService = vendorService;
 	}
@@ -47,16 +44,29 @@ class CourseService {
 		courses: CourseDto[],
 		userId: number,
 	): Promise<CourseDto[]> {
-		const userCoursesIds = await this.userCourseService
-			.findAllByUser(userId)
-			.then((courses) => courses.map(({ vendorCourseId }) => vendorCourseId));
+		const userCourses = await this.courseRepository.findByUserId(userId);
+		const userCoursesIds = new Set(
+			userCourses.map((course) => course.toNewObject().vendorCourseId),
+		);
 
 		return courses.filter(({ vendorCourseId }) => {
-			return !userCoursesIds.includes(vendorCourseId.toString());
+			return !userCoursesIds.has(vendorCourseId.toString());
 		});
 	}
 
-	private getVendorApi(vendorKey: string): VendorApi {
+	private async getVendorApiById(vendorId: number): Promise<VendorApi> {
+		const vendor = await this.vendorService.findById(vendorId);
+
+		if (!vendor) {
+			throw new ApplicationError({
+				message: `Not found vendor with id "${vendorId}"`,
+			});
+		}
+
+		return this.getVendorApiByKey(vendor.key);
+	}
+
+	private getVendorApiByKey(vendorKey: string): VendorApi {
 		const vendorModule = this.vendorsApiMap[vendorKey];
 
 		if (!vendorModule) {
@@ -66,6 +76,23 @@ class CourseService {
 		}
 
 		return vendorModule;
+	}
+
+	private async getVendorCourse(
+		vendorCourseId: string,
+		vendorId: number,
+	): Promise<CourseEntity> {
+		const vendorApi = await this.getVendorApiById(vendorId);
+		const course = await vendorApi.getCourseById(vendorCourseId);
+
+		return CourseEntity.initializeNew({
+			description: course.description,
+			image: course.image,
+			title: course.title,
+			url: course.url,
+			vendorCourseId: course.vendorCourseId,
+			vendorId,
+		});
 	}
 
 	private async sortCoursesByOpenAI(
@@ -93,40 +120,68 @@ class CourseService {
 		vendorCourseId: string;
 		vendorId: number;
 	}): Promise<CourseDto> {
-		const vendor = await this.vendorService.findById(vendorId);
-
-		if (!vendor) {
-			throw new ApplicationError({
-				message: `Not found vendor with id "${vendorId}"`,
-			});
-		}
-
-		const course = await this.getVendorApi(vendor.key).getCourseById(
-			vendorCourseId,
-		);
-
-		const courseEntity = CourseEntity.initializeNew({
-			description: course.description,
-			image: course.image,
-			title: course.title,
-			url: course.url,
-			vendorCourseId: course.vendorCourseId,
-			vendorId,
-		});
+		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
 
 		const addedCourse = await this.courseRepository.addCourseToUser(
-			courseEntity,
+			vendorCourse,
 			userId,
 		);
 
 		return addedCourse.toObject();
 	}
 
+	public async create({
+		vendorCourseId,
+		vendorId,
+	}: {
+		vendorCourseId: string;
+		vendorId: number;
+	}): Promise<CourseDto> {
+		const existingCourse =
+			await this.courseRepository.findByVendorCourseId(vendorCourseId);
+
+		if (existingCourse) {
+			throw new CourseError(
+				`Course with vendorCourseId '${vendorCourseId}' already exists!`,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
+		const addedCourse = await this.courseRepository.create(vendorCourse);
+
+		return addedCourse.toObject();
+	}
+
+	public async delete(id: number): Promise<boolean> {
+		return await this.courseRepository.delete(id);
+	}
+
+	public async find(id: number): Promise<CourseDto> {
+		const entity = await this.courseRepository.find(id);
+
+		if (!entity) {
+			throw new CourseError(
+				`Not found course with id '${id}'`,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		return entity.toObject();
+	}
+
+	public async findAll(): Promise<CourseDto[]> {
+		const entities = await this.courseRepository.findAll();
+
+		return entities.map((entity) => entity.toObject());
+	}
+
 	public async findAllByVendor(
 		search: string,
 		vendor: VendorResponseDto,
 	): Promise<CourseDto[]> {
-		const items = await this.getVendorApi(vendor.key).getCourses(search);
+		const vendorApi = this.getVendorApiByKey(vendor.key);
+		const items = await vendorApi.getCourses(search);
 
 		return items.map((item) => ({ ...item, id: null, vendor }));
 	}
@@ -152,6 +207,23 @@ class CourseService {
 		const sortedCourses = await this.sortCoursesByOpenAI(courses);
 
 		return { courses: sortedCourses };
+	}
+
+	public async update(id: number): Promise<CourseDto | null> {
+		const existingCourse = await this.courseRepository.find(id);
+
+		if (!existingCourse) {
+			throw new CourseError(
+				`Not found course with id '${id}'!`,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		const { vendorCourseId, vendorId } = existingCourse.toObject();
+		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
+		const course = await this.courseRepository.update(id, vendorCourse);
+
+		return course ? course.toObject() : null;
 	}
 }
 

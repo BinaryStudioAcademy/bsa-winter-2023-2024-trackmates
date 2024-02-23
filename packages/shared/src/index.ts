@@ -1,3 +1,4 @@
+export { MAX_FILE_SIZE_IN_MB } from "./libs/constants/constants.js";
 export {
 	APIPath,
 	AppEnvironment,
@@ -10,7 +11,11 @@ export {
 	ApplicationError,
 	ValidationError,
 } from "./libs/exceptions/exceptions.js";
-export { configureString, debounce } from "./libs/helpers/helpers.js";
+export {
+	configureString,
+	debounce,
+	getSizeInBytes,
+} from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
 	type HTTP,
@@ -30,6 +35,7 @@ export {
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
+export { idParameter as idParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type AddCourseRequestDto,
@@ -41,10 +47,21 @@ export {
 	type CoursesResponseDto,
 	addCourseValidationSchema,
 } from "./modules/courses/courses.js";
-export { type FriendDto } from "./modules/friends/friends.js";
+export {
+	FileError,
+	type FileUploadResponseDto,
+	FilesApiPath,
+} from "./modules/files/files.js";
+export {
+	type FriendFollowRequestDto,
+	type FriendFollowResponseDto,
+	type FriendUnfollowRequestDto,
+	FriendsApiPath,
+} from "./modules/friends/friends.js";
 export { UserCoursesApiPath } from "./modules/user-courses/users-courses.js";
 export {
 	type UserAuthResponseDto,
+	UserError,
 	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,

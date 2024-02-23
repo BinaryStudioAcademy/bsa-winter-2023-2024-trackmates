@@ -52,7 +52,6 @@ erDiagram
     varchar title
     varchar description
     varchar image
-    varchar image_small
     varchar vendor_course_id
     int vendor_id FK
    }

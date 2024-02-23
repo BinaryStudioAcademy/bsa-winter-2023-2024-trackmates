@@ -1,20 +1,42 @@
-import { type CourseDto } from "~/modules/courses/courses.js";
+import {
+	type CourseDto,
+	type CourseService,
+} from "~/modules/courses/courses.js";
 
-import { type UserCourseRepository } from "./user-course.repository.js";
+import { type CourseRepository } from "../courses/course.repository.js";
 
 type Constructor = {
-	userCourseRepository: UserCourseRepository;
+	courseRepository: CourseRepository;
+	courseService: CourseService;
 };
 
 class UserCourseService {
-	private userCourseRepository: UserCourseRepository;
+	private courseRepository: CourseRepository;
+	private courseService: CourseService;
 
-	public constructor({ userCourseRepository }: Constructor) {
-		this.userCourseRepository = userCourseRepository;
+	public constructor({ courseRepository, courseService }: Constructor) {
+		this.courseRepository = courseRepository;
+		this.courseService = courseService;
+	}
+
+	public async addCourse({
+		userId,
+		vendorCourseId,
+		vendorId,
+	}: {
+		userId: number;
+		vendorCourseId: string;
+		vendorId: number;
+	}): Promise<CourseDto> {
+		return await this.courseService.addCourse({
+			userId,
+			vendorCourseId,
+			vendorId,
+		});
 	}
 
 	public async findAllByUser(userId: number): Promise<CourseDto[]> {
-		const entities = await this.userCourseRepository.findByUserId(userId);
+		const entities = await this.courseRepository.findByUserId(userId);
 
 		return entities.map((entity) => entity.toObject());
 	}

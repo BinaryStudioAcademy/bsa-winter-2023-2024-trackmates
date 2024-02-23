@@ -1,6 +1,5 @@
 import { logger } from "~/libs/modules/logger/logger.js";
 import { openAI } from "~/libs/modules/open-ai/open-ai.js";
-import { userCourseService } from "~/modules/user-courses/user-courses.js";
 import { UserModel } from "~/modules/users/user.model.js";
 import { udemyService, vendorService } from "~/modules/vendors/vendors.js";
 
@@ -16,13 +15,12 @@ const courseRepository = new CourseRepository(CourseModel, UserModel);
 const courseService = new CourseService({
 	courseRepository,
 	openAI,
-	userCourseService,
 	vendorService,
 	vendorsApiMap,
 });
 const courseController = new CourseController(logger, courseService);
 
-export { courseController };
-export { CourseEntity } from "./course.entity.js";
+export { courseController, courseService };
 export { CourseModel } from "./course.model.js";
+export { type CourseService } from "./course.service.js";
 export { type CourseDto } from "./libs/types/types.js";

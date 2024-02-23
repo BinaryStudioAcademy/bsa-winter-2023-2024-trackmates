@@ -83,13 +83,15 @@ class VendorRepository implements Repository<VendorEntity> {
 			);
 		}
 
-		return VendorEntity.initialize({
-			createdAt: vendorModel.createdAt,
-			id: vendorModel.id,
-			key: vendorModel.key,
-			name: vendorModel.name,
-			updatedAt: vendorModel.updatedAt,
-		});
+		return vendorModel.id
+			? VendorEntity.initialize({
+					createdAt: vendorModel.createdAt,
+					id: vendorModel.id,
+					key: vendorModel.key,
+					name: vendorModel.name,
+					updatedAt: vendorModel.updatedAt,
+				})
+			: null;
 	}
 }
 

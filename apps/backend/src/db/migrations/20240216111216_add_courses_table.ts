@@ -28,7 +28,8 @@ async function up(knex: Knex): Promise<void> {
 		table
 			.integer(ColumnName.VENDOR_ID)
 			.references(ColumnName.ID)
-			.inTable(TableName.VENDORS);
+			.inTable(TableName.VENDORS)
+			.onDelete("CASCADE");
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()
@@ -41,7 +42,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.dropTableIfExists(TableName.VENDORS);
+	await knex.schema.dropTableIfExists(TableName.COURSES);
 }
 
 export { down, up };
