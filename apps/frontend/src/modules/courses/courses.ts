@@ -12,7 +12,6 @@ const courseApi = new CourseApi({
 
 export { courseApi };
 export {
-	type AddCourseRequestDto,
 	type CourseDto,
 	type CourseSearchFilterDto,
 } from "./libs/types/types.js";

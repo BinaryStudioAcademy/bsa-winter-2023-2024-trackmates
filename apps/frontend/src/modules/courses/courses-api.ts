@@ -5,8 +5,6 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 
 import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
-	type AddCourseRequestDto,
-	type CourseDto,
 	type CourseSearchFilterDto,
 	type CoursesResponseDto,
 } from "./libs/types/types.js";
@@ -22,19 +20,6 @@ class CourseApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.COURSES, storage });
 	}
 
-	public async add(payload: AddCourseRequestDto): Promise<CourseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
-			{
-				contentType: ContentType.JSON,
-				hasAuth: true,
-				method: "POST",
-				payload: JSON.stringify(payload),
-			},
-		);
-
-		return await response.json<CourseDto>();
-	}
 	public async getAll(
 		filter: CourseSearchFilterDto,
 	): Promise<CoursesResponseDto> {

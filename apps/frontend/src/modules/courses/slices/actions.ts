@@ -12,10 +12,10 @@ const search = createAsyncThunk<
 	CoursesResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
->(`${sliceName}/search`, (requestPayload, { extra }) => {
+>(`${sliceName}/search`, (filterPayload, { extra }) => {
 	const { courseApi } = extra;
 
-	return courseApi.getAll(requestPayload);
+	return courseApi.getAll(filterPayload);
 });
 
 export { search };

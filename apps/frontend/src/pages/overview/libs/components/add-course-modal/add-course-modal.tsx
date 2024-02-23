@@ -8,11 +8,11 @@ import {
 	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
+import { actions as courseActions } from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
-	actions as courseActions,
-} from "~/modules/courses/courses.js";
-import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
+	actions as userCourseActions,
+} from "~/modules/user-courses/user-courses.js";
 import { actions as vendorActions } from "~/modules/vendors/vendors.js";
 
 import {
