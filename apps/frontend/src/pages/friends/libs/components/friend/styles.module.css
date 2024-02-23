@@ -1,18 +1,24 @@
 .actions {
 	display: flex;
+	flex: 1;
 	gap: 24px;
+	align-items: center;
+	min-height: 60px;
 	padding: 12px;
 	font-family: Roboto, Arial, sans-serif;
 	font-weight: 500;
 	background-color: var(--color-menu);
 }
 
-.add-friend-action {
+.button {
 	flex: 1;
 	cursor: pointer;
 }
 
 .card {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
 	overflow: hidden;
 	background-color: var(--main-white);
 	border: 1px solid transparent;
