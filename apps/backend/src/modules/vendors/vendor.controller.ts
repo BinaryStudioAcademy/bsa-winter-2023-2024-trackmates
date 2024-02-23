@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { idParameterValidationSchema } from "~/libs/validation-schemas/validation-schemas.js";
 
 import { VendorsApiPath } from "./libs/enums/enums.js";
 import { type VendorRequestDto } from "./libs/types/types.js";
@@ -49,11 +50,14 @@ class VendorController extends BaseController {
 			handler: (options) =>
 				this.find(
 					options as APIHandlerOptions<{
-						params: { vendorId: number };
+						params: { id: number };
 					}>,
 				),
 			method: "GET",
 			path: VendorsApiPath.$VENDOR_ID,
+			validation: {
+				params: idParameterValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: () => this.findAll(),
@@ -64,22 +68,28 @@ class VendorController extends BaseController {
 			handler: (options) =>
 				this.delete(
 					options as APIHandlerOptions<{
-						params: { vendorId: number };
+						params: { id: number };
 					}>,
 				),
 			method: "DELETE",
 			path: VendorsApiPath.$VENDOR_ID,
+			validation: {
+				params: idParameterValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) =>
 				this.update(
 					options as APIHandlerOptions<{
 						body: VendorRequestDto;
-						params: { vendorId: number };
+						params: { id: number };
 					}>,
 				),
 			method: "PUT",
 			path: VendorsApiPath.$VENDOR_ID,
+			validation: {
+				params: idParameterValidationSchema,
+			},
 		});
 	}
 
@@ -136,11 +146,11 @@ class VendorController extends BaseController {
 	 *                    type: string
 	 */
 	private async delete({
-		params: { vendorId },
+		params: { id },
 	}: APIHandlerOptions<{
-		params: { vendorId: number };
+		params: { id: number };
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.vendorService.delete(vendorId);
+		const success = await this.vendorService.delete(id);
 
 		return {
 			payload: { success },
@@ -163,12 +173,12 @@ class VendorController extends BaseController {
 	 *                $ref: "#/components/schemas/Vendor"
 	 */
 	private async find({
-		params: { vendorId },
+		params: { id },
 	}: APIHandlerOptions<{
-		params: { vendorId: number };
+		params: { id: number };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.vendorService.find(vendorId),
+			payload: await this.vendorService.find(id),
 			status: HTTPCode.OK,
 		};
 	}
@@ -219,12 +229,12 @@ class VendorController extends BaseController {
 	 */
 	private async update({
 		body,
-		params: { vendorId },
+		params: { id },
 	}: APIHandlerOptions<{
 		body: VendorRequestDto;
-		params: { vendorId: number };
+		params: { id: number };
 	}>): Promise<APIHandlerResponse> {
-		const updatedVendor = await this.vendorService.update(vendorId, body);
+		const updatedVendor = await this.vendorService.update(id, body);
 
 		return {
 			payload: updatedVendor,

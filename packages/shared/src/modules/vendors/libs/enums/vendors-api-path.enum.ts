@@ -1,5 +1,5 @@
 const VendorsApiPath = {
-	$VENDOR_ID: "/:vendorId",
+	$VENDOR_ID: "/:id",
 	ROOT: "/",
 } as const;
 

@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { idParameterValidationSchema } from "~/libs/validation-schemas/validation-schemas.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type CourseService } from "./course.service.js";
@@ -65,21 +66,27 @@ class CourseController extends BaseController {
 			handler: (options) =>
 				this.delete(
 					options as APIHandlerOptions<{
-						params: { courseId: number };
+						params: { id: number };
 					}>,
 				),
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
+			validation: {
+				params: idParameterValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) =>
 				this.find(
 					options as APIHandlerOptions<{
-						params: { courseId: number };
+						params: { id: number };
 					}>,
 				),
 			method: "GET",
 			path: CoursesApiPath.$COURSE_ID,
+			validation: {
+				params: idParameterValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) =>
@@ -96,11 +103,14 @@ class CourseController extends BaseController {
 			handler: (options) =>
 				this.update(
 					options as APIHandlerOptions<{
-						params: { courseId: number };
+						params: { id: number };
 					}>,
 				),
 			method: "PUT",
 			path: CoursesApiPath.$COURSE_ID,
+			validation: {
+				params: idParameterValidationSchema,
+			},
 		});
 	}
 
@@ -159,11 +169,12 @@ class CourseController extends BaseController {
 	 *                    type: boolean
 	 */
 	private async delete({
-		params: { courseId },
+		params: { id },
 	}: APIHandlerOptions<{
-		params: { courseId: number };
+		params: { id: number };
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.courseService.delete(courseId);
+		const success = await this.courseService.delete(id);
+
 		return {
 			payload: { success },
 			status: HTTPCode.OK,
@@ -185,19 +196,12 @@ class CourseController extends BaseController {
 	 *                $ref: "#/components/schemas/Course"
 	 */
 	private async find({
-		params: { courseId },
+		params: { id },
 	}: APIHandlerOptions<{
-		params: { courseId: number };
+		params: { id: number };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.find(courseId),
-			status: HTTPCode.OK,
-		};
-	}
-
-	private async findAll(): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.courseService.findAll(),
+			payload: await this.courseService.find(id),
 			status: HTTPCode.OK,
 		};
 	}
@@ -263,12 +267,12 @@ class CourseController extends BaseController {
 	 *                $ref: "#/components/schemas/Course"
 	 */
 	private async update({
-		params: { courseId },
+		params: { id },
 	}: APIHandlerOptions<{
-		params: { courseId: number };
+		params: { id: number };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.update(courseId),
+			payload: await this.courseService.update(id),
 			status: HTTPCode.OK,
 		};
 	}

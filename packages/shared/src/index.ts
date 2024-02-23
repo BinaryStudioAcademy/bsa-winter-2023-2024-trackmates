@@ -30,6 +30,7 @@ export {
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
+export { idParameter as idParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type AddCourseRequestDto,

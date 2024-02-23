@@ -9,7 +9,6 @@ import {
 import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
-
 import {
 	type CourseDto,
 	type CoursesResponseDto,
@@ -57,11 +56,13 @@ class CourseService {
 
 	private async getVendorApiById(vendorId: number): Promise<VendorApi> {
 		const vendor = await this.vendorService.findById(vendorId);
+
 		if (!vendor) {
 			throw new ApplicationError({
 				message: `Not found vendor with id "${vendorId}"`,
 			});
 		}
+
 		return this.getVendorApiByKey(vendor.key);
 	}
 
@@ -155,6 +156,7 @@ class CourseService {
 
 	public async findAll(): Promise<CourseDto[]> {
 		const entities = await this.courseRepository.findAll();
+
 		return entities.map((entity) => entity.toObject());
 	}
 

@@ -144,6 +144,7 @@ class CourseRepository implements Repository<CourseEntity> {
 
 	public async delete(id: number): Promise<boolean> {
 		const itemsCount = await this.courseModel.query().deleteById(id).execute();
+
 		return Boolean(itemsCount);
 	}
 
