@@ -118,7 +118,6 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.USER_FOLLOWERS}.following_id`,
 			)
 			.whereNull(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`)
-			.orWhere(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, "<>", id)
 			.withGraphJoined("userDetails");
 
 		return potentialFollowers.map((user) =>
@@ -145,8 +144,8 @@ class FriendRepository implements Repository<UserEntity> {
 			.from(DatabaseTableName.USER_FOLLOWERS)
 			.select("*")
 			.where({
-				follower_id: userId,
-				following_id: id,
+				follower_id: id,
+				following_id: userId,
 			})
 			.first();
 
