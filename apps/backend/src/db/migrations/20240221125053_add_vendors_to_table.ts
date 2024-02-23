@@ -6,15 +6,16 @@ const TableName = {
 	VENDORS: "vendors",
 };
 
+const KEY_COLUMN = "key";
+const row = { key: "udemy", name: "Udemy" };
+
 async function up(knex: Knex): Promise<void> {
-	await knex(TableName.COURSES_TO_USERS).del();
-	await knex(TableName.COURSES).del();
 	await knex(TableName.VENDORS).del();
-	await knex(TableName.VENDORS).insert([{ key: "udemy", name: "Udemy" }]);
+	await knex(TableName.VENDORS).insert([row]);
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex(TableName.VENDORS).del();
+	await knex(TableName.VENDORS).where(KEY_COLUMN, row[KEY_COLUMN]).del();
 }
 
 export { down, up };
