@@ -35,7 +35,7 @@ const Friends: React.FC = () => {
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.FRIENDS: {
-				return <FriendList friends={followings} />;
+				return <FriendList friends={potentialFriends} />;
 			}
 
 			case AppRoute.FRIENDS_FOLLOWERS: {
@@ -43,7 +43,7 @@ const Friends: React.FC = () => {
 			}
 
 			case AppRoute.FRIENDS_FOLLOWINGS: {
-				return <FriendList friends={potentialFriends} />;
+				return <FriendList friends={followings} />;
 			}
 		}
 

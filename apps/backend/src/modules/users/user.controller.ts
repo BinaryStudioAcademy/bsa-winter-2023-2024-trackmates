@@ -30,7 +30,7 @@ class UserController extends BaseController {
 						params: Record<"id", string>;
 					}>,
 				),
-			method: "PATCH",
+			method: "DELETE",
 			path: `${UsersApiPath.ROOT}:id`,
 			validation: {
 				body: userProfileValidationSchema,
