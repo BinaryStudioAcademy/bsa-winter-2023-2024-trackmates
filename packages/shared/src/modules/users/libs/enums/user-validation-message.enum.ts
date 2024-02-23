@@ -21,7 +21,6 @@ const UserValidationMessage = {
 		"Latin letters, digits and special characters are allowed",
 	PASSWORD_MAX_LENGTH: `Password must not be more than ${UserValidationRule.PASSWORD_MAX_LENGTH} characters long`,
 	PASSWORD_MIN_LENGTH: `Password must be at least ${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters long`,
-	PASSWORD_SHORT: `Password is too short (${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters at least)`,
 } as const;
 
 export { UserValidationMessage };

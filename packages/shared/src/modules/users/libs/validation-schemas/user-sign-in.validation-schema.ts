@@ -47,7 +47,10 @@ const userSignIn = z
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-				message: UserValidationMessage.PASSWORD_SHORT,
+				message: UserValidationMessage.PASSWORD_MIN_LENGTH,
+			})
+			.max(UserValidationRule.PASSWORD_MAX_LENGTH, {
+				message: UserValidationMessage.PASSWORD_MAX_LENGTH,
 			}),
 	})
 	.required();
