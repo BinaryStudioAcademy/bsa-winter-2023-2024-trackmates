@@ -7,6 +7,12 @@ type EnvironmentSchema = {
 		HOST: string;
 		PORT: number;
 	};
+	AWS_S3: {
+		AWS_ACCESS_KEY_ID: string;
+		AWS_SECRET_ACCESS_KEY: string;
+		S3_BUCKET: string;
+		S3_REGION: string;
+	};
 	DB: {
 		CONNECTION_STRING: string;
 		DIALECT: string;

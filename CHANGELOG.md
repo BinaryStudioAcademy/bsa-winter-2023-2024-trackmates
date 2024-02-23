@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.3.0...v1.4.0) (2024-02-23)
+
+
+### Features
+
+* add friends screen tm-94 ([#103](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/103)) ([e2208cf](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e2208cf63dd3f4f8d3233442c77b5d2b475d30e2))
+
+## [1.3.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.2.1...v1.3.0) (2024-02-23)
+
+
+### Features
+
+* aws s3 integration tm-41 ([#99](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/99)) ([4f99cf4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4f99cf465a9261b65b3f4e47a9fdd1c6b1c7a75c))
+
 ## [1.2.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.2.0...v1.2.1) (2024-02-22)
 
 
