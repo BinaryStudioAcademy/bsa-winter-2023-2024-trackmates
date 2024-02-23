@@ -10,13 +10,14 @@
 }
 
 .title {
-	margin: 0 0 5px;
+	margin: 0;
 	font-size: var(--font-size-600);
 	font-weight: 600;
 	line-height: 48px;
 }
 
 .subtitle {
+	margin-top: 0;
 	font-size: var(--font-size-200);
 	font-weight: 400;
 	line-height: 20px;
