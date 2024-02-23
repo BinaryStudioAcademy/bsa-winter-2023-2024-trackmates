@@ -43,14 +43,31 @@ class FriendRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async delete(id: number, userId: number): Promise<boolean> {
+	public async delete(id: number): Promise<boolean> {
 		const deletedSubscription = await this.userModel
 			.query()
 			.from(DatabaseTableName.USER_FOLLOWERS)
 			.select("*")
 			.where({
-				follower_id: id,
-				following_id: userId,
+				id: id,
+			})
+			.first()
+			.delete();
+
+		return Boolean(deletedSubscription);
+	}
+
+	public async deleteSubscription(
+		id: number,
+		userId: number,
+	): Promise<boolean> {
+		const deletedSubscription = await this.userModel
+			.query()
+			.from(DatabaseTableName.USER_FOLLOWERS)
+			.select("*")
+			.where({
+				followerId: id,
+				followingId: userId,
 			})
 			.first()
 			.delete();
@@ -80,7 +97,7 @@ class FriendRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async findAll(id: number): Promise<UserEntity[]> {
+	public async findAll(): Promise<UserEntity[]> {
 		const followings = await this.userModel
 			.query()
 			.join(
@@ -89,7 +106,6 @@ class FriendRepository implements Repository<UserEntity> {
 				"=",
 				`${DatabaseTableName.USER_FOLLOWERS}.following_id`,
 			)
-			.where(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, id)
 			.withGraphJoined("userDetails");
 
 		return followings.map((user) =>
@@ -105,6 +121,23 @@ class FriendRepository implements Repository<UserEntity> {
 				updatedAt: user.updatedAt,
 			}),
 		);
+	}
+
+	public async getIsSubscribedByRequestId(
+		id: number,
+		userId: number,
+	): Promise<boolean> {
+		const subscription = await this.userModel
+			.query()
+			.from(DatabaseTableName.USER_FOLLOWERS)
+			.select("*")
+			.where({
+				follower_id: id,
+				following_id: userId,
+			})
+			.first();
+
+		return Boolean(subscription);
 	}
 
 	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
@@ -135,33 +168,16 @@ class FriendRepository implements Repository<UserEntity> {
 		);
 	}
 
-	public async getSubscriptionByRequestId(
-		id: number,
-		userId: number,
-	): Promise<boolean> {
-		const subscription = await this.userModel
-			.query()
-			.from(DatabaseTableName.USER_FOLLOWERS)
-			.select("*")
-			.where({
-				follower_id: id,
-				following_id: userId,
-			})
-			.first();
-
-		return Boolean(subscription);
-	}
-
 	public async getUserFollowers(id: number): Promise<UserEntity[]> {
 		const userFollowers = await this.userModel
 			.query()
 			.leftJoin(
 				DatabaseTableName.USER_FOLLOWERS,
-				"users.id",
+				`${DatabaseTableName.USERS}.id`,
 				"=",
-				"user_followers.follower_id",
+				`${DatabaseTableName.USER_FOLLOWERS}.follower_id`,
 			)
-			.where("user_followers.following_id", "=", id)
+			.where(`${DatabaseTableName.USER_FOLLOWERS}.following_id`, "=", id)
 			.withGraphJoined("userDetails");
 
 		return userFollowers.map((user) =>
@@ -184,11 +200,11 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.leftJoin(
 				DatabaseTableName.USER_FOLLOWERS,
-				"users.id",
+				`${DatabaseTableName.USERS}.id`,
 				"=",
-				"user_followers.following_id",
+				`${DatabaseTableName.USER_FOLLOWERS}.following_id`,
 			)
-			.where("user_followers.follower_id", "=", id)
+			.where(`${DatabaseTableName.USER_FOLLOWERS}.follower_id`, "=", id)
 			.withGraphJoined("userDetails");
 
 		return userFollowings.map((user) =>
@@ -211,7 +227,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.withGraphFetched("userDetails")
 			.patchAndFetchById(id, {
-				updatedAt: this.userModel.raw("?", [new Date()]),
+				id: id,
 			});
 
 		return UserEntity.initialize({

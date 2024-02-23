@@ -25,13 +25,13 @@ class FriendService {
 			);
 		}
 
-		const isSubscribeExist =
-			await this.friendRepository.getSubscriptionByRequestId(
+		const isSubscriptionExist =
+			await this.friendRepository.getIsSubscribedByRequestId(
 				followerUserId,
 				followingUserId,
 			);
 
-		if (!isSubscribeExist) {
+		if (!isSubscriptionExist) {
 			const followingUser = await this.friendRepository.create({
 				followerUserId,
 				followingUserId,
@@ -41,9 +41,22 @@ class FriendService {
 		}
 
 		throw new FriendError(
-			FriendErrorMessage.FRIEND_IS_ALREADY_TRACKING,
+			FriendErrorMessage.FRIEND_IS_ALREADY_FOLLOWING,
 			HTTPCode.BAD_REQUEST,
 		);
+	}
+
+	public async delete(id: number): Promise<boolean> {
+		const isDeletedSuccess = await this.friendRepository.delete(id);
+
+		if (!isDeletedSuccess) {
+			throw new FriendError(
+				FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				HTTPCode.BAD_REQUEST,
+			);
+		}
+
+		return isDeletedSuccess;
 	}
 
 	public async deleteSubscription(
@@ -51,7 +64,7 @@ class FriendService {
 		userId: number,
 	): Promise<boolean> {
 		const isFollowingNow =
-			await this.friendRepository.getSubscriptionByRequestId(id, userId);
+			await this.friendRepository.getIsSubscribedByRequestId(id, userId);
 
 		if (!isFollowingNow) {
 			throw new FriendError(
@@ -60,7 +73,10 @@ class FriendService {
 			);
 		}
 
-		const isDeletedSuccess = await this.friendRepository.delete(id, userId);
+		const isDeletedSuccess = await this.friendRepository.deleteSubscription(
+			id,
+			userId,
+		);
 
 		if (!isDeletedSuccess) {
 			throw new FriendError(
@@ -85,8 +101,8 @@ class FriendService {
 		return foundUser.toObject();
 	}
 
-	public async findAll(id: number): Promise<UserAuthResponseDto[]> {
-		const foundUsers = await this.friendRepository.findAll(id);
+	public async findAll(): Promise<UserAuthResponseDto[]> {
+		const foundUsers = await this.friendRepository.findAll();
 
 		return foundUsers.map((user) => user.toObject());
 	}

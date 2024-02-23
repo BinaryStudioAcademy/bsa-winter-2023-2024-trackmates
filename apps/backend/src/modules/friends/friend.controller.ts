@@ -82,6 +82,19 @@ class FriendController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) =>
+				this.delete(
+					options as APIHandlerOptions<{
+						params: FriendFollowingRequestDto;
+					}>,
+				),
+			method: "DELETE",
+			path: FriendsApiPath.UNFOLLOW_BY_ID,
+			validation: {
+				params: FriendRequestParametersValidationSchema,
+			},
+		});
+		this.addRoute({
+			handler: (options) =>
 				this.update(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
@@ -107,12 +120,7 @@ class FriendController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.findAll(
-					options as APIHandlerOptions<{
-						user: UserAuthResponseDto;
-					}>,
-				),
+			handler: () => this.findAll(),
 			method: "GET",
 			path: FriendsApiPath.ROOT,
 		});
@@ -200,6 +208,47 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
+	 * /friend/unfollow/{id}:
+	 *    delete:
+	 *      description: Unfollow a user by ID
+	 *      parameters:
+	 *        - in: path
+	 *          name: id
+	 *          description: ID of the user to unfollow
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 *                    description: Indicates whether the unfollow operation was successful (true) or not (false).
+	 *        400:
+	 *          description: Bad request
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                $ref: '#/components/schemas/Error'
+	 */
+	private async delete(
+		options: APIHandlerOptions<{
+			params: FriendFollowingRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.delete(options.params.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
 	 * /friend/unfollow:
 	 *    post:
 	 *      description: Delete follow relation
@@ -248,7 +297,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/:id:
+	 * /friend/{id}:
 	 *    get:
 	 *      description: Returns found user
 	 *      responses:
@@ -295,13 +344,9 @@ class FriendController extends BaseController {
 	 *                items:
 	 *                  $ref: "#/components/schemas/User"
 	 */
-	private async findAll(
-		options: APIHandlerOptions<{
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
+	private async findAll(): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.friendService.findAll(options.user.id),
+			payload: await this.friendService.findAll(),
 			status: HTTPCode.OK,
 		};
 	}
