@@ -172,7 +172,9 @@ class UserRepository implements Repository<UserEntity> {
 		const user = await this.userModel
 			.query()
 			.findById(userId)
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.execute();
 
 		return user
