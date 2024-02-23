@@ -32,7 +32,24 @@ class CourseRepository implements Repository<CourseEntity> {
 			.castTo<CourseModel>()
 			.execute();
 
-		return this.modelToEntity(courseModel);
+		return CourseEntity.initialize({
+			createdAt: courseModel.createdAt,
+			description: courseModel.description,
+			id: courseModel.id,
+			image: courseModel.image,
+			title: courseModel.title,
+			updatedAt: courseModel.updatedAt,
+			url: courseModel.url,
+			vendor: VendorEntity.initialize({
+				createdAt: courseModel.vendor.createdAt,
+				id: courseModel.vendor.id,
+				key: courseModel.vendor.key,
+				name: courseModel.vendor.name,
+				updatedAt: courseModel.vendor.updatedAt,
+			}),
+			vendorCourseId: courseModel.vendorCourseId,
+			vendorId: courseModel.vendorId,
+		});
 	}
 
 	private async createRelationWithUser(
@@ -59,40 +76,6 @@ class CourseRepository implements Repository<CourseEntity> {
 			.relate(course.id)
 			.returning("*")
 			.execute();
-	}
-
-	private modelToEntity(courseModel: CourseModel): CourseEntity {
-		const {
-			createdAt,
-			description,
-			id,
-			image,
-			title,
-			updatedAt,
-			url,
-			vendor,
-			vendorCourseId,
-			vendorId,
-		} = courseModel;
-
-		return CourseEntity.initialize({
-			createdAt,
-			description,
-			id,
-			image,
-			title,
-			updatedAt,
-			url,
-			vendor: VendorEntity.initialize({
-				createdAt: vendor.createdAt,
-				id: vendor.id,
-				key: vendor.key,
-				name: vendor.name,
-				updatedAt: vendor.updatedAt,
-			}),
-			vendorCourseId,
-			vendorId,
-		});
 	}
 
 	public async addCourseToUser(
@@ -203,6 +186,43 @@ class CourseRepository implements Repository<CourseEntity> {
 				vendorId: course.vendorId,
 			});
 		});
+	}
+
+	public async findByUserId(userId: number): Promise<CourseEntity[]> {
+		const user = await this.userModel.query().findById(userId);
+
+		if (!user) {
+			throw new ApplicationError({
+				message: `Not found user with id ${userId}`,
+			});
+		}
+
+		const courseModels = await user
+			.$relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.withGraphFetched("vendor")
+			.castTo<CourseModel[]>();
+
+		return courseModels.map((model) =>
+			CourseEntity.initialize({
+				createdAt: model.createdAt,
+				description: model.description,
+				id: model.id,
+				image: model.image,
+				title: model.title,
+				updatedAt: model.updatedAt,
+				url: model.url,
+				vendor: VendorEntity.initialize({
+					createdAt: model.vendor.createdAt,
+					id: model.vendor.id,
+					key: model.vendor.key,
+					name: model.vendor.name,
+					updatedAt: model.vendor.updatedAt,
+				}),
+				vendorCourseId: model.vendorCourseId,
+				vendorId: model.vendorId,
+			}),
+		);
 	}
 
 	public async findByVendorCourseId(

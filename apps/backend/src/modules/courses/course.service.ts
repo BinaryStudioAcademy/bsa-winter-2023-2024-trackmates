@@ -1,6 +1,5 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
-import { type UserCourseRepository } from "~/modules/user-courses/user-course.repository.js";
 import {
 	type VendorApi,
 	type VendorService,
@@ -17,25 +16,21 @@ import {
 
 type Constructor = {
 	courseRepository: CourseRepository;
-	userCourseRepository: UserCourseRepository;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
 };
 
 class CourseService {
 	private courseRepository: CourseRepository;
-	private userCourseRepository: UserCourseRepository;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
 
 	public constructor({
 		courseRepository,
-		userCourseRepository,
 		vendorService,
 		vendorsApiMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
-		this.userCourseRepository = userCourseRepository;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorService = vendorService;
 	}
@@ -44,7 +39,7 @@ class CourseService {
 		courses: CourseDto[],
 		userId: number,
 	): Promise<CourseDto[]> {
-		const userCourses = await this.userCourseRepository.findByUserId(userId);
+		const userCourses = await this.courseRepository.findByUserId(userId);
 		const userCoursesIds = new Set(
 			userCourses.map((course) => course.toNewObject().vendorCourseId),
 		);

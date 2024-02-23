@@ -3,20 +3,20 @@ import {
 	type CourseService,
 } from "~/modules/courses/courses.js";
 
-import { type UserCourseRepository } from "./user-course.repository.js";
+import { type CourseRepository } from "../courses/course.repository.js";
 
 type Constructor = {
+	courseRepository: CourseRepository;
 	courseService: CourseService;
-	userCourseRepository: UserCourseRepository;
 };
 
 class UserCourseService {
+	private courseRepository: CourseRepository;
 	private courseService: CourseService;
-	private userCourseRepository: UserCourseRepository;
 
-	public constructor({ courseService, userCourseRepository }: Constructor) {
+	public constructor({ courseRepository, courseService }: Constructor) {
+		this.courseRepository = courseRepository;
 		this.courseService = courseService;
-		this.userCourseRepository = userCourseRepository;
 	}
 
 	public async addCourse({
@@ -36,7 +36,7 @@ class UserCourseService {
 	}
 
 	public async findAllByUser(userId: number): Promise<CourseDto[]> {
-		const entities = await this.userCourseRepository.findByUserId(userId);
+		const entities = await this.courseRepository.findByUserId(userId);
 
 		return entities.map((entity) => entity.toObject());
 	}
