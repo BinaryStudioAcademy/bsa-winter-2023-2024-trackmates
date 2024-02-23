@@ -62,7 +62,6 @@ const { actions, name, reducer } = createSlice({
 			state.user = {
 				...state.user,
 				...action.payload,
-				avatarUrl: state.user?.avatarUrl ?? null,
 			};
 		});
 		builder.addCase(usersActions.updateProfile.rejected, (state) => {
@@ -75,12 +74,13 @@ const { actions, name, reducer } = createSlice({
 			filesActions.updateUserAvatar.fulfilled,
 			(state, action) => {
 				state.dataStatus = DataStatus.FULFILLED;
-				state.user
-					? (state.user = {
-							...state.user,
-							avatarUrl: action.payload.url,
-						})
-					: null;
+
+				if (state.user) {
+					state.user = {
+						...state.user,
+						avatarUrl: action.payload.url,
+					};
+				}
 			},
 		);
 		builder.addCase(filesActions.updateUserAvatar.rejected, (state) => {
