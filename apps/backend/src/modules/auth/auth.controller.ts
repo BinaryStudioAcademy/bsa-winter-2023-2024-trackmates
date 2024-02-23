@@ -17,6 +17,31 @@ import {
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
 
+/***
+ * @swagger
+ * components:
+ *    schemas:
+ *      User:
+ *        type: object
+ *        properties:
+ *          avatarUrl:
+ *            type: string
+ *            nullable: true
+ *          createdAt:
+ *            type: string
+ *          email:
+ *            type: string
+ *            format: email
+ *          firstName:
+ *            type: string
+ *          id:
+ *            type: number
+ *            minimum: 1
+ *          lastName:
+ *            type: string
+ *          updatedAt:
+ *            type: string
+ */
 class AuthController extends BaseController {
 	private authService: AuthService;
 
