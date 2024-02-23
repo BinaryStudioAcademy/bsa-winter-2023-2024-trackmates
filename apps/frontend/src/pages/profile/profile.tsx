@@ -47,10 +47,6 @@ const Profile: React.FC = () => {
 
 	const handleInputChange = useCallback(
 		(formData: UserProfileRequestDto): void => {
-			if (!user.id) {
-				return;
-			}
-
 			void dispatch(
 				usersActions.updateProfile({
 					id: user.id,
