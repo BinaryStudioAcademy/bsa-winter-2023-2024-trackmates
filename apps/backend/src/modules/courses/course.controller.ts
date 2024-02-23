@@ -50,6 +50,39 @@ class CourseController extends BaseController {
 
 		this.addRoute({
 			handler: (options) =>
+				this.create(
+					options as APIHandlerOptions<{
+						body: AddCourseRequestDto;
+					}>,
+				),
+			method: "POST",
+			path: CoursesApiPath.ROOT,
+			validation: {
+				body: addCourseValidationSchema,
+			},
+		});
+		this.addRoute({
+			handler: (options) =>
+				this.delete(
+					options as APIHandlerOptions<{
+						params: { courseId: number };
+					}>,
+				),
+			method: "DELETE",
+			path: CoursesApiPath.$COURSE_ID,
+		});
+		this.addRoute({
+			handler: (options) =>
+				this.find(
+					options as APIHandlerOptions<{
+						params: { courseId: number };
+					}>,
+				),
+			method: "GET",
+			path: CoursesApiPath.$COURSE_ID,
+		});
+		this.addRoute({
+			handler: (options) =>
 				this.findAllByVendors(
 					options as APIHandlerOptions<{
 						query: CourseSearchRequestDto;
@@ -59,20 +92,15 @@ class CourseController extends BaseController {
 			method: "GET",
 			path: CoursesApiPath.ROOT,
 		});
-
 		this.addRoute({
 			handler: (options) =>
-				this.addCourse(
+				this.update(
 					options as APIHandlerOptions<{
-						body: AddCourseRequestDto;
-						user: UserAuthResponseDto;
+						params: { courseId: number };
 					}>,
 				),
-			method: "POST",
-			path: CoursesApiPath.ROOT,
-			validation: {
-				body: addCourseValidationSchema,
-			},
+			method: "PUT",
+			path: CoursesApiPath.$COURSE_ID,
 		});
 	}
 
@@ -103,18 +131,13 @@ class CourseController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/Course"
 	 */
-	private async addCourse({
+	private async create({
 		body,
-		user,
 	}: APIHandlerOptions<{
 		body: AddCourseRequestDto;
-		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.addCourse({
-				...body,
-				userId: user.id,
-			}),
+			payload: await this.courseService.create(body),
 			status: HTTPCode.CREATED,
 		};
 	}
@@ -122,19 +145,73 @@ class CourseController extends BaseController {
 	/**
 	 * @swagger
 	 * /courses:
+	 *    delete:
+	 *      description: Delete course by id
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
+	private async delete({
+		params: { courseId },
+	}: APIHandlerOptions<{
+		params: { courseId: number };
+	}>): Promise<APIHandlerResponse> {
+		const success = await this.courseService.delete(courseId);
+		return {
+			payload: { success },
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/:id:
 	 *    get:
-	 *      description: Return courses from vendors
+	 *      description: Get course by id from DB
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
+	private async find({
+		params: { courseId },
+	}: APIHandlerOptions<{
+		params: { courseId: number };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.find(courseId),
+			status: HTTPCode.OK,
+		};
+	}
+
+	private async findAll(): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.findAll(),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses:
+	 *    get:
+	 *      description: Return courses from vendors APIs
 	 *      parameters:
-	 *        - name: page
-	 *          in: query
-	 *          type: number
-	 *        - name: pageSize
-	 *          in: query
-	 *          type: number
 	 *        - name: search
 	 *          in: query
 	 *          type: string
-	 *        - name: vendors
+	 *        - name: vendorsKeys
 	 *          in: query
 	 *          type: string
 	 *          description: keys of vendors separated by commas. Example - "udemy,coursera"
@@ -167,6 +244,31 @@ class CourseController extends BaseController {
 				userId: user.id,
 				vendorsKeys,
 			}),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/:id:
+	 *    put:
+	 *      description: Update course from vendor API and save it in DB
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
+	private async update({
+		params: { courseId },
+	}: APIHandlerOptions<{
+		params: { courseId: number };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.update(courseId),
 			status: HTTPCode.OK,
 		};
 	}

@@ -113,20 +113,95 @@ class CourseRepository implements Repository<CourseEntity> {
 		return existingCourse;
 	}
 
-	public create(entity: CourseEntity): Promise<CourseEntity> {
-		return Promise.resolve(entity);
+	public async create(course: CourseEntity): Promise<CourseEntity> {
+		const courseModel = await this.courseModel
+			.query()
+			.insert(course.toNewObject())
+			.returning("*")
+			.withGraphFetched("vendor")
+			.castTo<CourseModel>()
+			.execute();
+
+		return CourseEntity.initialize({
+			createdAt: courseModel.createdAt,
+			description: courseModel.description,
+			id: courseModel.id,
+			image: courseModel.image,
+			title: courseModel.title,
+			updatedAt: courseModel.updatedAt,
+			url: courseModel.url,
+			vendor: VendorEntity.initialize({
+				createdAt: courseModel.vendor.createdAt,
+				id: courseModel.vendor.id,
+				key: courseModel.vendor.key,
+				name: courseModel.vendor.name,
+				updatedAt: courseModel.vendor.updatedAt,
+			}),
+			vendorCourseId: courseModel.vendorCourseId,
+			vendorId: courseModel.vendorId,
+		});
 	}
 
-	public delete(): Promise<boolean> {
-		return Promise.resolve(true);
+	public async delete(id: number): Promise<boolean> {
+		const itemsCount = await this.courseModel.query().deleteById(id).execute();
+		return Boolean(itemsCount);
 	}
 
-	public find(): Promise<CourseEntity | null> {
-		return Promise.resolve(null);
+	public async find(id: number): Promise<CourseEntity | null> {
+		const courseModel = await this.courseModel
+			.query()
+			.findById(id)
+			.withGraphFetched("vendor")
+			.execute();
+
+		return courseModel
+			? CourseEntity.initialize({
+					createdAt: courseModel.createdAt,
+					description: courseModel.description,
+					id: courseModel.id,
+					image: courseModel.image,
+					title: courseModel.title,
+					updatedAt: courseModel.updatedAt,
+					url: courseModel.url,
+					vendor: VendorEntity.initialize({
+						createdAt: courseModel.vendor.createdAt,
+						id: courseModel.vendor.id,
+						key: courseModel.vendor.key,
+						name: courseModel.vendor.name,
+						updatedAt: courseModel.vendor.updatedAt,
+					}),
+					vendorCourseId: courseModel.vendorCourseId,
+					vendorId: courseModel.vendorId,
+				})
+			: null;
 	}
 
-	public findAll(): Promise<CourseEntity[]> {
-		return Promise.resolve([]);
+	public async findAll(): Promise<CourseEntity[]> {
+		const courses = await this.courseModel
+			.query()
+			.withGraphFetched("vendor")
+			.execute();
+
+		return courses.map((course) => {
+			return CourseEntity.initialize({
+				createdAt: course.createdAt,
+				description: course.description,
+				id: course.id,
+				image: course.image,
+				title: course.title,
+				updatedAt: course.updatedAt,
+				url: course.url,
+				vendor: VendorEntity.initialize({
+					createdAt: course.vendor.createdAt,
+					id: course.vendor.id,
+					key: course.vendor.key,
+					name: course.vendor.name,
+					updatedAt: course.vendor.updatedAt,
+				}),
+				vendorCourseId: course.vendorCourseId,
+				vendorId: course.vendorId,
+			});
+		});
 	}
 
 	public async findByVendorCourseId(
@@ -138,11 +213,61 @@ class CourseRepository implements Repository<CourseEntity> {
 			.findOne("vendorCourseId", vendorCourseId)
 			.execute();
 
-		return course ? this.modelToEntity(course) : null;
+		return course
+			? CourseEntity.initialize({
+					createdAt: course.createdAt,
+					description: course.description,
+					id: course.id,
+					image: course.image,
+					title: course.title,
+					updatedAt: course.updatedAt,
+					url: course.url,
+					vendor: VendorEntity.initialize({
+						createdAt: course.vendor.createdAt,
+						id: course.vendor.id,
+						key: course.vendor.key,
+						name: course.vendor.name,
+						updatedAt: course.vendor.updatedAt,
+					}),
+					vendorCourseId: course.vendorCourseId,
+					vendorId: course.vendorId,
+				})
+			: null;
 	}
 
-	public update(): Promise<CourseEntity | null> {
-		return Promise.resolve(null);
+	public async update(
+		id: number,
+		entity: CourseEntity,
+	): Promise<CourseEntity | null> {
+		const course = entity.toNewObject();
+		const courseModel = await this.courseModel
+			.query()
+			.findById(id)
+			.patch(course)
+			.returning("*")
+			.castTo<CourseModel>()
+			.execute();
+
+		return courseModel.id
+			? CourseEntity.initialize({
+					createdAt: courseModel.createdAt,
+					description: courseModel.description,
+					id: courseModel.id,
+					image: courseModel.image,
+					title: courseModel.title,
+					updatedAt: courseModel.updatedAt,
+					url: courseModel.url,
+					vendor: VendorEntity.initialize({
+						createdAt: courseModel.vendor.createdAt,
+						id: courseModel.vendor.id,
+						key: courseModel.vendor.key,
+						name: courseModel.vendor.name,
+						updatedAt: courseModel.vendor.updatedAt,
+					}),
+					vendorCourseId: courseModel.vendorCourseId,
+					vendorId: courseModel.vendorId,
+				})
+			: null;
 	}
 }
 

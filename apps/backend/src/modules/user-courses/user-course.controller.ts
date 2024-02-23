@@ -6,6 +6,9 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { AddCourseRequestDto } from "~/modules/courses/libs/types/types.js";
+import { addCourseValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
+import { UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
 import { type UserCourseService } from "./user-course.service.js";
@@ -18,6 +21,20 @@ class UserCourseController extends BaseController {
 
 		this.userCourseService = userCourseService;
 
+		this.addRoute({
+			handler: (options) =>
+				this.addCourse(
+					options as APIHandlerOptions<{
+						body: AddCourseRequestDto;
+						user: UserAuthResponseDto;
+					}>,
+				),
+			method: "POST",
+			path: UserCoursesApiPath.ROOT,
+			validation: {
+				body: addCourseValidationSchema,
+			},
+		});
 		this.addRoute({
 			handler: (options) =>
 				this.findAllByUser(
@@ -33,12 +50,51 @@ class UserCourseController extends BaseController {
 	/**
 	 * @swagger
 	 * /user-courses:
+	 *    post:
+	 *      description: Fetch course from vendor API and add for user in DB
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                vendorCourseId:
+	 *                  type: string
+	 *                vendorId:
+	 *                  type: number
+	 *                  format: number
+	 *                  minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
+	private async addCourse({
+		body,
+		user,
+	}: APIHandlerOptions<{
+		body: AddCourseRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userCourseService.addCourse({
+				...body,
+				userId: user.id,
+			}),
+			status: HTTPCode.CREATED,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /user-courses/:userId:
 	 *    get:
 	 *      description: Return all user courses
-	 *      parameters:
-	 *        - name: userId
-	 *          in: query
-	 *          type: number
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
