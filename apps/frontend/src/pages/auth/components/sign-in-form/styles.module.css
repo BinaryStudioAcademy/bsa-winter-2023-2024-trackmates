@@ -40,6 +40,10 @@
 	padding-right: 50px;
 }
 
+.button {
+	margin-top: 15px;
+}
+
 .icon {
 	position: absolute;
 	top: 32px;
