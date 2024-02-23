@@ -31,6 +31,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.FRIENDS,
 							},
 							{
+								element: <ProtectedRoute component={<Friends />} />,
+								path: AppRoute.FRIENDS_FOLLOWERS,
+							},
+							{
+								element: <ProtectedRoute component={<Friends />} />,
+								path: AppRoute.FRIENDS_FOLLOWINGS,
+							},
+							{
 								element: <ProtectedRoute component={<Overview />} />,
 								path: AppRoute.ROOT,
 							},

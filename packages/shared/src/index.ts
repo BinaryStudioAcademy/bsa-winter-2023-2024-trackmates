@@ -35,7 +35,12 @@ export {
 	type FileUploadResponseDto,
 	FilesApiPath,
 } from "./modules/files/files.js";
-export { type FriendDto } from "./modules/friends/friends.js";
+export {
+	type FriendFollowRequestDto,
+	type FriendFollowResponseDto,
+	type FriendUnfollowRequestDto,
+	FriendsApiPath,
+} from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,
 	UserError,
