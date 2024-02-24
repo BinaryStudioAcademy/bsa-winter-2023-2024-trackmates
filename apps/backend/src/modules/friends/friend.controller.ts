@@ -132,12 +132,13 @@ class FriendController extends BaseController {
 			path: FriendsApiPath.ROOT,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.getUserFollowers(
+			handler: (options) => {
+				return this.getUserFollowers(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: FriendsApiPath.FOLLOWERS,
 		});
