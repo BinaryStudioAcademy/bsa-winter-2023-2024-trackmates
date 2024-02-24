@@ -4,7 +4,6 @@
 	min-height: 100vh;
 	padding-top: 178px;
 	padding-bottom: 20px;
-	font-family: Roboto, sans-serif;
 	background-color: var(--color-menu);
 	background-image: url("~/assets/img/svg/background-cloud-one.svg"),
 		url("~/assets/img/svg/background-cloud-two.svg"),
