@@ -53,13 +53,14 @@ class FriendController extends BaseController {
 		this.friendService = friendService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.createSubscription(
+			handler: (options) => {
+				return this.createSubscription(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: FriendsApiPath.FOLLOW,
 			validation: {
@@ -67,13 +68,14 @@ class FriendController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.deleteSubscription(
+			handler: (options) => {
+				return this.deleteSubscription(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "DELETE",
 			path: FriendsApiPath.UNFOLLOW,
 			validation: {
@@ -81,12 +83,13 @@ class FriendController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.delete(
+			handler: (options) => {
+				return this.delete(
 					options as APIHandlerOptions<{
 						params: FriendFollowingRequestDto;
 					}>,
-				),
+				);
+			},
 			method: "DELETE",
 			path: FriendsApiPath.UNFOLLOW_BY_$ID,
 			validation: {
@@ -94,12 +97,13 @@ class FriendController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.update(
+			handler: (options) => {
+				return this.update(
 					options as APIHandlerOptions<{
 						body: FriendFollowingRequestDto;
 					}>,
-				),
+				);
+			},
 			method: "PATCH",
 			path: FriendsApiPath.UPDATE,
 			validation: {
@@ -107,12 +111,13 @@ class FriendController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.find(
+			handler: (options) => {
+				return this.find(
 					options as APIHandlerOptions<{
 						params: FriendFollowingRequestDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: FriendsApiPath.$ID,
 			validation: {
@@ -120,7 +125,9 @@ class FriendController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: () => this.findAll(),
+			handler: () => {
+				return this.findAll();
+			},
 			method: "GET",
 			path: FriendsApiPath.ROOT,
 		});
@@ -135,22 +142,24 @@ class FriendController extends BaseController {
 			path: FriendsApiPath.FOLLOWERS,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.getUserFollowings(
+			handler: (options) => {
+				return this.getUserFollowers(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: FriendsApiPath.FOLLOWINGS,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.getPotentialFollowers(
+			handler: (options) => {
+				return this.getPotentialFollowers(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: FriendsApiPath.POTENTIAL_FOLLOWINGS,
 		});
