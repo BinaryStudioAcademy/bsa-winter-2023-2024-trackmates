@@ -43,7 +43,6 @@ export {
 export {
 	type UserAuthResponseDto,
 	UserError,
-	type UserFileResponseDto,
 	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,

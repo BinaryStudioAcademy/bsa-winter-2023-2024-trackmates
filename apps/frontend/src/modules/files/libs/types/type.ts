@@ -1,1 +1,1 @@
-export { type UserFileResponseDto } from "shared";
+export { type FileUploadResponseDto } from "shared";
