@@ -99,10 +99,10 @@ class VendorRepository implements Repository<VendorEntity> {
 			.execute();
 
 		if (!vendorModel.id) {
-			throw new VendorError(
-				VendorErrorMessage.NOT_FOUND_VENDOR,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new VendorError({
+				message: VendorErrorMessage.NOT_FOUND_VENDOR,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return vendorModel.id

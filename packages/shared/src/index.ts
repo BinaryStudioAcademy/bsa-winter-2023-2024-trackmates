@@ -6,10 +6,7 @@ export {
 	ExceptionMessage,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
-export {
-	ApplicationError,
-	ValidationError,
-} from "./libs/exceptions/exceptions.js";
+export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
 	getSizeInBytes,

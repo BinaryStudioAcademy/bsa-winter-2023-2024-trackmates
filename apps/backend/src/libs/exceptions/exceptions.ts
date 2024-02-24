@@ -1,1 +1,1 @@
-export { ApplicationError, ValidationError } from "shared";
+export { ValidationError } from "shared";

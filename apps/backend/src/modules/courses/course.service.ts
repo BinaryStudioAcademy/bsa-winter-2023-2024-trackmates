@@ -1,5 +1,4 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
-import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import {
 	type VendorApi,
 	type VendorResponseDto,
@@ -51,8 +50,9 @@ class CourseService {
 		const vendor = await this.vendorService.findById(vendorId);
 
 		if (!vendor) {
-			throw new ApplicationError({
-				message: `Not found vendor with id "${vendorId}"`,
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_VENDOR,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
@@ -63,8 +63,9 @@ class CourseService {
 		const vendorModule = this.vendorsApiMap[vendorKey];
 
 		if (!vendorModule) {
-			throw new ApplicationError({
-				message: `Not found api for vendor with key "${vendorKey}"`,
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_API_FOR_VENDOR,
+				status: HTTPCode.INTERNAL_SERVER_ERROR,
 			});
 		}
 
@@ -118,10 +119,10 @@ class CourseService {
 			await this.courseRepository.findByVendorCourseId(vendorCourseId);
 
 		if (existingCourse) {
-			throw new CourseError(
-				CourseErrorMessage.COURSE_IS_ALREADY_EXISTS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.COURSE_IS_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
@@ -138,10 +139,10 @@ class CourseService {
 		const entity = await this.courseRepository.find(id);
 
 		if (!entity) {
-			throw new CourseError(
-				CourseErrorMessage.NOT_FOUND_COURSE,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return entity.toObject();
@@ -189,10 +190,10 @@ class CourseService {
 		const existingCourse = await this.courseRepository.find(id);
 
 		if (!existingCourse) {
-			throw new CourseError(
-				CourseErrorMessage.NOT_FOUND_COURSE,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const { vendorCourseId, vendorId } = existingCourse.toObject();

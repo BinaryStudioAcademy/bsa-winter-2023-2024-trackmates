@@ -53,12 +53,13 @@ class CourseController extends BaseController {
 		this.courseService = courseService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.create(
+			handler: (options) => {
+				return this.create(
 					options as APIHandlerOptions<{
 						body: AddCourseRequestDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: CoursesApiPath.ROOT,
 			validation: {
@@ -66,12 +67,13 @@ class CourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.delete(
+			handler: (options) => {
+				return this.delete(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
-				),
+				);
+			},
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
@@ -79,12 +81,13 @@ class CourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.find(
+			handler: (options) => {
+				return this.find(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
@@ -92,23 +95,25 @@ class CourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.findAllByVendors(
+			handler: (options) => {
+				return this.findAllByVendors(
 					options as APIHandlerOptions<{
 						query: CourseSearchRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: CoursesApiPath.ROOT,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.update(
+			handler: (options) => {
+				return this.update(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
-				),
+				);
+			},
 			method: "PUT",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {

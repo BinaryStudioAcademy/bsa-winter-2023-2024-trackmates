@@ -1,4 +1,4 @@
-import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/user.model.js";
@@ -68,10 +68,10 @@ class CourseRepository implements Repository<CourseEntity> {
 		const hasUserTheCourse = Boolean(courseRelatedWithUser);
 
 		if (hasUserTheCourse) {
-			throw new CourseError(
-				CourseErrorMessage.COURSE_IS_ALREADY_ADDED_FOR_USER,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.COURSE_IS_ALREADY_ADDED_FOR_USER,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		await this.userModel
@@ -199,10 +199,10 @@ class CourseRepository implements Repository<CourseEntity> {
 		const user = await this.userModel.query().findById(userId);
 
 		if (!user) {
-			throw new CourseError(
-				CourseErrorMessage.NOT_FOUND_USER,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_USER,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const courseModels = await user
