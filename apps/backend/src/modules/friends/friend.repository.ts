@@ -106,8 +106,8 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.withGraphJoined("userDetails");
 
-		return followings.map((user) =>
-			UserEntity.initialize({
+		return followings.map((user) => {
+			return UserEntity.initialize({
 				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
@@ -117,8 +117,8 @@ class FriendRepository implements Repository<UserEntity> {
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
-			}),
-		);
+			});
+		});
 	}
 
 	public async getIsSubscribedByRequestId(
@@ -151,8 +151,8 @@ class FriendRepository implements Repository<UserEntity> {
 			.whereNull(`${DatabaseTableName.USER_FRIENDS}.follower_id`)
 			.withGraphJoined("userDetails");
 
-		return potentialFollowers.map((user) =>
-			UserEntity.initialize({
+		return potentialFollowers.map((user) => {
+			return UserEntity.initialize({
 				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
@@ -162,8 +162,8 @@ class FriendRepository implements Repository<UserEntity> {
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
-			}),
-		);
+			});
+		});
 	}
 
 	public async getUserFollowers(id: number): Promise<UserEntity[]> {
@@ -178,8 +178,8 @@ class FriendRepository implements Repository<UserEntity> {
 			.where(`${DatabaseTableName.USER_FRIENDS}.following_id`, "=", id)
 			.withGraphJoined("userDetails");
 
-		return userFollowers.map((user) =>
-			UserEntity.initialize({
+		return userFollowers.map((user) => {
+			return UserEntity.initialize({
 				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
@@ -189,8 +189,8 @@ class FriendRepository implements Repository<UserEntity> {
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
-			}),
-		);
+			});
+		});
 	}
 
 	public async getUserFollowings(id: number): Promise<UserEntity[]> {
@@ -205,8 +205,8 @@ class FriendRepository implements Repository<UserEntity> {
 			.where(`${DatabaseTableName.USER_FRIENDS}.follower_id`, "=", id)
 			.withGraphJoined("userDetails");
 
-		return userFollowings.map((user) =>
-			UserEntity.initialize({
+		return userFollowings.map((user) => {
+			return UserEntity.initialize({
 				avatarUrl: user.userDetails.avatarFile?.url ?? null,
 				createdAt: user.createdAt,
 				email: user.email,
@@ -216,8 +216,8 @@ class FriendRepository implements Repository<UserEntity> {
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
-			}),
-		);
+			});
+		});
 	}
 
 	public async update(id: number): Promise<UserEntity> {

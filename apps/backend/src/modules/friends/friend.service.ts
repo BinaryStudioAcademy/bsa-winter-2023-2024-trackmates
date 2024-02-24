@@ -114,25 +114,19 @@ class FriendService {
 	): Promise<UserAuthResponseDto[]> {
 		const followers = await this.friendRepository.getPotentialFollowers(id);
 
-		return followers.map((user) => {
-			return user.toObject();
-		});
+		return followers.map((user) => user.toObject());
 	}
 
 	public async getUserFollowers(id: number): Promise<UserAuthResponseDto[]> {
 		const followers = await this.friendRepository.getUserFollowers(id);
 
-		return followers.map((user) => {
-			return user.toObject();
-		});
+		return followers.map((user) => user.toObject());
 	}
 
 	public async getUserFollowings(id: number): Promise<UserAuthResponseDto[]> {
 		const followings = await this.friendRepository.getUserFollowings(id);
 
-		return followings.map((user) => {
-			return user.toObject();
-		});
+		return followings.map((user) => user.toObject());
 	}
 
 	public async update(id: number): Promise<UserAuthResponseDto> {
