@@ -1,6 +1,6 @@
 import { Courses, Input, Loader, Modal } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
-import { debounce } from "~/libs/helpers/helpers.js";
+import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -55,7 +55,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		filterFormData: typeof DEFAULT_SEARCH_COURSE_PAYLOAD,
 	): void => {
 		void dispatch(
-			courseActions.search({
+			courseActions.getAll({
 				search: filterFormData.search,
 				vendorsKeys: getVendorsFromForm(filterFormData.vendors),
 			}),
@@ -66,7 +66,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		void handleSubmit(handleSearchCourses)(event_);
 	};
 
-	const debouncedSearchCourses = debounce(
+	const debouncedSearchCourses = initDebounce(
 		handleFormChange,
 		SEARCH_COURSES_DELAY_MS,
 	);

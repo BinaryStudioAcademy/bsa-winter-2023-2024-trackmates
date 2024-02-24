@@ -8,7 +8,7 @@ import {
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
-const search = createAsyncThunk<
+const getAll = createAsyncThunk<
 	CoursesResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
@@ -18,4 +18,4 @@ const search = createAsyncThunk<
 	return courseApi.getAll(filterPayload);
 });
 
-export { search };
+export { getAll };

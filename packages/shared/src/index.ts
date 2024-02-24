@@ -12,8 +12,8 @@ export {
 } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
-	debounce,
 	getSizeInBytes,
+	initDebounce,
 } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {

@@ -15,7 +15,7 @@ type Properties = {
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
-	style?: "clear" | "filled" | "outlined";
+	style?: "filled" | "outlined";
 	type?: "button" | "submit";
 };
 
