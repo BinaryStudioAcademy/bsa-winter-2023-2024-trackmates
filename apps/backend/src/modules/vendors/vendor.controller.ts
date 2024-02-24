@@ -97,6 +97,8 @@ class VendorController extends BaseController {
 	 * @swagger
 	 * /vendors:
 	 *    post:
+	 *      security:
+	 *        - bearerAuth: []
 	 *      description: Create new vendor and return it
 	 *      requestBody:
 	 *        required: true
@@ -131,9 +133,11 @@ class VendorController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /vendors/:id:
+	 * /vendors/{id}:
 	 *    delete:
 	 *      description: Delete vendor by id
+	 *      security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -160,9 +164,11 @@ class VendorController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /vendors/:id:
+	 * /vendors/{id}:
 	 *    get:
 	 *      description: Return vendor by id
+	 *      security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -188,6 +194,8 @@ class VendorController extends BaseController {
 	 * /vendors:
 	 *    get:
 	 *      description: Return all vendors
+	 *      security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -208,9 +216,11 @@ class VendorController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /vendors/:id:
+	 * /vendors/{id}:
 	 *    put:
 	 *      description: Update vendor and return it
+	 *      security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        required: true
 	 *        content:

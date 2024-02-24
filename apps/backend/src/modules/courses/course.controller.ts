@@ -122,6 +122,8 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    post:
 	 *      description: Fetch course from vendor API and add for user in DB
+	 *      security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        required: true
 	 *        content:
@@ -160,6 +162,8 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    delete:
 	 *      description: Delete course by id
+	 *      security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -186,8 +190,10 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/:id:
+	 * /courses/{id}:
 	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
 	 *      description: Get course by id from DB
 	 *      responses:
 	 *        200:
@@ -214,6 +220,8 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    get:
 	 *      description: Return courses from vendors APIs
+	 *      security:
+	 *        - bearerAuth: []
 	 *      parameters:
 	 *        - name: search
 	 *          in: query
@@ -257,9 +265,11 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/:id:
+	 * /courses/{id}:
 	 *    put:
 	 *      description: Update course from vendor API and save it in DB
+	 *      security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

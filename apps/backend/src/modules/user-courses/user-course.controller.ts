@@ -96,9 +96,11 @@ class UserCourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /user-courses/:userId:
+	 * /user-courses/{userId}:
 	 *    get:
 	 *      description: Return all user courses
+	 *      security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
