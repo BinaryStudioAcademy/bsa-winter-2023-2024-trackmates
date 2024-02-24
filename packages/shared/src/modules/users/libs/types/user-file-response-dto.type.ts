@@ -1,4 +1,5 @@
-import { type ContentType, type ValueOf } from "../../../../index.js";
+import { type ContentType } from "../../../../libs/enums/enums.js";
+import { type ValueOf } from "../../../../libs/types/types.js";
 
 type UserFileResponseDto = {
 	contentType: ValueOf<typeof ContentType>;
