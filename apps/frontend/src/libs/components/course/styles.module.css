@@ -62,3 +62,22 @@
 	padding: 14px 30px;
 	background-color: var(--color-menu);
 }
+
+.course-details-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4px 16px;
+	font-size: var(--font-size-200);
+	color: var(--main-white);
+	text-align: center;
+	text-decoration: none;
+	background-color: transparent;
+	border: 1px solid var(--main-white);
+	border-radius: 26px;
+}
+
+.course-details-link:hover {
+	color: var(--color-button);
+	border-color: var(--color-button);
+}
