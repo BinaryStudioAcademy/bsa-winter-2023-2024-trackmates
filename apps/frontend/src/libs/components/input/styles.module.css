@@ -15,6 +15,7 @@
 .input {
 	max-height: 37px;
 	padding: 12px;
+	font-family: inherit;
 	border: none;
 	border-radius: 51px;
 	outline: none;
