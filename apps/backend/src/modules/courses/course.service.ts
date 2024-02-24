@@ -2,6 +2,7 @@ import { HTTPCode } from "~/libs/enums/enums.js";
 import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import {
 	type VendorApi,
+	type VendorResponseDto,
 	type VendorService,
 } from "~/modules/vendors/vendors.js";
 
@@ -9,11 +10,7 @@ import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
-import {
-	type CourseDto,
-	type CoursesResponseDto,
-	type VendorResponseDto,
-} from "./libs/types/types.js";
+import { type CourseDto, type CoursesResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
@@ -177,8 +174,8 @@ class CourseService {
 			: await this.vendorService.findAll();
 
 		const vendorsCourses = await Promise.all(
-			vendors.map(async (vendor) => {
-				return await this.findAllByVendor(search, vendor);
+			vendors.map((vendor) => {
+				return this.findAllByVendor(search, vendor);
 			}),
 		);
 		let courses = vendorsCourses.flat();

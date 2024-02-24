@@ -120,9 +120,7 @@ class UserCourseController extends BaseController {
 	}: APIHandlerOptions<{
 		params: { userId: string };
 	}>): Promise<APIHandlerResponse> {
-		const courses = await this.userCourseService.findAllByUser(
-			Number.parseInt(userId),
-		);
+		const courses = await this.userCourseService.findAllByUser(Number(userId));
 
 		return {
 			payload: { courses },

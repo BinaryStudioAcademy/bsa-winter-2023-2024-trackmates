@@ -154,7 +154,7 @@ class VendorController extends BaseController {
 	}: APIHandlerOptions<{
 		params: { vendorId: string };
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.vendorService.delete(Number.parseInt(vendorId));
+		const success = await this.vendorService.delete(Number(vendorId));
 
 		return {
 			payload: { success },
@@ -184,7 +184,7 @@ class VendorController extends BaseController {
 		params: { vendorId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.vendorService.find(Number.parseInt(vendorId)),
+			payload: await this.vendorService.find(Number(vendorId)),
 			status: HTTPCode.OK,
 		};
 	}
@@ -245,7 +245,7 @@ class VendorController extends BaseController {
 		params: { vendorId: string };
 	}>): Promise<APIHandlerResponse> {
 		const updatedVendor = await this.vendorService.update(
-			Number.parseInt(vendorId),
+			Number(vendorId),
 			body,
 		);
 

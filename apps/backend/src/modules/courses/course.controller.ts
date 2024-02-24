@@ -180,7 +180,7 @@ class CourseController extends BaseController {
 	}: APIHandlerOptions<{
 		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.courseService.delete(Number.parseInt(courseId));
+		const success = await this.courseService.delete(Number(courseId));
 
 		return {
 			payload: { success },
@@ -210,7 +210,7 @@ class CourseController extends BaseController {
 		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.find(Number.parseInt(courseId)),
+			payload: await this.courseService.find(Number(courseId)),
 			status: HTTPCode.OK,
 		};
 	}
@@ -285,7 +285,7 @@ class CourseController extends BaseController {
 		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.update(Number.parseInt(courseId)),
+			payload: await this.courseService.update(Number(courseId)),
 			status: HTTPCode.OK,
 		};
 	}

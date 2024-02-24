@@ -1,6 +1,5 @@
-import { CourseField } from "~/modules/vendors/vendors.js";
-
-import { type CourseFieldsMapping } from "../../../libs/types/types.js";
+import { CourseField } from "~/modules/vendors/libs/enums/enums.js";
+import { type CourseFieldsMapping } from "~/modules/vendors/libs/types/types.js";
 
 const UdemyFieldsMapping: CourseFieldsMapping = {
 	description: CourseField["DESCRIPTION"] as string,
