@@ -5,6 +5,7 @@ import { type MenuItem } from "~/libs/types/types.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
+import { Icon } from "../icon/icon.js";
 import { Image } from "../image/image.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
@@ -43,13 +44,19 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
-						<Button
-							className={styles["menu-item"]}
-							href={href}
-							iconName={icon}
-							key={label}
-							label={label}
-						/>
+						<>
+							<Button
+								className={styles["menu-item"]}
+								href={href}
+								iconName={icon}
+								key={label}
+								label={label}
+							/>
+							<Link className={styles["bottom-menu"]} to={href}>
+								<Icon name={icon} />
+								<span>{label}</span>
+							</Link>
+						</>
 					))}
 				</nav>
 			</div>
