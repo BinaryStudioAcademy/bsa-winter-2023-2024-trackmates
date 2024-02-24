@@ -64,6 +64,23 @@ class VendorRepository implements Repository<VendorEntity> {
 		});
 	}
 
+	public async findAllByKeys(keys: string[]): Promise<VendorEntity[]> {
+		const vendors = await this.vendorModel
+			.query()
+			.whereIn("key", keys)
+			.execute();
+
+		return vendors.map((vendor) => {
+			return VendorEntity.initialize({
+				createdAt: vendor.createdAt,
+				id: vendor.id,
+				key: vendor.key,
+				name: vendor.name,
+				updatedAt: vendor.updatedAt,
+			});
+		});
+	}
+
 	public async update(
 		id: number,
 		entity: VendorEntity,

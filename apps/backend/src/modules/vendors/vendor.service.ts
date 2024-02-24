@@ -55,9 +55,9 @@ class VendorService {
 	}
 
 	public async findAllByKeys(keys: string[]): Promise<VendorResponseDto[]> {
-		const vendors = await this.findAll();
+		const entities = await this.vendorRepository.findAllByKeys(keys);
 
-		return vendors.filter(({ key }) => keys.includes(key));
+		return entities.map((entity) => entity.toObject());
 	}
 
 	public async findById(id: number): Promise<VendorResponseDto | null> {
