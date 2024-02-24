@@ -1,5 +1,4 @@
 import { Button, Image } from "~/libs/components/components.js";
-import { VendorsLogoPath } from "~/libs/enums/enums.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
@@ -13,7 +12,6 @@ type Properties = {
 
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 	const { image, title, url, vendor, vendorCourseId } = course;
-	const source = VendorsLogoPath[vendor.key] ?? "";
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -26,7 +24,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 		<article className={styles["container"]}>
 			<div className={styles["content"]}>
 				<div className={styles["source-container"]}>
-					<Image alt="Course source logo" src={source} />
+					<Image alt="Course source logo" src={`vendors/${vendor.key}.svg`} />
 				</div>
 				<div className={styles["image-container"]}>
 					<Image alt="Course" src={image} />
