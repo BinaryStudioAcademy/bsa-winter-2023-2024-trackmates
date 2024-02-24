@@ -101,6 +101,14 @@ class UserCourseController extends BaseController {
 	 *      description: Return all user courses
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: userId
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

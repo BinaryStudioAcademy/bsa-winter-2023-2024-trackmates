@@ -159,11 +159,19 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses:
+	 * /courses/{id}:
 	 *    delete:
 	 *      description: Delete course by id
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -194,6 +202,14 @@ class CourseController extends BaseController {
 	 *    get:
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      description: Get course by id from DB
 	 *      responses:
 	 *        200:
@@ -270,6 +286,14 @@ class CourseController extends BaseController {
 	 *      description: Update course from vendor API and save it in DB
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
