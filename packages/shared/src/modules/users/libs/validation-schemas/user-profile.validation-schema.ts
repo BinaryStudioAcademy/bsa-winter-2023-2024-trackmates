@@ -14,7 +14,7 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		.min(UserValidationRule.FIRST_NAME_MINIMUM_LENGTH, {
 			message: UserValidationMessage.FIRST_NAME_MIN_LENGTH,
 		})
-		.max(UserValidationRule.FIRST_NAME_MAX_LENGTH, {
+		.max(UserValidationRule.FIRST_NAME_MAXIMUM_LENGTH, {
 			message: UserValidationMessage.FIRST_NAME_MAX_LENGTH,
 		})
 		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{2,16}(?<!['-])$/, {
@@ -26,7 +26,7 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		.min(UserValidationRule.LAST_NAME_MINIMUM_LENGTH, {
 			message: UserValidationMessage.LAST_NAME_MIN_LENGTH,
 		})
-		.max(UserValidationRule.LAST_NAME_MAX_LENGTH, {
+		.max(UserValidationRule.LAST_NAME_MAXIMUM_LENGTH, {
 			message: UserValidationMessage.LAST_NAME_MAX_LENGTH,
 		})
 		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{3,25}(?<!['-])$/, {

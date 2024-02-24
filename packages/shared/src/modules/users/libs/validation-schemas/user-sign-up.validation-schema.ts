@@ -22,7 +22,7 @@ const userSignUp = z
 			})
 			.regex(
 				new RegExp(
-					`^[a-zA-Z0-9._%+-]{1,${UserValidationRule.EMAIL_LOCAL_PART_MAX_LENGTH}}(?=@)`,
+					`^[a-zA-Z0-9._%+-]{1,${UserValidationRule.EMAIL_LOCAL_PART_MAXIMUM_LENGTH}}(?=@)`,
 				),
 				{
 					message: UserValidationMessage.EMAIL_LOCAL_PART_MAX_LENGTH,
@@ -30,7 +30,7 @@ const userSignUp = z
 			)
 			.regex(
 				new RegExp(
-					`(?<=@)[a-zA-Z0-9.-]{1,${UserValidationRule.EMAIL_DOMAIN_PART_MAX_LENGTH}}$`,
+					`(?<=@)[a-zA-Z0-9.-]{1,${UserValidationRule.EMAIL_DOMAIN_PART_MAXIMUM_LENGTH}}$`,
 				),
 				{
 					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAX_LENGTH,
@@ -54,7 +54,7 @@ const userSignUp = z
 			.min(UserValidationRule.FIRST_NAME_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIRST_NAME_MIN_LENGTH,
 			})
-			.max(UserValidationRule.FIRST_NAME_MAX_LENGTH, {
+			.max(UserValidationRule.FIRST_NAME_MAXIMUM_LENGTH, {
 				message: UserValidationMessage.FIRST_NAME_MAX_LENGTH,
 			})
 			.regex(/^['A-Za-z-]*$/, {
@@ -81,7 +81,7 @@ const userSignUp = z
 			.min(UserValidationRule.LAST_NAME_MINIMUM_LENGTH, {
 				message: UserValidationMessage.LAST_NAME_MIN_LENGTH,
 			})
-			.max(UserValidationRule.LAST_NAME_MAX_LENGTH, {
+			.max(UserValidationRule.LAST_NAME_MAXIMUM_LENGTH, {
 				message: UserValidationMessage.LAST_NAME_MAX_LENGTH,
 			})
 			.regex(/^['A-Za-z-]*$/, {
@@ -108,7 +108,7 @@ const userSignUp = z
 			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.PASSWORD_MIN_LENGTH,
 			})
-			.max(UserValidationRule.PASSWORD_MAX_LENGTH, {
+			.max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
 				message: UserValidationMessage.PASSWORD_MAX_LENGTH,
 			})
 			.regex(/^[\w!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]{8,26}$/, {
