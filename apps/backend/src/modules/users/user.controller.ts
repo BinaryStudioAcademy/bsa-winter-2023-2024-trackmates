@@ -52,19 +52,25 @@ class UserController extends BaseController {
 	 *          required: true
 	 *          schema:
 	 *            type: string
-	 *        - in: body
-	 *          name: user
-	 *          description: Updated user object
-	 *          required: true
-	 *          schema:
-	 *            $ref: '#/components/schemas/ProfileUpdate'
+	 *      requestBody:
+	 *        description: Updated user object
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                firstName:
+	 *                  type: string
+	 *                lastName:
+	 *                  type: string
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                $ref: '#/components/schemas/Profile'
+	 *                $ref: '#/components/schemas/User'
 	 *        '404':
 	 *          description: User not found
 	 *        '500':
