@@ -82,5 +82,6 @@ export {
 	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,
+	addVendorValidationSchema,
 	vendorIdParameterValidationSchema,
 } from "./modules/vendors/vendors.js";

@@ -7,7 +7,7 @@ const TableName = {
 };
 
 const KEY_COLUMN = "key";
-const row = { key: "udemy", name: "Udemy" };
+const row = { key: "udemy", name: "Udemy", url: "https://www.udemy.com" };
 
 async function up(knex: Knex): Promise<void> {
 	await knex(TableName.VENDORS).del();

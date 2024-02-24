@@ -70,6 +70,7 @@ erDiagram
     dateTime updated_at
     varchar name
     varchar key
+    varchar url
    }
 
    course_sections {

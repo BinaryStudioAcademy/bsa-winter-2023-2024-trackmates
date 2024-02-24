@@ -9,7 +9,10 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { VendorsApiPath } from "./libs/enums/enums.js";
 import { type VendorRequestDto } from "./libs/types/types.js";
-import { vendorIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	addVendorValidationSchema,
+	vendorIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 import { type VendorService } from "./vendor.service.js";
 
 /***
@@ -26,6 +29,8 @@ import { type VendorService } from "./vendor.service.js";
  *          key:
  *            type: string
  *          name:
+ *            type: string
+ *          url:
  *            type: string
  */
 class VendorController extends BaseController {
@@ -45,6 +50,9 @@ class VendorController extends BaseController {
 				),
 			method: "POST",
 			path: VendorsApiPath.ROOT,
+			validation: {
+				body: addVendorValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) =>
@@ -138,6 +146,14 @@ class VendorController extends BaseController {
 	 *      description: Delete vendor by id
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -169,6 +185,14 @@ class VendorController extends BaseController {
 	 *      description: Return vendor by id
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -221,6 +245,14 @@ class VendorController extends BaseController {
 	 *      description: Update vendor and return it
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      requestBody:
 	 *        required: true
 	 *        content:

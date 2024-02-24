@@ -5,11 +5,13 @@ class VendorEntity implements Entity {
 
 	private id: null | number;
 
-	public key!: string;
+	public key: string;
 
-	public name!: string;
+	public name: string;
 
 	public updatedAt: string;
+
+	public url: string;
 
 	private constructor({
 		createdAt,
@@ -17,17 +19,20 @@ class VendorEntity implements Entity {
 		key,
 		name,
 		updatedAt,
+		url,
 	}: {
 		createdAt: string;
 		id: null | number;
 		key: string;
 		name: string;
 		updatedAt: string;
+		url: string;
 	}) {
 		this.createdAt = createdAt;
 		this.id = id;
 		this.key = key;
 		this.name = name;
+		this.url = url;
 		this.updatedAt = updatedAt;
 	}
 
@@ -37,12 +42,14 @@ class VendorEntity implements Entity {
 		key,
 		name,
 		updatedAt,
+		url,
 	}: {
 		createdAt: string;
 		id: null | number;
 		key: string;
 		name: string;
 		updatedAt: string;
+		url: string;
 	}): VendorEntity {
 		return new VendorEntity({
 			createdAt,
@@ -50,15 +57,18 @@ class VendorEntity implements Entity {
 			key,
 			name,
 			updatedAt,
+			url,
 		});
 	}
 
 	public static initializeNew({
 		key,
 		name,
+		url,
 	}: {
 		key: string;
 		name: string;
+		url: string;
 	}): VendorEntity {
 		return new VendorEntity({
 			createdAt: "",
@@ -66,16 +76,19 @@ class VendorEntity implements Entity {
 			key,
 			name,
 			updatedAt: "",
+			url,
 		});
 	}
 
 	public toNewObject(): {
 		key: string;
 		name: string;
+		url: string;
 	} {
 		return {
 			key: this.key,
 			name: this.name,
+			url: this.url,
 		};
 	}
 
@@ -83,11 +96,13 @@ class VendorEntity implements Entity {
 		id: number;
 		key: string;
 		name: string;
+		url: string;
 	} {
 		return {
 			id: this.id as number,
 			key: this.key,
 			name: this.name,
+			url: this.url,
 		};
 	}
 }

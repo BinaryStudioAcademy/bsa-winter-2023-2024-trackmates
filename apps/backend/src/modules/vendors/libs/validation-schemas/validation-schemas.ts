@@ -1,1 +1,4 @@
-export { vendorIdParameterValidationSchema } from "shared";
+export {
+	addVendorValidationSchema,
+	vendorIdParameterValidationSchema,
+} from "shared";

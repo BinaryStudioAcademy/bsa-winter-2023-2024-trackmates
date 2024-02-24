@@ -25,6 +25,7 @@ class VendorService {
 			VendorEntity.initializeNew({
 				key: vendor.key,
 				name: vendor.name,
+				url: vendor.url,
 			}),
 		);
 
@@ -75,6 +76,7 @@ class VendorService {
 			VendorEntity.initializeNew({
 				key: vendor.key,
 				name: vendor.name,
+				url: vendor.url,
 			}),
 		);
 

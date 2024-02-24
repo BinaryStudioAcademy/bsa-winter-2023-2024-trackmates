@@ -27,6 +27,7 @@ class VendorRepository implements Repository<VendorEntity> {
 			key: vendorModel.key,
 			name: vendorModel.name,
 			updatedAt: vendorModel.updatedAt,
+			url: vendorModel.url,
 		});
 	}
 
@@ -46,6 +47,7 @@ class VendorRepository implements Repository<VendorEntity> {
 					key: vendor.key,
 					name: vendor.name,
 					updatedAt: vendor.updatedAt,
+					url: vendor.url,
 				})
 			: null;
 	}
@@ -60,6 +62,7 @@ class VendorRepository implements Repository<VendorEntity> {
 				key: vendor.key,
 				name: vendor.name,
 				updatedAt: vendor.updatedAt,
+				url: vendor.url,
 			});
 		});
 	}
@@ -77,6 +80,7 @@ class VendorRepository implements Repository<VendorEntity> {
 				key: vendor.key,
 				name: vendor.name,
 				updatedAt: vendor.updatedAt,
+				url: vendor.url,
 			});
 		});
 	}
@@ -108,6 +112,7 @@ class VendorRepository implements Repository<VendorEntity> {
 					key: vendorModel.key,
 					name: vendorModel.name,
 					updatedAt: vendorModel.updatedAt,
+					url: vendor.url,
 				})
 			: null;
 	}
