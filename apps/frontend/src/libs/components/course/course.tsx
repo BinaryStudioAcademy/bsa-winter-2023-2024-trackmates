@@ -12,7 +12,7 @@ type Properties = {
 };
 
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
-	const { image, title, vendor, vendorCourseId } = course;
+	const { image, title, url, vendor, vendorCourseId } = course;
 	const source = VendorsLogoPath[vendor.key] ?? "";
 
 	const handleAddCourse = useCallback(() => {
@@ -37,12 +37,14 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 			</div>
 			{onAddCourse && (
 				<div className={styles["actions"]}>
-					<Button
-						color="secondary"
-						label="Read more"
-						size="small"
-						style="outlined"
-					/>
+					<a
+						className={styles["course-details-link"]}
+						href={`${vendor.url}${url}`}
+						rel="noreferrer"
+						target="_blank"
+					>
+						Read more
+					</a>
 					<Button
 						color="secondary"
 						iconName="plusOutlined"
