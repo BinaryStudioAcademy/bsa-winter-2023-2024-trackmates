@@ -4,12 +4,14 @@ import {
 } from "../../../../../libs/modules/http/http.js";
 import { type ValueOf } from "../../../../../libs/types/value-of.type.js";
 
+type Constructor = {
+	message: string;
+	status: ValueOf<typeof HTTPCode>;
+};
+
 class FriendError extends HTTPError {
-	public constructor(message: string, status: ValueOf<typeof HTTPCode>) {
-		super({
-			message,
-			status,
-		});
+	public constructor(arguments_: Constructor) {
+		super(arguments_);
 	}
 }
 

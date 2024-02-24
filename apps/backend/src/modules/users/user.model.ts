@@ -18,7 +18,7 @@ class UserModel extends AbstractModel {
 				modelClass: UserDetailsModel,
 				relation: Model.HasOneRelation,
 			},
-			userFollowers: {
+			userFriends: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
 					through: {

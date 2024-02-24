@@ -88,7 +88,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "DELETE",
-			path: FriendsApiPath.UNFOLLOW_BY_ID,
+			path: FriendsApiPath.UNFOLLOW_BY_$ID,
 			validation: {
 				params: FriendRequestParametersValidationSchema,
 			},
@@ -114,7 +114,7 @@ class FriendController extends BaseController {
 					}>,
 				),
 			method: "GET",
-			path: FriendsApiPath.ID,
+			path: FriendsApiPath.$ID,
 			validation: {
 				params: FriendRequestParametersValidationSchema,
 			},

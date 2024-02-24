@@ -19,10 +19,10 @@ class FriendService {
 		followingUserId: number,
 	): Promise<UserAuthResponseDto | null> {
 		if (followerUserId === followingUserId) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_SEND_REQUEST_TO_YOURSELF,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new FriendError({
+				message: FriendErrorMessage.FRIEND_SEND_REQUEST_TO_YOURSELF,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const isSubscriptionExist =
@@ -32,10 +32,10 @@ class FriendService {
 			);
 
 		if (isSubscriptionExist) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_IS_ALREADY_FOLLOWING,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new FriendError({
+				message: FriendErrorMessage.FRIEND_IS_ALREADY_FOLLOWING,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const followingUser = await this.friendRepository.create({
@@ -43,17 +43,17 @@ class FriendService {
 			followingUserId,
 		});
 
-		return followingUser?.toObject() ?? null;
+		return followingUser.toObject();
 	}
 
 	public async delete(id: number): Promise<boolean> {
 		const isDeletedSuccess = await this.friendRepository.delete(id);
 
 		if (!isDeletedSuccess) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_UPDATE_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new FriendError({
+				message: FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return isDeletedSuccess;
@@ -67,10 +67,10 @@ class FriendService {
 			await this.friendRepository.getIsSubscribedByRequestId(id, userId);
 
 		if (!isFollowingNow) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_REQUEST_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new FriendError({
+				message: FriendErrorMessage.FRIEND_REQUEST_ERROR,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const isDeletedSuccess = await this.friendRepository.deleteSubscription(
@@ -79,10 +79,10 @@ class FriendService {
 		);
 
 		if (!isDeletedSuccess) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_UPDATE_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new FriendError({
+				message: FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return isDeletedSuccess;
@@ -92,10 +92,10 @@ class FriendService {
 		const foundUser = await this.friendRepository.find(id);
 
 		if (!foundUser) {
-			throw new FriendError(
-				FriendErrorMessage.FRIEND_SEARCH_ERROR,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new FriendError({
+				message: FriendErrorMessage.FRIEND_SEARCH_ERROR,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return foundUser.toObject();
