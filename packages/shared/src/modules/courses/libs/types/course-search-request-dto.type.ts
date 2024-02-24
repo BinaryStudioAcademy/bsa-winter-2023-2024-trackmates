@@ -1,6 +1,6 @@
 type CourseSearchRequestDto = {
 	search: string;
-	vendorsKey?: string;
+	vendorsKeys?: string;
 };
 
 export { type CourseSearchRequestDto };

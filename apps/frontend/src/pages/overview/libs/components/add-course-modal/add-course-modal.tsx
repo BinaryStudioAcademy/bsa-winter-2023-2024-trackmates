@@ -57,7 +57,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		void dispatch(
 			courseActions.getAll({
 				search: filterFormData.search,
-				vendorsKey: getVendorsFromForm(filterFormData.vendors),
+				vendorsKeys: getVendorsFromForm(filterFormData.vendors),
 			}),
 		);
 	};
