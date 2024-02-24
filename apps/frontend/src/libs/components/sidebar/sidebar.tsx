@@ -1,6 +1,6 @@
 import logo from "~/assets/img/website-logo.png";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useCallback, useState } from "~/libs/hooks/hooks.js";
+import { useCallback, useLocation, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
@@ -16,6 +16,8 @@ type Properties = {
 
 const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const [isOpen, setOpen] = useState<boolean>(false);
+
+	const location = useLocation();
 
 	const handleToggleSidebar = useCallback(() => {
 		setOpen((isOpen) => !isOpen);
@@ -52,7 +54,13 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 								key={label}
 								label={label}
 							/>
-							<Link className={styles["bottom-menu"]} to={href}>
+							<Link
+								className={getValidClassNames(
+									styles["bottom-menu"],
+									href === location.pathname ? styles["active"] : "",
+								)}
+								to={href}
+							>
 								<Icon name={icon} />
 								<span>{label}</span>
 							</Link>

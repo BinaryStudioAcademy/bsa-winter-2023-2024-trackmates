@@ -143,38 +143,6 @@
 }
 
 @media (display-mode: standalone) and (width <= 480px) {
-	.sidebar {
-		position: fixed;
-		bottom: 0;
-		left: 0;
-		width: 100%;
-		height: fit-content;
-		margin-top: 72px;
-	}
-
-	.menu-item {
-		display: none;
-	}
-
-	.sidebar.close {
-		width: 100%;
-		transform: none;
-	}
-
-	.title-container {
-		display: none;
-	}
-
-	.menu {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-	}
-
-	.burger-button {
-		visibility: hidden;
-	}
-
 	.bottom-menu {
 		display: flex;
 		flex-direction: column;
@@ -189,5 +157,42 @@
 	.bottom-menu:hover {
 		color: var(--main-orange);
 		fill: var(--main-orange);
+	}
+
+	.active {
+		color: var(--main-orange);
+		fill: var(--main-orange);
+	}
+
+	.sidebar {
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: fit-content;
+		margin-top: 72px;
+	}
+
+	.sidebar.close {
+		width: 100%;
+		transform: none;
+	}
+
+	.menu {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+	}
+
+	.menu-item {
+		display: none;
+	}
+
+	.title-container {
+		display: none;
+	}
+
+	.burger-button {
+		visibility: hidden;
 	}
 }
