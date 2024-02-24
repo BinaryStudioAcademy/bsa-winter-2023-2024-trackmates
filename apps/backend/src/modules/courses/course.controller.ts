@@ -247,7 +247,7 @@ class CourseController extends BaseController {
 	 *        - name: search
 	 *          in: query
 	 *          type: string
-	 *        - name: vendorsKeys
+	 *        - name: vendorsKey
 	 *          in: query
 	 *          type: string
 	 *          description: keys of vendors separated by commas. Example - "udemy,coursera"
@@ -272,13 +272,13 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKeys } = query;
+		const { search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.findAllByVendors({
 				search,
 				userId: user.id,
-				vendorsKeys,
+				vendorsKey,
 			}),
 			status: HTTPCode.OK,
 		};

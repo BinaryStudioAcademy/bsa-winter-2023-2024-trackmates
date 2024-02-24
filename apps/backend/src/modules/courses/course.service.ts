@@ -167,11 +167,11 @@ class CourseService {
 	public async findAllByVendors(parameters: {
 		search: string;
 		userId: number;
-		vendorsKeys: string | undefined;
+		vendorsKey: string | undefined;
 	}): Promise<CoursesResponseDto> {
-		const { search, userId, vendorsKeys } = parameters;
-		const vendors = vendorsKeys
-			? await this.vendorService.findAllByKeys(vendorsKeys.split(","))
+		const { search, userId, vendorsKey } = parameters;
+		const vendors = vendorsKey
+			? await this.vendorService.findAllByKeys(vendorsKey.split(","))
 			: await this.vendorService.findAll();
 
 		const vendorsCourses = await Promise.all(
