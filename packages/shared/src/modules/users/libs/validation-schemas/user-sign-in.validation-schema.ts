@@ -23,7 +23,7 @@ const userSignIn = z
 					`^[a-zA-Z0-9._%+-]{1,${UserValidationRule.EMAIL_LOCAL_PART_MAXIMUM_LENGTH}}(?=@)`,
 				),
 				{
-					message: UserValidationMessage.EMAIL_LOCAL_PART_MAX_LENGTH,
+					message: UserValidationMessage.EMAIL_LOCAL_PART_MAXIMUM_LENGTH,
 				},
 			)
 			.regex(
@@ -31,7 +31,7 @@ const userSignIn = z
 					`(?<=@)[a-zA-Z0-9.-]{1,${UserValidationRule.EMAIL_DOMAIN_PART_MAXIMUM_LENGTH}}$`,
 				),
 				{
-					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAX_LENGTH,
+					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAXIMUM_LENGTH,
 				},
 			)
 			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
@@ -47,10 +47,10 @@ const userSignIn = z
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-				message: UserValidationMessage.PASSWORD_MIN_LENGTH,
+				message: UserValidationMessage.PASSWORD_MINIMUM_LENGTH,
 			})
 			.max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
-				message: UserValidationMessage.PASSWORD_MAX_LENGTH,
+				message: UserValidationMessage.PASSWORD_MAXIMUM_LENGTH,
 			}),
 	})
 	.required();
