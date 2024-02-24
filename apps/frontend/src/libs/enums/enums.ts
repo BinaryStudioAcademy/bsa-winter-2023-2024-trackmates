@@ -6,6 +6,5 @@ export {
 	AppEnvironment,
 	ContentType,
 	ExceptionMessage,
-	NotificationMessage,
 	ServerErrorType,
 } from "shared";

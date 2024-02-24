@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { NotificationMessage } from "~/libs/enums/enums.js";
+import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {

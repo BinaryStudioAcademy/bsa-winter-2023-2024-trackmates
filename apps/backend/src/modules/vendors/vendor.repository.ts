@@ -1,7 +1,8 @@
-import { CourseError, HTTPCode } from "shared";
-
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
 
+import { VendorErrorMessage } from "./libs/enums/enums.js";
+import { VendorError } from "./libs/exceptions/exceptions.js";
 import { VendorEntity } from "./vendor.entity.js";
 import { type VendorModel } from "./vendor.model.js";
 
@@ -26,6 +27,7 @@ class VendorRepository implements Repository<VendorEntity> {
 			key: vendorModel.key,
 			name: vendorModel.name,
 			updatedAt: vendorModel.updatedAt,
+			url: vendorModel.url,
 		});
 	}
 
@@ -45,6 +47,7 @@ class VendorRepository implements Repository<VendorEntity> {
 					key: vendor.key,
 					name: vendor.name,
 					updatedAt: vendor.updatedAt,
+					url: vendor.url,
 				})
 			: null;
 	}
@@ -59,6 +62,25 @@ class VendorRepository implements Repository<VendorEntity> {
 				key: vendor.key,
 				name: vendor.name,
 				updatedAt: vendor.updatedAt,
+				url: vendor.url,
+			});
+		});
+	}
+
+	public async findAllByKeys(keys: string[]): Promise<VendorEntity[]> {
+		const vendors = await this.vendorModel
+			.query()
+			.whereIn("key", keys)
+			.execute();
+
+		return vendors.map((vendor) => {
+			return VendorEntity.initialize({
+				createdAt: vendor.createdAt,
+				id: vendor.id,
+				key: vendor.key,
+				name: vendor.name,
+				updatedAt: vendor.updatedAt,
+				url: vendor.url,
 			});
 		});
 	}
@@ -77,8 +99,8 @@ class VendorRepository implements Repository<VendorEntity> {
 			.execute();
 
 		if (!vendorModel.id) {
-			throw new CourseError(
-				`Not found vendor with id '${id}'`,
+			throw new VendorError(
+				VendorErrorMessage.NOT_FOUND_VENDOR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -90,6 +112,7 @@ class VendorRepository implements Repository<VendorEntity> {
 					key: vendorModel.key,
 					name: vendorModel.name,
 					updatedAt: vendorModel.updatedAt,
+					url: vendor.url,
 				})
 			: null;
 	}

@@ -1,1 +1,1 @@
-export { CoursesApiPath } from "shared";
+export { CourseErrorMessage, CoursesApiPath } from "shared";

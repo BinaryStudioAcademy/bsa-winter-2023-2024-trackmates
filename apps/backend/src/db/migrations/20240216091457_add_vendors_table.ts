@@ -8,6 +8,7 @@ const ColumnName = {
 	KEY: "key",
 	NAME: "name",
 	UPDATED_AT: "updated_at",
+	URL: "url",
 } as const;
 
 async function up(knex: Knex): Promise<void> {
@@ -15,6 +16,7 @@ async function up(knex: Knex): Promise<void> {
 		table.increments(ColumnName.ID).primary();
 		table.string(ColumnName.NAME).notNullable();
 		table.string(ColumnName.KEY).unique().notNullable();
+		table.string(ColumnName.URL).notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()

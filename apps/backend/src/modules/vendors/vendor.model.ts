@@ -8,6 +8,8 @@ class VendorModel extends AbstractModel {
 
 	public name!: string;
 
+	public url!: string;
+
 	public static override get tableName(): string {
 		return DatabaseTableName.VENDORS;
 	}

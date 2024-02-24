@@ -6,7 +6,6 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { idParameterValidationSchema } from "~/libs/validation-schemas/validation-schemas.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type CourseService } from "./course.service.js";
@@ -15,9 +14,13 @@ import {
 	type AddCourseRequestDto,
 	type CourseSearchRequestDto,
 } from "./libs/types/types.js";
-import { addCourseValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	addCourseValidationSchema,
+	courseIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
-/*** @swagger
+/**
+ * @swagger
  * components:
  *    schemas:
  *      Course:
@@ -66,26 +69,26 @@ class CourseController extends BaseController {
 			handler: (options) =>
 				this.delete(
 					options as APIHandlerOptions<{
-						params: { id: number };
+						params: { courseId: string };
 					}>,
 				),
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
-				params: idParameterValidationSchema,
+				params: courseIdParameterValidationSchema,
 			},
 		});
 		this.addRoute({
 			handler: (options) =>
 				this.find(
 					options as APIHandlerOptions<{
-						params: { id: number };
+						params: { courseId: string };
 					}>,
 				),
 			method: "GET",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
-				params: idParameterValidationSchema,
+				params: courseIdParameterValidationSchema,
 			},
 		});
 		this.addRoute({
@@ -103,13 +106,13 @@ class CourseController extends BaseController {
 			handler: (options) =>
 				this.update(
 					options as APIHandlerOptions<{
-						params: { id: number };
+						params: { courseId: string };
 					}>,
 				),
 			method: "PUT",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
-				params: idParameterValidationSchema,
+				params: courseIdParameterValidationSchema,
 			},
 		});
 	}
@@ -119,6 +122,8 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    post:
 	 *      description: Fetch course from vendor API and add for user in DB
+	 *      security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        required: true
 	 *        content:
@@ -154,9 +159,19 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses:
+	 * /courses/{id}:
 	 *    delete:
 	 *      description: Delete course by id
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -169,11 +184,11 @@ class CourseController extends BaseController {
 	 *                    type: boolean
 	 */
 	private async delete({
-		params: { id },
+		params: { courseId },
 	}: APIHandlerOptions<{
-		params: { id: number };
+		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.courseService.delete(id);
+		const success = await this.courseService.delete(Number(courseId));
 
 		return {
 			payload: { success },
@@ -183,8 +198,18 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/:id:
+	 * /courses/{id}:
 	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      description: Get course by id from DB
 	 *      responses:
 	 *        200:
@@ -196,12 +221,12 @@ class CourseController extends BaseController {
 	 *                $ref: "#/components/schemas/Course"
 	 */
 	private async find({
-		params: { id },
+		params: { courseId },
 	}: APIHandlerOptions<{
-		params: { id: number };
+		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.find(id),
+			payload: await this.courseService.find(Number(courseId)),
 			status: HTTPCode.OK,
 		};
 	}
@@ -211,6 +236,8 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    get:
 	 *      description: Return courses from vendors APIs
+	 *      security:
+	 *        - bearerAuth: []
 	 *      parameters:
 	 *        - name: search
 	 *          in: query
@@ -254,9 +281,19 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/:id:
+	 * /courses/{id}:
 	 *    put:
 	 *      description: Update course from vendor API and save it in DB
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -267,12 +304,12 @@ class CourseController extends BaseController {
 	 *                $ref: "#/components/schemas/Course"
 	 */
 	private async update({
-		params: { id },
+		params: { courseId },
 	}: APIHandlerOptions<{
-		params: { id: number };
+		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.update(id),
+			payload: await this.courseService.update(Number(courseId)),
 			status: HTTPCode.OK,
 		};
 	}

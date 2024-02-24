@@ -1,4 +1,4 @@
-import { type CourseDto } from "../../../courses/libs/types/types.js";
+import { type CourseDto } from "~/modules/courses/libs/types/types.js";
 
 type CourseFieldsMapping = Record<
 	keyof Pick<

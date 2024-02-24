@@ -1,11 +1,13 @@
-import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { DatabaseTableName } from "~/libs/modules/database/libs/enums/enums.js";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
 import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
+import { CourseErrorMessage } from "./libs/enums/enums.js";
+import { CourseError } from "./libs/exceptions/exceptions.js";
 
 class CourseRepository implements Repository<CourseEntity> {
 	private courseModel: typeof CourseModel;
@@ -46,6 +48,7 @@ class CourseRepository implements Repository<CourseEntity> {
 				key: courseModel.vendor.key,
 				name: courseModel.vendor.name,
 				updatedAt: courseModel.vendor.updatedAt,
+				url: courseModel.vendor.url,
 			}),
 			vendorCourseId: courseModel.vendorCourseId,
 			vendorId: courseModel.vendorId,
@@ -65,9 +68,10 @@ class CourseRepository implements Repository<CourseEntity> {
 		const hasUserTheCourse = Boolean(courseRelatedWithUser);
 
 		if (hasUserTheCourse) {
-			throw new ApplicationError({
-				message: `Course "${course.title}" was already added for user`,
-			});
+			throw new CourseError(
+				CourseErrorMessage.COURSE_IS_ALREADY_ADDED_FOR_USER,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		await this.userModel
@@ -119,6 +123,7 @@ class CourseRepository implements Repository<CourseEntity> {
 				key: courseModel.vendor.key,
 				name: courseModel.vendor.name,
 				updatedAt: courseModel.vendor.updatedAt,
+				url: courseModel.vendor.url,
 			}),
 			vendorCourseId: courseModel.vendorCourseId,
 			vendorId: courseModel.vendorId,
@@ -153,6 +158,7 @@ class CourseRepository implements Repository<CourseEntity> {
 						key: courseModel.vendor.key,
 						name: courseModel.vendor.name,
 						updatedAt: courseModel.vendor.updatedAt,
+						url: courseModel.vendor.url,
 					}),
 					vendorCourseId: courseModel.vendorCourseId,
 					vendorId: courseModel.vendorId,
@@ -181,6 +187,7 @@ class CourseRepository implements Repository<CourseEntity> {
 					key: course.vendor.key,
 					name: course.vendor.name,
 					updatedAt: course.vendor.updatedAt,
+					url: course.vendor.url,
 				}),
 				vendorCourseId: course.vendorCourseId,
 				vendorId: course.vendorId,
@@ -192,9 +199,10 @@ class CourseRepository implements Repository<CourseEntity> {
 		const user = await this.userModel.query().findById(userId);
 
 		if (!user) {
-			throw new ApplicationError({
-				message: `Not found user with id ${userId}`,
-			});
+			throw new CourseError(
+				CourseErrorMessage.NOT_FOUND_USER,
+				HTTPCode.BAD_REQUEST,
+			);
 		}
 
 		const courseModels = await user
@@ -218,6 +226,7 @@ class CourseRepository implements Repository<CourseEntity> {
 					key: model.vendor.key,
 					name: model.vendor.name,
 					updatedAt: model.vendor.updatedAt,
+					url: model.vendor.url,
 				}),
 				vendorCourseId: model.vendorCourseId,
 				vendorId: model.vendorId,
@@ -249,6 +258,7 @@ class CourseRepository implements Repository<CourseEntity> {
 						key: course.vendor.key,
 						name: course.vendor.name,
 						updatedAt: course.vendor.updatedAt,
+						url: course.vendor.url,
 					}),
 					vendorCourseId: course.vendorCourseId,
 					vendorId: course.vendorId,
@@ -284,6 +294,7 @@ class CourseRepository implements Repository<CourseEntity> {
 						key: courseModel.vendor.key,
 						name: courseModel.vendor.name,
 						updatedAt: courseModel.vendor.updatedAt,
+						url: courseModel.vendor.url,
 					}),
 					vendorCourseId: courseModel.vendorCourseId,
 					vendorId: courseModel.vendorId,

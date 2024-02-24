@@ -1,5 +1,7 @@
 import { type Knex } from "knex";
 
+const DELETE_STRATEGY = "CASCADE";
+
 const ColumnName = {
 	COURSE_ID: "course_id",
 	CREATED_AT: "created_at",
@@ -21,13 +23,13 @@ async function up(knex: Knex): Promise<void> {
 			.integer(ColumnName.COURSE_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.COURSES)
-			.onDelete("CASCADE")
+			.onDelete(DELETE_STRATEGY)
 			.notNullable();
 		table
 			.integer(ColumnName.USER_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.USERS)
-			.onDelete("CASCADE")
+			.onDelete(DELETE_STRATEGY)
 			.notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)

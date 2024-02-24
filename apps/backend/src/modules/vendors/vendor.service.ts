@@ -1,5 +1,7 @@
-import { CourseError, HTTPCode } from "shared";
+import { HTTPCode } from "~/libs/modules/http/http.js";
 
+import { VendorErrorMessage } from "./libs/enums/enums.js";
+import { VendorError } from "./libs/exceptions/exceptions.js";
 import {
 	type VendorRequestDto,
 	type VendorResponseDto,
@@ -23,6 +25,7 @@ class VendorService {
 			VendorEntity.initializeNew({
 				key: vendor.key,
 				name: vendor.name,
+				url: vendor.url,
 			}),
 		);
 
@@ -37,8 +40,8 @@ class VendorService {
 		const entity = await this.vendorRepository.find(id);
 
 		if (!entity) {
-			throw new CourseError(
-				`Not found vendor with id '${id}'`,
+			throw new VendorError(
+				VendorErrorMessage.NOT_FOUND_VENDOR,
 				HTTPCode.BAD_REQUEST,
 			);
 		}
@@ -53,12 +56,11 @@ class VendorService {
 	}
 
 	public async findAllByKeys(keys: string[]): Promise<VendorResponseDto[]> {
-		const vendors = await this.findAll();
+		const entities = await this.vendorRepository.findAllByKeys(keys);
 
-		return vendors.filter(({ key }) => keys.includes(key));
+		return entities.map((entity) => entity.toObject());
 	}
 
-	// todo find
 	public async findById(id: number): Promise<VendorResponseDto | null> {
 		const entity = await this.vendorRepository.find(id);
 
@@ -74,6 +76,7 @@ class VendorService {
 			VendorEntity.initializeNew({
 				key: vendor.key,
 				name: vendor.name,
+				url: vendor.url,
 			}),
 		);
 
