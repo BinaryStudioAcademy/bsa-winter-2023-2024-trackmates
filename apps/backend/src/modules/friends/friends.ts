@@ -1,6 +1,6 @@
 import { logger } from "~/libs/modules/logger/logger.js";
+import { UserModel } from "~/modules/users/user.model.js";
 
-import { UserModel } from "../users/user.model.js";
 import { FriendController } from "./friend.controller.js";
 import { FriendRepository } from "./friend.repository.js";
 import { FriendService } from "./friend.service.js";
