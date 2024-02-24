@@ -22,8 +22,8 @@ class UserModel extends AbstractModel {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
 					through: {
-						from: `${DatabaseTableName.USER_FOLLOWERS}.follower_id`,
-						to: `${DatabaseTableName.USER_FOLLOWERS}.following_id`,
+						from: `${DatabaseTableName.USER_FRIENDS}.follower_id`,
+						to: `${DatabaseTableName.USER_FRIENDS}.following_id`,
 					},
 					to: `${DatabaseTableName.USERS}.id`,
 				},
