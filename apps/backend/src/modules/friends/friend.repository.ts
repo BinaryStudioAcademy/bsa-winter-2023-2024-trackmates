@@ -1,8 +1,7 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
-
-import { type UserModel } from "../users/user.model.js";
+import { type UserModel } from "~/modules/users/user.model.js";
 
 class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
