@@ -3,8 +3,8 @@ import { z } from "zod";
 import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 
 type UserProfileRequestValidationDto = {
-	firstName?: z.ZodOptional<z.ZodString>;
-	lastName?: z.ZodOptional<z.ZodString>;
+	firstName: z.ZodOptional<z.ZodString>;
+	lastName: z.ZodOptional<z.ZodString>;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
