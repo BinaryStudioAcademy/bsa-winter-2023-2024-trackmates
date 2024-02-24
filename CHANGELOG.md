@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.1...v1.4.2) (2024-02-24)
+
+
+### Bug Fixes
+
+* **frontend:** make roboto global font style tm-143 ([#154](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/154)) ([8df383d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8df383db1bc9442597fd4131defb2ee66912ebed))
+
 ## [1.4.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.0...v1.4.1) (2024-02-24)
 
 
