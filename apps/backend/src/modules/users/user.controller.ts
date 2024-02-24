@@ -62,8 +62,10 @@ class UserController extends BaseController {
 	 *              properties:
 	 *                firstName:
 	 *                  type: string
+	 *                  nullable: true
 	 *                lastName:
 	 *                  type: string
+	 *                  nullable: true
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation
@@ -71,10 +73,6 @@ class UserController extends BaseController {
 	 *            application/json:
 	 *              schema:
 	 *                $ref: '#/components/schemas/User'
-	 *        '404':
-	 *          description: User not found
-	 *        '500':
-	 *          description: Internal server error
 	 */
 
 	private async updateUser(
