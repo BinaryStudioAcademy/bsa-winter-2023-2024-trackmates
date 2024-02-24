@@ -1,0 +1,1 @@
+export { userIdParameterValidationSchema } from "shared";

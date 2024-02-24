@@ -34,7 +34,6 @@ export {
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
-export { idParameter as idParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type AddCourseRequestDto,
@@ -46,6 +45,7 @@ export {
 	CoursesApiPath,
 	type CoursesResponseDto,
 	addCourseValidationSchema,
+	courseIdParameterValidationSchema,
 } from "./modules/courses/courses.js";
 export {
 	FileError,
@@ -58,7 +58,10 @@ export {
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 } from "./modules/friends/friends.js";
-export { UserCoursesApiPath } from "./modules/user-courses/users-courses.js";
+export {
+	UserCoursesApiPath,
+	userIdParameterValidationSchema,
+} from "./modules/user-courses/users-courses.js";
 export {
 	type UserAuthResponseDto,
 	UserError,
@@ -79,4 +82,5 @@ export {
 	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,
+	vendorIdParameterValidationSchema,
 } from "./modules/vendors/vendors.js";

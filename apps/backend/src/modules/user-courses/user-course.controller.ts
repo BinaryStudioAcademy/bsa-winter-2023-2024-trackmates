@@ -6,12 +6,12 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { idParameterValidationSchema } from "~/libs/validation-schemas/validation-schemas.js";
 import { type AddCourseRequestDto } from "~/modules/courses/libs/types/types.js";
 import { addCourseValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
+import { userIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 import { type UserCourseService } from "./user-course.service.js";
 
 class UserCourseController extends BaseController {
@@ -40,13 +40,13 @@ class UserCourseController extends BaseController {
 			handler: (options) =>
 				this.findAllByUser(
 					options as APIHandlerOptions<{
-						params: { id: number };
+						params: { userId: string };
 					}>,
 				),
 			method: "GET",
 			path: UserCoursesApiPath.$USER_ID,
 			validation: {
-				params: idParameterValidationSchema,
+				params: userIdParameterValidationSchema,
 			},
 		});
 	}
@@ -114,11 +114,13 @@ class UserCourseController extends BaseController {
 	 *                      $ref: "#/components/schemas/Course"
 	 */
 	private async findAllByUser({
-		params: { id },
+		params: { userId },
 	}: APIHandlerOptions<{
-		params: { id: number };
+		params: { userId: string };
 	}>): Promise<APIHandlerResponse> {
-		const courses = await this.userCourseService.findAllByUser(id);
+		const courses = await this.userCourseService.findAllByUser(
+			Number.parseInt(userId),
+		);
 
 		return {
 			payload: { courses },

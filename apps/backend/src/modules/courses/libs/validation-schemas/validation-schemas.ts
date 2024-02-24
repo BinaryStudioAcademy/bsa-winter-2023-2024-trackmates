@@ -1,1 +1,4 @@
-export { addCourseValidationSchema } from "shared";
+export {
+	addCourseValidationSchema,
+	courseIdParameterValidationSchema,
+} from "shared";

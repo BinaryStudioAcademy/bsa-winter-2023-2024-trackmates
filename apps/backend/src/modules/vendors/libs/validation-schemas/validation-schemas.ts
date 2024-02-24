@@ -1,0 +1,1 @@
+export { vendorIdParameterValidationSchema } from "shared";
