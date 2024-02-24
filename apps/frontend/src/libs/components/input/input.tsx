@@ -52,11 +52,7 @@ const Input = <T extends FieldValues>({
 				placeholder={placeholder}
 				type={type}
 			/>
-			{hasError && (
-				<span className={getValidClassNames(styles["error"])}>
-					{error as string}
-				</span>
-			)}
+			{hasError && <span className={styles["error"]}>{error as string}</span>}
 		</label>
 	);
 };
