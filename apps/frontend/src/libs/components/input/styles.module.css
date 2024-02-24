@@ -70,10 +70,6 @@
 	text-align: end;
 }
 
-.error-two-lines {
-	bottom: -38px;
-}
-
 .error-input {
 	border: 1px solid var(--color-error);
 }
