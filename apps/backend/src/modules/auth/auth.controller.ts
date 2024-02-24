@@ -91,6 +91,8 @@ class AuthController extends BaseController {
 	 * @swagger
 	 * /auth/authenticated-user:
 	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
 	 *      description: Return current user by token
 	 *      responses:
 	 *        200:

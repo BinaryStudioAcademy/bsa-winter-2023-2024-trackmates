@@ -42,6 +42,8 @@ class UserController extends BaseController {
 	 * @swagger
 	 * /users/{id}:
 	 *    patch:
+	 *      security:
+	 *        - bearerAuth: []
 	 *      description: Updates a user's details
 	 *      parameters:
 	 *        - in: path
