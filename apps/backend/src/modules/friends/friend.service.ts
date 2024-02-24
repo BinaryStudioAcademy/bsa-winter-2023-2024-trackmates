@@ -104,9 +104,7 @@ class FriendService {
 	public async findAll(): Promise<UserAuthResponseDto[]> {
 		const foundUsers = await this.friendRepository.findAll();
 
-		return foundUsers.map((user) => {
-			return user.toObject();
-		});
+		return foundUsers.map((user) => user.toObject());
 	}
 
 	public async getPotentialFollowers(
