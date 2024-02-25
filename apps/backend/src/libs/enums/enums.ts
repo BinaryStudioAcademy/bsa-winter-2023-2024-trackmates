@@ -6,4 +6,4 @@ export {
 	ExceptionMessage,
 	HTTPCode,
 	ServerErrorType,
-} from "shared";
+} from "@trackmates/shared";
