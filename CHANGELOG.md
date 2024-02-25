@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.6...v1.4.7) (2024-02-25)
+
+
+### Bug Fixes
+
+* **frontend:** Auth Page fields validations, error messages and design issues according to the updated specification tm-131 ([#175](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/175)) ([ee61175](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ee611759d43defae6f860fbe6f44af01319a819f))
+* **frontend:** update input style tm-42 ([#176](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/176)) ([ecd78c2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ecd78c289be454b121808c8fdf4e8f0a34613def))
+
 ## [1.4.6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.5...v1.4.6) (2024-02-25)
 
 
