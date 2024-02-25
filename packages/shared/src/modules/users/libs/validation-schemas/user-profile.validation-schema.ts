@@ -3,8 +3,8 @@ import { z } from "zod";
 import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 
 type UserProfileRequestValidationDto = {
-	firstName: z.ZodOptional<z.ZodString>;
-	lastName: z.ZodOptional<z.ZodString>;
+	firstName: z.ZodString;
+	lastName: z.ZodString;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
@@ -19,8 +19,7 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		})
 		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{2,16}(?<!['-])$/, {
 			message: UserValidationMessage.FIRSTNAME_INVALID_FORMAT,
-		})
-		.optional(),
+		}),
 	lastName: z
 		.string()
 		.trim()
@@ -32,8 +31,7 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		})
 		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{3,25}(?<!['-])$/, {
 			message: UserValidationMessage.LASTNAME_INVALID_FORMAT,
-		})
-		.optional(),
+		}),
 });
 
 export { userProfile };

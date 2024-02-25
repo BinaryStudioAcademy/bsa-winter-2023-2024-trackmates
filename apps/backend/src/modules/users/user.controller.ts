@@ -62,10 +62,8 @@ class UserController extends BaseController {
 	 *              properties:
 	 *                firstName:
 	 *                  type: string
-	 *                  nullable: true
 	 *                lastName:
 	 *                  type: string
-	 *                  nullable: true
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation
