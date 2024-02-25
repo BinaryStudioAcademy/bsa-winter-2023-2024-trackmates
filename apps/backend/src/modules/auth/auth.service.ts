@@ -37,7 +37,7 @@ class AuthService {
 
 		if (!user) {
 			throw new AuthError({
-				message: ExceptionMessage.INCORRECT_CREDENTIALS,
+				message: ExceptionMessage.INVALID_CREDENTIALS,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
@@ -51,7 +51,7 @@ class AuthService {
 
 		if (!isEqualPassword) {
 			throw new AuthError({
-				message: ExceptionMessage.INCORRECT_CREDENTIALS,
+				message: ExceptionMessage.INVALID_CREDENTIALS,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
