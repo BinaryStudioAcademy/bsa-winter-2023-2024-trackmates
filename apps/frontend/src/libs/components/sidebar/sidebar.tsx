@@ -61,7 +61,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
-						<>
+						<div key={label}>
 							<Button
 								className={styles["menu-item"]}
 								color={
@@ -71,7 +71,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 								}
 								href={href}
 								iconName={icon}
-								key={label}
 								label={label}
 								style={
 									href === getFirstPathSegment(location.pathname)
@@ -92,7 +91,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 								</span>
 								<span>{label}</span>
 							</Link>
-						</>
+						</div>
 					))}
 				</nav>
 				<Button
