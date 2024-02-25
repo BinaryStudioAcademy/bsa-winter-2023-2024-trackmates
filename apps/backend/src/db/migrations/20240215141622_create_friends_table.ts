@@ -1,9 +1,9 @@
 import { type Knex } from "knex";
 
-const TABLE_NAME = {
+const TableName = {
 	USER_FRIENDS: "user_friends",
 	USERS: "users",
-};
+} as const;
 
 const DELETE_STRATEGY = "CASCADE";
 
@@ -16,7 +16,7 @@ const ColumnName = {
 } as const;
 
 function up(knex: Knex): Promise<void> {
-	return knex.schema.createTable(TABLE_NAME.USER_FRIENDS, (table) => {
+	return knex.schema.createTable(TableName.USER_FRIENDS, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.dateTime(ColumnName.CREATED_AT)
@@ -29,13 +29,13 @@ function up(knex: Knex): Promise<void> {
 		table
 			.integer(ColumnName.FOLLOWER_ID)
 			.references(ColumnName.ID)
-			.inTable(TABLE_NAME.USERS)
+			.inTable(TableName.USERS)
 			.notNullable()
 			.onDelete(DELETE_STRATEGY);
 		table
 			.integer(ColumnName.FOLLOWING_ID)
 			.references(ColumnName.ID)
-			.inTable(TABLE_NAME.USERS)
+			.inTable(TableName.USERS)
 			.notNullable()
 			.onDelete(DELETE_STRATEGY);
 		table.unique([ColumnName.FOLLOWER_ID, ColumnName.FOLLOWING_ID]);
@@ -43,7 +43,7 @@ function up(knex: Knex): Promise<void> {
 }
 
 function down(knex: Knex): Promise<void> {
-	return knex.schema.dropTableIfExists(TABLE_NAME.USER_FRIENDS);
+	return knex.schema.dropTableIfExists(TableName.USER_FRIENDS);
 }
 
 export { down, up };

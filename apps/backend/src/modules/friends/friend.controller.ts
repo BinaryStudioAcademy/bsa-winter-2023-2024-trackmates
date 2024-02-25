@@ -168,7 +168,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/follow:
+	 * /friends/follow:
 	 *    post:
 	 *      description: Create follow relation and return user which we started to follow
 	 *      requestBody:
@@ -218,7 +218,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/unfollow/{id}:
+	 * /friends/unfollow/{id}:
 	 *    delete:
 	 *      description: Unfollow a user by ID
 	 *      parameters:
@@ -259,7 +259,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/unfollow:
+	 * /friends/unfollow:
 	 *    post:
 	 *      description: Delete follow relation
 	 *      requestBody:
@@ -341,7 +341,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/:
+	 * /friends/:
 	 *    get:
 	 *      description: Returns array of all users
 	 *      responses:
@@ -363,7 +363,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/potential-following:
+	 * /friends/potential-following:
 	 *    get:
 	 *      description: Returns an array of User that the user does not follow
 	 *      responses:
@@ -389,7 +389,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/followers:
+	 * /friends/followers:
 	 *    get:
 	 *      description: Returns an array of User that the user is followed by
 	 *      responses:
@@ -415,7 +415,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/followings:
+	 * /friends/followings:
 	 *    get:
 	 *      description: Returns an array of User that the user is following
 	 *      responses:
@@ -441,7 +441,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/update:
+	 * /friends/update:
 	 *    patch:
 	 *      description: Update a user record
 	 *      requestBody:
