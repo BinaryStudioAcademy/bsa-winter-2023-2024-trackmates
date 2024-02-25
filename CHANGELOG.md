@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.7...v1.5.0) (2024-02-25)
+
+
+### Features
+
+* **frontend:** add logout button to sidebar tm-156 ([#177](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/177)) ([4032d57](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4032d5728d743ef09795be7d618caf0ea9f7e8df))
+
 ## [1.4.7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.6...v1.4.7) (2024-02-25)
 
 
