@@ -5,6 +5,7 @@ import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
+import { friendController } from "~/modules/friends/friends.js";
 import { userController, userService } from "~/modules/users/users.js";
 
 import { BaseServerApplication } from "./base-server-application.js";
@@ -16,6 +17,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...authController.routes,
 	...courseController.routes,
 	...fileController.routes,
+	...friendController.routes,
 	...userController.routes,
 );
 const serverApplication = new BaseServerApplication({
