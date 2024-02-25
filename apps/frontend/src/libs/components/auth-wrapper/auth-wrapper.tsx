@@ -1,4 +1,5 @@
 import { MENU_ITEMS } from "~/libs/constants/constants.js";
+import { useFullHeight } from "~/libs/hooks/hooks.js";
 
 import { Header } from "../header/header.js";
 import { Sidebar } from "../sidebar/sidebar.js";
@@ -9,6 +10,8 @@ type Properties = {
 };
 
 const AuthWrapper: React.FC<Properties> = ({ children }: Properties) => {
+	useFullHeight();
+
 	return (
 		<div className={styles["page-layout"]}>
 			<Sidebar menuItems={MENU_ITEMS} />

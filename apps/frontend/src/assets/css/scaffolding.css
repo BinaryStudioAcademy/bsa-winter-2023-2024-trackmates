@@ -8,6 +8,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-width: 320px;
+	height: var(--doc-height);
 	min-height: 100vh;
 	margin: 0;
 	font-family: Roboto, Arial, sans-serif;
