@@ -1,1 +1,1 @@
-export { type FileUploadResponseDto } from "shared";
+export { type FileUploadResponseDto } from "@trackmates/shared";
