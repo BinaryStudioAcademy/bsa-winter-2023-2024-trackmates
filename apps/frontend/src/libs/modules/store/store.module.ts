@@ -11,9 +11,15 @@ import { notification } from "~/libs/modules/notification/notification.js";
 import { reducer as appReducer } from "~/modules/app/app.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
 import {
-	chatMessageApi,
-	reducer as chatMessageReducer,
-} from "~/modules/chat-message/chat-message.js";
+	chatMessagesApi,
+	reducer as chatMessagesReducer,
+} from "~/modules/chat-messages/chat-messages.js";
+import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
+import {
+	friendsApi,
+	reducer as friendsReducer,
+} from "~/modules/friends/friends.js";
+import { userApi } from "~/modules/users/users.js";
 
 import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
@@ -21,14 +27,19 @@ import { handleError } from "./middlewares/middlewares.js";
 type RootReducer = {
 	app: ReturnType<typeof appReducer>;
 	auth: ReturnType<typeof authReducer>;
-	chatMessage: ReturnType<typeof chatMessageReducer>;
+	chatMessages: ReturnType<typeof chatMessagesReducer>;
+	chats: ReturnType<typeof chatsReducer>;
+	friends: ReturnType<typeof friendsReducer>;
 };
 
 type ExtraArguments = {
 	authApi: typeof authApi;
-	chatMessageApi: typeof chatMessageApi;
+	chatMessagesApi: typeof chatMessagesApi;
+	chatsApi: typeof chatsApi;
+	friendsApi: typeof friendsApi;
 	notification: typeof notification;
 	storage: typeof storage;
+	userApi: typeof userApi;
 };
 
 class Store {
@@ -53,7 +64,9 @@ class Store {
 			reducer: {
 				app: appReducer,
 				auth: authReducer,
-				chatMessage: chatMessageReducer,
+				chatMessages: chatMessagesReducer,
+				chats: chatsReducer,
+				friends: friendsReducer,
 			},
 		});
 	}
@@ -61,9 +74,12 @@ class Store {
 	public get extraArguments(): ExtraArguments {
 		return {
 			authApi,
-			chatMessageApi,
+			chatMessagesApi,
+			chatsApi,
+			friendsApi,
 			notification,
 			storage,
+			userApi,
 		};
 	}
 }

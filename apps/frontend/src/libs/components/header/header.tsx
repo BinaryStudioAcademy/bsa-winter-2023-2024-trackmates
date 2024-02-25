@@ -5,7 +5,7 @@ import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
 import styles from "./styles.module.css";
 
-const Header = () => {
+const Header: React.FC = () => {
 	return (
 		<header className={styles["header"]}>
 			<div className={styles["toolbar"]}>

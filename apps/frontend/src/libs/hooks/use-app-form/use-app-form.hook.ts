@@ -5,7 +5,7 @@ import {
 	type FieldErrors,
 	type FieldValues,
 	type UseFormHandleSubmit,
-	UseFormProps,
+	type UseFormProps,
 	type UseFormReset,
 	type ValidationMode,
 } from "react-hook-form";

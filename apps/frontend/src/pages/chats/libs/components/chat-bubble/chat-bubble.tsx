@@ -1,15 +1,15 @@
 import { formatDate, getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppSelector } from "~/libs/hooks/hooks.js";
-import { MessageResponseDto } from "~/modules/chat-message/chat-message.js";
+import { MessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	messageData: MessageResponseDto;
+	messageData: MessageItemResponseDto;
 };
 
 const ChatBubble: React.FC<Properties> = ({ messageData }: Properties) => {
-	const { createdAt, message, senderUser } = messageData;
+	const { createdAt, text, senderUser } = messageData;
 	const { user } = useAppSelector(({ auth }) => ({
 		user: auth.user,
 	}));
@@ -31,7 +31,7 @@ const ChatBubble: React.FC<Properties> = ({ messageData }: Properties) => {
 				<span className={styles["date"]}>{formatDate(createdAt)}</span>
 			</div>
 			<div className={styles["message-container"]}>
-				<span className={styles["message"]}>{message}</span>
+				<span className={styles["message"]}>{text}</span>
 			</div>
 		</li>
 	);

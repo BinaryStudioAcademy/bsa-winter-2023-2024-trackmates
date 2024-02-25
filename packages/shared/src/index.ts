@@ -1,4 +1,7 @@
-export { ARRAY_EMPTY_LENGTH } from "./libs/constants/constants.js";
+export {
+	ARRAY_EMPTY_LENGTH,
+	MAX_FILE_SIZE_IN_MB,
+} from "./libs/constants/constants.js";
 export {
 	APIPath,
 	AppEnvironment,
@@ -7,7 +10,7 @@ export {
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
-export { configureString } from "./libs/helpers/helpers.js";
+export { configureString, getSizeInBytes } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
 	type HTTP,
@@ -29,25 +32,42 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
-	type ChatGetAllResponseDto,
-	type ChatItemResponseDto,
-	ChatMessageApiPath,
-	type MessageGetAllResponseDto,
-	type MessageResponseDto,
-	type MessageSendRequestDto,
+	type MessageItemResponseDto,
+	type MessageCreateRequestDto,
+	ChatMessagesApiPath,
 	MessageStatus,
-	chatMessageSendValidationSchema,
-	chatParametersValidationSchema,
-} from "./modules/chat-message/chat.js";
+	ChatMesageValidationSchema,
+} from "./modules/chat-messages/chat-messages.js";
+export {
+	type ChatCreateRequestDto,
+	type ChatGetAllItemResponseDto,
+	type ChatGetAllResponseDto,
+	type ChatSingleItemResponseDto,
+	ChatsApiPath,
+} from "./modules/chats/chats.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
-export { type FriendDto } from "./modules/friends/friends.js";
+export {
+	FileError,
+	type FileUploadResponseDto,
+	FilesApiPath,
+} from "./modules/files/files.js";
+export {
+	type FriendFollowRequestDto,
+	type FriendFollowResponseDto,
+	type FriendUnfollowRequestDto,
+	FriendsApiPath,
+} from "./modules/friends/friends.js";
 export {
 	type UserAuthResponseDto,
+	UserError,
 	type UserGetAllResponseDto,
+	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
+	UsersApiPath,
+	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";

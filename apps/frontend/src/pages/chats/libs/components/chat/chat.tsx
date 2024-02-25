@@ -1,6 +1,6 @@
 import { Image } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { type MessageResponseDto } from "~/modules/chat-message/chat-message.js";
+import { type MessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
@@ -9,7 +9,7 @@ import { ChatForm } from "../chat-form/chat-form.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	messages: MessageResponseDto[];
+	messages: MessageItemResponseDto[];
 	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
 	receiver: UserAuthResponseDto;
 };
@@ -26,7 +26,7 @@ const Chat: React.FC<Properties> = ({
 					alt="User avatar"
 					height="40"
 					shape="circle"
-					src={DEFAULT_USER_AVATAR}
+					src={receiver.avatarUrl ?? DEFAULT_USER_AVATAR}
 					width="40"
 				/>
 				<span>{`${receiver.firstName} ${receiver.lastName}`}</span>

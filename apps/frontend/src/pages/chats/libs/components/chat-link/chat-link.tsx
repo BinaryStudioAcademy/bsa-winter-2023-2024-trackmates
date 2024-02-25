@@ -1,37 +1,30 @@
 import { Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
-import {
-	configureString,
-	createQueryLink,
-	formatDate,
-} from "~/libs/helpers/helpers.js";
-import { type ChatItemResponseDto } from "~/modules/chat-message/chat-message.js";
+import { configureString, formatDate } from "~/libs/helpers/helpers.js";
+import { type ChatGetAllItemResponseDto } from "~/modules/chats/chats.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	chat: ChatItemResponseDto;
+	chat: ChatGetAllItemResponseDto;
 };
 
 const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
-	const { id, interlocutor, lastMessage } = chat;
+	const { chatId, interlocutor, lastMessage } = chat;
 	const chatRouteById = configureString(AppRoute.CHATS_$ID, {
-		id: String(id),
+		id: String(chatId),
 	}) as typeof AppRoute.CHATS_$ID;
-	const chatRouteWithUser = createQueryLink(
-		chatRouteById,
-		"user",
-		String(interlocutor.id),
-	) as typeof AppRoute.CHATS_$ID;
+
+	const isLastMessagesYours = lastMessage.senderUser.id !== interlocutor.id;
 
 	return (
-		<Link className={styles["container"]} to={chatRouteWithUser}>
+		<Link className={styles["container"]} to={chatRouteById}>
 			<Image
 				alt="User avatar"
 				height="48"
 				shape="circle"
-				src={DEFAULT_USER_AVATAR}
+				src={interlocutor.avatarUrl ?? DEFAULT_USER_AVATAR}
 				width="48"
 			/>
 			<div className={styles["text-container"]}>
@@ -43,7 +36,9 @@ const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
 						{formatDate(lastMessage.createdAt)}
 					</span>
 				</div>
-				<p className={styles["message"]}>{lastMessage.message}</p>
+				<p className={styles["message"]}>
+					{isLastMessagesYours ? `You: ${lastMessage.text}` : lastMessage.text}
+				</p>
 			</div>
 		</Link>
 	);

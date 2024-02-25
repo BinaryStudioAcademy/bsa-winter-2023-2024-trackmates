@@ -15,7 +15,6 @@ type Properties<T extends FieldValues> = {
 	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors?: FieldErrors<T>;
-	isMultiline?: boolean;
 	label?: string;
 	name: FieldPath<T>;
 	placeholder?: string;
@@ -27,7 +26,6 @@ const Input = <T extends FieldValues>({
 	color = "light",
 	control,
 	errors,
-	isMultiline = false,
 	label,
 	name,
 	placeholder = "",
@@ -48,21 +46,12 @@ const Input = <T extends FieldValues>({
 	return (
 		<label className={styles["container"]}>
 			<span className={styles["heading"]}>{label}</span>
-			{isMultiline ? (
-				<textarea
-					className={inputClasses}
-					{...field}
-					placeholder={placeholder}
-					rows={2}
-				/>
-			) : (
-				<input
-					className={inputClasses}
-					{...field}
-					placeholder={placeholder}
-					type={type}
-				/>
-			)}
+			<input
+				className={inputClasses}
+				{...field}
+				placeholder={placeholder}
+				type={type}
+			/>
 			{hasError && <span className={styles["error"]}>{error as string}</span>}
 		</label>
 	);

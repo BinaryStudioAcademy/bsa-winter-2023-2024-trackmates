@@ -1,8 +1,8 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { Token } from "~/libs/modules/token/token.js";
+import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { type Token } from "~/libs/modules/token/token.js";
 import {
-	UserEntity,
+	type UserEntity,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
@@ -77,6 +77,7 @@ class AuthService {
 	): Promise<UserSignUpResponseDto> {
 		const user = await this.userService.getByEmail(userRequestDto.email);
 		const hasUser = Boolean(user);
+
 		if (hasUser) {
 			throw new AuthError(
 				ExceptionMessage.EMAIL_ALREADY_EXISTS,

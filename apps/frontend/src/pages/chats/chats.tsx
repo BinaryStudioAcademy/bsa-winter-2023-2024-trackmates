@@ -7,22 +7,14 @@ import {
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import {
-	type MessageSendRequestDto,
-	actions as chatMessageActions,
-} from "~/modules/chat-message/chat-message.js";
+	type MessageCreateRequestDto,
+	actions as chatMessagesActions,
+} from "~/modules/chat-messages/chat-messages.js";
+import { actions as chatsActions } from "~/modules/chats/chats.js";
 
 import { Chat, ChatSidebar, EmptyChat } from "./libs/components/components.js";
 import { DEFAULT_MESSAGE_PAYLOAD } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
-
-const receiver = {
-	createdAt: "2024-02-18T15:55:25.409Z",
-	email: "test1@gmail.com",
-	firstName: "Anna",
-	id: 2,
-	lastName: "Maksai",
-	updatedAt: "2024-02-18T15:55:25.409Z",
-};
 
 const Chats: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -31,40 +23,46 @@ const Chats: React.FC = () => {
 	const queryParameters = new URLSearchParams(search);
 	const userId = queryParameters.get("user");
 
-	const { chats, currentMessages } = useAppSelector(({ chatMessage }) => ({
-		chats: chatMessage.chats,
-		currentMessages: chatMessage.currentMessages,
-	}));
-
-	const isId = Boolean(id);
-	const isUser = Boolean(userId);
-
-	useEffect(() => {
-		if (isId) {
-			void dispatch(chatMessageActions.getAllChats());
-		}
-	}, [dispatch, isId]);
+	const { chats, currentMessages, interlocutor } = useAppSelector(
+		({ chatMessages, chats }) => ({
+			chats: chats.chats,
+			currentMessages: chatMessages.currentMessages,
+			interlocutor: chats.interlocutor,
+		}),
+	);
 
 	useEffect(() => {
-		if (isId) {
-			void dispatch(chatMessageActions.getAllMessages(String(id)));
+		void dispatch(chatsActions.getAllChats());
+
+		return () => {
+			dispatch(chatsActions.leaveChat());
+			dispatch(chatMessagesActions.updateMessages([]));
+		};
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (id) {
+			void dispatch(chatsActions.getChat(Number(id)));
 		}
-	}, [dispatch, id, isId, chats]);
+		if (userId) {
+			void dispatch(chatsActions.createChat(Number(userId)));
+		}
+	}, [dispatch, id, userId]);
 
 	const onSubmit = useCallback(
 		(payload: typeof DEFAULT_MESSAGE_PAYLOAD): void => {
-			const messagePayload: MessageSendRequestDto = {
-				message: payload.message,
-				receiverId: Number(userId),
-			};
+			if (id) {
+				const messagePayload: MessageCreateRequestDto = {
+					text: payload.message,
+					chatId: Number(id),
+				};
 
-			if (isId) {
-				void dispatch(chatMessageActions.sendMessage(messagePayload));
-			} else {
-				void dispatch(chatMessageActions.createChat(messagePayload));
+				void dispatch(chatMessagesActions.sendMessage(messagePayload));
+				void dispatch(chatsActions.getChat(Number(id)));
+				void dispatch(chatsActions.getAllChats());
 			}
 		},
-		[dispatch, isId, userId],
+		[dispatch, id],
 	);
 
 	return (
@@ -72,11 +70,11 @@ const Chats: React.FC = () => {
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />
-				{isId && isUser ? (
+				{id && interlocutor ? (
 					<Chat
 						messages={currentMessages}
 						onSubmit={onSubmit}
-						receiver={receiver}
+						receiver={interlocutor}
 					/>
 				) : (
 					<EmptyChat />

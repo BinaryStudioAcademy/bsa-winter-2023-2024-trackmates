@@ -45,11 +45,17 @@
 
 .message-container {
 	display: inline-block;
+	align-items: end;
 	max-width: 100%;
 	padding: 10px;
 	background-color: var(--color-background);
 	border: 1px solid var(--color-background);
 	border-radius: 15px;
+}
+
+.right .message-container {
+	text-align: start;
+	background-color: var(--color-text-100);
 }
 
 .message-container:hover {

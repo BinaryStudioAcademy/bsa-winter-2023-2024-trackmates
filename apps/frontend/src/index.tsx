@@ -17,6 +17,7 @@ import { Chats } from "./pages/chats/chats.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Overview } from "./pages/overview/overview.js";
+import { Profile } from "./pages/profile/profile.js";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
@@ -39,6 +40,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.FRIENDS,
 							},
 							{
+								element: <ProtectedRoute component={<Friends />} />,
+								path: AppRoute.FRIENDS_FOLLOWERS,
+							},
+							{
+								element: <ProtectedRoute component={<Friends />} />,
+								path: AppRoute.FRIENDS_FOLLOWINGS,
+							},
+							{
 								element: <ProtectedRoute component={<Overview />} />,
 								path: AppRoute.ROOT,
 							},
@@ -49,6 +58,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <Auth />,
 								path: AppRoute.SIGN_UP,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.PROFILE_USER_$ID,
 							},
 						],
 						element: <App />,

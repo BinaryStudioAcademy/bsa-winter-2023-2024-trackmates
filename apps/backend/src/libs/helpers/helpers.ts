@@ -1,0 +1,1 @@
+export { getSizeInBytes } from "shared";

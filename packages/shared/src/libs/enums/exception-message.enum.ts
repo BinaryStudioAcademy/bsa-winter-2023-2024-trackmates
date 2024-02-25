@@ -1,8 +1,11 @@
 const ExceptionMessage = {
 	CHAT_NOT_FOUND: "Chat not found.",
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
+	FILE_IS_TOO_LARGE: "File is too large.",
+	FILE_NOT_FOUND: "File not found.",
 	INCORRECT_CREDENTIALS: "Incorrect credentials.",
 	INVALID_TOKEN: "Token is invalid.",
+	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	NO_PERMISSION: "No permission.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",

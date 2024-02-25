@@ -1,0 +1,1 @@
+export { chatMessageValidationSchema } from "shared";

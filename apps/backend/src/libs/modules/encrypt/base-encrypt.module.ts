@@ -1,7 +1,7 @@
 import { hash as genHash, genSalt } from "bcrypt";
 
 import { SALT_ROUNDS } from "./libs/constants/constants.js";
-import { Encrypt } from "./libs/types/types.js";
+import { type Encrypt } from "./libs/types/types.js";
 
 class BaseEncrypt implements Encrypt {
 	private static saltRounds = SALT_ROUNDS;
