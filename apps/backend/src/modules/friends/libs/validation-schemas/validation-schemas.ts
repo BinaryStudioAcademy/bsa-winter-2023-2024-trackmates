@@ -1,4 +1,4 @@
 export {
 	AddFriendValidationSchema,
 	FriendIdParametersValidationSchema,
-} from "shared";
+} from "@trackmates/shared";
