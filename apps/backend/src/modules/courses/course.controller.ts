@@ -53,12 +53,13 @@ class CourseController extends BaseController {
 		this.courseService = courseService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.create(
+			handler: (options) => {
+				return this.create(
 					options as APIHandlerOptions<{
 						body: AddCourseRequestDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: CoursesApiPath.ROOT,
 			validation: {
@@ -66,12 +67,13 @@ class CourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.delete(
+			handler: (options) => {
+				return this.delete(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
-				),
+				);
+			},
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
@@ -79,12 +81,13 @@ class CourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.find(
+			handler: (options) => {
+				return this.find(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
@@ -92,34 +95,37 @@ class CourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.findAllByVendors(
+			handler: (options) => {
+				return this.findAllByVendors(
 					options as APIHandlerOptions<{
 						query: CourseSearchRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: CoursesApiPath.ROOT,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.getRecommendedCoursesByAI(
+			handler: (options) => {
+				return this.getRecommendedCoursesByAI(
 					options as APIHandlerOptions<{
 						query: CourseSearchRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: CoursesApiPath.RECOMMENDED_BY_AI,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.update(
+			handler: (options) => {
+				return this.update(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
-				),
+				);
+			},
 			method: "PUT",
 			path: CoursesApiPath.$COURSE_ID,
 			validation: {
@@ -253,7 +259,7 @@ class CourseController extends BaseController {
 	 *        - name: search
 	 *          in: query
 	 *          type: string
-	 *        - name: vendorsKeys
+	 *        - name: vendorsKey
 	 *          in: query
 	 *          type: string
 	 *          description: keys of vendors separated by commas. Example - "udemy,coursera"
@@ -278,13 +284,13 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKeys } = query;
+		const { search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.findAllByVendors({
 				search,
 				userId: user.id,
-				vendorsKeys,
+				vendorsKey,
 			}),
 			status: HTTPCode.OK,
 		};
@@ -326,13 +332,13 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKeys } = query;
+		const { search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.getRecommendedCoursesByAI({
 				search,
 				userId: user.id,
-				vendorsKeys,
+				vendorsKey,
 			}),
 			status: HTTPCode.OK,
 		};

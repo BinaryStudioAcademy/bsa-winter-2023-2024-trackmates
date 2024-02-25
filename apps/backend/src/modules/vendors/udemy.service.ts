@@ -13,14 +13,8 @@ import {
 	VendorErrorMessage,
 } from "./libs/enums/enums.js";
 import { VendorError } from "./libs/exceptions/exceptions.js";
+import { type CourseFieldForMap } from "./libs/types/course-field-for-map.type.js";
 import { type VendorService } from "./libs/types/types.js";
-
-type CourseFieldForMap =
-	| "description"
-	| "image"
-	| "title"
-	| "url"
-	| "vendorCourseId";
 
 type Course = Pick<CourseDto, CourseFieldForMap>;
 
@@ -116,10 +110,10 @@ class UdemyService implements VendorService {
 		);
 
 		if (!result.results) {
-			throw new VendorError(
-				VendorErrorMessage.WRONG_RESPONSE_FROM_VENDOR_API,
-				HTTPCode.INTERNAL_SERVER_ERROR,
-			);
+			throw new VendorError({
+				message: VendorErrorMessage.WRONG_RESPONSE_FROM_VENDOR_API,
+				status: HTTPCode.INTERNAL_SERVER_ERROR,
+			});
 		}
 
 		return (result.results as Record<string, unknown>[]).map((item) =>

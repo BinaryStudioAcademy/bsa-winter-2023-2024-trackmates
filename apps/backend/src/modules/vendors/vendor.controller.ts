@@ -42,12 +42,13 @@ class VendorController extends BaseController {
 		this.vendorService = vendorService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.create(
+			handler: (options) => {
+				return this.create(
 					options as APIHandlerOptions<{
 						body: VendorRequestDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: VendorsApiPath.ROOT,
 			validation: {
@@ -55,12 +56,13 @@ class VendorController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.find(
+			handler: (options) => {
+				return this.find(
 					options as APIHandlerOptions<{
 						params: { vendorId: string };
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: VendorsApiPath.$VENDOR_ID,
 			validation: {
@@ -73,12 +75,13 @@ class VendorController extends BaseController {
 			path: VendorsApiPath.ROOT,
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.delete(
+			handler: (options) => {
+				return this.delete(
 					options as APIHandlerOptions<{
 						params: { vendorId: string };
 					}>,
-				),
+				);
+			},
 			method: "DELETE",
 			path: VendorsApiPath.$VENDOR_ID,
 			validation: {
@@ -86,13 +89,14 @@ class VendorController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.update(
+			handler: (options) => {
+				return this.update(
 					options as APIHandlerOptions<{
 						body: VendorRequestDto;
 						params: { vendorId: string };
 					}>,
-				),
+				);
+			},
 			method: "PUT",
 			path: VendorsApiPath.$VENDOR_ID,
 			validation: {

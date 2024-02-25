@@ -1,7 +1,7 @@
-function debounce<T extends unknown[]>(
+const initDebounce = <T extends unknown[]>(
 	callback: (...arguments_: T) => void,
 	delay: number,
-): ((...arguments_: T) => void) & { clear: () => void } {
+): ((...arguments_: T) => void) & { clear: () => void } => {
 	let timer: null | number = null;
 
 	const debouncedFunction = (...arguments_: T): void => {
@@ -26,6 +26,6 @@ function debounce<T extends unknown[]>(
 	debouncedFunction.clear = clear;
 
 	return debouncedFunction;
-}
+};
 
-export { debounce };
+export { initDebounce };

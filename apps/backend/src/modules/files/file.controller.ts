@@ -15,7 +15,7 @@ import {
 	type UserAuthResponseDto,
 } from "./libs/types/types.js";
 
-/***
+/**
  * @swagger
  * components:
  *    schemas:
@@ -23,6 +23,13 @@ import {
  *        type: object
  *        properties:
  *          contentType:
+ *            type: string
+ *          createdAt:
+ *            type: string
+ *          id:
+ *            type: number
+ *            minimum: 1
+ *          updatedAt:
  *            type: string
  *          url:
  *            type: string
@@ -52,6 +59,8 @@ class FileController extends BaseController {
 	 * @swagger
 	 * /files/upload-avatar:
 	 *    post:
+	 *      security:
+	 *        - bearerAuth: []
 	 *      description: Uploads user's avatar
 	 *      requestBody:
 	 *        description: Image for uploading

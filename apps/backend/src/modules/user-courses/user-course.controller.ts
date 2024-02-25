@@ -23,13 +23,14 @@ class UserCourseController extends BaseController {
 		this.userCourseService = userCourseService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.addCourse(
+			handler: (options) => {
+				return this.addCourse(
 					options as APIHandlerOptions<{
 						body: AddCourseRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: UserCoursesApiPath.ROOT,
 			validation: {
@@ -37,12 +38,13 @@ class UserCourseController extends BaseController {
 			},
 		});
 		this.addRoute({
-			handler: (options) =>
-				this.findAllByUser(
+			handler: (options) => {
+				return this.findAllByUser(
 					options as APIHandlerOptions<{
 						params: { userId: string };
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: UserCoursesApiPath.$USER_ID,
 			validation: {

@@ -28,15 +28,16 @@
 }
 
 .primary {
-	color: white;
-	background-color: var(--color-button);
-	border-color: var(--color-button);
+	color: var(--color-menu);
+	background-color: var(--main-white);
+	border-color: var(--main-white);
 }
 
 .primary.outlined,
 .primary:hover {
-	color: var(--color-button);
-	background-color: transparent;
+	color: var(--main-white);
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
 
 .primary.outlined:hover {
@@ -46,7 +47,7 @@
 }
 
 .secondary {
-	color: var(--color-text-300);
+	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }
@@ -66,12 +67,4 @@
 	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
-}
-
-.clear {
-	min-height: 0;
-	color: inherit;
-	background-color: transparent;
-	border: none;
-	outline: none;
 }

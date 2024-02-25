@@ -14,11 +14,13 @@ import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
-	const { courses, isLoading, user } = useAppSelector((state) => ({
-		courses: state.userCourses.courses,
-		isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
-		user: state.auth.user as UserAuthResponseDto,
-	}));
+	const { courses, isLoading, user } = useAppSelector((state) => {
+		return {
+			courses: state.userCourses.courses,
+			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
+			user: state.auth.user as UserAuthResponseDto,
+		};
+	});
 	const dispatch = useAppDispatch();
 	const [isAddCourseModalOpen, setIsAddCourseModalOpen] =
 		useState<boolean>(false);

@@ -1,1 +1,1 @@
-export { ApplicationError, HTTPError, ValidationError } from "shared";
+export { HTTPError, ValidationError } from "@trackmates/shared";

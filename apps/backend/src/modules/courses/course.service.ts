@@ -1,5 +1,4 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
-import { ApplicationError } from "~/libs/exceptions/exceptions.js";
 import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
 import {
 	type VendorApi,
@@ -56,8 +55,9 @@ class CourseService {
 		const vendor = await this.vendorService.findById(vendorId);
 
 		if (!vendor) {
-			throw new ApplicationError({
-				message: `Not found vendor with id "${vendorId}"`,
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_VENDOR,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
@@ -68,8 +68,9 @@ class CourseService {
 		const vendorModule = this.vendorsApiMap[vendorKey];
 
 		if (!vendorModule) {
-			throw new ApplicationError({
-				message: `Not found api for vendor with key "${vendorKey}"`,
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_API_FOR_VENDOR,
+				status: HTTPCode.INTERNAL_SERVER_ERROR,
 			});
 		}
 
@@ -123,10 +124,10 @@ class CourseService {
 			await this.courseRepository.findByVendorCourseId(vendorCourseId);
 
 		if (existingCourse) {
-			throw new CourseError(
-				CourseErrorMessage.COURSE_IS_ALREADY_EXISTS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.COURSE_IS_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
@@ -143,10 +144,10 @@ class CourseService {
 		const entity = await this.courseRepository.find(id);
 
 		if (!entity) {
-			throw new CourseError(
-				CourseErrorMessage.NOT_FOUND_COURSE,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return entity.toObject();
@@ -171,11 +172,11 @@ class CourseService {
 	public async findAllByVendors(parameters: {
 		search: string;
 		userId: number;
-		vendorsKeys: string | undefined;
+		vendorsKey: string | undefined;
 	}): Promise<CoursesResponseDto> {
-		const { search, userId, vendorsKeys } = parameters;
-		const vendors = vendorsKeys
-			? await this.vendorService.findAllByKeys(vendorsKeys.split(","))
+		const { search, userId, vendorsKey } = parameters;
+		const vendors = vendorsKey
+			? await this.vendorService.findAllByKeys(vendorsKey.split(","))
 			: await this.vendorService.findAll();
 
 		const vendorsCourses = await Promise.all(
@@ -193,7 +194,7 @@ class CourseService {
 	public async getRecommendedCoursesByAI(parameters: {
 		search: string;
 		userId: number;
-		vendorsKeys: string | undefined;
+		vendorsKey: string | undefined;
 	}): Promise<CoursesResponseDto> {
 		const { courses } = await this.findAllByVendors(parameters);
 
@@ -216,10 +217,10 @@ class CourseService {
 		const existingCourse = await this.courseRepository.find(id);
 
 		if (!existingCourse) {
-			throw new CourseError(
-				CourseErrorMessage.NOT_FOUND_COURSE,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const { vendorCourseId, vendorId } = existingCourse.toObject();

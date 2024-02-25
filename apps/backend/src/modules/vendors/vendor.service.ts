@@ -40,10 +40,10 @@ class VendorService {
 		const entity = await this.vendorRepository.find(id);
 
 		if (!entity) {
-			throw new VendorError(
-				VendorErrorMessage.NOT_FOUND_VENDOR,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new VendorError({
+				message: VendorErrorMessage.NOT_FOUND_VENDOR,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return entity.toObject();

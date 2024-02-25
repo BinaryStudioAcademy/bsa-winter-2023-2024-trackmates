@@ -1,1 +1,1 @@
-export { type VendorResponseDto } from "shared";
+export { type VendorResponseDto } from "@trackmates/shared";

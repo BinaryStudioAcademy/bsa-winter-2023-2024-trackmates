@@ -39,7 +39,6 @@
 	display: inline-flex;
 	align-self: flex-end;
 	margin: 0;
-	font-weight: 500;
 	color: var(--color-text-200);
 }
 

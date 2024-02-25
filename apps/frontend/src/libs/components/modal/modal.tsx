@@ -42,7 +42,6 @@ const Modal: React.FC<Properties> = ({
 						iconName="cross"
 						label="Close modal"
 						onClick={onClose}
-						style="clear"
 					/>
 				</div>
 			</dialog>

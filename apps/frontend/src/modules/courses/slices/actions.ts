@@ -8,14 +8,14 @@ import {
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
-const search = createAsyncThunk<
+const getAll = createAsyncThunk<
 	CoursesResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
->(`${sliceName}/search`, (filterPayload, { extra }) => {
+>(`${sliceName}/get-all`, (filterPayload, { extra }) => {
 	const { courseApi } = extra;
 
 	return courseApi.getAll(filterPayload);
 });
 
-export { search };
+export { getAll };

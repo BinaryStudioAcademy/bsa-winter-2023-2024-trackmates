@@ -1,6 +1,6 @@
 import { Courses, Input, Loader, Modal } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
-import { debounce } from "~/libs/helpers/helpers.js";
+import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -55,9 +55,9 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		filterFormData: typeof DEFAULT_SEARCH_COURSE_PAYLOAD,
 	): void => {
 		void dispatch(
-			courseActions.search({
+			courseActions.getAll({
 				search: filterFormData.search,
-				vendorsKeys: getVendorsFromForm(filterFormData.vendors),
+				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),
 		);
 	};
@@ -66,7 +66,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		void handleSubmit(handleSearchCourses)(event_);
 	};
 
-	const debouncedSearchCourses = debounce(
+	const handleDebouncedSearchCourses = initDebounce(
 		handleFormChange,
 		SEARCH_COURSES_DELAY_MS,
 	);
@@ -81,16 +81,16 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 
 	useEffect(() => {
 		return () => {
-			debouncedSearchCourses.clear();
+			handleDebouncedSearchCourses.clear();
 		};
-	}, [debouncedSearchCourses]);
+	}, [handleDebouncedSearchCourses]);
 
 	return (
 		<Modal isOpen onClose={onClose}>
 			<div className={styles["add-course-modal"]}>
 				<header className={styles["header"]}>
 					<h3 className={styles["title"]}>Add the Course</h3>
-					<form onChange={debouncedSearchCourses}>
+					<form onChange={handleDebouncedSearchCourses}>
 						<Input
 							className={styles["search-input"]}
 							control={control}
