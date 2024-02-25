@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.6.0...v1.7.0) (2024-02-25)
+
+
+### Features
+
+* create friends functionality tm-39 ([#105](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/105)) ([21e1ffa](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/21e1ffade9ce84965ecba221f3c0e3b5291101c6))
+
 ## [1.6.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.5.0...v1.6.0) (2024-02-25)
 
 
