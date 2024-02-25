@@ -16,3 +16,21 @@
 .friend-item:hover {
 	box-shadow: 3px 11px 22px -14px #00000080;
 }
+
+@media screen and (width <= 1024px) {
+	.friends {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media screen and (width <= 768px) {
+	.friends {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media screen and (width <= 320px) {
+	.friends {
+		grid-template-columns: 1fr;
+	}
+}
