@@ -9,3 +9,9 @@
 		padding: 15px 20px;
 	}
 }
+
+@media (display-mode: standalone) and (width <= 480px) {
+	.container {
+		margin-bottom: 67px;
+	}
+}

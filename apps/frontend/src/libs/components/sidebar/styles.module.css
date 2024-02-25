@@ -170,7 +170,6 @@
 		left: 0;
 		width: 100%;
 		height: fit-content;
-		margin-top: 72px;
 	}
 
 	.sidebar.close {
@@ -186,6 +185,11 @@
 
 	.menu-item {
 		display: none;
+	}
+
+	.menu-icon {
+		width: 24px;
+		height: 24px;
 	}
 
 	.title-container {

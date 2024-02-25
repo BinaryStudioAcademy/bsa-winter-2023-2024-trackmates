@@ -61,7 +61,10 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 								)}
 								to={href}
 							>
-								<Icon name={icon} />
+								{" "}
+								<span className={styles["menu-icon"]}>
+									<Icon name={icon} />
+								</span>
 								<span>{label}</span>
 							</Link>
 						</>
