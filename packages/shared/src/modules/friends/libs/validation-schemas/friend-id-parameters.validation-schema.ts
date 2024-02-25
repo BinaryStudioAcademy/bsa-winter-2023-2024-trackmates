@@ -2,12 +2,12 @@ import { z } from "zod";
 
 import { FriendValidationMessage } from "../enums/enums.js";
 
-type FriendIdParametersValidationSchema = {
+type FriendIdParametersValidationDto = {
 	id: z.ZodString;
 };
 
 const friendIdParameters = z
-	.object<FriendIdParametersValidationSchema>({
+	.object<FriendIdParametersValidationDto>({
 		id: z.string().trim().regex(/^\d+$/, {
 			message: FriendValidationMessage.ID_INVALID,
 		}),
