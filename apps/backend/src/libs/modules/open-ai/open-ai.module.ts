@@ -1,5 +1,7 @@
 import { OpenAI as LibraryOpenAI } from "openai";
 
+import { HTTPCode } from "~/libs/enums/enums.js";
+
 import { OpenAIErrorMessage } from "./libs/enums/enums.js";
 import { OpenAIError } from "./libs/exceptions/exceptions.js";
 
@@ -30,6 +32,7 @@ class OpenAI {
 		if (!choice || !choice.message.content) {
 			throw new OpenAIError({
 				message: OpenAIErrorMessage.WRONG_RESPONSE,
+				status: HTTPCode.INTERNAL_SERVER_ERROR,
 			});
 		}
 
