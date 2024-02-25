@@ -65,6 +65,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				/>
 				<Button
 					className={styles["icon"]}
+					color="secondary"
 					hasVisuallyHiddenLabel
 					iconName={isPasswordVisible ? "eye" : "eyeOff"}
 					label="eye-icon"
