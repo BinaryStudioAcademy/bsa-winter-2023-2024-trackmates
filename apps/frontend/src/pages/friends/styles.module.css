@@ -7,7 +7,8 @@
 	width: min-content;
 	padding: 0;
 	list-style: none;
-	border-radius: 12px;
+	background-color: var(--main-white);
+	border-radius: 150px;
 }
 
 .link-item {
