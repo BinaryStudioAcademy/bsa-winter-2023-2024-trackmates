@@ -15,6 +15,7 @@ type Properties<T extends FieldValues> = {
 	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
+	hasVisuallyHiddenLabel?: boolean;
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
@@ -26,6 +27,7 @@ const Input = <T extends FieldValues>({
 	color = "light",
 	control,
 	errors,
+	hasVisuallyHiddenLabel,
 	label,
 	name,
 	placeholder = "",
@@ -42,10 +44,14 @@ const Input = <T extends FieldValues>({
 		styles[color],
 		hasError && styles["error-input"],
 	);
+	const labelClasses = getValidClassNames(
+		styles["heading"],
+		hasVisuallyHiddenLabel && "visually-hidden",
+	);
 
 	return (
 		<label className={styles["container"]}>
-			<span className={styles["heading"]}>{label}</span>
+			<span className={labelClasses}>{label}</span>
 			<input
 				className={inputClasses}
 				{...field}

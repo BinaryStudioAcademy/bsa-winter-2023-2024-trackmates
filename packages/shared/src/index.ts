@@ -7,7 +7,11 @@ export {
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
-export { configureString, getSizeInBytes } from "./libs/helpers/helpers.js";
+export {
+	configureString,
+	getSizeInBytes,
+	initDebounce,
+} from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {
 	type HTTP,
@@ -28,7 +32,18 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
-export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
+export {
+	type AddCourseRequestDto,
+	type CourseDto,
+	CourseError,
+	CourseErrorMessage,
+	type CourseSearchFilterDto,
+	type CourseSearchRequestDto,
+	CoursesApiPath,
+	type CoursesResponseDto,
+	addCourseValidationSchema,
+	courseIdParameterValidationSchema,
+} from "./modules/courses/courses.js";
 export {
 	FileError,
 	type FileUploadResponseDto,
@@ -45,6 +60,10 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	UserCoursesApiPath,
+	userIdParameterValidationSchema,
+} from "./modules/user-courses/users-courses.js";
+export {
 	type UserAuthResponseDto,
 	UserError,
 	type UserGetAllResponseDto,
@@ -58,3 +77,12 @@ export {
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
+export {
+	VendorError,
+	VendorErrorMessage,
+	type VendorRequestDto,
+	type VendorResponseDto,
+	VendorsApiPath,
+	addVendorValidationSchema,
+	vendorIdParameterValidationSchema,
+} from "./modules/vendors/vendors.js";
