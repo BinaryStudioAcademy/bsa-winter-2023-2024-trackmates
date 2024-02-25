@@ -1,0 +1,15 @@
+.form {
+	position: relative;
+	flex-basis: 360px;
+}
+
+.search-icon {
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	color: var(--color-text-200);
+}
+
+.search {
+	padding-left: 42px;
+}

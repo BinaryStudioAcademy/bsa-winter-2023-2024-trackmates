@@ -29,7 +29,23 @@ const loadMyCourses = createAsyncThunk<
 >(`${sliceName}/load-all`, (userId, { extra }) => {
 	const { userCourseApi } = extra;
 
-	return userCourseApi.getAllByUserId(userId);
+	return userCourseApi.getAllByUserId({
+		id: userId,
+		search: "",
+	});
 });
 
-export { add, loadMyCourses };
+const searchMyCourses = createAsyncThunk<
+	CoursesResponseDto,
+	{
+		id: number;
+		search: string;
+	},
+	AsyncThunkConfig
+>(`${sliceName}/search`, (searchMyCoursesPayload, { extra }) => {
+	const { userCourseApi } = extra;
+
+	return userCourseApi.getAllByUserId(searchMyCoursesPayload);
+});
+
+export { add, loadMyCourses, searchMyCourses };

@@ -7,6 +7,7 @@ import HomeIcon from "~/assets/img/svg/home.svg?react";
 import PieIcon from "~/assets/img/svg/pie.svg?react";
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
 import PlusOutlinedIcon from "~/assets/img/svg/plus-outlined.svg?react";
+import SearchIcon from "~/assets/img/svg/search.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -22,6 +23,7 @@ const iconNameToSvg: Record<
 	pie: PieIcon,
 	plus: PlusIcon,
 	plusOutlined: PlusOutlinedIcon,
+	search: SearchIcon,
 };
 
 export { iconNameToSvg };

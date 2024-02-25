@@ -6,7 +6,10 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { type AddCourseRequestDto } from "~/modules/courses/libs/types/types.js";
+import {
+	type AddCourseRequestDto,
+	type CourseSearchRequestDto,
+} from "~/modules/courses/libs/types/types.js";
 import { addCourseValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -42,6 +45,7 @@ class UserCourseController extends BaseController {
 				return this.findAllByUser(
 					options as APIHandlerOptions<{
 						params: { userId: string };
+						query: CourseSearchRequestDto;
 					}>,
 				);
 			},
@@ -111,6 +115,9 @@ class UserCourseController extends BaseController {
 	 *          schema:
 	 *            type: integer
 	 *            minimum: 1
+	 * 				- name: search
+	 *          in: query
+	 *          type: string
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -127,10 +134,15 @@ class UserCourseController extends BaseController {
 	 */
 	private async findAllByUser({
 		params: { userId },
+		query: { search },
 	}: APIHandlerOptions<{
 		params: { userId: string };
+		query: { search: string };
 	}>): Promise<APIHandlerResponse> {
-		const courses = await this.userCourseService.findAllByUser(Number(userId));
+		const courses = await this.userCourseService.findAllByUser({
+			search,
+			userId: Number(userId),
+		});
 
 		return {
 			payload: { courses },
