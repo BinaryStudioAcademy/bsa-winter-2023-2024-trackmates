@@ -1,7 +1,13 @@
 import logo from "~/assets/img/website-logo.png";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useCallback, useLocation, useState } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useCallback,
+	useLocation,
+	useState,
+} from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
+import { actions as authActions } from "~/modules/auth/auth.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
@@ -15,6 +21,7 @@ type Properties = {
 };
 
 const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
+	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
 
 	const location = useLocation();
@@ -22,6 +29,10 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const handleToggleSidebar = useCallback(() => {
 		setOpen((isOpen) => !isOpen);
 	}, []);
+
+	const handleLogOut = useCallback(() => {
+		void dispatch(authActions.logOut());
+	}, [dispatch]);
 
 	return (
 		<>
@@ -70,6 +81,12 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 						</>
 					))}
 				</nav>
+				<Button
+					className={styles["menu-item"]}
+					iconName="logOut"
+					label="Log out"
+					onClick={handleLogOut}
+				/>
 			</div>
 			<BlurredBackground
 				className={styles["blurred-background"]}
