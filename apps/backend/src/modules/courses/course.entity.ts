@@ -41,7 +41,7 @@ class CourseEntity implements Entity {
 		title: string;
 		updatedAt: string;
 		url: string;
-		vendor?: VendorEntity | null;
+		vendor: VendorEntity | null;
 		vendorCourseId: string;
 		vendorId: number;
 	}) {
@@ -76,7 +76,7 @@ class CourseEntity implements Entity {
 		title: string;
 		updatedAt: string;
 		url: string;
-		vendor?: VendorEntity | null;
+		vendor: VendorEntity | null;
 		vendorCourseId: string;
 		vendorId: number;
 	}): CourseEntity {

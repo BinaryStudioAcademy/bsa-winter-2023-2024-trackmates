@@ -11,8 +11,8 @@ type Constructor = {
 };
 
 class FileError extends HTTPError {
-	public constructor(arguments_: Constructor) {
-		super(arguments_);
+	public constructor({ cause, message, status }: Constructor) {
+		super({ cause, message, status });
 	}
 }
 
