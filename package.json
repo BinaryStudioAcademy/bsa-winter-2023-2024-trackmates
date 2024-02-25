@@ -1,6 +1,6 @@
 {
 	"name": "trackmates",
-	"version": "1.4.3",
+	"version": "1.4.5",
 	"type": "module",
 	"workspaces": [
 		"apps/*",
@@ -13,9 +13,9 @@
 	"scripts": {
 		"git:hook:precommit": "lint-staged --cwd .",
 		"git:hook:commit": "npx @commitlint/cli --edit",
-		"build:shared": "npm run build -w shared",
-		"build:frontend": "npm run build -w frontend",
-		"build:backend": "npm run build -w backend",
+		"build:shared": "npm run build -w packages/shared",
+		"build:frontend": "npm run build -w apps/frontend",
+		"build:backend": "npm run build -w apps/backend",
 		"build": "npm run build:shared && npm run build:backend && npm run build:frontend && npm run prepare-build",
 		"prepare-build": "sh ./prepare-build.sh",
 		"lint:editor": "editorconfig-checker",

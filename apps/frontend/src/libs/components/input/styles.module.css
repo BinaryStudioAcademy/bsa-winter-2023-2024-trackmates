@@ -16,14 +16,16 @@
 	max-height: 37px;
 	padding: 12px;
 	font-family: inherit;
+	font-weight: 500;
 	border: none;
 	border-radius: 51px;
 	outline: none;
 }
 
 .input::placeholder {
+	font-weight: 400;
 	color: var(--color-menu);
-	opacity: 0.8;
+	opacity: 0.6;
 }
 
 .dark {
@@ -32,11 +34,15 @@
 	border: 1px solid var(--color-input);
 }
 
+.dark:focus {
+	border: 1px solid var(--color-background);
+	transition: background-color 1s 5000s;
+}
+
 .dark:-webkit-autofill,
 .dark:-webkit-autofill:hover,
 .dark:-webkit-autofill:focus,
 .dark:-webkit-autofill:active {
-	border: 1px solid var(--color-background);
 	transition: background-color 1s 5000s;
 }
 
@@ -47,12 +53,18 @@
 
 .light:focus {
 	color: var(--color-text-300);
+	border: 1px solid var(--color-input);
+}
+
+.light:valid {
+	color: var(--color-text-300);
 }
 
 .error {
 	position: absolute;
 	right: 0;
 	bottom: -19px;
+	display: block;
 	width: 100%;
 	font-size: var(--font-size-100);
 	color: var(--color-error);
