@@ -6,7 +6,7 @@ import {
 } from "~/libs/hooks/hooks.js";
 import {
 	type CourseSearchRequestDto,
-	DEFAULT_SEARCH_COURSE_PAYLOAD,
+	DEFAULT_SEARCH_MY_COURSES_PAYLOAD,
 	SEARCH_COURSES_DELAY_MS,
 } from "~/modules/courses/courses.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
@@ -22,7 +22,7 @@ const SearchBar: React.FC = () => {
 	const dispatch = useAppDispatch();
 
 	const { control, errors, handleSubmit } = useAppForm({
-		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
+		defaultValues: DEFAULT_SEARCH_MY_COURSES_PAYLOAD,
 		mode: "onChange",
 	});
 
