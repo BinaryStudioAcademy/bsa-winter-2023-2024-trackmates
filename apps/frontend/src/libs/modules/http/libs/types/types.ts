@@ -1,1 +1,1 @@
-export { type HTTP, type HTTPOptions } from "shared";
+export { type HTTP, type HTTPOptions } from "@trackmates/shared";

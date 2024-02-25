@@ -5,4 +5,4 @@ export {
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
-} from "shared";
+} from "@trackmates/shared";
