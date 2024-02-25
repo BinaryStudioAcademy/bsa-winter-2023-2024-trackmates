@@ -171,6 +171,8 @@ class FriendController extends BaseController {
 	 * /friends/follow:
 	 *    post:
 	 *      description: Create follow relation and return user which we started to follow
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -221,6 +223,8 @@ class FriendController extends BaseController {
 	 * /friends/unfollow/{id}:
 	 *    delete:
 	 *      description: Unfollow a user by ID
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      parameters:
 	 *        - in: path
 	 *          name: id
@@ -262,6 +266,8 @@ class FriendController extends BaseController {
 	 * /friends/unfollow:
 	 *    post:
 	 *      description: Delete follow relation
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        description: User auth data
 	 *        required: true
@@ -310,6 +316,8 @@ class FriendController extends BaseController {
 	 * /friend/{id}:
 	 *    get:
 	 *      description: Returns found user
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -344,6 +352,8 @@ class FriendController extends BaseController {
 	 * /friends/:
 	 *    get:
 	 *      description: Returns array of all users
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -366,6 +376,8 @@ class FriendController extends BaseController {
 	 * /friends/potential-following:
 	 *    get:
 	 *      description: Returns an array of User that the user does not follow
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -392,6 +404,8 @@ class FriendController extends BaseController {
 	 * /friends/followers:
 	 *    get:
 	 *      description: Returns an array of User that the user is followed by
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -418,6 +432,8 @@ class FriendController extends BaseController {
 	 * /friends/followings:
 	 *    get:
 	 *      description: Returns an array of User that the user is following
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -444,6 +460,8 @@ class FriendController extends BaseController {
 	 * /friends/update:
 	 *    patch:
 	 *      description: Update a user record
+	 * 	   	security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        description: Request body for updating a user
 	 *        required: true
