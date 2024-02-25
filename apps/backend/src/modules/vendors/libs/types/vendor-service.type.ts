@@ -1,4 +1,4 @@
-import { type CourseDto } from "shared";
+import { type CourseDto } from "@trackmates/shared";
 
 import { type CourseFieldForMap } from "./course-field-for-map.type.js";
 

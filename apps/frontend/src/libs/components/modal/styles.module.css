@@ -26,5 +26,9 @@
 	top: 8px;
 	right: 8px;
 	z-index: 10;
+	min-height: fit-content;
 	padding: 8px;
+	color: inherit;
+	background: transparent;
+	border: none;
 }

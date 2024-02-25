@@ -1,1 +1,1 @@
-export { VendorError } from "shared";
+export { VendorError } from "@trackmates/shared";

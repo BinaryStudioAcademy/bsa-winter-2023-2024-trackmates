@@ -3,4 +3,4 @@ export {
 	type FileUploadResponseDto,
 	type UserAuthResponseDto,
 	type ValueOf,
-} from "shared";
+} from "@trackmates/shared";

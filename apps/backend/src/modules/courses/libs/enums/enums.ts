@@ -1,1 +1,1 @@
-export { CourseErrorMessage, CoursesApiPath } from "shared";
+export { CourseErrorMessage, CoursesApiPath } from "@trackmates/shared";

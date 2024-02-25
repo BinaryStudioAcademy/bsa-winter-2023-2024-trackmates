@@ -1,1 +1,1 @@
-export { userIdParameterValidationSchema } from "shared";
+export { userIdParameterValidationSchema } from "@trackmates/shared";

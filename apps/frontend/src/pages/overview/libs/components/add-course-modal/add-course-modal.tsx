@@ -66,7 +66,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		void handleSubmit(handleSearchCourses)(event_);
 	};
 
-	const debouncedSearchCourses = initDebounce(
+	const handleDebouncedSearchCourses = initDebounce(
 		handleFormChange,
 		SEARCH_COURSES_DELAY_MS,
 	);
@@ -81,16 +81,16 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 
 	useEffect(() => {
 		return () => {
-			debouncedSearchCourses.clear();
+			handleDebouncedSearchCourses.clear();
 		};
-	}, [debouncedSearchCourses]);
+	}, [handleDebouncedSearchCourses]);
 
 	return (
 		<Modal isOpen onClose={onClose}>
 			<div className={styles["add-course-modal"]}>
 				<header className={styles["header"]}>
 					<h3 className={styles["title"]}>Add the Course</h3>
-					<form onChange={debouncedSearchCourses}>
+					<form onChange={handleDebouncedSearchCourses}>
 						<Input
 							className={styles["search-input"]}
 							control={control}

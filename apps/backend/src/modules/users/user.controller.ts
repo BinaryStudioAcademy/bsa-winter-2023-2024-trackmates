@@ -71,10 +71,6 @@ class UserController extends BaseController {
 	 *            application/json:
 	 *              schema:
 	 *                $ref: '#/components/schemas/User'
-	 *        '404':
-	 *          description: User not found
-	 *        '500':
-	 *          description: Internal server error
 	 */
 
 	private async updateUser(

@@ -3,4 +3,4 @@ export {
 	type CourseDto,
 	type CourseSearchRequestDto,
 	type CoursesResponseDto,
-} from "shared";
+} from "@trackmates/shared";

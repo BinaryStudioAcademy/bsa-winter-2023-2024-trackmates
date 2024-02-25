@@ -1,1 +1,1 @@
-export { FileError } from "shared";
+export { FileError } from "@trackmates/shared";

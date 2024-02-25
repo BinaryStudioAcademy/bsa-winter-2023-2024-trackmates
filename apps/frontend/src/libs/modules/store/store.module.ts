@@ -13,6 +13,7 @@ import {
 	courseApi,
 	reducer as coursesReducer,
 } from "~/modules/courses/courses.js";
+import { filesApi } from "~/modules/files/files.js";
 import {
 	friendsApi,
 	reducer as friendsReducer,
@@ -41,6 +42,7 @@ type RootReducer = {
 type ExtraArguments = {
 	authApi: typeof authApi;
 	courseApi: typeof courseApi;
+	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
 	storage: typeof storage;
@@ -82,6 +84,7 @@ class Store {
 		return {
 			authApi,
 			courseApi,
+			filesApi,
 			friendsApi,
 			notification,
 			storage,
