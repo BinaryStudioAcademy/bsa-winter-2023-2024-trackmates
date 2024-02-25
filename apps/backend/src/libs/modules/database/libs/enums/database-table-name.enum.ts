@@ -1,8 +1,8 @@
 const DatabaseTableName = {
 	FILES: "files",
+	FRIENDS: "friends",
 	MIGRATIONS: "migrations",
 	USER_DETAILS: "user_details",
-	USER_FRIENDS: "user_friends",
 	USERS: "users",
 } as const;
 

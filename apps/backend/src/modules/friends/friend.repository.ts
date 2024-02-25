@@ -44,7 +44,7 @@ class FriendRepository implements Repository<UserEntity> {
 	public async delete(id: number): Promise<boolean> {
 		const isDeleted = await this.userModel
 			.query()
-			.from(DatabaseTableName.USER_FRIENDS)
+			.from(DatabaseTableName.FRIENDS)
 			.select("*")
 			.where({
 				id: id,
@@ -61,7 +61,7 @@ class FriendRepository implements Repository<UserEntity> {
 	): Promise<boolean> {
 		const deletedSubscription = await this.userModel
 			.query()
-			.from(DatabaseTableName.USER_FRIENDS)
+			.from(DatabaseTableName.FRIENDS)
 			.select("*")
 			.where({
 				followerId: id,
@@ -99,10 +99,10 @@ class FriendRepository implements Repository<UserEntity> {
 		const followings = await this.userModel
 			.query()
 			.join(
-				DatabaseTableName.USER_FRIENDS,
+				DatabaseTableName.FRIENDS,
 				`${DatabaseTableName.USERS}.id`,
 				"=",
-				`${DatabaseTableName.USER_FRIENDS}.following_id`,
+				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
 			.withGraphJoined("userDetails");
 
@@ -127,7 +127,7 @@ class FriendRepository implements Repository<UserEntity> {
 	): Promise<boolean> {
 		const subscription = await this.userModel
 			.query()
-			.from(DatabaseTableName.USER_FRIENDS)
+			.from(DatabaseTableName.FRIENDS)
 			.select("*")
 			.where({
 				follower_id: id,
@@ -143,12 +143,12 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.where("users.id", "<>", id)
 			.leftJoin(
-				DatabaseTableName.USER_FRIENDS,
+				DatabaseTableName.FRIENDS,
 				`${DatabaseTableName.USERS}.id`,
 				"=",
-				`${DatabaseTableName.USER_FRIENDS}.following_id`,
+				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
-			.whereNull(`${DatabaseTableName.USER_FRIENDS}.follower_id`)
+			.whereNull(`${DatabaseTableName.FRIENDS}.follower_id`)
 			.withGraphJoined("userDetails");
 
 		return potentialFollowers.map((user) => {
@@ -170,12 +170,12 @@ class FriendRepository implements Repository<UserEntity> {
 		const userFollowers = await this.userModel
 			.query()
 			.leftJoin(
-				DatabaseTableName.USER_FRIENDS,
+				DatabaseTableName.FRIENDS,
 				`${DatabaseTableName.USERS}.id`,
 				"=",
-				`${DatabaseTableName.USER_FRIENDS}.follower_id`,
+				`${DatabaseTableName.FRIENDS}.follower_id`,
 			)
-			.where(`${DatabaseTableName.USER_FRIENDS}.following_id`, "=", id)
+			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
 			.withGraphJoined("userDetails");
 
 		return userFollowers.map((user) => {
@@ -197,12 +197,12 @@ class FriendRepository implements Repository<UserEntity> {
 		const userFollowings = await this.userModel
 			.query()
 			.leftJoin(
-				DatabaseTableName.USER_FRIENDS,
+				DatabaseTableName.FRIENDS,
 				`${DatabaseTableName.USERS}.id`,
 				"=",
-				`${DatabaseTableName.USER_FRIENDS}.following_id`,
+				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
-			.where(`${DatabaseTableName.USER_FRIENDS}.follower_id`, "=", id)
+			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
 			.withGraphJoined("userDetails");
 
 		return userFollowings.map((user) => {

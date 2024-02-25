@@ -1,7 +1,7 @@
 import { type Knex } from "knex";
 
 const TableName = {
-	USER_FRIENDS: "user_friends",
+	FRIENDS: "friends",
 	USERS: "users",
 } as const;
 
@@ -16,7 +16,7 @@ const ColumnName = {
 } as const;
 
 function up(knex: Knex): Promise<void> {
-	return knex.schema.createTable(TableName.USER_FRIENDS, (table) => {
+	return knex.schema.createTable(TableName.FRIENDS, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.dateTime(ColumnName.CREATED_AT)
@@ -43,7 +43,7 @@ function up(knex: Knex): Promise<void> {
 }
 
 function down(knex: Knex): Promise<void> {
-	return knex.schema.dropTableIfExists(TableName.USER_FRIENDS);
+	return knex.schema.dropTableIfExists(TableName.FRIENDS);
 }
 
 export { down, up };

@@ -88,7 +88,7 @@ erDiagram
     enum status
    }
 
-   user_friends {
+   friends {
     int id PK
     dateTime created_at
     dateTime updated_at
@@ -118,8 +118,8 @@ erDiagram
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
-   users ||--|{ user_friends : follower_id
-   users ||--|{ user_friends : following_id
+   users ||--|{ friends : follower_id
+   users ||--|{ friends : following_id
 
    users ||--|{ chat_messages : sender_id
    users ||--|{ chat_messages : receiver_id
