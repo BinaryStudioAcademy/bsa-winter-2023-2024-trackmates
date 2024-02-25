@@ -30,19 +30,19 @@ const authorization = fp<Options>(
 			}
 
 			if (!authHeader) {
-				throw new AuthError(
-					ExceptionMessage.UNAUTHORIZED,
-					HTTPCode.UNAUTHORIZED,
-				);
+				throw new AuthError({
+					message: ExceptionMessage.UNAUTHORIZED,
+					status: HTTPCode.UNAUTHORIZED,
+				});
 			}
 
 			const [, jwtToken] = authHeader.split(" ");
 
 			if (!jwtToken) {
-				throw new AuthError(
-					ExceptionMessage.UNAUTHORIZED,
-					HTTPCode.UNAUTHORIZED,
-				);
+				throw new AuthError({
+					message: ExceptionMessage.UNAUTHORIZED,
+					status: HTTPCode.UNAUTHORIZED,
+				});
 			}
 
 			try {
@@ -51,22 +51,22 @@ const authorization = fp<Options>(
 				const user = await userService.findById(userId);
 
 				if (!user) {
-					throw new AuthError(
-						ExceptionMessage.UNAUTHORIZED,
-						HTTPCode.UNAUTHORIZED,
-					);
+					throw new AuthError({
+						message: ExceptionMessage.UNAUTHORIZED,
+						status: HTTPCode.UNAUTHORIZED,
+					});
 				}
 
 				request.user = user;
 			} catch (error) {
 				const isJwtExpiredError = error instanceof JWTExpired;
 
-				throw new AuthError(
-					isJwtExpiredError
+				throw new AuthError({
+					message: isJwtExpiredError
 						? ExceptionMessage.TOKEN_EXPIRED
 						: ExceptionMessage.UNAUTHORIZED,
-					HTTPCode.UNAUTHORIZED,
-				);
+					status: HTTPCode.UNAUTHORIZED,
+				});
 			}
 		});
 

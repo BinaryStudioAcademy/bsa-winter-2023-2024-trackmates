@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.2...v1.4.3) (2024-02-25)
+
+
+### Bug Fixes
+
+* **backend:** add authorization in swagger documentation on route /files/upload-avatar tm-164 ([#166](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/166)) ([0967335](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0967335d3b7f5263f85fd2717738f16d685baaf2))
+
 ## [1.4.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.1...v1.4.2) (2024-02-24)
 
 
