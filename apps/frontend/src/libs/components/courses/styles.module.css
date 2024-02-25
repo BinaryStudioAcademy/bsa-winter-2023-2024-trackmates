@@ -1,6 +1,5 @@
 .container {
 	max-width: 1500px;
-	padding: 27px 0 90px;
 	margin: auto;
 	color: var(--color-text-300);
 }
@@ -41,11 +40,5 @@
 
 	.list {
 		grid-template-columns: 1fr;
-	}
-}
-
-@media screen and (width <= 489px) {
-	.container {
-		padding: 20px 15px 50px;
 	}
 }
