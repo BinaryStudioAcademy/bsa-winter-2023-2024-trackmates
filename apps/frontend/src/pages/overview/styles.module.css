@@ -1,12 +1,17 @@
 .container {
 	flex-grow: 1;
 	padding: 15px 40px;
-	font-family: Roboto, sans-serif;
 	background-color: var(--color-background);
 }
 
 @media screen and (width <= 1024px) {
 	.container {
 		padding: 15px 20px;
+	}
+}
+
+@media (display-mode: standalone) and (width <= 480px) {
+	.container {
+		margin-bottom: 67px;
 	}
 }

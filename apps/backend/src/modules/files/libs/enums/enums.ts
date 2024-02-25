@@ -1,1 +1,1 @@
-export { APIPath, FilesApiPath } from "shared";
+export { APIPath, FilesApiPath } from "@trackmates/shared";

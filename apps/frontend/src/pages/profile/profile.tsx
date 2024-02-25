@@ -7,8 +7,8 @@ import {
 	useAppForm,
 	useAppSelector,
 	useCallback,
-	useParams,
 } from "~/libs/hooks/hooks.js";
+import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
@@ -19,7 +19,6 @@ import {
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
-	const { userId } = useParams<{ userId: string }>();
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
 	});
@@ -40,7 +39,7 @@ const Profile: React.FC = () => {
 			if (file) {
 				const formData = new FormData();
 				formData.append("file", file);
-				void dispatch(usersActions.updateUserAvatar(formData));
+				void dispatch(filesActions.updateUserAvatar(formData));
 			}
 		},
 		[dispatch],
@@ -48,18 +47,14 @@ const Profile: React.FC = () => {
 
 	const handleInputChange = useCallback(
 		(formData: UserProfileRequestDto): void => {
-			if (!userId) {
-				return;
-			}
-
 			void dispatch(
 				usersActions.updateProfile({
-					id: userId,
+					id: user.id,
 					profilePayload: formData,
 				}),
 			);
 		},
-		[dispatch, userId],
+		[dispatch, user.id],
 	);
 
 	const handleFormSubmit = useCallback(
@@ -123,7 +118,6 @@ const Profile: React.FC = () => {
 							href={AppRoute.ROOT}
 							label="Cancel"
 							size="small"
-							style="outlined"
 						/>
 						<Button
 							className={styles["button"]}

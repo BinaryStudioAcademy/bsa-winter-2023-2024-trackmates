@@ -1,7 +1,7 @@
 {
-	"name": "backend",
+	"name": "@trackmates/backend",
 	"type": "module",
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"engines": {
 		"node": "18.x.x",
 		"npm": ">=9.x.x"
@@ -39,7 +39,7 @@
 		"pg": "8.11.3",
 		"pino": "8.17.2",
 		"pino-pretty": "10.3.1",
-		"shared": "*",
+		"@trackmates/shared": "*",
 		"swagger-jsdoc": "6.2.8"
 	},
 	"devDependencies": {

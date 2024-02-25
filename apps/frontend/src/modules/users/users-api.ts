@@ -21,7 +21,7 @@ class UserApi extends BaseHTTPApi {
 	}
 
 	public async update(
-		id: string,
+		id: number,
 		payload: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto> {
 		const response = await this.load(
@@ -31,20 +31,6 @@ class UserApi extends BaseHTTPApi {
 				hasAuth: true,
 				method: "PATCH",
 				payload: JSON.stringify(payload),
-			},
-		);
-
-		return await response.json<UserAuthResponseDto>();
-	}
-
-	public async updateAvatar(payload: FormData): Promise<UserAuthResponseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(UsersApiPath.AVATAR, {}),
-			{
-				contentType: ContentType.FORM_DATA,
-				hasAuth: true,
-				method: "PATCH",
-				payload,
 			},
 		);
 

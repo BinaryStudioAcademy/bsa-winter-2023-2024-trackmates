@@ -1,1 +1,1 @@
-export { HTTPCode, HTTPHeader } from "shared";
+export { HTTPCode, HTTPHeader } from "@trackmates/shared";
