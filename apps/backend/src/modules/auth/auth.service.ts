@@ -36,10 +36,10 @@ class AuthService {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {
-			throw new AuthError(
-				ExceptionMessage.INCORRECT_CREDENTIALS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new AuthError({
+				message: ExceptionMessage.INCORRECT_CREDENTIALS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const { passwordHash, passwordSalt: salt } = user.toNewObject();
@@ -50,10 +50,10 @@ class AuthService {
 		});
 
 		if (!isEqualPassword) {
-			throw new AuthError(
-				ExceptionMessage.INCORRECT_CREDENTIALS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new AuthError({
+				message: ExceptionMessage.INCORRECT_CREDENTIALS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return user;
@@ -79,10 +79,10 @@ class AuthService {
 		const hasUser = Boolean(user);
 
 		if (hasUser) {
-			throw new AuthError(
-				ExceptionMessage.EMAIL_ALREADY_EXISTS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new AuthError({
+				message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const newUser = await this.userService.create(userRequestDto);
