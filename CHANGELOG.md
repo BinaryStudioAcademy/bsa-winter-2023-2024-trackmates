@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.5.0...v1.6.0) (2024-02-25)
+
+
+### Features
+
+* **frontend:** add friends page mobile responsiveness tm-157 ([#184](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/184)) ([dfc7236](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/dfc72369b039abe4787adb0c17e356b78a00c602))
+
 ## [1.5.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.7...v1.5.0) (2024-02-25)
 
 
