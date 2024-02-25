@@ -18,7 +18,7 @@ class FriendRepository implements Repository<UserEntity> {
 		followingUserId: number;
 	}): Promise<UserEntity> {
 		await this.userModel
-			.relatedQuery("userFriends")
+			.relatedQuery("friends")
 			.for(followerUserId)
 			.relate(followingUserId);
 
@@ -42,7 +42,7 @@ class FriendRepository implements Repository<UserEntity> {
 	}
 
 	public async delete(id: number): Promise<boolean> {
-		const isDeletedSuccess = await this.userModel
+		const isDeleted = await this.userModel
 			.query()
 			.from(DatabaseTableName.USER_FRIENDS)
 			.select("*")
@@ -52,7 +52,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.first()
 			.delete();
 
-		return Boolean(isDeletedSuccess);
+		return Boolean(isDeleted);
 	}
 
 	public async deleteSubscription(

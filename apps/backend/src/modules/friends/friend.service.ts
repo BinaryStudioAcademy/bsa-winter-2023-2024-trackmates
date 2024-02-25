@@ -47,16 +47,16 @@ class FriendService {
 	}
 
 	public async delete(id: number): Promise<boolean> {
-		const isDeletedSuccess = await this.friendRepository.delete(id);
+		const isDeleted = await this.friendRepository.delete(id);
 
-		if (!isDeletedSuccess) {
+		if (!isDeleted) {
 			throw new FriendError({
-				message: FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				message: FriendErrorMessage.FRIEND_DELETE_ERROR,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
-		return isDeletedSuccess;
+		return isDeleted;
 	}
 
 	public async deleteSubscription(
@@ -73,19 +73,19 @@ class FriendService {
 			});
 		}
 
-		const isDeletedSuccess = await this.friendRepository.deleteSubscription(
+		const isDeleted = await this.friendRepository.deleteSubscription(
 			id,
 			userId,
 		);
 
-		if (!isDeletedSuccess) {
+		if (!isDeleted) {
 			throw new FriendError({
-				message: FriendErrorMessage.FRIEND_UPDATE_ERROR,
+				message: FriendErrorMessage.FRIEND_DELETE_ERROR,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
-		return isDeletedSuccess;
+		return isDeleted;
 	}
 
 	public async find(id: number): Promise<UserAuthResponseDto | null> {

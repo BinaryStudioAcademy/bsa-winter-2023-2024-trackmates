@@ -6,6 +6,7 @@ const FriendErrorMessage = {
 	FRIEND_UNFOLLOW_ERROR: "You are not following this user.",
 	FRIEND_UPDATE_ERROR:
 		"Friend update error: Unable to update the subscription.",
+	FRIEND_DELETE_ERROR:"Error unsubscribing from friend: Unable to delete the subscription."
 } as const;
 
 export { FriendErrorMessage };
