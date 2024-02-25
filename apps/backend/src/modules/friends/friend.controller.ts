@@ -14,7 +14,7 @@ import {
 	FriendIdParametersValidationSchema,
 } from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
-import { type FriendFollowingRequestDto } from "./libs/types/types.js";
+import { type FriendFollowRequestDto } from "./libs/types/types.js";
 
 /**
  * @swagger
@@ -56,7 +56,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.createSubscription(
 					options as APIHandlerOptions<{
-						body: FriendFollowingRequestDto;
+						body: FriendFollowRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -71,7 +71,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.deleteSubscription(
 					options as APIHandlerOptions<{
-						body: FriendFollowingRequestDto;
+						body: FriendFollowRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -86,7 +86,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.delete(
 					options as APIHandlerOptions<{
-						params: FriendFollowingRequestDto;
+						params: FriendFollowRequestDto;
 					}>,
 				);
 			},
@@ -100,7 +100,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.update(
 					options as APIHandlerOptions<{
-						body: FriendFollowingRequestDto;
+						body: FriendFollowRequestDto;
 					}>,
 				);
 			},
@@ -114,7 +114,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.find(
 					options as APIHandlerOptions<{
-						params: FriendFollowingRequestDto;
+						params: FriendFollowRequestDto;
 					}>,
 				);
 			},
@@ -203,7 +203,7 @@ class FriendController extends BaseController {
 	 */
 	private async createSubscription(
 		options: APIHandlerOptions<{
-			body: FriendFollowingRequestDto;
+			body: FriendFollowRequestDto;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
@@ -248,7 +248,7 @@ class FriendController extends BaseController {
 	 */
 	private async delete(
 		options: APIHandlerOptions<{
-			params: FriendFollowingRequestDto;
+			params: FriendFollowRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
@@ -292,7 +292,7 @@ class FriendController extends BaseController {
 	 */
 	private async deleteSubscription(
 		options: APIHandlerOptions<{
-			body: FriendFollowingRequestDto;
+			body: FriendFollowRequestDto;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
@@ -461,7 +461,7 @@ class FriendController extends BaseController {
 	 */
 	private async update(
 		options: APIHandlerOptions<{
-			body: FriendFollowingRequestDto;
+			body: FriendFollowRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {

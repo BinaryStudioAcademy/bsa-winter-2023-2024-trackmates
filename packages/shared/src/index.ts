@@ -40,7 +40,6 @@ export {
 	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
-	type FriendFollowingRequestDto,
 	FriendIdParametersValidationSchema,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
