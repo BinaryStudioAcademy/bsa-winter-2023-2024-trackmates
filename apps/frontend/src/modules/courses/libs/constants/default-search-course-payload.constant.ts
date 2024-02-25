@@ -2,7 +2,7 @@ import { type CourseSearchFilterDto } from "../types/types.js";
 
 const DEFAULT_SEARCH_COURSE_PAYLOAD: Omit<
 	CourseSearchFilterDto,
-	"vendorsKeys"
+	"vendorsKey"
 > & { vendors: Record<string, boolean> } = {
 	search: "",
 	vendors: {},
