@@ -1,17 +1,11 @@
 import logo from "~/assets/img/website-logo.png";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useCallback,
-	useLocation,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
-import { Icon } from "../icon/icon.js";
 import { Image } from "../image/image.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
@@ -23,8 +17,6 @@ type Properties = {
 const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
-
-	const location = useLocation();
 
 	const handleToggleSidebar = useCallback(() => {
 		setOpen((isOpen) => !isOpen);
@@ -61,28 +53,19 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 							<Button
 								className={styles["menu-item"]}
 								href={href}
+								iconClassName={styles["icon"]}
 								iconName={icon}
 								key={label}
 								label={label}
 							/>
-							<Link
-								className={getValidClassNames(
-									styles["bottom-menu"],
-									href === location.pathname ? styles["active"] : "",
-								)}
-								to={href}
-							>
-								{" "}
-								<span className={styles["menu-icon"]}>
-									<Icon name={icon} />
-								</span>
-								<span>{label}</span>
-							</Link>
 						</>
 					))}
 				</nav>
 				<Button
-					className={styles["menu-item"]}
+					className={getValidClassNames(
+						styles["menu-item"],
+						styles["logout-btn"],
+					)}
 					iconName="logOut"
 					label="Log out"
 					onClick={handleLogOut}
