@@ -63,10 +63,10 @@
 }
 
 .secondary.outlined {
-	color: var(--color-text-100);
+	color: var(--main-white);
 	background-color: transparent;
 	border-color: transparent;
-	fill: var(--color-text-100);
+	fill: var(--main-white);
 }
 
 .secondary.outlined:hover {
