@@ -12,7 +12,6 @@ import {
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { Icon } from "../icon/icon.js";
 import { Input } from "../input/input.js";
 import styles from "./styles.module.css";
 
@@ -55,11 +54,11 @@ const SearchBar: React.FC = () => {
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
+				iconName="search"
 				label="Search"
 				name="search"
 				placeholder="Search or type"
 			/>
-			<Icon className={styles["search-icon"]} name="search" />
 		</form>
 	);
 };
