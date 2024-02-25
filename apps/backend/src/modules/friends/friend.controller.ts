@@ -144,7 +144,7 @@ class FriendController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.getUserFollowers(
+				return this.getUserFollowings(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
