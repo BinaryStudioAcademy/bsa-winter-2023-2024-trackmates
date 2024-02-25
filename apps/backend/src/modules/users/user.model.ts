@@ -10,14 +10,6 @@ import { UserDetailsModel } from "./user-details.model.js";
 class UserModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
 		return {
-			userDetails: {
-				join: {
-					from: `${DatabaseTableName.USERS}.id`,
-					to: `${DatabaseTableName.USER_DETAILS}.userId`,
-				},
-				modelClass: UserDetailsModel,
-				relation: Model.HasOneRelation,
-			},
 			friends: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
@@ -29,6 +21,14 @@ class UserModel extends AbstractModel {
 				},
 				modelClass: UserModel,
 				relation: Model.ManyToManyRelation,
+			},
+			userDetails: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					to: `${DatabaseTableName.USER_DETAILS}.userId`,
+				},
+				modelClass: UserDetailsModel,
+				relation: Model.HasOneRelation,
 			},
 		};
 	};
