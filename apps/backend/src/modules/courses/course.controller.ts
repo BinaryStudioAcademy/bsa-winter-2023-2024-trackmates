@@ -116,7 +116,7 @@ class CourseController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: CoursesApiPath.RECOMMENDED_BY_AI,
+			path: CoursesApiPath.RECOMMENDED,
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -298,9 +298,9 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/recommended-by-ai:
+	 * /courses/recommended:
 	 *    get:
-	 *      description: Return recommended courses from AI
+	 *      description: Return recommended courses
 	 *      security:
 	 *        - bearerAuth: []
 	 *      parameters:
