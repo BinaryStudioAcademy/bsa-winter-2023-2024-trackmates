@@ -4,8 +4,8 @@ import { default as baseConfig } from "../../lint-staged.config.js";
 const config = {
 	...baseConfig,
 	"**/*.ts": [
-		() => "npm run lint:js -w shared",
-		() => "npm run lint:type -w shared",
+		() => "npm run lint:js -w packages/shared",
+		() => "npm run lint:type -w packages/shared",
 	],
 };
 
