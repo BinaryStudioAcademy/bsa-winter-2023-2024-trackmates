@@ -32,11 +32,6 @@
 	align-items: center;
 	justify-content: flex-start;
 	width: 214px;
-	fill: var(--main-white);
-}
-
-.menu-item:hover {
-	fill: var(--main-orange);
 }
 
 .title-container {

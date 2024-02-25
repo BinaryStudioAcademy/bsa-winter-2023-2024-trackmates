@@ -1,5 +1,8 @@
 import logo from "~/assets/img/website-logo.png";
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import {
+	getFirstPathSegment,
+	getValidClassNames,
+} from "~/libs/helpers/helpers.js";
 import { useCallback, useLocation, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
 
@@ -30,6 +33,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 					styles["burger-button"],
 					styles[isOpen ? "open" : "close"],
 				)}
+				color="secondary"
 				hasVisuallyHiddenLabel
 				iconName="burger"
 				label="burger-button"
@@ -49,10 +53,20 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 						<>
 							<Button
 								className={styles["menu-item"]}
+								color={
+									href === getFirstPathSegment(location.pathname)
+										? "primary"
+										: "secondary"
+								}
 								href={href}
 								iconName={icon}
 								key={label}
 								label={label}
+								style={
+									href === getFirstPathSegment(location.pathname)
+										? "filled"
+										: "outlined"
+								}
 							/>
 							<Link
 								className={getValidClassNames(
