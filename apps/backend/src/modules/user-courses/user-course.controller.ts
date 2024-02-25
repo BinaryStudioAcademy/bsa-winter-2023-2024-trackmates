@@ -6,10 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import {
-	type AddCourseRequestDto,
-	type CourseSearchRequestDto,
-} from "~/modules/courses/libs/types/types.js";
+import { type AddCourseRequestDto } from "~/modules/courses/libs/types/types.js";
 import { addCourseValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -45,7 +42,7 @@ class UserCourseController extends BaseController {
 				return this.findAllByUser(
 					options as APIHandlerOptions<{
 						params: { userId: string };
-						query: CourseSearchRequestDto;
+						query: { search: string };
 					}>,
 				);
 			},
