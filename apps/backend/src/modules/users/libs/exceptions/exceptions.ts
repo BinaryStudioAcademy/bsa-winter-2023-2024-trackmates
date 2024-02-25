@@ -1,1 +1,1 @@
-export { UserError } from "shared";
+export { UserError } from "@trackmates/shared";

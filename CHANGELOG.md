@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.3...v1.4.4) (2024-02-25)
+
+
+### Bug Fixes
+
+* **frontend:** sidebar mobile pwa tm-139 ([#169](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/169)) ([f6889aa](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f6889aadf5e2f2bfe2c40cf3117523db74a1a063))
+
 ## [1.4.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.2...v1.4.3) (2024-02-25)
 
 

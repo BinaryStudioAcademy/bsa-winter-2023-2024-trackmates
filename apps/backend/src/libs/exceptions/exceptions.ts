@@ -1,1 +1,1 @@
-export { ValidationError } from "shared";
+export { ValidationError } from "@trackmates/shared";

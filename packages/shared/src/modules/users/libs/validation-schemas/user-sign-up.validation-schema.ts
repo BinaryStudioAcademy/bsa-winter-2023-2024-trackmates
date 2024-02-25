@@ -21,25 +21,56 @@ const userSignUp = z
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			})
 			.regex(
-				/^[\w%+-](([\w%+-]|\.(?=.)){0,33}[\w%+-])?@[\w%+][\w%+-.]{1,33}[\w%+]$/,
+				new RegExp(
+					`^[a-zA-Z0-9._%+-]{1,${UserValidationRule.EMAIL_LOCAL_PART_MAXIMUM_LENGTH}}(?=@)`,
+				),
 				{
-					message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+					message: UserValidationMessage.EMAIL_LOCAL_PART_MAXIMUM_LENGTH,
 				},
-			),
+			)
+			.regex(
+				new RegExp(
+					`(?<=@)[a-zA-Z0-9.-]{1,${UserValidationRule.EMAIL_DOMAIN_PART_MAXIMUM_LENGTH}}$`,
+				),
+				{
+					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAXIMUM_LENGTH,
+				},
+			)
+			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^[^_][\w.]*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/(?<=@)(?!.*['-]{2})[\d.A-Za-z-]*$/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			}),
 		firstName: z
 			.string()
 			.trim()
 			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
-			.min(UserValidationRule.FIRSTNAME_MINIMUM_LENGTH, {
-				message: UserValidationMessage.FIRSTNAME_MIN_LENGTH,
+			.min(UserValidationRule.FIRST_NAME_MINIMUM_LENGTH, {
+				message: UserValidationMessage.FIRST_NAME_MINIMUM_LENGTH,
 			})
-			.max(UserValidationRule.FIRSTNAME_MAX_LENGTH, {
-				message: UserValidationMessage.FIRSTNAME_MAX_LENGTH,
+			.max(UserValidationRule.FIRST_NAME_MAXIMUM_LENGTH, {
+				message: UserValidationMessage.FIRST_NAME_MAXIMUM_LENGTH,
 			})
-			.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{2,16}(?<!['-])$/, {
-				message: UserValidationMessage.FIRSTNAME_INVALID_FORMAT,
+			.regex(/^['A-Za-z-]*$/, {
+				message: UserValidationMessage.FIRST_NAME_INVALID_CHARACTERS,
+			})
+			.regex(/^[^-]*-?[^-]*$/, {
+				message: UserValidationMessage.FIRST_NAME_INVALID_CHARACTERS,
+			})
+			.regex(/^[^']*'?[^']*$/, {
+				message: UserValidationMessage.FIRST_NAME_INVALID_CHARACTERS,
+			})
+			.regex(/^(?!.*['-]{2})['A-Za-z-]*$/, {
+				message: UserValidationMessage.ADJACENT_HYPHEN_APOSTROPHE,
+			})
+			.regex(/^(?!['-])(?!.*['-]$)['A-Za-z-]*$/, {
+				message: UserValidationMessage.FIRST_LAST_CHARACTERS_ONLY_LETTERS,
 			}),
 		lastName: z
 			.string()
@@ -47,14 +78,26 @@ const userSignUp = z
 			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
-			.min(UserValidationRule.LASTNAME_MINIMUM_LENGTH, {
-				message: UserValidationMessage.LASTNAME_MIN_LENGTH,
+			.min(UserValidationRule.LAST_NAME_MINIMUM_LENGTH, {
+				message: UserValidationMessage.LAST_NAME_MINIMUM_LENGTH,
 			})
-			.max(UserValidationRule.LASTNAME_MAX_LENGTH, {
-				message: UserValidationMessage.LASTNAME_MAX_LENGTH,
+			.max(UserValidationRule.LAST_NAME_MAXIMUM_LENGTH, {
+				message: UserValidationMessage.LAST_NAME_MAXIMUM_LENGTH,
 			})
-			.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{3,25}(?<!['-])$/, {
-				message: UserValidationMessage.LASTNAME_INVALID_FORMAT,
+			.regex(/^['A-Za-z-]*$/, {
+				message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
+			})
+			.regex(/^[^-]*-?[^-]*$/, {
+				message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
+			})
+			.regex(/^[^']*'?[^']*$/, {
+				message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
+			})
+			.regex(/^(?!.*['-]{2})['A-Za-z-]*$/, {
+				message: UserValidationMessage.ADJACENT_HYPHEN_APOSTROPHE,
+			})
+			.regex(/^(?!['-])(?!.*['-]$)['A-Za-z-]*$/, {
+				message: UserValidationMessage.FIRST_LAST_CHARACTERS_ONLY_LETTERS,
 			}),
 		password: z
 			.string()
@@ -63,12 +106,12 @@ const userSignUp = z
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
-				message: UserValidationMessage.PASSWORD_MIN_LENGTH,
+				message: UserValidationMessage.PASSWORD_MINIMUM_LENGTH,
 			})
-			.max(UserValidationRule.PASSWORD_MAX_LENGTH, {
-				message: UserValidationMessage.PASSSWORD_MAX_LENGTH,
+			.max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
+				message: UserValidationMessage.PASSWORD_MAXIMUM_LENGTH,
 			})
-			.regex(/^[\w!"#$%&'()*+,./:;<=>?@[\\\]^`{|}~]{8,26}$/, {
+			.regex(/^[\w!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]{8,26}$/, {
 				message: UserValidationMessage.PASSWORD_INVALID_FORMAT,
 			}),
 	})

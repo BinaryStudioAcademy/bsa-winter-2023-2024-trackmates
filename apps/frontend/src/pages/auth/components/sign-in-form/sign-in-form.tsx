@@ -74,7 +74,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			<Button
 				className={styles["button"]}
 				color="primary"
-				label="Log in"
+				label="Log In"
 				type="submit"
 			/>
 		</form>
