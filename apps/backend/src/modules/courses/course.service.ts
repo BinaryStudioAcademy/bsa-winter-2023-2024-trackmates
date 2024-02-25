@@ -93,22 +93,6 @@ class CourseService {
 		});
 	}
 
-	private async sortCoursesByOpenAI(
-		courses: CourseDto[],
-	): Promise<CourseDto[]> {
-		const prompt =
-			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the same length as the input array. Returned array must contains indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: the input data to analyze is [{0}, {1}, {2}]. After analyzing, the output should be like: [1, 2, 0]. Please make sure that the returned array has the same length as the input array.";
-		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
-		const response = await this.openAI.call(request);
-		const sortedIndexes = JSON.parse(response) as number[];
-
-		return courses.map((_, index) => {
-			const courseIndex = sortedIndexes[index] as number;
-
-			return courses[courseIndex] as CourseDto;
-		});
-	}
-
 	public async addCourse({
 		userId,
 		vendorCourseId,
@@ -202,7 +186,28 @@ class CourseService {
 		let courses = vendorsCourses.flat();
 
 		courses = await this.filterCourses(courses, userId);
-		const sortedCourses = await this.sortCoursesByOpenAI(courses);
+
+		return { courses };
+	}
+
+	public async getRecommendedCoursesByAI(parameters: {
+		search: string;
+		userId: number;
+		vendorsKeys: string | undefined;
+	}): Promise<CoursesResponseDto> {
+		const { courses } = await this.findAllByVendors(parameters);
+
+		const prompt =
+			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the same length as the input array. Returned array must contains indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: the input data to analyze is [{0}, {1}, {2}]. After analyzing, the output should be like: [1, 2, 0]. Please make sure that the returned array has the same length as the input array.";
+		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
+		const response = await this.openAI.call(request);
+		const sortedIndexes = JSON.parse(response) as number[];
+
+		const sortedCourses = courses.map((_, index) => {
+			const courseIndex = sortedIndexes[index] as number;
+
+			return courses[courseIndex] as CourseDto;
+		});
 
 		return { courses: sortedCourses.filter(Boolean) };
 	}
