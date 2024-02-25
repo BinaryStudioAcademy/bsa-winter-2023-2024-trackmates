@@ -35,13 +35,13 @@ export {
 	FilesApiPath,
 } from "./modules/files/files.js";
 export {
+	AddFriendValidationSchema,
 	FriendError,
 	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
 	type FriendFollowingRequestDto,
-	FriendRequestParametersValidationSchema,
-	FriendRequestValidationSchema,
+	FriendIdParametersValidationSchema,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 } from "./modules/friends/friends.js";

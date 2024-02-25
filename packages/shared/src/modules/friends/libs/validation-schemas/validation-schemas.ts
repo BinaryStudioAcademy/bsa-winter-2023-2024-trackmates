@@ -1,2 +1,2 @@
-export { friendRequest } from "./friend-request.validation-schema.js";
-export { friendRequestParameters } from "./friend-request-parameters.validation-schema.js";
+export { addFriend } from "./friend.validation-schema.js";
+export { friendIdParameters } from "./friend-id-parameters.validation-schema.js";

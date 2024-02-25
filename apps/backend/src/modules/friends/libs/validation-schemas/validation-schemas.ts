@@ -1,4 +1,4 @@
 export {
-	FriendRequestParametersValidationSchema,
-	FriendRequestValidationSchema,
+	AddFriendValidationSchema,
+	FriendIdParametersValidationSchema,
 } from "shared";

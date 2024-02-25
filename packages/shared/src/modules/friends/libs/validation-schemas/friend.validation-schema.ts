@@ -1,17 +1,17 @@
 import { z } from "zod";
 
-import { FriendRequestValidationMessage } from "../enums/enums.js";
+import { FriendValidationMessage } from "../enums/enums.js";
 
 type FriendRequestValidationSchema = {
 	id: z.ZodNumber;
 };
 
-const friendRequest = z
+const addFriend = z
 	.object<FriendRequestValidationSchema>({
 		id: z.number().int().positive({
-			message: FriendRequestValidationMessage.ID_INVALID,
+			message: FriendValidationMessage.ID_INVALID,
 		}),
 	})
 	.required();
 
-export { friendRequest };
+export { addFriend };

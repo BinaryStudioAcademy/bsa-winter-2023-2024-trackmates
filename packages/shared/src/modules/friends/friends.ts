@@ -7,6 +7,6 @@ export {
 	type FriendUnfollowRequestDto,
 } from "./libs/types/types.js";
 export {
-	friendRequest as FriendRequestValidationSchema,
-	friendRequestParameters as FriendRequestParametersValidationSchema,
+	addFriend as AddFriendValidationSchema,
+	friendIdParameters as FriendIdParametersValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

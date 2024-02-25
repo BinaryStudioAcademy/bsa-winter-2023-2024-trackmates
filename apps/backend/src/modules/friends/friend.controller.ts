@@ -10,8 +10,8 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type FriendService } from "./friend.service.js";
 import {
-	FriendRequestParametersValidationSchema,
-	FriendRequestValidationSchema,
+	AddFriendValidationSchema,
+	FriendIdParametersValidationSchema,
 } from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import { type FriendFollowingRequestDto } from "./libs/types/types.js";
@@ -64,7 +64,7 @@ class FriendController extends BaseController {
 			method: "POST",
 			path: FriendsApiPath.FOLLOW,
 			validation: {
-				body: FriendRequestValidationSchema,
+				body: AddFriendValidationSchema,
 			},
 		});
 		this.addRoute({
@@ -79,7 +79,7 @@ class FriendController extends BaseController {
 			method: "DELETE",
 			path: FriendsApiPath.UNFOLLOW,
 			validation: {
-				body: FriendRequestValidationSchema,
+				body: AddFriendValidationSchema,
 			},
 		});
 		this.addRoute({
@@ -93,7 +93,7 @@ class FriendController extends BaseController {
 			method: "DELETE",
 			path: FriendsApiPath.UNFOLLOW_BY_$ID,
 			validation: {
-				params: FriendRequestParametersValidationSchema,
+				params: FriendIdParametersValidationSchema,
 			},
 		});
 		this.addRoute({
@@ -107,7 +107,7 @@ class FriendController extends BaseController {
 			method: "PATCH",
 			path: FriendsApiPath.UPDATE,
 			validation: {
-				body: FriendRequestValidationSchema,
+				body: AddFriendValidationSchema,
 			},
 		});
 		this.addRoute({
@@ -121,7 +121,7 @@ class FriendController extends BaseController {
 			method: "GET",
 			path: FriendsApiPath.$ID,
 			validation: {
-				params: FriendRequestParametersValidationSchema,
+				params: FriendIdParametersValidationSchema,
 			},
 		});
 		this.addRoute({
