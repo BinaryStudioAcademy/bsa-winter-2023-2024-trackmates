@@ -12,12 +12,19 @@
 }
 
 .courses-title {
+	margin: 0 0 10px;
 	font-size: var(--font-size-400);
 }
 
 @media screen and (width <= 1024px) {
 	.container {
 		padding: 15px 20px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.courses-title {
+		font-size: var(--font-size-300);
 	}
 }
 
