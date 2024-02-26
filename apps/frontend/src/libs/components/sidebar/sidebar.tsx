@@ -70,7 +70,10 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 					))}
 				</nav>
 				<Button
-					className={styles["log-out-btn"]}
+					className={getValidClassNames(
+						styles["log-out-btn"],
+						styles["bottom-menu"],
+					)}
 					iconName="logOut"
 					label="Log Out"
 					onClick={handleLogOut}

@@ -173,34 +173,6 @@
 }
 
 @media (display-mode: standalone) and (width <= 480px) {
-	.menu {
-		display: flex;
-		flex: 2;
-		flex-direction: row-reverse;
-		width: 100%;
-	}
-
-	.menu-item {
-		flex-direction: column;
-		gap: 0;
-		padding: 0;
-		background-color: transparent;
-		border-color: transparent;
-	}
-
-	.menu-item:hover {
-		background-color: transparent;
-		border-color: transparent;
-	}
-
-	.close .menu-item {
-		color: var(--main-white);
-	}
-
-	.close .menu-item:hover {
-		color: var(--main-orange);
-	}
-
 	.sidebar {
 		position: fixed;
 		bottom: 0;
@@ -209,7 +181,7 @@
 		gap: 0;
 		height: fit-content;
 		padding-top: 13px;
-		padding-bottom: 27px;
+		padding-bottom: 30px;
 	}
 
 	.sidebar.close {
@@ -217,13 +189,27 @@
 		transform: none;
 	}
 
-	.sidebar.close .menu-item {
-		width: 100%;
+	.bottom-menu {
+		flex-direction: column;
+		gap: 0;
 	}
 
-	.sidebar .logout-btn {
-		flex: 1;
-		align-items: center;
+	.menu {
+		display: flex;
+		flex: 2;
+		flex-flow: nowrap;
+		justify-content: space-around;
+	}
+
+	.active {
+		color: var(--main-orange);
+		background-color: transparent;
+		border-color: transparent;
+	}
+
+	.active:hover {
+		background-color: transparent;
+		border-color: transparent;
 	}
 
 	.title-container {
@@ -234,17 +220,20 @@
 		visibility: hidden;
 	}
 
-	.icon {
-		height: 20px;
+	.close .link-title {
+		display: block;
 	}
 
-	svg {
-		fill: currentcolor;
+	.close .log-out-btn span {
+		display: block;
 	}
 
-	.active {
-		color: var(--main-orange);
-		background-color: transparent;
-		border-color: transparent;
+	.log-out-btn {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		gap: 9px;
+		padding: 9px 0;
+		border: 0;
 	}
 }
