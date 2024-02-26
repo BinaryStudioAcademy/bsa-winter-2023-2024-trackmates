@@ -70,7 +70,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</nav>
 				<Button
 					className={styles["log-out-btn"]}
-					hasVisuallyHiddenLabel={false}
 					iconName="logOut"
 					label="Log Out"
 					onClick={handleLogOut}
