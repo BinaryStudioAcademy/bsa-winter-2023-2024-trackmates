@@ -10,6 +10,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type CourseSectionService } from "./course-section.service.js";
 import { CourseSectionsApiPath } from "./libs/enums/enums.js";
 import { type CourseSectionGetAllRequestDto } from "./libs/types/types.js";
+import { courseSectionIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /***
  * @swagger
@@ -65,6 +66,9 @@ class CourseSectionController extends BaseController {
 			},
 			method: "GET",
 			path: CourseSectionsApiPath.$ID,
+			validation: {
+				params: courseSectionIdParameterValidationSchema,
+			},
 		});
 	}
 
@@ -126,7 +130,6 @@ class CourseSectionController extends BaseController {
 	 *              schema:
 	 *                $ref: '#/components/schemas/CourseSection'
 	 */
-
 	private async findOneBySectionId(
 		options: APIHandlerOptions<{
 			params: { courseSectionId: number };
