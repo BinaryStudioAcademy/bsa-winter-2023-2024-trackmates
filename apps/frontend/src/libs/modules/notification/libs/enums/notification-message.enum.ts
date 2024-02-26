@@ -1,8 +1,8 @@
 const NotificationMessage = {
-	AVATAR_CHANGED: "Your avatar has been successfully changed.",
 	FRIEND_FOLLOW_SUCCESS: "Followed successfully.",
 	FRIEND_UNFOLLOW_SUCCESS: "Unfollowed successfully.",
-	PROFILE_UPDATED: "Your profile has been updated.",
+	PROFILE_CHANGES_NOT_SAVED: "Changes are not saved",
+	PROFILE_CHANGES_SAVED: "Changes are saved",
 } as const;
 
 export { NotificationMessage };
