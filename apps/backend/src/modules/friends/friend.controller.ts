@@ -200,7 +200,7 @@ class FriendController extends BaseController {
 	 *           application/json:
 	 *             schema:
 	 *               oneOf:
-	 *                 - $ref: '#/components/schemas/FriendError'
+	 *                 - $ref: '#/components/schemas/Error'
 	 *                 - type: null
 	 */
 
@@ -223,7 +223,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/unfollow/{id}:
 	 *   delete:
-	 *     description: Unfollow a user by ID
+	 *     description: Unfollow by relation ID
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
@@ -267,7 +267,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/unfollow:
 	 *   delete:
-	 *     description: Delete follow relation
+	 *     description: Delete follow relation by following usre ID
 	 *     security:
 	 *       - bearerAuth: []
 	 *     requestBody:
@@ -315,7 +315,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friend/{id}:
+	 * /friends/{id}:
 	 *   get:
 	 *     description: Returns found user
 	 *     security:
@@ -360,7 +360,7 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/:
 	 *   get:
-	 *     description: Returns array of all users
+	 *     description: Returns array of all users which users following
 	 *     security:
 	 *       - bearerAuth: []
 	 *     responses:
@@ -382,7 +382,7 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /friends/potential-following:
+	 * /friends/potential-followings:
 	 *   get:
 	 *     description: Returns an array of User that the user does not follow
 	 *     security:
