@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.7.2...v1.7.3) (2024-02-26)
+
+
+### Bug Fixes
+
+* **shared:** Auth Page fields validations, error messages and design issues according to the updated specification tm-131 ([#190](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/190)) ([9d6c31e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9d6c31e7c62ad0d4f389a28e942b3480211eb023))
+
 ## [1.7.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.7.1...v1.7.2) (2024-02-26)
 
 
