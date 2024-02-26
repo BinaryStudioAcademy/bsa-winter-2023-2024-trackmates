@@ -13,21 +13,17 @@ type Properties = {
 const Courses: React.FC<Properties> = ({
 	courses,
 	onAddCourse,
-	title,
 }: Properties) => {
 	return (
-		<div className={styles["container"]}>
-			<h2 className={styles["title"]}>{title}</h2>
-			<ul className={styles["list"]}>
-				{courses.map((course) => {
-					return (
-						<li className={styles["item"]} key={course.vendorCourseId}>
-							<Course course={course} onAddCourse={onAddCourse} />
-						</li>
-					);
-				})}
-			</ul>
-		</div>
+		<ul className={styles["list"]}>
+			{courses.map((course) => {
+				return (
+					<li className={styles["item"]} key={course.vendorCourseId}>
+						<Course course={course} onAddCourse={onAddCourse} />
+					</li>
+				);
+			})}
+		</ul>
 	);
 };
 
