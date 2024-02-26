@@ -4,19 +4,24 @@ import {
 	HTTPCode,
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
-import { type CourseDto } from "~/modules/courses/libs/types/types.js";
 
 import {
+	udemyCourseFieldsMapper,
+	udemyCourseSectionFieldsMapper,
+} from "./fields-mapper/fields-mapper.js";
+import {
+	ApiPath,
 	CourseField,
-	UdemyDefaultSearchParameter,
-	UdemyFieldsMapping,
+	CourseSectionField,
+	UdemyDefaultPageParameter,
 	VendorErrorMessage,
 } from "./libs/enums/enums.js";
 import { VendorError } from "./libs/exceptions/exceptions.js";
-import { type CourseFieldForMap } from "./libs/types/course-field-for-map.type.js";
-import { type VendorService } from "./libs/types/types.js";
-
-type Course = Pick<CourseDto, CourseFieldForMap>;
+import {
+	type Course,
+	type CourseSection,
+	type VendorService,
+} from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -25,10 +30,14 @@ type Constructor = {
 	http: HTTP;
 };
 
+const PAGE_STEP = 1;
+
 class UdemyService implements VendorService {
 	private baseUrl: string;
 	private clientId: string;
 	private clientSecret: string;
+	private courseMapper = udemyCourseFieldsMapper;
+	private courseSectionMapper = udemyCourseSectionFieldsMapper;
 	private http: HTTP;
 
 	public constructor({ baseUrl, clientId, clientSecret, http }: Constructor) {
@@ -57,31 +66,57 @@ class UdemyService implements VendorService {
 		});
 	}
 
-	private mapItemFields<T extends string>(
-		item: Record<string, unknown>,
-		mapping: Record<T, string>,
-	): Record<T, unknown> {
-		const mappingEntries = Object.entries(mapping) as [T, string][];
-		const course = {} as Record<T, unknown>;
+	private async loadAllPages(
+		url: string,
+		query: Record<string, unknown>,
+	): Promise<Record<string, unknown>[]> {
+		const pageSize = UdemyDefaultPageParameter.PAGE_SIZE;
+		let items: Record<string, unknown>[] = [];
+		let results = [];
+		let page = 0;
 
-		for (const [to, from] of mappingEntries) {
-			course[to] = item[from];
+		do {
+			page = page + PAGE_STEP;
+			results = await this.loadResults(url, {
+				...query,
+				page,
+				page_size: pageSize,
+			});
+			items = [...items, ...results];
+		} while (results.length == pageSize);
+
+		return items;
+	}
+
+	private async loadResults(
+		url: string,
+		query: Record<string, unknown>,
+	): Promise<Record<string, unknown>[]> {
+		const result = await this.load(url, query);
+		const data = (await result.json()) as Record<"results", unknown>;
+
+		if (!data.results) {
+			throw new VendorError({
+				message: VendorErrorMessage.WRONG_RESPONSE_FROM_VENDOR_API,
+				status: HTTPCode.INTERNAL_SERVER_ERROR,
+			});
 		}
 
-		return course;
+		return data.results as Record<string, unknown>[];
 	}
 
 	private mapToCourse(item: Record<string, unknown>): Course {
-		const course = this.mapItemFields<CourseFieldForMap>(
-			item,
-			UdemyFieldsMapping,
-		);
+		const course = this.courseMapper.mapItem(item);
 
 		const vendorCourseId = (
 			course.vendorCourseId as number | string
 		).toString();
 
 		return { ...course, vendorCourseId } as Course;
+	}
+
+	private mapToCourseSection(item: Record<string, unknown>): CourseSection {
+		return this.courseSectionMapper.mapItem(item) as CourseSection;
 	}
 
 	public async getCourseById(id: string): Promise<Course> {
@@ -94,31 +129,41 @@ class UdemyService implements VendorService {
 		return this.mapToCourse(item);
 	}
 
+	public async getCourseSections(udemyId: string): Promise<CourseSection[]> {
+		const url = `${this.baseUrl}${udemyId}${ApiPath.COURSE_SECTIONS}`;
+
+		const query: Record<string, unknown> = {
+			"fields[chapter]": Object.values(CourseSectionField).join(","),
+		};
+
+		const items = await this.loadAllPages(url, query);
+		const orderField = CourseSectionField["SORT_ORDER"] as string;
+
+		const compare = (
+			item1: Record<string, unknown>,
+			item2: Record<string, unknown>,
+		): number => (item2[orderField] as number) - (item1[orderField] as number);
+
+		return items
+			.filter((item) => item["_class"] === "chapter")
+			.sort((item1, item2) => compare(item1, item2))
+			.map((item) => this.mapToCourseSection(item));
+	}
+
 	public async getCourses(search: string): Promise<Course[]> {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
-			page: UdemyDefaultSearchParameter.PAGE,
-			page_size: UdemyDefaultSearchParameter.PAGE_SIZE,
+			page: UdemyDefaultPageParameter.PAGE,
+			page_size: UdemyDefaultPageParameter.PAGE_SIZE,
 		};
 
 		if (search) {
 			query["search"] = search;
 		}
 
-		const result = await this.load(this.baseUrl, query).then(
-			async (result) => (await result.json()) as Record<"results", unknown>,
-		);
+		const results = await this.loadResults(this.baseUrl, query);
 
-		if (!result.results) {
-			throw new VendorError({
-				message: VendorErrorMessage.WRONG_RESPONSE_FROM_VENDOR_API,
-				status: HTTPCode.INTERNAL_SERVER_ERROR,
-			});
-		}
-
-		return (result.results as Record<string, unknown>[]).map((item) =>
-			this.mapToCourse(item),
-		);
+		return results.map((item) => this.mapToCourse(item));
 	}
 }
 
