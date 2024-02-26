@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.3.0...backend-v1.3.1) (2024-02-26)
+
+
+### Bug Fixes
+
+* **backend:** fix error with uploading tiff and bmp format files tm-189 ([#193](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/193)) ([7e6f52d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7e6f52d16d7104ebe7f05b4b33a2d6e572cfd771))
+
+## [1.3.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.2.0...backend-v1.3.0) (2024-02-25)
+
+
+### Features
+
+* create friends functionality tm-39 ([#105](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/105)) ([21e1ffa](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/21e1ffade9ce84965ecba221f3c0e3b5291101c6))
+
 ## [1.2.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.1.0...backend-v1.2.0) (2024-02-25)
 
 
