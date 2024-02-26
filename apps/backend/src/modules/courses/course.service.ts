@@ -36,7 +36,10 @@ class CourseService {
 		courses: CourseDto[],
 		userId: number,
 	): Promise<CourseDto[]> {
-		const userCourses = await this.courseRepository.findByUserId(userId);
+		const userCourses = await this.courseRepository.findByUserId({
+			search: "",
+			userId,
+		});
 		const userCoursesIds = new Set(
 			userCourses.map((course) => course.toNewObject().vendorCourseId),
 		);

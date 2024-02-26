@@ -42,9 +42,10 @@ class UserCourseService {
 		search: string;
 		userId: number;
 	}): Promise<CourseDto[]> {
-		const entities = search
-			? await this.courseRepository.findByUserIdWithSearch(userId, search)
-			: await this.courseRepository.findByUserId(userId);
+		const entities = await this.courseRepository.findByUserId({
+			search: search,
+			userId,
+		});
 
 		return entities.map((entity) => entity.toObject());
 	}
