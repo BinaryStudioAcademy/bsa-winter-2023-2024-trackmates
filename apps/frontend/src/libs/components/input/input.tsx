@@ -38,9 +38,11 @@ const Input = <T extends FieldValues>({
 	type = "text",
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
+
 	const icon = iconName ? (
 		<Icon className={styles["icon"]} name={iconName} />
 	) : null;
+	const hasIcon = Boolean(iconName);
 
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
@@ -50,7 +52,7 @@ const Input = <T extends FieldValues>({
 		styles["input"],
 		styles[color],
 		hasError && styles["error-input"],
-		icon && styles["input-with-icon"],
+		hasIcon && styles["input-with-icon"],
 	);
 	const labelClasses = getValidClassNames(
 		styles["heading"],
