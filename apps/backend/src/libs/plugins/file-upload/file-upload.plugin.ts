@@ -32,11 +32,14 @@ const fileUpload = fastifyPlugin<Options>(
 			const data = await request.file();
 			const buffer = await data?.toBuffer();
 
-			if (
+			const isFileCorrect =
 				data &&
 				buffer &&
-				allowedExtensions.includes(data.mimetype as ValueOf<typeof ContentType>)
-			) {
+				allowedExtensions.includes(
+					data.mimetype as ValueOf<typeof ContentType>,
+				);
+
+			if (isFileCorrect) {
 				if (data.file.truncated) {
 					throw new FileError({
 						message: ExceptionMessage.FILE_IS_TOO_LARGE,
