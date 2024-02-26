@@ -24,17 +24,17 @@ import { type FriendFollowRequestDto } from "./libs/types/types.js";
  *       type: object
  *       properties:
  *         createdAt:
- *           type: string;
+ *           type: string
  *         email:
- *           type string;
+ *           type: string
  *         firstName:
- *           type string;
+ *           type: string
  *         id:
- *           type number;
+ *           type: number
  *         lastName:
- *           type string;
+ *           type: string
  *         updatedAt:
- *           type string;
+ *           type: string
  *     Error:
  *       type: object
  *       properties:
@@ -169,40 +169,41 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/follow:
-	 *    post:
-	 *      description: Create follow relation and return user which we started to follow
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      requestBody:
-	 *        description: User auth data
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                id:
-	 *                  type: string
-	 *      responses:
-	 *        201:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  message:
-	 *                    type: object
-	 *                    $ref: "#/components/schemas/User"
-	 *        400:
-	 *          description: Bad request
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                oneOf:
-	 *                  - $ref: '#/components/schemas/FriendError'
-	 *                  - type: null
+	 *   post:
+	 *     description: Create follow relation and return user which we started to follow
+	 *     security:
+	 *       - bearerAuth: []
+	 *     requestBody:
+	 *       description: User auth data
+	 *       required: true
+	 *       content:
+	 *         application/json:
+	 *           schema:
+	 *             type: object
+	 *             properties:
+	 *               id:
+	 *                 type: string
+	 *     responses:
+	 *       201:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: object
+	 *               properties:
+	 *                 message:
+	 *                   type: object
+	 *                   $ref: "#/components/schemas/User"
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               oneOf:
+	 *                 - $ref: '#/components/schemas/FriendError'
+	 *                 - type: null
 	 */
+
 	private async createSubscription(
 		options: APIHandlerOptions<{
 			body: FriendFollowRequestDto;
@@ -221,35 +222,36 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/unfollow/{id}:
-	 *    delete:
-	 *      description: Unfollow a user by ID
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      parameters:
-	 *        - in: path
-	 *          name: id
-	 *          description: ID of the user to unfollow
-	 *          required: true
-	 *          schema:
-	 *            type: number
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
-	 *                    description: Indicates whether the unfollow operation was successful (true) or not (false).
-	 *        400:
-	 *          description: Bad request
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: '#/components/schemas/Error'
+	 *   delete:
+	 *     description: Unfollow a user by ID
+	 *     security:
+	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         description: ID of the user to unfollow
+	 *         required: true
+	 *         schema:
+	 *           type: number
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: object
+	 *               properties:
+	 *                 success:
+	 *                   type: boolean
+	 *                   description: Indicates whether the unfollow operation was successful (true) or not (false).
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/Error'
 	 */
+
 	private async delete(
 		options: APIHandlerOptions<{
 			params: FriendFollowRequestDto;
@@ -264,37 +266,37 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/unfollow:
-	 *    post:
-	 *      description: Delete follow relation
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      requestBody:
-	 *        description: User auth data
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                id:
-	 *                  type: number
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
-	 *                    description: Indicates whether the unsubscribe operation was successful (true) or not (false).
-	 *        400:
-	 *          description: Bad request
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: '#/components/schemas/Error'
+	 *   post:
+	 *     description: Delete follow relation
+	 *     security:
+	 *       - bearerAuth: []
+	 *     requestBody:
+	 *       description: User auth data
+	 *       required: true
+	 *       content:
+	 *         application/json:
+	 *           schema:
+	 *             type: object
+	 *             properties:
+	 *               id:
+	 *                 type: number
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: object
+	 *               properties:
+	 *                 success:
+	 *                   type: boolean
+	 *                   description: Indicates whether the unsubscribe operation was successful (true) or not (false).
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/Error'
 	 */
 	private async deleteSubscription(
 		options: APIHandlerOptions<{
@@ -314,25 +316,32 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friend/{id}:
-	 *    get:
-	 *      description: Returns found user
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: array
-	 *                items:
-	 *                  $ref: "#/components/schemas/User"
-	 *        400:
-	 *          description: Bad request
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: "#/components/schemas/Error"
+	 *   get:
+	 *     description: Returns found user
+	 *     security:
+	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         description: ID of the user
+	 *         required: true
+	 *         schema:
+	 *           type: number
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 $ref: "#/components/schemas/User"
+	 *       400:
+	 *         description: Bad request
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: "#/components/schemas/Error"
 	 */
 	private async find(
 		options: APIHandlerOptions<{
@@ -350,19 +359,19 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/:
-	 *    get:
-	 *      description: Returns array of all users
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: array
-	 *                items:
-	 *                  $ref: "#/components/schemas/User"
+	 *   get:
+	 *     description: Returns array of all users
+	 *     security:
+	 *       - bearerAuth: []
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
@@ -374,19 +383,19 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/potential-following:
-	 *    get:
-	 *      description: Returns an array of User that the user does not follow
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: array
-	 *                items:
-	 *                  $ref: "#/components/schemas/User"
+	 *   get:
+	 *     description: Returns an array of User that the user does not follow
+	 *     security:
+	 *       - bearerAuth: []
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async getPotentialFollowers(
 		options: APIHandlerOptions<{
@@ -402,19 +411,19 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/followers:
-	 *    get:
-	 *      description: Returns an array of User that the user is followed by
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: array
-	 *                items:
-	 *                  $ref: "#/components/schemas/User"
+	 *   get:
+	 *     description: Returns an array of User that the user is followed by
+	 *     security:
+	 *       - bearerAuth: []
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async getUserFollowers(
 		options: APIHandlerOptions<{
@@ -430,19 +439,19 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/followings:
-	 *    get:
-	 *      description: Returns an array of User that the user is following
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: array
-	 *                items:
-	 *                  $ref: "#/components/schemas/User"
+	 *   get:
+	 *     description: Returns an array of User that the user is following
+	 *     security:
+	 *       - bearerAuth: []
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async getUserFollowings(
 		options: APIHandlerOptions<{
@@ -458,24 +467,24 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/update:
-	 *    patch:
-	 *      description: Update a user record
-	 * 	   	security:
-	 *        - bearerAuth: []
-	 *      requestBody:
-	 *        description: Request body for updating a user
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              $ref: "#/components/schemas/FriendFollowRequestDto"
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                $ref: "#/components/schemas/User"
+	 *   patch:
+	 *     description: Update a user record
+	 *     security:
+	 *       - bearerAuth: []
+	 *     requestBody:
+	 *       description: Request body for updating a user
+	 *       required: true
+	 *       content:
+	 *         application/json:
+	 *           schema:
+	 *             $ref: "#/components/schemas/FriendFollowRequestDto"
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: "#/components/schemas/User"
 	 */
 	private async update(
 		options: APIHandlerOptions<{
