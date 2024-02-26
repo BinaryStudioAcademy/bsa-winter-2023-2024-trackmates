@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { courseIdParameterValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 
 import { type CourseSectionService } from "./course-section.service.js";
 import { CourseSectionsApiPath } from "./libs/enums/enums.js";
@@ -54,6 +55,9 @@ class CourseSectionController extends BaseController {
 			},
 			method: "GET",
 			path: CourseSectionsApiPath.ROOT,
+			validation: {
+				query: courseIdParameterValidationSchema,
+			},
 		});
 
 		this.addRoute({
