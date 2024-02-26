@@ -49,9 +49,17 @@ class CourseSectionService implements Service {
 		return await this.courseSectionRepository.delete(id);
 	}
 
-	//TODO
-	public find(): Promise<CourseSectionEntity | null> {
-		return Promise.resolve(null);
+	public async find(id: number): Promise<CourseSectionEntity> {
+		const courseSection = await this.courseSectionRepository.find(id);
+
+		if (!courseSection) {
+			throw new CourseSectionError({
+				message: ExceptionMessage.COURSE_SECTION_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		return courseSection;
 	}
 
 	public async findAll(): Promise<CourseSectionGetAllResponseDto> {
@@ -71,7 +79,6 @@ class CourseSectionService implements Service {
 		};
 	}
 
-	//TODO
 	public update(): Promise<CourseSectionEntity | null> {
 		return Promise.resolve(null);
 	}

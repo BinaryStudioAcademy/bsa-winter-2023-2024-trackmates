@@ -35,9 +35,11 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type CourseSectionAddRequestDto,
 	type CourseSectionDto,
+	CourseSectionError,
+	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	CourseSectionsApiPath,
 } from "./modules/course-sections/course-sections.js";
-export { CourseSectionError } from "./modules/course-sections/course-sections.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,

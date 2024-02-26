@@ -105,10 +105,7 @@ class UdemyService implements VendorService {
 		item: Record<FROM_FIELD, unknown>,
 		mapping: Record<TO_FIELD, FROM_FIELD>,
 	): Record<TO_FIELD, unknown> {
-		const mappingEntries = Object.entries(mapping) as [
-			TO_FIELD,
-			FROM_FIELD,
-		][];
+		const mappingEntries = Object.entries(mapping) as [TO_FIELD, FROM_FIELD][];
 		const mappedItem = {} as Record<TO_FIELD, unknown>;
 
 		for (const [to, from] of mappingEntries) {

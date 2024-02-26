@@ -45,16 +45,18 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			.findById(id)
 			.execute();
 
-		return courseSection
-			? CourseSectionEntity.initialize({
-					courseId: courseSection.courseId,
-					createdAt: courseSection.createdAt,
-					description: courseSection.description,
-					id: courseSection.id,
-					title: courseSection.title,
-					updatedAt: courseSection.updatedAt,
-				})
-			: null;
+		if (!courseSection) {
+			return null;
+		}
+
+		return CourseSectionEntity.initialize({
+			courseId: courseSection.courseId,
+			createdAt: courseSection.createdAt,
+			description: courseSection.description,
+			id: courseSection.id,
+			title: courseSection.title,
+			updatedAt: courseSection.updatedAt,
+		});
 	}
 
 	public async findAll(): Promise<CourseSectionEntity[]> {
@@ -95,7 +97,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 	public async update(
 		id: number,
 		entity: CourseSectionEntity,
-	): Promise<CourseSectionEntity | null> {
+	): Promise<CourseSectionEntity> {
 		const courseSection = entity.toObject();
 		const courseSectionModel = await this.courseSectionModel
 			.query()
