@@ -1,5 +1,6 @@
 type IconName =
 	| "add"
+	| "back"
 	| "burger"
 	| "cross"
 	| "eye"

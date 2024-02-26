@@ -1,4 +1,4 @@
-import { Image, Navigate } from "~/libs/components/components.js";
+import { Button, Image, Navigate } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { useAppSelector, useParams } from "~/libs/hooks/hooks.js";
@@ -26,7 +26,16 @@ const User: React.FC = () => {
 
 	return (
 		<div className={styles["container"]}>
-			<div className={styles["content"]}>
+			<Button
+				className={styles["return-button"]}
+				hasVisuallyHiddenLabel
+				href={AppRoute.FRIENDS}
+				iconName="back"
+				label="Go back"
+				size="small"
+			/>
+
+			<div className={styles["user-content"]}>
 				<div className={styles["profile-image-wrapper"]}>
 					<Image
 						alt="avatar"
