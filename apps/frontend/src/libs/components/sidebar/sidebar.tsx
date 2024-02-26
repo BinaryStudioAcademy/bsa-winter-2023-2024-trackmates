@@ -1,11 +1,6 @@
 import logo from "~/assets/img/website-logo.png";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useCallback,
-	useLocation,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 
@@ -23,8 +18,6 @@ type Properties = {
 const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
-
-	const location = useLocation();
 
 	const handleToggleSidebar = useCallback(() => {
 		setOpen((isOpen) => !isOpen);
@@ -45,6 +38,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				iconName="burger"
 				label="burger-button"
 				onClick={handleToggleSidebar}
+				style="secondary"
 			/>
 			<div
 				className={getValidClassNames(
@@ -57,18 +51,12 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
-						<>
-							<Button
-								className={styles["menu-item"]}
-								href={href}
-								iconName={icon}
-								key={label}
-								label={label}
-							/>
+						<div key={label}>
 							<Link
+								activeClassName={styles["active"]}
 								className={getValidClassNames(
 									styles["bottom-menu"],
-									href === location.pathname ? styles["active"] : "",
+									styles["menu-item"],
 								)}
 								to={href}
 							>
@@ -76,16 +64,17 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 								<span className={styles["menu-icon"]}>
 									<Icon name={icon} />
 								</span>
-								<span>{label}</span>
+								<span className={styles["link-title"]}>{label}</span>
 							</Link>
-						</>
+						</div>
 					))}
 				</nav>
 				<Button
-					className={styles["menu-item"]}
+					className={styles["log-out-btn"]}
 					iconName="logOut"
-					label="Log out"
+					label="Log Out"
 					onClick={handleLogOut}
+					style="plain"
 				/>
 			</div>
 			<BlurredBackground
