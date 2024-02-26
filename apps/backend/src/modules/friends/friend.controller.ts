@@ -266,7 +266,7 @@ class FriendController extends BaseController {
 	/**
 	 * @swagger
 	 * /friends/unfollow:
-	 *   post:
+	 *   delete:
 	 *     description: Delete follow relation
 	 *     security:
 	 *       - bearerAuth: []

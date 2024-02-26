@@ -159,10 +159,10 @@ class FriendRepository implements Repository<UserEntity> {
 						"=",
 						`${DatabaseTableName.FRIENDS}.following_id`,
 					)
-					.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id),
+					.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
+					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
 			)
 			.distinct()
-			.debug()
 			.withGraphJoined("userDetails");
 
 		return potentialFollowers.map((user) => {
