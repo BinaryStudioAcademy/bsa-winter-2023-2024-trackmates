@@ -10,7 +10,6 @@ type Properties = {
 	className?: string | undefined;
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
-	iconClassName?: string | undefined;
 	iconName?: IconName;
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -23,7 +22,6 @@ const Button: React.FC<Properties> = ({
 	className,
 	hasVisuallyHiddenLabel = false,
 	href,
-	iconClassName,
 	iconName,
 	label,
 	onClick,
@@ -38,9 +36,7 @@ const Button: React.FC<Properties> = ({
 		className,
 	);
 
-	const icon = iconName ? (
-		<Icon className={iconClassName} name={iconName} />
-	) : null;
+	const icon = iconName ? <Icon name={iconName} /> : null;
 	const labelStyle = getValidClassNames(
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
