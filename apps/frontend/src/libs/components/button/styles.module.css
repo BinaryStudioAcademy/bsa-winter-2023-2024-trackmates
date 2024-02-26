@@ -31,19 +31,10 @@
 	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
-	fill: var(--color-menu);
 }
 
-.primary.outlined,
 .primary:hover {
 	color: var(--main-white);
-	background-color: var(--color-button);
-	border-color: var(--color-button);
-	fill: var(--main-white);
-}
-
-.primary.outlined:hover {
-	color: white;
 	background-color: var(--color-button);
 	border-color: var(--color-button);
 }
@@ -52,24 +43,22 @@
 	color: var(--main-white);
 	background-color: transparent;
 	border-color: var(--main-white);
-	fill: var(--main-white);
 }
 
 .secondary:hover {
 	color: var(--color-button);
-	background-color: transparent;
 	border-color: var(--color-button);
-	fill: var(--color-white);
 }
 
-.secondary.outlined {
+.plain {
 	color: var(--main-white);
 	background-color: transparent;
 	border-color: transparent;
-	fill: var(--main-white);
+	opacity: 0.6;
 }
 
-.secondary.outlined:hover {
+.plain:hover {
 	color: var(--color-button);
-	fill: var(--color-button);
+	background-color: transparent;
+	opacity: 1;
 }

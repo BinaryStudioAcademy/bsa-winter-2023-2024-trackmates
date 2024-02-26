@@ -1,14 +1,6 @@
 import logo from "~/assets/img/website-logo.png";
-import {
-	getFirstPathSegment,
-	getValidClassNames,
-} from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useCallback,
-	useLocation,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 
@@ -27,8 +19,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
 
-	const location = useLocation();
-
 	const handleToggleSidebar = useCallback(() => {
 		setOpen((isOpen) => !isOpen);
 	}, []);
@@ -44,11 +34,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 					styles["burger-button"],
 					styles[isOpen ? "open" : "close"],
 				)}
-				color="secondary"
 				hasVisuallyHiddenLabel
 				iconName="burger"
 				label="burger-button"
 				onClick={handleToggleSidebar}
+				style="secondary"
 			/>
 			<div
 				className={getValidClassNames(
@@ -62,26 +52,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
 						<div key={label}>
-							<Button
-								className={styles["menu-item"]}
-								color={
-									href === getFirstPathSegment(location.pathname)
-										? "primary"
-										: "secondary"
-								}
-								href={href}
-								iconName={icon}
-								label={label}
-								style={
-									href === getFirstPathSegment(location.pathname)
-										? "filled"
-										: "outlined"
-								}
-							/>
 							<Link
+								activeClassName={styles["active"]}
 								className={getValidClassNames(
 									styles["bottom-menu"],
-									href === location.pathname ? styles["active"] : "",
+									styles["menu-item"],
 								)}
 								to={href}
 							>
@@ -89,16 +64,17 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 								<span className={styles["menu-icon"]}>
 									<Icon name={icon} />
 								</span>
-								<span>{label}</span>
+								<span className={styles["link-title"]}>{label}</span>
 							</Link>
 						</div>
 					))}
 				</nav>
 				<Button
-					className={styles["menu-item"]}
+					className={styles["log-out-btn"]}
 					iconName="logOut"
-					label="Log out"
+					label="Log Out"
 					onClick={handleLogOut}
+					style="plain"
 				/>
 			</div>
 			<BlurredBackground

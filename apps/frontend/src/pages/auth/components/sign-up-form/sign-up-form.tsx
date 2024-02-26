@@ -84,17 +84,17 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				/>
 				<Button
 					className={styles["icon"]}
-					color="secondary"
 					hasVisuallyHiddenLabel
 					iconName={isPasswordVisible ? "eye" : "eyeOff"}
 					label="eye-icon"
 					onClick={handleChangePasswordVisibility}
+					style="secondary"
 				/>
 			</div>
 			<Button
 				className={styles["button"]}
-				color="primary"
 				label="Create an account"
+				style="primary"
 				type="submit"
 			/>
 		</form>
