@@ -95,7 +95,7 @@
 		color: var(--main-white);
 	}
 
-	.close .log-out-btn span {
+	.log-out-btn > :last-child {
 		display: none;
 	}
 
@@ -224,7 +224,7 @@
 		display: block;
 	}
 
-	.close .log-out-btn span {
+	.log-out-btn > :last-child {
 		display: block;
 	}
 
