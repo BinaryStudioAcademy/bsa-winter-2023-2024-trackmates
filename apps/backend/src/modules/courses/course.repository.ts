@@ -214,7 +214,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		const courseModels = await user
 			.$relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
-			.where("title", "ilike", `%${search}%`)
+			.whereILike("title", `%${search}%`)
 			.withGraphFetched("vendor")
 			.castTo<CourseModel[]>();
 
