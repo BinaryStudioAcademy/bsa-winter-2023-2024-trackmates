@@ -28,15 +28,9 @@
 
 .profile-image-wrapper {
 	position: relative;
-	width: 133px;
-	height: 133px;
-	overflow: hidden;
-	border-radius: 50%;
 }
 
 .profile-image {
-	width: 100%;
-	height: 100%;
 	object-fit: cover;
 }
 
