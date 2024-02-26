@@ -1,0 +1,60 @@
+.wrapper {
+	display: flex;
+	gap: 27px;
+	padding: 15px 39px;
+}
+
+.back-btn {
+	justify-content: flex-start;
+	width: 128;
+	padding-left: 0;
+	padding-left: 39px;
+	color: var(--color-text-400);
+	background-color: transparent;
+	border: none;
+}
+
+.back-btn:hover {
+	color: var(--color-text-300);
+	background-color: transparent;
+}
+
+.title {
+	padding-bottom: 7px;
+	font-size: var(--font-size-400);
+	font-weight: 600;
+	color: var(--color-text-300);
+}
+
+.subtitle {
+	font-size: var(--font-size-300);
+	font-weight: 500;
+	color: var(--color-text-300);
+}
+
+.image {
+	width: 650px;
+}
+
+.course-info .title {
+	margin-bottom: 10px;
+}
+
+.course-info::before {
+	position: absolute;
+	top: 375px;
+	left: 370px;
+	width: 78px;
+	height: 78px;
+	content: "";
+	background-image: url("~/assets/img/play.png");
+	background-size: cover;
+}
+
+.content-item {
+	width: 398px;
+	height: 59px;
+	padding: 20px 26px;
+	background-color: var(--main-white);
+	border-radius: 10px;
+}
