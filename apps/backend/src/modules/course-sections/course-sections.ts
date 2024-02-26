@@ -15,4 +15,7 @@ const courseSectionService = new CourseSectionService({
 // 	courseSectionService,
 // );
 
-export { courseSectionService };
+export { courseSectionRepository, courseSectionService };
+export { CourseSectionEntity } from "./course-section.entity.js";
+export { type CourseSectionRepository } from "./course-section.repository.js";
+export { type CourseSectionDto } from "./libs/types/types.js";

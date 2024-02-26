@@ -1,5 +1,9 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
 import {
+	CourseSectionEntity,
+	type CourseSectionRepository,
+} from "~/modules/course-sections/course-sections.js";
+import {
 	type VendorApi,
 	type VendorResponseDto,
 	type VendorService,
@@ -13,21 +17,25 @@ import { type CourseDto, type CoursesResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
+	courseSectionRepository: CourseSectionRepository;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
 };
 
 class CourseService {
 	private courseRepository: CourseRepository;
+	private courseSectionRepository: CourseSectionRepository;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
 
 	public constructor({
 		courseRepository,
+		courseSectionRepository,
 		vendorService,
 		vendorsApiMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
+		this.courseSectionRepository = courseSectionRepository;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorService = vendorService;
 	}
@@ -89,6 +97,22 @@ class CourseService {
 		});
 	}
 
+	private async getVendorCourseSections(
+		course: CourseEntity,
+	): Promise<CourseSectionEntity[]> {
+		const { id, vendorCourseId, vendorId } = course.toObject();
+		const vendorApi = await this.getVendorApiById(vendorId);
+		const sections = await vendorApi.getCourseSections(vendorCourseId);
+
+		return sections.map((section) => {
+			return CourseSectionEntity.initializeNew({
+				courseId: id,
+				description: section.description,
+				title: section.title,
+			});
+		});
+	}
+
 	public async addCourse({
 		userId,
 		vendorCourseId,
@@ -127,6 +151,11 @@ class CourseService {
 
 		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
 		const addedCourse = await this.courseRepository.create(vendorCourse);
+		const sections = await this.getVendorCourseSections(addedCourse);
+
+		for (const section of sections) {
+			await this.courseSectionRepository.create(section);
+		}
 
 		return addedCourse.toObject();
 	}
