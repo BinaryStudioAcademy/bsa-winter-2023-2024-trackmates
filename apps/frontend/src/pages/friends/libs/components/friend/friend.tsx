@@ -1,5 +1,5 @@
 import friendImage from "~/assets/img/friend.jpeg";
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Image, RouterLink } from "~/libs/components/components.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -41,7 +41,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 
 	return (
 		<article className={styles["card"]}>
-			<div className={styles["card-content"]}>
+			<RouterLink className={styles["card-content"]} to={`/users/${friend.id}`}>
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
@@ -50,7 +50,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				<p
 					className={styles["fullName"]}
 				>{`${friend.firstName} ${friend.lastName}`}</p>
-			</div>
+			</RouterLink>
 
 			<div className={styles["actions"]}>
 				<Button

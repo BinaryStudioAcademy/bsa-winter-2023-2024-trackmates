@@ -1,6 +1,10 @@
-import { Navigate } from "~/libs/components/components.js";
+import { Image, Navigate } from "~/libs/components/components.js";
+import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { useAppSelector, useParams } from "~/libs/hooks/hooks.js";
+
+import { UserButton } from "./libs/components/components.js";
+import styles from "./styles.module.css";
 
 const User: React.FC = () => {
 	const { id } = useParams();
@@ -14,13 +18,32 @@ const User: React.FC = () => {
 		};
 	});
 
-	const friend = friends.find((friend) => friend.id === +(id as string));
+	const user = friends.find((friend) => friend.id === +(id as string));
 
-	if (!friend) {
+	if (!user) {
 		return <Navigate to={AppRoute.FRIENDS} />;
 	}
 
-	return `Hello Friend with id ${id}`;
+	return (
+		<div className={styles["container"]}>
+			<div className={styles["content"]}>
+				<div className={styles["profile-image-wrapper"]}>
+					<Image
+						alt="avatar"
+						className={styles["profile-image"]}
+						src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+					/>
+				</div>
+
+				<div className={styles["user-wrapper"]}>
+					<p
+						className={styles["fullName"]}
+					>{`${user.firstName} ${user.lastName}`}</p>
+					<UserButton id={user.id} />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export { User };
