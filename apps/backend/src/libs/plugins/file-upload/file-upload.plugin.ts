@@ -30,26 +30,34 @@ const fileUpload = fastifyPlugin<Options>(
 			}
 
 			const data = await request.file();
+			const buffer = await data?.toBuffer();
 
-			if (
+			const isFileCorrect =
 				data &&
-				allowedExtensions.includes(data.mimetype as ValueOf<typeof ContentType>)
-			) {
-				const buffer = await data.toBuffer();
+				buffer &&
+				allowedExtensions.includes(
+					data.mimetype as ValueOf<typeof ContentType>,
+				);
 
-				if (data.file.truncated) {
-					throw new FileError({
-						message: ExceptionMessage.FILE_IS_TOO_LARGE,
-						status: HTTPCode.BAD_REQUEST,
-					});
-				}
-
-				request.uploadedFile = {
-					buffer,
-					contentType: data.mimetype as ValueOf<typeof ContentType>,
-					fileName: data.filename,
-				};
+			if (!isFileCorrect) {
+				throw new FileError({
+					message: ExceptionMessage.NO_FILE_PRESENTED,
+					status: HTTPCode.BAD_REQUEST,
+				});
 			}
+
+			if (data.file.truncated) {
+				throw new FileError({
+					message: ExceptionMessage.FILE_IS_TOO_LARGE,
+					status: HTTPCode.BAD_REQUEST,
+				});
+			}
+
+			request.uploadedFile = {
+				buffer,
+				contentType: data.mimetype as ValueOf<typeof ContentType>,
+				fileName: data.filename,
+			};
 		});
 	},
 );
