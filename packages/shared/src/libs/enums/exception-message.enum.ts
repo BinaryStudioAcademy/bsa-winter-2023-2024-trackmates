@@ -1,4 +1,5 @@
 const ExceptionMessage = {
+	CHAT_ALREADY_EXISTS: "Chat already exists.",
 	CHAT_NOT_FOUND: "Chat not found.",
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
 	INCORRECT_CREDENTIALS: "Incorrect credentials.",

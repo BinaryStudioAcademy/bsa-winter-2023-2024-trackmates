@@ -27,16 +27,18 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
-	type ChatGetAllResponseDto,
-	type ChatItemResponseDto,
-	ChatMessageApiPath,
-	type MessageGetAllResponseDto,
-	type MessageResponseDto,
-	type MessageSendRequestDto,
+	type ChatMessageCreateRequestDto,
+	type ChatMessageItemResponseDto,
+	ChatMessagesApiPath,
 	MessageStatus,
-	chatMessageSendValidationSchema,
-	chatParametersValidationSchema,
-} from "./modules/chat-message/chat.js";
+} from "./modules/chat-messages/chat-messages.js";
+export {
+	type ChatCreateRequestDto,
+	type ChatGetAllItemResponseDto,
+	type ChatResponseDto,
+	type ChatSingleItemResponseDto,
+	ChatsApiPath,
+} from "./modules/chats/chats.js";
 export { type CourseDto, CoursesApiPath } from "./modules/courses/courses.js";
 export { type FriendDto } from "./modules/friends/friends.js";
 export {
