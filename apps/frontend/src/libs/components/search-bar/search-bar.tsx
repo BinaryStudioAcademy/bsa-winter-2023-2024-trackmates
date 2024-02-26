@@ -30,7 +30,7 @@ const SearchBar: React.FC = () => {
 		filterFormData: CourseSearchRequestDto,
 	): void => {
 		void dispatch(
-			userCourseActions.searchMyCourses({
+			userCourseActions.loadMyCourses({
 				id: user.id,
 				search: filterFormData.search,
 			}),

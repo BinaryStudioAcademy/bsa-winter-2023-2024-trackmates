@@ -4,7 +4,7 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type CourseDto } from "../libs/types/types.js";
-import { add, loadMyCourses, searchMyCourses } from "./actions.js";
+import { add, loadMyCourses } from "./actions.js";
 
 type State = {
 	courses: CourseDto[];
@@ -36,16 +36,6 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(loadMyCourses.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
-		});
-		builder.addCase(searchMyCourses.fulfilled, (state, action) => {
-			state.courses = action.payload.courses;
-			state.dataStatus = DataStatus.FULFILLED;
-		});
-		builder.addCase(searchMyCourses.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(searchMyCourses.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 	},
