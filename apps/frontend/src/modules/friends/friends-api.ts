@@ -40,7 +40,7 @@ class FriendsApi extends BaseHTTPApi {
 
 	public async getAllPotentialFriends(): Promise<UserAuthResponseDto[]> {
 		const response = await this.load(
-			this.getFullEndpoint(FriendsApiPath.POTENTIAL_FOLLOWING, {}),
+			this.getFullEndpoint(FriendsApiPath.POTENTIAL_FOLLOWINGS, {}),
 			{
 				hasAuth: true,
 				method: "GET",

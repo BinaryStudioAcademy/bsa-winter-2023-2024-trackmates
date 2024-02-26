@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.5.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.4.0...frontend-v1.5.0) (2024-02-25)
+
+
+### Features
+
+* create friends functionality tm-39 ([#105](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/105)) ([21e1ffa](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/21e1ffade9ce84965ecba221f3c0e3b5291101c6))
+
+## [1.4.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.3.0...frontend-v1.4.0) (2024-02-25)
+
+
+### Features
+
+* **frontend:** add friends page mobile responsiveness tm-157 ([#184](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/184)) ([dfc7236](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/dfc72369b039abe4787adb0c17e356b78a00c602))
+
+## [1.3.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.2.0...frontend-v1.3.0) (2024-02-25)
+
+
+### Features
+
+* **frontend:** add logout button to sidebar tm-156 ([#177](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/177)) ([4032d57](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4032d5728d743ef09795be7d618caf0ea9f7e8df))
+
 ## [1.2.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.1.0...frontend-v1.2.0) (2024-02-25)
 
 
