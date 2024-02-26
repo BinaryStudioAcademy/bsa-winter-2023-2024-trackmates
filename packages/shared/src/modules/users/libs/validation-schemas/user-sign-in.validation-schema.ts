@@ -37,6 +37,12 @@ const userSignIn = z
 			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			})
+			.regex(/^(?!.*[._]{2})[\w.]*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/(?<=@)(?!.*[.-]{2})[\d.A-Za-z-]*/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
 			.regex(/^[^_][\w.]*(?=@)/, {
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			}),

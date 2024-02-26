@@ -6,6 +6,7 @@ import { authController } from "~/modules/auth/auth.js";
 import { courseSectionController } from "~/modules/course-sections/course-sections.js";
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
+import { friendController } from "~/modules/friends/friends.js";
 import { userCourseController } from "~/modules/user-courses/user-courses.js";
 import { userController, userService } from "~/modules/users/users.js";
 import { vendorController } from "~/modules/vendors/vendors.js";
@@ -21,6 +22,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...vendorController.routes,
 	...userCourseController.routes,
 	...fileController.routes,
+	...friendController.routes,
 	...userController.routes,
 	...courseSectionController.routes,
 );

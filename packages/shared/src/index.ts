@@ -58,10 +58,14 @@ export {
 	FilesApiPath,
 } from "./modules/files/files.js";
 export {
+	FriendError,
+	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
+	addFriendValidationSchema,
+	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
 	UserCoursesApiPath,
