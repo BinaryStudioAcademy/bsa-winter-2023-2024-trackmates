@@ -209,4 +209,10 @@
 	svg {
 		fill: currentcolor;
 	}
+
+	.active {
+		color: var(--main-orange);
+		background-color: transparent;
+		border-color: transparent;
+	}
 }
