@@ -114,16 +114,16 @@ const Profile: React.FC = () => {
 					<div className={styles["btnWrapper"]}>
 						<Button
 							className={styles["button"]}
-							color="secondary"
 							href={AppRoute.ROOT}
 							label="Cancel"
 							size="small"
+							style="secondary"
 						/>
 						<Button
 							className={styles["button"]}
-							color="secondary"
 							label="Update"
 							size="small"
+							style="primary"
 							type="submit"
 						/>
 					</div>

@@ -6,6 +6,7 @@ import { actions as authActions } from "~/modules/auth/auth.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
+import { Icon } from "../icon/icon.js";
 import { Image } from "../image/image.js";
 import { Link } from "../link/link.js";
 import styles from "./styles.module.css";
@@ -37,6 +38,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				iconName="burger"
 				label="burger-button"
 				onClick={handleToggleSidebar}
+				style="secondary"
 			/>
 			<div
 				className={getValidClassNames(
@@ -49,26 +51,30 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
-						<>
-							<Button
-								className={styles["menu-item"]}
-								href={href}
-								iconClassName={styles["icon"]}
-								iconName={icon}
-								key={label}
-								label={label}
-							/>
-						</>
+						<div key={label}>
+							<Link
+								activeClassName={styles["active"]}
+								className={getValidClassNames(
+									styles["bottom-menu"],
+									styles["menu-item"],
+								)}
+								to={href}
+							>
+								{" "}
+								<span className={styles["menu-icon"]}>
+									<Icon name={icon} />
+								</span>
+								<span className={styles["link-title"]}>{label}</span>
+							</Link>
+						</div>
 					))}
 				</nav>
 				<Button
-					className={getValidClassNames(
-						styles["menu-item"],
-						styles["logout-btn"],
-					)}
+					className={styles["log-out-btn"]}
 					iconName="logOut"
-					label="Log out"
+					label="Log Out"
 					onClick={handleLogOut}
+					style="plain"
 				/>
 			</div>
 			<BlurredBackground

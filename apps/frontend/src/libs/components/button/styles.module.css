@@ -33,38 +33,32 @@
 	border-color: var(--main-white);
 }
 
-.primary.outlined,
 .primary:hover {
 	color: var(--main-white);
 	background-color: var(--color-button);
 	border-color: var(--color-button);
 }
 
-.primary.outlined:hover {
-	color: white;
-	background-color: var(--color-button);
-	border-color: var(--color-button);
-}
-
 .secondary {
-	color: var(--color-menu);
-	background-color: var(--main-white);
+	color: var(--main-white);
+	background-color: transparent;
 	border-color: var(--main-white);
 }
 
 .secondary:hover {
-	color: var(--main-white);
-	background-color: transparent;
-	border-color: var(--main-white);
+	color: var(--color-button);
+	border-color: var(--color-button);
 }
 
-.secondary.outlined {
+.plain {
 	color: var(--main-white);
 	background-color: transparent;
+	border-color: transparent;
+	opacity: 0.6;
 }
 
-.secondary.outlined:hover {
-	color: var(--color-text-300);
-	background-color: var(--main-white);
-	border-color: var(--main-white);
+.plain:hover {
+	color: var(--color-button);
+	background-color: transparent;
+	opacity: 1;
 }

@@ -8,7 +8,6 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	className?: string | undefined;
-	color?: "primary" | "secondary";
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconClassName?: string | undefined;
@@ -16,13 +15,12 @@ type Properties = {
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
-	style?: "filled" | "outlined";
+	style?: "plain" | "primary" | "secondary";
 	type?: "button" | "submit";
 };
 
 const Button: React.FC<Properties> = ({
 	className,
-	color = "primary",
 	hasVisuallyHiddenLabel = false,
 	href,
 	iconClassName,
@@ -30,14 +28,13 @@ const Button: React.FC<Properties> = ({
 	label,
 	onClick,
 	size = "regular",
-	style = "filled",
+	style = "primary",
 	type = "button",
 }: Properties) => {
 	const buttonStyles = getValidClassNames(
 		styles["button"],
 		styles[size],
 		styles[style],
-		styles[color],
 		className,
 	);
 
