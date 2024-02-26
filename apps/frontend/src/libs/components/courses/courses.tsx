@@ -7,7 +7,6 @@ import styles from "./styles.module.css";
 type Properties = {
 	courses: CourseDto[];
 	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
-	title?: string;
 };
 
 const Courses: React.FC<Properties> = ({
