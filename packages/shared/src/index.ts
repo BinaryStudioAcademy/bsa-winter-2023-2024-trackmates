@@ -32,7 +32,12 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
-export { type CourseSectionDto } from "./modules/course-sections/course-sections.js";
+export {
+	type CourseSectionAddRequestDto,
+	type CourseSectionDto,
+	type CourseSectionGetAllResponseDto,
+} from "./modules/course-sections/course-sections.js";
+export { CourseSectionError } from "./modules/course-sections/course-sections.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
