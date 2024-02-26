@@ -7,7 +7,12 @@ import {
 	useAppForm,
 	useAppSelector,
 	useCallback,
+	useNavigate,
 } from "~/libs/hooks/hooks.js";
+import {
+	NotificationMessage,
+	notification,
+} from "~/libs/modules/notification/notification.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
@@ -23,6 +28,7 @@ const Profile: React.FC = () => {
 		return auth.user as UserAuthResponseDto;
 	});
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
 		defaultValues: {
@@ -63,6 +69,11 @@ const Profile: React.FC = () => {
 		},
 		[handleSubmit, handleInputChange],
 	);
+
+	const handleCancelChanges = useCallback(() => {
+		notification.warning(NotificationMessage.PROFILE_CHANGES_NOT_SAVED);
+		navigate(AppRoute.ROOT);
+	}, [navigate]);
 
 	return (
 		<>
@@ -118,8 +129,8 @@ const Profile: React.FC = () => {
 						<Button
 							className={styles["button"]}
 							color="secondary"
-							href={AppRoute.ROOT}
 							label="Cancel"
+							onClick={handleCancelChanges}
 							size="small"
 						/>
 						<Button
