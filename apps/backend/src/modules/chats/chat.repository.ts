@@ -1,10 +1,9 @@
-import { MessageStatus } from "shared";
-
 import { type Repository } from "~/libs/types/types.js";
 import { ChatMessageEntity } from "~/modules/chat-messages/chat-message.entity.js";
 import { type ChatMessageModel } from "~/modules/chat-messages/chat-message.model.js";
 import { UserEntity } from "~/modules/users/users.js";
 
+import { MessageStatus } from "../chat-messages/chat-message.js";
 import { ChatEntity } from "./chat.entity.js";
 import { ChatModel } from "./chat.model.js";
 import { RelationName } from "./libs/enums/enums.js";
@@ -30,6 +29,7 @@ class ChatRepository implements Repository<ChatEntity> {
 		return ChatEntity.initializeWithMessages({
 			createdAt: createdChat.createdAt,
 			firstUser: UserEntity.initialize({
+				avatarUrl: createdChat.firstUser.userDetails.avatarFile?.url ?? null,
 				createdAt: createdChat.firstUser.createdAt,
 				email: createdChat.firstUser.email,
 				firstName: createdChat.firstUser.userDetails.firstName,
@@ -42,6 +42,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			id: createdChat.id,
 			messages: [],
 			secondUser: UserEntity.initialize({
+				avatarUrl: createdChat.secondUser.userDetails.avatarFile?.url ?? null,
 				createdAt: createdChat.secondUser.createdAt,
 				email: createdChat.secondUser.email,
 				firstName: createdChat.secondUser.userDetails.firstName,
@@ -60,6 +61,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			.query()
 			.deleteById(id)
 			.execute();
+
 		return Boolean(deletedChatCount);
 	}
 	public async find(id: number): Promise<ChatEntity | null> {
@@ -75,6 +77,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			? ChatEntity.initialize({
 					createdAt: chatById.createdAt,
 					firstUser: UserEntity.initialize({
+						avatarUrl: chatById.firstUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatById.firstUser.createdAt,
 						email: chatById.firstUser.email,
 						firstName: chatById.firstUser.userDetails.firstName,
@@ -86,6 +89,7 @@ class ChatRepository implements Repository<ChatEntity> {
 					}),
 					id: chatById.id,
 					secondUser: UserEntity.initialize({
+						avatarUrl: chatById.secondUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatById.secondUser.createdAt,
 						email: chatById.secondUser.email,
 						firstName: chatById.secondUser.userDetails.firstName,
@@ -134,6 +138,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			return ChatEntity.initializeWithLastMessage({
 				createdAt: chatByUserId.createdAt,
 				firstUser: UserEntity.initialize({
+					avatarUrl: chatByUserId.firstUser.userDetails.avatarFile?.url ?? null,
 					createdAt: chatByUserId.firstUser.createdAt,
 					email: chatByUserId.firstUser.email,
 					firstName: chatByUserId.firstUser.userDetails.firstName,
@@ -149,6 +154,9 @@ class ChatRepository implements Repository<ChatEntity> {
 					createdAt: chatByUserId.lastMessage.createdAt,
 					id: chatByUserId.lastMessage.id,
 					senderUser: UserEntity.initialize({
+						avatarUrl:
+							chatByUserId.lastMessage.senderUser.userDetails.avatarFile?.url ??
+							null,
 						createdAt: chatByUserId.lastMessage.senderUser.createdAt,
 						email: chatByUserId.lastMessage.senderUser.email,
 						firstName:
@@ -164,6 +172,8 @@ class ChatRepository implements Repository<ChatEntity> {
 					updatedAt: chatByUserId.lastMessage.updatedAt,
 				}),
 				secondUser: UserEntity.initialize({
+					avatarUrl:
+						chatByUserId.secondUser.userDetails.avatarFile?.url ?? null,
 					createdAt: chatByUserId.secondUser.createdAt,
 					email: chatByUserId.secondUser.email,
 					firstName: chatByUserId.secondUser.userDetails.firstName,
@@ -196,6 +206,8 @@ class ChatRepository implements Repository<ChatEntity> {
 			? ChatEntity.initialize({
 					createdAt: chatByMembersIds.createdAt,
 					firstUser: UserEntity.initialize({
+						avatarUrl:
+							chatByMembersIds.firstUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatByMembersIds.firstUser.createdAt,
 						email: chatByMembersIds.firstUser.email,
 						firstName: chatByMembersIds.firstUser.userDetails.firstName,
@@ -207,6 +219,8 @@ class ChatRepository implements Repository<ChatEntity> {
 					}),
 					id: chatByMembersIds.id,
 					secondUser: UserEntity.initialize({
+						avatarUrl:
+							chatByMembersIds.secondUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatByMembersIds.secondUser.createdAt,
 						email: chatByMembersIds.secondUser.email,
 						firstName: chatByMembersIds.secondUser.userDetails.firstName,
@@ -237,6 +251,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			? ChatEntity.initializeWithMessages({
 					createdAt: chatById.createdAt,
 					firstUser: UserEntity.initialize({
+						avatarUrl: chatById.firstUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatById.firstUser.createdAt,
 						email: chatById.firstUser.email,
 						firstName: chatById.firstUser.userDetails.firstName,
@@ -253,6 +268,8 @@ class ChatRepository implements Repository<ChatEntity> {
 							createdAt: message.createdAt,
 							id: message.id,
 							senderUser: UserEntity.initialize({
+								avatarUrl:
+									message.senderUser.userDetails.avatarFile?.url ?? null,
 								createdAt: message.senderUser.createdAt,
 								email: message.senderUser.email,
 								firstName: message.senderUser.userDetails.firstName,
@@ -268,6 +285,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						}),
 					),
 					secondUser: UserEntity.initialize({
+						avatarUrl: chatById.secondUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatById.secondUser.createdAt,
 						email: chatById.secondUser.email,
 						firstName: chatById.secondUser.userDetails.firstName,
@@ -281,7 +299,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				})
 			: null;
 	}
-	update(): Promise<ChatEntity | null> {
+	public update(): Promise<ChatEntity | null> {
 		throw new Error("Method not implemented.");
 	}
 }

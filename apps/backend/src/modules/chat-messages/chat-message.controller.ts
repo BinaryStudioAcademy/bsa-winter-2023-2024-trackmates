@@ -1,13 +1,13 @@
 import { APIPath, HTTPCode } from "~/libs/enums/enums.js";
 import {
-	APIHandlerOptions,
-	APIHandlerResponse,
+	type APIHandlerOptions,
+	type APIHandlerResponse,
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
-import { Logger } from "~/libs/modules/logger/logger.js";
+import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { ChatMessageService } from "./chat-message.service.js";
+import { type ChatMessageService } from "./chat-message.service.js";
 import { ChatMessagesApiPath } from "./libs/enums/enums.js";
 import { type ChatMessageCreateRequestDto } from "./libs/types/types.js";
 

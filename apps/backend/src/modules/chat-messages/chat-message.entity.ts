@@ -57,7 +57,7 @@ class ChatMessageEntity implements Entity {
 		status: ValueOf<typeof MessageStatus>;
 		text: string;
 		updatedAt: string;
-	}) {
+	}): ChatMessageEntity {
 		return new ChatMessageEntity({
 			chatId,
 			createdAt,
@@ -77,7 +77,7 @@ class ChatMessageEntity implements Entity {
 		chatId: number;
 		senderUser: UserEntity;
 		text: string;
-	}) {
+	}): ChatMessageEntity {
 		return new ChatMessageEntity({
 			chatId,
 			createdAt: "",
@@ -89,19 +89,20 @@ class ChatMessageEntity implements Entity {
 		});
 	}
 
-	toNewObject(): {
+	public toNewObject(): {
 		chatId: number;
 		senderUserId: number;
 		text: string;
 	} {
 		const { id: senderUserId } = this.senderUser.toObject();
+
 		return {
 			chatId: this.chatId,
 			senderUserId,
 			text: this.text,
 		};
 	}
-	toObject(): ChatMessageItemResponseDto {
+	public toObject(): ChatMessageItemResponseDto {
 		return {
 			chatId: this.chatId,
 			createdAt: this.createdAt,

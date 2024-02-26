@@ -61,7 +61,7 @@ class ChatEntity implements Entity {
 		id: number;
 		secondUser: UserEntity;
 		updatedAt: string;
-	}) {
+	}): ChatEntity {
 		return new ChatEntity({
 			createdAt,
 			firstUser,
@@ -79,7 +79,7 @@ class ChatEntity implements Entity {
 	}: {
 		firstUser: UserEntity;
 		secondUser: UserEntity;
-	}) {
+	}): ChatEntity {
 		return new ChatEntity({
 			createdAt: "",
 			firstUser,
@@ -108,7 +108,7 @@ class ChatEntity implements Entity {
 		secondUser: UserEntity;
 		unreadMessageCount: number;
 		updatedAt: string;
-	}) {
+	}): ChatEntity {
 		return new ChatEntity({
 			createdAt,
 			firstUser,
@@ -135,7 +135,7 @@ class ChatEntity implements Entity {
 		messages: ChatMessageEntity[];
 		secondUser: UserEntity;
 		updatedAt: string;
-	}) {
+	}): ChatEntity {
 		return new ChatEntity({
 			createdAt,
 			firstUser,
@@ -148,16 +148,17 @@ class ChatEntity implements Entity {
 		});
 	}
 
-	toNewObject(): { firstUserId: number; secondUserId: number } {
+	public toNewObject(): { firstUserId: number; secondUserId: number } {
 		const { id: firstUserId } = this.firstUser.toObject();
 		const { id: secondUserId } = this.secondUser.toObject();
+
 		return {
 			firstUserId,
 			secondUserId,
 		};
 	}
 
-	toObject(): ChatResponseDto {
+	public toObject(): ChatResponseDto {
 		return {
 			createdAt: this.createdAt,
 			firstUser: this.firstUser.toObject(),
@@ -167,9 +168,10 @@ class ChatEntity implements Entity {
 		};
 	}
 
-	toObjectWithLastMessage(userId: number): ChatGetAllItemResponseDto {
+	public toObjectWithLastMessage(userId: number): ChatGetAllItemResponseDto {
 		const firstUser = this.firstUser.toObject();
 		const secondUser = this.secondUser.toObject();
+
 		return {
 			createdAt: this.createdAt,
 			id: this.id as number,
@@ -180,12 +182,13 @@ class ChatEntity implements Entity {
 		};
 	}
 
-	toObjectWithMessages(userId: number): ChatSingleItemResponseDto {
+	public toObjectWithMessages(userId: number): ChatSingleItemResponseDto {
 		const firstUser = this.firstUser.toObject();
 		const secondUser = this.secondUser.toObject();
 		const messages = (this.messages as ChatMessageEntity[]).map((message) =>
 			message.toObject(),
 		);
+
 		return {
 			id: this.id as number,
 			interlocutor: firstUser.id === userId ? secondUser : firstUser,

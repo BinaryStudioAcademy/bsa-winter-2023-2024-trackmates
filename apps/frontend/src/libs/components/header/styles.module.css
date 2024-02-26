@@ -14,3 +14,17 @@
 	display: flex;
 	column-gap: 24px;
 }
+
+@media screen and (width <= 480px) {
+	.header {
+		width: calc(100% - 50px);
+		max-height: 55px;
+		padding: 5px;
+		margin: 10px 25px 0;
+		border-radius: 13px;
+	}
+
+	.toolbar {
+		column-gap: 15px;
+	}
+}

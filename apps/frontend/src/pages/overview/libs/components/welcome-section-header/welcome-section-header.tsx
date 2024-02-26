@@ -1,6 +1,6 @@
 import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
 import { Button } from "~/libs/components/components.js";
-import { UserAuthResponseDto } from "~/modules/users/users.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import styles from "./styles.module.css";
 
@@ -31,7 +31,7 @@ const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
 				<Button
 					className={styles["add-course-button"]}
 					iconName="plus"
-					label="Add the course"
+					label="Add course"
 				/>
 			</div>
 		</header>

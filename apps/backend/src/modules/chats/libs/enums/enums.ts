@@ -1,2 +1,2 @@
 export { RelationName } from "./relation-name.enum.js";
-export { ChatsApiPath } from "shared";
+export { ChatsApiPath } from "@trackmates/shared";

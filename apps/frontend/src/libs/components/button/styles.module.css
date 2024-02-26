@@ -3,6 +3,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	font-family: inherit;
+	font-weight: inherit;
 	text-align: center;
 	text-decoration: none;
 	cursor: pointer;
@@ -26,15 +28,16 @@
 }
 
 .primary {
-	color: white;
-	background-color: var(--color-button);
-	border-color: var(--color-button);
+	color: var(--color-menu);
+	background-color: var(--main-white);
+	border-color: var(--main-white);
 }
 
 .primary.outlined,
 .primary:hover {
-	color: var(--color-button);
-	background-color: transparent;
+	color: var(--main-white);
+	background-color: var(--color-button);
+	border-color: var(--color-button);
 }
 
 .primary.outlined:hover {
@@ -44,7 +47,24 @@
 }
 
 .secondary {
-	color: black;
+	color: var(--color-menu);
+	background-color: var(--main-white);
+	border-color: var(--main-white);
+}
+
+.secondary:hover {
+	color: var(--main-white);
+	background-color: transparent;
+	border-color: var(--main-white);
+}
+
+.secondary.outlined {
+	color: var(--main-white);
+	background-color: transparent;
+}
+
+.secondary.outlined:hover {
+	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 }

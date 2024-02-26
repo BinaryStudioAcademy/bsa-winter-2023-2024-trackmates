@@ -1,8 +1,8 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { Encrypt } from "~/libs/modules/encrypt/encrypt.js";
-import { Token } from "~/libs/modules/token/token.js";
+import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { type Token } from "~/libs/modules/token/token.js";
 import {
-	UserEntity,
+	type UserEntity,
 	type UserService,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
@@ -36,10 +36,10 @@ class AuthService {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {
-			throw new AuthError(
-				ExceptionMessage.INCORRECT_CREDENTIALS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new AuthError({
+				message: ExceptionMessage.INVALID_CREDENTIALS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const { passwordHash, passwordSalt: salt } = user.toNewObject();
@@ -50,10 +50,10 @@ class AuthService {
 		});
 
 		if (!isEqualPassword) {
-			throw new AuthError(
-				ExceptionMessage.INCORRECT_CREDENTIALS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new AuthError({
+				message: ExceptionMessage.INVALID_CREDENTIALS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		return user;
@@ -77,11 +77,12 @@ class AuthService {
 	): Promise<UserSignUpResponseDto> {
 		const user = await this.userService.getByEmail(userRequestDto.email);
 		const hasUser = Boolean(user);
+
 		if (hasUser) {
-			throw new AuthError(
-				ExceptionMessage.EMAIL_ALREADY_EXISTS,
-				HTTPCode.BAD_REQUEST,
-			);
+			throw new AuthError({
+				message: ExceptionMessage.EMAIL_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		const newUser = await this.userService.create(userRequestDto);

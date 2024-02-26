@@ -1,4 +1,4 @@
-import { JWTVerifyResult, SignJWT, jwtVerify } from "jose";
+import { type JWTVerifyResult, SignJWT, jwtVerify } from "jose";
 
 import { type Config } from "~/libs/modules/config/config.js";
 

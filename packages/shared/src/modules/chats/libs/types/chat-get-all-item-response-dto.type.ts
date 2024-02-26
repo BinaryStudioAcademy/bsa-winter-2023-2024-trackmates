@@ -10,4 +10,4 @@ type ChatGetAllItemResponseDto = {
 	updatedAt: string;
 };
 
-export { ChatGetAllItemResponseDto };
+export { type ChatGetAllItemResponseDto };

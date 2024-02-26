@@ -1,4 +1,4 @@
-import { Repository } from "~/libs/types/types.js";
+import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
@@ -32,6 +32,8 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			createdAt: createdMessage.createdAt,
 			id: createdMessage.id,
 			senderUser: UserEntity.initialize({
+				avatarUrl:
+					createdMessage.senderUser.userDetails.avatarFile?.url ?? null,
 				createdAt: createdMessage.senderUser.createdAt,
 				email: createdMessage.senderUser.email,
 				firstName: createdMessage.senderUser.userDetails.firstName,
@@ -70,6 +72,8 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 					createdAt: chatMessageById.createdAt,
 					id: chatMessageById.id,
 					senderUser: UserEntity.initialize({
+						avatarUrl:
+							chatMessageById.senderUser.userDetails.avatarFile?.url ?? null,
 						createdAt: chatMessageById.senderUser.createdAt,
 						email: chatMessageById.senderUser.email,
 						firstName: chatMessageById.senderUser.userDetails.firstName,
@@ -100,6 +104,8 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				createdAt: messageByUserId.createdAt,
 				id: messageByUserId.id,
 				senderUser: UserEntity.initialize({
+					avatarUrl:
+						messageByUserId.senderUser.userDetails.avatarFile?.url ?? null,
 					createdAt: messageByUserId.senderUser.createdAt,
 					email: messageByUserId.senderUser.email,
 					firstName: messageByUserId.senderUser.userDetails.firstName,
@@ -115,7 +121,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			}),
 		);
 	}
-	update(): Promise<ChatMessageEntity | null> {
+	public update(): Promise<ChatMessageEntity | null> {
 		throw new Error("Method not implemented.");
 	}
 }

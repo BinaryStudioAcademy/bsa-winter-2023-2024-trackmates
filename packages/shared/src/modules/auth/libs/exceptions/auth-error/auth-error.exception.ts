@@ -1,9 +1,19 @@
-import { HTTPCode, HTTPError } from "../../../../../libs/modules/http/http.js";
-import { ValueOf } from "../../../../../libs/types/value-of.type.js";
+import {
+	type HTTPCode,
+	HTTPError,
+} from "../../../../../libs/modules/http/http.js";
+import { type ValueOf } from "../../../../../libs/types/value-of.type.js";
+
+type Constructor = {
+	cause?: unknown;
+	message: string;
+	status: ValueOf<typeof HTTPCode>;
+};
 
 class AuthError extends HTTPError {
-	public constructor(message: string, status: ValueOf<typeof HTTPCode>) {
+	public constructor({ cause, message, status }: Constructor) {
 		super({
+			cause,
 			message,
 			status,
 		});

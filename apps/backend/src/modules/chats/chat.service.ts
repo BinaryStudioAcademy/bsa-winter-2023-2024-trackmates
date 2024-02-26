@@ -1,6 +1,6 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { HTTPError } from "~/libs/modules/http/http.js";
-import { Service } from "~/libs/types/service.type.js";
+import { type Service } from "~/libs/types/service.type.js";
 import { type UserRepository } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";
@@ -62,12 +62,13 @@ class ChatService implements Service {
 		return createdChat.toObject();
 	}
 
-	delete(): Promise<boolean> {
+	public delete(): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
 
 	public async find(id: number): Promise<ChatResponseDto> {
 		const chatById = await this.chatRepository.find(id);
+
 		if (!chatById) {
 			throw new HTTPError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
@@ -98,6 +99,7 @@ class ChatService implements Service {
 		userId: number;
 	}): Promise<ChatSingleItemResponseDto> {
 		const chatById = await this.chatRepository.findWithMessage(id);
+
 		if (!chatById) {
 			throw new HTTPError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
@@ -106,6 +108,7 @@ class ChatService implements Service {
 		}
 
 		const { firstUser, secondUser } = chatById.toObject();
+
 		if (userId !== firstUser.id && userId !== secondUser.id) {
 			throw new HTTPError({
 				message: ExceptionMessage.NO_PERMISSION,
@@ -116,7 +119,7 @@ class ChatService implements Service {
 		return chatById.toObjectWithMessages(userId);
 	}
 
-	update(): Promise<ChatEntity> {
+	public update(): Promise<ChatEntity> {
 		throw new Error("Method not implemented.");
 	}
 }

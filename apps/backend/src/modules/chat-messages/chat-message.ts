@@ -20,5 +20,5 @@ const chatMessageController = new ChatMessageController(
 );
 
 export { chatMessageController };
-
 export { ChatMessageEntity } from "./chat-message.entity.js";
+export { MessageStatus } from "./libs/enums/enums.js";

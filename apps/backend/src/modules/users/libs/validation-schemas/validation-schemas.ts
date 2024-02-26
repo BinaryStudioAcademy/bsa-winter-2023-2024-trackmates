@@ -1,1 +1,5 @@
-export { userSignInValidationSchema, userSignUpValidationSchema } from "shared";
+export {
+	userProfileValidationSchema,
+	userSignInValidationSchema,
+	userSignUpValidationSchema,
+} from "@trackmates/shared";

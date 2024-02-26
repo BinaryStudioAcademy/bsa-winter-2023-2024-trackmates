@@ -92,9 +92,8 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
-    int first_user_id FK
-    int second_user_id FK
-    bool is_invitation_accepted
+    int follower_id FK
+    int following_idFK
    }
 
    files {
@@ -119,8 +118,8 @@ erDiagram
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
-   users ||--|{ friends : first_user_id
-   users ||--|{ friends : second_user_id
+   users ||--|{ friends : follower_id
+   users ||--|{ friends : following_id
 
    users ||--|{ chat_messages : sender_id
    users ||--|{ chat_messages : receiver_id
@@ -226,11 +225,11 @@ You should use .env.example files as a reference.
 
 3. Run database. You can run it by installing postgres on your computer.
 
-4. Apply migrations: `npm run migrate:dev -w backend`
+4. Apply migrations: `npm run migrate:dev -w apps/backend`
 
-5. Run backend: `npm run start:dev -w backend`
+5. Run backend: `npm run start:dev -w apps/backend`
 
-6. Run frontend: `npm run start:dev -w frontend`
+6. Run frontend: `npm run start:dev -w apps/frontend`
 
 ## 7. Development Flow
 

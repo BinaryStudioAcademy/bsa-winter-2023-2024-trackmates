@@ -1,11 +1,11 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { HTTPError } from "~/libs/modules/http/http.js";
-import { Service } from "~/libs/types/types.js";
+import { type Service } from "~/libs/types/types.js";
 import { type ChatService } from "~/modules/chats/chats.js";
 import { type UserRepository } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
-import { ChatMessageModel } from "./chat-message.model.js";
+import { type ChatMessageModel } from "./chat-message.model.js";
 import { type ChatMessageRepository } from "./chat-message.repository.js";
 import {
 	type ChatMessageCreateRequestDto,
@@ -70,16 +70,16 @@ class ChatMessageService implements Service {
 		return createMessage.toObject();
 	}
 
-	delete(): Promise<boolean> {
+	public delete(): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
-	find(): Promise<ChatMessageModel | null> {
+	public find(): Promise<ChatMessageModel | null> {
 		throw new Error("Method not implemented");
 	}
-	findAll(): Promise<{ items: ChatMessageModel[] }> {
+	public findAll(): Promise<{ items: ChatMessageModel[] }> {
 		throw new Error("Method not implemented");
 	}
-	update(): Promise<ChatMessageModel> {
+	public update(): Promise<ChatMessageModel> {
 		throw new Error("Method not implemented.");
 	}
 }

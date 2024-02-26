@@ -6,4 +6,4 @@ export {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 	type ValueOf,
-} from "shared";
+} from "@trackmates/shared";

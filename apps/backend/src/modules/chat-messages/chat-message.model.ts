@@ -1,4 +1,4 @@
-import { Model } from "objection";
+import { Model, type RelationMappings } from "objection";
 
 import {
 	AbstractModel,
@@ -7,10 +7,10 @@ import {
 import { type ValueOf } from "~/libs/types/types.js";
 import { UserModel } from "~/modules/users/users.js";
 
-import { MessageStatus } from "./libs/enums/enums.js";
+import { type MessageStatus } from "./libs/enums/enums.js";
 
 class ChatMessageModel extends AbstractModel {
-	public static relationMappings = () => {
+	public static relationMappings = (): RelationMappings => {
 		return {
 			senderUser: {
 				join: {

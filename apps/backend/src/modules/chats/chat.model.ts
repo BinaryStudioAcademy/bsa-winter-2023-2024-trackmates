@@ -1,4 +1,4 @@
-import { Model, QueryBuilder } from "objection";
+import { Model, type QueryBuilder, type RelationMappings } from "objection";
 
 import {
 	AbstractModel,
@@ -8,7 +8,7 @@ import { ChatMessageModel } from "~/modules/chat-messages/chat-message.model.js"
 import { UserModel } from "~/modules/users/users.js";
 
 class ChatModel extends AbstractModel {
-	public static relationMappings = () => {
+	public static relationMappings = (): RelationMappings => {
 		return {
 			firstUser: {
 				join: {
@@ -19,8 +19,8 @@ class ChatModel extends AbstractModel {
 				relation: Model.BelongsToOneRelation,
 			},
 			lastMessage: {
-				filter(query: QueryBuilder<ChatMessageModel>) {
-					return query
+				filter(query: QueryBuilder<ChatMessageModel>): void {
+					void query
 						.select("*")
 						.distinctOn("chatId")
 						.orderBy("chatId")
@@ -34,9 +34,6 @@ class ChatModel extends AbstractModel {
 				relation: Model.HasOneRelation,
 			},
 			messages: {
-				// filter(query: QueryBuilder<ChatMessageModel>) {
-				// 	return query.orderBy("id", "desc");
-				// },
 				join: {
 					from: `${DatabaseTableName.CHATS}.id`,
 					to: `${DatabaseTableName.CHAT_MESSAGES}.chatId`,
