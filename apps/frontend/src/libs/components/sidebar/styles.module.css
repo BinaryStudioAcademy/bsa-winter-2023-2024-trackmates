@@ -99,6 +99,10 @@
 		display: none;
 	}
 
+	.open .log-out-btn :last-child {
+		display: block;
+	}
+
 	.title-container {
 		padding-left: 10px;
 	}
