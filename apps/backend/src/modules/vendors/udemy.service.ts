@@ -6,13 +6,11 @@ import {
 } from "~/libs/modules/http/http.js";
 
 import {
-	udemyCourseFieldsMapper,
-	udemyCourseSectionFieldsMapper,
-} from "./fields-mapper/fields-mapper.js";
-import {
 	ApiPath,
 	CourseField,
 	CourseSectionField,
+	UdemyCourseFieldsMapping,
+	UdemyCourseSectionFieldsMapping,
 	UdemyDefaultPageParameter,
 	VendorErrorMessage,
 } from "./libs/enums/enums.js";
@@ -31,13 +29,12 @@ type Constructor = {
 };
 
 const PAGE_STEP = 1;
+const PAGE_SIZE = 1000;
 
 class UdemyService implements VendorService {
 	private baseUrl: string;
 	private clientId: string;
 	private clientSecret: string;
-	private courseMapper = udemyCourseFieldsMapper;
-	private courseSectionMapper = udemyCourseSectionFieldsMapper;
 	private http: HTTP;
 
 	public constructor({ baseUrl, clientId, clientSecret, http }: Constructor) {
@@ -70,7 +67,6 @@ class UdemyService implements VendorService {
 		url: string,
 		query: Record<string, unknown>,
 	): Promise<Record<string, unknown>[]> {
-		const pageSize = UdemyDefaultPageParameter.PAGE_SIZE;
 		let items: Record<string, unknown>[] = [];
 		let results = [];
 		let page = 0;
@@ -80,10 +76,10 @@ class UdemyService implements VendorService {
 			results = await this.loadResults(url, {
 				...query,
 				page,
-				page_size: pageSize,
+				page_size: PAGE_SIZE,
 			});
 			items = [...items, ...results];
-		} while (results.length == pageSize);
+		} while (results.length == PAGE_SIZE);
 
 		return items;
 	}
@@ -105,8 +101,25 @@ class UdemyService implements VendorService {
 		return data.results as Record<string, unknown>[];
 	}
 
+	private mapItem<FROM_FIELD extends string, TO_FIELD extends string>(
+		item: Record<FROM_FIELD, unknown>,
+		mapping: Record<TO_FIELD, FROM_FIELD>,
+	): Record<TO_FIELD, unknown> {
+		const mappingEntries = Object.entries(mapping) as [
+			TO_FIELD,
+			FROM_FIELD,
+		][];
+		const mappedItem = {} as Record<TO_FIELD, unknown>;
+
+		for (const [to, from] of mappingEntries) {
+			mappedItem[to] = item[from];
+		}
+
+		return mappedItem;
+	}
+
 	private mapToCourse(item: Record<string, unknown>): Course {
-		const course = this.courseMapper.mapItem(item);
+		const course = this.mapItem(item, UdemyCourseFieldsMapping);
 
 		const vendorCourseId = (
 			course.vendorCourseId as number | string
@@ -116,7 +129,7 @@ class UdemyService implements VendorService {
 	}
 
 	private mapToCourseSection(item: Record<string, unknown>): CourseSection {
-		return this.courseSectionMapper.mapItem(item) as CourseSection;
+		return this.mapItem(item, UdemyCourseSectionFieldsMapping) as CourseSection;
 	}
 
 	public async getCourseById(id: string): Promise<Course> {
