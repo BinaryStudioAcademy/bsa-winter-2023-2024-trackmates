@@ -51,26 +51,26 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
-						<div key={label}>
-							<Link
-								activeClassName={styles["active"]}
-								className={getValidClassNames(
-									styles["bottom-menu"],
-									styles["menu-item"],
-								)}
-								to={href}
-							>
-								{" "}
-								<span className={styles["menu-icon"]}>
-									<Icon name={icon} />
-								</span>
-								<span className={styles["link-title"]}>{label}</span>
-							</Link>
-						</div>
+						<Link
+							activeClassName={styles["active"]}
+							className={getValidClassNames(
+								styles["bottom-menu"],
+								styles["menu-item"],
+							)}
+							key={label}
+							to={href}
+						>
+							{" "}
+							<span className={styles["menu-icon"]}>
+								<Icon name={icon} />
+							</span>
+							<span className={styles["link-title"]}>{label}</span>
+						</Link>
 					))}
 				</nav>
 				<Button
 					className={styles["log-out-btn"]}
+					hasVisuallyHiddenLabel={false}
 					iconName="logOut"
 					label="Log Out"
 					onClick={handleLogOut}
