@@ -8,6 +8,7 @@ import HomeIcon from "~/assets/img/svg/home.svg?react";
 import LogOutIcon from "~/assets/img/svg/log-out.svg?react";
 import PieIcon from "~/assets/img/svg/pie.svg?react";
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
+import PlusOutlinedIcon from "~/assets/img/svg/plus-outlined.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -24,6 +25,7 @@ const iconNameToSvg: Record<
 	logOut: LogOutIcon,
 	pie: PieIcon,
 	plus: PlusIcon,
+	plusOutlined: PlusOutlinedIcon,
 };
 
 export { iconNameToSvg };
