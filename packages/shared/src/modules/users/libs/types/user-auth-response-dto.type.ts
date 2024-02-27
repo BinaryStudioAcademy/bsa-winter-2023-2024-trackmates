@@ -5,6 +5,7 @@ type UserAuthResponseDto = {
 	firstName: string;
 	id: number;
 	lastName: string;
+	nickname: string;
 	updatedAt: string;
 };
 
