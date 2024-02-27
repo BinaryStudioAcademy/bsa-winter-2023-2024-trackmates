@@ -11,6 +11,8 @@ const ColumnName = {
 	CREATED_AT: "created_at",
 	ID: "id",
 	MESSAGE: "message",
+	SOURCE_TYPE: "source_type",
+	SOURCE_USER_ID: "source_user_id",
 	UPDATED_AT: "updated_at",
 	USER_ID: "user_id",
 } as const;
@@ -25,6 +27,11 @@ function up(knex: Knex): Promise<void> {
 			.inTable(TableName.USERS)
 			.notNullable()
 			.onDelete(DELETE_STRATEGY);
+		table
+			.integer(ColumnName.SOURCE_USER_ID)
+			.references(ColumnName.ID)
+			.inTable(TableName.USERS);
+		table.enum(ColumnName.SOURCE_TYPE, ["user", "system"]);
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()

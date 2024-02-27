@@ -1,4 +1,8 @@
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
+import {
+	NotificationMessage,
+	type NotificationService,
+} from "~/modules/notifications/notifications.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import {
@@ -9,9 +13,14 @@ import {
 
 class FriendService {
 	private friendRepository: FriendRepository;
+	private notificationService: NotificationService;
 
-	public constructor(friendRepository: FriendRepository) {
+	public constructor(
+		friendRepository: FriendRepository,
+		notificationService: NotificationService,
+	) {
 		this.friendRepository = friendRepository;
+		this.notificationService = notificationService;
 	}
 
 	public async createSubscription(
@@ -41,6 +50,12 @@ class FriendService {
 		const followingUser = await this.friendRepository.create({
 			followerUserId,
 			followingUserId,
+		});
+
+		await this.notificationService.create({
+			message: NotificationMessage.NEW_FOLLOWER_MESSAGE,
+			sourceUserId: followerUserId,
+			userId: followingUserId,
 		});
 
 		return followingUser.toObject();

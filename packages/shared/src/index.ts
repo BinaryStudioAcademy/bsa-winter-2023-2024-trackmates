@@ -45,6 +45,12 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	NotificationError,
+	type NotificationRequestDto,
+	type NotificationResponseDto,
+} from "./modules/notifications/notifications.js";
+export { UserNotificationsApiPath } from "./modules/user-notifications/user-notifications.js";
+export {
 	type UserAuthResponseDto,
 	UserError,
 	type UserGetAllResponseDto,
