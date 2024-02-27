@@ -18,6 +18,7 @@ import { actions as vendorActions } from "~/modules/vendors/vendors.js";
 import {
 	DEFAULT_SEARCH_COURSE_PAYLOAD,
 	SEARCH_COURSES_DELAY_MS,
+	ZERO,
 } from "../../constants/constants.js";
 import {
 	getDefaultVendors,
@@ -112,7 +113,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						/>
 						<div className={styles["toolbar"]}>
 							<p className={styles["results-count"]}>
-								{courses.length + recommendedCourses.length} results
+								{courses.length} results
 							</p>
 							<fieldset className={styles["vendors-container"]}>
 								{vendors.map((vendor) => (
@@ -135,7 +136,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						) : (
 							<>
 								<Courses courses={courses} onAddCourse={handleAddCourse} />
-								{control.getFieldState("search").isDirty && (
+								{courses.length > ZERO && (
 									<div className={styles["recommended-courses"]}>
 										<h2 className={styles["courses-title"]}>
 											Recommended Courses
