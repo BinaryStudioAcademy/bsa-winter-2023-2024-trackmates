@@ -1,13 +1,11 @@
 import profileCharacter from "~/assets/img/user-details-img.png";
 import { Button, Image, Input } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
 	useCallback,
-	useNavigate,
 } from "~/libs/hooks/hooks.js";
 import {
 	NotificationMessage,
@@ -28,7 +26,6 @@ const Profile: React.FC = () => {
 		return auth.user as UserAuthResponseDto;
 	});
 	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
 
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
 		defaultValues: {
@@ -72,8 +69,7 @@ const Profile: React.FC = () => {
 
 	const handleCancelChanges = useCallback(() => {
 		notification.warning(NotificationMessage.PROFILE_CHANGES_NOT_SAVED);
-		navigate(AppRoute.ROOT);
-	}, [navigate]);
+	}, []);
 
 	return (
 		<>
