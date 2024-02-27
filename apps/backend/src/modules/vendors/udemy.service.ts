@@ -6,9 +6,9 @@ import {
 } from "~/libs/modules/http/http.js";
 
 import {
-	ApiPath,
 	CourseField,
 	CourseSectionField,
+	UdemyApiPath,
 	UdemyCourseFieldsMapping,
 	UdemyCourseSectionFieldsMapping,
 	UdemyDefaultPageParameter,
@@ -140,7 +140,7 @@ class UdemyService implements VendorService {
 	}
 
 	public async getCourseSections(udemyId: string): Promise<CourseSection[]> {
-		const url = `${this.baseUrl}${udemyId}${ApiPath.COURSE_SECTIONS}`;
+		const url = `${this.baseUrl}${udemyId}${UdemyApiPath.COURSE_SECTIONS}`;
 
 		const query: Record<string, unknown> = {
 			"fields[chapter]": Object.values(CourseSectionField).join(","),
