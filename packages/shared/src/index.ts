@@ -41,6 +41,7 @@ export {
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,
+	ChatError,
 	type ChatGetAllItemResponseDto,
 	type ChatResponseDto,
 	type ChatSingleItemResponseDto,

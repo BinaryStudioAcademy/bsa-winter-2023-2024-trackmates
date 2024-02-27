@@ -12,3 +12,4 @@ const chatController = new ChatController(logger, chatService);
 
 export { chatController, chatService };
 export { type ChatService } from "./chat.service.js";
+export { ChatError } from "./libs/exceptions/exceptions.js";
