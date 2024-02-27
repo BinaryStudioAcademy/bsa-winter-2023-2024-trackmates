@@ -6,6 +6,7 @@ import {
 	useAppForm,
 	useAppSelector,
 	useCallback,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import {
 	NotificationMessage,
@@ -27,11 +28,13 @@ const Profile: React.FC = () => {
 	});
 	const dispatch = useAppDispatch();
 
+	const [formData, setFormData] = useState<UserProfileRequestDto>({
+		firstName: user.firstName,
+		lastName: user.lastName,
+	});
+
 	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
-		defaultValues: {
-			firstName: user.firstName,
-			lastName: user.lastName,
-		},
+		defaultValues: formData,
 		validationSchema: userProfileValidationSchema,
 	});
 
@@ -68,8 +71,18 @@ const Profile: React.FC = () => {
 	);
 
 	const handleCancelChanges = useCallback(() => {
+		setFormData({
+			firstName: user.firstName,
+			lastName: user.lastName,
+		});
+
+		control._reset({
+			firstName: user.firstName,
+			lastName: user.lastName,
+		});
+
 		notification.warning(NotificationMessage.PROFILE_CHANGES_NOT_SAVED);
-	}, []);
+	}, [control, user.firstName, user.lastName]);
 
 	return (
 		<>
