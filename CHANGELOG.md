@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.10.0...v1.11.0) (2024-02-27)
+
+
+### Features
+
+* **frontend:** add mobile responsiveness to add course modal tm-62 ([#178](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/178)) ([12590d5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/12590d58fb02cf28027b8c08d92d31b6c1a5fb5e))
+
 ## [1.10.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.9.0...v1.10.0) (2024-02-27)
 
 
