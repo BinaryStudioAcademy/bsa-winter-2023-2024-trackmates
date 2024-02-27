@@ -30,7 +30,7 @@ const Friends: React.FC = () => {
 		void dispatch(actions.getFollowings());
 		void dispatch(actions.getFollowers());
 		void dispatch(actions.getPotentialFriends());
-	}, [dispatch]);
+	}, [dispatch, pathname]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
