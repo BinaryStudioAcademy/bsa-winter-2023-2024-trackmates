@@ -1,5 +1,8 @@
+import { type ValueOf } from "@trackmates/shared";
+
 import friendImage from "~/assets/img/friend.jpeg";
-import { Button, Image, RouterLink } from "~/libs/components/components.js";
+import { Button, Image, Link } from "~/libs/components/components.js";
+import { type AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -41,7 +44,10 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 
 	return (
 		<article className={styles["card"]}>
-			<RouterLink className={styles["card-content"]} to={`/users/${friend.id}`}>
+			<Link
+				className={styles["card-content"]}
+				to={`/users/${friend.id}` as ValueOf<typeof AppRoute>}
+			>
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
@@ -50,7 +56,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				<p
 					className={styles["fullName"]}
 				>{`${friend.firstName} ${friend.lastName}`}</p>
-			</RouterLink>
+			</Link>
 
 			<div className={styles["actions"]}>
 				<Button
