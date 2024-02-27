@@ -38,7 +38,7 @@ class UserDetailsModel extends AbstractModel {
 
 	public lastName!: string;
 
-	public nickname!: string;
+	public nickname!: null | string;
 
 	public userId!: number;
 

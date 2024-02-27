@@ -1,11 +1,11 @@
-import { z } from "zod";
+import { type ZodLiteral, z } from "zod";
 
 import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 
 type UserProfileRequestValidationDto = {
 	firstName: z.ZodString;
 	lastName: z.ZodString;
-	nickname: z.ZodString;
+	nickname: z.ZodUnion<[z.ZodString, ZodLiteral<"">]>;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
@@ -50,7 +50,8 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		})
 		.max(UserValidationRule.NICKNAME_MAXIMUM_LENGTH, {
 			message: UserValidationMessage.NICKNAME_MAXIMUM_LENGTH,
-		}),
+		})
+		.or(z.literal("")),
 });
 
 export { userProfile };

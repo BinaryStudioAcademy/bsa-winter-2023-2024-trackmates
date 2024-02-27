@@ -1,7 +1,7 @@
 type UserProfileRequestDto = {
 	firstName: string;
 	lastName: string;
-	nickname: string;
+	nickname: null | string;
 };
 
 export { type UserProfileRequestDto };

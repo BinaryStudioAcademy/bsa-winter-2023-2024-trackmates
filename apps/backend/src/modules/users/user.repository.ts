@@ -161,7 +161,13 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async getByNickname(nickname: string): Promise<UserEntity | null> {
+	public async getByNickname(
+		nickname: null | string,
+	): Promise<UserEntity | null> {
+		if (nickname === "") {
+			return null;
+		}
+
 		const user = await this.userModel
 			.query()
 			.findOne({ nickname })

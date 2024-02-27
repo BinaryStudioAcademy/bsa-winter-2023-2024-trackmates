@@ -94,7 +94,8 @@ class UserService implements Service {
 		userId: number,
 		userProfile: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
-		const user = await this.userRepository.getByNickname(userProfile.nickname);
+		const { firstName, lastName, nickname } = userProfile;
+		const user = await this.userRepository.getByNickname(nickname);
 		const hasUser = Boolean(user);
 		const isSameUser = Boolean(user?.toObject().id === userId);
 
@@ -105,7 +106,11 @@ class UserService implements Service {
 			});
 		}
 
-		const updatedUser = await this.userRepository.update(userId, userProfile);
+		const updatedUser = await this.userRepository.update(userId, {
+			firstName,
+			lastName,
+			nickname: nickname === "" ? null : nickname,
+		});
 
 		return updatedUser?.toObject() ?? null;
 	}
