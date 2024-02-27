@@ -24,7 +24,7 @@ const User: React.FC = () => {
 	const userId = +(id as string);
 	const { courses, friends, isLoading } = useAppSelector((state) => {
 		return {
-			courses: state.userCourses.userCourses[userId],
+			courses: state.userCourses.userCourses,
 			friends: [
 				...state.friends.potentialFriends,
 				...state.friends.followers,
@@ -81,7 +81,7 @@ const User: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					courses && <Courses courses={courses} />
+					<Courses courses={courses} />
 				)}
 			</div>
 		</div>
