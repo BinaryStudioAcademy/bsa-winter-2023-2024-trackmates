@@ -69,9 +69,9 @@ const User: React.FC = () => {
 				</div>
 
 				<div className={styles["user-wrapper"]}>
-					<p
-						className={styles["fullName"]}
-					>{`${user.firstName} ${user.lastName}`}</p>
+					<p className={styles["fullName"]}>
+						{user.firstName} {user.lastName}
+					</p>
 					<UserButton id={user.id} />
 				</div>
 			</div>
