@@ -44,6 +44,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 						Read more
 					</a>
 					<Button
+						className={styles["course-add-button"]}
 						color="secondary"
 						iconName="plusOutlined"
 						label="Add"
