@@ -13,19 +13,13 @@
 	}
 }
 
-@media screen and (width <= 1024px) {
-	.list {
-		grid-template-columns: repeat(3, 1fr);
-	}
-}
-
-@media screen and (width <= 768px) {
+@media screen and (width <= 865px) {
 	.list {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-@media screen and (width <= 480px) {
+@media screen and (width <= 590px) {
 	.list {
 		grid-template-columns: 1fr;
 	}
