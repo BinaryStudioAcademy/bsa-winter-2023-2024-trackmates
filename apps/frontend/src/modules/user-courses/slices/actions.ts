@@ -24,12 +24,15 @@ const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 
 const loadMyCourses = createAsyncThunk<
 	CoursesResponseDto,
-	number,
+	{
+		id: number;
+		search: string;
+	},
 	AsyncThunkConfig
->(`${sliceName}/load-my-courses`, (userId, { extra }) => {
+>(`${sliceName}/load-all`, (loadMyCoursesPayload, { extra }) => {
 	const { userCourseApi } = extra;
 
-	return userCourseApi.getAllByUserId(userId);
+	return userCourseApi.getAllByUserId(loadMyCoursesPayload);
 });
 
 const loadUserCourses = createAsyncThunk<
@@ -40,7 +43,10 @@ const loadUserCourses = createAsyncThunk<
 	const { userCourseApi } = extra;
 
 	return {
-		courses: await userCourseApi.getAllByUserId(userId),
+		courses: await userCourseApi.getAllByUserId({
+			id: userId,
+			search: "",
+		}),
 		userId,
 	};
 });

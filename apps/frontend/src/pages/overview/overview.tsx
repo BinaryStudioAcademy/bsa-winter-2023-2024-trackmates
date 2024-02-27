@@ -33,7 +33,12 @@ const Overview: React.FC = () => {
 	}, [setIsAddCourseModalOpen]);
 
 	useEffect(() => {
-		void dispatch(userCourseActions.loadMyCourses(user.id));
+		void dispatch(
+			userCourseActions.loadMyCourses({
+				id: user.id,
+				search: "",
+			}),
+		);
 	}, [dispatch, user]);
 
 	return (
