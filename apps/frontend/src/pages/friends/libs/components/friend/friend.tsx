@@ -1,5 +1,3 @@
-import { type ValueOf } from "@trackmates/shared";
-
 import friendImage from "~/assets/img/friend.jpeg";
 import { Button, Image, Link } from "~/libs/components/components.js";
 import { type AppRoute } from "~/libs/enums/enums.js";
@@ -9,6 +7,7 @@ import {
 	useCallback,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
