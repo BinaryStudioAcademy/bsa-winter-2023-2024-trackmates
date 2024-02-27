@@ -26,10 +26,23 @@ const loadMyCourses = createAsyncThunk<
 	CoursesResponseDto,
 	number,
 	AsyncThunkConfig
->(`${sliceName}/load-all`, (userId, { extra }) => {
+>(`${sliceName}/load-my-courses`, (userId, { extra }) => {
 	const { userCourseApi } = extra;
 
 	return userCourseApi.getAllByUserId(userId);
 });
 
-export { add, loadMyCourses };
+const loadUserCourses = createAsyncThunk<
+	{ courses: CoursesResponseDto; userId: number },
+	number,
+	AsyncThunkConfig
+>(`${sliceName}/load-user-courses`, async (userId, { extra }) => {
+	const { userCourseApi } = extra;
+
+	return {
+		courses: await userCourseApi.getAllByUserId(userId),
+		userId,
+	};
+});
+
+export { add, loadMyCourses, loadUserCourses };

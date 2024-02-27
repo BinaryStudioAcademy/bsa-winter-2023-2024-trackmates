@@ -4,20 +4,25 @@ import {
 	Image,
 	Navigate,
 } from "~/libs/components/components.js";
-import {
-	DEFAULT_COURSES_DATA,
-	DEFAULT_USER_AVATAR,
-} from "~/libs/constants/constants.js";
+import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { useAppSelector, useParams } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useAppSelector,
+	useEffect,
+	useParams,
+} from "~/libs/hooks/hooks.js";
+import { actions } from "~/modules/user-courses/user-courses.js";
 
 import { UserButton } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
+	const dispatch = useAppDispatch();
 	const { id } = useParams();
-	const { friends } = useAppSelector((state) => {
+	const { courses, friends } = useAppSelector((state) => {
 		return {
+			courses: state.userCourses.userCourses[+(id as string)],
 			friends: [
 				...state.friends.potentialFriends,
 				...state.friends.followers,
@@ -27,6 +32,14 @@ const User: React.FC = () => {
 	});
 
 	const user = friends.find((friend) => friend.id === +(id as string));
+
+	useEffect(() => {
+		if (!user) {
+			return;
+		}
+
+		void dispatch(actions.loadUserCourses(user.id));
+	}, [dispatch, user]);
 
 	if (!user) {
 		return <Navigate to={AppRoute.FRIENDS} />;
@@ -60,7 +73,7 @@ const User: React.FC = () => {
 				</div>
 			</div>
 
-			<Courses courses={DEFAULT_COURSES_DATA} />
+			{courses && <Courses courses={courses} />}
 		</div>
 	);
 };

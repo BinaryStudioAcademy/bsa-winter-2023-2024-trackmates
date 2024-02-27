@@ -16,7 +16,7 @@ import styles from "./styles.module.css";
 const Overview: React.FC = () => {
 	const { courses, isLoading, user } = useAppSelector((state) => {
 		return {
-			courses: state.userCourses.courses,
+			courses: state.userCourses.myCourses,
 			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			user: state.auth.user as UserAuthResponseDto,
 		};
