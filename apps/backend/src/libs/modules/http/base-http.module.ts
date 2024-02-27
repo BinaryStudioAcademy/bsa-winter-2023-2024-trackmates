@@ -23,10 +23,7 @@ class BaseHTTP implements HTTP {
 		return response;
 	};
 
-	private getUrl = <T extends Record<string, unknown>>(
-		url: string,
-		query: T | undefined,
-	): string => {
+	private getUrl = (url: string, query?: Record<string, unknown>): string => {
 		if (query) {
 			const queryParameters = new URLSearchParams(
 				query as Record<string, string>,
