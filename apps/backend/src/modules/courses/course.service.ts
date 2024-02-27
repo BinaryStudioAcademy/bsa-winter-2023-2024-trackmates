@@ -40,6 +40,18 @@ class CourseService {
 		this.vendorService = vendorService;
 	}
 
+	private async addSectionsToCourse(
+		course: CourseEntity,
+	): Promise<CourseSectionEntity[]> {
+		const sections = await this.getVendorCourseSections(course);
+
+		for (const section of sections) {
+			await this.courseSectionRepository.create(section);
+		}
+
+		return sections;
+	}
+
 	private async filterCourses(
 		courses: CourseDto[],
 		userId: number,
@@ -129,6 +141,8 @@ class CourseService {
 			userId,
 		);
 
+		await this.addSectionsToCourse(addedCourse);
+
 		return addedCourse.toObject();
 	}
 
@@ -151,11 +165,8 @@ class CourseService {
 
 		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
 		const addedCourse = await this.courseRepository.create(vendorCourse);
-		const sections = await this.getVendorCourseSections(addedCourse);
 
-		for (const section of sections) {
-			await this.courseSectionRepository.create(section);
-		}
+		await this.addSectionsToCourse(addedCourse);
 
 		return addedCourse.toObject();
 	}
