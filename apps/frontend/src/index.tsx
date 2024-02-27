@@ -13,6 +13,7 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
+import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Overview } from "./pages/overview/overview.js";
@@ -26,6 +27,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 				routes={[
 					{
 						children: [
+							{
+								element: <ProtectedRoute component={<Feed />} />,
+								path: AppRoute.FEED,
+							},
 							{
 								element: <ProtectedRoute component={<Friends />} />,
 								path: AppRoute.FRIENDS,

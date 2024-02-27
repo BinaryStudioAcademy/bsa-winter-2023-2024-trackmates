@@ -1,5 +1,6 @@
 const AppRoute = {
 	ANY: "*",
+	FEED: "/feed",
 	FRIENDS: "/friends",
 	FRIENDS_FOLLOWERS: "/friends/followers",
 	FRIENDS_FOLLOWINGS: "/friends/followings",

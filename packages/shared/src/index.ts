@@ -53,6 +53,7 @@ export {
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
 } from "./modules/courses/courses.js";
+export { type FeedActionDto, FeedActionType } from "./modules/feed/feed.js";
 export {
 	FileError,
 	type FileUploadResponseDto,

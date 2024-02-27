@@ -1,0 +1,42 @@
+.card {
+	width: 100%;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: var(--main-white);
+	border: 1px solid transparent;
+	border-radius: 12px;
+}
+
+.card:hover {
+	border: 1px solid var(--color-menu);
+	box-shadow: 3px 11px 22px -14px #00000080;
+}
+
+.card-content {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	gap: 16px;
+	padding: 12px;
+}
+
+.card-info {
+	padding: 30px;
+}
+
+.card-info-title {
+	font-size: var(--font-size-400);
+	color: var(--color-text-300);
+}
+
+.card-info-subtitle {
+	font-size: var(--font-size-300);
+	color: var(--color-text-300);
+}
+
+.card-photo {
+	aspect-ratio: 1 / 1;
+	border-radius: 12px;
+	object-fit: cover;
+	object-position: center;
+}
