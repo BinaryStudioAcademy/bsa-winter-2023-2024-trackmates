@@ -19,10 +19,10 @@
 
 @media screen and (width <= 480px) {
 	.header {
-		width: calc(100% - 50px);
+		width: calc(100% - 40px);
 		max-height: 55px;
 		padding: 5px;
-		margin: 10px 25px 0;
+		margin: 10px 20px 0;
 		border-radius: 13px;
 	}
 
