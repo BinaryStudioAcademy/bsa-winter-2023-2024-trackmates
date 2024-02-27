@@ -148,7 +148,21 @@ class FriendRepository implements Repository<UserEntity> {
 				"=",
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
-			.whereNull(`${DatabaseTableName.FRIENDS}.follower_id`)
+			.whereNotIn(
+				"users.id",
+				this.userModel
+					.query()
+					.select("users.id")
+					.leftJoin(
+						DatabaseTableName.FRIENDS,
+						`${DatabaseTableName.USERS}.id`,
+						"=",
+						`${DatabaseTableName.FRIENDS}.following_id`,
+					)
+					.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
+					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
+			)
+			.distinct()
 			.withGraphJoined("userDetails");
 
 		return potentialFollowers.map((user) => {
