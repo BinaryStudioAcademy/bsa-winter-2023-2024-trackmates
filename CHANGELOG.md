@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.8.2...v1.9.0) (2024-02-27)
+
+
+### Features
+
+* **frontend/backend/shared:** Search courses tm-55 ([#179](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/179)) ([d1ba58e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d1ba58e638a879b4ba807b4bf4dec787bfddf11c))
+
+## [1.8.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.8.1...v1.8.2) (2024-02-27)
+
+
+### Bug Fixes
+
+* **backend:** create friends functionality tm-39 ([#200](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/200)) ([f26b5f3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f26b5f38b8d22c2ae42c2e64fca9e1893af330ee))
+
+## [1.8.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.8.0...v1.8.1) (2024-02-27)
+
+
+### Bug Fixes
+
+* **shared:** Auth Page fields validations, error messages and design issues according to the updated specification tm-131 ([#201](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/201)) ([ffc0028](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ffc00288e155d4b7782c1369792d6e9d9acbb3a9))
+
 ## [1.8.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.7.3...v1.8.0) (2024-02-27)
 
 

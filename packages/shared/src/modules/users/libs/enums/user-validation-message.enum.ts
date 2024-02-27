@@ -14,7 +14,7 @@ const UserValidationMessage = {
 	LAST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, 1 hyphen & 1 apostrophe",
 	LAST_NAME_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.LAST_NAME_MAXIMUM_LENGTH} characters`,
 	LAST_NAME_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.LAST_NAME_MINIMUM_LENGTH} characters`,
-	PASSWORD_INVALID_FORMAT: "Use only A-Z, a-z, 0-9 & special characters ",
+	PASSWORD_INVALID_FORMAT: "Use only A-Z, a-z, 0-9 & special characters",
 	PASSWORD_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.PASSWORD_MAXIMUM_LENGTH} characters`,
 	PASSWORD_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters`,
 } as const;

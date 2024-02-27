@@ -35,13 +35,22 @@ class UserCourseApi extends BaseHTTPApi {
 		return await response.json<CourseDto>();
 	}
 
-	public async getAllByUserId(id: number): Promise<CoursesResponseDto> {
+	public async getAllByUserId({
+		id,
+		search,
+	}: {
+		id: number;
+		search: string;
+	}): Promise<CoursesResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(`${UserCoursesApiPath.ROOT}${id}`, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
+				query: {
+					search,
+				},
 			},
 		);
 

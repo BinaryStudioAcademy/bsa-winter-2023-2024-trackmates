@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.6.0...frontend-v1.7.0) (2024-02-27)
+
+
+### Features
+
+* **frontend/backend/shared:** Search courses tm-55 ([#179](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/179)) ([d1ba58e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d1ba58e638a879b4ba807b4bf4dec787bfddf11c))
+
 ## [1.6.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.5.1...frontend-v1.6.0) (2024-02-27)
 
 

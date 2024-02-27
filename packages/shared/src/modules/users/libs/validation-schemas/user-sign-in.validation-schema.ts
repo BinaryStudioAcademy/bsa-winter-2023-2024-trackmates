@@ -12,10 +12,25 @@ const userSignIn = z
 		email: z
 			.string()
 			.trim()
-			.min(UserValidationRule.EMAIL_MINIMUM_LENGTH, {
+			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
 			.email({
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^(?!.*[._]{2})[\w.]*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/(?<=@)(?!.*[.-]{2})[\d.A-Za-z-]*/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^[^_][\w.]*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^(?!.*_(?=@)).*(?=@)/, {
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			})
 			.regex(
@@ -33,19 +48,7 @@ const userSignIn = z
 				{
 					message: UserValidationMessage.EMAIL_DOMAIN_PART_MAXIMUM_LENGTH,
 				},
-			)
-			.regex(/^[\w.]+(?:[._][\dA-Za-z]+)*(?=@)/, {
-				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
-			})
-			.regex(/^(?!.*[._]{2})[\w.]*(?=@)/, {
-				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
-			})
-			.regex(/(?<=@)(?!.*[.-]{2})[\d.A-Za-z-]*/, {
-				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
-			})
-			.regex(/^[^_][\w.]*(?=@)/, {
-				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
-			}),
+			),
 		password: z
 			.string()
 			.trim()
