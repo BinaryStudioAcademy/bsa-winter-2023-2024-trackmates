@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.4.6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.5...v1.4.6) (2024-02-25)
+
+
+### Bug Fixes
+
+* **frontend/backend/shared:** fix user details screen tm-42 ([#149](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/149)) ([0f63f39](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0f63f39766176ac9ef2c636c3080163d167b612b))
+
+## [1.4.5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.4...v1.4.5) (2024-02-25)
+
+
+### Bug Fixes
+
+* **frontend/backend/shared:** Auth Page fields validations, error messages and design issues according to the updated specification tm-131 ([#155](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/155)) ([04a2db7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/04a2db711166f7d33a57139b36f7b839461788a8))
+
+## [1.4.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.3...v1.4.4) (2024-02-25)
+
+
+### Bug Fixes
+
+* **frontend:** sidebar mobile pwa tm-139 ([#169](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/169)) ([f6889aa](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f6889aadf5e2f2bfe2c40cf3117523db74a1a063))
+
+## [1.4.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.2...v1.4.3) (2024-02-25)
+
+
+### Bug Fixes
+
+* **backend:** add authorization in swagger documentation on route /files/upload-avatar tm-164 ([#166](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/166)) ([0967335](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0967335d3b7f5263f85fd2717738f16d685baaf2))
+
+## [1.4.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.1...v1.4.2) (2024-02-24)
+
+
+### Bug Fixes
+
+* **frontend:** make roboto global font style tm-143 ([#154](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/154)) ([8df383d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8df383db1bc9442597fd4131defb2ee66912ebed))
+
+## [1.4.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.4.0...v1.4.1) (2024-02-24)
+
+
+### Bug Fixes
+
+* **backend:** swagger for auth routes has errors tm-130 ([#162](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/162)) ([f309ab8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f309ab8de674671b430f81d461ca46073dda0ac9))
+
 ## [1.4.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.3.0...v1.4.0) (2024-02-23)
 
 

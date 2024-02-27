@@ -17,7 +17,7 @@ const getAllChats = createAsyncThunk<
 	ChatGetAllResponseDto,
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/get-chats`, async (_payload, { extra }) => {
+>(`${sliceName}/get-all-chats`, async (_payload, { extra }) => {
 	const { chatsApi } = extra;
 
 	return await chatsApi.getAllChats();
@@ -40,7 +40,7 @@ const createChat = createAsyncThunk<
 	ChatSingleItemResponseDto,
 	number,
 	AsyncThunkConfig
->(`${sliceName}/get-chat`, async (userId, { dispatch, extra }) => {
+>(`${sliceName}/create-chat`, async (userId, { dispatch, extra }) => {
 	const { chatsApi } = extra;
 
 	const newChat = await chatsApi.createChat({ userId });

@@ -1,4 +1,4 @@
 export {
 	type MessageItemResponseDto,
 	type MessageCreateRequestDto,
-} from "shared";
+} from "@trackmates/shared";

@@ -48,18 +48,25 @@
 	align-items: end;
 	max-width: 100%;
 	padding: 10px;
+	color: var(--color-text-300);
 	background-color: var(--color-background);
 	border: 1px solid var(--color-background);
 	border-radius: 15px;
 }
 
 .right .message-container {
+	color: var(--main-white);
 	text-align: start;
-	background-color: var(--color-text-100);
+	background-color: var(--color-input);
+	border: 1px solid var(--color-input);
 }
 
 .message-container:hover {
-	border: 1px solid var(--modal-container-background);
+	border: 1px solid var(--color-input);
+}
+
+.right .message-container:hover {
+	border: 1px solid var(--main-white);
 }
 
 .message {

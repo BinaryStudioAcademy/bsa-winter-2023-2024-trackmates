@@ -36,7 +36,7 @@ export {
 	type MessageCreateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
-	chatMesageValidationSchema,
+	chatMessageValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,

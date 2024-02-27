@@ -4,7 +4,7 @@
 	flex-direction: column;
 	gap: 17px;
 	justify-content: center;
-	padding: 33px 41px 155px;
+	padding: 33px 41px 21px;
 	background-color: var(--color-background);
 }
 
@@ -20,7 +20,7 @@
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	padding: 30px;
+	padding: 12px 0 16px;
 	margin-bottom: 17px;
 	background-color: var(--color-menu);
 	border-radius: 16px;
@@ -85,7 +85,7 @@
 
 .profile-character {
 	position: absolute;
-	bottom: 8%;
+	bottom: -6%;
 	left: 15%;
 	transform: translateY(-50%);
 }

@@ -1,1 +1,1 @@
-export { chatMessageValidationSchema } from "shared";
+export { chatMessageValidationSchema } from "@trackmates/shared";
