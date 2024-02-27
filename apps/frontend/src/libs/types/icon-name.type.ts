@@ -6,6 +6,7 @@ type IconName =
 	| "eye"
 	| "eyeOff"
 	| "home"
+	| "logOut"
 	| "message"
 	| "pie"
 	| "plus";

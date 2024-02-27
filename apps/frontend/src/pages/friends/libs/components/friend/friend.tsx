@@ -63,7 +63,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			<div className={styles["actions"]}>
 				<Button
 					className={styles["button"]}
-					color="secondary"
+					color="primary"
 					iconName={isFollowing ? "cross" : "add"}
 					label={isFollowing ? "Following" : "Follow"}
 					onClick={isFollowing ? handleUnfollow : handleFollow}
