@@ -21,9 +21,10 @@ import styles from "./styles.module.css";
 const User: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
+	const userId = +(id as string);
 	const { courses, friends, isLoading } = useAppSelector((state) => {
 		return {
-			courses: state.userCourses.userCourses[+(id as string)],
+			courses: state.userCourses.userCourses[userId],
 			friends: [
 				...state.friends.potentialFriends,
 				...state.friends.followers,
@@ -33,7 +34,7 @@ const User: React.FC = () => {
 		};
 	});
 
-	const user = friends.find((friend) => friend.id === +(id as string));
+	const user = friends.find((friend) => friend.id === userId);
 
 	useEffect(() => {
 		if (!user) {
