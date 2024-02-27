@@ -5,7 +5,6 @@ import { type ChatService } from "~/modules/chats/chats.js";
 import { type UserEntity, type UserRepository } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
-import { type ChatMessageModel } from "./chat-message.model.js";
 import { type ChatMessageRepository } from "./chat-message.repository.js";
 import {
 	type ChatMessageCreateRequestDto,
@@ -91,8 +90,16 @@ class ChatMessageService implements Service {
 		return messageById.toObject();
 	}
 
-	public findAll(): Promise<{ items: ChatMessageModel[] }> {
-		throw new Error("Method not implemented");
+	public async findAll(
+		userId: number,
+	): Promise<{ items: ChatMessageItemResponseDto[] }> {
+		const messagesByUserId = await this.chatMessageRepository.findAll(userId);
+
+		return {
+			items: messagesByUserId.map((messageByUserId) => {
+				return messageByUserId.toObject();
+			}),
+		};
 	}
 
 	public async update(

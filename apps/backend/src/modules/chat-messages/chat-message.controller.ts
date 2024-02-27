@@ -36,6 +36,18 @@ class ChatMessageController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
+				return this.findAll(
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: ChatMessagesApiPath.ROOT,
+		});
+
+		this.addRoute({
+			handler: (options) => {
 				return this.update(
 					options as APIHandlerOptions<{
 						body: ChatMessageUpdateRequestDto;
@@ -62,6 +74,17 @@ class ChatMessageController extends BaseController {
 				userId: user.id,
 			}),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	private async findAll({
+		user,
+	}: APIHandlerOptions<{
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatMessageService.findAll(user.id),
+			status: HTTPCode.OK,
 		};
 	}
 
