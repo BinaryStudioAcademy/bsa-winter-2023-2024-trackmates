@@ -135,8 +135,34 @@ class ChatService implements Service {
 		return chatById.toObjectWithMessages(userId);
 	}
 
-	public update(): Promise<ChatEntity> {
-		throw new Error("Method not implemented.");
+	public async update(
+		id: number,
+		{
+			firstUserId,
+			secondUserId,
+		}: { firstUserId: number; secondUserId: number },
+	): Promise<ChatResponseDto> {
+		void (await this.find(id));
+
+		const firstUser = await this.userRepository.findById(firstUserId);
+		const secondUser = await this.userRepository.findById(secondUserId);
+
+		if (!firstUser || !secondUser) {
+			throw new HTTPError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const updatedChat = await this.chatRepository.update(
+			id,
+			ChatEntity.initializeNew({
+				firstUser,
+				secondUser,
+			}),
+		);
+
+		return updatedChat.toObject();
 	}
 }
 
