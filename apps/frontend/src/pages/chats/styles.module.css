@@ -19,3 +19,22 @@
 	border-bottom: 30px solid var(--color-menu);
 	border-radius: 16px;
 }
+
+.back-container {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.back-button {
+	width: 25px;
+	height: 25px;
+	color: var(--color-text-200);
+	background-color: #e0e0e0;
+	fill: currentcolor;
+}
+
+.subtitle {
+	font-size: var(--font-size-100);
+	color: #9a9fa5;
+}

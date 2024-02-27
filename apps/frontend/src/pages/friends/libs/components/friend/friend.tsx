@@ -71,7 +71,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				/>
 				<Button
 					className={styles["start-chat"]}
-					color="transparent"
+					color="secondary"
 					hasVisuallyHiddenLabel
 					href={chatRouteByUser}
 					iconName="chats"

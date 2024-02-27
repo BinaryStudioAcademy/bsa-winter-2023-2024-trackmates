@@ -26,7 +26,11 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	);
 
 	return (
-		<form className={styles["form"]} onSubmit={handleFormSubmit}>
+		<form
+			autoComplete="off"
+			className={styles["form"]}
+			onSubmit={handleFormSubmit}
+		>
 			<Input className={styles["input"]} control={control} name="message" />
 			<Button
 				className={styles["icon"]}

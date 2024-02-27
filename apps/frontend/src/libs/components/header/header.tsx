@@ -18,12 +18,10 @@ const Header: React.FC = () => {
 			<div className={styles["toolbar"]}>
 				<Button
 					className={styles["icon-button"]}
-					color="transparent"
 					hasVisuallyHiddenLabel
 					href={AppRoute.CHATS}
 					iconName="chats"
 					label="To chats"
-					style="outlined"
 				/>
 				<Link to={AppRoute.PROFILE}>
 					<Image

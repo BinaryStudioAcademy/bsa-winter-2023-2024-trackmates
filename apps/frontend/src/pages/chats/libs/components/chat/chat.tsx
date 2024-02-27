@@ -1,4 +1,4 @@
-import { Image } from "~/libs/components/components.js";
+import { Image, Loader } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
@@ -9,12 +9,14 @@ import { ChatForm } from "../chat-form/chat-form.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	isMessageLoading: boolean;
 	messages: ChatMessageItemResponseDto[];
 	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => Promise<void>;
 	receiver: UserAuthResponseDto;
 };
 
 const Chat: React.FC<Properties> = ({
+	isMessageLoading,
 	messages,
 	onSubmit,
 	receiver,
@@ -36,6 +38,11 @@ const Chat: React.FC<Properties> = ({
 					<ChatBubble key={message.id} messageData={message} />
 				))}
 			</ul>
+			{isMessageLoading && (
+				<div className={styles["loader"]}>
+					<Loader color="orange" size="small" />
+				</div>
+			)}
 			<div className={styles["message-container"]}>
 				<ChatForm onSubmit={onSubmit} />
 			</div>

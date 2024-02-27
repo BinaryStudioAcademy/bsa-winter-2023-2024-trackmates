@@ -31,9 +31,5 @@
 	min-height: 30px;
 	padding: 0;
 	border-radius: 50%;
-	fill: var(--main-white);
-}
-
-.icon:hover {
-	fill: var(--main-orange);
+	fill: currentcolor;
 }

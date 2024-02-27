@@ -1,3 +1,5 @@
+import { Button } from "~/libs/components/components.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -23,13 +25,13 @@ const Chats: React.FC = () => {
 	const queryParameters = new URLSearchParams(search);
 	const userId = queryParameters.get("user");
 
-	const { chats, currentMessages, interlocutor } = useAppSelector(
-		({ chatMessages, chats }) => ({
+	const { chats, currentMessages, interlocutor, isMessageLoading } =
+		useAppSelector(({ chatMessages, chats }) => ({
 			chats: chats.chats,
 			currentMessages: chatMessages.currentMessages,
 			interlocutor: chats.interlocutor,
-		}),
-	);
+			isMessageLoading: chatMessages.dataStatus === DataStatus.PENDING,
+		}));
 
 	useEffect(() => {
 		void dispatch(chatsActions.getAllChats());
@@ -41,7 +43,7 @@ const Chats: React.FC = () => {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (id) {
+		if (id && !Number.isNaN(Number(id))) {
 			void dispatch(chatsActions.getChat(Number(id)));
 		}
 
@@ -68,11 +70,23 @@ const Chats: React.FC = () => {
 
 	return (
 		<div className={styles["container"]}>
+			<div className={styles["back-container"]}>
+				<Button
+					className={styles["back-button"]}
+					hasVisuallyHiddenLabel
+					href={AppRoute.FRIENDS}
+					iconName="arrowLeft"
+					label="Back to friends"
+					size="small"
+				/>
+				<span className={styles["subtitle"]}>Back to friends</span>
+			</div>
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />
 				{id && interlocutor ? (
 					<Chat
+						isMessageLoading={isMessageLoading}
 						messages={currentMessages}
 						onSubmit={onSubmit}
 						receiver={interlocutor}
