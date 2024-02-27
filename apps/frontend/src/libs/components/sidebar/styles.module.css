@@ -1,8 +1,10 @@
 .sidebar {
+	position: fixed;
 	z-index: var(--z-index-medium);
 	display: flex;
 	flex-direction: column;
 	gap: 76px;
+	height: 100%;
 	padding: 19px;
 	overflow: hidden;
 	background-color: var(--color-menu);
@@ -89,8 +91,6 @@
 	}
 
 	.sidebar {
-		position: fixed;
-		height: 100%;
 		padding: 15px;
 	}
 
