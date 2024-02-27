@@ -45,6 +45,9 @@ const userSignIn = z
 			})
 			.regex(/^[^_][\w.]*(?=@)/, {
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^(?!.*_(?=@)).*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			}),
 		password: z
 			.string()

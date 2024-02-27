@@ -50,6 +50,9 @@ const userSignUp = z
 			})
 			.regex(/(?<=@)(?!.*['-]{2})[\d.A-Za-z-]*$/, {
 				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
+			})
+			.regex(/^(?!.*_(?=@)).*(?=@)/, {
+				message: UserValidationMessage.EMAIL_INVALID_FORMAT,
 			}),
 		firstName: z
 			.string()
@@ -117,7 +120,7 @@ const userSignUp = z
 			.max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
 				message: UserValidationMessage.PASSWORD_MAXIMUM_LENGTH,
 			})
-			.regex(/^[\w!"#$%&'()*+,-./:;<=>?@[\]^`{|}~]{8,26}$/, {
+			.regex(/^[\w!"#$%&'()*+,-./:;<=>?@[\\\]^`{|}~]{8,26}$/, {
 				message: UserValidationMessage.PASSWORD_INVALID_FORMAT,
 			}),
 	})
