@@ -1,7 +1,7 @@
 const APIPath = {
 	AUTH: "/auth",
-	CHATS: "/chats",
 	CHAT_MESSAGES: "/chat-messages",
+	CHATS: "/chats",
 	COURSES: "/courses",
 	FILES: "/files",
 	FRIENDS: "/friends",

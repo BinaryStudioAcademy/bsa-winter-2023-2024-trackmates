@@ -1,22 +1,30 @@
 import { type Knex } from "knex";
 
-import { MessageStatus } from "~/modules/chat-message/libs/enums/enums.js";
+const DELETE_STRATEGY = "CASCADE";
 
-const TABLE_NAME = "chat_messages";
+const MessageStatus = {
+	READ: "read",
+	UNREAD: "unread",
+} as const;
+
+const TableName = {
+	CHAT_MESSAGES: "chat_messages",
+	CHATS: "chats",
+	USERS: "users",
+} as const;
 
 const ColumnName = {
 	CHAT_ID: "chat_id",
 	CREATED_AT: "created_at",
 	ID: "id",
-	MESSAGE: "message",
-	RECEIVER_ID: "receiver_id",
-	SENDER_ID: "sender_id",
+	SENDER_USER_ID: "sender_user_id",
 	STATUS: "status",
+	TEXT: "text",
 	UPDATED_AT: "updated_at",
 } as const;
 
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.createTable(TABLE_NAME, (table) => {
+	await knex.schema.createTable(TableName.CHAT_MESSAGES, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.dateTime(ColumnName.CREATED_AT)
@@ -27,26 +35,26 @@ async function up(knex: Knex): Promise<void> {
 			.notNullable()
 			.defaultTo(knex.fn.now());
 		table
-			.integer(ColumnName.SENDER_ID)
+			.integer(ColumnName.SENDER_USER_ID)
 			.notNullable()
-			.references("id")
-			.inTable("users");
+			.references(ColumnName.ID)
+			.inTable(TableName.USERS);
 		table
-			.integer(ColumnName.RECEIVER_ID)
+			.integer(ColumnName.CHAT_ID)
 			.notNullable()
-			.references("id")
-			.inTable("users");
-		table.uuid(ColumnName.CHAT_ID).notNullable().defaultTo(knex.fn.uuid());
+			.references(ColumnName.ID)
+			.inTable(TableName.CHATS)
+			.onDelete(DELETE_STRATEGY);
 		table
 			.enum(ColumnName.STATUS, [MessageStatus.READ, MessageStatus.UNREAD])
 			.notNullable()
 			.defaultTo(MessageStatus.UNREAD);
-		table.text(ColumnName.MESSAGE).notNullable();
+		table.text(ColumnName.TEXT).notNullable();
 	});
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.dropTableIfExists(TABLE_NAME);
+	await knex.schema.dropTableIfExists(TableName.CHAT_MESSAGES);
 }
 
 export { down, up };

@@ -1,15 +1,15 @@
 import { formatDate, getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppSelector } from "~/libs/hooks/hooks.js";
-import { MessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
+import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	messageData: MessageItemResponseDto;
+	messageData: ChatMessageItemResponseDto;
 };
 
 const ChatBubble: React.FC<Properties> = ({ messageData }: Properties) => {
-	const { createdAt, text, senderUser } = messageData;
+	const { createdAt, senderUser, text } = messageData;
 	const { user } = useAppSelector(({ auth }) => ({
 		user: auth.user,
 	}));

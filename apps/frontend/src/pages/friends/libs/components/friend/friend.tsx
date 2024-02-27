@@ -1,13 +1,13 @@
 import friendImage from "~/assets/img/friend.jpeg";
 import { Button, Image } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
+import { createQueryLink } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import { AppRoute } from "~/libs/enums/enums.js";
-import { createQueryLink } from "~/libs/helpers/helpers.js";
 import { actions } from "~/modules/friends/friends.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 

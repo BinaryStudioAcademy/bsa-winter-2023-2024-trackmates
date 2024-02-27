@@ -10,12 +10,12 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
 import { reducer as appReducer } from "~/modules/app/app.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
-import { filesApi } from "~/modules/files/files.js";
 import {
 	chatMessagesApi,
 	reducer as chatMessagesReducer,
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
+import { filesApi } from "~/modules/files/files.js";
 import {
 	friendsApi,
 	reducer as friendsReducer,

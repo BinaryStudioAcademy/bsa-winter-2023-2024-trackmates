@@ -11,9 +11,9 @@ type Properties = {
 };
 
 const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
-	const { chatId, interlocutor, lastMessage } = chat;
+	const { id, interlocutor, lastMessage } = chat;
 	const chatRouteById = configureString(AppRoute.CHATS_$ID, {
-		id: String(chatId),
+		id: String(id),
 	}) as typeof AppRoute.CHATS_$ID;
 
 	const isLastMessagesYours = lastMessage.senderUser.id !== interlocutor.id;

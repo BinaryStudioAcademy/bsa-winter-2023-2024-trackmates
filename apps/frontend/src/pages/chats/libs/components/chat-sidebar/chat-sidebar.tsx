@@ -16,7 +16,7 @@ const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
 			{Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH ? (
 				chats.map((item) => {
 					return (
-						<li key={item.chatId}>
+						<li key={item.id}>
 							<ChatLink chat={item} />
 						</li>
 					);

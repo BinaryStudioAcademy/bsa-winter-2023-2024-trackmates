@@ -5,8 +5,8 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 
 import { ChatMessagesApiPath } from "./libs/enums/enums.js";
 import {
-	type MessageItemResponseDto,
-	type MessageCreateRequestDto,
+	type ChatMessageCreateRequestDto,
+	type ChatMessageItemResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -21,8 +21,8 @@ class ChatMessagesApi extends BaseHTTPApi {
 	}
 
 	public async sendMessage(
-		payload: MessageCreateRequestDto,
-	): Promise<MessageItemResponseDto> {
+		payload: ChatMessageCreateRequestDto,
+	): Promise<ChatMessageItemResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(ChatMessagesApiPath.ROOT, {}),
 			{
@@ -33,7 +33,7 @@ class ChatMessagesApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<MessageItemResponseDto>();
+		return await response.json<ChatMessageItemResponseDto>();
 	}
 }
 

@@ -32,8 +32,8 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
-	type MessageItemResponseDto,
-	type MessageCreateRequestDto,
+	type ChatMessageCreateRequestDto,
+	type ChatMessageItemResponseDto,
 	ChatMessagesApiPath,
 	MessageStatus,
 	chatMessageValidationSchema,
@@ -41,7 +41,7 @@ export {
 export {
 	type ChatCreateRequestDto,
 	type ChatGetAllItemResponseDto,
-	type ChatGetAllResponseDto,
+	type ChatResponseDto,
 	type ChatSingleItemResponseDto,
 	ChatsApiPath,
 } from "./modules/chats/chats.js";

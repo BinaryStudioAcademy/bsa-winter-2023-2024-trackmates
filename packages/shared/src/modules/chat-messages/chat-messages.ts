@@ -1,6 +1,6 @@
 export { ChatMessagesApiPath, MessageStatus } from "./libs/enums/enums.js";
 export {
-	type MessageItemResponseDto,
-	type MessageCreateRequestDto,
+	type ChatMessageCreateRequestDto,
+	type ChatMessageItemResponseDto,
 } from "./libs/types/types.js";
 export { ChatMessage as chatMessageValidationSchema } from "./libs/validation-schemas/valisation-schemas.js";

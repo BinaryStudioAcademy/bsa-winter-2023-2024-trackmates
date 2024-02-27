@@ -6,7 +6,7 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 import { ChatsApiPath } from "./libs/enums/enums.js";
 import {
 	type ChatCreateRequestDto,
-	type ChatGetAllResponseDto,
+	type ChatGetAllItemResponseDto,
 	type ChatSingleItemResponseDto,
 } from "./libs/types/types.js";
 
@@ -21,27 +21,6 @@ class ChatsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.CHATS, storage });
 	}
 
-	public async getAllChats(): Promise<ChatGetAllResponseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(ChatsApiPath.ROOT, {}),
-			{
-				hasAuth: true,
-				method: "GET",
-			},
-		);
-
-		return await response.json<ChatGetAllResponseDto>();
-	}
-
-	public async getChat(chatId: number): Promise<ChatSingleItemResponseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(ChatsApiPath.$CHAT_ID, { chatId: String(chatId) }),
-			{ hasAuth: true, method: "GET" },
-		);
-
-		return await response.json<ChatSingleItemResponseDto>();
-	}
-
 	public async createChat(
 		payload: ChatCreateRequestDto,
 	): Promise<ChatSingleItemResponseDto> {
@@ -53,6 +32,27 @@ class ChatsApi extends BaseHTTPApi {
 				method: "POST",
 				payload: JSON.stringify(payload),
 			},
+		);
+
+		return await response.json<ChatSingleItemResponseDto>();
+	}
+
+	public async getAllChats(): Promise<{ items: ChatGetAllItemResponseDto[] }> {
+		const response = await this.load(
+			this.getFullEndpoint(ChatsApiPath.ROOT, {}),
+			{
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<{ items: ChatGetAllItemResponseDto[] }>();
+	}
+
+	public async getChat(chatId: number): Promise<ChatSingleItemResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(ChatsApiPath.$CHAT_ID, { chatId: String(chatId) }),
+			{ hasAuth: true, method: "GET" },
 		);
 
 		return await response.json<ChatSingleItemResponseDto>();

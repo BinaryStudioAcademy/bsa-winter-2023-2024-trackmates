@@ -7,13 +7,13 @@ import {
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import {
-	type MessageCreateRequestDto,
+	type ChatMessageCreateRequestDto,
 	actions as chatMessagesActions,
 } from "~/modules/chat-messages/chat-messages.js";
 import { actions as chatsActions } from "~/modules/chats/chats.js";
 
 import { Chat, ChatSidebar, EmptyChat } from "./libs/components/components.js";
-import { DEFAULT_MESSAGE_PAYLOAD } from "./libs/constants/constants.js";
+import { type DEFAULT_MESSAGE_PAYLOAD } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const Chats: React.FC = () => {
@@ -44,20 +44,21 @@ const Chats: React.FC = () => {
 		if (id) {
 			void dispatch(chatsActions.getChat(Number(id)));
 		}
+
 		if (userId) {
 			void dispatch(chatsActions.createChat(Number(userId)));
 		}
 	}, [dispatch, id, userId]);
 
 	const onSubmit = useCallback(
-		(payload: typeof DEFAULT_MESSAGE_PAYLOAD): void => {
+		async (payload: typeof DEFAULT_MESSAGE_PAYLOAD): Promise<void> => {
 			if (id) {
-				const messagePayload: MessageCreateRequestDto = {
-					text: payload.message,
+				const messagePayload: ChatMessageCreateRequestDto = {
 					chatId: Number(id),
+					text: payload.message,
 				};
 
-				void dispatch(chatMessagesActions.sendMessage(messagePayload));
+				await dispatch(chatMessagesActions.sendMessage(messagePayload));
 				void dispatch(chatsActions.getChat(Number(id)));
 				void dispatch(chatsActions.getAllChats());
 			}

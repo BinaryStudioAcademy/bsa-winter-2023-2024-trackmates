@@ -12,7 +12,6 @@ const userService = new UserService(encrypt, userRepository);
 const userController = new UserController(logger, userService);
 
 export { userController, userRepository, userService };
-
 export {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,

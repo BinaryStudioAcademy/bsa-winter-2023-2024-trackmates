@@ -1,13 +1,13 @@
-import { type MessageItemResponseDto } from "../../../chat-messages/chat-messages.js";
+import { type ChatMessageItemResponseDto } from "../../../chat-messages/chat-messages.js";
 import { type UserAuthResponseDto } from "../../../users/users.js";
 
 type ChatGetAllItemResponseDto = {
-	chatId: number;
 	createdAt: string;
+	id: number;
 	interlocutor: UserAuthResponseDto;
-	lastMessage: MessageItemResponseDto;
+	lastMessage: ChatMessageItemResponseDto;
 	unreadMessageCount: number;
 	updatedAt: string;
 };
 
-export { ChatGetAllItemResponseDto };
+export { type ChatGetAllItemResponseDto };

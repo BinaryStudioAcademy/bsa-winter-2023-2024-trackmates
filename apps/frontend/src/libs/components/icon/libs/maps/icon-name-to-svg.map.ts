@@ -8,7 +8,6 @@ import HomeIcon from "~/assets/img/svg/home.svg?react";
 import LogOutIcon from "~/assets/img/svg/log-out.svg?react";
 import Message from "~/assets/img/svg/message.svg?react";
 import PieIcon from "~/assets/img/svg/pie.svg?react";
-
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 

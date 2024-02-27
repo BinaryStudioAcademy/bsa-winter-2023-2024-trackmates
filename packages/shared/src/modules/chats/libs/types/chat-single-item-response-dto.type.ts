@@ -1,9 +1,10 @@
+import { type ChatMessageItemResponseDto } from "../../../chat-messages/chat-messages.js";
 import { type UserAuthResponseDto } from "../../../users/users.js";
 
 type ChatSingleItemResponseDto = {
-	chatId: number;
+	id: number;
 	interlocutor: UserAuthResponseDto;
-	messages: [];
+	messages: ChatMessageItemResponseDto[];
 };
 
 export { type ChatSingleItemResponseDto };

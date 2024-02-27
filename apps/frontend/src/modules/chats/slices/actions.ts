@@ -7,14 +7,13 @@ import { actions as appActions } from "~/modules/app/app.js";
 import { actions as chatMessagesAction } from "~/modules/chat-messages/chat-messages.js";
 
 import {
-	type ChatGetAllResponseDto,
+	type ChatGetAllItemResponseDto,
 	type ChatSingleItemResponseDto,
 } from "../libs/types/types.js";
-
 import { name as sliceName } from "./chats.slice.js";
 
 const getAllChats = createAsyncThunk<
-	ChatGetAllResponseDto,
+	{ items: ChatGetAllItemResponseDto[] },
 	undefined,
 	AsyncThunkConfig
 >(`${sliceName}/get-all-chats`, async (_payload, { extra }) => {
@@ -45,7 +44,7 @@ const createChat = createAsyncThunk<
 
 	const newChat = await chatsApi.createChat({ userId });
 	const newChatRouteById = configureString(AppRoute.CHATS_$ID, {
-		id: String(newChat.chatId),
+		id: String(newChat.id),
 	}) as typeof AppRoute.CHATS_$ID;
 
 	void dispatch(appActions.navigate(newChatRouteById));

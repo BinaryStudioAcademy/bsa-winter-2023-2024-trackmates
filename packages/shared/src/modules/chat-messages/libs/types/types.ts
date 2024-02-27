@@ -1,2 +1,2 @@
-export { type MessageItemResponseDto } from "./message-item-response-dto.type.js";
-export { type MessageCreateRequestDto } from "./message-create-request-dto.type.js";
+export { type ChatMessageCreateRequestDto } from "./chat-message-create-request-dto.type.js";
+export { type ChatMessageItemResponseDto } from "./chat-message-item-response-dto.type.js";

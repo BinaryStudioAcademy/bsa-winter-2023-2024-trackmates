@@ -2,21 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { UserAuthResponseDto } from "~/modules/users/users.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type ChatGetAllItemResponseDto } from "../libs/types/types.js";
 import { createChat, getAllChats, getChat } from "./actions.js";
 
 type State = {
 	chats: ChatGetAllItemResponseDto[];
-	interlocutor: UserAuthResponseDto | null;
 	dataStatus: ValueOf<typeof DataStatus>;
+	interlocutor: UserAuthResponseDto | null;
 };
 
 const initialState: State = {
 	chats: [],
-	interlocutor: null,
 	dataStatus: DataStatus.IDLE,
+	interlocutor: null,
 };
 
 const { actions, name, reducer } = createSlice({
