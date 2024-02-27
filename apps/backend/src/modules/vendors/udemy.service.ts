@@ -11,7 +11,8 @@ import {
 	UdemyApiPath,
 	UdemyCourseFieldsMapping,
 	UdemyCourseSectionFieldsMapping,
-	UdemyDefaultPageParameter,
+	UdemyDefaultSearchPageParameter,
+	UdemyPageParameter,
 	VendorErrorMessage,
 } from "./libs/enums/enums.js";
 import { VendorError } from "./libs/exceptions/exceptions.js";
@@ -27,9 +28,6 @@ type Constructor = {
 	clientSecret: string;
 	http: HTTP;
 };
-
-const PAGE_STEP = 1;
-const PAGE_SIZE = 1000;
 
 class UdemyService implements VendorService {
 	private baseUrl: string;
@@ -72,14 +70,14 @@ class UdemyService implements VendorService {
 		let page = 0;
 
 		do {
-			page = page + PAGE_STEP;
+			page = page + UdemyPageParameter.step;
 			results = await this.loadResults(url, {
 				...query,
 				page,
-				page_size: PAGE_SIZE,
+				page_size: UdemyPageParameter.size,
 			});
 			items = [...items, ...results];
-		} while (results.length == PAGE_SIZE);
+		} while (results.length == UdemyPageParameter.size);
 
 		return items;
 	}
@@ -163,8 +161,8 @@ class UdemyService implements VendorService {
 	public async getCourses(search: string): Promise<Course[]> {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
-			page: UdemyDefaultPageParameter.PAGE,
-			page_size: UdemyDefaultPageParameter.PAGE_SIZE,
+			page: UdemyDefaultSearchPageParameter.PAGE,
+			page_size: UdemyDefaultSearchPageParameter.PAGE_SIZE,
 		};
 
 		if (search) {
