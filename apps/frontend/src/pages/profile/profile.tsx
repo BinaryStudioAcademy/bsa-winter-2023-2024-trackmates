@@ -109,6 +109,7 @@ const Profile: React.FC = () => {
 								errors={errors}
 								label="Nickname"
 								name="nickname"
+								placeholder="nickname"
 								type="text"
 							/>
 						</fieldset>
