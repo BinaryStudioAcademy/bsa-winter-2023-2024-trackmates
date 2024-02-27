@@ -29,17 +29,14 @@ class ChatService implements Service {
 	}: {
 		chatData: ChatCreateRequestDto;
 		userId: number;
-	}): Promise<ChatResponseDto> {
+	}): Promise<ChatSingleItemResponseDto> {
 		const chatByMembersIds = await this.chatRepository.findByMembersIds(
 			userId,
 			chatData.userId,
 		);
 
 		if (chatByMembersIds) {
-			throw new HTTPError({
-				message: ExceptionMessage.CHAT_ALREADY_EXISTS,
-				status: HTTPCode.BAD_REQUEST,
-			});
+			return chatByMembersIds.toObjectWithMessages(userId);
 		}
 
 		const firstUser = await this.userRepository.findById(userId);
@@ -59,7 +56,7 @@ class ChatService implements Service {
 			}),
 		);
 
-		return createdChat.toObject();
+		return createdChat.toObjectWithMessages(userId);
 	}
 
 	public delete(): Promise<boolean> {

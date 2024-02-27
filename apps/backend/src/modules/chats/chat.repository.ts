@@ -198,12 +198,12 @@ class ChatRepository implements Repository<ChatEntity> {
 			.where({ firstUserId, secondUserId })
 			.orWhere({ firstUserId: secondUserId, secondUserId: firstUserId })
 			.withGraphFetched(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
 			)
 			.first();
 
 		return chatByMembersIds
-			? ChatEntity.initialize({
+			? ChatEntity.initializeWithMessages({
 					createdAt: chatByMembersIds.createdAt,
 					firstUser: UserEntity.initialize({
 						avatarUrl:
@@ -218,6 +218,28 @@ class ChatRepository implements Repository<ChatEntity> {
 						updatedAt: chatByMembersIds.firstUser.updatedAt,
 					}),
 					id: chatByMembersIds.id,
+					messages: chatByMembersIds.messages.map((message) =>
+						ChatMessageEntity.initialize({
+							chatId: message.chatId,
+							createdAt: message.createdAt,
+							id: message.id,
+							senderUser: UserEntity.initialize({
+								avatarUrl:
+									message.senderUser.userDetails.avatarFile?.url ?? null,
+								createdAt: message.senderUser.createdAt,
+								email: message.senderUser.email,
+								firstName: message.senderUser.userDetails.firstName,
+								id: message.senderUser.id,
+								lastName: message.senderUser.userDetails.lastName,
+								passwordHash: message.senderUser.passwordHash,
+								passwordSalt: message.senderUser.passwordSalt,
+								updatedAt: message.senderUser.updatedAt,
+							}),
+							status: message.status,
+							text: message.text,
+							updatedAt: message.updatedAt,
+						}),
+					),
 					secondUser: UserEntity.initialize({
 						avatarUrl:
 							chatByMembersIds.secondUser.userDetails.avatarFile?.url ?? null,
