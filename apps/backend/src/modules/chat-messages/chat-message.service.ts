@@ -14,8 +14,11 @@ import {
 
 class ChatMessageService implements Service {
 	private chatMessageRepository: ChatMessageRepository;
+
 	private chatService: ChatService;
+
 	private userRepository: UserRepository;
+
 	public constructor({
 		chatMessageRepository,
 		chatService,
@@ -73,12 +76,15 @@ class ChatMessageService implements Service {
 	public delete(): Promise<boolean> {
 		throw new Error("Method not implemented.");
 	}
+
 	public find(): Promise<ChatMessageModel | null> {
 		throw new Error("Method not implemented");
 	}
+
 	public findAll(): Promise<{ items: ChatMessageModel[] }> {
 		throw new Error("Method not implemented");
 	}
+
 	public update(): Promise<ChatMessageModel> {
 		throw new Error("Method not implemented.");
 	}

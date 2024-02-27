@@ -7,9 +7,11 @@ import { RelationName } from "./libs/enums/enums.js";
 
 class ChatMessageRepository implements Repository<ChatMessageEntity> {
 	private chatMessageModel: typeof ChatMessageModel;
+
 	public constructor(chatMessageModel: typeof ChatMessageModel) {
 		this.chatMessageModel = chatMessageModel;
 	}
+
 	public async create(
 		messageEntity: ChatMessageEntity,
 	): Promise<ChatMessageEntity> {
@@ -57,6 +59,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 
 		return Boolean(deletedChatMessageCount);
 	}
+
 	public async find(id: number): Promise<ChatMessageEntity | null> {
 		const chatMessageById = await this.chatMessageModel
 			.query()
@@ -89,6 +92,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				})
 			: null;
 	}
+
 	public async findAll(userId: number): Promise<ChatMessageEntity[]> {
 		const messagesByUserId = await this.chatMessageModel
 			.query()
@@ -121,6 +125,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			}),
 		);
 	}
+
 	public update(): Promise<ChatMessageEntity | null> {
 		throw new Error("Method not implemented.");
 	}

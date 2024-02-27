@@ -19,13 +19,14 @@ class ChatMessageController extends BaseController {
 		this.chatMessageService = chatMessageService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.create(
+			handler: (options) => {
+				return this.create(
 					options as APIHandlerOptions<{
 						body: ChatMessageCreateRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: ChatMessagesApiPath.ROOT,
 		});

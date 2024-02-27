@@ -21,12 +21,19 @@ type Constructor = {
 
 class ChatEntity implements Entity {
 	private createdAt: string;
+
 	private firstUser: UserEntity;
+
 	private id: null | number;
+
 	private lastMessage: ChatMessageEntity | null;
+
 	private messages: ChatMessageEntity[] | null;
+
 	private secondUser: UserEntity;
+
 	private unreadMessageCount: null | number;
+
 	private updatedAt: string;
 
 	private constructor({
@@ -73,6 +80,7 @@ class ChatEntity implements Entity {
 			updatedAt,
 		});
 	}
+
 	public static initializeNew({
 		firstUser,
 		secondUser,
@@ -185,9 +193,9 @@ class ChatEntity implements Entity {
 	public toObjectWithMessages(userId: number): ChatSingleItemResponseDto {
 		const firstUser = this.firstUser.toObject();
 		const secondUser = this.secondUser.toObject();
-		const messages = (this.messages as ChatMessageEntity[]).map((message) =>
-			message.toObject(),
-		);
+		const messages = (this.messages as ChatMessageEntity[]).map((message) => {
+			return message.toObject();
+		});
 
 		return {
 			id: this.id as number,

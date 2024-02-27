@@ -14,7 +14,9 @@ import {
 
 class ChatService implements Service {
 	private chatRepository: ChatRepository;
+
 	private userRepository: UserRepository;
+
 	public constructor(
 		chatRepository: ChatRepository,
 		userRepository: UserRepository,

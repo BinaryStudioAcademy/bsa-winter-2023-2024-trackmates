@@ -16,11 +16,17 @@ type Constructor = {
 
 class ChatMessageEntity implements Entity {
 	private chatId: number;
+
 	private createdAt: string;
+
 	private id: null | number;
+
 	private senderUser: UserEntity;
+
 	private status: ValueOf<typeof MessageStatus>;
+
 	private text: string;
+
 	private updatedAt: string;
 
 	private constructor({
@@ -102,6 +108,7 @@ class ChatMessageEntity implements Entity {
 			text: this.text,
 		};
 	}
+
 	public toObject(): ChatMessageItemResponseDto {
 		return {
 			chatId: this.chatId,

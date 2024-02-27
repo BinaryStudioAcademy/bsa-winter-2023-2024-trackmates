@@ -51,9 +51,13 @@ class ChatModel extends AbstractModel {
 			},
 		};
 	};
+
 	public firstUser!: UserModel;
+
 	public firstUserId!: number;
+
 	public messages!: ChatMessageModel[];
+
 	public secondUser!: UserModel;
 
 	public secondUserId!: number;

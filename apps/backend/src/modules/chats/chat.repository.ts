@@ -64,6 +64,7 @@ class ChatRepository implements Repository<ChatEntity> {
 
 		return Boolean(deletedChatCount);
 	}
+
 	public async find(id: number): Promise<ChatEntity | null> {
 		const chatById = await this.chatModel
 			.query()
@@ -103,6 +104,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				})
 			: null;
 	}
+
 	public async findAll(userId: number): Promise<ChatEntity[]> {
 		const chatsByUserId = await this.chatModel
 			.query()
@@ -321,6 +323,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				})
 			: null;
 	}
+
 	public update(): Promise<ChatEntity | null> {
 		throw new Error("Method not implemented.");
 	}

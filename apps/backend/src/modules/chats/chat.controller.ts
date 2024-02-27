@@ -19,36 +19,39 @@ class ChatController extends BaseController {
 		this.chatService = chatService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.create(
+			handler: (options) => {
+				return this.create(
 					options as APIHandlerOptions<{
 						body: ChatCreateRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: ChatsApiPath.ROOT,
 		});
 
 		this.addRoute({
-			handler: (options) =>
-				this.findWithMessage(
+			handler: (options) => {
+				return this.findWithMessage(
 					options as APIHandlerOptions<{
 						params: Record<"chatId", number>;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: ChatsApiPath.$CHAT_ID,
 		});
 
 		this.addRoute({
-			handler: (options) =>
-				this.findAll(
+			handler: (options) => {
+				return this.findAll(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: ChatsApiPath.ROOT,
 		});
