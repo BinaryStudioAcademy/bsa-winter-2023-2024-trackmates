@@ -1,5 +1,5 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { type Service } from "~/libs/types/service.type.js";
+import { type Service } from "~/libs/types/types.js";
 import { type UserRepository } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";

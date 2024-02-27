@@ -1,9 +1,11 @@
 import { type Repository } from "~/libs/types/types.js";
-import { ChatMessageEntity } from "~/modules/chat-messages/chat-message.entity.js";
-import { type ChatMessageModel } from "~/modules/chat-messages/chat-message.model.js";
+import {
+	ChatMessageEntity,
+	MessageStatus,
+} from "~/modules/chat-messages/chat-message.js";
+import { type ChatMessageModel } from "~/modules/chat-messages/chat-message.js";
 import { UserEntity } from "~/modules/users/users.js";
 
-import { MessageStatus } from "../chat-messages/chat-message.js";
 import { ChatEntity } from "./chat.entity.js";
 import { ChatModel } from "./chat.model.js";
 import { RelationName } from "./libs/enums/enums.js";
