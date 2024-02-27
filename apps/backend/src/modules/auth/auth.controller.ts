@@ -41,6 +41,7 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *            type: string
  *          nickname:
  *            type: string
+ *            nullable: true
  *          updatedAt:
  *            type: string
  */

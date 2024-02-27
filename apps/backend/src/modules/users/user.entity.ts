@@ -126,7 +126,7 @@ class UserEntity implements Entity {
 		email: string;
 		firstName: string;
 		lastName: string;
-		nickname: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -137,7 +137,7 @@ class UserEntity implements Entity {
 			email: this.email,
 			firstName: this.firstName,
 			lastName: this.lastName,
-			nickname: this.nickname as string,
+			nickname: this.nickname,
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
 			updatedAt: this.updatedAt,
@@ -151,7 +151,7 @@ class UserEntity implements Entity {
 		firstName: string;
 		id: number;
 		lastName: string;
-		nickname: string;
+		nickname: null | string;
 		updatedAt: string;
 	} {
 		return {
@@ -161,7 +161,7 @@ class UserEntity implements Entity {
 			firstName: this.firstName,
 			id: this.id as number,
 			lastName: this.lastName,
-			nickname: this.nickname as string,
+			nickname: this.nickname,
 			updatedAt: this.updatedAt,
 		};
 	}

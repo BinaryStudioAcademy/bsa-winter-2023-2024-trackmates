@@ -28,7 +28,7 @@ const Profile: React.FC = () => {
 		defaultValues: {
 			firstName: user.firstName,
 			lastName: user.lastName,
-			nickname: user.nickname,
+			nickname: user.nickname ?? "",
 		},
 		validationSchema: userProfileValidationSchema,
 	});
