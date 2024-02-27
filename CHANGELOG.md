@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.9.0...v1.10.0) (2024-02-27)
+
+
+### Features
+
+* **backend/shared:** add AI integration tm-43 ([#134](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/134)) ([e10945f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e10945f2faa781ab88e892dc26dc23ee31ecc2db))
+
 ## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.8.2...v1.9.0) (2024-02-27)
 
 

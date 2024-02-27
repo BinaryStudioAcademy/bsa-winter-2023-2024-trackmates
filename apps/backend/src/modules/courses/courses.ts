@@ -1,4 +1,5 @@
 import { logger } from "~/libs/modules/logger/logger.js";
+import { openAI } from "~/libs/modules/open-ai/open-ai.js";
 import { UserModel } from "~/modules/users/user.model.js";
 import { udemyService, vendorService } from "~/modules/vendors/vendors.js";
 
@@ -15,6 +16,7 @@ const courseRepository = new CourseRepository(CourseModel, UserModel);
 const courseService = new CourseService({
 	courseRepository,
 	courseSectionRepository,
+	openAI,
 	vendorService,
 	vendorsApiMap,
 });

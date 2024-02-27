@@ -1,4 +1,5 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
+import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
 import {
 	CourseSectionEntity,
 	type CourseSectionRepository,
@@ -18,6 +19,7 @@ import { type CourseDto, type CoursesResponseDto } from "./libs/types/types.js";
 type Constructor = {
 	courseRepository: CourseRepository;
 	courseSectionRepository: CourseSectionRepository;
+	openAI: OpenAI;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
 };
@@ -25,17 +27,20 @@ type Constructor = {
 class CourseService {
 	private courseRepository: CourseRepository;
 	private courseSectionRepository: CourseSectionRepository;
+	private openAI: OpenAI;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
 
 	public constructor({
 		courseRepository,
 		courseSectionRepository,
+		openAI,
 		vendorService,
 		vendorsApiMap,
 	}: Constructor) {
 		this.courseRepository = courseRepository;
 		this.courseSectionRepository = courseSectionRepository;
+		this.openAI = openAI;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorService = vendorService;
 	}
@@ -227,6 +232,28 @@ class CourseService {
 		courses = await this.filterCourses(courses, userId);
 
 		return { courses };
+	}
+
+	public async getRecommendedCoursesByAI(parameters: {
+		search: string;
+		userId: number;
+		vendorsKey: string | undefined;
+	}): Promise<CoursesResponseDto> {
+		const { courses } = await this.findAllByVendors(parameters);
+
+		const prompt =
+			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the same length as the input array. Returned array must contain indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: the input data to analyze is [{0}, {1}, {2}]. After analyzing, the output should be like: [1, 2, 0]. Please make sure that the returned array has the same length as the input array.";
+		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
+		const response = await this.openAI.call(request);
+		const sortedIndexes = JSON.parse(response) as number[];
+
+		const sortedCourses = courses.map((_, index) => {
+			const courseIndex = sortedIndexes[index] as number;
+
+			return courses[courseIndex] as CourseDto;
+		});
+
+		return { courses: sortedCourses.filter(Boolean) };
 	}
 
 	public async update(id: number): Promise<CourseDto | null> {
