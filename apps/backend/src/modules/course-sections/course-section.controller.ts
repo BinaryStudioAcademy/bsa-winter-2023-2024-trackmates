@@ -69,7 +69,7 @@ class CourseSectionController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: CourseSectionsApiPath.$ID,
+			path: CourseSectionsApiPath.$COURSE_SECTION_ID,
 			validation: {
 				params: courseSectionIdParameterValidationSchema,
 			},

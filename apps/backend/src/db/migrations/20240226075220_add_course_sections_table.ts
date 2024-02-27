@@ -1,9 +1,9 @@
 import { type Knex } from "knex";
 
-const TABLE_NAME = {
+const TableName = {
 	COURSE_SECTIONS: "course_sections",
 	COURSES: "courses",
-};
+} as const;
 
 const ColumnName = {
 	COURSE_ID: "course_id",
@@ -17,12 +17,12 @@ const ColumnName = {
 const DELETE_STRATEGY = "CASCADE";
 
 function up(knex: Knex): Promise<void> {
-	return knex.schema.createTable(TABLE_NAME.COURSE_SECTIONS, (table) => {
+	return knex.schema.createTable(TableName.COURSE_SECTIONS, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.integer(ColumnName.COURSE_ID)
 			.references(ColumnName.ID)
-			.inTable(TABLE_NAME.COURSES)
+			.inTable(TableName.COURSES)
 			.notNullable()
 			.onDelete(DELETE_STRATEGY);
 		table.text(ColumnName.DESCRIPTION);
@@ -39,7 +39,7 @@ function up(knex: Knex): Promise<void> {
 }
 
 function down(knex: Knex): Promise<void> {
-	return knex.schema.dropTableIfExists(TABLE_NAME.COURSE_SECTIONS);
+	return knex.schema.dropTableIfExists(TableName.COURSE_SECTIONS);
 }
 
 export { down, up };

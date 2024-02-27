@@ -1,5 +1,5 @@
 const CourseSectionsApiPath = {
-	$ID: "/:courseSectionId",
+	$COURSE_SECTION_ID: "/:courseSectionId",
 	ROOT: "/",
 } as const;
 

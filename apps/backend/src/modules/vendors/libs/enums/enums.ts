@@ -1,4 +1,4 @@
-export { UdemyApiPath } from "./udemy-api-paths.enum.js";
+export { UdemyApiPath } from "./udemy-api-path.enum.js";
 export { CourseField } from "./udemy-course-field.enum.js";
 export { UdemyCourseFieldsMapping } from "./udemy-course-fields-mapping.enum.js";
 export { CourseSectionField } from "./udemy-course-section-field.enum.js";
