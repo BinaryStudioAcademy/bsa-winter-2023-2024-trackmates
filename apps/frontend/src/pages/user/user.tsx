@@ -10,12 +10,14 @@ import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useCallback,
 	useEffect,
 	useParams,
+	useState,
 } from "~/libs/hooks/hooks.js";
-import { actions } from "~/modules/user-courses/user-courses.js";
+import { actions as friendsActions } from "~/modules/friends/friends.js";
+import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
-import { UserButton } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
@@ -36,12 +38,33 @@ const User: React.FC = () => {
 
 	const user = friends.find((friend) => friend.id === userId);
 
+	const [isFollowing, setIsFollowing] = useState<boolean>(
+		useAppSelector((state) =>
+			state.friends.followings.some((friend) => friend.id === userId),
+		),
+	);
+	const handleFollow = useCallback(() => {
+		void dispatch(friendsActions.follow({ id: userId }))
+			.unwrap()
+			.then(() => {
+				setIsFollowing(true);
+			});
+	}, [dispatch, userId]);
+
+	const handleUnfollow = useCallback(() => {
+		void dispatch(friendsActions.unfollow({ id: userId }))
+			.unwrap()
+			.then(() => {
+				setIsFollowing(false);
+			});
+	}, [dispatch, userId]);
+
 	useEffect(() => {
 		if (!user) {
 			return;
 		}
 
-		void dispatch(actions.loadUserCourses(user.id));
+		void dispatch(userCoursesActions.loadUserCourses(user.id));
 	}, [dispatch, user]);
 
 	if (!user) {
@@ -72,7 +95,13 @@ const User: React.FC = () => {
 					<p className={styles["fullName"]}>
 						{user.firstName} {user.lastName}
 					</p>
-					<UserButton id={user.id} />
+					<Button
+						color="primary"
+						iconName={isFollowing ? "cross" : "add"}
+						label={isFollowing ? "Following" : "Follow"}
+						onClick={isFollowing ? handleUnfollow : handleFollow}
+						size="small"
+					/>
 				</div>
 			</div>
 
