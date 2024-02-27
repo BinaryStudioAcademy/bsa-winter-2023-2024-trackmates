@@ -126,8 +126,41 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 		);
 	}
 
-	public update(): Promise<ChatMessageEntity | null> {
-		throw new Error("Method not implemented.");
+	public async update(
+		id: number,
+		messageEntity: ChatMessageEntity,
+	): Promise<ChatMessageEntity> {
+		const { text } = messageEntity.toObject();
+		const updatedChatMessage = await this.chatMessageModel
+			.query()
+			.updateAndFetchById(id, {
+				text,
+			})
+			.withGraphFetched(
+				`${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}`,
+			)
+			.execute();
+
+		return ChatMessageEntity.initialize({
+			chatId: updatedChatMessage.chatId,
+			createdAt: updatedChatMessage.createdAt,
+			id: updatedChatMessage.id,
+			senderUser: UserEntity.initialize({
+				avatarUrl:
+					updatedChatMessage.senderUser.userDetails.avatarFile?.url ?? null,
+				createdAt: updatedChatMessage.senderUser.createdAt,
+				email: updatedChatMessage.senderUser.email,
+				firstName: updatedChatMessage.senderUser.userDetails.firstName,
+				id: updatedChatMessage.senderUser.id,
+				lastName: updatedChatMessage.senderUser.userDetails.lastName,
+				passwordHash: updatedChatMessage.senderUser.passwordHash,
+				passwordSalt: updatedChatMessage.senderUser.passwordSalt,
+				updatedAt: updatedChatMessage.senderUser.updatedAt,
+			}),
+			status: updatedChatMessage.status,
+			text: updatedChatMessage.text,
+			updatedAt: updatedChatMessage.updatedAt,
+		});
 	}
 }
 

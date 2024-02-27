@@ -9,7 +9,10 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type ChatMessageService } from "./chat-message.service.js";
 import { ChatMessagesApiPath } from "./libs/enums/enums.js";
-import { type ChatMessageCreateRequestDto } from "./libs/types/types.js";
+import {
+	type ChatMessageCreateRequestDto,
+	type ChatMessageUpdateRequestDto,
+} from "./libs/types/types.js";
 
 class ChatMessageController extends BaseController {
 	private chatMessageService: ChatMessageService;
@@ -30,6 +33,20 @@ class ChatMessageController extends BaseController {
 			method: "POST",
 			path: ChatMessagesApiPath.ROOT,
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.update(
+					options as APIHandlerOptions<{
+						body: ChatMessageUpdateRequestDto;
+						params: Record<"messageId", number>;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "PATCH",
+			path: ChatMessagesApiPath.$MESSAGE_ID,
+		});
 	}
 
 	private async create({
@@ -45,6 +62,24 @@ class ChatMessageController extends BaseController {
 				userId: user.id,
 			}),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	private async update({
+		body,
+		params,
+		user,
+	}: APIHandlerOptions<{
+		body: ChatMessageUpdateRequestDto;
+		params: Record<"messageId", number>;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatMessageService.update(params.messageId, {
+				updateMessageData: body,
+				userId: user.id,
+			}),
+			status: HTTPCode.OK,
 		};
 	}
 }
