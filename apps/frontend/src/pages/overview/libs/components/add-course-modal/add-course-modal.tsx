@@ -86,13 +86,6 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 			.then((vendors) => {
 				setValue("vendors", getDefaultVendors(vendors));
 			});
-
-		void dispatch(
-			courseActions.getRecommended({
-				search: "",
-				vendorsKey: [],
-			}),
-		);
 	}, [dispatch, setValue]);
 
 	useEffect(() => {
@@ -119,7 +112,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						/>
 						<div className={styles["toolbar"]}>
 							<p className={styles["results-count"]}>
-								{courses.length} results
+								{courses.length + recommendedCourses.length} results
 							</p>
 							<fieldset className={styles["vendors-container"]}>
 								{vendors.map((vendor) => (
@@ -156,16 +149,6 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 								)}
 							</>
 						)}
-						{/* {control.getFieldState("search").isDirty && (
-							<>
-								<h2 className={styles["courses-title"]}>Recommended Courses</h2>
-
-								<Courses
-									courses={recommendedCourses}
-									onAddCourse={handleAddCourse}
-								/>
-							</>
-						)} */}
 					</div>
 				</div>
 			</div>
