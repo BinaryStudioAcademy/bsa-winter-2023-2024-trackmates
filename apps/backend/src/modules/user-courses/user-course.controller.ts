@@ -112,12 +112,6 @@ class UserCourseController extends BaseController {
 	 *          schema:
 	 *            type: integer
 	 *            minimum: 1
-<<<<<<< HEAD
-	 * 				- name: search
-	 *          in: query
-	 *          type: string
-=======
->>>>>>> main
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

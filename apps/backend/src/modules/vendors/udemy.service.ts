@@ -41,6 +41,7 @@ class UdemyService implements VendorService {
 		this.clientSecret = clientSecret;
 		this.http = http;
 	}
+
 	private getHeaders(): Headers {
 		const headers = new Headers();
 		const token = btoa(`${this.clientId}:${this.clientSecret}`);
