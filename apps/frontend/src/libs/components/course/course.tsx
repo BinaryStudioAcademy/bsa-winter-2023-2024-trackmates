@@ -49,7 +49,6 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 						label="Add"
 						onClick={handleAddCourse}
 						size="small"
-						style="primary"
 					/>
 				</div>
 			)}

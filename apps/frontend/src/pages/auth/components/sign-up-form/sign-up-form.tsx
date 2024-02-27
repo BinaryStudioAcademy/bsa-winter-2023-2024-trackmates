@@ -94,7 +94,6 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			<Button
 				className={styles["button"]}
 				label="Create an account"
-				style="primary"
 				type="submit"
 			/>
 		</form>

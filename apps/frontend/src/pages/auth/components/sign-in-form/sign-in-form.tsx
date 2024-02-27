@@ -72,12 +72,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					style="secondary"
 				/>
 			</div>
-			<Button
-				className={styles["button"]}
-				label="Log In"
-				style="primary"
-				type="submit"
-			/>
+			<Button className={styles["button"]} label="Log In" type="submit" />
 		</form>
 	);
 };

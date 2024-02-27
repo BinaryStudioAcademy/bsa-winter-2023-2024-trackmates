@@ -123,7 +123,6 @@ const Profile: React.FC = () => {
 							className={styles["button"]}
 							label="Update"
 							size="small"
-							style="primary"
 							type="submit"
 						/>
 					</div>
