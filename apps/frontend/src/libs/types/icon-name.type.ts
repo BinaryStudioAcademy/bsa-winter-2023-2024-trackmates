@@ -7,6 +7,8 @@ type IconName =
 	| "home"
 	| "logOut"
 	| "pie"
-	| "plus";
+	| "plus"
+	| "plusOutlined"
+	| "search";
 
 export { type IconName };

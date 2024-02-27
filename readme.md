@@ -52,6 +52,8 @@ erDiagram
     varchar url
     varchar title
     varchar description
+    varchar image
+    varchar vendor_course_id
     int vendor_id FK
    }
 
@@ -69,6 +71,7 @@ erDiagram
     dateTime updated_at
     varchar name
     varchar key
+    varchar url
    }
 
    course_sections {

@@ -1,14 +1,3 @@
-.container {
-	max-width: 1500px;
-	padding: 27px 0 90px;
-	margin: auto;
-	color: var(--color-text-300);
-}
-
-.title {
-	font-size: var(--font-size-400);
-}
-
 .list {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -18,34 +7,20 @@
 	list-style: none;
 }
 
-@media screen and (width <= 1439px) {
+@media screen and (width <= 1440px) {
 	.list {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
-@media screen and (width <= 1150px) {
-	.container {
-		max-width: 700px;
-	}
-
+@media screen and (width <= 865px) {
 	.list {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-@media screen and (width <= 640px) {
-	.container {
-		max-width: 350px;
-	}
-
+@media screen and (width <= 590px) {
 	.list {
 		grid-template-columns: 1fr;
-	}
-}
-
-@media screen and (width <= 489px) {
-	.container {
-		padding: 20px 15px 50px;
 	}
 }

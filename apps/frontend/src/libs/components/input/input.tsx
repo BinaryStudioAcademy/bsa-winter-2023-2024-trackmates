@@ -7,7 +7,9 @@ import {
 
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
+import { type IconName } from "~/libs/types/types.js";
 
+import { Icon } from "../icon/icon.js";
 import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
@@ -15,6 +17,8 @@ type Properties<T extends FieldValues> = {
 	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
+	hasVisuallyHiddenLabel?: boolean;
+	iconName?: IconName;
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
@@ -26,12 +30,19 @@ const Input = <T extends FieldValues>({
 	color = "light",
 	control,
 	errors,
+	hasVisuallyHiddenLabel,
+	iconName,
 	label,
 	name,
 	placeholder = "",
 	type = "text",
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
+
+	const icon = iconName ? (
+		<Icon className={styles["icon"]} name={iconName} />
+	) : null;
+	const hasIcon = Boolean(iconName);
 
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
@@ -41,11 +52,17 @@ const Input = <T extends FieldValues>({
 		styles["input"],
 		styles[color],
 		hasError && styles["error-input"],
+		hasIcon && styles["input-with-icon"],
+	);
+	const labelClasses = getValidClassNames(
+		styles["heading"],
+		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 
 	return (
 		<label className={styles["container"]}>
-			<span className={styles["heading"]}>{label}</span>
+			<span className={labelClasses}>{label}</span>
+			{icon}
 			<input
 				className={inputClasses}
 				{...field}

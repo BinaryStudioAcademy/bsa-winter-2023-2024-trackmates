@@ -65,6 +65,21 @@ class BaseHTTPApi implements HTTPApi {
 		return headers;
 	}
 
+	private getUrl<T extends Record<string, unknown>>(
+		path: string,
+		queryParameters?: T | undefined,
+	): string {
+		if (!queryParameters) {
+			return path;
+		}
+
+		const query = new URLSearchParams(
+			queryParameters as Record<string, string>,
+		).toString();
+
+		return `${path}?${query}`;
+	}
+
 	private async handleError(response: Response): Promise<never> {
 		let parsedException: ServerErrorResponse;
 
@@ -108,11 +123,11 @@ class BaseHTTPApi implements HTTPApi {
 		path: string,
 		options: HTTPApiOptions,
 	): Promise<HTTPApiResponse> {
-		const { contentType, hasAuth, method, payload = null } = options;
+		const { contentType, hasAuth, method, payload = null, query } = options;
 
 		const headers = await this.getHeaders(contentType, hasAuth);
 
-		const response = await this.http.load(path, {
+		const response = await this.http.load(this.getUrl(path, query), {
 			headers,
 			method,
 			payload,

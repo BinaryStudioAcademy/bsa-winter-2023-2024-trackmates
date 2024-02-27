@@ -1,4 +1,5 @@
 const ExceptionMessage = {
+	COURSE_SECTION_NOT_FOUND: "Course section not found.",
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
 	FILE_IS_TOO_LARGE: "File is too large.",
 	FILE_NOT_FOUND: "File not found.",

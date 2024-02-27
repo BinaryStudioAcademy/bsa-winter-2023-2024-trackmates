@@ -4,9 +4,27 @@
 	background-color: var(--color-background);
 }
 
+.courses-container {
+	max-width: 1500px;
+	padding: 27px 0 90px;
+	margin: auto;
+	color: var(--color-text-300);
+}
+
+.courses-title {
+	margin: 0 0 10px;
+	font-size: var(--font-size-400);
+}
+
 @media screen and (width <= 1024px) {
 	.container {
 		padding: 15px 20px;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.courses-title {
+		font-size: var(--font-size-300);
 	}
 }
 
