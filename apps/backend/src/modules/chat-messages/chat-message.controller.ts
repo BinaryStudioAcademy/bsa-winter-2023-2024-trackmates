@@ -13,6 +13,10 @@ import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageUpdateRequestDto,
 } from "./libs/types/types.js";
+import {
+	chatMessageCreateValidationSchema,
+	chatMessageUpdateValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 class ChatMessageController extends BaseController {
 	private chatMessageService: ChatMessageService;
@@ -32,6 +36,9 @@ class ChatMessageController extends BaseController {
 			},
 			method: "POST",
 			path: ChatMessagesApiPath.ROOT,
+			validation: {
+				body: chatMessageCreateValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -58,6 +65,9 @@ class ChatMessageController extends BaseController {
 			},
 			method: "PATCH",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
+			validation: {
+				body: chatMessageUpdateValidationSchema,
+			},
 		});
 
 		this.addRoute({

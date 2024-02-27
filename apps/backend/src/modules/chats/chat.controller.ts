@@ -10,6 +10,7 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 import { type ChatService } from "./chat.service.js";
 import { ChatsApiPath } from "./libs/enums/enums.js";
 import { type ChatCreateRequestDto } from "./libs/types/types.js";
+import { chatCreateValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 class ChatController extends BaseController {
 	private chatService: ChatService;
@@ -29,6 +30,9 @@ class ChatController extends BaseController {
 			},
 			method: "POST",
 			path: ChatsApiPath.ROOT,
+			validation: {
+				body: chatCreateValidationSchema,
+			},
 		});
 
 		this.addRoute({

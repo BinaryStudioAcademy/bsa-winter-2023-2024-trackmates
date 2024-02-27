@@ -38,6 +38,8 @@ export {
 	type ChatMessageUpdateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
+	chatMessageCreateValidationSchema,
+	chatMessageUpdateValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,
@@ -46,6 +48,7 @@ export {
 	type ChatResponseDto,
 	type ChatSingleItemResponseDto,
 	ChatsApiPath,
+	chatCreateValidationSchema,
 } from "./modules/chats/chats.js";
 export {
 	type CourseSectionAddRequestDto,

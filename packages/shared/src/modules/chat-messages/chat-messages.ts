@@ -4,3 +4,7 @@ export {
 	type ChatMessageItemResponseDto,
 	type ChatMessageUpdateRequestDto,
 } from "./libs/types/types.js";
+export {
+	chatMessageCreate as chatMessageCreateValidationSchema,
+	chatMessageUpdate as chatMessageUpdateValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
