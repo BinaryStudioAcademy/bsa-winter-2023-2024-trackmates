@@ -20,7 +20,7 @@ const Link: React.FC<Properties> = ({
 	className,
 	to,
 }: Properties) => {
-	const linkStyles = useCallback(
+	const handleLinkStyles = useCallback(
 		({ isActive }: { isActive: boolean }): string => {
 			return getValidClassNames(
 				isActive && activeClassName,
@@ -32,7 +32,7 @@ const Link: React.FC<Properties> = ({
 	);
 
 	return (
-		<NavLink className={linkStyles} to={to}>
+		<NavLink className={handleLinkStyles} to={to}>
 			{children}
 		</NavLink>
 	);
