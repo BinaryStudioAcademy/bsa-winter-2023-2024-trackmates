@@ -16,6 +16,7 @@
 	padding: 12px;
 	font-family: inherit;
 	font-weight: 500;
+	cursor: text;
 	border: none;
 	border-radius: 51px;
 	outline: none;
@@ -72,4 +73,15 @@
 
 .error-input {
 	border: 1px solid var(--color-error);
+}
+
+.icon {
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	color: var(--color-text-200);
+}
+
+.input-with-icon {
+	padding-left: 42px;
 }

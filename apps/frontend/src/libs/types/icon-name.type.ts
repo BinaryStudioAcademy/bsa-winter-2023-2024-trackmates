@@ -10,6 +10,8 @@ type IconName =
 	| "logOut"
 	| "message"
 	| "pie"
-	| "plus";
+	| "plus"
+	| "plusOutlined"
+	| "search";
 
 export { type IconName };

@@ -15,12 +15,24 @@ import {
 	reducer as chatMessagesReducer,
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
+import {
+	courseApi,
+	reducer as coursesReducer,
+} from "~/modules/courses/courses.js";
 import { filesApi } from "~/modules/files/files.js";
 import {
 	friendsApi,
 	reducer as friendsReducer,
 } from "~/modules/friends/friends.js";
+import {
+	userCourseApi,
+	reducer as userCoursesReducer,
+} from "~/modules/user-courses/user-courses.js";
 import { userApi } from "~/modules/users/users.js";
+import {
+	vendorApi,
+	reducer as vendorsReducer,
+} from "~/modules/vendors/vendors.js";
 
 import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
@@ -30,18 +42,24 @@ type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	chatMessages: ReturnType<typeof chatMessagesReducer>;
 	chats: ReturnType<typeof chatsReducer>;
+	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
+	userCourses: ReturnType<typeof userCoursesReducer>;
+	vendors: ReturnType<typeof vendorsReducer>;
 };
 
 type ExtraArguments = {
 	authApi: typeof authApi;
 	chatMessagesApi: typeof chatMessagesApi;
 	chatsApi: typeof chatsApi;
+	courseApi: typeof courseApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
 	storage: typeof storage;
 	userApi: typeof userApi;
+	userCourseApi: typeof userCourseApi;
+	vendorApi: typeof vendorApi;
 };
 
 class Store {
@@ -68,7 +86,10 @@ class Store {
 				auth: authReducer,
 				chatMessages: chatMessagesReducer,
 				chats: chatsReducer,
+				courses: coursesReducer,
 				friends: friendsReducer,
+				userCourses: userCoursesReducer,
+				vendors: vendorsReducer,
 			},
 		});
 	}
@@ -78,11 +99,14 @@ class Store {
 			authApi,
 			chatMessagesApi,
 			chatsApi,
+			courseApi,
 			filesApi,
 			friendsApi,
 			notification,
 			storage,
 			userApi,
+			userCourseApi,
+			vendorApi,
 		};
 	}
 }

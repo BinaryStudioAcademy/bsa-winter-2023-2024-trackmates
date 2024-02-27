@@ -10,7 +10,7 @@ type Properties = {
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const { control, handleSubmit, reset } = useAppForm<
+	const { control, errors, handleSubmit, reset } = useAppForm<
 		typeof DEFAULT_MESSAGE_PAYLOAD
 	>({
 		defaultValues: DEFAULT_MESSAGE_PAYLOAD,
@@ -31,7 +31,14 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			className={styles["form"]}
 			onSubmit={handleFormSubmit}
 		>
-			<Input className={styles["input"]} control={control} name="message" />
+			<Input
+				className={styles["input"]}
+				control={control}
+				errors={errors}
+				hasVisuallyHiddenLabel
+				label="Send a message"
+				name="message"
+			/>
 			<Button
 				className={styles["icon"]}
 				hasVisuallyHiddenLabel

@@ -10,6 +10,8 @@ import LogOutIcon from "~/assets/img/svg/log-out.svg?react";
 import Message from "~/assets/img/svg/message.svg?react";
 import PieIcon from "~/assets/img/svg/pie.svg?react";
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
+import PlusOutlinedIcon from "~/assets/img/svg/plus-outlined.svg?react";
+import SearchIcon from "~/assets/img/svg/search.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -28,6 +30,8 @@ const iconNameToSvg: Record<
 	message: Message,
 	pie: PieIcon,
 	plus: PlusIcon,
+	plusOutlined: PlusOutlinedIcon,
+	search: SearchIcon,
 };
 
 export { iconNameToSvg };

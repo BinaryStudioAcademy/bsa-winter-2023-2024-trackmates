@@ -6,6 +6,7 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
+import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
@@ -16,22 +17,26 @@ const Header: React.FC = () => {
 	return (
 		<header className={styles["header"]}>
 			<div className={styles["toolbar"]}>
-				<Button
-					className={styles["icon-button"]}
-					hasVisuallyHiddenLabel
-					href={AppRoute.CHATS}
-					iconName="chats"
-					label="To chats"
-				/>
-				<Link to={AppRoute.PROFILE}>
-					<Image
-						alt="user-avatar"
-						height="48"
-						shape="circle"
-						src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
-						width="48"
+				<SearchBar />
+
+				<nav className={styles["navigation"]}>
+					<Button
+						className={styles["icon-button"]}
+						hasVisuallyHiddenLabel
+						href={AppRoute.CHATS}
+						iconName="chats"
+						label="To chats"
 					/>
-				</Link>
+					<Link to={AppRoute.PROFILE}>
+						<Image
+							alt="user-avatar"
+							height="48"
+							shape="circle"
+							src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+							width="48"
+						/>
+					</Link>
+				</nav>
 			</div>
 		</header>
 	);

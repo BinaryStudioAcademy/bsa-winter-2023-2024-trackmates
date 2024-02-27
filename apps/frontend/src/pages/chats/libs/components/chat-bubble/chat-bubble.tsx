@@ -1,28 +1,26 @@
 import { formatDate, getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useAppSelector } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
+	isYouSender: boolean;
 	messageData: ChatMessageItemResponseDto;
 };
 
-const ChatBubble: React.FC<Properties> = ({ messageData }: Properties) => {
+const ChatBubble: React.FC<Properties> = ({
+	isYouSender,
+	messageData,
+}: Properties) => {
 	const { createdAt, senderUser, text } = messageData;
-	const { user } = useAppSelector(({ auth }) => ({
-		user: auth.user,
-	}));
 
-	const contsinerClassNmaes =
-		senderUser.id === user?.id
-			? getValidClassNames(styles["container"], styles["right"])
-			: getValidClassNames(styles["container"], styles["left"]);
+	const contsinerClassNmaes = isYouSender
+		? getValidClassNames(styles["container"], styles["right"])
+		: getValidClassNames(styles["container"], styles["left"]);
 
-	const sender =
-		senderUser.id === user?.id
-			? "You"
-			: `${senderUser.firstName} ${senderUser.lastName}`;
+	const sender = isYouSender
+		? "You"
+		: `${senderUser.firstName} ${senderUser.lastName}`;
 
 	return (
 		<li className={contsinerClassNmaes}>

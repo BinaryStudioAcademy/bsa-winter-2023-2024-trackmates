@@ -24,18 +24,24 @@ const Chat: React.FC<Properties> = ({
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["user-container"]}>
-				<Image
-					alt="User avatar"
-					height="40"
-					shape="circle"
-					src={receiver.avatarUrl ?? DEFAULT_USER_AVATAR}
-					width="40"
-				/>
+				<div className={styles["image-container"]}>
+					<Image
+						alt="User avatar"
+						height="40"
+						shape="circle"
+						src={receiver.avatarUrl ?? DEFAULT_USER_AVATAR}
+						width="40"
+					/>
+				</div>
 				<span>{`${receiver.firstName} ${receiver.lastName}`}</span>
 			</div>
 			<ul className={styles["chat-container"]}>
 				{messages.map((message) => (
-					<ChatBubble key={message.id} messageData={message} />
+					<ChatBubble
+						isYouSender={receiver.id !== message.senderUser.id}
+						key={message.id}
+						messageData={message}
+					/>
 				))}
 			</ul>
 			{isMessageLoading && (
