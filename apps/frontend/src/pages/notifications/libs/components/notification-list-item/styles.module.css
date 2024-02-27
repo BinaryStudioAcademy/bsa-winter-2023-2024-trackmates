@@ -1,0 +1,6 @@
+.notification {
+	padding: 20px;
+	color: var(--main-white);
+	background-color: var(--color-menu);
+	border-radius: 10px;
+}

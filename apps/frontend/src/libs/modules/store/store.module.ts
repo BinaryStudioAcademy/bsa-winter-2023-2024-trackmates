@@ -14,6 +14,10 @@ import {
 	friendsApi,
 	reducer as friendsReducer,
 } from "~/modules/friends/friends.js";
+import {
+	userNotificationsApi,
+	reducer as userNotificationsReducer,
+} from "~/modules/user-notifications/user-notifications.js";
 import { userApi } from "~/modules/users/users.js";
 
 import { storage } from "../storage/storage.js";
@@ -22,6 +26,7 @@ import { handleError } from "./middlewares/middlewares.js";
 type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	friends: ReturnType<typeof friendsReducer>;
+	userNotifications: ReturnType<typeof userNotificationsReducer>;
 };
 
 type ExtraArguments = {
@@ -31,6 +36,7 @@ type ExtraArguments = {
 	notification: typeof notification;
 	storage: typeof storage;
 	userApi: typeof userApi;
+	userNotificationsApi: typeof userNotificationsApi;
 };
 
 class Store {
@@ -55,6 +61,7 @@ class Store {
 			reducer: {
 				auth: authReducer,
 				friends: friendsReducer,
+				userNotifications: userNotificationsReducer,
 			},
 		});
 	}
@@ -67,6 +74,7 @@ class Store {
 			notification,
 			storage,
 			userApi,
+			userNotificationsApi,
 		};
 	}
 }
