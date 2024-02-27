@@ -2,10 +2,11 @@ import {
 	Button,
 	Courses,
 	Image,
+	Loader,
 	Navigate,
 } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -20,7 +21,7 @@ import styles from "./styles.module.css";
 const User: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
-	const { courses, friends } = useAppSelector((state) => {
+	const { courses, friends, isLoading } = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.userCourses[+(id as string)],
 			friends: [
@@ -28,6 +29,7 @@ const User: React.FC = () => {
 				...state.friends.followers,
 				...state.friends.followings,
 			],
+			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 		};
 	});
 
@@ -73,7 +75,14 @@ const User: React.FC = () => {
 				</div>
 			</div>
 
-			{courses && <Courses courses={courses} />}
+			<div className={styles["courses-container"]}>
+				<h2 className={styles["courses-title"]}>Courses</h2>
+				{isLoading ? (
+					<Loader color="orange" size="large" />
+				) : (
+					courses && <Courses courses={courses} />
+				)}
+			</div>
 		</div>
 	);
 };
