@@ -5,6 +5,7 @@ import { useAppSelector } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Image } from "../image/image.js";
+import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
@@ -15,6 +16,8 @@ const Header: React.FC = () => {
 	return (
 		<header className={styles["header"]}>
 			<div className={styles["toolbar"]}>
+				<SearchBar />
+
 				<Link to={AppRoute.PROFILE}>
 					<Image
 						alt="user-avatar"
