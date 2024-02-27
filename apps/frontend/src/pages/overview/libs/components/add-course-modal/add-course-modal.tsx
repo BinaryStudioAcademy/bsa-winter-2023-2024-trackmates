@@ -32,13 +32,16 @@ type Properties = {
 
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { courses, isLoading, vendors } = useAppSelector((state) => {
-		return {
-			courses: state.courses.searchedCourses,
-			isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
-			vendors: state.vendors.vendors,
-		};
-	});
+	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
+		(state) => {
+			return {
+				courses: state.courses.searchedCourses,
+				isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
+				recommendedCourses: state.courses.recommendedCourses,
+				vendors: state.vendors.vendors,
+			};
+		},
+	);
 	const { control, errors, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
@@ -56,6 +59,12 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	): void => {
 		void dispatch(
 			courseActions.getAll({
+				search: filterFormData.search,
+				vendorsKey: getVendorsFromForm(filterFormData.vendors),
+			}),
+		);
+		void dispatch(
+			courseActions.getRecommended({
 				search: filterFormData.search,
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),
@@ -131,8 +140,32 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						{isLoading ? (
 							<Loader color="orange" size="large" />
 						) : (
-							<Courses courses={courses} onAddCourse={handleAddCourse} />
+							<>
+								<Courses courses={courses} onAddCourse={handleAddCourse} />
+								{control.getFieldState("search").isDirty && (
+									<div className={styles["recommended-courses"]}>
+										<h2 className={styles["courses-title"]}>
+											Recommended Courses
+										</h2>
+
+										<Courses
+											courses={recommendedCourses}
+											onAddCourse={handleAddCourse}
+										/>
+									</div>
+								)}
+							</>
 						)}
+						{/* {control.getFieldState("search").isDirty && (
+							<>
+								<h2 className={styles["courses-title"]}>Recommended Courses</h2>
+
+								<Courses
+									courses={recommendedCourses}
+									onAddCourse={handleAddCourse}
+								/>
+							</>
+						)} */}
 					</div>
 				</div>
 			</div>

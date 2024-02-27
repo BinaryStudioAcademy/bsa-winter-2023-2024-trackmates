@@ -7,11 +7,13 @@ import { type CourseDto } from "../libs/types/types.js";
 import { getAll, getRecommended } from "./actions.js";
 
 type State = {
+	recommendedCourses: CourseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
 	searchedCourses: CourseDto[];
 };
 
 const initialState: State = {
+	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
 	searchedCourses: [],
 };
@@ -29,7 +31,7 @@ const { actions, name, reducer } = createSlice({
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getRecommended.fulfilled, (state, action) => {
-			state.searchedCourses = action.payload.courses;
+			state.recommendedCourses = action.payload.courses;
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getRecommended.pending, (state) => {
