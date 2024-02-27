@@ -73,8 +73,25 @@ class ChatMessageService implements Service {
 		return createMessage.toObject();
 	}
 
-	public delete(): Promise<boolean> {
-		throw new Error("Method not implemented.");
+	public async delete({
+		id,
+		userId,
+	}: {
+		id: number;
+		userId: number;
+	}): Promise<boolean> {
+		const messageById = await this.find(id);
+
+		if (userId !== messageById.senderUser.id) {
+			throw new HTTPError({
+				message: ExceptionMessage.MESSAGE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		void (await this.chatMessageRepository.delete(id));
+
+		return true;
 	}
 
 	public async find(id: number): Promise<ChatMessageItemResponseDto> {

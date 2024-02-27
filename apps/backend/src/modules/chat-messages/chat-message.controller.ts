@@ -59,6 +59,19 @@ class ChatMessageController extends BaseController {
 			method: "PATCH",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.delete(
+					options as APIHandlerOptions<{
+						params: Record<"messageId", number>;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "DELETE",
+			path: ChatMessagesApiPath.$MESSAGE_ID,
+		});
 	}
 
 	private async create({
@@ -74,6 +87,22 @@ class ChatMessageController extends BaseController {
 				userId: user.id,
 			}),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	private async delete({
+		params,
+		user,
+	}: APIHandlerOptions<{
+		params: Record<"messageId", number>;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatMessageService.delete({
+				id: params.messageId,
+				userId: user.id,
+			}),
+			status: HTTPCode.OK,
 		};
 	}
 
