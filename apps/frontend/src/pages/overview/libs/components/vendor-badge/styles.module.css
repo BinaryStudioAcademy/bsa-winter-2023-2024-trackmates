@@ -1,0 +1,16 @@
+.badge {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 84px;
+	height: 30px;
+	padding: 7px 20px;
+	cursor: pointer;
+	background-color: var(--main-white);
+	border: 1px solid var(--main-white);
+	border-radius: 20px;
+}
+
+.badge:has(:checked) {
+	border-color: var(--color-button);
+}

@@ -1,8 +1,13 @@
+import { type VendorResponseDto } from "../../../vendors/vendors.js";
+
 type CourseDto = {
-	id: string;
+	description: string;
+	id: null | number;
 	image: string;
-	source: string;
 	title: string;
+	url: string;
+	vendor: VendorResponseDto;
+	vendorCourseId: string;
 };
 
 export { type CourseDto };
