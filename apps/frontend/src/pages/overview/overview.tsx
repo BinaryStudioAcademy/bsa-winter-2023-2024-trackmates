@@ -39,12 +39,14 @@ const Overview: React.FC = () => {
 	return (
 		<div className={styles["container"]}>
 			<WelcomeHeader onAddCourseClick={handleModalOpen} user={user} />
-			{isLoading ? (
-				<Loader color="orange" size="large" />
-			) : (
-				<Courses courses={courses} title="Courses" />
-			)}
-
+			<div className={styles["courses-container"]}>
+				<h2 className={styles["courses-title"]}>Courses</h2>
+				{isLoading ? (
+					<Loader color="orange" size="large" />
+				) : (
+					<Courses courses={courses} />
+				)}
+			</div>
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
 		</div>
 	);

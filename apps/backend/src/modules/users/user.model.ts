@@ -23,6 +23,18 @@ class UserModel extends AbstractModel {
 				modelClass: CourseModel,
 				relation: Model.ManyToManyRelation,
 			},
+			friends: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					through: {
+						from: `${DatabaseTableName.FRIENDS}.follower_id`,
+						to: `${DatabaseTableName.FRIENDS}.following_id`,
+					},
+					to: `${DatabaseTableName.USERS}.id`,
+				},
+				modelClass: UserModel,
+				relation: Model.ManyToManyRelation,
+			},
 			userDetails: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
