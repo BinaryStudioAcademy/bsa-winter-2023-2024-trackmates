@@ -77,6 +77,13 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 			.then((vendors) => {
 				setValue("vendors", getDefaultVendors(vendors));
 			});
+
+		void dispatch(
+			courseActions.getRecommended({
+				search: "",
+				vendorsKey: [],
+			}),
+		);
 	}, [dispatch, setValue]);
 
 	useEffect(() => {
