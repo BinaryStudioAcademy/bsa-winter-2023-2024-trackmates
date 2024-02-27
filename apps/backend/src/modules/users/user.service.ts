@@ -41,7 +41,16 @@ class UserService implements Service {
 			}),
 		);
 
-		return user.toObject();
+		const { firstName, id, lastName } = user.toObject();
+		const nickname = `${firstName.toLowerCase().replaceAll(/['-]/g, "")}${id}`;
+
+		const userWithNickname = (await this.userRepository.update(id, {
+			firstName,
+			lastName,
+			nickname,
+		})) as UserEntity;
+
+		return userWithNickname.toObject();
 	}
 
 	public async delete(userId: number): Promise<boolean> {
@@ -77,10 +86,25 @@ class UserService implements Service {
 		return await this.userRepository.getByEmail(email);
 	}
 
+	public async getByNickname(nickname: string): Promise<UserEntity | null> {
+		return await this.userRepository.getByNickname(nickname);
+	}
+
 	public async update(
 		userId: number,
 		userProfile: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
+		const user = await this.userRepository.getByNickname(userProfile.nickname);
+		const hasUser = Boolean(user);
+		const isSameUser = Boolean(user?.toObject().id === userId);
+
+		if (hasUser && !isSameUser) {
+			throw new UserError({
+				message: ExceptionMessage.NICKNAME_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
 		const updatedUser = await this.userRepository.update(userId, userProfile);
 
 		return updatedUser?.toObject() ?? null;

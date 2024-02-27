@@ -4,6 +4,7 @@ const ExceptionMessage = {
 	FILE_NOT_FOUND: "File not found.",
 	INVALID_CREDENTIALS: "Invalid credentials.",
 	INVALID_TOKEN: "Token is invalid.",
+	NICKNAME_ALREADY_EXISTS: "Nickname is already taken.",
 	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",
