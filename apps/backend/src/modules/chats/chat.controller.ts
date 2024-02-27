@@ -19,38 +19,54 @@ class ChatController extends BaseController {
 		this.chatService = chatService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.create(
+			handler: (options) => {
+				return this.create(
 					options as APIHandlerOptions<{
 						body: ChatCreateRequestDto;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "POST",
 			path: ChatsApiPath.ROOT,
 		});
 
 		this.addRoute({
-			handler: (options) =>
-				this.findWithMessage(
+			handler: (options) => {
+				return this.findWithMessage(
 					options as APIHandlerOptions<{
 						params: Record<"chatId", number>;
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: ChatsApiPath.$CHAT_ID,
 		});
 
 		this.addRoute({
-			handler: (options) =>
-				this.findAll(
+			handler: (options) => {
+				return this.findAll(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: ChatsApiPath.ROOT,
+		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.delete(
+					options as APIHandlerOptions<{
+						params: Record<"chatId", number>;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "DELETE",
+			path: ChatsApiPath.$CHAT_ID,
 		});
 	}
 
@@ -67,6 +83,22 @@ class ChatController extends BaseController {
 				userId: user.id,
 			}),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	private async delete({
+		params,
+		user,
+	}: APIHandlerOptions<{
+		params: Record<"chatId", number>;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatService.delete({
+				id: params.chatId,
+				userId: user.id,
+			}),
+			status: HTTPCode.OK,
 		};
 	}
 

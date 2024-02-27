@@ -22,9 +22,13 @@ class ChatMessageModel extends AbstractModel {
 			},
 		};
 	};
+
 	public chatId!: number;
+
 	public senderUser!: UserModel;
+
 	public senderUserId!: number;
+
 	public status!: ValueOf<typeof MessageStatus>;
 
 	public text!: string;

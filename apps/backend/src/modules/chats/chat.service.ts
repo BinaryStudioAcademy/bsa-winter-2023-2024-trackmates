@@ -14,7 +14,9 @@ import {
 
 class ChatService implements Service {
 	private chatRepository: ChatRepository;
+
 	private userRepository: UserRepository;
+
 	public constructor(
 		chatRepository: ChatRepository,
 		userRepository: UserRepository,
@@ -59,8 +61,25 @@ class ChatService implements Service {
 		return createdChat.toObjectWithMessages(userId);
 	}
 
-	public delete(): Promise<boolean> {
-		throw new Error("Method not implemented.");
+	public async delete({
+		id,
+		userId,
+	}: {
+		id: number;
+		userId: number;
+	}): Promise<boolean> {
+		const { firstUser, secondUser } = await this.find(id);
+
+		if (userId !== firstUser.id && userId !== secondUser.id) {
+			throw new HTTPError({
+				message: ExceptionMessage.CHAT_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		void (await this.chatRepository.delete(id));
+
+		return true;
 	}
 
 	public async find(id: number): Promise<ChatResponseDto> {
@@ -116,8 +135,34 @@ class ChatService implements Service {
 		return chatById.toObjectWithMessages(userId);
 	}
 
-	public update(): Promise<ChatEntity> {
-		throw new Error("Method not implemented.");
+	public async update(
+		id: number,
+		{
+			firstUserId,
+			secondUserId,
+		}: { firstUserId: number; secondUserId: number },
+	): Promise<ChatResponseDto> {
+		void (await this.find(id));
+
+		const firstUser = await this.userRepository.findById(firstUserId);
+		const secondUser = await this.userRepository.findById(secondUserId);
+
+		if (!firstUser || !secondUser) {
+			throw new HTTPError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const updatedChat = await this.chatRepository.update(
+			id,
+			ChatEntity.initializeNew({
+				firstUser,
+				secondUser,
+			}),
+		);
+
+		return updatedChat.toObject();
 	}
 }
 

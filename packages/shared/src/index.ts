@@ -38,6 +38,7 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ChatMessageUpdateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
 	chatMessageValidationSchema,

@@ -64,6 +64,7 @@ class ChatRepository implements Repository<ChatEntity> {
 
 		return Boolean(deletedChatCount);
 	}
+
 	public async find(id: number): Promise<ChatEntity | null> {
 		const chatById = await this.chatModel
 			.query()
@@ -103,6 +104,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				})
 			: null;
 	}
+
 	public async findAll(userId: number): Promise<ChatEntity[]> {
 		const chatsByUserId = await this.chatModel
 			.query()
@@ -321,8 +323,42 @@ class ChatRepository implements Repository<ChatEntity> {
 				})
 			: null;
 	}
-	public update(): Promise<ChatEntity | null> {
-		throw new Error("Method not implemented.");
+
+	public async update(id: number, chatEntity: ChatEntity): Promise<ChatEntity> {
+		const { firstUserId, secondUserId } = chatEntity.toNewObject();
+
+		const updatedChat = await this.chatModel.query().updateAndFetchById(id, {
+			firstUserId,
+			secondUserId,
+		});
+
+		return ChatEntity.initialize({
+			createdAt: updatedChat.createdAt,
+			firstUser: UserEntity.initialize({
+				avatarUrl: updatedChat.firstUser.userDetails.avatarFile?.url ?? null,
+				createdAt: updatedChat.firstUser.createdAt,
+				email: updatedChat.firstUser.email,
+				firstName: updatedChat.firstUser.userDetails.firstName,
+				id: updatedChat.firstUser.id,
+				lastName: updatedChat.firstUser.userDetails.lastName,
+				passwordHash: updatedChat.firstUser.passwordHash,
+				passwordSalt: updatedChat.firstUser.passwordSalt,
+				updatedAt: updatedChat.firstUser.updatedAt,
+			}),
+			id: updatedChat.id,
+			secondUser: UserEntity.initialize({
+				avatarUrl: updatedChat.secondUser.userDetails.avatarFile?.url ?? null,
+				createdAt: updatedChat.secondUser.createdAt,
+				email: updatedChat.secondUser.email,
+				firstName: updatedChat.secondUser.userDetails.firstName,
+				id: updatedChat.secondUser.id,
+				lastName: updatedChat.secondUser.userDetails.lastName,
+				passwordHash: updatedChat.secondUser.passwordHash,
+				passwordSalt: updatedChat.secondUser.passwordSalt,
+				updatedAt: updatedChat.secondUser.updatedAt,
+			}),
+			updatedAt: updatedChat.updatedAt,
+		});
 	}
 }
 
