@@ -47,9 +47,9 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					className={styles["portrait"]}
 					src={friendImage}
 				/>
-				<p
-					className={styles["fullName"]}
-				>{`${friend.firstName} ${friend.lastName}`}</p>
+				<p className={styles["fullName"]}>
+					{friend.firstName} {friend.lastName}
+				</p>
 			</div>
 
 			<div className={styles["actions"]}>
