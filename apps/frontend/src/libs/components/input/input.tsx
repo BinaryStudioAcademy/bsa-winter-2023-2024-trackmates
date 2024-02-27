@@ -45,7 +45,6 @@ const Input = <T extends FieldValues>({
 	const hasIcon = Boolean(iconName);
 
 	const error = errors[name]?.message;
-
 	const hasError = Boolean(error);
 
 	const inputClasses = getValidClassNames(
