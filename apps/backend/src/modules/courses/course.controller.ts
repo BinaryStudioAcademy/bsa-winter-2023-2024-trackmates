@@ -108,6 +108,18 @@ class CourseController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
+				return this.getRecommendedCoursesByAI(
+					options as APIHandlerOptions<{
+						query: CourseSearchRequestDto;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: CoursesApiPath.RECOMMENDED,
+		});
+		this.addRoute({
+			handler: (options) => {
 				return this.update(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
@@ -276,6 +288,54 @@ class CourseController extends BaseController {
 
 		return {
 			payload: await this.courseService.findAllByVendors({
+				search,
+				userId: user.id,
+				vendorsKey,
+			}),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/recommended:
+	 *    get:
+	 *      description: Return recommended courses
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: search
+	 *          in: query
+	 *          type: string
+	 *        - name: vendorsKeys
+	 *          in: query
+	 *          type: string
+	 *          description: keys of vendors separated by commas. Example - "udemy,coursera"
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Course"
+	 */
+	private async getRecommendedCoursesByAI({
+		query,
+		user,
+	}: APIHandlerOptions<{
+		query: CourseSearchRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		const { search, vendorsKey } = query;
+
+		return {
+			payload: await this.courseService.getRecommendedCoursesByAI({
 				search,
 				userId: user.id,
 				vendorsKey,
