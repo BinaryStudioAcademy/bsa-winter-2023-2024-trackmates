@@ -1,8 +1,10 @@
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Link } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
+import { CourseCard } from "./component/component.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -11,7 +13,7 @@ type Properties = {
 };
 
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
-	const { image, title, url, vendor, vendorCourseId } = course;
+	const { url, vendor, vendorCourseId } = course;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -22,17 +24,13 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 
 	return (
 		<article className={styles["container"]}>
-			<div className={styles["content"]}>
-				<div className={styles["source-container"]}>
-					<Image alt="Course source logo" src={`vendors/${vendor.key}.svg`} />
-				</div>
-				<div className={styles["image-container"]}>
-					<Image alt="Course" src={image} />
-				</div>
-				<div className={styles["info-container"]}>
-					<h2 className={styles["title"]}>{title}</h2>
-				</div>
-			</div>
+			{onAddCourse ? (
+				<CourseCard course={course} />
+			) : (
+				<Link to={AppRoute.COURSE_INFO}>
+					<CourseCard course={course} />
+				</Link>
+			)}
 			{onAddCourse && (
 				<div className={styles["actions"]}>
 					<a
