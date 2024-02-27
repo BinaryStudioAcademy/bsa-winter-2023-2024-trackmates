@@ -1,4 +1,5 @@
 .wrapper {
+	position: relative;
 	display: flex;
 	gap: 27px;
 	padding: 15px 39px;
@@ -42,8 +43,8 @@
 
 .course-info::before {
 	position: absolute;
-	top: 375px;
-	left: 370px;
+	bottom: 170px;
+	left: 340px;
 	width: 78px;
 	height: 78px;
 	content: "";
