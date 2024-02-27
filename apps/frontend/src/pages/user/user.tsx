@@ -23,7 +23,7 @@ import styles from "./styles.module.css";
 const User: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
-	const userId = +(id as string);
+	const userId = Number(id);
 	const { courses, friends, isLoading } = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.userCourses,
