@@ -51,6 +51,7 @@ class UserRepository implements Repository<UserEntity> {
 			firstName: userDetails.firstName,
 			id: user.id,
 			lastName: userDetails.lastName,
+			nickname: null,
 			passwordHash: user.passwordHash,
 			passwordSalt: user.passwordSalt,
 			updatedAt: user.updatedAt,
@@ -78,6 +79,7 @@ class UserRepository implements Repository<UserEntity> {
 					firstName: user.userDetails.firstName,
 					id: user.id,
 					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					updatedAt: user.updatedAt,
@@ -101,6 +103,7 @@ class UserRepository implements Repository<UserEntity> {
 				firstName: user.userDetails.firstName,
 				id: user.id,
 				lastName: user.userDetails.lastName,
+				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
@@ -125,6 +128,7 @@ class UserRepository implements Repository<UserEntity> {
 					firstName: user.userDetails.firstName,
 					id: user.id,
 					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					updatedAt: user.updatedAt,
@@ -149,6 +153,32 @@ class UserRepository implements Repository<UserEntity> {
 					firstName: user.userDetails.firstName,
 					id: user.id,
 					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					updatedAt: user.updatedAt,
+				})
+			: null;
+	}
+
+	public async getByNickname(nickname: string): Promise<UserEntity | null> {
+		const user = await this.userModel
+			.query()
+			.findOne({ nickname })
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
+			.execute();
+
+		return user
+			? UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					updatedAt: user.updatedAt,
@@ -167,6 +197,7 @@ class UserRepository implements Repository<UserEntity> {
 		await this.userDetailsModel.query().patchAndFetchById(userDetails.id, {
 			firstName: data.firstName,
 			lastName: data.lastName,
+			nickname: data.nickname,
 		});
 
 		const user = await this.userModel
@@ -185,6 +216,7 @@ class UserRepository implements Repository<UserEntity> {
 					firstName: user.userDetails.firstName,
 					id: user.id,
 					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					updatedAt: user.updatedAt,
