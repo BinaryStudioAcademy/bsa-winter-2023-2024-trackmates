@@ -7,8 +7,6 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/friends/friends.js";
 
-import styles from "./styles.module.css";
-
 type Properties = {
 	id: number;
 };
@@ -39,7 +37,6 @@ const UserButton: React.FC<Properties> = ({ id }: Properties) => {
 
 	return (
 		<Button
-			className={styles["button"]}
 			color="primary"
 			iconName={isFollowing ? "cross" : "add"}
 			label={isFollowing ? "Following" : "Follow"}
