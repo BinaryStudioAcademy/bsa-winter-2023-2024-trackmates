@@ -72,6 +72,19 @@ class ChatMessageController extends BaseController {
 			method: "DELETE",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.find(
+					options as APIHandlerOptions<{
+						params: Record<"messageId", number>;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: ChatMessagesApiPath.$MESSAGE_ID,
+		});
 	}
 
 	private async create({
@@ -102,6 +115,17 @@ class ChatMessageController extends BaseController {
 				id: params.messageId,
 				userId: user.id,
 			}),
+			status: HTTPCode.OK,
+		};
+	}
+
+	private async find({
+		params,
+	}: APIHandlerOptions<{
+		params: Record<"messageId", number>;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatMessageService.find(params.messageId),
 			status: HTTPCode.OK,
 		};
 	}
