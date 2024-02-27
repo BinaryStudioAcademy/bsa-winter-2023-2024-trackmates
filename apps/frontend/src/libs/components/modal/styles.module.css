@@ -33,7 +33,7 @@
 	border: none;
 }
 
-@media screen and (width <= 768px) {
+@media screen and (width <= 865px) {
 	.modal {
 		padding: 0;
 	}

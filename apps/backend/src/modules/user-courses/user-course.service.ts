@@ -35,8 +35,17 @@ class UserCourseService {
 		});
 	}
 
-	public async findAllByUser(userId: number): Promise<CourseDto[]> {
-		const entities = await this.courseRepository.findByUserId(userId);
+	public async findAllByUser({
+		search,
+		userId,
+	}: {
+		search: string;
+		userId: number;
+	}): Promise<CourseDto[]> {
+		const entities = await this.courseRepository.findByUserId({
+			search: search,
+			userId,
+		});
 
 		return entities.map((entity) => entity.toObject());
 	}

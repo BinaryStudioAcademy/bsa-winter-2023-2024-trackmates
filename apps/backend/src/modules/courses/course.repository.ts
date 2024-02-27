@@ -195,7 +195,13 @@ class CourseRepository implements Repository<CourseEntity> {
 		});
 	}
 
-	public async findByUserId(userId: number): Promise<CourseEntity[]> {
+	public async findByUserId({
+		search,
+		userId,
+	}: {
+		search: string;
+		userId: number;
+	}): Promise<CourseEntity[]> {
 		const user = await this.userModel.query().findById(userId);
 
 		if (!user) {
@@ -208,6 +214,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		const courseModels = await user
 			.$relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
+			.whereILike("title", `%${search}%`)
 			.withGraphFetched("vendor")
 			.castTo<CourseModel[]>();
 

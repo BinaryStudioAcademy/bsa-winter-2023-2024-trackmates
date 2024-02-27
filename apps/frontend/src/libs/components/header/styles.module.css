@@ -2,7 +2,6 @@
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
-	justify-content: flex-end;
 	width: 100%;
 	height: 98px;
 	padding: 24px 40px;
@@ -12,7 +11,10 @@
 
 .toolbar {
 	display: flex;
+	flex: 1;
 	column-gap: 24px;
+	align-items: center;
+	justify-content: space-between;
 }
 
 @media screen and (width <= 480px) {

@@ -12,7 +12,12 @@ const courseApi = new CourseApi({
 
 export { courseApi };
 export {
+	DEFAULT_SEARCH_MY_COURSES_PAYLOAD,
+	SEARCH_COURSES_DELAY_MS,
+} from "./libs/constants/constants.js";
+export {
 	type CourseDto,
 	type CourseSearchFilterDto,
+	type CourseSearchRequestDto,
 } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/courses.js";
