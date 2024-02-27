@@ -33,6 +33,15 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
+	type CourseSectionAddRequestDto,
+	type CourseSectionDto,
+	CourseSectionError,
+	type CourseSectionGetAllRequestDto,
+	type CourseSectionGetAllResponseDto,
+	CourseSectionsApiPath,
+	courseSectionIdParameterValidationSchema,
+} from "./modules/course-sections/course-sections.js";
+export {
 	type AddCourseRequestDto,
 	type CourseDto,
 	CourseError,
@@ -50,10 +59,14 @@ export {
 	FilesApiPath,
 } from "./modules/files/files.js";
 export {
+	FriendError,
+	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
+	addFriendValidationSchema,
+	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
 	UserCoursesApiPath,

@@ -12,6 +12,8 @@ class CourseEntity implements Entity {
 
 	private title: string;
 
+	private updatedAt: string;
+
 	private url: string;
 
 	private vendor: VendorEntity | null;
@@ -19,8 +21,6 @@ class CourseEntity implements Entity {
 	private vendorCourseId: string;
 
 	private vendorId: number;
-
-	public updatedAt: string;
 
 	private constructor({
 		createdAt,

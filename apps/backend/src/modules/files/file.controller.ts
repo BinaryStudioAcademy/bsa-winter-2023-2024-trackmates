@@ -1,4 +1,3 @@
-import { ExceptionMessage } from "~/libs/enums/enums.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -9,7 +8,6 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type FileService } from "~/modules/files/file.service.js";
 
 import { APIPath, FilesApiPath } from "./libs/enums/enums.js";
-import { FileError } from "./libs/exceptions/exceptions.js";
 import {
 	type UploadedFile,
 	type UserAuthResponseDto,
@@ -46,7 +44,7 @@ class FileController extends BaseController {
 			handler: (options) =>
 				this.uploadAvatar(
 					options as APIHandlerOptions<{
-						uploadedFile: UploadedFile | null;
+						uploadedFile: UploadedFile;
 						user: UserAuthResponseDto;
 					}>,
 				),
@@ -109,17 +107,10 @@ class FileController extends BaseController {
 	 */
 	public async uploadAvatar(
 		options: APIHandlerOptions<{
-			uploadedFile: UploadedFile | null;
+			uploadedFile: UploadedFile;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		if (!options.uploadedFile) {
-			throw new FileError({
-				message: ExceptionMessage.NO_FILE_PRESENTED,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
 		return {
 			payload: await this.fileService.uploadAvatar(
 				options.user.id,

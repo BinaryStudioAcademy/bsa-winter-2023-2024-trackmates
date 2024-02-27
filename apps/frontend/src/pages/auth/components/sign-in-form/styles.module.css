@@ -51,6 +51,10 @@
 	border: unset;
 }
 
+.button {
+	font-weight: 600;
+}
+
 @media screen and (width <= 480px) {
 	.form {
 		max-width: unset;
