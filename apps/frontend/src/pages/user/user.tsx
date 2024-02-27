@@ -1,5 +1,13 @@
-import { Button, Image, Navigate } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
+import {
+	Button,
+	Courses,
+	Image,
+	Navigate,
+} from "~/libs/components/components.js";
+import {
+	DEFAULT_COURSES_DATA,
+	DEFAULT_USER_AVATAR,
+} from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { useAppSelector, useParams } from "~/libs/hooks/hooks.js";
 
@@ -51,6 +59,8 @@ const User: React.FC = () => {
 					<UserButton id={user.id} />
 				</div>
 			</div>
+
+			<Courses courses={DEFAULT_COURSES_DATA} />
 		</div>
 	);
 };
