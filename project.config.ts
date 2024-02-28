@@ -1,5 +1,4 @@
 const ProjectPrefix = {
-	APP: "tm",
 	CHANGE_TYPES: [
 		"build",
 		"chore",
@@ -14,7 +13,7 @@ const ProjectPrefix = {
 		"test",
 	],
 	ENVIRONMENT: "main",
-	ISSUE_PREFIXES: ["tm"],
+	ISSUE_PREFIXES: ["tm", "release"],
 	SCOPES: {
 		APPS: ["frontend", "backend"],
 		PACKAGES: ["shared"],
