@@ -6,12 +6,14 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { courseIdParameterValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 
 import { type CourseSectionService } from "./course-section.service.js";
 import { CourseSectionsApiPath } from "./libs/enums/enums.js";
 import { type CourseSectionGetAllRequestDto } from "./libs/types/types.js";
-import { courseSectionIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	courseSectionGetAllQueryValidationSchema,
+	courseSectionIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /***
  * @swagger
@@ -47,7 +49,7 @@ class CourseSectionController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.findAllByCourseId(
+				return this.findCourseSections(
 					options as APIHandlerOptions<{
 						query: CourseSectionGetAllRequestDto;
 					}>,
@@ -56,7 +58,7 @@ class CourseSectionController extends BaseController {
 			method: "GET",
 			path: CourseSectionsApiPath.ROOT,
 			validation: {
-				query: courseIdParameterValidationSchema,
+				query: courseSectionGetAllQueryValidationSchema,
 			},
 		});
 
@@ -90,6 +92,11 @@ class CourseSectionController extends BaseController {
 	 *            type: integer
 	 *          required: true
 	 *          description: ID of the course for which to retrieve course-sections
+	 *          name: userId
+	 *          schema:
+	 *            type: integer
+	 *          required: true
+	 *          description: ID of the user for which to retrieve course-sections
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -98,15 +105,16 @@ class CourseSectionController extends BaseController {
 	 *              schema:
 	 *                $ref: '#/components/schemas/CourseSection'
 	 */
-	private async findAllByCourseId(
+	private async findCourseSections(
 		options: APIHandlerOptions<{
 			query: CourseSectionGetAllRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseSectionService.findCourseSections(
-				options.query.courseId,
-			),
+			payload: await this.courseSectionService.findCourseSections({
+				courseId: options.query.courseId,
+				userId: options.query.userId,
+			}),
 			status: HTTPCode.OK,
 		};
 	}

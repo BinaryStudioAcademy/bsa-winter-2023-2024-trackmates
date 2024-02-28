@@ -39,6 +39,7 @@ export {
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
 	CourseSectionsApiPath,
+	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,
 } from "./modules/course-sections/course-sections.js";
 export {

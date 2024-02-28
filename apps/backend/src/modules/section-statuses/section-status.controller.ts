@@ -44,7 +44,7 @@ class SectionStatusController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.findAllByCourseIdAndUserId(
+				return this.findByCourseSectionIdAndUserId(
 					options as APIHandlerOptions<{
 						query: SectionStatusGetRequestDto;
 					}>,
@@ -85,7 +85,7 @@ class SectionStatusController extends BaseController {
 		};
 	}
 
-	private async findAllByCourseIdAndUserId(
+	private async findByCourseSectionIdAndUserId(
 		options: APIHandlerOptions<{
 			query: SectionStatusGetRequestDto;
 		}>,
@@ -93,7 +93,7 @@ class SectionStatusController extends BaseController {
 		const { courseSectionId, userId } = options.query;
 
 		return {
-			payload: await this.sectionStatusService.findAllByCourseIdAndUserId({
+			payload: await this.sectionStatusService.findByCourseSectionIdAndUserId({
 				courseSectionId,
 				userId,
 			}),

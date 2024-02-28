@@ -1,4 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
+import { type SectionStatusEntity } from "~/modules/section-statuses/section-statuses.js";
 
 class CourseSectionEntity implements Entity {
 	private createdAt: string;
@@ -9,6 +10,8 @@ class CourseSectionEntity implements Entity {
 
 	public description: string;
 
+	public sectionStatus: SectionStatusEntity | null;
+
 	public title: string;
 
 	public updatedAt: string;
@@ -18,6 +21,7 @@ class CourseSectionEntity implements Entity {
 		createdAt,
 		description,
 		id,
+		sectionStatus,
 		title,
 		updatedAt,
 	}: {
@@ -25,6 +29,7 @@ class CourseSectionEntity implements Entity {
 		createdAt: string;
 		description: string;
 		id: null | number;
+		sectionStatus: SectionStatusEntity | null;
 		title: string;
 		updatedAt: string;
 	}) {
@@ -32,6 +37,7 @@ class CourseSectionEntity implements Entity {
 		this.id = id;
 		this.title = title;
 		this.description = description;
+		this.sectionStatus = sectionStatus;
 		this.courseId = courseId;
 		this.updatedAt = updatedAt;
 	}
@@ -41,6 +47,7 @@ class CourseSectionEntity implements Entity {
 		createdAt,
 		description,
 		id,
+		sectionStatus,
 		title,
 		updatedAt,
 	}: {
@@ -48,6 +55,7 @@ class CourseSectionEntity implements Entity {
 		createdAt: string;
 		description: string;
 		id: null | number;
+		sectionStatus: SectionStatusEntity | null;
 		title: string;
 		updatedAt: string;
 	}): CourseSectionEntity {
@@ -56,6 +64,7 @@ class CourseSectionEntity implements Entity {
 			createdAt,
 			description,
 			id,
+			sectionStatus,
 			title,
 			updatedAt,
 		});
@@ -75,6 +84,7 @@ class CourseSectionEntity implements Entity {
 			createdAt: "",
 			description,
 			id: null,
+			sectionStatus: null,
 			title,
 			updatedAt: "",
 		});
@@ -96,12 +106,14 @@ class CourseSectionEntity implements Entity {
 		courseId: number;
 		description: string;
 		id: number;
+		sectionStatus: ReturnType<SectionStatusEntity["toObject"]> | null;
 		title: string;
 	} {
 		return {
 			courseId: this.courseId,
 			description: this.description,
 			id: this.id as number,
+			sectionStatus: this.sectionStatus?.toObject() ?? null,
 			title: this.title,
 		};
 	}

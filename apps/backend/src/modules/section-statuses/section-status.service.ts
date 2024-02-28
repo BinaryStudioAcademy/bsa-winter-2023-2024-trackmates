@@ -72,15 +72,13 @@ class SectionStatusService implements Service {
 		};
 	}
 
-	public async findAllByCourseIdAndUserId(
+	public async findByCourseSectionIdAndUserId(
 		query: SectionStatusGetRequestDto,
-	): Promise<SectionStatusDto[]> {
-		const sectionStatuses =
-			await this.sectionStatusRepository.getAllByCourseSectionIdAndUserId(
-				query,
-			);
+	): Promise<SectionStatusDto | null> {
+		const sectionStatus =
+			await this.sectionStatusRepository.findByCourseSectionIdAndUserId(query);
 
-		return sectionStatuses.map((sectionStatus) => sectionStatus.toObject());
+		return sectionStatus?.toObject() ?? null;
 	}
 
 	public async update(

@@ -1,9 +1,4 @@
-import {
-	Model,
-	type Modifiers,
-	type QueryBuilder,
-	type RelationMappings,
-} from "objection";
+import { Model, type RelationMappings } from "objection";
 
 import {
 	AbstractModel,
@@ -42,16 +37,6 @@ class SectionStatusModel extends AbstractModel {
 	public status!: ValueOf<typeof SectionStatus>;
 
 	public userId!: number;
-
-	public static override get modifiers(): Modifiers<
-		QueryBuilder<SectionStatusModel>
-	> {
-		return {
-			getStatus(builder): QueryBuilder<SectionStatusModel> {
-				return builder.select("id", "status");
-			},
-		};
-	}
 
 	public static override get tableName(): string {
 		return DatabaseTableName.SECTION_STATUSES;
