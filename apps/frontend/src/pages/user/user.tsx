@@ -75,8 +75,6 @@ const User: React.FC = () => {
 		return <Loader color="orange" size="large" />;
 	}
 
-	const userObject = user as UserAuthResponseDto;
-
 	return (
 		<div className={styles["container"]}>
 			<Button
@@ -93,13 +91,14 @@ const User: React.FC = () => {
 					<Image
 						alt="avatar"
 						className={styles["profile-image"]}
-						src={userObject.avatarUrl ?? DEFAULT_USER_AVATAR}
+						src={(user as UserAuthResponseDto).avatarUrl ?? DEFAULT_USER_AVATAR}
 					/>
 				</div>
 
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>
-						{userObject.firstName} {userObject.lastName}
+						{(user as UserAuthResponseDto).firstName}{" "}
+						{(user as UserAuthResponseDto).lastName}
 					</p>
 					<Button
 						iconName={isFollowing ? "cross" : "add"}
