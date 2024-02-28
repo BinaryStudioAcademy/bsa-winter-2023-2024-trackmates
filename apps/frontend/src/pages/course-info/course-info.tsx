@@ -1,10 +1,25 @@
 import videoCover from "~/assets/img/video-cover.png";
 import { Button, Image } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import {
+	useAppDispatch,
+	useAppSelector,
+	useEffect,
+} from "~/libs/hooks/hooks.js";
+import { actions as courseActions } from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
+	const course = useAppSelector((state) => state.courses.currentCourse);
+
+	const dispatch = useAppDispatch();
+	const courseID = 3;
+
+	useEffect(() => {
+		void dispatch(courseActions.getById({ id: courseID }));
+	}, [dispatch]);
+
 	return (
 		<>
 			<Button
@@ -16,7 +31,7 @@ const CourseInfo: React.FC = () => {
 			/>
 			<div className={styles["wrapper"]}>
 				<div className={styles["course-info"]}>
-					<div className={styles["title"]}>UI Styleguide With Figma</div>
+					<div className={styles["title"]}>{course?.title}</div>
 					<Image
 						alt="Video Cover"
 						className={styles["image"]}
