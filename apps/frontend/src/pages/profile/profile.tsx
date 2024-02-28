@@ -44,9 +44,8 @@ const Profile: React.FC = () => {
 
 	const handleOnChange = useCallback(
 		(event: React.BaseSyntheticEvent): void => {
-			if (event.target instanceof HTMLInputElement) {
-				setValue(event.target.value);
-			}
+			let inputElement = event.target as HTMLInputElement;
+			setValue(inputElement.value);
 		},
 		[],
 	);
