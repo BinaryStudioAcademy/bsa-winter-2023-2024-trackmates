@@ -423,7 +423,7 @@ class FriendController extends BaseController {
 		return {
 			payload: await this.friendService.getIsFollowing(
 				options.user.id,
-				Number(options.params.id),
+				options.params.id,
 			),
 			status: HTTPCode.OK,
 		};

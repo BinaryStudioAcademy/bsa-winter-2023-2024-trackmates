@@ -74,10 +74,10 @@ class FriendsApi extends BaseHTTPApi {
 		return await response.json<UserAuthResponseDto[]>();
 	}
 
-	public async getIsFollowing(id: string): Promise<boolean> {
+	public async getIsFollowing(id: number): Promise<boolean> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.$ID_IS_FOLLOWING, {
-				id,
+				id: id.toString(),
 			}),
 			{
 				hasAuth: true,

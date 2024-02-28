@@ -35,7 +35,7 @@ const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 	(userId, { extra }) => {
 		const { friendsApi } = extra;
 
-		return friendsApi.getIsFollowing(String(userId));
+		return friendsApi.getIsFollowing(userId);
 	},
 );
 
