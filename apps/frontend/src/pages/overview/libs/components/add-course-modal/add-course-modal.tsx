@@ -16,9 +16,9 @@ import {
 import { actions as vendorActions } from "~/modules/vendors/vendors.js";
 
 import {
+	COURSES_EMPTY_LENGTH,
 	DEFAULT_SEARCH_COURSE_PAYLOAD,
 	SEARCH_COURSES_DELAY_MS,
-	ZERO,
 } from "../../constants/constants.js";
 import {
 	getDefaultVendors,
@@ -95,6 +95,8 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		};
 	}, [handleDebouncedSearchCourses]);
 
+	const hasCourses = courses.length > COURSES_EMPTY_LENGTH;
+
 	return (
 		<Modal isOpen onClose={onClose}>
 			<div className={styles["add-course-modal"]}>
@@ -136,7 +138,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						) : (
 							<>
 								<Courses courses={courses} onAddCourse={handleAddCourse} />
-								{courses.length > ZERO && (
+								{hasCourses && (
 									<div className={styles["recommended-courses"]}>
 										<h2 className={styles["courses-title"]}>
 											Recommended Courses
