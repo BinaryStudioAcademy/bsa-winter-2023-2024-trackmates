@@ -1,5 +1,6 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/types.js";
+import { type FriendRepository } from "~/modules/friends/friends.js";
 import { type UserRepository } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";
@@ -15,13 +16,17 @@ import {
 class ChatService implements Service {
 	private chatRepository: ChatRepository;
 
+	private friendRepository: FriendRepository;
+
 	private userRepository: UserRepository;
 
 	public constructor(
 		chatRepository: ChatRepository,
+		friendRepository: FriendRepository,
 		userRepository: UserRepository,
 	) {
 		this.chatRepository = chatRepository;
+		this.friendRepository = friendRepository;
 		this.userRepository = userRepository;
 	}
 
@@ -48,6 +53,19 @@ class ChatService implements Service {
 			throw new ChatError({
 				message: ExceptionMessage.USER_NOT_FOUND,
 				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const areUsersMutualFollowers =
+			await this.friendRepository.getIsMutualFollowersByIds(
+				userId,
+				chatData.userId,
+			);
+
+		if (!areUsersMutualFollowers) {
+			throw new ChatError({
+				message: ExceptionMessage.USER_NOT_MUTUAL_FOLLOWERS,
+				status: HTTPCode.FORBIDDEN,
 			});
 		}
 

@@ -1,4 +1,5 @@
 import { logger } from "~/libs/modules/logger/logger.js";
+import { friendRepository } from "~/modules/friends/friends.js";
 import { userRepository } from "~/modules/users/users.js";
 
 import { ChatController } from "./chat.controller.js";
@@ -7,7 +8,11 @@ import { ChatRepository } from "./chat.repository.js";
 import { ChatService } from "./chat.service.js";
 
 const chatRepository = new ChatRepository(ChatModel);
-const chatService = new ChatService(chatRepository, userRepository);
+const chatService = new ChatService(
+	chatRepository,
+	friendRepository,
+	userRepository,
+);
 const chatController = new ChatController(logger, chatService);
 
 export { chatController, chatService };
