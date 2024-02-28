@@ -69,6 +69,18 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	SectionStatus,
+	type SectionStatusAddRequestDto,
+	type SectionStatusDto,
+	SectionStatusError,
+	type SectionStatusGetAllResponseDto,
+	type SectionStatusGetRequestDto,
+	type SectionStatusUpdateRequestDto,
+	SectionStatusesApiPath,
+	sectionStatusesGetAllQuery,
+	sectionStatusesUpdateQuery,
+} from "./modules/section-statuses/section-statuses.js";
+export {
 	UserCoursesApiPath,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
