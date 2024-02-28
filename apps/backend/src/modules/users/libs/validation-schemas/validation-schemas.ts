@@ -1,4 +1,5 @@
 export {
+	userIdParametersValidationSchema,
 	userProfileValidationSchema,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,

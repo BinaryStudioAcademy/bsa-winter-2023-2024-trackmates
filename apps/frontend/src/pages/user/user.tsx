@@ -17,6 +17,10 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
+import {
+	type UserAuthResponseDto,
+	actions as usersActions,
+} from "~/modules/users/users.js";
 
 import styles from "./styles.module.css";
 
@@ -24,19 +28,16 @@ const User: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const userId = Number(id);
-	const { courses, friends, isLoading } = useAppSelector((state) => {
-		return {
-			courses: state.userCourses.userCourses,
-			friends: [
-				...state.friends.potentialFriends,
-				...state.friends.followers,
-				...state.friends.followings,
-			],
-			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
-		};
-	});
-
-	const user = friends.find((friend) => friend.id === userId);
+	const { courses, isCoursesLoading, myId, user, userNotFound } =
+		useAppSelector((state) => {
+			return {
+				courses: state.userCourses.userCourses,
+				isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
+				myId: (state.auth.user as UserAuthResponseDto).id,
+				user: state.users.user,
+				userNotFound: state.users.dataStatus === DataStatus.REJECTED,
+			};
+		});
 
 	const [isFollowing, setIsFollowing] = useState<boolean>(
 		useAppSelector((state) =>
@@ -60,16 +61,21 @@ const User: React.FC = () => {
 	}, [dispatch, userId]);
 
 	useEffect(() => {
-		if (!user) {
-			return;
-		}
+		void dispatch(usersActions.getById(userId));
+		void dispatch(userCoursesActions.loadUserCourses(userId));
+	}, [dispatch, userId]);
 
-		void dispatch(userCoursesActions.loadUserCourses(user.id));
-	}, [dispatch, user]);
+	const hasUser = Boolean(user);
 
-	if (!user) {
+	if (userNotFound || myId === userId) {
 		return <Navigate to={AppRoute.FRIENDS} />;
 	}
+
+	if (!hasUser) {
+		return <Loader color="orange" size="large" />;
+	}
+
+	const userObject = user as UserAuthResponseDto;
 
 	return (
 		<div className={styles["container"]}>
@@ -87,27 +93,27 @@ const User: React.FC = () => {
 					<Image
 						alt="avatar"
 						className={styles["profile-image"]}
-						src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+						src={userObject.avatarUrl ?? DEFAULT_USER_AVATAR}
 					/>
 				</div>
 
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>
-						{user.firstName} {user.lastName}
+						{userObject.firstName} {userObject.lastName}
 					</p>
 					<Button
-						color="primary"
 						iconName={isFollowing ? "cross" : "add"}
 						label={isFollowing ? "Following" : "Follow"}
 						onClick={isFollowing ? handleUnfollow : handleFollow}
 						size="small"
+						style="primary"
 					/>
 				</div>
 			</div>
 
 			<div className={styles["courses-container"]}>
 				<h2 className={styles["courses-title"]}>Courses</h2>
-				{isLoading ? (
+				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
 					<Courses courses={courses} />

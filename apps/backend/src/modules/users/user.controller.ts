@@ -13,6 +13,8 @@ import {
 } from "~/modules/users/users.js";
 
 import { UsersApiPath } from "./libs/enums/enums.js";
+import { type UserGetByIdRequestDto } from "./libs/types/types.js";
+import { userIdParametersValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 class UserController extends BaseController {
 	private userService: UserService;
@@ -36,6 +38,56 @@ class UserController extends BaseController {
 				body: userProfileValidationSchema,
 			},
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.findById(
+					options as APIHandlerOptions<{
+						params: UserGetByIdRequestDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: UsersApiPath.$ID,
+			validation: {
+				params: userIdParametersValidationSchema,
+			},
+		});
+	}
+
+	/**
+	 * @swagger
+	 * /users/{id}:
+	 *   get:
+	 *     description: Returns found user
+	 *     security:
+	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         description: ID of the user
+	 *         required: true
+	 *         schema:
+	 *           type: number
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/User'
+	 */
+	private async findById(
+		options: APIHandlerOptions<{
+			params: {
+				id: number;
+			};
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userService.findById(options.params.id),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**

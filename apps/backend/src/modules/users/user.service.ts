@@ -70,7 +70,14 @@ class UserService implements Service {
 	public async findById(id: number): Promise<UserAuthResponseDto | null> {
 		const user = await this.userRepository.findById(id);
 
-		return user?.toObject() ?? null;
+		if (!user) {
+			throw new UserError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return user.toObject();
 	}
 
 	public async getByEmail(email: string): Promise<UserEntity | null> {
