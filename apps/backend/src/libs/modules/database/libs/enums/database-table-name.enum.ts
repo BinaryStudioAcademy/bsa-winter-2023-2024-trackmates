@@ -5,6 +5,7 @@ const DatabaseTableName = {
 	FILES: "files",
 	FRIENDS: "friends",
 	MIGRATIONS: "migrations",
+	SECTION_STATUSES: "section_statuses",
 	USER_DETAILS: "user_details",
 	USERS: "users",
 	VENDORS: "vendors",

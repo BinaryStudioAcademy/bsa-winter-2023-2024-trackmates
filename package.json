@@ -1,6 +1,6 @@
 {
 	"name": "trackmates",
-	"version": "1.11.0",
+	"version": "1.12.2",
 	"type": "module",
 	"workspaces": [
 		"apps/*",
@@ -11,6 +11,7 @@
 		"npm": ">=9.x.x"
 	},
 	"scripts": {
+		"_prettier": "prettier \"**/*.{js,ts,tsx,json,md,css,html}\"",
 		"git:hook:precommit": "lint-staged --cwd .",
 		"git:hook:commit": "npx @commitlint/cli --edit",
 		"build:shared": "npm run build -w packages/shared",
@@ -22,9 +23,9 @@
 		"lint:fs": "ls-lint",
 		"lint:type": "npx tsc --noEmit",
 		"lint:js": "npx eslint . --max-warnings=0 --no-warn-ignored",
-		"lint:format": "prettier --check \"**/*.{ts,tsx,json,md,css,html}\"",
+		"lint:format": "npm run _prettier -- --check",
 		"lint:trash": "knip",
-		"format": "prettier --write \"**/*.{ts,tsx,json,md,css,html}\"",
+		"format": "npm run _prettier -- --write",
 		"lint": "concurrently \"npm:lint:*\" && npm run lint --workspaces",
 		"ci:prepare": "simple-git-hooks",
 		"prestart": "npm install --include=dev && npm run build",
