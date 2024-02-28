@@ -4,6 +4,7 @@ import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
+	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/friends/friends.js";
@@ -21,7 +22,15 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			state.friends.followings.some((user) => user.id === friend.id),
 		),
 	);
+
+	const isFollowingFromSelector = useAppSelector((state) =>
+		state.friends.followings.some((user) => user.id === friend.id),
+	);
 	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		setIsFollowing(isFollowingFromSelector);
+	}, [isFollowingFromSelector]);
 
 	const handleFollow = useCallback(() => {
 		void dispatch(actions.follow({ id: friend.id }))
