@@ -111,10 +111,10 @@ class FriendService {
 		currentUserId: number,
 		otherUserId: number,
 	): Promise<boolean> {
-		const followings =
-			await this.friendRepository.getUserFollowings(currentUserId);
-
-		return followings.some((user) => user.toObject().id === otherUserId);
+		return await this.friendRepository.getIsFollowing(
+			currentUserId,
+			otherUserId,
+		);
 	}
 
 	public async getPotentialFollowers(

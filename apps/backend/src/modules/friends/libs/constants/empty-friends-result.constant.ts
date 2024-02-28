@@ -1,0 +1,3 @@
+const EMPTY_FRIENDS_RESULT = 0;
+
+export { EMPTY_FRIENDS_RESULT };

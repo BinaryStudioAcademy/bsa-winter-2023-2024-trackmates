@@ -3,6 +3,8 @@ import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { EMPTY_FRIENDS_RESULT } from "./libs/constants/constants.js";
+
 class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
 
@@ -119,6 +121,24 @@ class FriendRepository implements Repository<UserEntity> {
 				updatedAt: user.updatedAt,
 			});
 		});
+	}
+
+	public async getIsFollowing(
+		currentUserId: number,
+		otherUserId: number,
+	): Promise<boolean> {
+		const userFollowings = await this.userModel
+			.query()
+			.leftJoin(
+				DatabaseTableName.FRIENDS,
+				`${DatabaseTableName.USERS}.id`,
+				"=",
+				`${DatabaseTableName.FRIENDS}.following_id`,
+			)
+			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", currentUserId)
+			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", otherUserId);
+
+		return userFollowings.length > EMPTY_FRIENDS_RESULT;
 	}
 
 	public async getIsSubscribedByRequestId(
