@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.11.1...v1.12.0) (2024-02-28)
+
+
+### Features
+
+* **frontend:** make sidebar fixed tm-219 ([#223](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/223)) ([bd98157](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/bd98157bfe8291b6f18183c7db7d4b95b196ed84))
+
 ## [1.11.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.11.0...v1.11.1) (2024-02-27)
 
 
