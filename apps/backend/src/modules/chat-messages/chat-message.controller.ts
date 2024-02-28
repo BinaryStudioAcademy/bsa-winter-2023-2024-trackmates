@@ -18,6 +18,34 @@ import {
 	chatMessageUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     ChatMessage:
+ *       type: object
+ *       properties:
+ *         chatId:
+ *           type: number
+ *           minimum: 1
+ *         createdAt:
+ *           type: string
+ *         id:
+ *           type: number
+ *           minimum: 1
+ *         senderUser:
+ *           type: object
+ *           $ref: "#/components/schemas/User"
+ *         status:
+ *           type: string
+ *           enum: [read, unread]
+ *         text:
+ *           type: string
+ *           minLength: 1
+ *           maxLength: 512
+ *         updatedAt:
+ *           type: string
+ */
 class ChatMessageController extends BaseController {
 	private chatMessageService: ChatMessageService;
 
@@ -97,6 +125,36 @@ class ChatMessageController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /chat-messages:
+	 *    post:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Create a new message
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                chatId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *                text:
+	 *                  type: string
+	 *                  minLength: 1
+	 *                  maxLength: 512
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async create({
 		body,
 		user,
@@ -113,6 +171,32 @@ class ChatMessageController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chat-messages/{id}:
+	 *    delete:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Delete message by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The message id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
 	private async delete({
 		params,
 		user,
@@ -129,6 +213,30 @@ class ChatMessageController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chat-messages/{id}:
+	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find message by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The message id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async find({
 		params,
 	}: APIHandlerOptions<{
@@ -140,6 +248,27 @@ class ChatMessageController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chat-messages:
+	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find all user's messages
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async findAll({
 		user,
 	}: APIHandlerOptions<{
@@ -151,6 +280,41 @@ class ChatMessageController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chat-messages/{id}:
+	 *    patch:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Update message by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The message id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                text:
+	 *                  type: string
+	 *                  minLength: 1
+	 *                  maxLength: 512
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async update({
 		body,
 		params,
