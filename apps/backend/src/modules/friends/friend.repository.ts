@@ -17,8 +17,8 @@ class FriendRepository implements Repository<UserEntity> {
 		const [firstUserSubscription, secondUserSubscription] = await this.userModel
 			.query()
 			.from(DatabaseTableName.FRIENDS)
-			.where({ follower_id: firstUserId, following_id: secondUserId })
-			.orWhere({ follower_id: secondUserId, following_id: firstUserId })
+			.where({ followerId: firstUserId, followingId: secondUserId })
+			.orWhere({ followerId: secondUserId, followingId: firstUserId })
 			.execute();
 
 		const isFirstUserSubscribed = Boolean(firstUserSubscription);
