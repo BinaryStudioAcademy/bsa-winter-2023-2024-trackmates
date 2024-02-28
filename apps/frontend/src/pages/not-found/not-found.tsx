@@ -1,4 +1,4 @@
-import questionCharacter from "~/assets/img/question-character.svg";
+import questionCharacter from "~/assets/img/svg/question-character.svg";
 import { Button } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
