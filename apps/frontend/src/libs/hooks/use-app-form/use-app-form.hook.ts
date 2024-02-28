@@ -6,6 +6,7 @@ import {
 	type FieldValues,
 	type UseFormHandleSubmit,
 	type UseFormProps,
+	type UseFormReset,
 	type UseFormSetValue,
 	type ValidationMode,
 } from "react-hook-form";
@@ -23,7 +24,7 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
 	handleSubmit: UseFormHandleSubmit<T>;
-	reset: () => void;
+	reset: UseFormReset<T>;
 	setValue: UseFormSetValue<T>;
 };
 

@@ -86,6 +86,10 @@ const Profile: React.FC = () => {
 			value !== "" && currentLocation.pathname !== nextLocation.pathname,
 	);
 
+	const handleReset = useCallback(() => {
+		reset();
+	}, [reset]);
+
 	useEffect(() => {
 		if (blocker.state === "blocked") {
 			notification.warning(NotificationMessage.PROFILE_CHANGES_NOT_SAVED);
@@ -151,7 +155,7 @@ const Profile: React.FC = () => {
 						<Button
 							className={styles["button"]}
 							label="Cancel"
-							onClick={reset}
+							onClick={handleReset}
 							size="small"
 							style="secondary"
 						/>
