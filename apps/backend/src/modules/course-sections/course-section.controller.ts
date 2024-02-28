@@ -80,6 +80,8 @@ class CourseSectionController extends BaseController {
 	 * @swagger
 	 * /course-sections:
 	 *    get:
+	 *      tags:
+	 *        - Course sections
 	 *      description: Return array of all course-sections that belong to a course with provided ID in query
 	 *      security:
 	 *        - bearerAuth: []
@@ -115,6 +117,8 @@ class CourseSectionController extends BaseController {
 	 * @swagger
 	 * /course-sections/{id}:
 	 *    get:
+	 *      tags:
+	 *        - Course sections
 	 *      description: Return course section by provided course section id
 	 *      security:
 	 *        - bearerAuth: []
