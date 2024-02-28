@@ -1,1 +1,4 @@
-export { type FeedActionDto } from "@trackmates/shared";
+export {
+	type FeedActionDto,
+	type GetFeedResponseDto,
+} from "@trackmates/shared";

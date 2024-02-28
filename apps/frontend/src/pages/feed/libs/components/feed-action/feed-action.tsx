@@ -1,6 +1,6 @@
 import friendImage from "~/assets/img/friend.jpeg"; //TODO
 import { Image } from "~/libs/components/components.js";
-import { FeedActionType } from "~/modules/feed/libs/enums/enum.js";
+import { FeedActionType } from "~/modules/feed/libs/enums/enums.js";
 import { type FeedActionDto } from "~/modules/feed/libs/types/types.js";
 
 import styles from "./styles.module.css";

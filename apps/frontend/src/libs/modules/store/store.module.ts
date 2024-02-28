@@ -13,6 +13,7 @@ import {
 	courseApi,
 	reducer as coursesReducer,
 } from "~/modules/courses/courses.js";
+import { feedApi, reducer as feedReducer } from "~/modules/feed/feed.js";
 import { filesApi } from "~/modules/files/files.js";
 import {
 	friendsApi,
@@ -34,6 +35,7 @@ import { handleError } from "./middlewares/middlewares.js";
 type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	courses: ReturnType<typeof coursesReducer>;
+	feed: ReturnType<typeof feedReducer>;
 	friends: ReturnType<typeof friendsReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
@@ -42,6 +44,7 @@ type RootReducer = {
 type ExtraArguments = {
 	authApi: typeof authApi;
 	courseApi: typeof courseApi;
+	feedApi: typeof feedApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
@@ -73,6 +76,7 @@ class Store {
 			reducer: {
 				auth: authReducer,
 				courses: coursesReducer,
+				feed: feedReducer,
 				friends: friendsReducer,
 				userCourses: userCoursesReducer,
 				vendors: vendorsReducer,
@@ -84,6 +88,7 @@ class Store {
 		return {
 			authApi,
 			courseApi,
+			feedApi,
 			filesApi,
 			friendsApi,
 			notification,
