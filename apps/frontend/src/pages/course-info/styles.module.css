@@ -33,7 +33,8 @@
 	color: var(--color-text-300);
 }
 
-.image {
+.image,
+.course-info {
 	width: 650px;
 }
 
@@ -41,15 +42,9 @@
 	margin-bottom: 10px;
 }
 
-.course-info::before {
-	position: absolute;
-	bottom: 170px;
-	left: 340px;
-	width: 78px;
-	height: 78px;
-	content: "";
-	background-image: url("~/assets/img/play.png");
-	background-size: cover;
+.course-info .subtitle {
+	padding-top: 30px;
+	font-size: var(--font-size-350);
 }
 
 .content-item {

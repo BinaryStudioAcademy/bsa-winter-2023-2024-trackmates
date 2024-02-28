@@ -1,6 +1,7 @@
 import { Button, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
@@ -13,7 +14,7 @@ type Properties = {
 };
 
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
-	const { url, vendor, vendorCourseId } = course;
+	const { id, url, vendor, vendorCourseId } = course;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -27,7 +28,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 			{onAddCourse ? (
 				<CourseCard course={course} />
 			) : (
-				<Link to={AppRoute.COURSE_INFO}>
+				<Link to={`${AppRoute.COURSE_INFO}/${id}` as ValueOf<typeof AppRoute>}>
 					<CourseCard course={course} />
 				</Link>
 			)}

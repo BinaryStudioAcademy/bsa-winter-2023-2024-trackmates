@@ -1,10 +1,10 @@
-import videoCover from "~/assets/img/video-cover.png";
 import { Button, Image } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
+	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
@@ -14,11 +14,16 @@ const CourseInfo: React.FC = () => {
 	const course = useAppSelector((state) => state.courses.currentCourse);
 
 	const dispatch = useAppDispatch();
-	const courseID = 3;
+
+	const { id } = useParams<{ id: string }>();
 
 	useEffect(() => {
-		void dispatch(courseActions.getById({ id: courseID }));
-	}, [dispatch]);
+		void dispatch(courseActions.getById({ id: Number(id) }));
+	}, [dispatch, id]);
+
+	if (!course) {
+		return;
+	}
 
 	return (
 		<>
@@ -31,12 +36,10 @@ const CourseInfo: React.FC = () => {
 			/>
 			<div className={styles["wrapper"]}>
 				<div className={styles["course-info"]}>
-					<div className={styles["title"]}>{course?.title}</div>
-					<Image
-						alt="Video Cover"
-						className={styles["image"]}
-						src={videoCover}
-					/>
+					<div className={styles["title"]}>{course.title}</div>
+					<Image alt="Course" className={styles["image"]} src={course.image} />
+					<div className={styles["subtitle"]}>About this course</div>
+					<div dangerouslySetInnerHTML={{ __html: course.description || "" }} />
 				</div>
 				<div className={styles["course-content"]}>
 					<div className={styles["title"]}>Course Content</div>
