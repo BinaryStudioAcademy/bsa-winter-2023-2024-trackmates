@@ -60,6 +60,12 @@
 	color: var(--color-text-300);
 }
 
+.light:-webkit-autofill,
+.light:-webkit-autofill:hover,
+.light:-webkit-autofill:focus {
+	box-shadow: 0 0 0 1000px var(--color-background) inset;
+}
+
 .error {
 	position: absolute;
 	right: 0;
@@ -73,4 +79,15 @@
 
 .error-input {
 	border: 1px solid var(--color-error);
+}
+
+.icon {
+	position: absolute;
+	top: 7px;
+	left: 7px;
+	color: var(--color-text-200);
+}
+
+.input-with-icon {
+	padding-left: 42px;
 }

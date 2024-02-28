@@ -32,3 +32,13 @@
 	background: transparent;
 	border: none;
 }
+
+@media screen and (width <= 865px) {
+	.modal {
+		padding: 0;
+	}
+
+	.content {
+		border-radius: 0;
+	}
+}

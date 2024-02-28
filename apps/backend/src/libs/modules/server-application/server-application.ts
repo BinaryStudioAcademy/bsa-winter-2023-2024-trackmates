@@ -3,6 +3,7 @@ import { database } from "~/libs/modules/database/database.js";
 import { logger } from "~/libs/modules/logger/logger.js";
 import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
+import { courseSectionController } from "~/modules/course-sections/course-sections.js";
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
 import { friendController } from "~/modules/friends/friends.js";
@@ -23,6 +24,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...fileController.routes,
 	...friendController.routes,
 	...userController.routes,
+	...courseSectionController.routes,
 );
 const serverApplication = new BaseServerApplication({
 	apis: [apiV1],

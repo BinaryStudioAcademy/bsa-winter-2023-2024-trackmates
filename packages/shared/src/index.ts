@@ -33,6 +33,15 @@ export {
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
+	type CourseSectionAddRequestDto,
+	type CourseSectionDto,
+	CourseSectionError,
+	type CourseSectionGetAllRequestDto,
+	type CourseSectionGetAllResponseDto,
+	CourseSectionsApiPath,
+	courseSectionIdParameterValidationSchema,
+} from "./modules/course-sections/course-sections.js";
+export {
 	type AddCourseRequestDto,
 	type CourseDto,
 	CourseError,

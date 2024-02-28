@@ -42,6 +42,7 @@ class UserCourseController extends BaseController {
 				return this.findAllByUser(
 					options as APIHandlerOptions<{
 						params: { userId: string };
+						query: { search: string };
 					}>,
 				);
 			},
@@ -127,10 +128,15 @@ class UserCourseController extends BaseController {
 	 */
 	private async findAllByUser({
 		params: { userId },
+		query: { search },
 	}: APIHandlerOptions<{
 		params: { userId: string };
+		query: { search: string };
 	}>): Promise<APIHandlerResponse> {
-		const courses = await this.userCourseService.findAllByUser(Number(userId));
+		const courses = await this.userCourseService.findAllByUser({
+			search,
+			userId: Number(userId),
+		});
 
 		return {
 			payload: { courses },
