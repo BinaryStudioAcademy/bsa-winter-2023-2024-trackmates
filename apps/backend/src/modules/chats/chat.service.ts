@@ -56,13 +56,13 @@ class ChatService implements Service {
 			});
 		}
 
-		const areUsersMutualFollowers =
-			await this.friendRepository.getIsMutualFollowersByIds(
+		const isUsersMutualFollowers =
+			await this.friendRepository.checkIsMutualFollowersByIds(
 				userId,
 				chatData.userId,
 			);
 
-		if (!areUsersMutualFollowers) {
+		if (!isUsersMutualFollowers) {
 			throw new ChatError({
 				message: ExceptionMessage.USER_NOT_MUTUAL_FOLLOWERS,
 				status: HTTPCode.FORBIDDEN,

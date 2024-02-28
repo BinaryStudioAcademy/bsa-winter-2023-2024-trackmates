@@ -10,6 +10,23 @@ class FriendRepository implements Repository<UserEntity> {
 		this.userModel = userModel;
 	}
 
+	public async checkIsMutualFollowersByIds(
+		firstUserId: number,
+		secondUserId: number,
+	): Promise<boolean> {
+		const [firstUserSubscription, secondUserSubscription] = await this.userModel
+			.query()
+			.from(DatabaseTableName.FRIENDS)
+			.where({ follower_id: firstUserId, following_id: secondUserId })
+			.orWhere({ follower_id: secondUserId, following_id: firstUserId })
+			.execute();
+
+		const isFirstUserSubscribed = Boolean(firstUserSubscription);
+		const isSecondUserSubscribed = Boolean(secondUserSubscription);
+
+		return isFirstUserSubscribed && isSecondUserSubscribed;
+	}
+
 	public async create({
 		followerUserId,
 		followingUserId,
@@ -119,23 +136,6 @@ class FriendRepository implements Repository<UserEntity> {
 				updatedAt: user.updatedAt,
 			});
 		});
-	}
-
-	public async getIsMutualFollowersByIds(
-		firstUserId: number,
-		secondUserId: number,
-	): Promise<boolean> {
-		const [firstUserSubscription, secondUserSubscription] = await this.userModel
-			.query()
-			.from(DatabaseTableName.FRIENDS)
-			.where({ follower_id: firstUserId, following_id: secondUserId })
-			.orWhere({ follower_id: secondUserId, following_id: firstUserId })
-			.execute();
-
-		const isFirstUserSubscribed = Boolean(firstUserSubscription);
-		const isSecondUserSubscribed = Boolean(secondUserSubscription);
-
-		return isFirstUserSubscribed && isSecondUserSubscribed;
 	}
 
 	public async getIsSubscribedByRequestId(
