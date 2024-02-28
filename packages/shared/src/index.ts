@@ -49,8 +49,8 @@ export {
 	type ChatCreateRequestDto,
 	ChatError,
 	type ChatGetAllItemResponseDto,
+	type ChatItemResponseDto,
 	type ChatResponseDto,
-	type ChatSingleItemResponseDto,
 	ChatsApiPath,
 	chatCreateValidationSchema,
 } from "./modules/chats/chats.js";

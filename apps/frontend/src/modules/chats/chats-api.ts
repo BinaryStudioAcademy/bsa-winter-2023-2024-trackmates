@@ -7,7 +7,7 @@ import { ChatsApiPath } from "./libs/enums/enums.js";
 import {
 	type ChatCreateRequestDto,
 	type ChatGetAllItemResponseDto,
-	type ChatSingleItemResponseDto,
+	type ChatItemResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -23,7 +23,7 @@ class ChatsApi extends BaseHTTPApi {
 
 	public async createChat(
 		payload: ChatCreateRequestDto,
-	): Promise<ChatSingleItemResponseDto> {
+	): Promise<ChatItemResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(ChatsApiPath.ROOT, {}),
 			{
@@ -34,7 +34,7 @@ class ChatsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<ChatSingleItemResponseDto>();
+		return await response.json<ChatItemResponseDto>();
 	}
 
 	public async getAllChats(): Promise<{ items: ChatGetAllItemResponseDto[] }> {
@@ -49,13 +49,13 @@ class ChatsApi extends BaseHTTPApi {
 		return await response.json<{ items: ChatGetAllItemResponseDto[] }>();
 	}
 
-	public async getChat(chatId: number): Promise<ChatSingleItemResponseDto> {
+	public async getChat(chatId: number): Promise<ChatItemResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(ChatsApiPath.$CHAT_ID, { chatId: String(chatId) }),
 			{ hasAuth: true, method: "GET" },
 		);
 
-		return await response.json<ChatSingleItemResponseDto>();
+		return await response.json<ChatItemResponseDto>();
 	}
 }
 

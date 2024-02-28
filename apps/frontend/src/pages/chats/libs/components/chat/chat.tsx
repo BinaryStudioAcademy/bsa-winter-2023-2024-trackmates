@@ -4,8 +4,8 @@ import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-me
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
-import { ChatBubble } from "../chat-bubble/chat-bubble.js";
 import { ChatForm } from "../chat-form/chat-form.js";
+import { ChatMessage } from "../chat-message/chat-message.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -37,10 +37,10 @@ const Chat: React.FC<Properties> = ({
 			</div>
 			<ul className={styles["chat-container"]}>
 				{messages.map((message) => (
-					<ChatBubble
-						isYouSender={receiver.id !== message.senderUser.id}
+					<ChatMessage
+						isCurrentUserSender={receiver.id !== message.senderUser.id}
 						key={message.id}
-						messageData={message}
+						message={message}
 					/>
 				))}
 			</ul>

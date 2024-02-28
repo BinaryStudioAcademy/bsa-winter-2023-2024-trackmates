@@ -43,7 +43,7 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				className={styles["icon"]}
 				hasVisuallyHiddenLabel
 				iconName="message"
-				label="sent-message"
+				label="Send a message"
 				type="submit"
 			/>
 		</form>

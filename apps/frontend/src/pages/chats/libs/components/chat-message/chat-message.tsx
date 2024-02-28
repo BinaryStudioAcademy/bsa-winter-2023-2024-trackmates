@@ -4,21 +4,21 @@ import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-me
 import styles from "./styles.module.css";
 
 type Properties = {
-	isYouSender: boolean;
-	messageData: ChatMessageItemResponseDto;
+	isCurrentUserSender: boolean;
+	message: ChatMessageItemResponseDto;
 };
 
-const ChatBubble: React.FC<Properties> = ({
-	isYouSender,
-	messageData,
+const ChatMessage: React.FC<Properties> = ({
+	isCurrentUserSender,
+	message,
 }: Properties) => {
-	const { createdAt, senderUser, text } = messageData;
+	const { createdAt, senderUser, text } = message;
 
-	const contsinerClassNmaes = isYouSender
+	const contsinerClassNmaes = isCurrentUserSender
 		? getValidClassNames(styles["container"], styles["right"])
 		: getValidClassNames(styles["container"], styles["left"]);
 
-	const sender = isYouSender
+	const sender = isCurrentUserSender
 		? "You"
 		: `${senderUser.firstName} ${senderUser.lastName}`;
 
@@ -35,4 +35,4 @@ const ChatBubble: React.FC<Properties> = ({
 	);
 };
 
-export { ChatBubble };
+export { ChatMessage };

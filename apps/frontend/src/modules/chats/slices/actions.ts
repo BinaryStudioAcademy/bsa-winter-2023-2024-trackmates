@@ -8,7 +8,7 @@ import { actions as chatMessagesAction } from "~/modules/chat-messages/chat-mess
 
 import {
 	type ChatGetAllItemResponseDto,
-	type ChatSingleItemResponseDto,
+	type ChatItemResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./chats.slice.js";
 
@@ -22,21 +22,20 @@ const getAllChats = createAsyncThunk<
 	return await chatsApi.getAllChats();
 });
 
-const getChat = createAsyncThunk<
-	ChatSingleItemResponseDto,
-	number,
-	AsyncThunkConfig
->(`${sliceName}/get-chat`, async (chatId, { dispatch, extra }) => {
-	const { chatsApi } = extra;
+const getChat = createAsyncThunk<ChatItemResponseDto, number, AsyncThunkConfig>(
+	`${sliceName}/get-chat`,
+	async (chatId, { dispatch, extra }) => {
+		const { chatsApi } = extra;
 
-	const newChat = await chatsApi.getChat(chatId);
-	dispatch(chatMessagesAction.updateMessages(newChat.messages));
+		const newChat = await chatsApi.getChat(chatId);
+		dispatch(chatMessagesAction.updateMessages(newChat.messages));
 
-	return newChat;
-});
+		return newChat;
+	},
+);
 
 const createChat = createAsyncThunk<
-	ChatSingleItemResponseDto,
+	ChatItemResponseDto,
 	number,
 	AsyncThunkConfig
 >(`${sliceName}/create-chat`, async (userId, { dispatch, extra }) => {

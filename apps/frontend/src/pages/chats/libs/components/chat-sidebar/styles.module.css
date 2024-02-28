@@ -17,7 +17,7 @@
 }
 
 .chats::-webkit-scrollbar-track {
-	background-color: #ffffff;
+	background-color: var(--main-white);
 }
 
 .empty-chat-list {
