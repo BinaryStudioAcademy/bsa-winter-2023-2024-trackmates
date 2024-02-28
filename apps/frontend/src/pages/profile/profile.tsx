@@ -30,17 +30,16 @@ const Profile: React.FC = () => {
 	});
 	const dispatch = useAppDispatch();
 
-	const [formData, setFormData] = useState<UserProfileRequestDto>({
-		firstName: user.firstName,
-		lastName: user.lastName,
-	});
-
 	let [value, setValue] = useState<string>("");
 
-	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
-		defaultValues: formData,
-		validationSchema: userProfileValidationSchema,
-	});
+	const { control, errors, handleSubmit, reset } =
+		useAppForm<UserProfileRequestDto>({
+			defaultValues: {
+				firstName: user.firstName,
+				lastName: user.lastName,
+			},
+			validationSchema: userProfileValidationSchema,
+		});
 
 	const handleOnChange = useCallback(
 		(event: React.BaseSyntheticEvent): void => {
@@ -81,18 +80,6 @@ const Profile: React.FC = () => {
 		},
 		[handleSubmit, handleInputChange],
 	);
-
-	const handleCancelChanges = useCallback(() => {
-		setFormData({
-			firstName: user.firstName,
-			lastName: user.lastName,
-		});
-
-		control._reset({
-			firstName: user.firstName,
-			lastName: user.lastName,
-		});
-	}, [control, user.firstName, user.lastName]);
 
 	let blocker = useBlocker(
 		({ currentLocation, nextLocation }) =>
@@ -165,7 +152,7 @@ const Profile: React.FC = () => {
 							className={styles["button"]}
 							color="secondary"
 							label="Cancel"
-							onClick={handleCancelChanges}
+							onClick={reset}
 							size="small"
 						/>
 						<Button
