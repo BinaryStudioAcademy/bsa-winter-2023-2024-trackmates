@@ -1,1 +1,1 @@
-export { ChatMessage } from "./chat-message.validation-schema.js";
+export { chatMessage } from "./chat-message.validation-schema.js";

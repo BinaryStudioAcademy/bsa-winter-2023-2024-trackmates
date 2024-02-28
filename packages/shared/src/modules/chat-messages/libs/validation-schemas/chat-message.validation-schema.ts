@@ -6,11 +6,11 @@ type ChatMessageValidationDto = {
 	message: z.ZodString;
 };
 
-const ChatMessage = z.object<ChatMessageValidationDto>({
+const chatMessage = z.object<ChatMessageValidationDto>({
 	message: z
 		.string()
 		.trim()
 		.min(ChatMessageValidationRule.MESSAGE_MINIMUM_LENGTH),
 });
 
-export { ChatMessage };
+export { chatMessage };
