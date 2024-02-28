@@ -1,4 +1,7 @@
-export { MAX_FILE_SIZE_IN_MB } from "./libs/constants/constants.js";
+export {
+	EMPTY_ARRAY_LENGTH,
+	MAX_FILE_SIZE_IN_MB,
+} from "./libs/constants/constants.js";
 export {
 	APIPath,
 	AppEnvironment,

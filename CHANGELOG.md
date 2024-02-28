@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.14.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.14.0...v1.14.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** add friends screen tm-94 ([#214](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/214)) ([50ec656](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/50ec6560d32d3726aa97ddf5e13f3fc2407f9e34))
+
+## [1.14.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.13.0...v1.14.0) (2024-02-28)
+
+
+### Features
+
+* **frontend/shared:** Display courses recommended by AI tm-44 ([#212](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/212)) ([0266d2d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0266d2d2e2a64ffdcf1cbef1d5d57889165f62ac))
+
 ## [1.13.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.4...v1.13.0) (2024-02-28)
 
 
