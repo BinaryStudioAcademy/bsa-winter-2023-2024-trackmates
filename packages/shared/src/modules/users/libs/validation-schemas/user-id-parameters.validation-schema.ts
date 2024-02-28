@@ -9,7 +9,7 @@ type FriendIdParametersValidationDto = {
 const userIdParameters = z
 	.object<FriendIdParametersValidationDto>({
 		id: z.string().trim().regex(/^\d+$/, {
-			message: UserValidationMessage.ID_INVALID,
+			message: UserValidationMessage.INVALID_ID,
 		}),
 	})
 	.required();
