@@ -7,10 +7,7 @@ type ChatMessageValidationDto = {
 };
 
 const chatMessage = z.object<ChatMessageValidationDto>({
-	message: z
-		.string()
-		.trim()
-		.min(ChatMessageValidationRule.MESSAGE_MINIMUM_LENGTH),
+	message: z.string().trim().min(ChatMessageValidationRule.TEXT_MINIMUM_LENGTH),
 });
 
 export { chatMessage };

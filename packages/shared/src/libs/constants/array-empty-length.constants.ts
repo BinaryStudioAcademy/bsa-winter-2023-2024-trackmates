@@ -1,3 +1,0 @@
-const ARRAY_EMPTY_LENGTH = 0;
-
-export { ARRAY_EMPTY_LENGTH };

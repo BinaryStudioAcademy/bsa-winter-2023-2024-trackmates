@@ -1,5 +1,5 @@
 export {
-	ARRAY_EMPTY_LENGTH,
+	EMPTY_ARRAY_LENGTH,
 	MAX_FILE_SIZE_IN_MB,
 } from "./libs/constants/constants.js";
 export {
