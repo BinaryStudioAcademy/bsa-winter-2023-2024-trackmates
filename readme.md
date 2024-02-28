@@ -107,15 +107,22 @@ erDiagram
     enum content_type
    }
 
+   chats {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int first_user_id FK
+    int second_user_id FK
+   }
+
    chat_messages {
     int id PK
     dateTime created_at
     dateTime updated_at
-    int sender_id FK
-    int receiver_id FK
-    text message
-    uuid chat_id
+    int sender_user_id FK
+    int chat_id FK
     enum status
+    text text
    }
 
    users ||--|| user_details : user_id
@@ -124,8 +131,12 @@ erDiagram
    users ||--|{ friends : follower_id
    users ||--|{ friends : following_id
 
-   users ||--|{ chat_messages : sender_id
-   users ||--|{ chat_messages : receiver_id
+   users ||--|{ chats : first_user_id
+   users ||--|{ chats : second_user_id
+
+   chats ||--|{ chat_messages : chat_id
+
+   users ||--|{ chat_messages : sender_user_id
 
    users ||--|{ courses_to_users : user_id
    courses ||--|{ courses_to_users : course_id
