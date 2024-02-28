@@ -11,7 +11,7 @@ type Properties = {
 };
 
 const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
-	const hasChats = Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH;
+	const hasChats = chats.length > ARRAY_EMPTY_LENGTH;
 
 	return (
 		<ul className={styles["chats"]}>
