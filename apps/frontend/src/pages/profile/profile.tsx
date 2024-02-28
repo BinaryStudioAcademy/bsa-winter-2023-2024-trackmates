@@ -1,4 +1,4 @@
-import profileCharacter from "~/assets/img/user-details-img.png";
+import profileCharacter from "~/assets/img/svg/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
