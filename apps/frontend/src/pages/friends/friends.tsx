@@ -27,9 +27,24 @@ const Friends: React.FC = () => {
 	const { pathname } = useLocation();
 
 	useEffect(() => {
-		void dispatch(actions.getFollowings());
-		void dispatch(actions.getFollowers());
-		void dispatch(actions.getPotentialFriends());
+		switch (pathname) {
+			case AppRoute.FRIENDS: {
+				void dispatch(actions.getPotentialFriends());
+				void dispatch(actions.getFollowings());
+				break;
+			}
+
+			case AppRoute.FRIENDS_FOLLOWERS: {
+				void dispatch(actions.getFollowers());
+				void dispatch(actions.getFollowings());
+				break;
+			}
+
+			case AppRoute.FRIENDS_FOLLOWINGS: {
+				void dispatch(actions.getFollowings());
+				break;
+			}
+		}
 	}, [dispatch, pathname]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
