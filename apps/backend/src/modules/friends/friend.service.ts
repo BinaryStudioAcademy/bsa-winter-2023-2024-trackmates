@@ -107,6 +107,16 @@ class FriendService {
 		return foundUsers.map((user) => user.toObject());
 	}
 
+	public async getIsFollowing(
+		currentUserId: number,
+		otherUserId: number,
+	): Promise<boolean> {
+		const followings =
+			await this.friendRepository.getUserFollowings(currentUserId);
+
+		return followings.some((user) => user.toObject().id === otherUserId);
+	}
+
 	public async getPotentialFollowers(
 		id: number,
 	): Promise<UserAuthResponseDto[]> {

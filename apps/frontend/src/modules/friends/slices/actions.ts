@@ -30,6 +30,15 @@ const getFollowers = createAsyncThunk<
 	return friendsApi.getFollowers();
 });
 
+const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+	`${sliceName}/get-is-following`,
+	(userId, { extra }) => {
+		const { friendsApi } = extra;
+
+		return friendsApi.getIsFollowing(String(userId));
+	},
+);
+
 const getFollowings = createAsyncThunk<
 	UserAuthResponseDto[],
 	undefined,
@@ -68,4 +77,11 @@ const unfollow = createAsyncThunk<
 	return unfollowPayload;
 });
 
-export { follow, getFollowers, getFollowings, getPotentialFriends, unfollow };
+export {
+	follow,
+	getFollowers,
+	getFollowings,
+	getIsFollowing,
+	getPotentialFriends,
+	unfollow,
+};

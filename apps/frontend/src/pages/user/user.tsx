@@ -13,7 +13,6 @@ import {
 	useCallback,
 	useEffect,
 	useParams,
-	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
@@ -39,25 +38,13 @@ const User: React.FC = () => {
 			};
 		});
 
-	const [isFollowing, setIsFollowing] = useState<boolean>(
-		useAppSelector((state) =>
-			state.friends.followings.some((friend) => friend.id === userId),
-		),
-	);
-
-	const isFollowingFromSelector = useAppSelector((state) =>
-		state.friends.followings.some((friend) => friend.id === userId),
-	);
-
-	useEffect(() => {
-		setIsFollowing(isFollowingFromSelector);
-	}, [isFollowingFromSelector]);
+	const isFollowing = useAppSelector((state) => state.friends.isFollowing);
 
 	const handleFollow = useCallback(() => {
 		void dispatch(friendsActions.follow({ id: userId }))
 			.unwrap()
 			.then(() => {
-				setIsFollowing(true);
+				dispatch(friendsActions.setIsFollowing(true));
 			});
 	}, [dispatch, userId]);
 
@@ -65,14 +52,14 @@ const User: React.FC = () => {
 		void dispatch(friendsActions.unfollow({ id: userId }))
 			.unwrap()
 			.then(() => {
-				setIsFollowing(false);
+				dispatch(friendsActions.setIsFollowing(false));
 			});
 	}, [dispatch, userId]);
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
 		void dispatch(userCoursesActions.loadUserCourses(userId));
-		void dispatch(friendsActions.getFollowings());
+		void dispatch(friendsActions.getIsFollowing(userId));
 	}, [dispatch, userId]);
 
 	const hasUser = Boolean(user);
