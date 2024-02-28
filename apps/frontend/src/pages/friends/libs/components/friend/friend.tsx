@@ -60,7 +60,6 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			<div className={styles["actions"]}>
 				<Button
 					className={styles["button"]}
-					color="primary"
 					iconName={isFollowing ? "cross" : "add"}
 					label={isFollowing ? "Following" : "Follow"}
 					onClick={isFollowing ? handleUnfollow : handleFollow}
@@ -68,12 +67,11 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				/>
 				<Button
 					className={styles["start-chat"]}
-					color="secondary"
 					hasVisuallyHiddenLabel
 					href={chatRouteByUser}
 					iconName="chats"
 					label="Start chat"
-					style="outlined"
+					style="primary"
 				/>
 			</div>
 		</article>

@@ -15,6 +15,7 @@ import {
 } from "./libs/types/types.js";
 import {
 	chatMessageCreateValidationSchema,
+	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
@@ -95,6 +96,7 @@ class ChatMessageController extends BaseController {
 			path: ChatMessagesApiPath.$MESSAGE_ID,
 			validation: {
 				body: chatMessageUpdateValidationSchema,
+				params: chatMessageIdParameterValidationSchema,
 			},
 		});
 
@@ -109,6 +111,9 @@ class ChatMessageController extends BaseController {
 			},
 			method: "DELETE",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
+			validation: {
+				params: chatMessageIdParameterValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -122,6 +127,9 @@ class ChatMessageController extends BaseController {
 			},
 			method: "GET",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
+			validation: {
+				params: chatMessageIdParameterValidationSchema,
+			},
 		});
 	}
 
@@ -192,23 +200,15 @@ class ChatMessageController extends BaseController {
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
+	 *                type: boolean
 	 */
 	private async delete({
 		params,
-		user,
 	}: APIHandlerOptions<{
 		params: Record<"messageId", number>;
-		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatMessageService.delete({
-				id: params.messageId,
-				userId: user.id,
-			}),
+			payload: await this.chatMessageService.delete(params.messageId),
 			status: HTTPCode.OK,
 		};
 	}

@@ -50,6 +50,5 @@
 .start-chat {
 	min-height: unset;
 	padding: 7px;
-	border: 1px solid var(--main-white);
 	fill: currentcolor;
 }

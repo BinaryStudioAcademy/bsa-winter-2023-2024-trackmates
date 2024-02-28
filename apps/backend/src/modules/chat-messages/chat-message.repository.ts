@@ -102,8 +102,8 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			)
 			.execute();
 
-		return messagesByUserId.map((messageByUserId) =>
-			ChatMessageEntity.initialize({
+		return messagesByUserId.map((messageByUserId) => {
+			return ChatMessageEntity.initialize({
 				chatId: messageByUserId.chatId,
 				createdAt: messageByUserId.createdAt,
 				id: messageByUserId.id,
@@ -122,8 +122,8 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				status: messageByUserId.status,
 				text: messageByUserId.text,
 				updatedAt: messageByUserId.updatedAt,
-			}),
-		);
+			});
+		});
 	}
 
 	public async update(

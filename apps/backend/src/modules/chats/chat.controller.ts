@@ -10,7 +10,10 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 import { type ChatService } from "./chat.service.js";
 import { ChatsApiPath } from "./libs/enums/enums.js";
 import { type ChatCreateRequestDto } from "./libs/types/types.js";
-import { chatCreateValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	chatCreateValidationSchema,
+	chatIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -71,6 +74,9 @@ class ChatController extends BaseController {
 			},
 			method: "GET",
 			path: ChatsApiPath.$CHAT_ID,
+			validation: {
+				params: chatIdParameterValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -96,6 +102,9 @@ class ChatController extends BaseController {
 			},
 			method: "DELETE",
 			path: ChatsApiPath.$CHAT_ID,
+			validation: {
+				params: chatIdParameterValidationSchema,
+			},
 		});
 	}
 
@@ -172,23 +181,15 @@ class ChatController extends BaseController {
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
+	 *                type: boolean
 	 */
 	private async delete({
 		params,
-		user,
 	}: APIHandlerOptions<{
 		params: Record<"chatId", number>;
-		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatService.delete({
-				id: params.chatId,
-				userId: user.id,
-			}),
+			payload: await this.chatService.delete(params.chatId),
 			status: HTTPCode.OK,
 		};
 	}

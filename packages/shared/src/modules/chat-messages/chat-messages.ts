@@ -7,5 +7,6 @@ export {
 export {
 	chatMessage as chatMessageValidationSchema,
 	chatMessageCreate as chatMessageCreateValidationSchema,
+	chatMessageIdParameter as chatMessageIdParameterValidationSchema,
 	chatMessageUpdate as chatMessageUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
