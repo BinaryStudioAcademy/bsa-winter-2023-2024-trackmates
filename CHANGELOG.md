@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.12.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.3...v1.12.4) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** change all the .png images to .svg tm-229 ([#234](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/234)) ([8fd4d8f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8fd4d8f6df41ebe5bdce1007e36e3cd936176e66))
+
+## [1.12.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.2...v1.12.3) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** background color for auth on autofill tm-233 ([#236](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/236)) ([5373b66](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5373b66163174a7bbff75f967155f5ee98afcb63))
+
 ## [1.12.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.1...v1.12.2) (2024-02-28)
 
 
