@@ -1,4 +1,5 @@
 import { Courses, Input, Loader, Modal } from "~/libs/components/components.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
@@ -16,7 +17,6 @@ import {
 import { actions as vendorActions } from "~/modules/vendors/vendors.js";
 
 import {
-	COURSES_EMPTY_LENGTH,
 	DEFAULT_SEARCH_COURSE_PAYLOAD,
 	SEARCH_COURSES_DELAY_MS,
 } from "../../constants/constants.js";
@@ -95,7 +95,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		};
 	}, [handleDebouncedSearchCourses]);
 
-	const hasCourses = courses.length > COURSES_EMPTY_LENGTH;
+	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
 
 	return (
 		<Modal isOpen onClose={onClose}>
