@@ -45,12 +45,10 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 					</a>
 					<Button
 						className={styles["course-add-button"]}
-						color="secondary"
 						iconName="plusOutlined"
 						label="Add"
 						onClick={handleAddCourse}
 						size="small"
-						style="filled"
 					/>
 				</div>
 			)}
