@@ -81,14 +81,14 @@ const Profile: React.FC = () => {
 		[handleSubmit, handleInputChange],
 	);
 
+	const handleResetForm = useCallback(() => {
+		reset();
+	}, [reset]);
+
 	let blocker = useBlocker(
 		({ currentLocation, nextLocation }) =>
 			value !== "" && currentLocation.pathname !== nextLocation.pathname,
 	);
-
-	const handleReset = useCallback(() => {
-		reset();
-	}, [reset]);
 
 	useEffect(() => {
 		if (blocker.state === "blocked") {
@@ -155,7 +155,7 @@ const Profile: React.FC = () => {
 						<Button
 							className={styles["button"]}
 							label="Cancel"
-							onClick={handleReset}
+							onClick={handleResetForm}
 							size="small"
 							style="secondary"
 						/>
