@@ -11,13 +11,12 @@ import { FeedActionList } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Feed: React.FC = () => {
-	const user = useAppSelector((state) => state.auth.user);
 	const { dataStatus, friendsActions } = useAppSelector((state) => state.feed);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		user && void dispatch(actions.loadFeed(user.id));
-	}, [dispatch, user]);
+		void dispatch(actions.loadFeed());
+	}, [dispatch]);
 
 	const isLoading = dataStatus === DataStatus.PENDING;
 

@@ -56,7 +56,7 @@ export {
 export {
 	type FeedActionDto,
 	FeedActionType,
-	//FeedApiPath,
+	FeedApiPath,
 	type GetFeedResponseDto,
 } from "./modules/feed/feed.js";
 export {
