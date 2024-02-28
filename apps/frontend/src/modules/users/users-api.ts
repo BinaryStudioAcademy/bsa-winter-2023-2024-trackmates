@@ -22,7 +22,9 @@ class UserApi extends BaseHTTPApi {
 
 	public async getById(id: number): Promise<UserAuthResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(`${UsersApiPath.ROOT}${id}`, {}),
+			this.getFullEndpoint(UsersApiPath.ROOT, {
+				id: String(id),
+			}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
