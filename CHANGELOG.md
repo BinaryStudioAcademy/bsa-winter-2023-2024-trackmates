@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.14.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.14.0...v1.14.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** add friends screen tm-94 ([#214](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/214)) ([50ec656](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/50ec6560d32d3726aa97ddf5e13f3fc2407f9e34))
+
+## [1.14.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.13.0...v1.14.0) (2024-02-28)
+
+
+### Features
+
+* **frontend/shared:** Display courses recommended by AI tm-44 ([#212](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/212)) ([0266d2d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0266d2d2e2a64ffdcf1cbef1d5d57889165f62ac))
+
+## [1.13.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.4...v1.13.0) (2024-02-28)
+
+
+### Features
+
+* **backend/shared:** chat functionality tm-111 ([#135](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/135)) ([7016508](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7016508abf8860f789bf4a7dba9511c475234b55))
+
+## [1.12.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.3...v1.12.4) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** change all the .png images to .svg tm-229 ([#234](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/234)) ([8fd4d8f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8fd4d8f6df41ebe5bdce1007e36e3cd936176e66))
+
 ## [1.12.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.12.2...v1.12.3) (2024-02-28)
 
 
