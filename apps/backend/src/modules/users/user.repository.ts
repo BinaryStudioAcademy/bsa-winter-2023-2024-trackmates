@@ -164,7 +164,9 @@ class UserRepository implements Repository<UserEntity> {
 	public async getByNickname(
 		nickname: null | string,
 	): Promise<UserEntity | null> {
-		if (!nickname) {
+		const hasNickname = Boolean(nickname);
+
+		if (!hasNickname) {
 			return null;
 		}
 

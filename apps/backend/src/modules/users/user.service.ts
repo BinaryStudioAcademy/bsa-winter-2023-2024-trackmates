@@ -88,7 +88,7 @@ class UserService implements Service {
 		const { firstName, lastName, nickname } = userProfile;
 		const user = await this.userRepository.getByNickname(nickname);
 		const hasUser = Boolean(user);
-		const isSameUser = Boolean(user?.toObject().id === userId);
+		const isSameUser = user?.toObject().id === userId;
 
 		if (hasUser && !isSameUser) {
 			throw new UserError({
@@ -100,7 +100,7 @@ class UserService implements Service {
 		const updatedUser = await this.userRepository.update(userId, {
 			firstName,
 			lastName,
-			nickname: nickname === "" ? null : nickname,
+			nickname,
 		});
 
 		return updatedUser?.toObject() ?? null;
