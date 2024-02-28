@@ -1,10 +1,11 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { HTTPError } from "~/libs/modules/http/http.js";
-import { type Service } from "~/libs/types/service.type.js";
+import { type Service } from "~/libs/types/types.js";
+import { type FriendRepository } from "~/modules/friends/friends.js";
 import { type UserRepository } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";
 import { type ChatRepository } from "./chat.repository.js";
+import { ChatError } from "./libs/exceptions/exceptions.js";
 import {
 	type ChatCreateRequestDto,
 	type ChatGetAllItemResponseDto,
@@ -15,13 +16,17 @@ import {
 class ChatService implements Service {
 	private chatRepository: ChatRepository;
 
+	private friendRepository: FriendRepository;
+
 	private userRepository: UserRepository;
 
 	public constructor(
 		chatRepository: ChatRepository,
+		friendRepository: FriendRepository,
 		userRepository: UserRepository,
 	) {
 		this.chatRepository = chatRepository;
+		this.friendRepository = friendRepository;
 		this.userRepository = userRepository;
 	}
 
@@ -45,9 +50,22 @@ class ChatService implements Service {
 		const secondUser = await this.userRepository.findById(chatData.userId);
 
 		if (!firstUser || !secondUser) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.USER_NOT_FOUND,
 				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const areUsersMutualFollowers =
+			await this.friendRepository.getIsMutualFollowersByIds(
+				userId,
+				chatData.userId,
+			);
+
+		if (!areUsersMutualFollowers) {
+			throw new ChatError({
+				message: ExceptionMessage.USER_NOT_MUTUAL_FOLLOWERS,
+				status: HTTPCode.FORBIDDEN,
 			});
 		}
 
@@ -71,7 +89,7 @@ class ChatService implements Service {
 		const { firstUser, secondUser } = await this.find(id);
 
 		if (userId !== firstUser.id && userId !== secondUser.id) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
@@ -86,7 +104,7 @@ class ChatService implements Service {
 		const chatById = await this.chatRepository.find(id);
 
 		if (!chatById) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
@@ -117,7 +135,7 @@ class ChatService implements Service {
 		const chatById = await this.chatRepository.findWithMessage(id);
 
 		if (!chatById) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
@@ -126,7 +144,7 @@ class ChatService implements Service {
 		const { firstUser, secondUser } = chatById.toObject();
 
 		if (userId !== firstUser.id && userId !== secondUser.id) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.NO_PERMISSION,
 				status: HTTPCode.FORBIDDEN,
 			});
@@ -148,7 +166,7 @@ class ChatService implements Service {
 		const secondUser = await this.userRepository.findById(secondUserId);
 
 		if (!firstUser || !secondUser) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.USER_NOT_FOUND,
 				status: HTTPCode.BAD_REQUEST,
 			});

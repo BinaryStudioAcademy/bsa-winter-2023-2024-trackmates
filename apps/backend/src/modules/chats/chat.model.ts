@@ -4,7 +4,7 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-import { ChatMessageModel } from "~/modules/chat-messages/chat-message.model.js";
+import { ChatMessageModel } from "~/modules/chat-messages/chat-message.js";
 import { UserModel } from "~/modules/users/users.js";
 
 class ChatModel extends AbstractModel {

@@ -1,7 +1,6 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { HTTPError } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/types.js";
-import { type ChatService } from "~/modules/chats/chats.js";
+import { ChatError, type ChatService } from "~/modules/chats/chats.js";
 import { type UserEntity, type UserRepository } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
@@ -43,7 +42,7 @@ class ChatMessageService implements Service {
 		const senderUser = await this.userRepository.findById(userId);
 
 		if (!senderUser) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.USER_NOT_FOUND,
 				status: HTTPCode.BAD_REQUEST,
 			});
@@ -56,7 +55,7 @@ class ChatMessageService implements Service {
 		} = await this.chatService.find(messageData.chatId);
 
 		if (userId !== firstUser.id && userId !== secondUser.id) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.NO_PERMISSION,
 				status: HTTPCode.FORBIDDEN,
 			});
@@ -83,7 +82,7 @@ class ChatMessageService implements Service {
 		const messageById = await this.find(id);
 
 		if (userId !== messageById.senderUser.id) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.MESSAGE_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
@@ -98,7 +97,7 @@ class ChatMessageService implements Service {
 		const messageById = await this.chatMessageRepository.find(id);
 
 		if (!messageById) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.MESSAGE_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
@@ -129,7 +128,7 @@ class ChatMessageService implements Service {
 		const messageById = await this.find(id);
 
 		if (userId !== messageById.senderUser.id) {
-			throw new HTTPError({
+			throw new ChatError({
 				message: ExceptionMessage.NO_PERMISSION,
 				status: HTTPCode.FORBIDDEN,
 			});

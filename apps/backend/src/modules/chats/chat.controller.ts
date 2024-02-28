@@ -10,7 +10,33 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 import { type ChatService } from "./chat.service.js";
 import { ChatsApiPath } from "./libs/enums/enums.js";
 import { type ChatCreateRequestDto } from "./libs/types/types.js";
+import { chatCreateValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Chat:
+ *       type: object
+ *       properties:
+ *         createdAt:
+ *           type: string
+ *         firstUser:
+ *           type: object
+ *           $ref: "#/components/schemas/User"
+ *         id:
+ *           type: number
+ *         messages:
+ *           type: array
+ *           items:
+ *             type: object
+ *             $ref: "#/components/schemas/ChatMessage"
+ *         secondUser:
+ *           type: object
+ *           $ref: "#/components/schemas/User"
+ *         updatedAt:
+ *           type: string
+ */
 class ChatController extends BaseController {
 	private chatService: ChatService;
 
@@ -29,6 +55,9 @@ class ChatController extends BaseController {
 			},
 			method: "POST",
 			path: ChatsApiPath.ROOT,
+			validation: {
+				body: chatCreateValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -70,6 +99,42 @@ class ChatController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /chats:
+	 *    post:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Create a new chat or get existing
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                userId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  id:
+	 *                    type: number
+	 *                  interlocutor:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 *                  messages:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async create({
 		body,
 		user,
@@ -86,6 +151,32 @@ class ChatController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chats/{id}:
+	 *    delete:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Delete chat by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The chat id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
 	private async delete({
 		params,
 		user,
@@ -102,6 +193,36 @@ class ChatController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chats:
+	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Get all user's chats
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  createdAt:
+	 *                    type: string
+	 *                  id:
+	 *                    type: number
+	 *                  interlocutor:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 *                  lastMessage:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/ChatMessage"
+	 *                  unreadMessageCount:
+	 *                    type: number
+	 *                  updatedAt:
+	 *                    type: string
+	 */
 	private async findAll({
 		user,
 	}: APIHandlerOptions<{
@@ -113,6 +234,40 @@ class ChatController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /chats/{id}:
+	 *    get:
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find chat by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The chat id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  id:
+	 *                    type: number
+	 *                  interlocutor:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 *                  messages:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/ChatMessage"
+	 */
 	private async findWithMessage({
 		params,
 		user,

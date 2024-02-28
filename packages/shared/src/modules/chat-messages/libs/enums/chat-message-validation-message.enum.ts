@@ -1,0 +1,9 @@
+import { ChatMessageValidationRule } from "./chat-message-validation-rule.enum.js";
+
+const ChatMessageValidationMessage = {
+	CHAT_ID_MINIMUM_LENGTH: `Minimum chatId value – ${ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE}`,
+	TEXT_MAXIMUM_LENGTH: `Maximum text length – ${ChatMessageValidationRule.TEXT_MAXIMUM_LENGTH}`,
+	TEXT_MINIMUM_LENGTH: `Minimum text length – ${ChatMessageValidationRule.TEXT_MINIMUM_LENGTH}`,
+};
+
+export { ChatMessageValidationMessage };
