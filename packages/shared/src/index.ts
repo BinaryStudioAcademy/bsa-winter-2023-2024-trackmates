@@ -12,6 +12,7 @@ export {
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
+	formatDate,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
