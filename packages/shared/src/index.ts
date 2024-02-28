@@ -39,6 +39,7 @@ export {
 	ChatMessagesApiPath,
 	MessageStatus,
 	chatMessageCreateValidationSchema,
+	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
@@ -49,6 +50,7 @@ export {
 	type ChatSingleItemResponseDto,
 	ChatsApiPath,
 	chatCreateValidationSchema,
+	chatIdParameterValidationSchema,
 } from "./modules/chats/chats.js";
 export {
 	type CourseSectionAddRequestDto,

@@ -16,7 +16,7 @@ const chatMessageCreate = z
 			.number()
 			.min(
 				ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE,
-				ChatMessageValidationMessage.CHAT_ID_MINIMUM_LENGTH,
+				ChatMessageValidationMessage.CHAT_ID_MINIMUM_VALUE,
 			),
 		text: z
 			.string()

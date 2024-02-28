@@ -6,4 +6,7 @@ export {
 	type ChatResponseDto,
 	type ChatSingleItemResponseDto,
 } from "./libs/types/types.js";
-export { chatMessageCreate as chatCreateValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+export {
+	chatIdParameter as chatIdParameterValidationSchema,
+	chatMessageCreate as chatCreateValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";

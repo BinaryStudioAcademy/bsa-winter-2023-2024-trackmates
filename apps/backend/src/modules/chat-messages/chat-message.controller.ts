@@ -15,6 +15,7 @@ import {
 } from "./libs/types/types.js";
 import {
 	chatMessageCreateValidationSchema,
+	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
@@ -95,6 +96,7 @@ class ChatMessageController extends BaseController {
 			path: ChatMessagesApiPath.$MESSAGE_ID,
 			validation: {
 				body: chatMessageUpdateValidationSchema,
+				params: chatMessageIdParameterValidationSchema,
 			},
 		});
 
@@ -109,6 +111,9 @@ class ChatMessageController extends BaseController {
 			},
 			method: "DELETE",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
+			validation: {
+				params: chatMessageIdParameterValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -122,6 +127,9 @@ class ChatMessageController extends BaseController {
 			},
 			method: "GET",
 			path: ChatMessagesApiPath.$MESSAGE_ID,
+			validation: {
+				params: chatMessageIdParameterValidationSchema,
+			},
 		});
 	}
 

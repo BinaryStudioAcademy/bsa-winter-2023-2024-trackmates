@@ -10,7 +10,10 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 import { type ChatService } from "./chat.service.js";
 import { ChatsApiPath } from "./libs/enums/enums.js";
 import { type ChatCreateRequestDto } from "./libs/types/types.js";
-import { chatCreateValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	chatCreateValidationSchema,
+	chatIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -71,6 +74,9 @@ class ChatController extends BaseController {
 			},
 			method: "GET",
 			path: ChatsApiPath.$CHAT_ID,
+			validation: {
+				params: chatIdParameterValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -96,6 +102,9 @@ class ChatController extends BaseController {
 			},
 			method: "DELETE",
 			path: ChatsApiPath.$CHAT_ID,
+			validation: {
+				params: chatIdParameterValidationSchema,
+			},
 		});
 	}
 
