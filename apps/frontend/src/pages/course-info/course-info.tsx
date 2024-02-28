@@ -6,12 +6,14 @@ import {
 	useEffect,
 	useParams,
 } from "~/libs/hooks/hooks.js";
+import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
 	const course = useAppSelector((state) => state.courses.currentCourse);
+	const courseSections = useAppSelector((state) => state.course.courseSections);
 
 	const dispatch = useAppDispatch();
 
@@ -19,6 +21,9 @@ const CourseInfo: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(courseActions.getById({ id: Number(id) }));
+		void dispatch(
+			courseSectionsActions.getAllByCourseId({ courseId: Number(id) }),
+		);
 	}, [dispatch, id]);
 
 	if (!course) {
@@ -29,7 +34,6 @@ const CourseInfo: React.FC = () => {
 		<>
 			<Button
 				className={styles["back-btn"]}
-				color="secondary"
 				href={AppRoute.ROOT}
 				iconName="back"
 				label="Back to overview"
@@ -43,9 +47,15 @@ const CourseInfo: React.FC = () => {
 				</div>
 				<div className={styles["course-content"]}>
 					<div className={styles["title"]}>Course Content</div>
-					<div className={styles["content-item"]}>
-						<span className={styles["subtitle"]}>What is UI Design?</span>
-					</div>
+					<ul className={styles["list"]}>
+						{courseSections.map((section) => {
+							return (
+								<li className={styles["item"]} key={section.id}>
+									{section.title}
+								</li>
+							);
+						})}
+					</ul>
 				</div>
 			</div>
 		</>
