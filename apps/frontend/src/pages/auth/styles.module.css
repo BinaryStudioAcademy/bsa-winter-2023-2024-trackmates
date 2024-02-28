@@ -5,13 +5,13 @@
 	padding-top: 178px;
 	padding-bottom: 20px;
 	background-color: var(--color-menu);
-	background-image: url("~/assets/img/svg/background-cloud-one.svg"),
-		url("~/assets/img/svg/background-cloud-two.svg"),
-		url("~/assets/img/svg/background-cloud-three.svg"),
-		url("~/assets/img/svg/background-cloud-four.svg"),
-		url("~/assets/img/svg/background-cloud-five.svg"),
-		url("~/assets/img/svg/background-sun.svg"),
-		url("~/assets/img/svg/background-cloud-one.svg");
+	background-image: url("~/assets/img/background-cloud-one.svg"),
+		url("~/assets/img/background-cloud-two.svg"),
+		url("~/assets/img/background-cloud-three.svg"),
+		url("~/assets/img/background-cloud-four.svg"),
+		url("~/assets/img/background-cloud-five.svg"),
+		url("~/assets/img/background-sun.svg"),
+		url("~/assets/img/background-cloud-one.svg");
 	background-repeat: no-repeat;
 	background-position:
 		calc(50% - 600px) 442px,
@@ -56,7 +56,7 @@
 	position: absolute;
 	right: 65px;
 	bottom: -30px;
-	content: url("~/assets/img/svg/tail.svg");
+	content: url("~/assets/img/tail.svg");
 }
 
 .sign-in::before {
@@ -66,7 +66,7 @@
 	width: 283px;
 	height: 283px;
 	content: "";
-	background-image: url("~/assets/img/svg/sign-in-character.svg");
+	background-image: url("~/assets/img/sign-in-character.svg");
 	background-size: cover;
 }
 
@@ -77,7 +77,7 @@
 	width: 283px;
 	height: 283px;
 	content: "";
-	background-image: url("~/assets/img/svg/sign-up-character.svg");
+	background-image: url("~/assets/img/sign-up-character.svg");
 	background-size: cover;
 }
 
@@ -96,11 +96,11 @@
 
 @media screen and (width <= 768px) {
 	.container {
-		background-image: url("~/assets/img/svg/background-cloud-one.svg"),
-			url("~/assets/img/svg/background-cloud-three.svg"),
-			url("~/assets/img/svg/background-cloud-four.svg"),
-			url("~/assets/img/svg/background-cloud-five.svg"),
-			url("~/assets/img/svg/background-sun.svg");
+		background-image: url("~/assets/img/background-cloud-one.svg"),
+			url("~/assets/img/background-cloud-three.svg"),
+			url("~/assets/img/background-cloud-four.svg"),
+			url("~/assets/img/background-cloud-five.svg"),
+			url("~/assets/img/background-sun.svg");
 		background-position:
 			calc(50% - 330px) 520px,
 			calc(50% + 300px) 640px,
@@ -113,8 +113,8 @@
 @media screen and (width <= 480px) {
 	.container {
 		padding: 0;
-		background-image: url("~/assets/img/svg/background-cloud-four.svg"),
-			url("~/assets/img/svg/background-cloud-five.svg");
+		background-image: url("~/assets/img/background-cloud-four.svg"),
+			url("~/assets/img/background-cloud-five.svg");
 		background-position:
 			calc(50% - 160px) 90%,
 			calc(50% + 200px) 20%;
