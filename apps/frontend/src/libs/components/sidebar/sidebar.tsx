@@ -1,4 +1,4 @@
-import logo from "~/assets/img/website-logo.png";
+import logo from "~/assets/img/sidebar-logo.svg";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
