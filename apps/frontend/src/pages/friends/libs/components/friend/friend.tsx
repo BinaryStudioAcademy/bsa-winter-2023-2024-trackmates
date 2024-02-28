@@ -1,7 +1,6 @@
 import friendImage from "~/assets/img/friend.jpeg";
 import { Button, Image } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { createQueryLink } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -25,11 +24,9 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	);
 	const dispatch = useAppDispatch();
 
-	const chatRouteByUser = createQueryLink(
-		AppRoute.CHATS,
-		"user",
-		String(friend.id),
-	) as typeof AppRoute.CHATS;
+	const parameters = new URLSearchParams({ user: String(friend.id) });
+	const chatRouteByUser =
+		`${AppRoute.CHATS}?${parameters.toString()}` as typeof AppRoute.CHATS;
 
 	const handleFollow = useCallback(() => {
 		void dispatch(actions.follow({ id: friend.id }))

@@ -1,4 +1,4 @@
-import chatImage from "~/assets/img/chat-img.png";
+import chatImage from "~/assets/img/chat-character.svg";
 import { Image, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
 

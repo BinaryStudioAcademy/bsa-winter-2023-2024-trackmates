@@ -8,7 +8,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
-import { reducer as appReducer } from "~/modules/app/app.js";
+import { reducer as appReducer } from "~/libs/slices/app/app.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
 import {
 	chatMessagesApi,

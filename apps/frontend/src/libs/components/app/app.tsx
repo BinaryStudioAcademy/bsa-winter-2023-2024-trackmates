@@ -6,7 +6,7 @@ import {
 	useEffect,
 	useNavigate,
 } from "~/libs/hooks/hooks.js";
-import { actions as appActions } from "~/modules/app/app.js";
+import { actions as appActions } from "~/libs/slices/app/app.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 
 const App: React.FC = () => {

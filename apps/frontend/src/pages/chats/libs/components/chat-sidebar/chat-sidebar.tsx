@@ -11,23 +11,27 @@ type Properties = {
 };
 
 const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
+	const hasChats = Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH;
+
 	return (
 		<ul className={styles["chats"]}>
-			{Boolean(chats) && chats.length > ARRAY_EMPTY_LENGTH ? (
+			{hasChats &&
 				chats.map((item) => {
 					return (
 						<li key={item.id}>
 							<ChatLink chat={item} />
 						</li>
 					);
-				})
-			) : (
-				<p className={styles["empty-chat-list"]}>
-					There are no chats yet.{" "}
-					<Link className={styles["link"]} to={AppRoute.FRIENDS}>
-						Create new one.
-					</Link>
-				</p>
+				})}
+			{!hasChats && (
+				<li>
+					<p className={styles["empty-chat-list"]}>
+						There are no chats yet.{" "}
+						<Link className={styles["link"]} to={AppRoute.FRIENDS}>
+							Create new one.
+						</Link>
+					</p>
+				</li>
 			)}
 		</ul>
 	);

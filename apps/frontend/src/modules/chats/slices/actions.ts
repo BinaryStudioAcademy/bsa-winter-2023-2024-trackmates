@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { AppRoute } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
+import { actions as appActions } from "~/libs/slices/app/app.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { actions as appActions } from "~/modules/app/app.js";
 import { actions as chatMessagesAction } from "~/modules/chat-messages/chat-messages.js";
 
 import {
