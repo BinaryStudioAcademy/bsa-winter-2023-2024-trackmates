@@ -9,8 +9,8 @@ import { ChatError } from "./libs/exceptions/exceptions.js";
 import {
 	type ChatCreateRequestDto,
 	type ChatGetAllItemResponseDto,
+	type ChatItemResponseDto,
 	type ChatResponseDto,
-	type ChatSingleItemResponseDto,
 } from "./libs/types/types.js";
 
 class ChatService implements Service {
@@ -36,7 +36,7 @@ class ChatService implements Service {
 	}: {
 		chatData: ChatCreateRequestDto;
 		userId: number;
-	}): Promise<ChatSingleItemResponseDto> {
+	}): Promise<ChatItemResponseDto> {
 		const chatByMembersIds = await this.chatRepository.findByMembersIds(
 			userId,
 			chatData.userId,
@@ -123,7 +123,7 @@ class ChatService implements Service {
 	}: {
 		id: number;
 		userId: number;
-	}): Promise<ChatSingleItemResponseDto> {
+	}): Promise<ChatItemResponseDto> {
 		const chatById = await this.chatRepository.findWithMessage(id);
 
 		if (!chatById) {

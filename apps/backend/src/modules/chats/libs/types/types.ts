@@ -1,6 +1,6 @@
 export {
 	type ChatCreateRequestDto,
 	type ChatGetAllItemResponseDto,
+	type ChatItemResponseDto,
 	type ChatResponseDto,
-	type ChatSingleItemResponseDto,
 } from "@trackmates/shared";

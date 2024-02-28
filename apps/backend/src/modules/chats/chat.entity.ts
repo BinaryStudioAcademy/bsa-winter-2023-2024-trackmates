@@ -4,8 +4,8 @@ import { type UserEntity } from "~/modules/users/users.js";
 
 import {
 	type ChatGetAllItemResponseDto,
+	type ChatItemResponseDto,
 	type ChatResponseDto,
-	type ChatSingleItemResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -190,7 +190,7 @@ class ChatEntity implements Entity {
 		};
 	}
 
-	public toObjectWithMessages(userId: number): ChatSingleItemResponseDto {
+	public toObjectWithMessages(userId: number): ChatItemResponseDto {
 		const firstUser = this.firstUser.toObject();
 		const secondUser = this.secondUser.toObject();
 		const messages = (this.messages as ChatMessageEntity[]).map((message) => {
