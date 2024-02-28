@@ -41,16 +41,7 @@ class UserService implements Service {
 			}),
 		);
 
-		const { firstName, id, lastName } = user.toObject();
-		const nickname = `${firstName.toLowerCase().replaceAll(/['-]/g, "")}${id}`;
-
-		const userWithNickname = (await this.userRepository.update(id, {
-			firstName,
-			lastName,
-			nickname,
-		})) as UserEntity;
-
-		return userWithNickname.toObject();
+		return user.toObject();
 	}
 
 	public async delete(userId: number): Promise<boolean> {

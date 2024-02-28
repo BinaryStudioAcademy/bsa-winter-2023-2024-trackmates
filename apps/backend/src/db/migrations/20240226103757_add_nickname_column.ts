@@ -4,14 +4,14 @@ const TABLE_NAME = "user_details";
 
 const COLUMN_NAME = "nickname";
 
-function up(knex: Knex): Promise<void> {
-	return knex.schema.alterTable(TABLE_NAME, (table) => {
-		table.text(COLUMN_NAME).unique();
+async function up(knex: Knex): Promise<void> {
+	await knex.schema.alterTable(TABLE_NAME, (table) => {
+		table.text(COLUMN_NAME).unique().defaultTo(null);
 	});
 }
 
-function down(knex: Knex): Promise<void> {
-	return knex.schema.alterTable(TABLE_NAME, (table) => {
+async function down(knex: Knex): Promise<void> {
+	await knex.schema.alterTable(TABLE_NAME, (table) => {
 		table.dropColumn(COLUMN_NAME);
 	});
 }
