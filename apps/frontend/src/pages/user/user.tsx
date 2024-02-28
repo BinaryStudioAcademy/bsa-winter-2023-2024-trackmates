@@ -27,18 +27,23 @@ const User: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const userId = Number(id);
-	const { courses, currentUserId, isCoursesLoading, user, userNotFound } =
-		useAppSelector((state) => {
-			return {
-				courses: state.userCourses.userCourses,
-				currentUserId: (state.auth.user as UserAuthResponseDto).id,
-				isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
-				user: state.users.user,
-				userNotFound: state.users.dataStatus === DataStatus.REJECTED,
-			};
-		});
-
-	const isFollowing = useAppSelector((state) => state.friends.isFollowing);
+	const {
+		courses,
+		currentUserId,
+		isCoursesLoading,
+		isFollowing,
+		user,
+		userNotFound,
+	} = useAppSelector((state) => {
+		return {
+			courses: state.userCourses.userCourses,
+			currentUserId: (state.auth.user as UserAuthResponseDto).id,
+			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
+			isFollowing: state.friends.isFollowing,
+			user: state.users.user,
+			userNotFound: state.users.dataStatus === DataStatus.REJECTED,
+		};
+	});
 
 	const handleFollow = useCallback(() => {
 		void dispatch(friendsActions.follow({ id: userId }))
