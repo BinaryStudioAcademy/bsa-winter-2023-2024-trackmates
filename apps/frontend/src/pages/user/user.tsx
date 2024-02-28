@@ -28,12 +28,12 @@ const User: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const userId = Number(id);
-	const { courses, isCoursesLoading, myId, user, userNotFound } =
+	const { courses, currentUserId, isCoursesLoading, user, userNotFound } =
 		useAppSelector((state) => {
 			return {
 				courses: state.userCourses.userCourses,
+				currentUserId: (state.auth.user as UserAuthResponseDto).id,
 				isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
-				myId: (state.auth.user as UserAuthResponseDto).id,
 				user: state.users.user,
 				userNotFound: state.users.dataStatus === DataStatus.REJECTED,
 			};
@@ -67,7 +67,7 @@ const User: React.FC = () => {
 
 	const hasUser = Boolean(user);
 
-	if (userNotFound || myId === userId) {
+	if (userNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.FRIENDS} />;
 	}
 
