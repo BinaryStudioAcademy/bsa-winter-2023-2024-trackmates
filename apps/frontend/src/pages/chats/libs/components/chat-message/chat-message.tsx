@@ -14,9 +14,10 @@ const ChatMessage: React.FC<Properties> = ({
 }: Properties) => {
 	const { createdAt, senderUser, text } = message;
 
-	const contsinerClassNmaes = isCurrentUserSender
-		? getValidClassNames(styles["container"], styles["right"])
-		: getValidClassNames(styles["container"], styles["left"]);
+	const contsinerClassNmaes = getValidClassNames(
+		styles["container"],
+		styles[isCurrentUserSender ? "right" : "left"],
+	);
 
 	const sender = isCurrentUserSender
 		? "You"
