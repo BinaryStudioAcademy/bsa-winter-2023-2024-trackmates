@@ -44,6 +44,15 @@ const User: React.FC = () => {
 			state.friends.followings.some((friend) => friend.id === userId),
 		),
 	);
+
+	const isFollowingFromSelector = useAppSelector((state) =>
+		state.friends.followings.some((friend) => friend.id === userId),
+	);
+
+	useEffect(() => {
+		setIsFollowing(isFollowingFromSelector);
+	}, [isFollowingFromSelector]);
+
 	const handleFollow = useCallback(() => {
 		void dispatch(friendsActions.follow({ id: userId }))
 			.unwrap()
@@ -63,6 +72,7 @@ const User: React.FC = () => {
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
 		void dispatch(userCoursesActions.loadUserCourses(userId));
+		void dispatch(friendsActions.getFollowings());
 	}, [dispatch, userId]);
 
 	const hasUser = Boolean(user);
