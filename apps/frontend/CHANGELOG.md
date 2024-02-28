@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.9.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.9.1...frontend-v1.9.2) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** Search courses tm-55 ([#226](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/226)) ([dfb5cfd](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/dfb5cfd3a3f29c3cfca7fe8bbfc72994ca61072e))
+
+## [1.9.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.9.0...frontend-v1.9.1) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** sidebar only the button representing active page should be active tm-174 ([#182](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/182)) ([3edc05b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3edc05bd3e58480497dafd2680013821fbbfa995))
+
+## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.8.1...frontend-v1.9.0) (2024-02-28)
+
+
+### Features
+
+* **frontend:** make sidebar fixed tm-219 ([#223](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/223)) ([bd98157](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/bd98157bfe8291b6f18183c7db7d4b95b196ed84))
+
 ## [1.8.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.8.0...frontend-v1.8.1) (2024-02-27)
 
 
