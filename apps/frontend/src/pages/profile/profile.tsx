@@ -1,4 +1,4 @@
-import profileCharacter from "~/assets/img/user-details-img.png";
+import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
@@ -114,14 +114,13 @@ const Profile: React.FC = () => {
 					<div className={styles["btnWrapper"]}>
 						<Button
 							className={styles["button"]}
-							color="secondary"
 							href={AppRoute.ROOT}
 							label="Cancel"
 							size="small"
+							style="secondary"
 						/>
 						<Button
 							className={styles["button"]}
-							color="secondary"
 							label="Update"
 							size="small"
 							type="submit"

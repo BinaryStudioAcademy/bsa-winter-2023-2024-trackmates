@@ -8,13 +8,13 @@ const UserValidationMessage = {
 	FIELD_REQUIRE: "This field is required",
 	FIRST_LAST_CHARACTERS_ONLY_LETTERS:
 		"First and last characters must be letters",
-	FIRST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, hyphen and apostrophe",
+	FIRST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, 1 hyphen & 1 apostrophe",
 	FIRST_NAME_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.FIRST_NAME_MAXIMUM_LENGTH} characters`,
 	FIRST_NAME_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.FIRST_NAME_MINIMUM_LENGTH} characters`,
-	LAST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, hyphen and apostrophe",
-	LAST_NAME_MAXIMUM_LENGTH: `Last name must not be more than ${UserValidationRule.LAST_NAME_MAXIMUM_LENGTH} characters long`,
-	LAST_NAME_MINIMUM_LENGTH: `Last name must be at least ${UserValidationRule.LAST_NAME_MINIMUM_LENGTH} characters long`,
-	PASSWORD_INVALID_FORMAT: "Use only A-Z, a-z, 0-9 and special characters",
+	LAST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, 1 hyphen & 1 apostrophe",
+	LAST_NAME_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.LAST_NAME_MAXIMUM_LENGTH} characters`,
+	LAST_NAME_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.LAST_NAME_MINIMUM_LENGTH} characters`,
+	PASSWORD_INVALID_FORMAT: "Use only A-Z, a-z, 0-9 & special characters",
 	PASSWORD_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.PASSWORD_MAXIMUM_LENGTH} characters`,
 	PASSWORD_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.PASSWORD_MINIMUM_LENGTH} characters`,
 } as const;

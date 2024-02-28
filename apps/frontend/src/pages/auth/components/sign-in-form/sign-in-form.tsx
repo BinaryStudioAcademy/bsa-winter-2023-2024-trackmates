@@ -69,14 +69,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					iconName={isPasswordVisible ? "eye" : "eyeOff"}
 					label="eye-icon"
 					onClick={handleChangePasswordVisibility}
+					style="secondary"
 				/>
 			</div>
-			<Button
-				className={styles["button"]}
-				color="primary"
-				label="Log In"
-				type="submit"
-			/>
+			<Button className={styles["button"]} label="Log In" type="submit" />
 		</form>
 	);
 };

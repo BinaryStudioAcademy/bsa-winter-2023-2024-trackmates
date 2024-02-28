@@ -51,6 +51,8 @@ erDiagram
     varchar url
     varchar title
     varchar description
+    varchar image
+    varchar vendor_course_id
     int vendor_id FK
    }
 
@@ -68,6 +70,7 @@ erDiagram
     dateTime updated_at
     varchar name
     varchar key
+    varchar url
    }
 
    course_sections {
@@ -92,9 +95,8 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
-    int first_user_id FK
-    int second_user_id FK
-    bool is_invitation_accepted
+    int follower_id FK
+    int following_idFK
    }
 
    files {
@@ -105,25 +107,36 @@ erDiagram
     enum content_type
    }
 
+   chats {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int first_user_id FK
+    int second_user_id FK
+   }
+
    chat_messages {
     int id PK
     dateTime created_at
     dateTime updated_at
-    int sender_id FK
-    int receiver_id FK
-    text message
-    uuid chat_id
+    int sender_user_id FK
+    int chat_id FK
     enum status
+    text text
    }
 
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
-   users ||--|{ friends : first_user_id
-   users ||--|{ friends : second_user_id
+   users ||--|{ friends : follower_id
+   users ||--|{ friends : following_id
 
-   users ||--|{ chat_messages : sender_id
-   users ||--|{ chat_messages : receiver_id
+   users ||--|{ chats : first_user_id
+   users ||--|{ chats : second_user_id
+
+   chats ||--|{ chat_messages : chat_id
+
+   users ||--|{ chat_messages : sender_user_id
 
    users ||--|{ courses_to_users : user_id
    courses ||--|{ courses_to_users : course_id

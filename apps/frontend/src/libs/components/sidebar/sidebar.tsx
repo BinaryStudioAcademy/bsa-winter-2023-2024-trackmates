@@ -1,7 +1,8 @@
-import logo from "~/assets/img/website-logo.png";
+import logo from "~/assets/img/sidebar-logo.svg";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useCallback, useLocation, useState } from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
+import { actions as authActions } from "~/modules/auth/auth.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
@@ -15,13 +16,16 @@ type Properties = {
 };
 
 const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
+	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
-
-	const location = useLocation();
 
 	const handleToggleSidebar = useCallback(() => {
 		setOpen((isOpen) => !isOpen);
 	}, []);
+
+	const handleLogOut = useCallback(() => {
+		void dispatch(authActions.logOut());
+	}, [dispatch]);
 
 	return (
 		<>
@@ -34,6 +38,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				iconName="burger"
 				label="burger-button"
 				onClick={handleToggleSidebar}
+				style="secondary"
 			/>
 			<div
 				className={getValidClassNames(
@@ -46,30 +51,30 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 				</Link>
 				<nav className={styles["menu"]}>
 					{menuItems.map(({ href, icon, label }) => (
-						<>
-							<Button
-								className={styles["menu-item"]}
-								href={href}
-								iconName={icon}
-								key={label}
-								label={label}
-							/>
-							<Link
-								className={getValidClassNames(
-									styles["bottom-menu"],
-									href === location.pathname ? styles["active"] : "",
-								)}
-								to={href}
-							>
-								{" "}
-								<span className={styles["menu-icon"]}>
-									<Icon name={icon} />
-								</span>
-								<span>{label}</span>
-							</Link>
-						</>
+						<Link
+							activeClassName={styles["active"]}
+							className={getValidClassNames(
+								styles["bottom-menu"],
+								styles["menu-item"],
+							)}
+							key={label}
+							to={href}
+						>
+							{" "}
+							<span className={styles["menu-icon"]}>
+								<Icon name={icon} />
+							</span>
+							<span className={styles["link-title"]}>{label}</span>
+						</Link>
 					))}
 				</nav>
+				<Button
+					className={styles["log-out-btn"]}
+					iconName="logOut"
+					label="Log Out"
+					onClick={handleLogOut}
+					style="plain"
+				/>
 			</div>
 			<BlurredBackground
 				className={styles["blurred-background"]}

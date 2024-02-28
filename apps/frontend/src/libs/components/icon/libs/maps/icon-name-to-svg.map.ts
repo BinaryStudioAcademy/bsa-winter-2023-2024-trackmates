@@ -1,11 +1,14 @@
-import AddIcon from "~/assets/img/svg/add.svg?react";
-import BurgerIcon from "~/assets/img/svg/burger.svg?react";
-import CrossIcon from "~/assets/img/svg/cross.svg?react";
-import EyeIcon from "~/assets/img/svg/eye.svg?react";
-import EyeOffIcon from "~/assets/img/svg/eye-off.svg?react";
-import HomeIcon from "~/assets/img/svg/home.svg?react";
-import PieIcon from "~/assets/img/svg/pie.svg?react";
-import PlusIcon from "~/assets/img/svg/plus.svg?react";
+import AddIcon from "~/assets/icons/add.svg?react";
+import BurgerIcon from "~/assets/icons/burger.svg?react";
+import CrossIcon from "~/assets/icons/cross.svg?react";
+import EyeIcon from "~/assets/icons/eye.svg?react";
+import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
+import HomeIcon from "~/assets/icons/home.svg?react";
+import LogOutIcon from "~/assets/icons/log-out.svg?react";
+import PieIcon from "~/assets/icons/pie.svg?react";
+import PlusIcon from "~/assets/icons/plus.svg?react";
+import PlusOutlinedIcon from "~/assets/icons/plus-outlined.svg?react";
+import SearchIcon from "~/assets/icons/search.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -18,8 +21,11 @@ const iconNameToSvg: Record<
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
+	logOut: LogOutIcon,
 	pie: PieIcon,
 	plus: PlusIcon,
+	plusOutlined: PlusOutlinedIcon,
+	search: SearchIcon,
 };
 
 export { iconNameToSvg };

@@ -1,6 +1,5 @@
 .actions {
 	display: flex;
-	flex: 1;
 	gap: 24px;
 	align-items: center;
 	min-height: 60px;
@@ -29,13 +28,16 @@
 }
 
 .card-content {
+	flex-grow: 1;
 	padding: 12px;
 }
 
 .fullName {
+	overflow: hidden;
 	font-size: var(--font-size-300);
 	font-weight: 500;
 	color: var(--color-text-300);
+	text-overflow: ellipsis;
 }
 
 .portrait {

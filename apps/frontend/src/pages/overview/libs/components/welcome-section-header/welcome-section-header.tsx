@@ -1,14 +1,18 @@
-import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
+import welcomeCharacter from "~/assets/img/welcome-character.svg";
 import { Button } from "~/libs/components/components.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
+	onAddCourseClick: () => void;
 	user: UserAuthResponseDto;
 };
 
-const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
+const WelcomeHeader: React.FC<Properties> = ({
+	onAddCourseClick,
+	user,
+}: Properties) => {
 	return (
 		<header className={styles["welcome-section-header"]}>
 			<div className={styles["welcome-section-header-content"]}>
@@ -32,6 +36,7 @@ const WelcomeHeader: React.FC<Properties> = ({ user }: Properties) => {
 					className={styles["add-course-button"]}
 					iconName="plus"
 					label="Add course"
+					onClick={onAddCourseClick}
 				/>
 			</div>
 		</header>
