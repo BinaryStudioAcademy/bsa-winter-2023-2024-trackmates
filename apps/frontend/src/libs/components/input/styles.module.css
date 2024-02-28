@@ -46,6 +46,12 @@
 	transition: background-color 1s 5000s;
 }
 
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+	box-shadow: 0 0 0 1000px var(--color-background) inset;
+}
+
 .light {
 	color: var(--color-text-200);
 	background-color: var(--color-background);

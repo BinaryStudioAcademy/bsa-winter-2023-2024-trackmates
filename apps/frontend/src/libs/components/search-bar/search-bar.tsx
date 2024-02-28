@@ -1,3 +1,5 @@
+import { type FormEvent } from "react";
+
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -14,6 +16,10 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Input } from "../input/input.js";
 import styles from "./styles.module.css";
+
+const handleFormSubmit = (event_: FormEvent<HTMLFormElement>): void => {
+	event_.preventDefault();
+};
 
 const SearchBar: React.FC = () => {
 	const { user } = useAppSelector((state) => ({
@@ -47,7 +53,11 @@ const SearchBar: React.FC = () => {
 	);
 
 	return (
-		<form className={styles["form"]} onChange={handleDebouncedSearchCourses}>
+		<form
+			className={styles["form"]}
+			onChange={handleDebouncedSearchCourses}
+			onSubmit={handleFormSubmit}
+		>
 			<Input
 				className={styles["search"]}
 				color="light"

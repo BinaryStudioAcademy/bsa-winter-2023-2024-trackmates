@@ -47,15 +47,14 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					className={styles["portrait"]}
 					src={friendImage}
 				/>
-				<p
-					className={styles["fullName"]}
-				>{`${friend.firstName} ${friend.lastName}`}</p>
+				<p className={styles["fullName"]}>
+					{friend.firstName} {friend.lastName}
+				</p>
 			</div>
 
 			<div className={styles["actions"]}>
 				<Button
 					className={styles["button"]}
-					color="primary"
 					iconName={isFollowing ? "cross" : "add"}
 					label={isFollowing ? "Following" : "Follow"}
 					onClick={isFollowing ? handleUnfollow : handleFollow}
