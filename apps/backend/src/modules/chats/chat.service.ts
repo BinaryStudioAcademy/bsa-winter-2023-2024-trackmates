@@ -79,25 +79,17 @@ class ChatService implements Service {
 		return createdChat.toObjectWithMessages(userId);
 	}
 
-	public async delete({
-		id,
-		userId,
-	}: {
-		id: number;
-		userId: number;
-	}): Promise<boolean> {
-		const { firstUser, secondUser } = await this.find(id);
+	public async delete(id: number): Promise<boolean> {
+		const chatById = await this.chatRepository.find(id);
 
-		if (userId !== firstUser.id && userId !== secondUser.id) {
+		if (!chatById) {
 			throw new ChatError({
 				message: ExceptionMessage.CHAT_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
 
-		void (await this.chatRepository.delete(id));
-
-		return true;
+		return await this.chatRepository.delete(id);
 	}
 
 	public async find(id: number): Promise<ChatResponseDto> {
@@ -160,7 +152,14 @@ class ChatService implements Service {
 			secondUserId,
 		}: { firstUserId: number; secondUserId: number },
 	): Promise<ChatResponseDto> {
-		void (await this.find(id));
+		const chatById = await this.chatRepository.find(id);
+
+		if (!chatById) {
+			throw new ChatError({
+				message: ExceptionMessage.CHAT_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
 
 		const firstUser = await this.userRepository.findById(firstUserId);
 		const secondUser = await this.userRepository.findById(secondUserId);

@@ -172,23 +172,15 @@ class ChatController extends BaseController {
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
+	 *                type: boolean
 	 */
 	private async delete({
 		params,
-		user,
 	}: APIHandlerOptions<{
 		params: Record<"chatId", number>;
-		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatService.delete({
-				id: params.chatId,
-				userId: user.id,
-			}),
+			payload: await this.chatService.delete(params.chatId),
 			status: HTTPCode.OK,
 		};
 	}
