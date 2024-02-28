@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.9.2...frontend-v1.9.3) (2024-02-28)
+
+
+### Bug Fixes
+
+* **frontend:** background color for auth on autofill tm-233 ([#236](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/236)) ([5373b66](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5373b66163174a7bbff75f967155f5ee98afcb63))
+
 ## [1.9.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.9.1...frontend-v1.9.2) (2024-02-28)
 
 
