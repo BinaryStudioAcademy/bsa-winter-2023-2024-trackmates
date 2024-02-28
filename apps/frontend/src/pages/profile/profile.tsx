@@ -5,15 +5,8 @@ import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
-	useBlocker,
 	useCallback,
-	useEffect,
-	useState,
 } from "~/libs/hooks/hooks.js";
-import {
-	NotificationMessage,
-	notification,
-} from "~/libs/modules/notification/notification.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
@@ -30,8 +23,6 @@ const Profile: React.FC = () => {
 	});
 	const dispatch = useAppDispatch();
 
-	let [value, setValue] = useState<string>("");
-
 	const { control, errors, handleSubmit, reset } =
 		useAppForm<UserProfileRequestDto>({
 			defaultValues: {
@@ -40,14 +31,6 @@ const Profile: React.FC = () => {
 			},
 			validationSchema: userProfileValidationSchema,
 		});
-
-	const handleOnChange = useCallback(
-		(event: React.BaseSyntheticEvent): void => {
-			let inputElement = event.target as HTMLInputElement;
-			setValue(inputElement.value);
-		},
-		[],
-	);
 
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -85,27 +68,11 @@ const Profile: React.FC = () => {
 		reset();
 	}, [reset]);
 
-	let blocker = useBlocker(
-		({ currentLocation, nextLocation }) =>
-			value !== "" && currentLocation.pathname !== nextLocation.pathname,
-	);
-
-	useEffect(() => {
-		if (blocker.state === "blocked") {
-			notification.warning(NotificationMessage.PROFILE_CHANGES_NOT_SAVED);
-			blocker.reset();
-		}
-	}, [blocker]);
-
 	return (
 		<>
 			<div className={styles["container"]}>
 				<span className={styles["profile-title"]}>My profile</span>
-				<form
-					name="profile"
-					onChange={handleOnChange}
-					onSubmit={handleFormSubmit}
-				>
+				<form name="profile" onSubmit={handleFormSubmit}>
 					<div className={styles["avatar-container"]}>
 						<div className={styles["profile-image-wrapper"]}>
 							<Image
