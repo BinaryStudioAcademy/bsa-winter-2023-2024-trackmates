@@ -1,5 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
-import { type ChatMessageEntity } from "~/modules/chat-messages/chat-message.js";
+import { type ChatMessageEntity } from "~/modules/chat-messages/chat-messages.js";
 import { type UserEntity } from "~/modules/users/users.js";
 
 import {

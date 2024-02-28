@@ -1,9 +1,9 @@
 import { type Repository } from "~/libs/types/types.js";
 import {
 	ChatMessageEntity,
+	type ChatMessageModel,
 	MessageStatus,
-} from "~/modules/chat-messages/chat-message.js";
-import { type ChatMessageModel } from "~/modules/chat-messages/chat-message.js";
+} from "~/modules/chat-messages/chat-messages.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";
