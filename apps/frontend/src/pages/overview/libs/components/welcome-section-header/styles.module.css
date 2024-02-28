@@ -77,7 +77,7 @@
 	color: var(--main-white);
 }
 
-@media screen and (--big-screen) {
+@media screen and (--large-screen) {
 	.image {
 		width: 100%;
 		height: auto;

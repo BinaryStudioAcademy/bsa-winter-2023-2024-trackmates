@@ -89,7 +89,7 @@
 	left: 12px;
 }
 
-@media screen and (--big-screen) {
+@media screen and (--large-screen) {
 	.sign-in::before,
 	.sign-up::before {
 		display: none;

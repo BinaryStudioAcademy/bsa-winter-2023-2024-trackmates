@@ -18,7 +18,7 @@
 	font-size: var(--font-size-400);
 }
 
-@media screen and (--big-screen) {
+@media screen and (--large-screen) {
 	.container {
 		padding: 15px 20px;
 	}

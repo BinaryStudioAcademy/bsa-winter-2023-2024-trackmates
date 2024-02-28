@@ -19,7 +19,7 @@
 	box-shadow: 3px 11px 22px -14px #00000080;
 }
 
-@media screen and (--big-screen) {
+@media screen and (--large-screen) {
 	.friends {
 		grid-template-columns: repeat(3, 1fr);
 	}

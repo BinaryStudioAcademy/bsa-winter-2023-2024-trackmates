@@ -84,7 +84,7 @@
 	justify-content: flex-start;
 }
 
-@media screen and (--big-screen) {
+@media screen and (--large-screen) {
 	.menu-item {
 		width: 100%;
 		transition: 0.3s;

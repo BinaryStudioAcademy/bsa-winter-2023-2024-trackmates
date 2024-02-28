@@ -13,7 +13,7 @@
 	background-color: var(--color-background);
 }
 
-@media screen and (--big-screen) {
+@media screen and (--large-screen) {
 	.page {
 		padding-left: 100px;
 	}
