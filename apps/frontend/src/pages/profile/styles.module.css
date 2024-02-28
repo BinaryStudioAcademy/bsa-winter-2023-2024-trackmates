@@ -1,3 +1,5 @@
+@import url("~/assets/css/styles.css");
+
 .container {
 	position: relative;
 	display: flex;
@@ -90,7 +92,7 @@
 	transform: translateY(-50%);
 }
 
-@media screen and (width <= 768px) {
+@media screen and (--medium-screen) {
 	.profile-character {
 		display: none;
 	}

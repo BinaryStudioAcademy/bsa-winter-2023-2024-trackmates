@@ -1,3 +1,5 @@
+@import url("~/assets/css/styles.css");
+
 .page-layout {
 	display: flex;
 	flex-grow: 1;
@@ -11,13 +13,13 @@
 	background-color: var(--color-background);
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (--big-screen) {
 	.page {
 		padding-left: 100px;
 	}
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.page {
 		padding: 0;
 	}

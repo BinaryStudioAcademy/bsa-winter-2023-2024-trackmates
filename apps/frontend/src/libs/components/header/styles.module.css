@@ -1,3 +1,5 @@
+@import url("~/assets/css/styles.css");
+
 .header {
 	box-sizing: border-box;
 	display: flex;
@@ -17,7 +19,7 @@
 	justify-content: space-between;
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.header {
 		width: calc(100% - 40px);
 		max-height: 55px;

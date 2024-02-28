@@ -1,4 +1,6 @@
 import reactPlugin from "@vitejs/plugin-react";
+import browserslist from "browserslist";
+import { Features, browserslistToTargets } from "lightningcss";
 import { fileURLToPath } from "node:url";
 import { type ConfigEnv, defineConfig, loadEnv } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
@@ -68,7 +70,23 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 
 	return defineConfig({
 		build: {
+			cssMinify: "lightningcss",
 			outDir: "build",
+		},
+		css: {
+			lightningcss: {
+				drafts: {
+					customMedia: true,
+				},
+				include:
+					Features.MediaQueries |
+					Features.Nesting |
+					Features.CustomMediaQueries,
+				targets: browserslistToTargets(
+					browserslist(["last 2 version", "not dead"]),
+				),
+			},
+			transformer: "lightningcss",
 		},
 		plugins: [reactPlugin(), svgr(), vitePWA],
 		resolve: {

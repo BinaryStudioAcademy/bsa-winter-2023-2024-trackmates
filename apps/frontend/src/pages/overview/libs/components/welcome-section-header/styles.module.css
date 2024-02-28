@@ -1,3 +1,5 @@
+@import url("~/assets/css/styles.css");
+
 .welcome-section-header {
 	position: relative;
 	display: flex;
@@ -134,7 +136,7 @@
 	}
 }
 
-@media screen and (width <= 768px) {
+@media screen and (--medium-screen) {
 	.welcome-character {
 		display: none;
 	}
@@ -172,7 +174,7 @@
 	}
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.welcome-section-header {
 		padding: 15px 10px;
 	}
