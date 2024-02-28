@@ -1,4 +1,7 @@
-export { MAX_FILE_SIZE_IN_MB } from "./libs/constants/constants.js";
+export {
+	EMPTY_ARRAY_LENGTH,
+	MAX_FILE_SIZE_IN_MB,
+} from "./libs/constants/constants.js";
 export {
 	APIPath,
 	AppEnvironment,
@@ -32,6 +35,26 @@ export {
 	type ValueOf,
 } from "./libs/types/types.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	type ChatMessageCreateRequestDto,
+	type ChatMessageItemResponseDto,
+	type ChatMessageUpdateRequestDto,
+	ChatMessagesApiPath,
+	MessageStatus,
+	chatMessageCreateValidationSchema,
+	chatMessageIdParameterValidationSchema,
+	chatMessageUpdateValidationSchema,
+} from "./modules/chat-messages/chat-messages.js";
+export {
+	type ChatCreateRequestDto,
+	ChatError,
+	type ChatGetAllItemResponseDto,
+	type ChatItemResponseDto,
+	type ChatResponseDto,
+	ChatsApiPath,
+	chatCreateValidationSchema,
+	chatIdParameterValidationSchema,
+} from "./modules/chats/chats.js";
 export {
 	type CourseSectionAddRequestDto,
 	type CourseSectionDto,
