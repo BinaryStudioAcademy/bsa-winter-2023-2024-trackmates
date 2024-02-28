@@ -139,7 +139,7 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    post:
 	 *      tags:
-	 *        - Course
+	 *        - Courses
 	 *      description: Fetch course from vendor API and add for user in DB
 	 *      security:
 	 *        - bearerAuth: []
@@ -181,7 +181,7 @@ class CourseController extends BaseController {
 	 * /courses/{id}:
 	 *    delete:
 	 *      tags:
-	 *        - Course
+	 *        - Courses
 	 *      description: Delete course by id
 	 *      security:
 	 *        - bearerAuth: []
@@ -222,7 +222,7 @@ class CourseController extends BaseController {
 	 * /courses/{id}:
 	 *    get:
 	 *      tags:
-	 *        - Course
+	 *        - Courses
 	 *      security:
 	 *        - bearerAuth: []
 	 *      parameters:
@@ -259,7 +259,7 @@ class CourseController extends BaseController {
 	 * /courses:
 	 *    get:
 	 *      tags:
-	 *        - Course
+	 *        - Courses
 	 *      description: Return courses from vendors APIs
 	 *      security:
 	 *        - bearerAuth: []
@@ -309,7 +309,7 @@ class CourseController extends BaseController {
 	 * /courses/recommended:
 	 *    get:
 	 *      tags:
-	 *        - Course
+	 *        - Courses
 	 *      description: Return recommended courses
 	 *      security:
 	 *        - bearerAuth: []
@@ -359,7 +359,7 @@ class CourseController extends BaseController {
 	 * /courses/{id}:
 	 *    put:
 	 *      tags:
-	 *        - Course
+	 *        - Courses
 	 *      description: Update course from vendor API and save it in DB
 	 *      security:
 	 *        - bearerAuth: []
