@@ -34,6 +34,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			sourceUserFirstName: createdNotification.sourceUser.userDetails.firstName,
 			sourceUserId: createdNotification.sourceUserId,
 			sourceUserLastName: createdNotification.sourceUser.userDetails.lastName,
+			status: createdNotification.status,
 			updatedAt: createdNotification.updatedAt,
 			userId: createdNotification.userId,
 		});
@@ -66,6 +67,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					sourceUserFirstName: notification.sourceUser.userDetails.firstName,
 					sourceUserId: notification.sourceUserId,
 					sourceUserLastName: notification.sourceUser.userDetails.lastName,
+					status: notification.status,
 					updatedAt: notification.updatedAt,
 					userId: notification.userId,
 				})
@@ -90,6 +92,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				sourceUserFirstName: notification.sourceUser.userDetails.firstName,
 				sourceUserId: notification.sourceUserId,
 				sourceUserLastName: notification.sourceUser.userDetails.lastName,
+				status: notification.status,
 				updatedAt: notification.updatedAt,
 				userId: notification.userId,
 			}),
@@ -116,39 +119,11 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				sourceUserFirstName: notification.sourceUser.userDetails.firstName,
 				sourceUserId: notification.sourceUserId,
 				sourceUserLastName: notification.sourceUser.userDetails.lastName,
+				status: notification.status,
 				updatedAt: notification.updatedAt,
 				userId: notification.userId,
 			}),
 		);
-	}
-
-	public async findUserNotification(
-		userId: number,
-		notificationId: number,
-	): Promise<NotificationEntity | null> {
-		const notification = await this.notificationModel
-			.query()
-			.findById(notificationId)
-			.withGraphFetched(
-				`${RelationName.SOURCE_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
-			)
-			.where("userId", "=", userId)
-			.execute();
-
-		return notification
-			? NotificationEntity.initialize({
-					createdAt: notification.createdAt,
-					id: notification.id,
-					message: notification.message,
-					sourceUserAvatarUrl:
-						notification.sourceUser.userDetails.avatarFile?.url ?? null,
-					sourceUserFirstName: notification.sourceUser.userDetails.firstName,
-					sourceUserId: notification.sourceUserId,
-					sourceUserLastName: notification.sourceUser.userDetails.lastName,
-					updatedAt: notification.updatedAt,
-					userId: notification.userId,
-				})
-			: null;
 	}
 
 	public async update(
@@ -172,6 +147,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			sourceUserFirstName: updatedNotification.sourceUser.userDetails.firstName,
 			sourceUserId: updatedNotification.sourceUserId,
 			sourceUserLastName: updatedNotification.sourceUser.userDetails.lastName,
+			status: updatedNotification.status,
 			updatedAt: updatedNotification.updatedAt,
 			userId: updatedNotification.userId,
 		});

@@ -1,3 +1,39 @@
 .page {
+	display: flex;
 	flex-grow: 1;
+	padding: 10px 30px;
+	overflow: hidden;
+}
+
+.content {
+	flex-grow: 1;
+}
+
+.title {
+	margin: 0;
+	margin-bottom: 10px;
+	font-size: var(--font-size-400);
+	font-weight: 600;
+}
+
+.notification-character {
+	position: relative;
+	z-index: 1;
+	width: 300px;
+	height: auto;
+}
+
+.background {
+	position: relative;
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: center;
+}
+
+.star {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background-color: var(--color-menu);
 }

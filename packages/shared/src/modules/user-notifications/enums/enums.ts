@@ -1,1 +1,1 @@
-export { UserNotificationsApiPath } from "./user-notifications-api-path.js";
+export { UserNotificationsApiPath } from "./user-notifications-api-path.enum.js";

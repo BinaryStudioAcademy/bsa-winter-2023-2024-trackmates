@@ -26,6 +26,7 @@ class NotificationService implements Service {
 			NotificationEntity.initializeNew({
 				message,
 				sourceUserId,
+				status: "unread",
 				userId,
 			}),
 		);
@@ -37,26 +38,6 @@ class NotificationService implements Service {
 		const notification = await this.notificationRepository.find(notificationId);
 
 		if (!notification) {
-			throw new NotificationError({
-				message: ExceptionMessage.NOTIFICATION_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
-		}
-
-		return await this.notificationRepository.delete(notificationId);
-	}
-
-	public async deleteUserNotification(
-		userId: number,
-		notificationId: number,
-	): Promise<boolean> {
-		const userNotification =
-			await this.notificationRepository.findUserNotification(
-				userId,
-				notificationId,
-			);
-
-		if (!userNotification) {
 			throw new NotificationError({
 				message: ExceptionMessage.NOTIFICATION_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
@@ -111,11 +92,16 @@ class NotificationService implements Service {
 			});
 		}
 
-		const { message, sourceUserId, userId } = payload;
+		const { message, sourceUserId, status, userId } = payload;
 
 		const updatedNotification = await this.notificationRepository.update(
 			notificationId,
-			NotificationEntity.initializeNew({ message, sourceUserId, userId }),
+			NotificationEntity.initializeNew({
+				message,
+				sourceUserId,
+				status,
+				userId,
+			}),
 		);
 
 		return updatedNotification.toObject();

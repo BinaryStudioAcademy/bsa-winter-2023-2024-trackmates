@@ -5,6 +5,11 @@ const TableName = {
 	USERS: "users",
 };
 
+const NotificationStatus = {
+	READ: "read",
+	UNREAD: "unread",
+} as const;
+
 const DELETE_STRATEGY = "CASCADE";
 
 const ColumnName = {
@@ -13,6 +18,7 @@ const ColumnName = {
 	MESSAGE: "message",
 	SOURCE_TYPE: "source_type",
 	SOURCE_USER_ID: "source_user_id",
+	STATUS: "status",
 	UPDATED_AT: "updated_at",
 	USER_ID: "user_id",
 } as const;
@@ -32,6 +38,13 @@ function up(knex: Knex): Promise<void> {
 			.references(ColumnName.ID)
 			.inTable(TableName.USERS);
 		table.enum(ColumnName.SOURCE_TYPE, ["user", "system"]);
+		table
+			.enum(ColumnName.STATUS, [
+				NotificationStatus.READ,
+				NotificationStatus.UNREAD,
+			])
+			.defaultTo(NotificationStatus.UNREAD)
+			.notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()

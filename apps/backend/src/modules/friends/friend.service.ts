@@ -55,6 +55,7 @@ class FriendService {
 		await this.notificationService.create({
 			message: NotificationMessage.NEW_FOLLOWER_MESSAGE,
 			sourceUserId: followerUserId,
+			status: "unread",
 			userId: followingUserId,
 		});
 

@@ -29,36 +29,6 @@ class UserNotificationController extends BaseController {
 			method: "GET",
 			path: UserNotificationsApiPath.ROOT,
 		});
-
-		this.addRoute({
-			handler: (options) =>
-				this.deleteUserNotification(
-					options as APIHandlerOptions<{
-						params: {
-							notificationId: string;
-						};
-						user: UserAuthResponseDto;
-					}>,
-				),
-			method: "DELETE",
-			path: UserNotificationsApiPath.$ID,
-		});
-	}
-
-	public async deleteUserNotification({
-		params,
-		user,
-	}: APIHandlerOptions<{
-		params: { notificationId: string };
-		user: UserAuthResponseDto;
-	}>): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.notificationService.deleteUserNotification(
-				user.id,
-				Number(params.notificationId),
-			),
-			status: HTTPCode.OK,
-		};
 	}
 
 	public async getNotificationsByUserId(

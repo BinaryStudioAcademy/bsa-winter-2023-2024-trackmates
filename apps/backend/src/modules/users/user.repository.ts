@@ -49,6 +49,7 @@ class UserRepository implements Repository<UserEntity> {
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
+			hasUnreadNotifications: false,
 			id: user.id,
 			lastName: userDetails.lastName,
 			passwordHash: user.passwordHash,
@@ -64,6 +65,14 @@ class UserRepository implements Repository<UserEntity> {
 	public async find(userId: number): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
+			.select(
+				"*",
+				this.userModel
+					.relatedQuery(RelationName.NOTIFICAIONS)
+					.where("status", "=", "unread")
+					.count()
+					.as("unreadNotifcationsCount"),
+			)
 			.findById(userId)
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -76,6 +85,7 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					passwordHash: user.passwordHash,
@@ -99,6 +109,7 @@ class UserRepository implements Repository<UserEntity> {
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
+				hasUnreadNotifications: false,
 				id: user.id,
 				lastName: user.userDetails.lastName,
 				passwordHash: user.passwordHash,
@@ -111,6 +122,14 @@ class UserRepository implements Repository<UserEntity> {
 	public async findById(id: number): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
+			.select(
+				"*",
+				this.userModel
+					.relatedQuery(RelationName.NOTIFICAIONS)
+					.where("status", "=", "unread")
+					.count()
+					.as("unreadNotifcationsCount"),
+			)
 			.findById(id)
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -123,6 +142,7 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					passwordHash: user.passwordHash,
@@ -135,6 +155,14 @@ class UserRepository implements Repository<UserEntity> {
 	public async getByEmail(email: string): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
+			.select(
+				"*",
+				this.userModel
+					.relatedQuery(RelationName.NOTIFICAIONS)
+					.where("status", "=", "unread")
+					.count()
+					.as("unreadNotifcationsCount"),
+			)
 			.findOne({ email })
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -147,6 +175,7 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					passwordHash: user.passwordHash,
@@ -171,6 +200,14 @@ class UserRepository implements Repository<UserEntity> {
 
 		const user = await this.userModel
 			.query()
+			.select(
+				"*",
+				this.userModel
+					.relatedQuery(RelationName.NOTIFICAIONS)
+					.where("status", "=", "unread")
+					.count()
+					.as("unreadNotifcationsCount"),
+			)
 			.findById(userId)
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -183,6 +220,7 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					passwordHash: user.passwordHash,

@@ -72,6 +72,7 @@ export {
 	NotificationError,
 	type NotificationRequestDto,
 	type NotificationResponseDto,
+	NotificationStatus,
 } from "./modules/notifications/notifications.js";
 export {
 	UserCoursesApiPath,

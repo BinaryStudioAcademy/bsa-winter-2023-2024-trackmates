@@ -1,4 +1,6 @@
-import { type Entity } from "~/libs/types/types.js";
+import { type Entity, type ValueOf } from "~/libs/types/types.js";
+
+import { type NotificationStatus } from "./libs/enums/enums.js";
 
 class NotificationEntity implements Entity {
 	private createdAt: string;
@@ -15,6 +17,8 @@ class NotificationEntity implements Entity {
 
 	private sourceUserLastName: null | string;
 
+	private status: ValueOf<typeof NotificationStatus>;
+
 	private updatedAt: string;
 
 	private userId: number;
@@ -27,6 +31,7 @@ class NotificationEntity implements Entity {
 		sourceUserFirstName,
 		sourceUserId,
 		sourceUserLastName,
+		status,
 		updatedAt,
 		userId,
 	}: {
@@ -37,6 +42,7 @@ class NotificationEntity implements Entity {
 		sourceUserFirstName: null | string;
 		sourceUserId: number;
 		sourceUserLastName: null | string;
+		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
 		userId: number;
 	}) {
@@ -47,6 +53,7 @@ class NotificationEntity implements Entity {
 		this.sourceUserFirstName = sourceUserFirstName;
 		this.sourceUserId = sourceUserId;
 		this.sourceUserLastName = sourceUserLastName;
+		this.status = status;
 		this.updatedAt = updatedAt;
 		this.userId = userId;
 	}
@@ -59,6 +66,7 @@ class NotificationEntity implements Entity {
 		sourceUserFirstName,
 		sourceUserId,
 		sourceUserLastName,
+		status,
 		updatedAt,
 		userId,
 	}: {
@@ -69,6 +77,7 @@ class NotificationEntity implements Entity {
 		sourceUserFirstName: string;
 		sourceUserId: number;
 		sourceUserLastName: string;
+		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
 		userId: number;
 	}): NotificationEntity {
@@ -80,6 +89,7 @@ class NotificationEntity implements Entity {
 			sourceUserFirstName,
 			sourceUserId,
 			sourceUserLastName,
+			status,
 			updatedAt,
 			userId,
 		});
@@ -88,10 +98,12 @@ class NotificationEntity implements Entity {
 	public static initializeNew({
 		message,
 		sourceUserId,
+		status,
 		userId,
 	}: {
 		message: string;
 		sourceUserId: number;
+		status: ValueOf<typeof NotificationStatus>;
 		userId: number;
 	}): NotificationEntity {
 		return new NotificationEntity({
@@ -102,6 +114,7 @@ class NotificationEntity implements Entity {
 			sourceUserFirstName: null,
 			sourceUserId,
 			sourceUserLastName: null,
+			status,
 			updatedAt: "",
 			userId,
 		});
@@ -111,6 +124,7 @@ class NotificationEntity implements Entity {
 		createdAt: string;
 		message: string;
 		sourceUserId: number;
+		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
 		userId: number;
 	} {
@@ -118,6 +132,7 @@ class NotificationEntity implements Entity {
 			createdAt: this.createdAt,
 			message: this.message,
 			sourceUserId: this.sourceUserId,
+			status: this.status,
 			updatedAt: this.updatedAt,
 			userId: this.userId,
 		};
@@ -131,6 +146,7 @@ class NotificationEntity implements Entity {
 		sourceUserFirstName: string;
 		sourceUserId: number;
 		sourceUserLastName: string;
+		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
 		userId: number;
 	} {
@@ -142,13 +158,17 @@ class NotificationEntity implements Entity {
 			sourceUserFirstName: this.sourceUserFirstName as string,
 			sourceUserId: this.sourceUserId,
 			sourceUserLastName: this.sourceUserLastName as string,
+			status: this.status,
 			updatedAt: this.updatedAt,
 			userId: this.userId,
 		};
 	}
 
-	public toUpdateObject(): { message: string } {
-		return { message: this.message };
+	public toUpdateObject(): {
+		message: string;
+		status: ValueOf<typeof NotificationStatus>;
+	} {
+		return { message: this.message, status: this.status };
 	}
 }
 

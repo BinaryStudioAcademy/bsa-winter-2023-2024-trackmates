@@ -6,6 +6,7 @@ type IconName =
 	| "eyeOff"
 	| "home"
 	| "logOut"
+	| "notificationBell"
 	| "pie"
 	| "plus"
 	| "plusOutlined"

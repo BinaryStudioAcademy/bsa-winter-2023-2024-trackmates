@@ -5,6 +5,7 @@ import EyeIcon from "~/assets/img/svg/eye.svg?react";
 import EyeOffIcon from "~/assets/img/svg/eye-off.svg?react";
 import HomeIcon from "~/assets/img/svg/home.svg?react";
 import LogOutIcon from "~/assets/img/svg/log-out.svg?react";
+import NotificationBell from "~/assets/img/svg/notification-bell.svg?react";
 import PieIcon from "~/assets/img/svg/pie.svg?react";
 import PlusIcon from "~/assets/img/svg/plus.svg?react";
 import PlusOutlinedIcon from "~/assets/img/svg/plus-outlined.svg?react";
@@ -22,6 +23,7 @@ const iconNameToSvg: Record<
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
 	logOut: LogOutIcon,
+	notificationBell: NotificationBell,
 	pie: PieIcon,
 	plus: PlusIcon,
 	plusOutlined: PlusOutlinedIcon,
