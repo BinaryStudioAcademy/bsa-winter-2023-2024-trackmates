@@ -13,6 +13,8 @@ class UserEntity implements Entity {
 
 	private lastName: string;
 
+	private nickname: null | string;
+
 	private passwordHash: string;
 
 	private passwordSalt: string;
@@ -26,6 +28,7 @@ class UserEntity implements Entity {
 		firstName,
 		id,
 		lastName,
+		nickname,
 		passwordHash,
 		passwordSalt,
 		updatedAt,
@@ -36,6 +39,7 @@ class UserEntity implements Entity {
 		firstName: string;
 		id: null | number;
 		lastName: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -45,6 +49,7 @@ class UserEntity implements Entity {
 		this.createdAt = createdAt;
 		this.id = id;
 		this.lastName = lastName;
+		this.nickname = nickname;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.passwordSalt = passwordSalt;
@@ -58,6 +63,7 @@ class UserEntity implements Entity {
 		firstName,
 		id,
 		lastName,
+		nickname,
 		passwordHash,
 		passwordSalt,
 		updatedAt,
@@ -68,6 +74,7 @@ class UserEntity implements Entity {
 		firstName: string;
 		id: number;
 		lastName: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -79,6 +86,7 @@ class UserEntity implements Entity {
 			firstName,
 			id,
 			lastName,
+			nickname,
 			passwordHash,
 			passwordSalt,
 			updatedAt,
@@ -105,6 +113,7 @@ class UserEntity implements Entity {
 			firstName,
 			id: null,
 			lastName,
+			nickname: null,
 			passwordHash,
 			passwordSalt,
 			updatedAt: "",
@@ -117,6 +126,7 @@ class UserEntity implements Entity {
 		email: string;
 		firstName: string;
 		lastName: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -127,6 +137,7 @@ class UserEntity implements Entity {
 			email: this.email,
 			firstName: this.firstName,
 			lastName: this.lastName,
+			nickname: this.nickname,
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
 			updatedAt: this.updatedAt,
@@ -140,6 +151,7 @@ class UserEntity implements Entity {
 		firstName: string;
 		id: number;
 		lastName: string;
+		nickname: null | string;
 		updatedAt: string;
 	} {
 		return {
@@ -149,6 +161,7 @@ class UserEntity implements Entity {
 			firstName: this.firstName,
 			id: this.id as number,
 			lastName: this.lastName,
+			nickname: this.nickname,
 			updatedAt: this.updatedAt,
 		};
 	}

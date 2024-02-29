@@ -55,6 +55,10 @@
 	opacity: 1;
 }
 
+.link-title {
+	line-height: normal;
+}
+
 .title-container {
 	min-height: 50px;
 }
