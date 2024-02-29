@@ -55,7 +55,7 @@
 	font-weight: 600;
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.form {
 		max-width: unset;
 		padding: 0 30px;
