@@ -406,6 +406,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/{id}/is-following:
 	 *   get:
+	 *     tags:
+	 *       - Friends
 	 *     description: Returns a boolean indicating whether current user follows another user
 	 *     security:
 	 *       - bearerAuth: []
