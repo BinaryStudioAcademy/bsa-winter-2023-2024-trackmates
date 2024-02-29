@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.10.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.10.1...backend-v1.10.2) (2024-02-29)
+
+
+### Bug Fixes
+
+* **backend:** Add Friend page tm-40  ([#253](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/253)) ([92191ce](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/92191ce579251f025acaf358f662cc0571001ba4))
+
+## [1.10.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.10.0...backend-v1.10.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **backend:** organize controllers on Swagger into corresponding sections tm-218 ([#250](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/250)) ([76ef276](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/76ef2763505f663db693317c07be117b72d3f58a))
+
 ## [1.10.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.9.0...backend-v1.10.0) (2024-02-29)
 
 
