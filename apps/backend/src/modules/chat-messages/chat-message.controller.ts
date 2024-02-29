@@ -221,7 +221,7 @@ class ChatMessageController extends BaseController {
 	 * @swagger
 	 * /chat-messages/{id}:
 	 *    get:
-	 * 	    tags:
+	 *      tags:
 	 *        - Chat messages
 	 *      security:
 	 *        - bearerAuth: []
