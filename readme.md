@@ -118,6 +118,16 @@ erDiagram
     enum status
    }
 
+   notifications {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int user_id FK
+    int source_user_id FK
+    varchar message
+    enum status
+   }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
@@ -136,6 +146,8 @@ erDiagram
    section_statuses }|--|| course_sections : course_section_id
    section_statuses }|--|| users : user_id
 
+   users ||--|{ notifications : user_id
+   users ||--|{ notifications : source_user_id
 ```
 
 ## 5. Architecture

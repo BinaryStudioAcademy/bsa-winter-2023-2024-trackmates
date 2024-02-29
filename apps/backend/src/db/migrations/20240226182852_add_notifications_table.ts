@@ -16,7 +16,6 @@ const ColumnName = {
 	CREATED_AT: "created_at",
 	ID: "id",
 	MESSAGE: "message",
-	SOURCE_TYPE: "source_type",
 	SOURCE_USER_ID: "source_user_id",
 	STATUS: "status",
 	UPDATED_AT: "updated_at",
@@ -37,7 +36,6 @@ function up(knex: Knex): Promise<void> {
 			.integer(ColumnName.SOURCE_USER_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.USERS);
-		table.enum(ColumnName.SOURCE_TYPE, ["user", "system"]);
 		table
 			.enum(ColumnName.STATUS, [
 				NotificationStatus.READ,
