@@ -33,7 +33,7 @@ const User: React.FC = () => {
 		isCoursesLoading,
 		isFollowing,
 		isUserNotFound,
-		user,
+		profileUser,
 	} = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.userCourses,
@@ -41,7 +41,7 @@ const User: React.FC = () => {
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			isFollowing: state.friends.isFollowing,
 			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
-			user: state.users.user,
+			profileUser: state.users.profileUser,
 		};
 	});
 
@@ -67,7 +67,7 @@ const User: React.FC = () => {
 		void dispatch(friendsActions.getIsFollowing(userId));
 	}, [dispatch, userId]);
 
-	const hasUser = Boolean(user);
+	const hasUser = Boolean(profileUser);
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.FRIENDS} />;
@@ -93,14 +93,17 @@ const User: React.FC = () => {
 					<Image
 						alt="avatar"
 						className={styles["profile-image"]}
-						src={(user as UserAuthResponseDto).avatarUrl ?? DEFAULT_USER_AVATAR}
+						src={
+							(profileUser as UserAuthResponseDto).avatarUrl ??
+							DEFAULT_USER_AVATAR
+						}
 					/>
 				</div>
 
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>
-						{(user as UserAuthResponseDto).firstName}{" "}
-						{(user as UserAuthResponseDto).lastName}
+						{(profileUser as UserAuthResponseDto).firstName}{" "}
+						{(profileUser as UserAuthResponseDto).lastName}
 					</p>
 					<Button
 						iconName={isFollowing ? "cross" : "add"}

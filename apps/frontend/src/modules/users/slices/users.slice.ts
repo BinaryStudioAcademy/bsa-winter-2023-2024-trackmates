@@ -8,18 +8,18 @@ import { getById } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	user: UserAuthResponseDto | null;
+	profileUser: UserAuthResponseDto | null;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	user: null,
+	profileUser: null,
 };
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(getById.fulfilled, (state, action) => {
-			state.user = action.payload;
+			state.profileUser = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getById.pending, (state) => {
