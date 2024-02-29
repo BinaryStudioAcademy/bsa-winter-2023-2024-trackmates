@@ -9,6 +9,7 @@ import {
 import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
+import { CourseActivities } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
@@ -97,6 +98,8 @@ const CourseInfo: React.FC = () => {
 							);
 						})}
 					</ul>
+
+					<CourseActivities />
 				</div>
 			</div>
 		</>
