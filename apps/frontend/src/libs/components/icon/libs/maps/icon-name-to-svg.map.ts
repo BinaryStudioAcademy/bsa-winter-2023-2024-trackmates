@@ -1,5 +1,5 @@
 import AddIcon from "~/assets/icons/add.svg?react";
-import ArrowLeftIcon from "~/assets/icons/arrow-left.svg?react";
+import BackIcon from "~/assets/icons/back.svg?react";
 import BurgerIcon from "~/assets/icons/burger.svg?react";
 import ChatsIcon from "~/assets/icons/chats.svg?react";
 import CrossIcon from "~/assets/icons/cross.svg?react";
@@ -19,7 +19,7 @@ const iconNameToSvg: Record<
 	React.FC<React.SVGProps<SVGSVGElement>>
 > = {
 	add: AddIcon,
-	arrowLeft: ArrowLeftIcon,
+	back: BackIcon,
 	burger: BurgerIcon,
 	chats: ChatsIcon,
 	cross: CrossIcon,

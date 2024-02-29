@@ -1,5 +1,5 @@
 import friendImage from "~/assets/img/friend.jpeg";
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Image, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -8,6 +8,7 @@ import {
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -55,16 +56,19 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 
 	return (
 		<article className={styles["card"]}>
-			<div className={styles["card-content"]}>
+			<Link
+				className={styles["card-content"]}
+				to={`/users/${friend.id}` as ValueOf<typeof AppRoute>}
+			>
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
 					src={friendImage}
 				/>
-				<p className={styles["fullName"]}>
-					{friend.firstName} {friend.lastName}
-				</p>
-			</div>
+				<p
+					className={styles["fullName"]}
+				>{`${friend.firstName} ${friend.lastName}`}</p>
+			</Link>
 
 			<div className={styles["actions"]}>
 				<Button

@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.16.1...v1.17.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/shared/backend:** Add Friend page tm-40 ([#207](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/207)) ([4aef46b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4aef46b66ac39cf2d164c74e1fdce10461b0cd04))
+
+## [1.16.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.16.0...v1.16.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **frontend:** make icons on sidebar vertically centered tm-235 ([#243](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/243)) ([d41a347](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d41a347bcf2610cdce731fecbae8244aef8ebf3e))
+
 ## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.15.0...v1.16.0) (2024-02-29)
 
 

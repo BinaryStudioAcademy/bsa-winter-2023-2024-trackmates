@@ -75,7 +75,7 @@ const Chats: React.FC = () => {
 					className={styles["back-button"]}
 					hasVisuallyHiddenLabel
 					href={AppRoute.FRIENDS}
-					iconName="arrowLeft"
+					iconName="back"
 					label="Back to friends"
 					size="small"
 				/>
