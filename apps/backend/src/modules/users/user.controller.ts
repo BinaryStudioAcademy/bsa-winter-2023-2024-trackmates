@@ -59,9 +59,11 @@ class UserController extends BaseController {
 	 * @swagger
 	 * /users/{id}:
 	 *   get:
-	 *     description: Returns found user
+	 *     tags:
+	 *       - Users
 	 *     security:
 	 *       - bearerAuth: []
+	 *     description: Returns found user
 	 *     parameters:
 	 *       - in: path
 	 *         name: id
