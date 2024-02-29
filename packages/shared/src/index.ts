@@ -6,13 +6,16 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
+	DateValue,
 	ExceptionMessage,
+	FormatDateType,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
-	formatDate,
+	getDifferenceInHours,
+	getFormattedDate,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
