@@ -137,6 +137,8 @@ class ChatMessageController extends BaseController {
 	 * @swagger
 	 * /chat-messages:
 	 *    post:
+	 *      tags:
+	 *        - Chat messages
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Create a new message
@@ -183,6 +185,8 @@ class ChatMessageController extends BaseController {
 	 * @swagger
 	 * /chat-messages/{id}:
 	 *    delete:
+	 *      tags:
+	 *        - Chat messages
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Delete message by id
@@ -217,6 +221,8 @@ class ChatMessageController extends BaseController {
 	 * @swagger
 	 * /chat-messages/{id}:
 	 *    get:
+	 * 	    tags:
+	 *        - Chat messages
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Find message by id
@@ -252,6 +258,8 @@ class ChatMessageController extends BaseController {
 	 * @swagger
 	 * /chat-messages:
 	 *    get:
+	 *      tags:
+	 *        - Chat messages
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Find all user's messages
@@ -284,6 +292,8 @@ class ChatMessageController extends BaseController {
 	 * @swagger
 	 * /chat-messages/{id}:
 	 *    patch:
+	 *      tags:
+	 *        - Chat messages
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Update message by id
