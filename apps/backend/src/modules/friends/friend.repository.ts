@@ -1,9 +1,8 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
-
-import { EMPTY_FRIENDS_RESULT } from "./libs/constants/constants.js";
 
 class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
@@ -155,7 +154,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", currentUserId)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", otherUserId);
 
-		return userFollowings.length > EMPTY_FRIENDS_RESULT;
+		return userFollowings.length > EMPTY_ARRAY_LENGTH;
 	}
 
 	public async getIsSubscribedByRequestId(
