@@ -4,6 +4,7 @@ import { type Service } from "~/libs/types/service.type.js";
 
 import { NotificationError } from "./libs/exceptions/exceptions.js";
 import {
+	type AllNotificationsResponseDto,
 	type NotificationRequestDto,
 	type NotificationResponseDto,
 } from "./libs/types/types.js";
@@ -60,7 +61,7 @@ class NotificationService implements Service {
 		return notification.toObject();
 	}
 
-	public async findAll(): Promise<{ items: NotificationResponseDto[] }> {
+	public async findAll(): Promise<AllNotificationsResponseDto> {
 		const notifications = await this.notificationRepository.findAll();
 
 		return {
@@ -70,7 +71,7 @@ class NotificationService implements Service {
 
 	public async findAllByUserId(
 		userId: number,
-	): Promise<{ items: NotificationResponseDto[] }> {
+	): Promise<AllNotificationsResponseDto> {
 		const userNotifications =
 			await this.notificationRepository.findAllByUserId(userId);
 

@@ -1,1 +1,4 @@
-export { type NotificationResponseDto } from "@trackmates/shared";
+export {
+	type AllNotificationsResponseDto,
+	type NotificationResponseDto,
+} from "@trackmates/shared";

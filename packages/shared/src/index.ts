@@ -92,6 +92,7 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	type AllNotificationsResponseDto,
 	NotificationError,
 	type NotificationRequestDto,
 	type NotificationResponseDto,
