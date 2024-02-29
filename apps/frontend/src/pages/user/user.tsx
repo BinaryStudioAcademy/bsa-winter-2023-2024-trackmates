@@ -32,16 +32,16 @@ const User: React.FC = () => {
 		currentUserId,
 		isCoursesLoading,
 		isFollowing,
+		isUserNotFound,
 		user,
-		userNotFound,
 	} = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			isFollowing: state.friends.isFollowing,
+			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
 			user: state.users.user,
-			userNotFound: state.users.dataStatus === DataStatus.REJECTED,
 		};
 	});
 
@@ -69,7 +69,7 @@ const User: React.FC = () => {
 
 	const hasUser = Boolean(user);
 
-	if (userNotFound || currentUserId === userId) {
+	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.FRIENDS} />;
 	}
 
