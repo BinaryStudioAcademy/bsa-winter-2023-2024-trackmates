@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.16.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.16.0...v1.16.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **frontend:** make icons on sidebar vertically centered tm-235 ([#243](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/243)) ([d41a347](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d41a347bcf2610cdce731fecbae8244aef8ebf3e))
+
+## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.15.0...v1.16.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/backend/shared:** add nickname field for user tm-183 ([#220](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/220)) ([d863bf3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d863bf3a427b5e48719ee025a11a31fbd8fc4b96))
+
+## [1.15.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.14.1...v1.15.0) (2024-02-29)
+
+
+### Features
+
+* **backend:** organize controllers on Swagger into corresponding sections tm-218 ([#245](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/245)) ([c8720f1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c8720f1e42f9cfdc64d031dbe9b02109c47fd0b8))
+
 ## [1.14.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.14.0...v1.14.1) (2024-02-28)
 
 

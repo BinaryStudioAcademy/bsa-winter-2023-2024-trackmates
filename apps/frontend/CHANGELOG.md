@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.11.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.11.0...frontend-v1.11.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **frontend:** make icons on sidebar vertically centered tm-235 ([#243](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/243)) ([d41a347](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d41a347bcf2610cdce731fecbae8244aef8ebf3e))
+
+## [1.11.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.10.1...frontend-v1.11.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/backend/shared:** add nickname field for user tm-183 ([#220](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/220)) ([d863bf3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d863bf3a427b5e48719ee025a11a31fbd8fc4b96))
+
 ## [1.10.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.10.0...frontend-v1.10.1) (2024-02-28)
 
 
