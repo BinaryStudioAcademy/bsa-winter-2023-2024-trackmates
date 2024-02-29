@@ -3,8 +3,10 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useCallback,
 	useEffect,
 	useParams,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
@@ -15,9 +17,18 @@ const CourseInfo: React.FC = () => {
 	const course = useAppSelector((state) => state.courses.currentCourse);
 	const courseSections = useAppSelector((state) => state.course.courseSections);
 
+	const [isChecked, setIsChecked] = useState(true);
+
 	const dispatch = useAppDispatch();
 
 	const { id } = useParams<{ id: string }>();
+
+	const handleCheckboxChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			setIsChecked(event.target.checked);
+		},
+		[],
+	);
 
 	useEffect(() => {
 		void dispatch(courseActions.getById({ id: Number(id) }));
@@ -45,10 +56,11 @@ const CourseInfo: React.FC = () => {
 
 					<div className={styles["tabs"]}>
 						<input
-							checked
+							checked={isChecked}
 							className={styles["tabs__radio"]}
 							id="tab1"
 							name="tabs-example"
+							onChange={handleCheckboxChange}
 							type="radio"
 						/>
 						<label className={styles["tabs__label"]} htmlFor="tab1">
@@ -57,6 +69,7 @@ const CourseInfo: React.FC = () => {
 						<div className={styles["tabs__content"]}>
 							<div className={styles["tabs__title"]}>About this course</div>
 							<div
+								className={styles["truncated-text"]}
 								dangerouslySetInnerHTML={{ __html: course.description || "" }}
 							/>
 						</div>
@@ -64,6 +77,7 @@ const CourseInfo: React.FC = () => {
 							className={styles["tabs__radio"]}
 							id="tab2"
 							name="tabs-example"
+							onChange={handleCheckboxChange}
 							type="radio"
 						/>
 						<label className={styles["tabs__label"]} htmlFor="tab2">
