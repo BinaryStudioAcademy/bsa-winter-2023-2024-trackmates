@@ -8,13 +8,11 @@ import { getUserNotifications } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	hasUnread: boolean;
 	notifications: NotificationResponseDto[];
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	hasUnread: false,
 	notifications: [],
 };
 
