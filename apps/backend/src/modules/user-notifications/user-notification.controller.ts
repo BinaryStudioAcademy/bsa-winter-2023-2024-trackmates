@@ -11,6 +11,35 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Notification:
+ *       type: object
+ *       properties:
+ *         createdAt:
+ *           type: string
+ *         id:
+ *           type: number
+ *         message:
+ *           type: string
+ *         sourceUserAvatarUrl:
+ *           type: string
+ *         sourceUserFirstName:
+ *           type: string
+ *         sourceUserId:
+ *           type: number
+ *         sourceUserLastName:
+ *           type: string
+ *         status:
+ *           type: string
+ *           enum: [read, unread]
+ *         updatedAt:
+ *           type: string
+ *         userId:
+ *           type: number
+ */
 class UserNotificationController extends BaseController {
 	private notificationService: NotificationService;
 
@@ -31,6 +60,29 @@ class UserNotificationController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /user-notifications:
+	 *    get:
+	 *      tags:
+	 *        - User notifications
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Returns all user notifications
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Notification"
+	 */
 	public async getNotificationsByUserId(
 		options: APIHandlerOptions<{
 			user: UserAuthResponseDto;
