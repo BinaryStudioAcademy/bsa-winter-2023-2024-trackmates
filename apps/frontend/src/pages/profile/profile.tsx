@@ -1,7 +1,6 @@
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -24,14 +23,15 @@ const Profile: React.FC = () => {
 	});
 	const dispatch = useAppDispatch();
 
-	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
-		defaultValues: {
-			firstName: user.firstName,
-			lastName: user.lastName,
-			nickname: user.nickname ?? "",
-		},
-		validationSchema: userProfileValidationSchema,
-	});
+	const { control, errors, handleSubmit, reset } =
+		useAppForm<UserProfileRequestDto>({
+			defaultValues: {
+				firstName: user.firstName,
+				lastName: user.lastName,
+				nickname: user.nickname ?? "",
+			},
+			validationSchema: userProfileValidationSchema,
+		});
 
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -65,6 +65,10 @@ const Profile: React.FC = () => {
 		[handleSubmit, handleInputChange],
 	);
 
+	const handleResetForm = useCallback(() => {
+		reset();
+	}, [reset]);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -75,7 +79,10 @@ const Profile: React.FC = () => {
 							<Image
 								alt="avatar"
 								className={styles["profile-image"]}
+								height="133"
+								shape="circle"
 								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+								width="133"
 							/>
 							<input
 								accept="image/*"
@@ -124,8 +131,8 @@ const Profile: React.FC = () => {
 					<div className={styles["btnWrapper"]}>
 						<Button
 							className={styles["button"]}
-							href={AppRoute.ROOT}
 							label="Cancel"
+							onClick={handleResetForm}
 							size="small"
 							style="secondary"
 						/>
