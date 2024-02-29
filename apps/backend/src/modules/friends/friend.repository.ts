@@ -1,5 +1,6 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -139,6 +140,24 @@ class FriendRepository implements Repository<UserEntity> {
 				updatedAt: user.updatedAt,
 			});
 		});
+	}
+
+	public async getIsFollowing(
+		currentUserId: number,
+		otherUserId: number,
+	): Promise<boolean> {
+		const userFollowings = await this.userModel
+			.query()
+			.leftJoin(
+				DatabaseTableName.FRIENDS,
+				`${DatabaseTableName.USERS}.id`,
+				"=",
+				`${DatabaseTableName.FRIENDS}.following_id`,
+			)
+			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", currentUserId)
+			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", otherUserId);
+
+		return userFollowings.length > EMPTY_ARRAY_LENGTH;
 	}
 
 	public async getIsSubscribedByRequestId(

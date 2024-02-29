@@ -11,6 +11,7 @@ const UserValidationMessage = {
 	FIRST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, 1 hyphen & 1 apostrophe",
 	FIRST_NAME_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.FIRST_NAME_MAXIMUM_LENGTH} characters`,
 	FIRST_NAME_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.FIRST_NAME_MINIMUM_LENGTH} characters`,
+	INVALID_ID: "Id should be greater than or equal to 1",
 	LAST_NAME_INVALID_CHARACTERS: "Use only A-Z, a-z, 1 hyphen & 1 apostrophe",
 	LAST_NAME_MAXIMUM_LENGTH: `Maximum length – ${UserValidationRule.LAST_NAME_MAXIMUM_LENGTH} characters`,
 	LAST_NAME_MINIMUM_LENGTH: `Minimum length – ${UserValidationRule.LAST_NAME_MINIMUM_LENGTH} characters`,
