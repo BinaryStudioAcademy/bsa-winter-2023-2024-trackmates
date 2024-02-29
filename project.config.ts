@@ -1,5 +1,4 @@
 const ProjectPrefix = {
-	APP: "tm",
 	CHANGE_TYPES: [
 		"build",
 		"chore",

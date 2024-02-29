@@ -66,6 +66,8 @@ class UserController extends BaseController {
 	 *                  type: string
 	 *                lastName:
 	 *                  type: string
+	 *                nickname:
+	 *                  type: string
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation

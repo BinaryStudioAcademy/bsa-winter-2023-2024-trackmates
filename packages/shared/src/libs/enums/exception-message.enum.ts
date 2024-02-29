@@ -7,6 +7,7 @@ const ExceptionMessage = {
 	INVALID_CREDENTIALS: "Invalid credentials.",
 	INVALID_TOKEN: "Token is invalid.",
 	MESSAGE_NOT_FOUND: "Message not found.",
+	NICKNAME_ALREADY_EXISTS: "Nickname is already taken.",
 	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	NO_PERMISSION: "No permission.",
 	TOKEN_EXPIRED: "Token expired.",
