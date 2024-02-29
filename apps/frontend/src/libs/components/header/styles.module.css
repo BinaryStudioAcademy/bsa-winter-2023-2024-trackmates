@@ -14,7 +14,25 @@
 	flex: 1;
 	column-gap: 24px;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
+}
+
+.search-bar {
+	margin-right: auto;
+}
+
+.avatar {
+	flex-shrink: 0;
+}
+
+@media screen and (width <= 768px) {
+	.header:has(.search-bar-input:focus) .avatar {
+		display: none;
+	}
+
+	.search-bar {
+		margin-right: unset;
+	}
 }
 
 @media screen and (width <= 480px) {
