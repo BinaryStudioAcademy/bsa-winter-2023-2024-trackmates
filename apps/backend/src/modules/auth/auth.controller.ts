@@ -39,6 +39,9 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *            minimum: 1
  *          lastName:
  *            type: string
+ *          nickname:
+ *            type: string
+ *            nullable: true
  *          updatedAt:
  *            type: string
  */
@@ -91,6 +94,8 @@ class AuthController extends BaseController {
 	 * @swagger
 	 * /auth/authenticated-user:
 	 *    get:
+	 *      tags:
+	 *        - Authentication
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Return current user by token
@@ -119,6 +124,8 @@ class AuthController extends BaseController {
 	 * @swagger
 	 * /auth/sign-in:
 	 *    post:
+	 *      tags:
+	 *        - Authentication
 	 *      description: Sign in user into the system
 	 *      requestBody:
 	 *        description: User auth data
@@ -160,6 +167,8 @@ class AuthController extends BaseController {
 	 * @swagger
 	 * /auth/sign-up:
 	 *    post:
+	 *      tags:
+	 *        - Authentication
 	 *      description: Sign up user into the system
 	 *      requestBody:
 	 *        description: User auth data

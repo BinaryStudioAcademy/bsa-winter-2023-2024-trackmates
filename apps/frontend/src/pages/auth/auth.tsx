@@ -1,4 +1,4 @@
-import logo from "~/assets/img/svg/logo.svg";
+import logo from "~/assets/img/logo.svg";
 import { Image, Navigate } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";

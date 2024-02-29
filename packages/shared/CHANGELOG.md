@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.9.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.9.0...shared-v1.9.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **frontend/shared:** fix Profile screen tm-42 ([#221](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/221)) ([64654cc](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/64654cc1fc5354d6028317acf51c742fe1364fe1))
+
+## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.8.0...shared-v1.9.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/shared/backend:** Add Friend page tm-40 ([#207](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/207)) ([4aef46b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4aef46b66ac39cf2d164c74e1fdce10461b0cd04))
+
+## [1.8.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.7.0...shared-v1.8.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/backend/shared:** add nickname field for user tm-183 ([#220](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/220)) ([d863bf3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d863bf3a427b5e48719ee025a11a31fbd8fc4b96))
+
+## [1.7.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.6.0...shared-v1.7.0) (2024-02-28)
+
+
+### Features
+
+* **frontend/shared:** Display courses recommended by AI tm-44 ([#212](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/212)) ([0266d2d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0266d2d2e2a64ffdcf1cbef1d5d57889165f62ac))
+
+## [1.6.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.5.0...shared-v1.6.0) (2024-02-28)
+
+
+### Features
+
+* **backend/shared:** chat functionality tm-111 ([#135](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/135)) ([7016508](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7016508abf8860f789bf4a7dba9511c475234b55))
+
 ## [1.5.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.4.1...shared-v1.5.0) (2024-02-27)
 
 

@@ -58,6 +58,8 @@ class UserCourseController extends BaseController {
 	 * @swagger
 	 * /user-courses:
 	 *    post:
+	 *      tags:
+	 *        - User courses
 	 *      description: Fetch course from vendor API and add for user in DB
 	 *      requestBody:
 	 *        required: true
@@ -101,6 +103,8 @@ class UserCourseController extends BaseController {
 	 * @swagger
 	 * /user-courses/{userId}:
 	 *    get:
+	 *      tags:
+	 *        - User courses
 	 *      description: Return all user courses
 	 *      security:
 	 *        - bearerAuth: []

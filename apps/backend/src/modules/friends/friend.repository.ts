@@ -1,5 +1,6 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -8,6 +9,23 @@ class FriendRepository implements Repository<UserEntity> {
 
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
+	}
+
+	public async checkIsMutualFollowersByIds(
+		firstUserId: number,
+		secondUserId: number,
+	): Promise<boolean> {
+		const [firstUserSubscription, secondUserSubscription] = await this.userModel
+			.query()
+			.from(DatabaseTableName.FRIENDS)
+			.where({ followerId: firstUserId, followingId: secondUserId })
+			.orWhere({ followerId: secondUserId, followingId: firstUserId })
+			.execute();
+
+		const isFirstUserSubscribed = Boolean(firstUserSubscription);
+		const isSecondUserSubscribed = Boolean(secondUserSubscription);
+
+		return isFirstUserSubscribed && isSecondUserSubscribed;
 	}
 
 	public async create({
@@ -35,6 +53,7 @@ class FriendRepository implements Repository<UserEntity> {
 			firstName: followingUser.userDetails.firstName,
 			id: followingUser.id,
 			lastName: followingUser.userDetails.lastName,
+			nickname: followingUser.userDetails.nickname,
 			passwordHash: followingUser.passwordHash,
 			passwordSalt: followingUser.passwordSalt,
 			updatedAt: followingUser.updatedAt,
@@ -88,6 +107,7 @@ class FriendRepository implements Repository<UserEntity> {
 					firstName: user.userDetails.firstName,
 					id: user.id,
 					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					updatedAt: user.updatedAt,
@@ -114,11 +134,30 @@ class FriendRepository implements Repository<UserEntity> {
 				firstName: user.userDetails.firstName,
 				id: user.id,
 				lastName: user.userDetails.lastName,
+				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
 			});
 		});
+	}
+
+	public async getIsFollowing(
+		currentUserId: number,
+		otherUserId: number,
+	): Promise<boolean> {
+		const userFollowings = await this.userModel
+			.query()
+			.leftJoin(
+				DatabaseTableName.FRIENDS,
+				`${DatabaseTableName.USERS}.id`,
+				"=",
+				`${DatabaseTableName.FRIENDS}.following_id`,
+			)
+			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", currentUserId)
+			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", otherUserId);
+
+		return userFollowings.length > EMPTY_ARRAY_LENGTH;
 	}
 
 	public async getIsSubscribedByRequestId(
@@ -173,6 +212,7 @@ class FriendRepository implements Repository<UserEntity> {
 				firstName: user.userDetails.firstName,
 				id: user.id,
 				lastName: user.userDetails.lastName,
+				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
@@ -200,6 +240,7 @@ class FriendRepository implements Repository<UserEntity> {
 				firstName: user.userDetails.firstName,
 				id: user.id,
 				lastName: user.userDetails.lastName,
+				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
@@ -227,6 +268,7 @@ class FriendRepository implements Repository<UserEntity> {
 				firstName: user.userDetails.firstName,
 				id: user.id,
 				lastName: user.userDetails.lastName,
+				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				updatedAt: user.updatedAt,
@@ -249,6 +291,7 @@ class FriendRepository implements Repository<UserEntity> {
 			firstName: updatedSubscription.userDetails.firstName,
 			id: updatedSubscription.id,
 			lastName: updatedSubscription.userDetails.lastName,
+			nickname: updatedSubscription.userDetails.nickname,
 			passwordHash: updatedSubscription.passwordHash,
 			passwordSalt: updatedSubscription.passwordSalt,
 			updatedAt: updatedSubscription.updatedAt,

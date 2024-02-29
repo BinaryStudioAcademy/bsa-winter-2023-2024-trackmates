@@ -1,4 +1,6 @@
 const DatabaseTableName = {
+	CHAT_MESSAGES: "chat_messages",
+	CHATS: "chats",
 	COURSE_SECTIONS: "course_sections",
 	COURSES: "courses",
 	COURSES_TO_USERS: "courses_to_users",
