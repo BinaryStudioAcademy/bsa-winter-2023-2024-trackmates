@@ -112,6 +112,8 @@ class ChatController extends BaseController {
 	 * @swagger
 	 * /chats:
 	 *    post:
+	 *      tags:
+	 *        - Chats
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Create a new chat or get existing
@@ -164,6 +166,8 @@ class ChatController extends BaseController {
 	 * @swagger
 	 * /chats/{id}:
 	 *    delete:
+	 *      tags:
+	 *        - Chats
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Delete chat by id
@@ -198,6 +202,8 @@ class ChatController extends BaseController {
 	 * @swagger
 	 * /chats:
 	 *    get:
+	 *      tags:
+	 *        - Chats
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Get all user's chats
@@ -239,6 +245,8 @@ class ChatController extends BaseController {
 	 * @swagger
 	 * /chats/{id}:
 	 *    get:
+	 *      tags:
+	 *        - Chats
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Find chat by id
