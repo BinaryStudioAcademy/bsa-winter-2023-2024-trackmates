@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.8.0...backend-v1.9.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/backend/shared:** add nickname field for user tm-183 ([#220](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/220)) ([d863bf3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d863bf3a427b5e48719ee025a11a31fbd8fc4b96))
+
 ## [1.8.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.7.0...backend-v1.8.0) (2024-02-29)
 
 
