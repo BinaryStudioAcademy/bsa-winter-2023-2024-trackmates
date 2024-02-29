@@ -22,7 +22,7 @@ import {
 	userCourseApi,
 	reducer as userCoursesReducer,
 } from "~/modules/user-courses/user-courses.js";
-import { userApi } from "~/modules/users/users.js";
+import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 import {
 	vendorApi,
 	reducer as vendorsReducer,
@@ -36,6 +36,7 @@ type RootReducer = {
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
+	users: ReturnType<typeof usersReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
 
@@ -75,6 +76,7 @@ class Store {
 				courses: coursesReducer,
 				friends: friendsReducer,
 				userCourses: userCoursesReducer,
+				users: usersReducer,
 				vendors: vendorsReducer,
 			},
 		});

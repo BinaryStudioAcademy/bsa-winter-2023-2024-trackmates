@@ -41,6 +41,7 @@ erDiagram
     int user_id FK
     varchar first_name
     varchar last_name
+    varchar nickname
     int avatar_file_id FK
    }
 

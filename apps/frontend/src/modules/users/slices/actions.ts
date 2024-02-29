@@ -21,4 +21,13 @@ const updateProfile = createAsyncThunk<
 	return user;
 });
 
-export { updateProfile };
+const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
+	`${sliceName}/get-by-id`,
+	(userPayload, { extra }) => {
+		const { userApi } = extra;
+
+		return userApi.getById(userPayload);
+	},
+);
+
+export { getById, updateProfile };

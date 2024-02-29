@@ -28,6 +28,7 @@ const Profile: React.FC = () => {
 			defaultValues: {
 				firstName: user.firstName,
 				lastName: user.lastName,
+				nickname: user.nickname ?? "",
 			},
 			validationSchema: userProfileValidationSchema,
 		});
@@ -107,6 +108,15 @@ const Profile: React.FC = () => {
 								errors={errors}
 								label="Last Name"
 								name="lastName"
+								type="text"
+							/>
+							<Input
+								color="light"
+								control={control}
+								errors={errors}
+								label="Nickname"
+								name="nickname"
+								placeholder="nickname"
 								type="text"
 							/>
 						</fieldset>
