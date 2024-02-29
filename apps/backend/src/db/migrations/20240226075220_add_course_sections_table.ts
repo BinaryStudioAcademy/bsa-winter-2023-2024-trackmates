@@ -8,6 +8,7 @@ const TableName = {
 const ColumnName = {
 	COURSE_ID: "course_id",
 	CREATED_AT: "created_at",
+	DESCRIPTION: "description",
 	ID: "id",
 	TITLE: "title",
 	UPDATED_AT: "updated_at",
@@ -24,6 +25,7 @@ function up(knex: Knex): Promise<void> {
 			.inTable(TableName.COURSES)
 			.notNullable()
 			.onDelete(DELETE_STRATEGY);
+		table.text(ColumnName.DESCRIPTION);
 		table.text(ColumnName.TITLE);
 		table
 			.dateTime(ColumnName.CREATED_AT)
