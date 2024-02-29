@@ -1,4 +1,4 @@
-import notificationCharacter from "~/assets/img/svg/notification-character.svg";
+import notificationCharacter from "~/assets/img/notification-character.svg";
 import { Image } from "~/libs/components/components.js";
 import {
 	useAppDispatch,

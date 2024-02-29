@@ -26,7 +26,7 @@ import {
 	userNotificationsApi,
 	reducer as userNotificationsReducer,
 } from "~/modules/user-notifications/user-notifications.js";
-import { userApi } from "~/modules/users/users.js";
+import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 import {
 	vendorApi,
 	reducer as vendorsReducer,
@@ -41,6 +41,7 @@ type RootReducer = {
 	friends: ReturnType<typeof friendsReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	userNotifications: ReturnType<typeof userNotificationsReducer>;
+	users: ReturnType<typeof usersReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
 
@@ -82,6 +83,7 @@ class Store {
 				friends: friendsReducer,
 				userCourses: userCoursesReducer,
 				userNotifications: userNotificationsReducer,
+				users: usersReducer,
 				vendors: vendorsReducer,
 			},
 		});

@@ -10,7 +10,8 @@ const friendRepository = new FriendRepository(UserModel);
 const friendService = new FriendService(friendRepository, notificationService);
 const friendController = new FriendController(logger, friendService);
 
-export { friendController };
+export { friendController, friendRepository };
+export { FriendRepository } from "./friend.repository.js";
 export {
 	addFriendValidationSchema,
 	friendIdParameterValidationSchema,

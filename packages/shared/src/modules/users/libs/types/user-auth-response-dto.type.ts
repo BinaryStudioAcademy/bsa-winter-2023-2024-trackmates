@@ -6,6 +6,7 @@ type UserAuthResponseDto = {
 	hasUnreadNotifications: boolean;
 	id: number;
 	lastName: string;
+	nickname: null | string;
 	updatedAt: string;
 };
 

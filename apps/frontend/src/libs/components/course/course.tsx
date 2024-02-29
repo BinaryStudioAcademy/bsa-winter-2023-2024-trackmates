@@ -24,7 +24,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 		<article className={styles["container"]}>
 			<div className={styles["content"]}>
 				<div className={styles["source-container"]}>
-					<Image alt="Course source logo" src={`vendors/${vendor.key}.svg`} />
+					<Image alt="Course source logo" src={`/vendors/${vendor.key}.svg`} />
 				</div>
 				<div className={styles["image-container"]}>
 					<Image alt="Course" src={image} />

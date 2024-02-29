@@ -5,6 +5,12 @@ import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
 type UserProfileRequestValidationDto = {
 	firstName: z.ZodString;
 	lastName: z.ZodString;
+	nickname: z.ZodNullable<
+		z.ZodPipeline<
+			z.ZodEffects<z.ZodString, null | string, string>,
+			z.ZodUnion<[z.ZodString, z.ZodLiteral<null>]>
+		>
+	>;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
@@ -32,6 +38,33 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 		.regex(/^(?!['-])(?!.*['-].*['-])['A-Za-z-]{3,25}(?<!['-])$/, {
 			message: UserValidationMessage.LAST_NAME_INVALID_CHARACTERS,
 		}),
+	nickname: z
+		.string()
+		.transform((value) => {
+			return value === "" ? null : value;
+		})
+		.pipe(
+			z
+				.string()
+				.trim()
+				.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
+					message: UserValidationMessage.FIELD_REQUIRE,
+				})
+				.regex(/^[\d_a-z]+$/, {
+					message: UserValidationMessage.NICKNAME_INVALID_CHARACTERS,
+				})
+				.regex(/[a-z]/, {
+					message: UserValidationMessage.NICKNAME_AT_LEAST_ONE_LETTER,
+				})
+				.min(UserValidationRule.NICKNAME_MINIMUM_LENGTH, {
+					message: UserValidationMessage.NICKNAME_MINIMUM_LENGTH,
+				})
+				.max(UserValidationRule.NICKNAME_MAXIMUM_LENGTH, {
+					message: UserValidationMessage.NICKNAME_MAXIMUM_LENGTH,
+				})
+				.or(z.literal(null)),
+		)
+		.nullable(),
 });
 
 export { userProfile };

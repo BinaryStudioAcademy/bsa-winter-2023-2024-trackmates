@@ -15,6 +15,8 @@ class UserEntity implements Entity {
 
 	private lastName: string;
 
+	private nickname: null | string;
+
 	private passwordHash: string;
 
 	private passwordSalt: string;
@@ -29,6 +31,7 @@ class UserEntity implements Entity {
 		hasUnreadNotifications,
 		id,
 		lastName,
+		nickname,
 		passwordHash,
 		passwordSalt,
 		updatedAt,
@@ -40,6 +43,7 @@ class UserEntity implements Entity {
 		hasUnreadNotifications: boolean;
 		id: null | number;
 		lastName: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -50,6 +54,7 @@ class UserEntity implements Entity {
 		this.hasUnreadNotifications = hasUnreadNotifications;
 		this.id = id;
 		this.lastName = lastName;
+		this.nickname = nickname;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.passwordSalt = passwordSalt;
@@ -64,6 +69,7 @@ class UserEntity implements Entity {
 		hasUnreadNotifications,
 		id,
 		lastName,
+		nickname,
 		passwordHash,
 		passwordSalt,
 		updatedAt,
@@ -75,6 +81,7 @@ class UserEntity implements Entity {
 		hasUnreadNotifications: boolean;
 		id: number;
 		lastName: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -87,6 +94,7 @@ class UserEntity implements Entity {
 			hasUnreadNotifications,
 			id,
 			lastName,
+			nickname,
 			passwordHash,
 			passwordSalt,
 			updatedAt,
@@ -114,6 +122,7 @@ class UserEntity implements Entity {
 			hasUnreadNotifications: false,
 			id: null,
 			lastName,
+			nickname: null,
 			passwordHash,
 			passwordSalt,
 			updatedAt: "",
@@ -127,6 +136,7 @@ class UserEntity implements Entity {
 		firstName: string;
 		hasUnreadNotifications: boolean;
 		lastName: string;
+		nickname: null | string;
 		passwordHash: string;
 		passwordSalt: string;
 		updatedAt: string;
@@ -138,6 +148,7 @@ class UserEntity implements Entity {
 			firstName: this.firstName,
 			hasUnreadNotifications: this.hasUnreadNotifications,
 			lastName: this.lastName,
+			nickname: this.nickname,
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
 			updatedAt: this.updatedAt,
@@ -152,6 +163,7 @@ class UserEntity implements Entity {
 		hasUnreadNotifications: boolean;
 		id: number;
 		lastName: string;
+		nickname: null | string;
 		updatedAt: string;
 	} {
 		return {
@@ -162,6 +174,7 @@ class UserEntity implements Entity {
 			hasUnreadNotifications: this.hasUnreadNotifications,
 			id: this.id as number,
 			lastName: this.lastName,
+			nickname: this.nickname,
 			updatedAt: this.updatedAt,
 		};
 	}
