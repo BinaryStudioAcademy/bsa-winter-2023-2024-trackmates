@@ -13,7 +13,7 @@ import { type SectionStatus } from "./libs/enums/enums.js";
 class SectionStatusModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
 		return {
-			courseSection: {
+			courseSections: {
 				join: {
 					from: `${DatabaseTableName.SECTION_STATUSES}.courseSectionId`,
 					to: `${DatabaseTableName.COURSE_SECTIONS}.id`,
@@ -21,7 +21,7 @@ class SectionStatusModel extends AbstractModel {
 				modelClass: CourseSectionModel,
 				relation: Model.BelongsToOneRelation,
 			},
-			user: {
+			users: {
 				join: {
 					from: `${DatabaseTableName.SECTION_STATUSES}.userId`,
 					to: `${DatabaseTableName.USERS}.id`,

@@ -1,6 +1,8 @@
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
-import { type SectionStatusGetRequestDto } from "./libs/types/types.js";
+import { RelationName } from "./libs/enums/enums.js";
+import { type SectionStatusGetAllRequestDto } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusModel } from "./section-status.model.js";
 
@@ -74,28 +76,30 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 		});
 	}
 
-	public async findByCourseSectionIdAndUserId({
-		courseSectionId,
+	public async findAllByCourseIdAndUserId({
+		courseId,
 		userId,
-	}: SectionStatusGetRequestDto): Promise<SectionStatusEntity | null> {
-		const sectionStatusModel = await this.sectionStatusModel
+	}: SectionStatusGetAllRequestDto): Promise<SectionStatusEntity[]> {
+		const sectionStatusModels = await this.sectionStatusModel
 			.query()
-			.where("courseSectionId", courseSectionId)
-			.andWhere("userId", userId)
-			.first()
+			.whereIn("course_section_id", function () {
+				void this.select("id")
+					.from(DatabaseTableName.COURSE_SECTIONS)
+					.where("course_id", courseId);
+			})
+			.andWhere("user_id", userId)
+			.withGraphFetched(RelationName.COURSE_SECTIONS)
 			.execute();
 
-		if (!sectionStatusModel) {
-			return null;
-		}
-
-		return SectionStatusEntity.initialize({
-			courseSectionId: sectionStatusModel.courseSectionId,
-			createdAt: sectionStatusModel.createdAt,
-			id: sectionStatusModel.id,
-			status: sectionStatusModel.status,
-			updatedAt: sectionStatusModel.updatedAt,
-			userId: sectionStatusModel.userId,
+		return sectionStatusModels.map((sectionStatusModel) => {
+			return SectionStatusEntity.initialize({
+				courseSectionId: sectionStatusModel.courseSectionId,
+				createdAt: sectionStatusModel.createdAt,
+				id: sectionStatusModel.id,
+				status: sectionStatusModel.status,
+				updatedAt: sectionStatusModel.updatedAt,
+				userId: sectionStatusModel.userId,
+			});
 		});
 	}
 

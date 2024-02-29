@@ -10,7 +10,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { SectionStatusesApiPath } from "./libs/enums/enums.js";
 import {
 	type SectionStatusAddRequestDto,
-	type SectionStatusGetRequestDto,
+	type SectionStatusGetAllRequestDto,
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 import {
@@ -44,9 +44,9 @@ class SectionStatusController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.findByCourseSectionIdAndUserId(
+				return this.findAllByCourseIdAndUserId(
 					options as APIHandlerOptions<{
-						query: SectionStatusGetRequestDto;
+						query: SectionStatusGetAllRequestDto;
 					}>,
 				);
 			},
@@ -85,16 +85,16 @@ class SectionStatusController extends BaseController {
 		};
 	}
 
-	private async findByCourseSectionIdAndUserId(
+	private async findAllByCourseIdAndUserId(
 		options: APIHandlerOptions<{
-			query: SectionStatusGetRequestDto;
+			query: SectionStatusGetAllRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
-		const { courseSectionId, userId } = options.query;
+		const { courseId, userId } = options.query;
 
 		return {
-			payload: await this.sectionStatusService.findByCourseSectionIdAndUserId({
-				courseSectionId,
+			payload: await this.sectionStatusService.findAllByCourseIdAndUserId({
+				courseId,
 				userId,
 			}),
 			status: HTTPCode.OK,

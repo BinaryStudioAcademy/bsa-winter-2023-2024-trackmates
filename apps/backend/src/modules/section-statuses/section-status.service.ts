@@ -6,8 +6,8 @@ import { SectionStatusError } from "./libs/exceptions/exceptions.js";
 import {
 	type SectionStatusAddRequestDto,
 	type SectionStatusDto,
+	type SectionStatusGetAllRequestDto,
 	type SectionStatusGetAllResponseDto,
-	type SectionStatusGetRequestDto,
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
@@ -72,13 +72,15 @@ class SectionStatusService implements Service {
 		};
 	}
 
-	public async findByCourseSectionIdAndUserId(
-		query: SectionStatusGetRequestDto,
-	): Promise<SectionStatusDto | null> {
-		const sectionStatus =
-			await this.sectionStatusRepository.findByCourseSectionIdAndUserId(query);
+	public async findAllByCourseIdAndUserId(
+		query: SectionStatusGetAllRequestDto,
+	): Promise<SectionStatusGetAllResponseDto> {
+		const sectionStatuses =
+			await this.sectionStatusRepository.findAllByCourseIdAndUserId(query);
 
-		return sectionStatus?.toObject() ?? null;
+		return {
+			items: sectionStatuses.map((sectionStatus) => sectionStatus.toObject()),
+		};
 	}
 
 	public async update(

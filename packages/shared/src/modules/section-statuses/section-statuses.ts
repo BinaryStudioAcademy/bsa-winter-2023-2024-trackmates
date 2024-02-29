@@ -3,8 +3,8 @@ export { SectionStatusError } from "./libs/exceptions/exceptions.js";
 export {
 	type SectionStatusAddRequestDto,
 	type SectionStatusDto,
+	type SectionStatusGetAllRequestDto,
 	type SectionStatusGetAllResponseDto,
-	type SectionStatusGetRequestDto,
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 export {
