@@ -1,4 +1,0 @@
-const MAXIMUM_ITEMS = 10;
-const START_INDEX = 0;
-
-export { MAXIMUM_ITEMS, START_INDEX };

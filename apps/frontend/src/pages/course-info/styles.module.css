@@ -27,7 +27,8 @@
 }
 
 .image {
-	width: 100%;
+	width: 650px;
+	height: auto;
 }
 
 .tabs {
