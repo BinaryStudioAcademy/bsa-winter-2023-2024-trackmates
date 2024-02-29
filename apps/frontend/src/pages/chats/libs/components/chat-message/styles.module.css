@@ -35,11 +35,11 @@
 	justify-content: end;
 }
 
-.right .sender-container .date {
+.right .date {
 	order: 1;
 }
 
-.right .sender-container .sender-name {
+.right .sender-name {
 	order: 2;
 }
 
