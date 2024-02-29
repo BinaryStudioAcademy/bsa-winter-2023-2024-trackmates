@@ -182,6 +182,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/follow:
 	 *   post:
+	 *     tags:
+	 *       - Friends
 	 *     description: Create follow relation and return user which we started to follow
 	 *     security:
 	 *       - bearerAuth: []
@@ -235,6 +237,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/unfollow/{id}:
 	 *   delete:
+	 *     tags:
+	 *       - Friends
 	 *     description: Unfollow by relation ID
 	 *     security:
 	 *       - bearerAuth: []
@@ -279,6 +283,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/unfollow:
 	 *   delete:
+	 *     tags:
+	 *       - Friends
 	 *     description: Delete follow relation by following usre ID
 	 *     security:
 	 *       - bearerAuth: []
@@ -329,6 +335,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/{id}:
 	 *   get:
+	 *     tags:
+	 *       - Friends
 	 *     description: Returns found user
 	 *     security:
 	 *       - bearerAuth: []
@@ -372,6 +380,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/:
 	 *   get:
+	 *     tags:
+	 *       - Friends
 	 *     description: Returns array of all users which users following
 	 *     security:
 	 *       - bearerAuth: []
@@ -433,6 +443,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/potential-followings:
 	 *   get:
+	 *     tags:
+	 *       - Friends
 	 *     description: Returns an array of User that the user does not follow
 	 *     security:
 	 *       - bearerAuth: []
@@ -461,6 +473,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/followers:
 	 *   get:
+	 *     tags:
+	 *       - Friends
 	 *     description: Returns an array of User that the user is followed by
 	 *     security:
 	 *       - bearerAuth: []
@@ -489,6 +503,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/followings:
 	 *   get:
+	 *     tags:
+	 *       - Friends
 	 *     description: Returns an array of User that the user is following
 	 *     security:
 	 *       - bearerAuth: []
@@ -517,6 +533,8 @@ class FriendController extends BaseController {
 	 * @swagger
 	 * /friends/update:
 	 *   patch:
+	 *     tags:
+	 *       - Friends
 	 *     description: Update a user record
 	 *     security:
 	 *       - bearerAuth: []
