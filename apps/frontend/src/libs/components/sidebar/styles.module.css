@@ -1,5 +1,3 @@
-@import url("~/assets/css/media.css");
-
 .sidebar {
 	position: fixed;
 	z-index: var(--z-index-medium);
