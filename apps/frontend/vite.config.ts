@@ -75,10 +75,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		},
 		css: {
 			lightningcss: {
-				include:
-					Features.MediaQueries |
-					Features.Nesting |
-					Features.CustomMediaQueries,
+				include: Features.MediaQueries,
 				targets: browserslistToTargets(
 					browserslist(["last 2 version", "not dead"]),
 				),
