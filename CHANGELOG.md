@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.17.0...v1.17.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **backend:** organize controllers on Swagger into corresponding sections tm-218 ([#250](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/250)) ([76ef276](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/76ef2763505f663db693317c07be117b72d3f58a))
+
 ## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.16.1...v1.17.0) (2024-02-29)
 
 
