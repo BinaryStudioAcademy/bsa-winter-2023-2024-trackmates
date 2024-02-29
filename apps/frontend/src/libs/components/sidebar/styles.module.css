@@ -86,7 +86,7 @@
 	justify-content: flex-start;
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (--large-screen) {
 	.menu-item {
 		width: 100%;
 		transition: 0.3s;
@@ -152,7 +152,7 @@
 	}
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.sidebar.close {
 		width: 270px;
 		transform: translateX(-100%);
@@ -180,7 +180,7 @@
 	}
 }
 
-@media (display-mode: standalone) and (width <= 480px) {
+@media (display-mode: standalone) and (--small-screen) {
 	.sidebar {
 		position: fixed;
 		bottom: 0;

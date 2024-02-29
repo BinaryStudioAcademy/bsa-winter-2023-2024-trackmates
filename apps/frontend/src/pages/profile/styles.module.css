@@ -88,9 +88,9 @@
 	transform: translateY(-50%);
 }
 
-@media screen and (width <= 836px) {
+@media screen and (--medium-screen) {
 	.profile-image {
-		max-width: 110px;
+		max-width: 100px;
 		height: auto;
 	}
 
@@ -99,14 +99,7 @@
 	}
 }
 
-@media screen and (width <= 768px) {
-	.profile-image {
-		max-width: 95px;
-		height: auto;
-	}
-}
-
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.profile-image {
 		max-width: 70px;
 		height: auto;
