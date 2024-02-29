@@ -1,1 +1,1 @@
-export { CourseActivities } from "./course-activities/course-activities.js";
+export { CourseSections } from "./course-sections/course-sections.js";

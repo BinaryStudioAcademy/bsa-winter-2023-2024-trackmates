@@ -1,4 +1,4 @@
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Content, Image } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -11,7 +11,7 @@ import {
 import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
-import { CourseSections } from "./components/components.js";
+import { CourseSections } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
@@ -68,10 +68,7 @@ const CourseInfo: React.FC = () => {
 						</label>
 						<div className={styles["tabs__content"]}>
 							<div className={styles["tabs__title"]}>About this course</div>
-							<div
-								className={styles["truncated-text"]}
-								dangerouslySetInnerHTML={{ __html: course.description || "" }}
-							/>
+							<Content string={course.description} />
 						</div>
 						<input
 							className={styles["tabs__radio"]}
