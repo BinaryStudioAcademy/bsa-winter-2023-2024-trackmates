@@ -16,7 +16,7 @@ const updateProfile = createAsyncThunk<
 
 	const user = await userApi.update(id, profilePayload);
 
-	notification.success(NotificationMessage.PROFILE_UPDATED);
+	notification.success(NotificationMessage.PROFILE_CHANGES_SAVED);
 
 	return user;
 });

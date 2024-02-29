@@ -9,6 +9,11 @@
 	border-bottom: 2px solid var(--color-background);
 }
 
+.image {
+	object-fit: cover;
+	height: auto;
+}
+
 .toolbar {
 	display: flex;
 	flex: 1;
