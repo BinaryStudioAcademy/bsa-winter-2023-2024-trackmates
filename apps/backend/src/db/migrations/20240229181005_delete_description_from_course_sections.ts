@@ -1,22 +1,18 @@
 import { type Knex } from "knex";
 
-const TableName = {
-	COURSE_SECTIONS: "course_sections",
-} as const;
+const TABLE_NAME = "course_sections";
 
-const ColumnName = {
-	DESCRIPTION: "description",
-} as const;
+const COLUMN_NAME = "description";
 
 function up(knex: Knex): Promise<void> {
-	return knex.schema.table(TableName.COURSE_SECTIONS, (table) => {
-		table.dropColumn(ColumnName.DESCRIPTION);
+	return knex.schema.table(TABLE_NAME, (table) => {
+		table.dropColumn(COLUMN_NAME);
 	});
 }
 
 function down(knex: Knex): Promise<void> {
-	return knex.schema.table(TableName.COURSE_SECTIONS, (table) => {
-		table.text(ColumnName.DESCRIPTION);
+	return knex.schema.table(TABLE_NAME, (table) => {
+		table.text(COLUMN_NAME);
 	});
 }
 
