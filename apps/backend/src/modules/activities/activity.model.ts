@@ -1,24 +1,38 @@
-import {
-	Model,
-	type Modifiers,
-	type QueryBuilder,
-	type RelationMappings,
-} from "objection";
+import { Model, type RelationMappings } from "objection";
 
 import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-import { type ValueOf } from "~/libs/types/types.js";
 import { CourseSectionModel } from "~/modules/course-sections/course-sections.js";
+import { type CourseModel } from "~/modules/courses/courses.js";
+import { type ValueOf } from "~/modules/files/libs/types/types.js";
+import { type SectionStatus } from "~/modules/section-statuses/section-statuses.js";
 import { UserModel } from "~/modules/users/users.js";
 
-import { type SectionStatus } from "./libs/enums/enums.js";
+import { type ActivityType } from "./libs/types/types.js";
 
-class SectionStatusModel extends AbstractModel {
+type ActionMap = {
+	FINISH_COURSE: CourseModel;
+	FINISH_SECTION: CourseSectionModel;
+};
+
+class ActivityModel<TYPE extends ActivityType> extends AbstractModel {
+	public action!: ActionMap[TYPE];
+
+	public time!: string;
+
+	public type!: ActivityType;
+
+	public user!: UserModel;
+
+	public userId!: number;
+}
+
+class SectionActivityModel extends ActivityModel<"FINISH_SECTION"> {
 	public static relationMappings = (): RelationMappings => {
 		return {
-			courseSection: {
+			action: {
 				join: {
 					from: `${DatabaseTableName.SECTION_STATUSES}.courseSectionId`,
 					to: `${DatabaseTableName.COURSE_SECTIONS}.id`,
@@ -37,29 +51,11 @@ class SectionStatusModel extends AbstractModel {
 		};
 	};
 
-	public courseSection!: CourseSectionModel;
-
-	public courseSectionId!: number;
-
 	public status!: ValueOf<typeof SectionStatus>;
-
-	public user!: UserModel;
-
-	public userId!: number;
-
-	public static override get modifiers(): Modifiers<
-		QueryBuilder<SectionStatusModel>
-	> {
-		return {
-			getStatus(builder): QueryBuilder<SectionStatusModel> {
-				return builder.select("id", "status");
-			},
-		};
-	}
 
 	public static override get tableName(): string {
 		return DatabaseTableName.SECTION_STATUSES;
 	}
 }
 
-export { SectionStatusModel };
+export { SectionActivityModel };

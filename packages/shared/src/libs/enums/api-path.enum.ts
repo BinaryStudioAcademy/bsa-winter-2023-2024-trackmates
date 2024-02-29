@@ -1,8 +1,8 @@
 const APIPath = {
+	ACTIVITIES: "/activities",
 	AUTH: "/auth",
 	COURSE_SECTIONS: "/course-sections",
 	COURSES: "/courses",
-	FEED: "/feed",
 	FILES: "/files",
 	FRIENDS: "/friends",
 	SECTION_STATUSES: "/section-statuses",

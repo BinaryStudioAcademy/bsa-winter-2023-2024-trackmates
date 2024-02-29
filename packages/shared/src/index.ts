@@ -31,6 +31,13 @@ export {
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
+export {
+	ActivitiesApiPath,
+	type ActivityActionMap,
+	type ActivityDto,
+	type ActivityType,
+	type GetActivitiesResponseDto,
+} from "./modules/activities/activities.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type CourseSectionAddRequestDto,
@@ -53,12 +60,6 @@ export {
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
 } from "./modules/courses/courses.js";
-export {
-	type FeedActionDto,
-	FeedActionType,
-	FeedApiPath,
-	type GetFeedResponseDto,
-} from "./modules/feed/feed.js";
 export {
 	FileError,
 	type FileUploadResponseDto,

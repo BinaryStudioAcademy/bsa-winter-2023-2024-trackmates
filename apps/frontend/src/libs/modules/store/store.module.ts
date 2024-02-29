@@ -8,12 +8,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
+import {
+	activitiesApi,
+	reducer as activitiesReducer,
+} from "~/modules/activities/activities.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
 import {
 	courseApi,
 	reducer as coursesReducer,
 } from "~/modules/courses/courses.js";
-import { feedApi, reducer as feedReducer } from "~/modules/feed/feed.js";
 import { filesApi } from "~/modules/files/files.js";
 import {
 	friendsApi,
@@ -33,18 +36,18 @@ import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
 
 type RootReducer = {
+	activities: ReturnType<typeof activitiesReducer>;
 	auth: ReturnType<typeof authReducer>;
 	courses: ReturnType<typeof coursesReducer>;
-	feed: ReturnType<typeof feedReducer>;
 	friends: ReturnType<typeof friendsReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
 
 type ExtraArguments = {
+	activitiesApi: typeof activitiesApi;
 	authApi: typeof authApi;
 	courseApi: typeof courseApi;
-	feedApi: typeof feedApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
@@ -74,9 +77,9 @@ class Store {
 				}).prepend(handleError);
 			},
 			reducer: {
+				activities: activitiesReducer,
 				auth: authReducer,
 				courses: coursesReducer,
-				feed: feedReducer,
 				friends: friendsReducer,
 				userCourses: userCoursesReducer,
 				vendors: vendorsReducer,
@@ -86,9 +89,9 @@ class Store {
 
 	public get extraArguments(): ExtraArguments {
 		return {
+			activitiesApi,
 			authApi,
 			courseApi,
-			feedApi,
 			filesApi,
 			friendsApi,
 			notification,

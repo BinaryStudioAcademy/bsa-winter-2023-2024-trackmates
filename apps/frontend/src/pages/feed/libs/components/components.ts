@@ -1,1 +1,1 @@
-export { FeedActionList } from "./feed-action-list/feed-action-list.js";
+export { FeedActivityList } from "./feed-activity-list/feed-activity-list.js";

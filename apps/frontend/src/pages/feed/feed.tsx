@@ -5,17 +5,19 @@ import {
 	useAppSelector,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
-import { actions } from "~/modules/feed/feed.js";
+import { actions } from "~/modules/activities/activities.js";
 
-import { FeedActionList } from "./libs/components/components.js";
+import { FeedActivityList } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Feed: React.FC = () => {
-	const { dataStatus, friendsActions } = useAppSelector((state) => state.feed);
+	const { activities, dataStatus } = useAppSelector(
+		(state) => state.activities,
+	);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		void dispatch(actions.loadFeed());
+		void dispatch(actions.loadActivities());
 	}, [dispatch]);
 
 	const isLoading = dataStatus === DataStatus.PENDING;
@@ -26,7 +28,7 @@ const Feed: React.FC = () => {
 			{isLoading ? (
 				<Loader color="orange" size="large" />
 			) : (
-				<FeedActionList actions={friendsActions} />
+				<FeedActivityList activities={activities} />
 			)}
 		</div>
 	);
