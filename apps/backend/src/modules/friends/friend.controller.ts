@@ -164,6 +164,18 @@ class FriendController extends BaseController {
 			method: "GET",
 			path: FriendsApiPath.POTENTIAL_FOLLOWINGS,
 		});
+		this.addRoute({
+			handler: (options) => {
+				return this.getIsFollowing(
+					options as APIHandlerOptions<{
+						params: FriendFollowRequestDto;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: FriendsApiPath.$ID_IS_FOLLOWING,
+		});
 	}
 
 	/**
@@ -386,6 +398,45 @@ class FriendController extends BaseController {
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.friendService.findAll(),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friends/{id}/is-following:
+	 *   get:
+	 *     tags:
+	 *       - Friends
+	 *     description: Returns a boolean indicating whether current user follows another user
+	 *     security:
+	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         description: ID of the user
+	 *         required: true
+	 *         schema:
+	 *           type: number
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: boolean
+	 */
+	private async getIsFollowing(
+		options: APIHandlerOptions<{
+			params: FriendFollowRequestDto;
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.getIsFollowing(
+				options.user.id,
+				options.params.id,
+			),
 			status: HTTPCode.OK,
 		};
 	}

@@ -2,6 +2,7 @@ import {
 	follow,
 	getFollowers,
 	getFollowings,
+	getIsFollowing,
 	getPotentialFriends,
 	unfollow,
 } from "./actions.js";
@@ -12,6 +13,7 @@ const allActions = {
 	follow,
 	getFollowers,
 	getFollowings,
+	getIsFollowing,
 	getPotentialFriends,
 	unfollow,
 };
