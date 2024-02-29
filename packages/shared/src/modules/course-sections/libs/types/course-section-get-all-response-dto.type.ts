@@ -1,7 +1,7 @@
-import { type CourseSectionWithStatusRelation } from "./course-section-with-status-relation.type.js";
+import { type CourseSectionDto } from "./course-section-dto.type.js";
 
 type CourseSectionGetAllResponseDto = {
-	items: CourseSectionWithStatusRelation[];
+	items: CourseSectionDto[];
 };
 
 export { type CourseSectionGetAllResponseDto };

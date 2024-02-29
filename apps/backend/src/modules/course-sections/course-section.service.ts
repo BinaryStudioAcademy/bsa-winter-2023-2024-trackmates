@@ -8,7 +8,6 @@ import { CourseSectionError } from "./libs/exceptions/exceptions.js";
 import {
 	type CourseSectionAddRequestDto,
 	type CourseSectionDto,
-	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
 } from "./libs/types/types.js";
 
@@ -69,15 +68,11 @@ class CourseSectionService implements Service {
 		return { items: sections.map((section) => section.toObject()) };
 	}
 
-	public async findCourseSections({
-		courseId,
-		userId,
-	}: CourseSectionGetAllRequestDto): Promise<CourseSectionGetAllResponseDto> {
+	public async findCourseSections(
+		courseId: number,
+	): Promise<CourseSectionGetAllResponseDto> {
 		const courseSections =
-			await this.courseSectionRepository.findCourseSections({
-				courseId,
-				userId,
-			});
+			await this.courseSectionRepository.findCourseSections(courseId);
 
 		return {
 			items: courseSections.map((courseSection) => courseSection.toObject()),

@@ -49,7 +49,7 @@ class CourseSectionController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.findCourseSections(
+				return this.findAllByCourseId(
 					options as APIHandlerOptions<{
 						query: CourseSectionGetAllRequestDto;
 					}>,
@@ -92,11 +92,6 @@ class CourseSectionController extends BaseController {
 	 *            type: integer
 	 *          required: true
 	 *          description: ID of the course for which to retrieve course-sections
-	 *          name: userId
-	 *          schema:
-	 *            type: integer
-	 *          required: true
-	 *          description: ID of the user for which to retrieve course-sections
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -105,16 +100,15 @@ class CourseSectionController extends BaseController {
 	 *              schema:
 	 *                $ref: '#/components/schemas/CourseSection'
 	 */
-	private async findCourseSections(
+	private async findAllByCourseId(
 		options: APIHandlerOptions<{
 			query: CourseSectionGetAllRequestDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseSectionService.findCourseSections({
-				courseId: options.query.courseId,
-				userId: options.query.userId,
-			}),
+			payload: await this.courseSectionService.findCourseSections(
+				options.query.courseId,
+			),
 			status: HTTPCode.OK,
 		};
 	}

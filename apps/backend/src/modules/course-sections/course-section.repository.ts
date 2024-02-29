@@ -1,10 +1,7 @@
 import { type Repository } from "~/libs/types/types.js";
-import { SectionStatusEntity } from "~/modules/section-statuses/section-statuses.js";
-import { type SectionStatusModel } from "~/modules/section-statuses/section-statuses.js";
 
 import { CourseSectionEntity } from "./course-section.entity.js";
 import { type CourseSectionModel } from "./course-section.model.js";
-import { type CourseSectionGetAllRequestDto } from "./libs/types/types.js";
 
 class CourseSectionRepository implements Repository<CourseSectionEntity> {
 	private courseSectionModel: typeof CourseSectionModel;
@@ -28,7 +25,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			createdAt: courseSectionModel.createdAt,
 			description: courseSectionModel.description,
 			id: courseSectionModel.id,
-			sectionStatus: null,
 			title: courseSectionModel.title,
 			updatedAt: courseSectionModel.updatedAt,
 		});
@@ -58,7 +54,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			createdAt: courseSection.createdAt,
 			description: courseSection.description,
 			id: courseSection.id,
-			sectionStatus: null,
 			title: courseSection.title,
 			updatedAt: courseSection.updatedAt,
 		});
@@ -73,24 +68,18 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 				createdAt: courseSection.createdAt,
 				description: courseSection.description,
 				id: courseSection.id,
-				sectionStatus: null,
 				title: courseSection.title,
 				updatedAt: courseSection.updatedAt,
 			});
 		});
 	}
 
-	public async findCourseSections({
-		courseId,
-		userId,
-	}: CourseSectionGetAllRequestDto): Promise<CourseSectionEntity[]> {
+	public async findCourseSections(
+		courseId: number,
+	): Promise<CourseSectionEntity[]> {
 		const courseSections = await this.courseSectionModel
 			.query()
 			.where("courseId", courseId)
-			.withGraphJoined("sectionStatus")
-			.modifyGraph<SectionStatusModel>("sectionStatus", (builder) => {
-				void builder.where({ userId });
-			})
 			.execute();
 
 		return courseSections.map((courseSection) => {
@@ -99,16 +88,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 				createdAt: courseSection.createdAt,
 				description: courseSection.description,
 				id: courseSection.id,
-				sectionStatus: courseSection.sectionStatus
-					? SectionStatusEntity.initialize({
-							courseSectionId: courseSection.sectionStatus.courseSectionId,
-							createdAt: courseSection.sectionStatus.createdAt,
-							id: courseSection.sectionStatus.id,
-							status: courseSection.sectionStatus.status,
-							updatedAt: courseSection.sectionStatus.updatedAt,
-							userId: courseSection.sectionStatus.userId,
-						})
-					: null,
 				title: courseSection.title,
 				updatedAt: courseSection.updatedAt,
 			});
@@ -119,7 +98,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		id: number,
 		entity: CourseSectionEntity,
 	): Promise<CourseSectionEntity> {
-		const courseSection = entity.toNewObject();
+		const courseSection = entity.toObject();
 		const courseSectionModel = await this.courseSectionModel
 			.query()
 			.findById(id)
@@ -133,7 +112,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			createdAt: courseSectionModel.createdAt,
 			description: courseSectionModel.description,
 			id: courseSectionModel.id,
-			sectionStatus: null,
 			title: courseSectionModel.title,
 			updatedAt: courseSectionModel.updatedAt,
 		});

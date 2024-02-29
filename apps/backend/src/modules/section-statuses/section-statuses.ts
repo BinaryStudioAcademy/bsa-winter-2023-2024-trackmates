@@ -15,5 +15,3 @@ const sectionStatusController = new SectionStatusController(
 );
 
 export { sectionStatusController };
-export { SectionStatusEntity } from "./section-status.entity.js";
-export { SectionStatusModel } from "./section-status.model.js";
