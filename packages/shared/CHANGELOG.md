@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.8.0...shared-v1.9.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/shared/backend:** Add Friend page tm-40 ([#207](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/207)) ([4aef46b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4aef46b66ac39cf2d164c74e1fdce10461b0cd04))
+
+## [1.8.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.7.0...shared-v1.8.0) (2024-02-29)
+
+
+### Features
+
+* **frontend/backend/shared:** add nickname field for user tm-183 ([#220](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/220)) ([d863bf3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d863bf3a427b5e48719ee025a11a31fbd8fc4b96))
+
 ## [1.7.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.6.0...shared-v1.7.0) (2024-02-28)
 
 
