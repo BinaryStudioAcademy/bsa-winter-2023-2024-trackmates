@@ -1,4 +1,4 @@
-import logo from "~/assets/img/website-logo.png";
+import logo from "~/assets/img/sidebar-logo.svg";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
@@ -60,10 +60,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 							key={label}
 							to={href}
 						>
-							{" "}
-							<span className={styles["menu-icon"]}>
-								<Icon name={icon} />
-							</span>
+							<Icon name={icon} />
 							<span className={styles["link-title"]}>{label}</span>
 						</Link>
 					))}

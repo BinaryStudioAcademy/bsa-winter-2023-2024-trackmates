@@ -36,7 +36,6 @@ class CourseApi extends BaseHTTPApi {
 
 		return await response.json<CoursesResponseDto>();
 	}
-
 	public async getById(id: number): Promise<CourseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(`${CoursesApiPath.ROOT}${id}`, {}),
@@ -48,6 +47,22 @@ class CourseApi extends BaseHTTPApi {
 		);
 
 		return await response.json<CourseDto>();
+	}
+
+	public async getRecommended(
+		filter: CourseSearchFilterDto,
+	): Promise<CoursesResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(CoursesApiPath.RECOMMENDED, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+				query: filter,
+			},
+		);
+
+		return await response.json<CoursesResponseDto>();
 	}
 }
 

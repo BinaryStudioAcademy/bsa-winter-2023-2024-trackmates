@@ -38,6 +38,8 @@ class UserDetailsModel extends AbstractModel {
 
 	public lastName!: string;
 
+	public nickname!: null | string;
+
 	public userId!: number;
 
 	public static override get tableName(): string {
