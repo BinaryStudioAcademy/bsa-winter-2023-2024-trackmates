@@ -8,6 +8,19 @@
 .image {
 	width: 650px;
 	height: auto;
+	overflow: hidden;
+	border-radius: 14px;
+}
+
+.link {
+	font-weight: 500;
+	color: var(--color-button);
+	text-decoration: none;
+	transition: 0.1s color ease;
+}
+
+.link:hover {
+	text-decoration: underline;
 }
 
 .tabs {
@@ -16,6 +29,11 @@
 	max-width: 480px;
 	margin-top: 31px;
 	color: var(--color-text-500);
+}
+
+.tabs__details-list {
+	padding: 15px;
+	list-style: decimal;
 }
 
 .tabs__label {

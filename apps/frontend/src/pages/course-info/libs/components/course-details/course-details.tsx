@@ -14,7 +14,7 @@ const CourseDetails: React.FC<Properties> = ({
 	course,
 	courseSections,
 }: Properties) => {
-	const { description, image, title } = course;
+	const { description, image, title, url, vendor } = course;
 
 	const [isChecked, setIsChecked] = useState(true);
 
@@ -44,6 +44,14 @@ const CourseDetails: React.FC<Properties> = ({
 				<div className={styles["tabs__content"]}>
 					<div className={styles["tabs__title"]}>About this course</div>
 					<Content string={description} />
+					<a
+						className={styles["link"]}
+						href={`${vendor.url}${url}`}
+						rel="noreferrer"
+						target="_blank"
+					>
+						Read more
+					</a>
 				</div>
 				<input
 					className={styles["tabs__radio"]}
