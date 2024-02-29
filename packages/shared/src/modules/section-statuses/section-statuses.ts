@@ -8,6 +8,8 @@ export {
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 export {
-	sectionStatusesGetAllQuery,
-	sectionStatusesUpdateQuery,
+	sectionStatusCreateBody as sectionStatusCreateBodyValidationSchema,
+	sectionStatusUpdateBody as sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQuery as sectionStatusUpdateQueryValidationSchema,
+	sectionStatusesGetAllQuery as sectionStatusesGetAllQueryValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

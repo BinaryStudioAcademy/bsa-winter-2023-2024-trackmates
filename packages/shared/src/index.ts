@@ -78,8 +78,10 @@ export {
 	type SectionStatusGetAllResponseDto,
 	type SectionStatusUpdateRequestDto,
 	SectionStatusesApiPath,
-	sectionStatusesGetAllQuery,
-	sectionStatusesUpdateQuery,
+	sectionStatusCreateBodyValidationSchema,
+	sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQueryValidationSchema,
+	sectionStatusesGetAllQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
 	UserCoursesApiPath,

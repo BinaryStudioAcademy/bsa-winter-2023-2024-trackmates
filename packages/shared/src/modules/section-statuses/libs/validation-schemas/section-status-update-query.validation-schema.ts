@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-const sectionStatusesUpdateQuery = z
+const sectionStatusUpdateQuery = z
 	.object({
 		id: z.coerce.number(),
 	})
 	.required();
 
-export { sectionStatusesUpdateQuery };
+export { sectionStatusUpdateQuery };

@@ -14,8 +14,10 @@ import {
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 import {
-	sectionStatusesGetAllQuery,
-	sectionStatusesUpdateQuery,
+	sectionStatusCreateBodyValidationSchema,
+	sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQueryValidationSchema,
+	sectionStatusesGetAllQueryValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 import { type SectionStatusService } from "./section-status.service.js";
 
@@ -40,6 +42,9 @@ class SectionStatusController extends BaseController {
 			},
 			method: "POST",
 			path: SectionStatusesApiPath.ROOT,
+			validation: {
+				body: sectionStatusCreateBodyValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -53,7 +58,7 @@ class SectionStatusController extends BaseController {
 			method: "GET",
 			path: SectionStatusesApiPath.ROOT,
 			validation: {
-				query: sectionStatusesGetAllQuery,
+				query: sectionStatusesGetAllQueryValidationSchema,
 			},
 		});
 
@@ -69,7 +74,8 @@ class SectionStatusController extends BaseController {
 			method: "POST",
 			path: SectionStatusesApiPath.$ID,
 			validation: {
-				params: sectionStatusesUpdateQuery,
+				body: sectionStatusUpdateBodyValidationSchema,
+				params: sectionStatusUpdateQueryValidationSchema,
 			},
 		});
 	}
