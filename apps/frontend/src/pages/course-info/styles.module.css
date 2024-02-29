@@ -27,13 +27,6 @@
 	color: var(--color-text-300);
 }
 
-.subtitle {
-	padding-top: 30px;
-	font-size: var(--font-size-350);
-	font-weight: 500;
-	color: var(--color-text-300);
-}
-
 .image,
 .course-info {
 	width: 650px;
@@ -43,7 +36,7 @@
 	margin-bottom: 10px;
 }
 
-.list {
+.course-content__list {
 	display: flex;
 	flex-direction: column;
 	gap: 11px;
@@ -51,7 +44,7 @@
 	list-style: none;
 }
 
-.item {
+.course-content__item {
 	min-width: 398px;
 	height: fit-content;
 	padding: 20px 26px;
@@ -60,4 +53,47 @@
 	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-radius: 10px;
+}
+
+.tabs {
+	display: flex;
+	flex-wrap: wrap;
+	max-width: 400px;
+	font-family: sans-serif;
+	color: var(--color-text-500);
+}
+
+.tabs__label {
+	padding: 10px 16px;
+	cursor: pointer;
+	border-bottom: 1px solid #dddddd;
+}
+
+.tabs__radio {
+	display: none;
+}
+
+.tabs__content {
+	display: none;
+	order: 1;
+	width: 100%;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+.tabs__title {
+	padding-top: 30px;
+	font-size: var(--font-size-350);
+	font-weight: 500;
+	color: var(--color-text-300);
+}
+
+.tabs__radio:checked + .tabs__label {
+	font-weight: bold;
+	color: var(--color-text-600);
+	border-bottom: 3px solid var(--main-orange);
+}
+
+.tabs__radio:checked + .tabs__label + .tabs__content {
+	display: initial;
 }

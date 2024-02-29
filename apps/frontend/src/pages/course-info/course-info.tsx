@@ -42,15 +42,56 @@ const CourseInfo: React.FC = () => {
 				<div className={styles["course-info"]}>
 					<div className={styles["title"]}>{course.title}</div>
 					<Image alt="Course" className={styles["image"]} src={course.image} />
-					<div className={styles["subtitle"]}>About this course</div>
-					<div dangerouslySetInnerHTML={{ __html: course.description || "" }} />
+
+					<div className={styles["tabs"]}>
+						<input
+							checked
+							className={styles["tabs__radio"]}
+							id="tab1"
+							name="tabs-example"
+							type="radio"
+						/>
+						<label className={styles["tabs__label"]} htmlFor="tab1">
+							About
+						</label>
+						<div className={styles["tabs__content"]}>
+							<div className={styles["tabs__title"]}>About this course</div>
+							<div
+								dangerouslySetInnerHTML={{ __html: course.description || "" }}
+							/>
+						</div>
+						<input
+							className={styles["tabs__radio"]}
+							id="tab2"
+							name="tabs-example"
+							type="radio"
+						/>
+						<label className={styles["tabs__label"]} htmlFor="tab2">
+							Details
+						</label>
+						<div className={styles["tabs__content"]}>
+							<div className={styles["tabs__title"]}>Course Details</div>
+							<ul className={styles["tabs__details-list"]}>
+								{courseSections.map((section) => {
+									return (
+										<li
+											className={styles["tabs__details-item"]}
+											key={section.id}
+										>
+											{section.title}
+										</li>
+									);
+								})}
+							</ul>
+						</div>
+					</div>
 				</div>
 				<div className={styles["course-content"]}>
 					<div className={styles["title"]}>Course Content</div>
-					<ul className={styles["list"]}>
+					<ul className={styles["course-content__list"]}>
 						{courseSections.map((section) => {
 							return (
-								<li className={styles["item"]} key={section.id}>
+								<li className={styles["course-content__item"]} key={section.id}>
 									{section.title}
 								</li>
 							);
