@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.17.2...v1.18.0) (2024-02-29)
+
+
+### Features
+
+* **frontend:** add lightning css for css bundling tm-210  ([#244](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/244)) ([3468328](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3468328a1d82a4514bc5abb126ea2e273a62df42))
+
+## [1.17.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.17.1...v1.17.2) (2024-02-29)
+
+
+### Bug Fixes
+
+* **backend:** Add Friend page tm-40  ([#253](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/253)) ([92191ce](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/92191ce579251f025acaf358f662cc0571001ba4))
+
+## [1.17.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.17.0...v1.17.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **backend:** organize controllers on Swagger into corresponding sections tm-218 ([#250](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/250)) ([76ef276](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/76ef2763505f663db693317c07be117b72d3f58a))
+
 ## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.16.1...v1.17.0) (2024-02-29)
 
 
