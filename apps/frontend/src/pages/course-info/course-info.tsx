@@ -11,6 +11,7 @@ import {
 import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
+import { CourseSections } from "./components/components.js";
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
@@ -53,7 +54,6 @@ const CourseInfo: React.FC = () => {
 				<div className={styles["course-info"]}>
 					<div className={styles["title"]}>{course.title}</div>
 					<Image alt="Course" className={styles["image"]} src={course.image} />
-
 					<div className={styles["tabs"]}>
 						<input
 							checked={isChecked}
@@ -100,18 +100,7 @@ const CourseInfo: React.FC = () => {
 						</div>
 					</div>
 				</div>
-				<div className={styles["course-content"]}>
-					<div className={styles["title"]}>Course Content</div>
-					<ul className={styles["course-content__list"]}>
-						{courseSections.map((section) => {
-							return (
-								<li className={styles["course-content__item"]} key={section.id}>
-									{section.title}
-								</li>
-							);
-						})}
-					</ul>
-				</div>
+				<CourseSections courseSections={courseSections} />
 			</div>
 		</>
 	);

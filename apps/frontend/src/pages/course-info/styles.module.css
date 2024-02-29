@@ -20,7 +20,7 @@
 }
 
 .title {
-	padding-bottom: 7px;
+	padding-bottom: 17px;
 	font-size: var(--font-size-400);
 	font-weight: 600;
 	color: var(--color-text-300);
@@ -28,29 +28,6 @@
 
 .image {
 	width: 100%;
-}
-
-.course-info .title {
-	margin-bottom: 10px;
-}
-
-.course-content__list {
-	display: flex;
-	flex-direction: column;
-	gap: 11px;
-	padding: 0;
-	list-style: none;
-}
-
-.course-content__item {
-	min-width: 398px;
-	height: fit-content;
-	padding: 20px 26px;
-	font-size: var(--font-size-300);
-	font-weight: 500;
-	color: var(--color-text-300);
-	background-color: var(--main-white);
-	border-radius: 10px;
 }
 
 .tabs {
