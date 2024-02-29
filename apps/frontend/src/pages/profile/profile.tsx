@@ -1,4 +1,4 @@
-import profileCharacter from "~/assets/img/user-details-img.png";
+import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
@@ -28,6 +28,7 @@ const Profile: React.FC = () => {
 		defaultValues: {
 			firstName: user.firstName,
 			lastName: user.lastName,
+			nickname: user.nickname ?? "",
 		},
 		validationSchema: userProfileValidationSchema,
 	});
@@ -100,6 +101,15 @@ const Profile: React.FC = () => {
 								errors={errors}
 								label="Last Name"
 								name="lastName"
+								type="text"
+							/>
+							<Input
+								color="light"
+								control={control}
+								errors={errors}
+								label="Nickname"
+								name="nickname"
+								placeholder="nickname"
 								type="text"
 							/>
 						</fieldset>

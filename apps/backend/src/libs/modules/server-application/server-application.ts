@@ -3,6 +3,8 @@ import { database } from "~/libs/modules/database/database.js";
 import { logger } from "~/libs/modules/logger/logger.js";
 import { token } from "~/libs/modules/token/token.js";
 import { authController } from "~/modules/auth/auth.js";
+import { chatMessageController } from "~/modules/chat-messages/chat-messages.js";
+import { chatController } from "~/modules/chats/chats.js";
 import { courseSectionController } from "~/modules/course-sections/course-sections.js";
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
@@ -19,6 +21,8 @@ const apiV1 = new BaseServerApplicationApi(
 	config,
 	...authController.routes,
 	...courseController.routes,
+	...chatController.routes,
+	...chatMessageController.routes,
 	...vendorController.routes,
 	...userCourseController.routes,
 	...fileController.routes,
@@ -36,5 +40,5 @@ const serverApplication = new BaseServerApplication({
 	token,
 });
 
-export { serverApplication };
 export { type ServerApplicationRouteParameters } from "./libs/types/types.js";
+export { serverApplication };

@@ -35,7 +35,7 @@ const CourseInfo: React.FC = () => {
 			<Button
 				className={styles["back-btn"]}
 				href={AppRoute.ROOT}
-				iconName="back"
+				iconName="backRound"
 				label="Back to overview"
 			/>
 			<div className={styles["wrapper"]}>

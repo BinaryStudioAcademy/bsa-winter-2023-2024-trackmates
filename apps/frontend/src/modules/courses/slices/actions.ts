@@ -28,4 +28,14 @@ const getById = createAsyncThunk<CourseDto, { id: number }, AsyncThunkConfig>(
 	},
 );
 
-export { getAll, getById };
+const getRecommended = createAsyncThunk<
+	CoursesResponseDto,
+	CourseSearchFilterDto,
+	AsyncThunkConfig
+>(`${sliceName}/get-recommended`, (filterPayload, { extra }) => {
+	const { courseApi } = extra;
+
+	return courseApi.getRecommended(filterPayload);
+});
+
+export { getAll, getById, getRecommended };
