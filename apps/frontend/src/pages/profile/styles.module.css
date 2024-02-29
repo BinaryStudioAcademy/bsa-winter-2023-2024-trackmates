@@ -4,6 +4,7 @@
 	flex-direction: column;
 	gap: 17px;
 	justify-content: center;
+	width: 100%;
 	padding: 33px 41px 21px;
 	background-color: var(--color-background);
 }
@@ -32,6 +33,8 @@
 
 .profile-image {
 	object-fit: cover;
+	max-width: 100%;
+	height: auto;
 }
 
 .file-input {
@@ -48,6 +51,7 @@
 	flex-direction: column;
 	align-items: center;
 	height: 520px;
+	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-radius: 16px 16px 0 0;
 }
@@ -84,8 +88,31 @@
 	transform: translateY(-50%);
 }
 
-@media screen and (width <= 768px) {
+@media screen and (width <= 836px) {
+	.profile-image {
+		max-width: 110px;
+		height: auto;
+	}
+
 	.profile-character {
 		display: none;
+	}
+}
+
+@media screen and (width <= 768px) {
+	.profile-image {
+		max-width: 95px;
+		height: auto;
+	}
+}
+
+@media screen and (width <= 480px) {
+	.profile-image {
+		max-width: 70px;
+		height: auto;
+	}
+
+	.fieldset {
+		margin-top: 29px;
 	}
 }
