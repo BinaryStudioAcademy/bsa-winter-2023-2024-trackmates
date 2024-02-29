@@ -1,6 +1,7 @@
 import { Image } from "~/libs/components/components.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
+import { LinearProgress } from "../../../../linear-progress/linear-progress.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -9,6 +10,8 @@ type Properties = {
 
 const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, title, vendor } = course;
+
+	const percentage = 80;
 
 	return (
 		<div className={styles["content"]}>
@@ -20,6 +23,11 @@ const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 			</div>
 			<div className={styles["info-container"]}>
 				<h2 className={styles["title"]}>{title}</h2>
+
+				<div className={styles["progress"]}>
+					<LinearProgress progress={percentage} />
+					<p className={styles["progress-info"]}>Completed {percentage}%</p>
+				</div>
 			</div>
 		</div>
 	);

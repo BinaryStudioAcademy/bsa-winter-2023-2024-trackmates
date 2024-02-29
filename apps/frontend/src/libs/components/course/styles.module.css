@@ -48,3 +48,7 @@
 .course-add-button {
 	flex-grow: 1;
 }
+
+.link {
+	height: 100%;
+}

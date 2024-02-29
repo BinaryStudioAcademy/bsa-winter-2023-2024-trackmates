@@ -5,7 +5,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
-import { CourseCard } from "./component/component.js";
+import { CourseCard } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -28,7 +28,10 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 			{onAddCourse ? (
 				<CourseCard course={course} />
 			) : (
-				<Link to={`${AppRoute.COURSE_INFO}/${id}` as ValueOf<typeof AppRoute>}>
+				<Link
+					className={styles["link"]}
+					to={`${AppRoute.COURSE_INFO}/${id}` as ValueOf<typeof AppRoute>}
+				>
 					<CourseCard course={course} />
 				</Link>
 			)}
