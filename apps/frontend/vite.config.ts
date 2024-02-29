@@ -75,9 +75,6 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		},
 		css: {
 			lightningcss: {
-				drafts: {
-					customMedia: false,
-				},
 				include:
 					Features.MediaQueries |
 					Features.Nesting |
