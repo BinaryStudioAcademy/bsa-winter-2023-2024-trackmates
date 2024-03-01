@@ -1,6 +1,6 @@
 import { type Knex } from "knex";
 
-const TableName = "user_details";
+const TABLE_NAME = "user_details";
 
 const ColumnName = {
 	FIRST_NAME: "first_name",
@@ -15,7 +15,7 @@ const ValidationRule = {
 } as const;
 
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TableName, (table) => {
+	await knex.schema.alterTable(TABLE_NAME, (table) => {
 		table
 			.string(ColumnName.FIRST_NAME, ValidationRule.FIRST_NAME_MAXIMUM_LENGTH)
 			.alter();
@@ -29,7 +29,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TableName, (table) => {
+	await knex.schema.alterTable(TABLE_NAME, (table) => {
 		table.text(ColumnName.FIRST_NAME).alter();
 		table.text(ColumnName.LAST_NAME).alter();
 		table.text(ColumnName.NICKNAME).alter();
