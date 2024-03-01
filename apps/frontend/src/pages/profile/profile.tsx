@@ -79,10 +79,8 @@ const Profile: React.FC = () => {
 							<Image
 								alt="avatar"
 								className={styles["profile-image"]}
-								height="133"
 								shape="circle"
 								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
-								width="133"
 							/>
 							<input
 								accept="image/*"
