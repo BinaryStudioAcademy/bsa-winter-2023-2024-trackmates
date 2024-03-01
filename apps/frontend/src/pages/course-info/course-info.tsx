@@ -1,4 +1,5 @@
 import { Button } from "~/libs/components/components.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -10,7 +11,6 @@ import { actions as courseSectionsActions } from "~/modules/course-sections/cour
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
 import { CourseDetails, CourseSections } from "./libs/components/components.js";
-import { EMPTY_COURSE_SECTIONS } from "./libs/constants.ts/constants.js";
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
@@ -32,6 +32,8 @@ const CourseInfo: React.FC = () => {
 		return;
 	}
 
+	const hasCourseSections = courseSections.length > EMPTY_ARRAY_LENGTH;
+
 	return (
 		<>
 			<Button
@@ -42,7 +44,7 @@ const CourseInfo: React.FC = () => {
 			/>
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
-				{courseSections.length > EMPTY_COURSE_SECTIONS && (
+				{hasCourseSections && (
 					<CourseSections courseSections={courseSections} />
 				)}
 			</div>
