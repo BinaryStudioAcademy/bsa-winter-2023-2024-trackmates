@@ -3,7 +3,7 @@ type Service<T = unknown> = {
 	delete(id: number): Promise<boolean>;
 	find(id: number): Promise<T>;
 	findAll(parameters: unknown): Promise<{ items: T[] }>;
-	update(id: number, payload: unknown): Promise<T>;
+	update(id: number, payload: Partial<T>): Promise<T>;
 };
 
 export { type Service };
