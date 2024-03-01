@@ -27,9 +27,10 @@ const Header: React.FC = () => {
 									styles["navbar-button"],
 									user.hasUnreadNotifications ? styles["unread"] : "",
 								)}
+								hasVisuallyHiddenLabel
 								href={AppRoute.NOTIFICATIONS}
 								iconName="notificationBell"
-								label=""
+								label="Notifications"
 							/>
 						</li>
 						<li>
