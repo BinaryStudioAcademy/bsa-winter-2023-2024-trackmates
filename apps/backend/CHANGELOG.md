@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.11.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.10.3...backend-v1.11.0) (2024-03-01)
+
+
+### Features
+
+* **backend:** Convert text to varchar in DB for fields with a maximum length tm-265 ([#268](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/268)) ([1f3e393](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1f3e393c8bfee1a562c613347ec3b2b1ae70b868))
+
+
+### Bug Fixes
+
+* **backend, shared:** delete description column tm-251 ([#264](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/264)) ([c4cc9ca](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c4cc9ca97bcfc3a8364d7998931164f330ffb1da))
+
 ## [1.10.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.10.2...backend-v1.10.3) (2024-03-01)
 
 
