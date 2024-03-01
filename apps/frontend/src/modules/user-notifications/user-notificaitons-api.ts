@@ -31,6 +31,19 @@ class UserNotificationsApi extends BaseHTTPApi {
 
 		return await response.json<{ items: NotificationResponseDto[] }>();
 	}
+
+	public async hasUserUnreadNotifications(): Promise<boolean> {
+		const response = await this.load(
+			this.getFullEndpoint(UserNotificationsApiPath.UNREAD, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<boolean>();
+	}
 }
 
 export { UserNotificationsApi };

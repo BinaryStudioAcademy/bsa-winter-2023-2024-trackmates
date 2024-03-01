@@ -80,6 +80,10 @@ class NotificationService implements Service {
 		};
 	}
 
+	public async hasUserUnreadNotifications(userId: number): Promise<boolean> {
+		return await this.notificationRepository.hasUserUnreadNotifications(userId);
+	}
+
 	public async update(
 		notificationId: number,
 		payload: NotificationRequestDto,

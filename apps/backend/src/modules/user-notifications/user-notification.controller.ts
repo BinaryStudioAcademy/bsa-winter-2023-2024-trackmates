@@ -59,6 +59,18 @@ class UserNotificationController extends BaseController {
 			method: "GET",
 			path: UserNotificationsApiPath.ROOT,
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.hasUserUnreadNotifications(
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: UserNotificationsApiPath.UNREAD,
+		});
 	}
 
 	/**
@@ -91,6 +103,19 @@ class UserNotificationController extends BaseController {
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.findAllByUserId(options.user.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	public async hasUserUnreadNotifications(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.notificationService.hasUserUnreadNotifications(
+				options.user.id,
+			),
 			status: HTTPCode.OK,
 		};
 	}

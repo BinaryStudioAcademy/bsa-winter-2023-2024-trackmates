@@ -1,6 +1,7 @@
 import { RelationName } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
 
+import { NotificationStatus } from "./libs/enums/enums.js";
 import { NotificationEntity } from "./notification.entity.js";
 import { type NotificationModel } from "./notification.model.js";
 
@@ -125,6 +126,17 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userLastName: notification.user.userDetails.lastName,
 			});
 		});
+	}
+
+	public async hasUserUnreadNotifications(userId: number): Promise<boolean> {
+		const emptyArrayLength = 0;
+
+		const unreadNotifications = await this.notificationModel
+			.query()
+			.where("receiverUserId", "=", userId)
+			.andWhere("status", "=", NotificationStatus.UNREAD);
+
+		return unreadNotifications.length > emptyArrayLength;
 	}
 
 	public async update(

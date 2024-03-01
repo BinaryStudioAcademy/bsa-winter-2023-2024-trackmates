@@ -10,8 +10,11 @@ import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const user = useAppSelector(({ auth }) => {
-		return auth.user as UserAuthResponseDto;
+	const { hasUnreadNotifications, user } = useAppSelector(({ auth }) => {
+		return {
+			hasUnreadNotifications: auth.hasUnreadNotifications,
+			user: auth.user as UserAuthResponseDto,
+		};
 	});
 
 	return (
@@ -25,7 +28,7 @@ const Header: React.FC = () => {
 							<Button
 								className={getValidClassNames(
 									styles["navbar-button"],
-									user.hasUnreadNotifications && styles["unread"],
+									hasUnreadNotifications && styles["unread"],
 								)}
 								hasVisuallyHiddenLabel
 								href={AppRoute.NOTIFICATIONS}

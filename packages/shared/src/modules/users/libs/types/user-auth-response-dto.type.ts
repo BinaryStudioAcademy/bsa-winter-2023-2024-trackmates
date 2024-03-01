@@ -3,7 +3,6 @@ type UserAuthResponseDto = {
 	createdAt: string;
 	email: string;
 	firstName: string;
-	hasUnreadNotifications: boolean;
 	id: number;
 	lastName: string;
 	nickname: null | string;

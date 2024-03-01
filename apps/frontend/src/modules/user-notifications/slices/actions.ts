@@ -15,4 +15,14 @@ const getUserNotifications = createAsyncThunk<
 	return userNotificationsApi.getUserNotifications();
 });
 
-export { getUserNotifications };
+const hasUserUnreadNotifications = createAsyncThunk<
+	boolean,
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/has-user-unread-notifications`, (_, { extra }) => {
+	const { userNotificationsApi } = extra;
+
+	return userNotificationsApi.hasUserUnreadNotifications();
+});
+
+export { getUserNotifications, hasUserUnreadNotifications };

@@ -61,8 +61,6 @@ class UserModel extends AbstractModel {
 
 	public passwordSalt!: string;
 
-	public unreadNotificationsCount!: number;
-
 	public userDetails!: UserDetailsModel;
 
 	public static override get tableName(): string {
