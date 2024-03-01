@@ -1,4 +1,4 @@
-const MAXIMUM_LENGTH = 350;
+const MAXIMUM_LENGTH = 400;
 const START_INDEX = 0;
 
 export { MAXIMUM_LENGTH, START_INDEX };

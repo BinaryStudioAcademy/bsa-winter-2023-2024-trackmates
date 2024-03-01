@@ -17,7 +17,7 @@
 
 .item {
 	min-width: 398px;
-	height: 58px;
+	height: fit-content;
 	padding: 20px 26px;
 	font-size: var(--font-size-300);
 	font-weight: 600;
