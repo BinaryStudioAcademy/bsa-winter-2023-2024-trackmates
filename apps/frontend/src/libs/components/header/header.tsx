@@ -29,8 +29,8 @@ const Header: React.FC = () => {
 			<div className={styles["toolbar"]}>
 				{isSearchBarShown && (
 					<SearchBar
-						classNames={styles["search-bar"]}
-						inputClassNames={styles["search-bar-input"]}
+						className={styles["search-bar"]}
+						inputClassName={styles["search-bar-input"]}
 					/>
 				)}
 				<nav className={styles["navigation"]}>

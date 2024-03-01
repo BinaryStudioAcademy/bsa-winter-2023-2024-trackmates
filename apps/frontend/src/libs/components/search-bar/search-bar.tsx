@@ -22,13 +22,13 @@ const handleFormSubmit = (event_: FormEvent<HTMLFormElement>): void => {
 };
 
 type Properties = {
-	classNames?: string | undefined;
-	inputClassNames?: string | undefined;
+	className?: string | undefined;
+	inputClassName?: string | undefined;
 };
 
 const SearchBar: React.FC<Properties> = ({
-	classNames,
-	inputClassNames,
+	className: classNames,
+	inputClassName: inputClassNames,
 }: Properties) => {
 	const { user } = useAppSelector((state) => ({
 		user: state.auth.user as UserAuthResponseDto,
