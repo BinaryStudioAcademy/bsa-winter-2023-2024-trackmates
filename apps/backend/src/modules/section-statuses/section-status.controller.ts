@@ -21,6 +21,33 @@ import {
 } from "./libs/validation-schemas/validation-schemas.js";
 import { type SectionStatusService } from "./section-status.service.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     SectionStatus:
+ *       type: object
+ *       properties:
+ *         createdAt:
+ *           type: string
+ *         updatedAt:
+ *           type: string
+ *         id:
+ *           type: number
+ *           minimum: 1
+ *           readOnly: true
+ *         userId:
+ *           type: number
+ *           minimum: 1
+ *           readOnly: true
+ *         courseSectionId:
+ *           type: number
+ *           minimum: 1
+ *           readOnly: true
+ *         status:
+ *           type: string
+ *           enum: [completed, inprogress]
+ */
 class SectionStatusController extends BaseController {
 	private sectionStatusService: SectionStatusService;
 
@@ -71,7 +98,7 @@ class SectionStatusController extends BaseController {
 					}>,
 				);
 			},
-			method: "POST",
+			method: "PATCH",
 			path: SectionStatusesApiPath.$ID,
 			validation: {
 				body: sectionStatusUpdateBodyValidationSchema,
@@ -80,6 +107,40 @@ class SectionStatusController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /section-statuses:
+	 *    post:
+	 *      tags:
+	 *        - Section statuses
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Create a section status
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                userId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *                courseSectionId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *                status:
+	 *                  type: string
+	 *                  enum: [completed, inprogress]
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/SectionStatus"
+	 */
 	private async createStatus(
 		options: APIHandlerOptions<{
 			body: SectionStatusAddRequestDto;
@@ -87,10 +148,48 @@ class SectionStatusController extends BaseController {
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.sectionStatusService.create(options.body),
-			status: HTTPCode.OK,
+			status: HTTPCode.CREATED,
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /section-statuses:
+	 *    get:
+	 *      tags:
+	 *        - Section statuses
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find all section statuses by course for user
+	 *      parameters:
+	 *        - name: courseId
+	 *          in: query
+	 *          description: The course id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *        - name: userId
+	 *          in: query
+	 *          description: The user id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/SectionStatus"
+	 */
 	private async findAllByCourseIdAndUserId(
 		options: APIHandlerOptions<{
 			query: SectionStatusGetAllRequestDto;
@@ -107,6 +206,42 @@ class SectionStatusController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /section-statuses/{id}:
+	 *    patch:
+	 *      tags:
+	 *        - Section statuses
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Update section status
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The status id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                  status:
+	 *                    type: string
+	 *                    enum: [completed, inprogress]
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/SectionStatus"
+	 */
 	private async updateStatus(
 		options: APIHandlerOptions<{
 			body: SectionStatusUpdateRequestDto;
