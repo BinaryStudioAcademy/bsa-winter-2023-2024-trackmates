@@ -15,14 +15,12 @@
 
 .card-content {
 	display: grid;
-	grid-template-columns: 200px 1fr;
+	grid-template-columns: 125px 1fr;
 	gap: 16px;
 	padding: 12px;
 }
 
-.card-info {
-	padding: 30px;
-}
+/* .card-info {} */
 
 .card-info-title {
 	font-size: var(--font-size-400);

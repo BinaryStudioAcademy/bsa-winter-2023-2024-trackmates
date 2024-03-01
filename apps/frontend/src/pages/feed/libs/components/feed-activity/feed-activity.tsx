@@ -1,5 +1,5 @@
-import friendImage from "~/assets/img/friend.jpeg"; //TODO
 import { Image } from "~/libs/components/components.js";
+import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import {
 	type ActivityActionMap,
 	type ActivityDto,
@@ -38,7 +38,7 @@ const FeedAction: React.FC<Properties> = ({ activity }: Properties) => {
 				<Image
 					alt="User avatar"
 					className={styles["card-photo"]}
-					src={activity.user.avatarUrl || friendImage} //TODO
+					src={activity.user.avatarUrl ?? DEFAULT_USER_AVATAR}
 				/>
 				<div className={styles["card-info"]}>
 					<p className={styles["card-info-title"]}>{getTitle(activity)}</p>
