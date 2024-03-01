@@ -1,77 +1,119 @@
 import { type Entity } from "~/libs/types/types.js";
-import { type CourseSectionEntity } from "~/modules/course-sections/course-section.entity.js";
 import { type UserEntity } from "~/modules/users/user.entity.js";
 
-import { type CourseEntity } from "../courses/course.entity.js";
 import { type ActivityType } from "./libs/types/types.js";
 
-type ActionMap = {
-	FINISH_COURSE: CourseEntity;
-	FINISH_SECTION: CourseSectionEntity;
-};
+class ActivityEntity implements Entity {
+	public actionId: number;
 
-class ActivityEntity<TYPE extends ActivityType> implements Entity {
-	public action: ActionMap[TYPE];
+	public id: null | number;
 
-	public id: string;
+	public payload: string;
 
-	public time: string;
+	public type: ActivityType;
 
-	public type: TYPE;
+	public updatedAt: string;
 
-	public user: UserEntity;
+	public user: UserEntity | null;
+
+	public userId: number;
 
 	private constructor({
-		action,
+		actionId,
 		id,
-		time,
+		payload,
 		type,
+		updatedAt,
 		user,
+		userId,
 	}: {
-		action: ActionMap[TYPE];
-		id: string;
-		time: string;
-		type: TYPE;
-		user: UserEntity;
+		actionId: number;
+		id: null | number;
+		payload: string;
+		type: ActivityType;
+		updatedAt: string;
+		user: UserEntity | null;
+		userId: number;
 	}) {
-		this.action = action;
+		this.actionId = actionId;
 		this.id = id;
-		this.time = time;
+		this.payload = payload;
 		this.type = type;
+		this.updatedAt = updatedAt;
 		this.user = user;
+		this.userId = userId;
 	}
 
-	public static initialize<TYPE extends ActivityType>({
-		action,
+	public static initialize({
+		actionId,
 		id,
-		time,
+		payload,
 		type,
+		updatedAt,
 		user,
+		userId,
 	}: {
-		action: ActionMap[TYPE];
-		id: string;
-		time: string;
-		type: TYPE;
-		user: UserEntity;
-	}): ActivityEntity<TYPE> {
-		return new ActivityEntity<TYPE>({
-			action,
+		actionId: number;
+		id: number;
+		payload: string;
+		type: ActivityType;
+		updatedAt: string;
+		user: UserEntity | null;
+		userId: number;
+	}): ActivityEntity {
+		return new ActivityEntity({
+			actionId,
 			id,
-			time,
+			payload,
 			type,
+			updatedAt,
 			user,
+			userId,
 		});
 	}
 
-	public toNewObject(): unknown {
-		throw new Error("Method not implemented.");
+	public static initializeNew({
+		actionId,
+		payload,
+		type,
+		userId,
+	}: {
+		actionId: number;
+		payload: string;
+		type: ActivityType;
+		userId: number;
+	}): ActivityEntity {
+		return new ActivityEntity({
+			actionId,
+			id: null,
+			payload,
+			type,
+			updatedAt: "",
+			user: null,
+			userId,
+		});
+	}
+
+	public toNewObject(): {
+		actionId: number;
+		payload: string;
+		type: ActivityType;
+		userId: number;
+	} {
+		return {
+			actionId: this.actionId,
+			payload: this.payload,
+			type: this.type,
+			userId: this.userId,
+		};
 	}
 
 	public toObject(): {
-		action: ReturnType<ActionMap[TYPE]["toObject"]>;
-		id: string;
-		time: string;
-		type: TYPE;
+		actionId: number;
+		id: number;
+		payload: string;
+		type: ActivityType;
+		updatedAt: string;
 		user: {
 			avatarUrl: string;
 			createdAt: string;
@@ -81,15 +123,16 @@ class ActivityEntity<TYPE extends ActivityType> implements Entity {
 			lastName: string;
 			updatedAt: string;
 		};
+		userId: number;
 	} {
 		return {
-			action: this.action.toNewObject() as ReturnType<
-				ActionMap[TYPE]["toObject"]
-			>,
-			id: this.id,
-			time: this.time,
+			actionId: this.actionId,
+			id: this.id as number,
+			payload: this.payload,
 			type: this.type,
-			user: this.user.toObject(),
+			updatedAt: this.updatedAt,
+			user: (this.user as UserEntity).toObject(),
+			userId: this.userId,
 		};
 	}
 }

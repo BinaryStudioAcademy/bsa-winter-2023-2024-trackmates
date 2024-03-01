@@ -1,28 +1,62 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
-import { CourseSectionEntity } from "~/modules/course-sections/course-sections.js";
-import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
-import { UserEntity } from "~/modules/users/users.js";
+import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
-import { type SectionActivityModel } from "./activity.model.js";
+import { type ActivityModel } from "./activity.model.js";
+import { type ActivityType } from "./libs/types/types.js";
 
-type SectionActivityEntity = ActivityEntity<"FINISH_SECTION">;
-
-class SectionActivityRepository
-	implements Pick<Repository<SectionActivityEntity>, "findAll">
+class ActivityRepository
+	implements Omit<Repository<ActivityEntity>, "find" | "update">
 {
-	private activityModel: typeof SectionActivityModel;
+	private activityModel: typeof ActivityModel;
 
-	public constructor(activityModel: typeof SectionActivityModel) {
+	public constructor(activityModel: typeof ActivityModel) {
 		this.activityModel = activityModel;
 	}
 
-	public async findAll(userId: number): Promise<SectionActivityEntity[]> {
+	public async create(activity: ActivityEntity): Promise<ActivityEntity> {
+		const activityModel = await this.activityModel
+			.query()
+			.insert(activity.toNewObject())
+			.returning("*")
+			.castTo<ActivityModel>()
+			.execute();
+
+		return ActivityEntity.initialize({
+			actionId: activityModel.actionId,
+			id: activityModel.id,
+			payload: activityModel.payload,
+			type: activityModel.type,
+			updatedAt: activityModel.updatedAt,
+			user: null,
+			userId: activityModel.userId,
+		});
+	}
+
+	public async delete({
+		actionId,
+		type,
+		userId,
+	}: {
+		actionId: number;
+		type: ActivityType;
+		userId: number;
+	}): Promise<boolean> {
+		const deletedItemsCount = await this.activityModel
+			.query()
+			.where({ actionId, type, userId })
+			.delete()
+			.execute();
+
+		return Boolean(deletedItemsCount);
+	}
+
+	public async findAll(userId: number): Promise<ActivityEntity[]> {
 		const activities = await this.activityModel
 			.query()
 			.whereIn(
-				`${DatabaseTableName.SECTION_STATUSES}.userId`,
+				`${DatabaseTableName.ACTIVITIES}.userId`,
 				this.activityModel
 					.query()
 					.from(DatabaseTableName.FRIENDS)
@@ -30,24 +64,16 @@ class SectionActivityRepository
 					.where({ followerId: userId }),
 			)
 			.withGraphJoined("user.userDetails.avatarFile")
-			.withGraphJoined("action")
-			.where("status", SectionStatus.COMPLETED)
-			.castTo<SectionActivityModel[]>()
+			.castTo<ActivityModel[]>()
 			.execute();
 
 		return activities.map((activity) =>
-			ActivityEntity.initialize<"FINISH_SECTION">({
-				action: CourseSectionEntity.initialize({
-					courseId: activity.action.courseId,
-					createdAt: activity.action.createdAt,
-					description: activity.action.description,
-					id: activity.action.id,
-					title: activity.action.title,
-					updatedAt: activity.action.title,
-				}),
-				id: `finish-section-${activity.id}`,
-				time: activity.updatedAt,
-				type: "FINISH_SECTION",
+			ActivityEntity.initialize({
+				actionId: activity.actionId,
+				id: activity.id,
+				payload: activity.payload,
+				type: activity.type,
+				updatedAt: activity.updatedAt,
 				user: UserEntity.initialize({
 					avatarUrl: activity.user.userDetails.avatarFile?.url || null,
 					createdAt: activity.user.createdAt,
@@ -59,9 +85,10 @@ class SectionActivityRepository
 					passwordSalt: "",
 					updatedAt: activity.user.updatedAt,
 				}),
+				userId: activity.userId,
 			}),
 		);
 	}
 }
 
-export { SectionActivityRepository };
+export { ActivityRepository };

@@ -33,8 +33,8 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
-	type ActivityActionMap,
 	type ActivityDto,
+	type ActivityPayloadMap,
 	type ActivityType,
 	type GetActivitiesResponseDto,
 } from "./modules/activities/activities.js";

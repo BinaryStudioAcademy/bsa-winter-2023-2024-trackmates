@@ -1,4 +1,5 @@
 const DatabaseTableName = {
+	ACTIVITIES: "activities",
 	COURSE_SECTIONS: "course_sections",
 	COURSES: "courses",
 	COURSES_TO_USERS: "courses_to_users",

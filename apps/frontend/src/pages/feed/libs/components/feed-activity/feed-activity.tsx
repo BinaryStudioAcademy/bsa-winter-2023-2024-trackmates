@@ -1,7 +1,6 @@
 import { Image } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import {
-	type ActivityActionMap,
 	type ActivityDto,
 	type ActivityType,
 } from "~/modules/activities/libs/types/types.js";
@@ -11,18 +10,15 @@ import styles from "./styles.module.css";
 // todo  open-close principe
 const getTitle = (activity: ActivityDto<ActivityType>): string => {
 	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
+	const title = activity.payload.title;
 
 	switch (activity.type) {
 		case "FINISH_COURSE": {
-			const action = activity.action as ActivityActionMap["FINISH_COURSE"];
-
-			return `Course: ${userFullName} has finished course "${action.title}". Congratulate her(him)!`;
+			return `Course: ${userFullName} has finished course "${title}". Congratulate her(him)!`;
 		}
 
 		case "FINISH_SECTION": {
-			const action = activity.action as ActivityActionMap["FINISH_SECTION"];
-
-			return `Module:  ${userFullName} has finished module "${action.title}". Congratulate her(him)!`;
+			return `Module:  ${userFullName} has finished module "${title}". Congratulate her(him)!`;
 		}
 	}
 };
