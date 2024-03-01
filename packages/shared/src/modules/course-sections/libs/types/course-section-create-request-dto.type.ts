@@ -1,6 +1,5 @@
 type CourseSectionAddRequestDto = {
 	courseId: number;
-	description: string;
 	title: string;
 };
 
