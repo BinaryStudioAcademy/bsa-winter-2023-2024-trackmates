@@ -2,6 +2,8 @@ import { formatDistanceToNow } from "date-fns";
 
 import { Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
+import { APIPath, type AppRoute } from "~/libs/enums/enums.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
 import styles from "./styles.module.css";
@@ -15,7 +17,11 @@ const NotificationListItem: React.FC<Properties> = ({
 }: Properties) => {
 	return (
 		<li className={styles["notification"]}>
-			<Link to="/">
+			<Link
+				to={
+					`${APIPath.USERS}/${notification.userId}` as ValueOf<typeof AppRoute>
+				}
+			>
 				<Image
 					alt="avatar"
 					className={styles["notification-source-user-avatar"]}
@@ -24,7 +30,14 @@ const NotificationListItem: React.FC<Properties> = ({
 			</Link>
 			<div>
 				<div className={styles["notification-title"]}>
-					<Link className={styles["profile-link"]} to="/">
+					<Link
+						className={styles["profile-link"]}
+						to={
+							`${APIPath.USERS}/${notification.userId}` as ValueOf<
+								typeof AppRoute
+							>
+						}
+					>
 						{notification.userFirstName} {notification.userLastName}
 					</Link>
 					<span>{notification.message}</span>
