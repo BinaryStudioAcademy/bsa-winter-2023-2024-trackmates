@@ -1,3 +1,7 @@
+.container {
+	width: 720px;
+}
+
 .title {
 	padding-bottom: 17px;
 	font-size: var(--font-size-400);
@@ -70,4 +74,5 @@
 
 .tabs__radio:checked + .tabs__label + .tabs__content {
 	display: initial;
+	width: 100%;
 }
