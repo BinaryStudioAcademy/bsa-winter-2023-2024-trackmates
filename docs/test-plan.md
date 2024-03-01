@@ -1,13 +1,10 @@
-**BSWA 2023-2024**
-**[TrackMates](http://development.eu-central-1.elasticbeanstalk.com/)**
-**Test Plan**
-<br/>
+# BSWA 2023-2024 - [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) - Test Plan
 
-# Introduction
+## Introduction
 
 The purpose of this test plan is to describe the testing process of the “TrackMates” web and Progressive Web App (PWA). “TrackMates” is an application for habit tracking in online courses, providing users with a platform to manage, track, and share their learning progress.
 
-# 1. Feature priorities
+## 1. Feature priorities
 
 - User authentication: registration / authorization
 - Course management: adding and viewing courses, tracking progress
@@ -16,7 +13,7 @@ The purpose of this test plan is to describe the testing process of the “Track
 - AI-based course suggestions
 - Progressive Web App (PWA) support
 
-# 2. Team availability hours
+## 2. Team availability hours
 
 - **Development Team:**
   - Monday – Friday: 9:00 AM to 6:00 PM (local time)
@@ -25,7 +22,7 @@ The purpose of this test plan is to describe the testing process of the “Track
   - Monday – Friday: 9:00 AM to 6:00 PM (local time)
   - Saturday – Sunday: 9:00 AM to 4:00 PM (local time)
 
-# 3. Test approach (backend / frontend decomposition)
+## 3. Test approach (backend / frontend decomposition)
 
 - **Backend Testing:**
   - Validate API endpoints, database interactions and server-side functionalities.
@@ -38,7 +35,7 @@ The purpose of this test plan is to describe the testing process of the “Track
   - Artifacts: Design, Specification, Test Cases.
   - Decomposition: Test UI components for user authentication, course management, social features and user’s profile management.
 
-# 4. What will we automate? On what level?
+## 4. What will we automate? On what level?
 
 - **Automation Scope:**
 
@@ -48,7 +45,7 @@ API testing for backend functionalities related to user authentication, course m
 
 TypeScript, Mocha, Chai.
 
-# 5. Features implemented
+## 5. Features implemented
 
 - **User authentication:**
 
@@ -74,7 +71,7 @@ TypeScript, Mocha, Chai.
   - AI algorithms integrated.
   - Frontend UI components in progress.
 
-# 6. Features planned
+## 6. Features planned
 
 - **User authentication:**
 
@@ -95,11 +92,11 @@ TypeScript, Mocha, Chai.
   - Likes, comments, chats
   - Progress comparing
 
-# 7. Demo date / final scope
+## 7. Demo date / final scope
 
 - **Demo Date:**
   - Release 1 — scheduled for 12:00 p.m., February 23, 2024
-  - Release 2 — scheduled for March 1, 2024
+  - Release 2 — scheduled for 12:00 p.m., March 1, 2024
   - Release 3 — scheduled for March 8, 2024
   - Release 4 — scheduled for March 15, 2024
   - Final demo — scheduled for March 23, 2024
