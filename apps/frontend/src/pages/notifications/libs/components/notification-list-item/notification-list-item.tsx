@@ -1,8 +1,15 @@
-import { formatDistanceToNow } from "date-fns";
-
 import { Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { APIPath, type AppRoute } from "~/libs/enums/enums.js";
+import {
+	APIPath,
+	type AppRoute,
+	DateValue,
+	FormatDateType,
+} from "~/libs/enums/enums.js";
+import {
+	getDifferenceInHours,
+	getFormattedDate,
+} from "~/libs/helpers/helpers.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
@@ -15,6 +22,11 @@ type Properties = {
 const NotificationListItem: React.FC<Properties> = ({
 	notification,
 }: Properties) => {
+	const date =
+		getDifferenceInHours(notification.createdAt) < DateValue.HOURS_IN_DAY
+			? getFormattedDate(notification.createdAt, FormatDateType.HH_MM)
+			: getFormattedDate(notification.createdAt, FormatDateType.DD_MM_YYYY);
+
 	return (
 		<li className={styles["notification"]}>
 			<Link
@@ -42,11 +54,7 @@ const NotificationListItem: React.FC<Properties> = ({
 					</Link>
 					<span>{notification.message}</span>
 				</div>
-				<span className={styles["notification-subtitle"]}>
-					{formatDistanceToNow(new Date(notification.createdAt), {
-						addSuffix: true,
-					})}
-				</span>
+				<span className={styles["notification-subtitle"]}>{date}</span>
 			</div>
 		</li>
 	);
