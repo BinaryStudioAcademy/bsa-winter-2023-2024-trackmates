@@ -2,6 +2,7 @@ import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 import {
 	NotificationMessage,
 	type NotificationService,
+	NotificationStatus,
 } from "~/modules/notifications/notifications.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -55,7 +56,7 @@ class FriendService {
 		await this.notificationService.create({
 			message: NotificationMessage.NEW_FOLLOWER_MESSAGE,
 			receiverUserId: followingUserId,
-			status: "unread",
+			status: NotificationStatus.UNREAD,
 			userId: followerUserId,
 		});
 

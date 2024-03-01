@@ -6,6 +6,6 @@ const notificationRepository = new NotificationRepository(NotificationModel);
 const notificationService = new NotificationService(notificationRepository);
 
 export { notificationService };
-export { NotificationMessage } from "./libs/enums/enums.js";
+export { NotificationMessage, NotificationStatus } from "./libs/enums/enums.js";
 export { NotificationModel } from "./notification.model.js";
 export { NotificationService } from "./notification.service.js";

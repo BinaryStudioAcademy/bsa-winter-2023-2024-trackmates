@@ -21,13 +21,13 @@ class NotificationService implements Service {
 	public async create(
 		payload: NotificationRequestDto,
 	): Promise<NotificationResponseDto> {
-		const { message, receiverUserId, userId } = payload;
+		const { message, receiverUserId, status, userId } = payload;
 
 		const notification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
 				message,
 				receiverUserId,
-				status: "unread",
+				status,
 				userId,
 			}),
 		);
