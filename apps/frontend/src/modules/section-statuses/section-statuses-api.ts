@@ -64,7 +64,7 @@ class SectionStatusApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "POST",
+				method: "PATCH",
 				payload: JSON.stringify(payload),
 			},
 		);

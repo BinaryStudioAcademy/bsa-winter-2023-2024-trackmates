@@ -51,7 +51,7 @@ class SectionStatusService implements Service {
 		return await this.sectionStatusRepository.delete(id);
 	}
 
-	public async find(id: number): Promise<SectionStatusEntity> {
+	public async find(id: number): Promise<SectionStatusResponseDto> {
 		const sectionStatus = await this.sectionStatusRepository.find(id);
 
 		if (!sectionStatus) {
@@ -61,7 +61,7 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		return sectionStatus;
+		return sectionStatus.toObject();
 	}
 
 	public async findAll(): Promise<SectionStatusGetAllResponseDto> {
@@ -86,7 +86,7 @@ class SectionStatusService implements Service {
 	public async update(
 		id: number,
 		payload: SectionStatusUpdateRequestDto,
-	): Promise<SectionStatusEntity> {
+	): Promise<SectionStatusResponseDto> {
 		const sectionStatus = await this.sectionStatusRepository.find(id);
 
 		if (!sectionStatus) {
@@ -96,7 +96,7 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		return await this.sectionStatusRepository.update(
+		const updatedSection = await this.sectionStatusRepository.update(
 			id,
 			SectionStatusEntity.initializeNew({
 				courseSectionId: sectionStatus.courseSectionId,
@@ -104,6 +104,8 @@ class SectionStatusService implements Service {
 				userId: sectionStatus.userId,
 			}),
 		);
+
+		return updatedSection.toObject();
 	}
 }
 
