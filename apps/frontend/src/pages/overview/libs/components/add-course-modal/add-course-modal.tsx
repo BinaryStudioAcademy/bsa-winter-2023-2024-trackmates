@@ -103,16 +103,18 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 				<header className={styles["header"]}>
 					<h3 className={styles["title"]}>Add the Course</h3>
 					<form onChange={handleDebouncedSearchCourses}>
-						<Input
-							className={styles["search-input"]}
-							control={control}
-							errors={errors}
-							hasVisuallyHiddenLabel
-							label="Search course"
-							name="search"
-							placeholder="Course name..."
-							type="text"
-						/>
+						<div className={styles["search-input-container"]}>
+							<Input
+								control={control}
+								errors={errors}
+								hasVisuallyHiddenLabel
+								iconName="search"
+								label="Search course"
+								name="search"
+								placeholder="Course name..."
+								type="text"
+							/>
+						</div>
 						<div className={styles["toolbar"]}>
 							<p className={styles["results-count"]}>
 								{courses.length} results
