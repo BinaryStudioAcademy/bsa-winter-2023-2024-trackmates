@@ -1,0 +1,44 @@
+.container {
+	display: grid;
+	grid-template-columns: 48px auto;
+	gap: 10px;
+	width: 100%;
+	padding: 10px;
+}
+
+.container:hover,
+.container:focus {
+	background-color: var(--color-background);
+}
+
+.top-container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 5px;
+}
+
+.name {
+	max-width: 160px;
+	color: var(--color-text-300);
+}
+
+.date {
+	margin-left: auto;
+}
+
+.name,
+.message {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.date,
+.message {
+	color: var(--color-text-200);
+}
+
+.message {
+	width: 190px;
+	margin: 0;
+}

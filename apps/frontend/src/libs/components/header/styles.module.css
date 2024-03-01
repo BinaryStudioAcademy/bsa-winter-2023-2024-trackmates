@@ -11,7 +11,6 @@
 
 .image {
 	object-fit: cover;
-	height: auto;
 }
 
 .toolbar {
@@ -26,18 +25,36 @@
 	margin-right: auto;
 }
 
-.avatar {
-	flex-shrink: 0;
-}
-
 @media screen and (width <= 768px) {
-	.header:has(.search-bar-input:focus) .avatar {
+	.header:has(.search-bar-input:focus) .navigation {
 		display: none;
 	}
 
 	.search-bar {
 		margin-right: unset;
 	}
+}
+
+.navigation {
+	display: flex;
+	flex-shrink: 0;
+	column-gap: 24px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	color: var(--color-text-200);
+	border: unset;
+	fill: currentcolor;
+}
+
+.icon-button:hover {
+	padding: 0;
+	color: var(--main-orange);
+	background-color: var(--main-white);
+	border: unset;
+	fill: currentcolor;
 }
 
 @media screen and (--small-screen) {

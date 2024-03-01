@@ -26,8 +26,6 @@ import { courseSectionIdParameterValidationSchema } from "./libs/validation-sche
  *            minimum: 1
  *          title:
  *            type: string
- *          description:
- *            type: string
  *          courseId:
  *            type: number
  *            format: number

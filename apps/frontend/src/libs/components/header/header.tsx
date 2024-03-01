@@ -8,6 +8,7 @@ import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
+import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
 import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
@@ -32,17 +33,25 @@ const Header: React.FC = () => {
 						inputClassNames={styles["search-bar-input"]}
 					/>
 				)}
-
-				<Link className={styles["avatar"]} to={AppRoute.PROFILE}>
-					<Image
-						alt="user-avatar"
-						className={styles["image"]}
-						height="48"
-						shape="circle"
-						src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
-						width="48"
+				<nav className={styles["navigation"]}>
+					<Button
+						className={styles["icon-button"]}
+						hasVisuallyHiddenLabel
+						href={AppRoute.CHATS}
+						iconName="chats"
+						label="To chats"
 					/>
-				</Link>
+					<Link to={AppRoute.PROFILE}>
+						<Image
+							alt="user-avatar"
+							className={styles["image"]}
+							height="48"
+							shape="circle"
+							src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+							width="48"
+						/>
+					</Link>
+				</nav>
 			</div>
 		</header>
 	);
