@@ -1,11 +1,11 @@
 import { Link } from "~/libs/components/components.js";
 import {
 	DEFAULT_USER_AVATAR,
-	PAGES_WITHOUT_SEARCH_BAR,
+	PAGES_WITH_SEARCH_BAR,
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { isPathMatchingPattern } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Button } from "../button/button.js";
@@ -20,9 +20,9 @@ const Header: React.FC = () => {
 		return auth.user as UserAuthResponseDto;
 	});
 
-	const isSearchBarShown = !PAGES_WITHOUT_SEARCH_BAR.includes(
-		pathname as ValueOf<typeof AppRoute>,
-	);
+	const isSearchBarShown = PAGES_WITH_SEARCH_BAR.some((template) => {
+		return isPathMatchingPattern(pathname, template);
+	});
 
 	return (
 		<header className={styles["header"]}>
