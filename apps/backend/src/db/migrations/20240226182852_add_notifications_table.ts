@@ -3,7 +3,7 @@ import { type Knex } from "knex";
 const TableName = {
 	NOTIFICATIONS: "notifications",
 	USERS: "users",
-};
+} as const;
 
 const NotificationStatus = {
 	READ: "read",
@@ -16,7 +16,7 @@ const ColumnName = {
 	CREATED_AT: "created_at",
 	ID: "id",
 	MESSAGE: "message",
-	SOURCE_USER_ID: "source_user_id",
+	RECEIVER_USER_ID: "receiver_user_id",
 	STATUS: "status",
 	UPDATED_AT: "updated_at",
 	USER_ID: "user_id",
@@ -27,13 +27,13 @@ function up(knex: Knex): Promise<void> {
 		table.increments(ColumnName.ID).primary();
 		table.string(ColumnName.MESSAGE);
 		table
-			.integer(ColumnName.USER_ID)
+			.integer(ColumnName.RECEIVER_USER_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.USERS)
 			.notNullable()
 			.onDelete(DELETE_STRATEGY);
 		table
-			.integer(ColumnName.SOURCE_USER_ID)
+			.integer(ColumnName.USER_ID)
 			.references(ColumnName.ID)
 			.inTable(TableName.USERS);
 		table

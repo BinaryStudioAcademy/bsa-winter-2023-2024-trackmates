@@ -3,7 +3,7 @@ import { type NotificationStatus } from "../enums/enums.js";
 
 type NotificationRequestDto = {
 	message: string;
-	sourceUserId: number;
+	receiverUserId: number;
 	status: ValueOf<typeof NotificationStatus>;
 	userId: number;
 };

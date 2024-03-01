@@ -9,100 +9,100 @@ class NotificationEntity implements Entity {
 
 	private message: string;
 
-	private sourceUserAvtarUrl: null | string;
-
-	private sourceUserFirstName: null | string;
-
-	private sourceUserId: number;
-
-	private sourceUserLastName: null | string;
+	private receiverUserId: number;
 
 	private status: ValueOf<typeof NotificationStatus>;
 
 	private updatedAt: string;
 
+	private userAvtarUrl: null | string;
+
+	private userFirstName: null | string;
+
 	private userId: number;
+
+	private userLastName: null | string;
 
 	private constructor({
 		createdAt,
 		id,
 		message,
-		sourceUserAvatarUrl,
-		sourceUserFirstName,
-		sourceUserId,
-		sourceUserLastName,
+		receiverUserId,
 		status,
 		updatedAt,
+		userAvatarUrl,
+		userFirstName,
 		userId,
+		userLastName,
 	}: {
 		createdAt: string;
 		id: null | number;
 		message: string;
-		sourceUserAvatarUrl: null | string;
-		sourceUserFirstName: null | string;
-		sourceUserId: number;
-		sourceUserLastName: null | string;
+		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
+		userAvatarUrl: null | string;
+		userFirstName: null | string;
 		userId: number;
+		userLastName: null | string;
 	}) {
 		this.createdAt = createdAt;
 		this.id = id;
 		this.message = message;
-		this.sourceUserAvtarUrl = sourceUserAvatarUrl;
-		this.sourceUserFirstName = sourceUserFirstName;
-		this.sourceUserId = sourceUserId;
-		this.sourceUserLastName = sourceUserLastName;
+		this.receiverUserId = receiverUserId;
 		this.status = status;
 		this.updatedAt = updatedAt;
+		this.userAvtarUrl = userAvatarUrl;
+		this.userFirstName = userFirstName;
 		this.userId = userId;
+		this.userLastName = userLastName;
 	}
 
 	public static initialize({
 		createdAt,
 		id,
 		message,
-		sourceUserAvatarUrl,
-		sourceUserFirstName,
-		sourceUserId,
-		sourceUserLastName,
+		receiverUserId,
 		status,
 		updatedAt,
+		userAvatarUrl,
+		userFirstName,
 		userId,
+		userLastName,
 	}: {
 		createdAt: string;
 		id: null | number;
 		message: string;
-		sourceUserAvatarUrl: null | string;
-		sourceUserFirstName: string;
-		sourceUserId: number;
-		sourceUserLastName: string;
+		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
+		userAvatarUrl: null | string;
+		userFirstName: string;
 		userId: number;
+		userLastName: string;
 	}): NotificationEntity {
 		return new NotificationEntity({
 			createdAt,
 			id,
 			message,
-			sourceUserAvatarUrl,
-			sourceUserFirstName,
-			sourceUserId,
-			sourceUserLastName,
+			receiverUserId,
 			status,
 			updatedAt,
+			userAvatarUrl,
+			userFirstName,
 			userId,
+			userLastName,
 		});
 	}
 
 	public static initializeNew({
 		message,
-		sourceUserId,
+		receiverUserId,
 		status,
 		userId,
 	}: {
 		message: string;
-		sourceUserId: number;
+		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		userId: number;
 	}): NotificationEntity {
@@ -110,20 +110,20 @@ class NotificationEntity implements Entity {
 			createdAt: "",
 			id: null,
 			message,
-			sourceUserAvatarUrl: null,
-			sourceUserFirstName: null,
-			sourceUserId,
-			sourceUserLastName: null,
+			receiverUserId,
 			status,
 			updatedAt: "",
+			userAvatarUrl: null,
+			userFirstName: null,
 			userId,
+			userLastName: null,
 		});
 	}
 
 	public toNewObject(): {
 		createdAt: string;
 		message: string;
-		sourceUserId: number;
+		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
 		userId: number;
@@ -131,7 +131,7 @@ class NotificationEntity implements Entity {
 		return {
 			createdAt: this.createdAt,
 			message: this.message,
-			sourceUserId: this.sourceUserId,
+			receiverUserId: this.receiverUserId,
 			status: this.status,
 			updatedAt: this.updatedAt,
 			userId: this.userId,
@@ -142,25 +142,25 @@ class NotificationEntity implements Entity {
 		createdAt: string;
 		id: number;
 		message: string;
-		sourceUserAvatarUrl: string;
-		sourceUserFirstName: string;
-		sourceUserId: number;
-		sourceUserLastName: string;
+		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		updatedAt: string;
+		userAvatarUrl: string;
+		userFirstName: string;
 		userId: number;
+		userLastName: string;
 	} {
 		return {
 			createdAt: this.createdAt,
 			id: this.id as number,
 			message: this.message,
-			sourceUserAvatarUrl: this.sourceUserAvtarUrl as string,
-			sourceUserFirstName: this.sourceUserFirstName as string,
-			sourceUserId: this.sourceUserId,
-			sourceUserLastName: this.sourceUserLastName as string,
+			receiverUserId: this.receiverUserId,
 			status: this.status,
 			updatedAt: this.updatedAt,
+			userAvatarUrl: this.userAvtarUrl as string,
+			userFirstName: this.userFirstName as string,
 			userId: this.userId,
+			userLastName: this.userLastName as string,
 		};
 	}
 

@@ -18,13 +18,13 @@ const NotificationListItem: React.FC<Properties> = ({
 				<Image
 					alt="avatar"
 					className={styles["notification-source-user-avatar"]}
-					src={notification.sourceUserAvatarUrl ?? DEFAULT_USER_AVATAR}
+					src={notification.userAvatarUrl ?? DEFAULT_USER_AVATAR}
 				/>
 			</Link>
 			<div>
 				<div className={styles["notification-title"]}>
 					<Link className={styles["profile-link"]} to="/">
-						{notification.sourceUserFirstName} {notification.sourceUserLastName}
+						{notification.userFirstName} {notification.userLastName}
 					</Link>
 					<span>{notification.message}</span>
 				</div>

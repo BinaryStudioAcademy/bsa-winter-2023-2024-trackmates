@@ -21,12 +21,12 @@ class NotificationService implements Service {
 	public async create(
 		payload: NotificationRequestDto,
 	): Promise<NotificationResponseDto> {
-		const { message, sourceUserId, userId } = payload;
+		const { message, receiverUserId, userId } = payload;
 
 		const notification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
 				message,
-				sourceUserId,
+				receiverUserId,
 				status: "unread",
 				userId,
 			}),
@@ -93,13 +93,13 @@ class NotificationService implements Service {
 			});
 		}
 
-		const { message, sourceUserId, status, userId } = payload;
+		const { message, receiverUserId, status, userId } = payload;
 
 		const updatedNotification = await this.notificationRepository.update(
 			notificationId,
 			NotificationEntity.initializeNew({
 				message,
-				sourceUserId,
+				receiverUserId,
 				status,
 				userId,
 			}),

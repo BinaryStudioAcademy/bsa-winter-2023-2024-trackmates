@@ -12,14 +12,6 @@ import { type NotificationStatus } from "./libs/enums/enums.js";
 class NotificationModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
 		return {
-			sourceUser: {
-				join: {
-					from: `${DatabaseTableName.NOTIFICATIONS}.sourceUserId`,
-					to: `${DatabaseTableName.USERS}.id`,
-				},
-				modelClass: UserModel,
-				relation: Model.BelongsToOneRelation,
-			},
 			user: {
 				join: {
 					from: `${DatabaseTableName.NOTIFICATIONS}.userId`,
@@ -32,9 +24,9 @@ class NotificationModel extends AbstractModel {
 	};
 
 	public message!: string;
-	public sourceUser!: UserModel;
-	public sourceUserId!: number;
+	public receiverUserId!: number;
 	public status!: ValueOf<typeof NotificationStatus>;
+	public user!: UserModel;
 	public userId!: number;
 
 	public static override get tableName(): string {

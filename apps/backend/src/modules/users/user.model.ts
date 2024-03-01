@@ -39,7 +39,7 @@ class UserModel extends AbstractModel {
 			notifications: {
 				join: {
 					from: `${DatabaseTableName.USERS}.id`,
-					to: `${DatabaseTableName.NOTIFICATIONS}.userId`,
+					to: `${DatabaseTableName.NOTIFICATIONS}.receiverUserId`,
 				},
 				modelClass: NotificationModel,
 				relation: Model.HasManyRelation,

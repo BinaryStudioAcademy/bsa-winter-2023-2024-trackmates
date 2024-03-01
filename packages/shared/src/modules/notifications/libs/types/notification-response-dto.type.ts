@@ -5,13 +5,13 @@ type NotificationResponseDto = {
 	createdAt: string;
 	id: number;
 	message: string;
-	sourceUserAvatarUrl: null | string;
-	sourceUserFirstName: string;
-	sourceUserId: number;
-	sourceUserLastName: string;
+	receiverUserId: number;
 	status: ValueOf<typeof NotificationStatus>;
 	updatedAt: string;
+	userAvatarUrl: null | string;
+	userFirstName: string;
 	userId: number;
+	userLastName: string;
 };
 
 export { type NotificationResponseDto };

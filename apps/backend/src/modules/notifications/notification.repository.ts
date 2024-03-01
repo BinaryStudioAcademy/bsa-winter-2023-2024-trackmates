@@ -14,14 +14,14 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	public async create(
 		payload: NotificationEntity,
 	): Promise<NotificationEntity> {
-		const { message, sourceUserId, userId } = payload.toNewObject();
+		const { message, receiverUserId, userId } = payload.toNewObject();
 
 		const createdNotification = await this.notificationModel
 			.query()
-			.insert({ message, sourceUserId, userId })
+			.insert({ message, receiverUserId, userId })
 			.returning("*")
 			.withGraphFetched(
-				`${RelationName.SOURCE_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.execute();
 
@@ -29,14 +29,14 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			createdAt: createdNotification.createdAt,
 			id: createdNotification.id,
 			message: createdNotification.message,
-			sourceUserAvatarUrl:
-				createdNotification.sourceUser.userDetails.avatarFile?.url ?? null,
-			sourceUserFirstName: createdNotification.sourceUser.userDetails.firstName,
-			sourceUserId: createdNotification.sourceUserId,
-			sourceUserLastName: createdNotification.sourceUser.userDetails.lastName,
+			receiverUserId: createdNotification.receiverUserId,
 			status: createdNotification.status,
 			updatedAt: createdNotification.updatedAt,
+			userAvatarUrl:
+				createdNotification.user.userDetails.avatarFile?.url ?? null,
+			userFirstName: createdNotification.user.userDetails.firstName,
 			userId: createdNotification.userId,
+			userLastName: createdNotification.user.userDetails.lastName,
 		});
 	}
 
@@ -53,7 +53,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.query()
 			.findById(notificationId)
 			.withGraphFetched(
-				`${RelationName.SOURCE_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.execute();
 
@@ -62,14 +62,13 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					createdAt: notification.createdAt,
 					id: notification.id,
 					message: notification.message,
-					sourceUserAvatarUrl:
-						notification.sourceUser.userDetails.avatarFile?.url ?? null,
-					sourceUserFirstName: notification.sourceUser.userDetails.firstName,
-					sourceUserId: notification.sourceUserId,
-					sourceUserLastName: notification.sourceUser.userDetails.lastName,
+					receiverUserId: notification.receiverUserId,
 					status: notification.status,
 					updatedAt: notification.updatedAt,
+					userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+					userFirstName: notification.user.userDetails.firstName,
 					userId: notification.userId,
+					userLastName: notification.user.userDetails.lastName,
 				})
 			: null;
 	}
@@ -78,7 +77,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		const notifications = await this.notificationModel
 			.query()
 			.withGraphFetched(
-				`${RelationName.SOURCE_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.execute();
 
@@ -87,14 +86,13 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: notification.message,
-				sourceUserAvatarUrl:
-					notification.sourceUser.userDetails.avatarFile?.url ?? null,
-				sourceUserFirstName: notification.sourceUser.userDetails.firstName,
-				sourceUserId: notification.sourceUserId,
-				sourceUserLastName: notification.sourceUser.userDetails.lastName,
+				receiverUserId: notification.receiverUserId,
 				status: notification.status,
 				updatedAt: notification.updatedAt,
+				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+				userFirstName: notification.user.userDetails.firstName,
 				userId: notification.userId,
+				userLastName: notification.user.userDetails.lastName,
 			}),
 		);
 	}
@@ -102,9 +100,9 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	public async findAllByUserId(userId: number): Promise<NotificationEntity[]> {
 		const userNotifications = await this.notificationModel
 			.query()
-			.where("notifications.userId", "=", userId)
+			.where("notifications.receiverUserId", "=", userId)
 			.withGraphJoined(
-				`${RelationName.SOURCE_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.returning("*")
 			.execute();
@@ -114,14 +112,13 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: notification.message,
-				sourceUserAvatarUrl:
-					notification.sourceUser.userDetails.avatarFile?.url ?? null,
-				sourceUserFirstName: notification.sourceUser.userDetails.firstName,
-				sourceUserId: notification.sourceUserId,
-				sourceUserLastName: notification.sourceUser.userDetails.lastName,
+				receiverUserId: notification.receiverUserId,
 				status: notification.status,
 				updatedAt: notification.updatedAt,
+				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+				userFirstName: notification.user.userDetails.firstName,
 				userId: notification.userId,
+				userLastName: notification.user.userDetails.lastName,
 			}),
 		);
 	}
@@ -134,7 +131,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.query()
 			.patchAndFetchById(notificationId, payload.toUpdateObject())
 			.withGraphFetched(
-				`${RelationName.SOURCE_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.execute();
 
@@ -142,14 +139,14 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			createdAt: updatedNotification.createdAt,
 			id: updatedNotification.id,
 			message: updatedNotification.message,
-			sourceUserAvatarUrl:
-				updatedNotification.sourceUser.userDetails.avatarFile?.url ?? null,
-			sourceUserFirstName: updatedNotification.sourceUser.userDetails.firstName,
-			sourceUserId: updatedNotification.sourceUserId,
-			sourceUserLastName: updatedNotification.sourceUser.userDetails.lastName,
+			receiverUserId: updatedNotification.receiverUserId,
 			status: updatedNotification.status,
 			updatedAt: updatedNotification.updatedAt,
+			userAvatarUrl:
+				updatedNotification.user.userDetails.avatarFile?.url ?? null,
+			userFirstName: updatedNotification.user.userDetails.firstName,
 			userId: updatedNotification.userId,
+			userLastName: updatedNotification.user.userDetails.lastName,
 		});
 	}
 }
