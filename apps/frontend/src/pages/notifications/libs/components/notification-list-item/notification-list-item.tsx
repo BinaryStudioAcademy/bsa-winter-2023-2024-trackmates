@@ -1,6 +1,7 @@
+import { formatDistanceToNow } from "date-fns";
+
 import { Image, Link } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { getTimeAgo } from "~/libs/helpers/helpers.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
 import styles from "./styles.module.css";
@@ -29,7 +30,9 @@ const NotificationListItem: React.FC<Properties> = ({
 					<span>{notification.message}</span>
 				</div>
 				<span className={styles["notification-subtitle"]}>
-					{getTimeAgo(notification.createdAt)}
+					{formatDistanceToNow(new Date(notification.createdAt), {
+						addSuffix: true,
+					})}
 				</span>
 			</div>
 		</li>
