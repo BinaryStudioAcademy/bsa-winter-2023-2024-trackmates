@@ -1,4 +1,4 @@
-# BSWA 2023-2024 - [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) - Test Strategy
+# BSWA 2023-2024 – [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) – Test Strategy
 
 ## 1. Introduction
 
@@ -36,16 +36,22 @@ The purpose of the test strategy for the **“TrackMates”** web and Progressiv
   OpenAI Node API Library – provides access to the OpenAI REST API
 
 The project is deployed to AWS.
+
 GitHub actions are used for CI and CD.
+
 Scrum model is used for SDLC.
 
 ### Documents
 
 [Design (Desktop)](https://www.figma.com/file/P8QzgCZEaN0UU9QpjdggRW/BSA_TrackMates?type=design&node-id=0%3A1&mode=design&t=isWb7Jwsid5AxTL1-1)
+
 [Design (Mobile)](https://www.figma.com/file/JJjwl3joVKOwS0tzzYs8Vz/TrackMates?type=design&node-id=0%3A1&mode=design&t=ZuqmB1birN3911IH-1)
+
 [Specification](https://docs.google.com/document/d/1Vum3p6bc_2BQ_t3YaJbaH1We7UoZx7Hztgm0kTCeEe4/edit?usp=sharing)
+
 [Mind Map](https://miro.com/app/board/uXjVNuSbBvw=/?share_link_id=272684492193)
-[Test Plan](https://docs.google.com/document/d/1nDmqEXj8gObbec4OoH-uJWdoxemDeMi_a_stn9vAZEI/edit?usp=sharing)
+
+[Test Plan](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/blob/main/docs/test-plan.md)
 
 ### Project team
 
@@ -61,7 +67,9 @@ The team that will work on the project:
 ### Project deadlines
 
 09/02/2024 – project starts;
+
 23/03/2024 – project release.
+
 All works must be completed before 22/03/2024.
 
 ### Communications approach
@@ -102,10 +110,15 @@ The following types of testing will be used:
 ### Weekly objectives for the QA team
 
 **Week 1:** Testing Process, Requirements Analysis, Mind Map, Test Strategy
+
 **Week 2:** Testing Process, Requirements Analysis, Test Plan, Test Cases
+
 **Week 3:** Testing Process, Requirements Analysis, Test Cases
+
 **Week 4:** Testing Process, Requirements Analysis…
+
 **Week 5:** Testing Process, Requirements Analysis…
+
 **Week 6:** Acceptance Testing, Requirements Analysis…
 
 ### Using templates
@@ -190,16 +203,23 @@ flowchart TB
 ```
 
 **Severity:**
+
 Blocker (S1) – Blocker Impact / System Down. Complete system outage.
+
 Critical (S2) – Critical Impact / Partial system outage.
+
 Major (S3) – Significant Impact / Severe downgrade of services.
+
 Minor (S4) – Minor Impact / Most of the system is functioning properly.
+
 Trivial (S5) – Low Impact / Informational.
 
 ### Automated testing:
 
 Optional automated testing may be implemented for previous sprints.
+
 For that, TypeScript, Mocha and Chai should be used.
+
 GitHub actions are used for CI/CD.
 
 ## 5. Release Control
@@ -264,7 +284,7 @@ The master branch must be frozen at least one day before demo each sprint.
 
 ## 8. Test Plan
 
-**[Test Plan](https://docs.google.com/document/d/1nDmqEXj8gObbec4OoH-uJWdoxemDeMi_a_stn9vAZEI/edit?usp=sharing)** is composed by the QA team and contains:
+**[Test Plan](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/blob/main/docs/test-plan.md)** is composed by the QA team and contains:
 
 1. Feature priorities
 2. Team availability hours
