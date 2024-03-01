@@ -16,6 +16,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getPercentage,
 	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
