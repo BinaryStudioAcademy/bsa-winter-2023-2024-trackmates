@@ -25,7 +25,7 @@ const Header: React.FC = () => {
 							<Button
 								className={getValidClassNames(
 									styles["navbar-button"],
-									user.hasUnreadNotifications ? styles["unread"] : "",
+									user.hasUnreadNotifications && styles["unread"],
 								)}
 								hasVisuallyHiddenLabel
 								href={AppRoute.NOTIFICATIONS}
