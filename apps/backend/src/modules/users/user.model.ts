@@ -61,7 +61,7 @@ class UserModel extends AbstractModel {
 
 	public passwordSalt!: string;
 
-	public unreadNotifcationsCount!: number;
+	public unreadNotificationsCount!: number;
 
 	public userDetails!: UserDetailsModel;
 

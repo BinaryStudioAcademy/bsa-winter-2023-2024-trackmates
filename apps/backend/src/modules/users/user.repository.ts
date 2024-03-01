@@ -72,7 +72,7 @@ class UserRepository implements Repository<UserEntity> {
 					.relatedQuery(RelationName.NOTIFICAIONS)
 					.where("status", "=", "unread")
 					.count()
-					.as("unreadNotifcationsCount"),
+					.as("unreadNotificationsCount"),
 			)
 			.findById(userId)
 			.withGraphJoined(
@@ -86,7 +86,9 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
-					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
+					hasUnreadNotifications: Boolean(
+						Number(user.unreadNotificationsCount),
+					),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -131,7 +133,7 @@ class UserRepository implements Repository<UserEntity> {
 					.relatedQuery(RelationName.NOTIFICAIONS)
 					.where("status", "=", "unread")
 					.count()
-					.as("unreadNotifcationsCount"),
+					.as("unreadNotificationsCount"),
 			)
 			.findById(id)
 			.withGraphJoined(
@@ -145,7 +147,9 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
-					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
+					hasUnreadNotifications: Boolean(
+						Number(user.unreadNotificationsCount),
+					),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -165,7 +169,7 @@ class UserRepository implements Repository<UserEntity> {
 					.relatedQuery(RelationName.NOTIFICAIONS)
 					.where("status", "=", "unread")
 					.count()
-					.as("unreadNotifcationsCount"),
+					.as("unreadNotificationsCount"),
 			)
 			.findOne({ email })
 			.withGraphJoined(
@@ -179,7 +183,9 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
-					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
+					hasUnreadNotifications: Boolean(
+						Number(user.unreadNotificationsCount),
+					),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -246,7 +252,7 @@ class UserRepository implements Repository<UserEntity> {
 					.relatedQuery(RelationName.NOTIFICAIONS)
 					.where("status", "=", "unread")
 					.count()
-					.as("unreadNotifcationsCount"),
+					.as("unreadNotificationsCount"),
 			)
 			.findById(userId)
 			.withGraphJoined(
@@ -260,7 +266,9 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
-					hasUnreadNotifications: Boolean(+user.unreadNotifcationsCount),
+					hasUnreadNotifications: Boolean(
+						Number(user.unreadNotificationsCount),
+					),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
