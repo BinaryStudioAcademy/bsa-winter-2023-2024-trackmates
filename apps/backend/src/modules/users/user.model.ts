@@ -5,6 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 import { CourseModel } from "~/modules/courses/course.model.js";
+import { GroupModel } from "~/modules/groups/group.model.js";
 
 import { UserDetailsModel } from "./user-details.model.js";
 
@@ -33,6 +34,18 @@ class UserModel extends AbstractModel {
 					to: `${DatabaseTableName.USERS}.id`,
 				},
 				modelClass: UserModel,
+				relation: Model.ManyToManyRelation,
+			},
+			groups: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					through: {
+						from: `${DatabaseTableName.USERS_TO_GROUPS}.userId`,
+						to: `${DatabaseTableName.USERS_TO_GROUPS}.groupId`,
+					},
+					to: `${DatabaseTableName.GROUPS}.id`,
+				},
+				modelClass: GroupModel,
 				relation: Model.ManyToManyRelation,
 			},
 			userDetails: {

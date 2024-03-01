@@ -12,6 +12,7 @@ const DatabaseTableName = {
 	PERMISSIONS: "permissions",
 	USER_DETAILS: "user_details",
 	USERS: "users",
+	USERS_TO_GROUPS: "users_to_groups",
 	VENDORS: "vendors",
 } as const;
 
