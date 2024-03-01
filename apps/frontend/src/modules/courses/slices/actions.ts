@@ -19,7 +19,7 @@ const getAll = createAsyncThunk<
 	return courseApi.getAll(filterPayload);
 });
 
-const getById = createAsyncThunk<CourseDto, { id: number }, AsyncThunkConfig>(
+const getById = createAsyncThunk<CourseDto, { id: string }, AsyncThunkConfig>(
 	`${sliceName}/getById`,
 	({ id }, { extra }) => {
 		const { courseApi } = extra;

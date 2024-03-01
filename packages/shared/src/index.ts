@@ -6,12 +6,17 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
+	DateValue,
 	ExceptionMessage,
+	FormatDateType,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
+	getDifferenceInHours,
+	getFormattedDate,
+	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
@@ -44,6 +49,7 @@ export {
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
+	chatMessageValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,
@@ -61,7 +67,9 @@ export {
 	CourseSectionError,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	type CourseSectionWithStatusRelation,
 	CourseSectionsApiPath,
+	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,
 } from "./modules/course-sections/course-sections.js";
 export {
@@ -91,6 +99,20 @@ export {
 	addFriendValidationSchema,
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
+export {
+	SectionStatus,
+	type SectionStatusAddRequestDto,
+	SectionStatusError,
+	type SectionStatusGetAllRequestDto,
+	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
+	type SectionStatusUpdateRequestDto,
+	SectionStatusesApiPath,
+	sectionStatusCreateBodyValidationSchema,
+	sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQueryValidationSchema,
+	sectionStatusesGetAllQueryValidationSchema,
+} from "./modules/section-statuses/section-statuses.js";
 export {
 	UserCoursesApiPath,
 	userIdParameterValidationSchema,

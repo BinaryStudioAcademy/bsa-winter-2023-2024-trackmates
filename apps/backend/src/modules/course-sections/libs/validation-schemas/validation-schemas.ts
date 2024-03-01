@@ -1,1 +1,4 @@
-export { courseSectionIdParameterValidationSchema } from "@trackmates/shared";
+export {
+	courseSectionGetAllQueryValidationSchema,
+	courseSectionIdParameterValidationSchema,
+} from "@trackmates/shared";

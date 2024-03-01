@@ -29,8 +29,9 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 				<CourseCard course={course} />
 			) : (
 				<Link
-					className={styles["link"]}
-					to={`${AppRoute.COURSE_INFO}/${id}` as ValueOf<typeof AppRoute>}
+					to={
+						`${AppRoute.COURSE_DESCRIPTION}/${id}` as ValueOf<typeof AppRoute>
+					}
 				>
 					<CourseCard course={course} />
 				</Link>

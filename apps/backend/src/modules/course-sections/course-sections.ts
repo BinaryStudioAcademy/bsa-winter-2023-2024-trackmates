@@ -17,5 +17,6 @@ const courseSectionController = new CourseSectionController(
 
 export { courseSectionController, courseSectionRepository };
 export { CourseSectionEntity } from "./course-section.entity.js";
+export { CourseSectionModel } from "./course-section.model.js";
 export { type CourseSectionRepository } from "./course-section.repository.js";
 export { type CourseSectionDto } from "./libs/types/types.js";

@@ -9,6 +9,9 @@ const courseSectionsApi = new CourseSectionsApi({
 	http,
 	storage,
 });
-export { type CourseSectionDto } from "./libs/types/types.js";
+export {
+	type CourseSectionDto,
+	type CourseSectionWithStatusRelation,
+} from "./libs/types/types.js";
 export { courseSectionsApi };
 export { actions, reducer } from "./slices/course-sections.js";

@@ -1,5 +1,6 @@
 export { App } from "./app/app.js";
 export { Button } from "./button/button.js";
+export { Checkbox } from "./checkbox/checkbox.js";
 export { CircularProgress } from "./circular-progress/circular-progress.js";
 export { Content } from "./content/content.js";
 export { Courses } from "./courses/courses.js";

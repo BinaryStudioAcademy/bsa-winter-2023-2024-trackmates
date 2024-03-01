@@ -4,6 +4,8 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
+	DateValue,
 	ExceptionMessage,
+	FormatDateType,
 	ServerErrorType,
 } from "@trackmates/shared";

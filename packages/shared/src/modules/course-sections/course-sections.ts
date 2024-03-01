@@ -5,5 +5,9 @@ export {
 	type CourseSectionDto,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	type CourseSectionWithStatusRelation,
 } from "./libs/types/types.js";
-export { courseSectionIdParameter as courseSectionIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+export {
+	courseSectionGetAllQuery as courseSectionGetAllQueryValidationSchema,
+	courseSectionIdParameter as courseSectionIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";

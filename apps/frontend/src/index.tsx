@@ -13,7 +13,8 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
-import { CourseInfo } from "./pages/course-info/course-info.js";
+import { Chats } from "./pages/chats/chats.js";
+import { CourseDescription } from "./pages/course-description/course-description.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Overview } from "./pages/overview/overview.js";
@@ -28,6 +29,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 				routes={[
 					{
 						children: [
+							{
+								element: <ProtectedRoute component={<Chats />} />,
+								path: AppRoute.CHATS,
+							},
+							{
+								element: <ProtectedRoute component={<Chats />} />,
+								path: AppRoute.CHATS_$ID,
+							},
 							{
 								element: <ProtectedRoute component={<Friends />} />,
 								path: AppRoute.FRIENDS,
@@ -57,8 +66,8 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.PROFILE,
 							},
 							{
-								element: <ProtectedRoute component={<CourseInfo />} />,
-								path: AppRoute.COURSE_INFO_$ID,
+								element: <ProtectedRoute component={<CourseDescription />} />,
+								path: AppRoute.COURSE_DESCRIPTION_$ID,
 							},
 							{
 								element: <ProtectedRoute component={<User />} />,

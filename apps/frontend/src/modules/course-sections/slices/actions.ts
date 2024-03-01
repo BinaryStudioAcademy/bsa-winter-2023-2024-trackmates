@@ -12,7 +12,7 @@ const getAllByCourseId = createAsyncThunk<
 >(`${sliceName}/get-all`, ({ courseId }, { extra }) => {
 	const { courseSectionsApi } = extra;
 
-	return courseSectionsApi.getAllByCourseId({ courseId: courseId });
+	return courseSectionsApi.getAllByCourseId({ courseId });
 });
 
 export { getAllByCourseId };
