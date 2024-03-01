@@ -41,9 +41,12 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	}
 
 	public async delete(notificationId: number): Promise<boolean> {
-		return Boolean(
-			await this.notificationModel.query().deleteById(notificationId).execute(),
-		);
+		const deletedRowsCount = await this.notificationModel
+			.query()
+			.deleteById(notificationId)
+			.execute();
+
+		return Boolean(deletedRowsCount);
 	}
 
 	public async find(
