@@ -1,47 +1,45 @@
-**BSWA 2023-2024**
-**[TrackMates](http://development.eu-central-1.elasticbeanstalk.com/)**
-**Test Strategy**
-<br/>
+# BSWA 2023-2024 - [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) - Test Strategy
 
-# 1. Introduction
+## 1. Introduction
 
 The purpose of the test strategy for the **“TrackMates”** web and Progressive Web App (PWA) is to:
 
 - Provide a central artifact to govern the strategic approach of the test effort; it defines the general approach to be employed when testing the software and when evaluating the results of that testing. Planning artifacts will refer to the test strategy regarding the governing of detailed testing work.
 - Provide visible confirmation to test-effort stakeholders that adequate consideration has been given to governing the test effort and, where appropriate, to have those stakeholders approve the strategy.
 
-## Analogues
+### Analogues
 
 [Way Of Life](https://wayoflifeapp.com/) - Habit Tracker
 
-## Used technologies
+### Used technologies
 
-- **Global:**<br/>
+- **Global:**
   TypeScript – extends JavaScript by adding types to the language
   npm workspaces – to manage multiple packages in a single repository
-  <br/>
-- **Frontend:**<br/>
+
+- **Frontend:**
   React – a frontend library
   Redux + Redux Toolkit – a state management library
-  <br/>
-- **Backend:**<br/>
+
+- **Backend:**
   Fastify – a backend framework
   Knex – a query builder
   Objection – an ORM
-  <br/>
-- **Shared Package:**<br/>
-  Zod – a schema validator
-  <br/>
-- **Database:**<br/>
-  PostgreSQL – relational database management system
-  <br/>
-- **Artificial Intelligence:**<br/>
-OpenAI Node API Library – provides access to the OpenAI REST API<br/>
-<p>The project is deployed to AWS.<br/>
-GitHub actions are used for CI and CD.<br/>
-Scrum model is used for SDLC.</p>
 
-## Documents<br/>
+- **Shared Package:**
+  Zod – a schema validator
+
+- **Database:**
+  PostgreSQL – relational database management system
+
+- **Artificial Intelligence:**
+  OpenAI Node API Library – provides access to the OpenAI REST API
+
+The project is deployed to AWS.
+GitHub actions are used for CI and CD.
+Scrum model is used for SDLC.
+
+### Documents
 
 [Design (Desktop)](https://www.figma.com/file/P8QzgCZEaN0UU9QpjdggRW/BSA_TrackMates?type=design&node-id=0%3A1&mode=design&t=isWb7Jwsid5AxTL1-1)
 [Design (Mobile)](https://www.figma.com/file/JJjwl3joVKOwS0tzzYs8Vz/TrackMates?type=design&node-id=0%3A1&mode=design&t=ZuqmB1birN3911IH-1)
@@ -49,7 +47,7 @@ Scrum model is used for SDLC.</p>
 [Mind Map](https://miro.com/app/board/uXjVNuSbBvw=/?share_link_id=272684492193)
 [Test Plan](https://docs.google.com/document/d/1nDmqEXj8gObbec4OoH-uJWdoxemDeMi_a_stn9vAZEI/edit?usp=sharing)
 
-## Project team<br/>
+### Project team
 
 The team that will work on the project:
 
@@ -60,13 +58,13 @@ The team that will work on the project:
 - 2 coaches of the QA team;
 - Product Owner.
 
-## Project deadlines
+### Project deadlines
 
 09/02/2024 – project starts;
 23/03/2024 – project release.
 All works must be completed before 22/03/2024.
 
-## Communications approach
+### Communications approach
 
 QAs can communicate:
 
@@ -74,7 +72,7 @@ QAs can communicate:
 - with questions about the product to the product owner during the demo;
 - with any technical questions to the development team.
 
-# 2. Test Approach
+## 2. Test Approach
 
 A **proactive** approach will be used in the testing – an approach in which the test design process is initiated as early as possible in order to find and fix the defects before the build is created.
 
@@ -83,7 +81,7 @@ A **proactive** approach will be used in the testing – an approach in which th
 
 Automated testing will cover high-level features (only API tests should be automated).
 
-## Types of Testing
+### Types of Testing
 
 The following types of testing will be used:
 
@@ -94,14 +92,14 @@ The following types of testing will be used:
 - Regression testing
 - Acceptance testing
 
-## Priorities for test activities
+### Priorities for test activities
 
 1. Testing Process
 2. Requirements Analysis
 3. Test Documentation
 4. Mind Maps, Mockups, etc.
 
-## Weekly objectives for the QA team
+### Weekly objectives for the QA team
 
 **Week 1:** Testing Process, Requirements Analysis, Mind Map, Test Strategy
 **Week 2:** Testing Process, Requirements Analysis, Test Plan, Test Cases
@@ -110,7 +108,7 @@ The following types of testing will be used:
 **Week 5:** Testing Process, Requirements Analysis…
 **Week 6:** Acceptance Testing, Requirements Analysis…
 
-## Using templates
+### Using templates
 
 [Bug Report Template](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/new?assignees=&labels=bug&projects=&template=bug-report.yml&title=fix%3A):
 
@@ -129,7 +127,7 @@ The following types of testing will be used:
 2. Description
 3. Attachments
 
-# 3. Test Environment
+## 3. Test Environment
 
 - **Setup required for the test environment:**
 
@@ -166,9 +164,9 @@ The following types of testing will be used:
   - [Local environment](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates)
   - [Test environment](http://development.eu-central-1.elasticbeanstalk.com/)
 
-# 4. Testing Tools and Artifacts
+## 4. Testing Tools and Artifacts
 
-## Testing artifacts for the Project:
+### Testing artifacts for the Project:
 
 All artifacts, including this Test Strategy, should be placed in the **/docs** directory of the project repository:
 
@@ -178,7 +176,7 @@ All artifacts, including this Test Strategy, should be placed in the **/docs** d
 - Test Cases
 - Bug Reports
 
-## Defect Life Cycle:
+### Defect Life Cycle:
 
 ```mermaid
 flowchart TB
@@ -191,8 +189,6 @@ flowchart TB
  node7(Done) --> node8(Create bug report)
 ```
 
-<br/>
-
 **Severity:**
 Blocker (S1) – Blocker Impact / System Down. Complete system outage.
 Critical (S2) – Critical Impact / Partial system outage.
@@ -200,44 +196,44 @@ Major (S3) – Significant Impact / Severe downgrade of services.
 Minor (S4) – Minor Impact / Most of the system is functioning properly.
 Trivial (S5) – Low Impact / Informational.
 
-## Automated testing:
+### Automated testing:
 
 Optional automated testing may be implemented for previous sprints.
 For that, TypeScript, Mocha and Chai should be used.
 GitHub actions are used for CI/CD.
 
-# 5. Release Control
+## 5. Release Control
 
 The project workspace is organized on the GitHub project board. GitHub is used as a code hosting platform for version control and collaboration for this project.
 
-## Testing entry criteria:
+### Testing entry criteria:
 
 - the testing process begins at the requirements analysis stage,
 - control of the design process at the stage of developing a system project,
 - fulfillment of acceptance criteria of the tickets.
 
-## Testing exit criteria:
+### Testing exit criteria:
 
 - all works must be completed not later than: 22/03/2024,
 - not less than 95% of found defects, all defects with blocking, critical and high severity must be fixed, which ensures comprehensive approach to defect resolution, covering various aspects of the system's functionality, usability and compatibility, and aims to minimize the presence of critical and high-severity defects that could potentially impact the system's functionality, user experience, or overall quality,
 - management decision.
 
-# 6. Additional Procedures
+## 6. Additional Procedures
 
 **To improve the testing process next additional procedures are needed:**
 
-## Meetings:
+### Meetings:
 
 - Daily SCRUM team meeting – 9:15 a.m.;
 - QA mentor meeting – 2 times a week;
 - QA team meeting (optional) – daily;
 - Demo with PO.
 
-## Work review:
+### Work review:
 
 - Weekly review of test artifacts with QA mentor.
 
-## Testing team:
+### Testing team:
 
 Responsibilities of each QA team member:
 
@@ -249,24 +245,24 @@ Responsibilities of each QA team member:
 
 The master branch must be frozen at least one day before demo each sprint.
 
-# Common risks
+## 7. Common risks
 
-## SDLC Risks:
+### SDLC Risks:
 
 | Risk                           | Action point                                                                                                                                       | Responsible |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | Absence of team member         | Provision has to be made for the temporary assignment of duties to another competent specialist. Correct planning of all processes                 | Coaches     |
 | Your absence                   | To inform the team about your absence as soon as possible in Slack, provide information about your urgent tasks                                    | QA          |
 | Faulty test results            | Implement peer reviews and validation checks to verify the accuracy of test results before finalizing them. Analyze a problem, create a bug report | QA Team     |
-| Test environment not available | Inform JS Couch on Slack, execute the testing process locally                                                                                      | JS Coach    |
+| Test environment not available | Inform JS Coach on Slack, execute the testing process locally                                                                                      | JS Coach    |
 | Not enough time for testing    | Prioritize testing activities based on critical functionalities and allocate additional resources or extend timelines if necessary                 | QA Team     |
 
-## Project Implementation Risks:
+### Project Implementation Risks:
 
 - Technical Complexity: Developing a web and Progressive Web App (PWA) may introduce technical challenges, such as ensuring cross-browser compatibility, offline functionality, and responsiveness across various devices
 - Resource Allocation: Short project timeframe requires efficient resource allocation and coordination to meet deadlines and deliver high-quality results
 
-# Test Plan
+## 8. Test Plan
 
 **[Test Plan](https://docs.google.com/document/d/1nDmqEXj8gObbec4OoH-uJWdoxemDeMi_a_stn9vAZEI/edit?usp=sharing)** is composed by the QA team and contains:
 
