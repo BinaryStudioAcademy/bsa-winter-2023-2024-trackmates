@@ -6,15 +6,25 @@
 	padding: 15px 40px;
 }
 
-.back-btn {
-	justify-content: flex-start;
-	padding-left: 39px;
+.back-container {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	margin-top: 15px;
 	color: var(--color-text-400);
-	background-color: transparent;
-	border: none;
 }
 
-.back-btn:hover {
-	color: var(--color-text-300);
-	background-color: transparent;
+.back-button {
+	justify-content: center;
+	padding: 2px 13px;
+	margin-left: 39px;
+	color: #e0e0e0;
+	background-color: #e0e0e0;
+	border: none;
+	border-radius: 50%;
+	fill: transparent;
+}
+
+.back-button:hover {
+	color: var(--main-orange);
 }
