@@ -10,6 +10,7 @@ import { actions as courseSectionsActions } from "~/modules/course-sections/cour
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
 import { CourseDetails, CourseSections } from "./libs/components/components.js";
+import { EMPTY_COURSE_SECTIONS } from "./libs/constants.ts/constants.js";
 import styles from "./styles.module.css";
 
 const CourseInfo: React.FC = () => {
@@ -41,7 +42,9 @@ const CourseInfo: React.FC = () => {
 			/>
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
-				<CourseSections courseSections={courseSections} />
+				{courseSections.length > EMPTY_COURSE_SECTIONS && (
+					<CourseSections courseSections={courseSections} />
+				)}
 			</div>
 		</>
 	);
