@@ -80,7 +80,6 @@ erDiagram
     dateTime updated_at
     int course_id FK
     varchar title
-    varchar description
    }
 
    section_statuses {

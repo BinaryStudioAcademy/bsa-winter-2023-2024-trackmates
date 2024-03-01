@@ -35,8 +35,8 @@
 
 .profile-image {
 	object-fit: cover;
-	max-width: 100%;
-	height: auto;
+	width: 133px;
+	height: 133px;
 }
 
 .file-input {
@@ -85,7 +85,7 @@
 
 .profile-character {
 	position: absolute;
-	bottom: -6%;
+	bottom: -52px;
 	left: 15%;
 	transform: translateY(-50%);
 }
@@ -93,7 +93,7 @@
 @media screen and (--medium-screen) {
 	.profile-image {
 		max-width: 100px;
-		height: auto;
+		height: 100px;
 	}
 
 	.profile-character {
@@ -104,7 +104,7 @@
 @media screen and (--small-screen) {
 	.profile-image {
 		max-width: 70px;
-		height: auto;
+		height: 70px;
 	}
 
 	.fieldset {
