@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.10.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.9.1...shared-v1.10.0) (2024-03-01)
+
+
+### Features
+
+* **frontend/shared:** add chat functionality tm-112 ([#222](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/222)) ([fa01e71](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fa01e712149811184e8f07ec51521324bcd86a83))
+
+## [1.9.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.9.0...shared-v1.9.1) (2024-02-29)
+
+
+### Bug Fixes
+
+* **frontend/shared:** fix Profile screen tm-42 ([#221](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/221)) ([64654cc](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/64654cc1fc5354d6028317acf51c742fe1364fe1))
+
 ## [1.9.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.8.0...shared-v1.9.0) (2024-02-29)
 
 
