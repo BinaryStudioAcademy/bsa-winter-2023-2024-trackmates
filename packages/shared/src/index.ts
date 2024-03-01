@@ -6,16 +6,12 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
-	DateValue,
 	ExceptionMessage,
-	FormatDateType,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
-	getDifferenceInHours,
-	getFormattedDate,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
@@ -48,7 +44,6 @@ export {
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
-	chatMessageValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,
@@ -100,10 +95,10 @@ export {
 export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
-	type SectionStatusDto,
 	SectionStatusError,
 	type SectionStatusGetAllRequestDto,
 	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
 	type SectionStatusUpdateRequestDto,
 	SectionStatusesApiPath,
 	sectionStatusCreateBodyValidationSchema,

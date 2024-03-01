@@ -5,9 +5,9 @@ import { type Service } from "~/libs/types/types.js";
 import { SectionStatusError } from "./libs/exceptions/exceptions.js";
 import {
 	type SectionStatusAddRequestDto,
-	type SectionStatusDto,
 	type SectionStatusGetAllRequestDto,
 	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
@@ -26,7 +26,7 @@ class SectionStatusService implements Service {
 
 	public async create(
 		payload: SectionStatusAddRequestDto,
-	): Promise<SectionStatusDto> {
+	): Promise<SectionStatusResponseDto> {
 		const sectionStatus = await this.sectionStatusRepository.create(
 			SectionStatusEntity.initializeNew({
 				courseSectionId: payload.courseSectionId,

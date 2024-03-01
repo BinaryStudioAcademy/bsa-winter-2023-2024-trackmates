@@ -1,7 +1,7 @@
-import { type SectionStatusDto } from "./section-status-response-dto.type.js";
+import { type SectionStatusResponseDto } from "./section-status-response-dto.type.js";
 
 type SectionStatusGetAllResponseDto = {
-	items: SectionStatusDto[];
+	items: SectionStatusResponseDto[];
 };
 
 export { type SectionStatusGetAllResponseDto };

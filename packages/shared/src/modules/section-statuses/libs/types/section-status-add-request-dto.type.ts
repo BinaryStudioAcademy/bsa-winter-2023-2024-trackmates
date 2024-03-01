@@ -1,5 +1,5 @@
-import { type SectionStatusDto } from "./section-status-response-dto.type.js";
+import { type SectionStatusResponseDto } from "./section-status-response-dto.type.js";
 
-type SectionStatusAddRequestDto = Omit<SectionStatusDto, "id">;
+type SectionStatusAddRequestDto = Omit<SectionStatusResponseDto, "id">;
 
 export { type SectionStatusAddRequestDto };

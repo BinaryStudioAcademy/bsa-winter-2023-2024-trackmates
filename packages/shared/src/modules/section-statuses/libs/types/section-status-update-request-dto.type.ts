@@ -1,5 +1,5 @@
-import { type SectionStatusDto } from "./section-status-response-dto.type.js";
+import { type SectionStatusResponseDto } from "./section-status-response-dto.type.js";
 
-type SectionStatusUpdateRequestDto = Pick<SectionStatusDto, "status">;
+type SectionStatusUpdateRequestDto = Pick<SectionStatusResponseDto, "status">;
 
 export { type SectionStatusUpdateRequestDto };

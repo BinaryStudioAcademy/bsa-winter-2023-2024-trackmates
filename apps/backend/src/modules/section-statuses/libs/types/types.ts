@@ -1,7 +1,7 @@
 export {
 	type SectionStatusAddRequestDto,
-	type SectionStatusDto,
 	type SectionStatusGetAllRequestDto,
 	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
 	type SectionStatusUpdateRequestDto,
 } from "@trackmates/shared";
