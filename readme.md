@@ -130,8 +130,8 @@ erDiagram
     int id PK
     dateTime created_at
     dateTime updated_at
+    int receiver_user_id FK
     int user_id FK
-    int source_user_id FK
     varchar message
     enum status
    }
@@ -158,8 +158,8 @@ erDiagram
    section_statuses }|--|| course_sections : course_section_id
    section_statuses }|--|| users : user_id
 
+   users ||--|{ notifications : receiver_user_id
    users ||--|{ notifications : user_id
-   users ||--|{ notifications : source_user_id
 ```
 
 ## 5. Architecture

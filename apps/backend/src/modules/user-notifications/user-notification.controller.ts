@@ -24,20 +24,20 @@ import { UserNotificationsApiPath } from "./libs/enums/enums.js";
  *           type: number
  *         message:
  *           type: string
- *         sourceUserAvatarUrl:
+ *         userAvatarUrl:
  *           type: string
- *         sourceUserFirstName:
+ *         userFirstName:
  *           type: string
- *         sourceUserId:
+ *         userId:
  *           type: number
- *         sourceUserLastName:
+ *         userLastName:
  *           type: string
  *         status:
  *           type: string
  *           enum: [read, unread]
  *         updatedAt:
  *           type: string
- *         userId:
+ *         receiverUserId:
  *           type: number
  */
 class UserNotificationController extends BaseController {
