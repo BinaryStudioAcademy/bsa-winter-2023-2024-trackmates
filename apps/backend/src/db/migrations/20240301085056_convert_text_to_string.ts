@@ -2,9 +2,7 @@ import { type Knex } from "knex";
 
 import { UserValidationRule } from "~/modules/users/users.js";
 
-const TableName = {
-	USER_DETAILS: "user_details",
-} as const;
+const TableName = "user_details";
 
 const ColumnName = {
 	FIRST_NAME: "first_name",
@@ -13,7 +11,7 @@ const ColumnName = {
 } as const;
 
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
+	await knex.schema.alterTable(TableName, (table) => {
 		table
 			.string(
 				ColumnName.FIRST_NAME,
@@ -30,7 +28,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TableName.USER_DETAILS, (table) => {
+	await knex.schema.alterTable(TableName, (table) => {
 		table.text(ColumnName.FIRST_NAME).alter();
 		table.text(ColumnName.LAST_NAME).alter();
 		table.text(ColumnName.NICKNAME).alter();
