@@ -183,7 +183,7 @@ The following types of testing will be used:
 
 All artifacts, including this Test Strategy, should be placed in the **/docs** directory of the project repository:
 
-- [Test Plan](https://docs.google.com/document/d/1nDmqEXj8gObbec4OoH-uJWdoxemDeMi_a_stn9vAZEI/edit?usp=sharing)
+- [Test Plan](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/blob/main/docs/test-plan.md)
 - [Mind Map](https://miro.com/app/board/uXjVNuSbBvw=/?share_link_id=272684492193)
 - Check-list
 - Test Cases
