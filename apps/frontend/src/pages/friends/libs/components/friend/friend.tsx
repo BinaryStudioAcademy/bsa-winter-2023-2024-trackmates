@@ -1,5 +1,5 @@
-import friendImage from "~/assets/img/friend.jpeg";
 import { Button, Image, Link } from "~/libs/components/components.js";
+import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { type AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -59,7 +59,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
-					src={friendImage}
+					src={friend.avatarUrl ?? DEFAULT_USER_AVATAR}
 				/>
 				<p
 					className={styles["fullName"]}
