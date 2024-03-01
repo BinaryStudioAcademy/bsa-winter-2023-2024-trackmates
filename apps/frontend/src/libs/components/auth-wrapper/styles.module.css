@@ -11,13 +11,13 @@
 	background-color: var(--color-background);
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (--large-screen) {
 	.page {
 		padding-left: 100px;
 	}
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.page {
 		padding: 0;
 	}

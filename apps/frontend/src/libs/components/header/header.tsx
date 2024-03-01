@@ -36,6 +36,7 @@ const Header: React.FC = () => {
 				<Link className={styles["avatar"]} to={AppRoute.PROFILE}>
 					<Image
 						alt="user-avatar"
+						className={styles["image"]}
 						height="48"
 						shape="circle"
 						src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
