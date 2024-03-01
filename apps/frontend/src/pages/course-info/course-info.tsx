@@ -22,10 +22,12 @@ const CourseInfo: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 
 	useEffect(() => {
-		void dispatch(courseActions.getById({ id: Number(id) }));
-		void dispatch(
-			courseSectionsActions.getAllByCourseId({ courseId: Number(id) }),
-		);
+		if (id) {
+			void dispatch(courseActions.getById({ id: id }));
+			void dispatch(
+				courseSectionsActions.getAllByCourseId({ courseId: Number(id) }),
+			);
+		}
 	}, [dispatch, id]);
 
 	if (!course) {

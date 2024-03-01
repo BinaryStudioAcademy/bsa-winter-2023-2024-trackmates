@@ -36,10 +36,10 @@ class CourseApi extends BaseHTTPApi {
 
 		return await response.json<CoursesResponseDto>();
 	}
-	public async getById(id: number): Promise<CourseDto> {
+	public async getById(id: string): Promise<CourseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.$COURSE_ID, {
-				courseId: String(id),
+				courseId: id,
 			}),
 			{
 				contentType: ContentType.JSON,
