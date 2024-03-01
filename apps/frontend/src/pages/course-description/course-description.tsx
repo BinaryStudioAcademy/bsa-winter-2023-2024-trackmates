@@ -13,9 +13,11 @@ import { actions as courseActions } from "~/modules/courses/courses.js";
 import { CourseDetails, CourseSections } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
-const CourseInfo: React.FC = () => {
-	const course = useAppSelector((state) => state.courses.currentCourse);
-	const courseSections = useAppSelector((state) => state.course.courseSections);
+const CourseDescription: React.FC = () => {
+	const { course, courseSections } = useAppSelector(({ course, courses }) => ({
+		course: courses.currentCourse,
+		courseSections: course.courseSections,
+	}));
 
 	const dispatch = useAppDispatch();
 
@@ -54,4 +56,4 @@ const CourseInfo: React.FC = () => {
 	);
 };
 
-export { CourseInfo };
+export { CourseDescription };

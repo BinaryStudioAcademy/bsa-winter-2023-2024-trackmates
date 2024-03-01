@@ -16,7 +16,7 @@ const CourseDetails: React.FC<Properties> = ({
 }: Properties) => {
 	const { description, image, title, url, vendor } = course;
 
-	const [isChecked, setIsChecked] = useState(true);
+	const [isChecked, setIsChecked] = useState<boolean>(true);
 
 	const handleCheckboxChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
