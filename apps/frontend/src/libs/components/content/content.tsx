@@ -1,4 +1,4 @@
-import sanitizeHtml from "sanitize-html";
+import { getSanitizedHtml } from "~/libs/helpers/helpers.js";
 
 import { MAXIMUM_CONTENT_LENGTH, START_INDEX } from "./libs/constants.js";
 
@@ -7,7 +7,7 @@ type Properties = {
 };
 
 const Content: React.FC<Properties> = ({ string }: Properties) => {
-	const sanitizedString = sanitizeHtml(string);
+	const sanitizedString = getSanitizedHtml(string);
 
 	if (string.length <= MAXIMUM_CONTENT_LENGTH) {
 		return <div dangerouslySetInnerHTML={{ __html: sanitizedString || "" }} />;

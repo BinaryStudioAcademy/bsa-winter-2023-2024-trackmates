@@ -3,5 +3,6 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getSanitizedHtml,
 	initDebounce,
 } from "@trackmates/shared";
