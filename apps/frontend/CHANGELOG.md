@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.1...frontend-v1.14.2) (2024-03-01)
+
+
+### Bug Fixes
+
+* **backend/frontend:** fix default pictures on the friends page tm-266 ([#269](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/269)) ([f786a9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f786a9b0088302d5f4e913c6a7247a65d16671ed))
+
 ## [1.14.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.0...frontend-v1.14.1) (2024-03-01)
 
 
