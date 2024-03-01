@@ -1,6 +1,3 @@
-const RelationName = {
-	COURSE_SECTIONS: "courseSections",
-	USERS: "users",
-} as const;
+const RELATION_NAME = "courseSections";
 
-export { RelationName };
+export { RELATION_NAME };

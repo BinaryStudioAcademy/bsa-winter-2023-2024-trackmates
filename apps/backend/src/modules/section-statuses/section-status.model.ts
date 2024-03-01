@@ -6,7 +6,6 @@ import {
 } from "~/libs/modules/database/database.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { CourseSectionModel } from "~/modules/course-sections/course-sections.js";
-import { UserModel } from "~/modules/users/users.js";
 
 import { type SectionStatus } from "./libs/enums/enums.js";
 
@@ -19,14 +18,6 @@ class SectionStatusModel extends AbstractModel {
 					to: `${DatabaseTableName.COURSE_SECTIONS}.id`,
 				},
 				modelClass: CourseSectionModel,
-				relation: Model.BelongsToOneRelation,
-			},
-			users: {
-				join: {
-					from: `${DatabaseTableName.SECTION_STATUSES}.userId`,
-					to: `${DatabaseTableName.USERS}.id`,
-				},
-				modelClass: UserModel,
 				relation: Model.BelongsToOneRelation,
 			},
 		};

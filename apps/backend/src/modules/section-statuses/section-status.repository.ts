@@ -1,7 +1,7 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
-import { RelationName } from "./libs/enums/enums.js";
+import { RELATION_NAME } from "./libs/enums/enums.js";
 import { type SectionStatusGetAllRequestDto } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusModel } from "./section-status.model.js";
@@ -88,7 +88,7 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 					.where("course_id", courseId);
 			})
 			.andWhere("user_id", userId)
-			.withGraphFetched(RelationName.COURSE_SECTIONS)
+			.withGraphFetched(RELATION_NAME)
 			.execute();
 
 		return sectionStatusModels.map((sectionStatusModel) => {
