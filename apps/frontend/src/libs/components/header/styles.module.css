@@ -11,7 +11,6 @@
 
 .image {
 	object-fit: cover;
-	height: auto;
 }
 
 .toolbar {
@@ -20,6 +19,27 @@
 	column-gap: 24px;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.navigation {
+	display: flex;
+	column-gap: 24px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	color: var(--color-text-200);
+	border: unset;
+	fill: currentcolor;
+}
+
+.icon-button:hover {
+	padding: 0;
+	color: var(--main-orange);
+	background-color: var(--main-white);
+	border: unset;
+	fill: currentcolor;
 }
 
 @media screen and (--small-screen) {
