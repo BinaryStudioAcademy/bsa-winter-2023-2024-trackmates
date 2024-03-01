@@ -67,6 +67,7 @@ export {
 	CourseSectionError,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	type CourseSectionWithStatusRelation,
 	CourseSectionsApiPath,
 	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,

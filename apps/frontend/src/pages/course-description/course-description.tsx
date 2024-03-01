@@ -49,7 +49,10 @@ const CourseDescription: React.FC = () => {
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (
-					<CourseSections courseSections={courseSections} />
+					<CourseSections
+						courseId={Number(course.id)}
+						courseSections={courseSections}
+					/>
 				)}
 			</div>
 		</>
