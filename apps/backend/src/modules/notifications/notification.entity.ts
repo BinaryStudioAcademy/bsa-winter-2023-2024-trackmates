@@ -15,7 +15,7 @@ class NotificationEntity implements Entity {
 
 	private updatedAt: string;
 
-	private userAvtarUrl: null | string;
+	private userAvatarUrl: null | string;
 
 	private userFirstName: null | string;
 
@@ -52,7 +52,7 @@ class NotificationEntity implements Entity {
 		this.receiverUserId = receiverUserId;
 		this.status = status;
 		this.updatedAt = updatedAt;
-		this.userAvtarUrl = userAvatarUrl;
+		this.userAvatarUrl = userAvatarUrl;
 		this.userFirstName = userFirstName;
 		this.userId = userId;
 		this.userLastName = userLastName;
@@ -157,7 +157,7 @@ class NotificationEntity implements Entity {
 			receiverUserId: this.receiverUserId,
 			status: this.status,
 			updatedAt: this.updatedAt,
-			userAvatarUrl: this.userAvtarUrl as string,
+			userAvatarUrl: this.userAvatarUrl as string,
 			userFirstName: this.userFirstName as string,
 			userId: this.userId,
 			userLastName: this.userLastName as string,
