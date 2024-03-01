@@ -1,4 +1,4 @@
-# BSWA 2023-2024 - [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) - Test Plan
+# BSWA 2023-2024 – [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) – Test Plan
 
 ## Introduction
 
@@ -38,12 +38,10 @@ The purpose of this test plan is to describe the testing process of the “Track
 ## 4. What will we automate? On what level?
 
 - **Automation Scope:**
-
-API testing for backend functionalities related to user authentication, course management, social features and user’s profile management.
+  API testing for backend functionalities related to user authentication, course management, social features and user’s profile management.
 
 - **Automation Tools:**
-
-TypeScript, Mocha, Chai.
+  TypeScript, Mocha, Chai.
 
 ## 5. Features implemented
 
@@ -95,11 +93,11 @@ TypeScript, Mocha, Chai.
 ## 7. Demo date / final scope
 
 - **Demo Date:**
-  - Release 1 — scheduled for 12:00 p.m., February 23, 2024
-  - Release 2 — scheduled for 12:00 p.m., March 1, 2024
-  - Release 3 — scheduled for March 8, 2024
-  - Release 4 — scheduled for March 15, 2024
-  - Final demo — scheduled for March 23, 2024
+  - Release 1 – scheduled for 12:00 p.m., February 23, 2024
+  - Release 2 – scheduled for 12:00 p.m., March 1, 2024
+  - Release 3 – scheduled for March 8, 2024
+  - Release 4 – scheduled for March 15, 2024
+  - Final demo – scheduled for March 23, 2024
 - **Final Scope:**
   - Fully functional user authentication and user’s profile management
   - Fully functional course management system.
