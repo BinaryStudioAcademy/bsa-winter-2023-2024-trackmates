@@ -60,7 +60,7 @@ class SectionStatusApi extends BaseHTTPApi {
 		payload: SectionStatusUpdateRequestDto,
 	): Promise<SectionStatusResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(`${SectionStatusesApiPath.ROOT}${id}`, {}),
+			this.getFullEndpoint(SectionStatusesApiPath.$ID, { id: String(id) }),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
