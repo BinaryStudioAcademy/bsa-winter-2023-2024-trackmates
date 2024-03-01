@@ -1,7 +1,5 @@
 import { type Knex } from "knex";
 
-import { UserValidationRule } from "~/modules/users/users.js";
-
 const TableName = "user_details";
 
 const ColumnName = {
@@ -10,19 +8,22 @@ const ColumnName = {
 	NICKNAME: "nickname",
 } as const;
 
+const ValidationRule = {
+	FIRST_NAME_MAXIMUM_LENGTH: 35,
+	LAST_NAME_MAXIMUM_LENGTH: 35,
+	NICKNAME_MAXIMUM_LENGTH: 35,
+} as const;
+
 async function up(knex: Knex): Promise<void> {
 	await knex.schema.alterTable(TableName, (table) => {
 		table
-			.string(
-				ColumnName.FIRST_NAME,
-				UserValidationRule.FIRST_NAME_MAXIMUM_LENGTH,
-			)
+			.string(ColumnName.FIRST_NAME, ValidationRule.FIRST_NAME_MAXIMUM_LENGTH)
 			.alter();
 		table
-			.string(ColumnName.LAST_NAME, UserValidationRule.LAST_NAME_MAXIMUM_LENGTH)
+			.string(ColumnName.LAST_NAME, ValidationRule.LAST_NAME_MAXIMUM_LENGTH)
 			.alter();
 		table
-			.string(ColumnName.NICKNAME, UserValidationRule.NICKNAME_MAXIMUM_LENGTH)
+			.string(ColumnName.NICKNAME, ValidationRule.NICKNAME_MAXIMUM_LENGTH)
 			.alter();
 	});
 }

@@ -105,7 +105,6 @@ export {
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
-	UserValidationRule,
 	UsersApiPath,
 	userIdParametersValidationSchema,
 	userProfileValidationSchema,
