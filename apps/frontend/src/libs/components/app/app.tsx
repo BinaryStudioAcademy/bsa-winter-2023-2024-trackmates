@@ -4,16 +4,22 @@ import {
 	useAppDispatch,
 	useAppSelector,
 	useEffect,
+	useNavigate,
 } from "~/libs/hooks/hooks.js";
+import { actions as appActions } from "~/libs/slices/app/app.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as userNotificationsAction } from "~/modules/user-notifications/user-notifications.js";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { authDataStatus, user } = useAppSelector(({ auth }) => ({
-		authDataStatus: auth.dataStatus,
-		user: auth.user,
-	}));
+	const navigate = useNavigate();
+	const { authDataStatus, redirectTo, user } = useAppSelector(
+		({ app, auth }) => ({
+			authDataStatus: auth.dataStatus,
+			redirectTo: app.redirectTo,
+			user: auth.user,
+		}),
+	);
 
 	useEffect(() => {
 		void dispatch(authActions.getAuthenticatedUser());
@@ -24,6 +30,13 @@ const App: React.FC = () => {
 			void dispatch(userNotificationsAction.hasUserUnreadNotifications());
 		}
 	}, [dispatch, user]);
+
+	useEffect(() => {
+		if (redirectTo) {
+			navigate(redirectTo);
+			dispatch(appActions.navigate(null));
+		}
+	}, [dispatch, navigate, redirectTo]);
 
 	if (
 		authDataStatus === DataStatus.IDLE ||

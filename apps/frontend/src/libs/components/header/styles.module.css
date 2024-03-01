@@ -11,7 +11,6 @@
 
 .image {
 	object-fit: cover;
-	height: auto;
 }
 
 .toolbar {
@@ -31,13 +30,6 @@
 	list-style: none;
 }
 
-.navbar-button {
-	position: relative;
-	gap: 0;
-	min-height: 0;
-	padding: 0;
-}
-
 .navbar-button:hover {
 	background-color: transparent;
 	border-color: transparent;
@@ -53,6 +45,24 @@
 	background-color: var(--main-orange);
 	border-radius: 50%;
 	outline: 3px solid var(--main-white);
+}
+
+.icon-button {
+	position: relative;
+	gap: 0;
+	min-height: unset;
+	padding: 0;
+	color: var(--color-text-200);
+	border: unset;
+	fill: currentcolor;
+}
+
+.icon-button:hover {
+	padding: 0;
+	color: var(--main-orange);
+	background-color: var(--main-white);
+	border: unset;
+	fill: currentcolor;
 }
 
 @media screen and (--small-screen) {

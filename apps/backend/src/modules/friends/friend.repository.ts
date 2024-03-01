@@ -4,6 +4,8 @@ import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { RelationName } from "./libs/enums/enums.js";
+
 class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
 
@@ -43,7 +45,9 @@ class FriendRepository implements Repository<UserEntity> {
 		const followingUser = await this.userModel
 			.query()
 			.findById(followingUserId)
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.castTo<UserModel>();
 
 		return UserEntity.initialize({
@@ -96,7 +100,9 @@ class FriendRepository implements Repository<UserEntity> {
 		const user = await this.userModel
 			.query()
 			.findById(id)
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.execute();
 
 		return user
@@ -125,7 +131,9 @@ class FriendRepository implements Repository<UserEntity> {
 				"=",
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return followings.map((user) => {
 			return UserEntity.initialize({
@@ -203,7 +211,9 @@ class FriendRepository implements Repository<UserEntity> {
 					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
 			)
 			.distinct()
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return potentialFollowers.map((user) => {
 			return UserEntity.initialize({
@@ -231,7 +241,9 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.follower_id`,
 			)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return userFollowers.map((user) => {
 			return UserEntity.initialize({
@@ -259,7 +271,9 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return userFollowings.map((user) => {
 			return UserEntity.initialize({

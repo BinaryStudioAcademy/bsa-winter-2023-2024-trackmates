@@ -8,7 +8,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
+import { reducer as appReducer } from "~/libs/slices/app/app.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
+import {
+	chatMessagesApi,
+	reducer as chatMessagesReducer,
+} from "~/modules/chat-messages/chat-messages.js";
+import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
 import {
 	courseApi,
 	reducer as coursesReducer,
@@ -36,7 +42,10 @@ import { storage } from "../storage/storage.js";
 import { handleError } from "./middlewares/middlewares.js";
 
 type RootReducer = {
+	app: ReturnType<typeof appReducer>;
 	auth: ReturnType<typeof authReducer>;
+	chatMessages: ReturnType<typeof chatMessagesReducer>;
+	chats: ReturnType<typeof chatsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
@@ -47,6 +56,8 @@ type RootReducer = {
 
 type ExtraArguments = {
 	authApi: typeof authApi;
+	chatMessagesApi: typeof chatMessagesApi;
+	chatsApi: typeof chatsApi;
 	courseApi: typeof courseApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
@@ -78,7 +89,10 @@ class Store {
 				}).prepend(handleError);
 			},
 			reducer: {
+				app: appReducer,
 				auth: authReducer,
+				chatMessages: chatMessagesReducer,
+				chats: chatsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,
 				userCourses: userCoursesReducer,
@@ -92,6 +106,8 @@ class Store {
 	public get extraArguments(): ExtraArguments {
 		return {
 			authApi,
+			chatMessagesApi,
+			chatsApi,
 			courseApi,
 			filesApi,
 			friendsApi,
