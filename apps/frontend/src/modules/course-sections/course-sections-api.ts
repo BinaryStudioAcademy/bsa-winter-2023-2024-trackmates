@@ -20,15 +20,9 @@ class CourseSectionsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.COURSE_SECTIONS, storage });
 	}
 
-	public async getAllByCourseId({
-		courseId,
-	}: {
-		courseId: number;
-	}): Promise<CourseSectionGetAllResponseDto> {
-		const query: CourseSectionGetAllRequestDto = {
-			courseId: courseId,
-		};
-
+	public async getAllByCourseId(
+		query: CourseSectionGetAllRequestDto,
+	): Promise<CourseSectionGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CourseSectionsApiPath.ROOT, {}),
 			{
