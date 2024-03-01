@@ -46,7 +46,7 @@ import { type SectionStatusService } from "./section-status.service.js";
  *           readOnly: true
  *         status:
  *           type: string
- *           enum: [completed, inprogress]
+ *           enum: [completed, in-progress]
  */
 class SectionStatusController extends BaseController {
 	private sectionStatusService: SectionStatusService;
@@ -131,7 +131,7 @@ class SectionStatusController extends BaseController {
 	 *                  minimum: 1
 	 *                status:
 	 *                  type: string
-	 *                  enum: [completed, inprogress]
+	 *                  enum: [completed, in-progress]
 	 *      responses:
 	 *        201:
 	 *          description: Successful operation
@@ -232,7 +232,7 @@ class SectionStatusController extends BaseController {
 	 *              properties:
 	 *                  status:
 	 *                    type: string
-	 *                    enum: [completed, inprogress]
+	 *                    enum: [completed, in-progress]
 	 *      responses:
 	 *        201:
 	 *          description: Successful operation
