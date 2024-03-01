@@ -107,6 +107,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
+			.orderBy("notifications.createdAt", "desc")
 			.returning("*")
 			.execute();
 
