@@ -32,17 +32,17 @@ const CourseDetails: React.FC<Properties> = ({
 			<div className={styles["tabs"]}>
 				<input
 					checked={isChecked}
-					className={styles["tabs__radio"]}
+					className={styles["tabs-radio"]}
 					id="tab1"
 					name="tabs-example"
 					onChange={handleCheckboxChange}
 					type="radio"
 				/>
-				<label className={styles["tabs__label"]} htmlFor="tab1">
+				<label className={styles["label"]} htmlFor="tab1">
 					About
 				</label>
-				<div className={styles["tabs__content"]}>
-					<div className={styles["tabs__title"]}>About this course</div>
+				<div className={styles["content"]}>
+					<div className={styles["content-title"]}>About this course</div>
 					<Content string={description} />
 					<a
 						className={styles["link"]}
@@ -54,21 +54,21 @@ const CourseDetails: React.FC<Properties> = ({
 					</a>
 				</div>
 				<input
-					className={styles["tabs__radio"]}
+					className={styles["tabs-radio"]}
 					id="tab2"
 					name="tabs-example"
 					onChange={handleCheckboxChange}
 					type="radio"
 				/>
-				<label className={styles["tabs__label"]} htmlFor="tab2">
+				<label className={styles["label"]} htmlFor="tab2">
 					Details
 				</label>
-				<div className={styles["tabs__content"]}>
-					<div className={styles["tabs__title"]}>Course Details</div>
-					<ul className={styles["tabs__details-list"]}>
+				<div className={styles["content"]}>
+					<div className={styles["content-title"]}>Course Details</div>
+					<ul className={styles["details-list"]}>
 						{courseSections.map((section) => {
 							return (
-								<li className={styles["tabs__details-item"]} key={section.id}>
+								<li className={styles["details-item"]} key={section.id}>
 									{section.title}
 								</li>
 							);
