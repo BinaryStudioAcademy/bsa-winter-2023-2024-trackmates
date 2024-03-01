@@ -23,7 +23,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		return CourseSectionEntity.initialize({
 			courseId: courseSectionModel.courseId,
 			createdAt: courseSectionModel.createdAt,
-			description: courseSectionModel.description,
 			id: courseSectionModel.id,
 			title: courseSectionModel.title,
 			updatedAt: courseSectionModel.updatedAt,
@@ -52,7 +51,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		return CourseSectionEntity.initialize({
 			courseId: courseSection.courseId,
 			createdAt: courseSection.createdAt,
-			description: courseSection.description,
 			id: courseSection.id,
 			title: courseSection.title,
 			updatedAt: courseSection.updatedAt,
@@ -66,7 +64,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			return CourseSectionEntity.initialize({
 				courseId: courseSection.courseId,
 				createdAt: courseSection.createdAt,
-				description: courseSection.description,
 				id: courseSection.id,
 				title: courseSection.title,
 				updatedAt: courseSection.updatedAt,
@@ -86,7 +83,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			return CourseSectionEntity.initialize({
 				courseId: courseSection.courseId,
 				createdAt: courseSection.createdAt,
-				description: courseSection.description,
 				id: courseSection.id,
 				title: courseSection.title,
 				updatedAt: courseSection.updatedAt,
@@ -110,7 +106,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		return CourseSectionEntity.initialize({
 			courseId: courseSectionModel.courseId,
 			createdAt: courseSectionModel.createdAt,
-			description: courseSectionModel.description,
 			id: courseSectionModel.id,
 			title: courseSectionModel.title,
 			updatedAt: courseSectionModel.updatedAt,

@@ -1,3 +1,3 @@
-type CourseSectionFieldForMap = "description" | "title";
+type CourseSectionFieldForMap = "title";
 
 export { type CourseSectionFieldForMap };
