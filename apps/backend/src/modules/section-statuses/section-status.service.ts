@@ -27,11 +27,13 @@ class SectionStatusService implements Service {
 	public async create(
 		payload: SectionStatusAddRequestDto,
 	): Promise<SectionStatusResponseDto> {
+		const { courseSectionId, status, userId } = payload;
+
 		const sectionStatus = await this.sectionStatusRepository.create(
 			SectionStatusEntity.initializeNew({
-				courseSectionId: payload.courseSectionId,
-				status: payload.status,
-				userId: payload.userId,
+				courseSectionId: courseSectionId,
+				status: status,
+				userId: userId,
 			}),
 		);
 
