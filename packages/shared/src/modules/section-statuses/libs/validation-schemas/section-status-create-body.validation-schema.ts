@@ -6,7 +6,6 @@ const sectionStatusCreateBody = z
 	.object({
 		courseSectionId: z.number(),
 		status: z.enum([SectionStatus.COMPLETED, SectionStatus.IN_PROGRESS]),
-		userId: z.number(),
 	})
 	.required();
 

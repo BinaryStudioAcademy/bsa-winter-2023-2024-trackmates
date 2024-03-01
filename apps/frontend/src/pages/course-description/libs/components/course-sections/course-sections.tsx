@@ -43,7 +43,6 @@ const CourseSections: React.FC<Properties> = ({
 					sectionStatusActions.create({
 						courseSectionId: section.id as number,
 						status: SectionStatus.COMPLETED,
-						userId: user.id,
 					}),
 				);
 			}
@@ -60,7 +59,7 @@ const CourseSections: React.FC<Properties> = ({
 				}),
 			);
 		},
-		[dispatch, user.id],
+		[dispatch],
 	);
 
 	useEffect(() => {

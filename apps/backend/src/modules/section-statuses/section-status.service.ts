@@ -25,7 +25,7 @@ class SectionStatusService implements Service {
 	}
 
 	public async create(
-		payload: SectionStatusAddRequestDto,
+		payload: SectionStatusAddRequestDto & { userId: number },
 	): Promise<SectionStatusResponseDto> {
 		const { courseSectionId, status, userId } = payload;
 

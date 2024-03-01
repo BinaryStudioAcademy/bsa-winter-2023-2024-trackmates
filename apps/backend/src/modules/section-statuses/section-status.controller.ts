@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { SectionStatusesApiPath } from "./libs/enums/enums.js";
 import {
@@ -64,6 +65,7 @@ class SectionStatusController extends BaseController {
 				return this.createStatus(
 					options as APIHandlerOptions<{
 						body: SectionStatusAddRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -95,6 +97,7 @@ class SectionStatusController extends BaseController {
 					options as APIHandlerOptions<{
 						body: SectionStatusUpdateRequestDto;
 						params: Record<"id", number>;
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -123,9 +126,6 @@ class SectionStatusController extends BaseController {
 	 *            schema:
 	 *              type: object
 	 *              properties:
-	 *                userId:
-	 *                  type: number
-	 *                  minimum: 1
 	 *                courseSectionId:
 	 *                  type: number
 	 *                  minimum: 1
@@ -144,10 +144,16 @@ class SectionStatusController extends BaseController {
 	private async createStatus(
 		options: APIHandlerOptions<{
 			body: SectionStatusAddRequestDto;
+			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
+		const { body, user } = options;
+
 		return {
-			payload: await this.sectionStatusService.create(options.body),
+			payload: await this.sectionStatusService.create({
+				...body,
+				userId: user.id,
+			}),
 			status: HTTPCode.CREATED,
 		};
 	}
