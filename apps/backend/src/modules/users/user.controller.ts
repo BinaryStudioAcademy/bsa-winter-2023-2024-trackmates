@@ -29,11 +29,11 @@ class UserController extends BaseController {
 				this.updateUser(
 					options as APIHandlerOptions<{
 						body: UserProfileRequestDto;
-						params: UserGetByIdRequestDto;
+						params: { id: string };
 					}>,
 				),
 			method: "PATCH",
-			path: `${UsersApiPath.ROOT}:id`,
+			path: UsersApiPath.$ID,
 			validation: {
 				body: userProfileValidationSchema,
 			},
@@ -135,12 +135,14 @@ class UserController extends BaseController {
 		options: APIHandlerOptions<{
 			body: UserProfileRequestDto;
 			params: {
-				id: number;
+				id: string;
 			};
 		}>,
 	): Promise<APIHandlerResponse> {
+		const userId = Number(options.params.id);
+
 		return {
-			payload: await this.userService.update(options.params.id, options.body),
+			payload: await this.userService.update(userId, options.body),
 			status: HTTPCode.OK,
 		};
 	}
