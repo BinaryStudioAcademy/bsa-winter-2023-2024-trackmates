@@ -31,6 +31,10 @@ type Properties = {
 	onClose: () => void;
 };
 
+const handleFormSubmit = (event_: React.FormEvent<HTMLFormElement>): void => {
+	event_.preventDefault();
+};
+
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
@@ -101,8 +105,11 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		<Modal isOpen onClose={onClose}>
 			<div className={styles["add-course-modal"]}>
 				<header className={styles["header"]}>
-					<h3 className={styles["title"]}>Add the Course</h3>
-					<form onChange={handleDebouncedSearchCourses}>
+					<h3 className={styles["title"]}>Add course</h3>
+					<form
+						onChange={handleDebouncedSearchCourses}
+						onSubmit={handleFormSubmit}
+					>
 						<div className={styles["search-input-container"]}>
 							<Input
 								control={control}
