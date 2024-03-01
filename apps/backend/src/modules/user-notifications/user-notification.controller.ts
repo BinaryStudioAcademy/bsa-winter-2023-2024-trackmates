@@ -49,12 +49,13 @@ class UserNotificationController extends BaseController {
 		this.notificationService = notificationService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.getNotificationsByUserId(
+			handler: (options) => {
+				return this.getNotificationsByUserId(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "GET",
 			path: UserNotificationsApiPath.ROOT,
 		});

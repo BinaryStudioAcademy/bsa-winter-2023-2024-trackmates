@@ -81,8 +81,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			)
 			.execute();
 
-		return notifications.map((notification) =>
-			NotificationEntity.initialize({
+		return notifications.map((notification) => {
+			return NotificationEntity.initialize({
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: notification.message,
@@ -93,8 +93,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userFirstName: notification.user.userDetails.firstName,
 				userId: notification.userId,
 				userLastName: notification.user.userDetails.lastName,
-			}),
-		);
+			});
+		});
 	}
 
 	public async findAllByUserId(userId: number): Promise<NotificationEntity[]> {
@@ -107,8 +107,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.returning("*")
 			.execute();
 
-		return userNotifications.map((notification) =>
-			NotificationEntity.initialize({
+		return userNotifications.map((notification) => {
+			return NotificationEntity.initialize({
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: notification.message,
@@ -119,8 +119,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userFirstName: notification.user.userDetails.firstName,
 				userId: notification.userId,
 				userLastName: notification.user.userDetails.lastName,
-			}),
-		);
+			});
+		});
 	}
 
 	public async update(
