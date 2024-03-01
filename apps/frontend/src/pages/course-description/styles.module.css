@@ -1,0 +1,20 @@
+.wrapper {
+	position: relative;
+	display: flex;
+	gap: 27px;
+	justify-content: center;
+	padding: 15px 40px;
+}
+
+.back-btn {
+	justify-content: flex-start;
+	padding-left: 39px;
+	color: var(--color-text-400);
+	background-color: transparent;
+	border: none;
+}
+
+.back-btn:hover {
+	color: var(--color-text-300);
+	background-color: transparent;
+}

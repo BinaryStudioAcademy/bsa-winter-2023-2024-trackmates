@@ -14,6 +14,7 @@ import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
 import { Chats } from "./pages/chats/chats.js";
+import { CourseDescription } from "./pages/course-description/course-description.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Overview } from "./pages/overview/overview.js";
@@ -63,6 +64,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.PROFILE,
+							},
+							{
+								element: <ProtectedRoute component={<CourseDescription />} />,
+								path: AppRoute.COURSE_DESCRIPTION_$ID,
 							},
 							{
 								element: <ProtectedRoute component={<User />} />,
