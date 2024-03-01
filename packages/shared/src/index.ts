@@ -67,7 +67,7 @@ export {
 	CourseSectionError,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
-	type CourseSectionWithStatusRelation,
+	type CourseSectionWithStatusDto,
 	CourseSectionsApiPath,
 	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,
@@ -109,9 +109,9 @@ export {
 	type SectionStatusUpdateRequestDto,
 	SectionStatusesApiPath,
 	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
 	sectionStatusUpdateBodyValidationSchema,
 	sectionStatusUpdateQueryValidationSchema,
-	sectionStatusesGetAllQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
 	UserCoursesApiPath,

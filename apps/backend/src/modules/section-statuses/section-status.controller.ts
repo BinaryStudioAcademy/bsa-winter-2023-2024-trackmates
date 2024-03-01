@@ -15,9 +15,9 @@ import {
 } from "./libs/types/types.js";
 import {
 	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
 	sectionStatusUpdateBodyValidationSchema,
 	sectionStatusUpdateQueryValidationSchema,
-	sectionStatusesGetAllQueryValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 import { type SectionStatusService } from "./section-status.service.js";
 
@@ -85,7 +85,7 @@ class SectionStatusController extends BaseController {
 			method: "GET",
 			path: SectionStatusesApiPath.ROOT,
 			validation: {
-				query: sectionStatusesGetAllQueryValidationSchema,
+				query: sectionStatusGetAllQueryValidationSchema,
 			},
 		});
 

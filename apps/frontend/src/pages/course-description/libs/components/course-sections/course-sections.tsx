@@ -8,7 +8,7 @@ import {
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
 	type CourseSectionDto,
-	type CourseSectionWithStatusRelation,
+	type CourseSectionWithStatusDto,
 } from "~/modules/course-sections/course.sections.js";
 import {
 	SectionStatus,
@@ -37,7 +37,7 @@ const CourseSections: React.FC<Properties> = ({
 	});
 
 	const handleToggle = useCallback(
-		(section: CourseSectionWithStatusRelation) => {
+		(section: CourseSectionWithStatusDto) => {
 			if (!section.status) {
 				return void dispatch(
 					sectionStatusActions.create({

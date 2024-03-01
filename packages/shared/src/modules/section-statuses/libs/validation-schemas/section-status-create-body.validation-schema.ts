@@ -4,9 +4,9 @@ import { SectionStatus } from "../enums/enums.js";
 
 const sectionStatusCreateBody = z
 	.object({
-		courseSectionId: z.coerce.number(),
+		courseSectionId: z.number(),
 		status: z.enum([SectionStatus.COMPLETED, SectionStatus.IN_PROGRESS]),
-		userId: z.coerce.number(),
+		userId: z.number(),
 	})
 	.required();
 
