@@ -1,1 +1,1 @@
-export { PermissionError } from "./permission-error.js";
+export { PermissionError } from "./permission-error.exception.js";
