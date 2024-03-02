@@ -95,6 +95,7 @@ export {
 	PermissionError,
 	type PermissionRequestDto,
 	type PermissionResponseDto,
+	PermissionsApiPath,
 } from "./modules/permissions/permissions.js";
 export {
 	UserCoursesApiPath,
