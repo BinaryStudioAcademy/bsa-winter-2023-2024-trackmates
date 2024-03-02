@@ -16,6 +16,8 @@ type Properties = {
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 	const { id, url, vendor, vendorCourseId } = course;
 
+	const hasAddCourse = !!onAddCourse;
+
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
 			vendorCourseId: vendorCourseId,
@@ -25,7 +27,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 
 	return (
 		<article className={styles["container"]}>
-			{onAddCourse ? (
+			{hasAddCourse ? (
 				<CourseCard course={course} />
 			) : (
 				<Link
@@ -36,7 +38,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 					<CourseCard course={course} />
 				</Link>
 			)}
-			{onAddCourse && (
+			{hasAddCourse && (
 				<div className={styles["actions"]}>
 					<a
 						className={styles["course-details-link"]}

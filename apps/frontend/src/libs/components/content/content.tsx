@@ -13,7 +13,7 @@ const Content: React.FC<Properties> = ({ string }: Properties) => {
 	const sanitizedString = getSanitizedHtml(string);
 
 	if (string.length <= MAXIMUM_CONTENT_LENGTH) {
-		return <div dangerouslySetInnerHTML={{ __html: sanitizedString || "" }} />;
+		return <div dangerouslySetInnerHTML={{ __html: sanitizedString }} />;
 	}
 
 	const truncatedContent = getTruncatedContent(
