@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.2...frontend-v1.15.0) (2024-03-02)
+
+
+### Features
+
+* **frontend:** add change photo button tm-273 ([#278](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/278)) ([4466795](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/446679556ace759775567d4256e04ef9f573df2f))
+
 ## [1.14.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.1...frontend-v1.14.2) (2024-03-01)
 
 
