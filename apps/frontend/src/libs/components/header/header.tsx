@@ -1,8 +1,14 @@
 import { Button, Image, Link } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
+import {
+	DEFAULT_USER_AVATAR,
+	PAGES_WITH_SEARCH_BAR,
+} from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useAppSelector } from "~/libs/hooks/hooks.js";
+import {
+	checkIfPathMatchingPattern,
+	getValidClassNames,
+} from "~/libs/helpers/helpers.js";
+import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { SearchBar } from "../search-bar/search-bar.js";
@@ -16,11 +22,22 @@ const Header: React.FC = () => {
 		};
 	});
 
+	const { pathname } = useLocation();
+
+	const isSearchBarShown = PAGES_WITH_SEARCH_BAR.some((template) => {
+		return checkIfPathMatchingPattern(pathname, template);
+	});
+
 	return (
 		<header className={styles["header"]}>
 			<div className={styles["toolbar"]}>
-				<SearchBar />
-				<nav>
+				{isSearchBarShown && (
+					<SearchBar
+						className={styles["search-bar"]}
+						inputClassName={styles["search-bar-input"]}
+					/>
+				)}
+				<nav className={styles["navigation"]}>
 					<ul className={styles["navbar"]}>
 						<li>
 							<Button

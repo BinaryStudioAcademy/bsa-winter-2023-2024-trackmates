@@ -1,6 +1,6 @@
 import { type FormEvent } from "react";
 
-import { initDebounce } from "~/libs/helpers/helpers.js";
+import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -21,7 +21,15 @@ const handleFormSubmit = (event_: FormEvent<HTMLFormElement>): void => {
 	event_.preventDefault();
 };
 
-const SearchBar: React.FC = () => {
+type Properties = {
+	className?: string | undefined;
+	inputClassName?: string | undefined;
+};
+
+const SearchBar: React.FC<Properties> = ({
+	className: classNames,
+	inputClassName: inputClassNames,
+}: Properties) => {
 	const { user } = useAppSelector((state) => ({
 		user: state.auth.user as UserAuthResponseDto,
 	}));
@@ -54,12 +62,12 @@ const SearchBar: React.FC = () => {
 
 	return (
 		<form
-			className={styles["form"]}
+			className={getValidClassNames(styles["form"], classNames)}
 			onChange={handleDebouncedSearchCourses}
 			onSubmit={handleFormSubmit}
 		>
 			<Input
-				className={styles["search"]}
+				className={getValidClassNames(styles["search"], inputClassNames)}
 				color="light"
 				control={control}
 				errors={errors}
