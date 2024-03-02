@@ -7,7 +7,7 @@ import {
 	useEffect,
 	useParams,
 } from "~/libs/hooks/hooks.js";
-import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
+import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
 import { CourseDetails, CourseSections } from "./libs/components/components.js";

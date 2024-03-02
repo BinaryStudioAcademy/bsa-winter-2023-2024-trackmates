@@ -18,7 +18,7 @@ import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
 import {
 	courseSectionsApi,
 	reducer as courseSectionsReducer,
-} from "~/modules/course-sections/course.sections.js";
+} from "~/modules/course-sections/course-sections.js";
 import {
 	courseApi,
 	reducer as coursesReducer,

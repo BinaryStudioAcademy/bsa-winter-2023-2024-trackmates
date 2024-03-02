@@ -1,4 +1,4 @@
-import { type CourseSectionDto } from "~/modules/course-sections/course.sections.js";
+import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 
 import styles from "./styles.module.css";
 
