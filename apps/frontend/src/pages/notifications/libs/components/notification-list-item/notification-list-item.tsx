@@ -1,5 +1,5 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image, Link } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import {
 	APIPath,
 	type AppRoute,
@@ -37,7 +37,7 @@ const NotificationListItem: React.FC<Properties> = ({
 				<Image
 					alt="avatar"
 					className={styles["notification-source-user-avatar"]}
-					src={notification.userAvatarUrl ?? DEFAULT_USER_AVATAR}
+					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
 			</Link>
 			<div>
