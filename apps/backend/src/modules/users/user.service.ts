@@ -70,18 +70,45 @@ class UserService implements Service {
 	public async findById(id: number): Promise<UserAuthResponseDto | null> {
 		const user = await this.userRepository.findById(id);
 
-		return user?.toObject() ?? null;
+		if (!user) {
+			throw new UserError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return user.toObject();
 	}
 
 	public async getByEmail(email: string): Promise<UserEntity | null> {
 		return await this.userRepository.getByEmail(email);
 	}
 
+	public async getByNickname(nickname: string): Promise<UserEntity | null> {
+		return await this.userRepository.getByNickname(nickname);
+	}
+
 	public async update(
 		userId: number,
 		userProfile: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
-		const updatedUser = await this.userRepository.update(userId, userProfile);
+		const { firstName, lastName, nickname } = userProfile;
+		const user = await this.userRepository.getByNickname(nickname);
+		const hasUser = Boolean(user);
+		const isSameUser = user?.toObject().id === userId;
+
+		if (hasUser && !isSameUser) {
+			throw new UserError({
+				message: ExceptionMessage.NICKNAME_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const updatedUser = await this.userRepository.update(userId, {
+			firstName,
+			lastName,
+			nickname,
+		});
 
 		return updatedUser?.toObject() ?? null;
 	}

@@ -1,6 +1,6 @@
-type SectionStatusGetRequestDto = {
-	courseSectionId: number;
+type SectionStatusGetAllRequestDto = {
+	courseId: number;
 	userId: number;
 };
 
-export { type SectionStatusGetRequestDto };
+export { type SectionStatusGetAllRequestDto };

@@ -17,7 +17,7 @@ const ColumnName = {
 
 const StatusValue = {
 	COMPLETED: "completed",
-	IN_PROGRESS: "inprogress",
+	IN_PROGRESS: "in-progress",
 } as const;
 
 const DELETE_STRATEGY = "CASCADE";

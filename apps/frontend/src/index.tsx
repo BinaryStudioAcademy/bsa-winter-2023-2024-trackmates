@@ -13,11 +13,14 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
+import { Chats } from "./pages/chats/chats.js";
+import { CourseDescription } from "./pages/course-description/course-description.js";
 import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Overview } from "./pages/overview/overview.js";
 import { Profile } from "./pages/profile/profile.js";
+import { User } from "./pages/user/user.js";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
 	<StrictMode>
@@ -27,6 +30,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 				routes={[
 					{
 						children: [
+							{
+								element: <ProtectedRoute component={<Chats />} />,
+								path: AppRoute.CHATS,
+							},
+							{
+								element: <ProtectedRoute component={<Chats />} />,
+								path: AppRoute.CHATS_$ID,
+							},
 							{
 								element: <ProtectedRoute component={<Feed />} />,
 								path: AppRoute.FEED,
@@ -58,6 +69,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.PROFILE,
+							},
+							{
+								element: <ProtectedRoute component={<CourseDescription />} />,
+								path: AppRoute.COURSE_DESCRIPTION_$ID,
+							},
+							{
+								element: <ProtectedRoute component={<User />} />,
+								path: AppRoute.USERS_$ID,
 							},
 						],
 						element: <App />,

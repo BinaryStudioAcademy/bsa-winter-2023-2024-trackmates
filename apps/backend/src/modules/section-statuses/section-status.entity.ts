@@ -96,18 +96,14 @@ class SectionStatusEntity implements Entity {
 
 	public toObject(): {
 		courseSectionId: number;
-		createdAt: string;
 		id: number;
 		status: ValueOf<typeof SectionStatus>;
-		updatedAt: string;
 		userId: number;
 	} {
 		return {
 			courseSectionId: this.courseSectionId,
-			createdAt: this.createdAt,
 			id: this.id as number,
 			status: this.status,
-			updatedAt: this.updatedAt,
 			userId: this.userId,
 		};
 	}

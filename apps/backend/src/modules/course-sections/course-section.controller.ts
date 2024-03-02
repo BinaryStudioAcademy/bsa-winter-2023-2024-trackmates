@@ -6,12 +6,14 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { courseIdParameterValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 
 import { type CourseSectionService } from "./course-section.service.js";
 import { CourseSectionsApiPath } from "./libs/enums/enums.js";
 import { type CourseSectionGetAllRequestDto } from "./libs/types/types.js";
-import { courseSectionIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	courseSectionGetAllQueryValidationSchema,
+	courseSectionIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /***
  * @swagger
@@ -25,8 +27,6 @@ import { courseSectionIdParameterValidationSchema } from "./libs/validation-sche
  *            format: number
  *            minimum: 1
  *          title:
- *            type: string
- *          description:
  *            type: string
  *          courseId:
  *            type: number
@@ -56,7 +56,7 @@ class CourseSectionController extends BaseController {
 			method: "GET",
 			path: CourseSectionsApiPath.ROOT,
 			validation: {
-				query: courseIdParameterValidationSchema,
+				query: courseSectionGetAllQueryValidationSchema,
 			},
 		});
 
@@ -80,6 +80,8 @@ class CourseSectionController extends BaseController {
 	 * @swagger
 	 * /course-sections:
 	 *    get:
+	 *      tags:
+	 *        - Course sections
 	 *      description: Return array of all course-sections that belong to a course with provided ID in query
 	 *      security:
 	 *        - bearerAuth: []
@@ -115,6 +117,8 @@ class CourseSectionController extends BaseController {
 	 * @swagger
 	 * /course-sections/{id}:
 	 *    get:
+	 *      tags:
+	 *        - Course sections
 	 *      description: Return course section by provided course section id
 	 *      security:
 	 *        - bearerAuth: []

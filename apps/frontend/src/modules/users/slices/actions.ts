@@ -16,9 +16,18 @@ const updateProfile = createAsyncThunk<
 
 	const user = await userApi.update(id, profilePayload);
 
-	notification.success(NotificationMessage.PROFILE_UPDATED);
+	notification.success(NotificationMessage.PROFILE_CHANGES_SAVED);
 
 	return user;
 });
 
-export { updateProfile };
+const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
+	`${sliceName}/get-by-id`,
+	(userPayload, { extra }) => {
+		const { userApi } = extra;
+
+		return userApi.getById(userPayload);
+	},
+);
+
+export { getById, updateProfile };

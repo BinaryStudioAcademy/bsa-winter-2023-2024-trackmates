@@ -9,6 +9,10 @@
 	border-bottom: 2px solid var(--color-background);
 }
 
+.image {
+	object-fit: cover;
+}
+
 .toolbar {
 	display: flex;
 	flex: 1;
@@ -17,7 +21,28 @@
 	justify-content: space-between;
 }
 
-@media screen and (width <= 480px) {
+.navigation {
+	display: flex;
+	column-gap: 24px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	color: var(--color-text-200);
+	border: unset;
+	fill: currentcolor;
+}
+
+.icon-button:hover {
+	padding: 0;
+	color: var(--main-orange);
+	background-color: var(--main-white);
+	border: unset;
+	fill: currentcolor;
+}
+
+@media screen and (--small-screen) {
 	.header {
 		width: calc(100% - 40px);
 		max-height: 55px;

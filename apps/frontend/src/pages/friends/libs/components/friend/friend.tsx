@@ -1,11 +1,14 @@
-import friendImage from "~/assets/img/friend.jpeg";
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Image, Link } from "~/libs/components/components.js";
+import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
+	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -21,7 +24,19 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			state.friends.followings.some((user) => user.id === friend.id),
 		),
 	);
+
+	const isFollowingFromSelector = useAppSelector((state) =>
+		state.friends.followings.some((user) => user.id === friend.id),
+	);
 	const dispatch = useAppDispatch();
+
+	const parameters = new URLSearchParams({ user: String(friend.id) });
+	const chatRouteByUser =
+		`${AppRoute.CHATS}?${parameters.toString()}` as typeof AppRoute.CHATS;
+
+	useEffect(() => {
+		setIsFollowing(isFollowingFromSelector);
+	}, [isFollowingFromSelector]);
 
 	const handleFollow = useCallback(() => {
 		void dispatch(actions.follow({ id: friend.id }))
@@ -41,16 +56,19 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 
 	return (
 		<article className={styles["card"]}>
-			<div className={styles["card-content"]}>
+			<Link
+				className={styles["card-content"]}
+				to={`/users/${friend.id}` as ValueOf<typeof AppRoute>}
+			>
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
-					src={friendImage}
+					src={friend.avatarUrl ?? DEFAULT_USER_AVATAR}
 				/>
-				<p className={styles["fullName"]}>
-					{friend.firstName} {friend.lastName}
-				</p>
-			</div>
+				<p
+					className={styles["fullName"]}
+				>{`${friend.firstName} ${friend.lastName}`}</p>
+			</Link>
 
 			<div className={styles["actions"]}>
 				<Button
@@ -59,6 +77,14 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					label={isFollowing ? "Following" : "Follow"}
 					onClick={isFollowing ? handleUnfollow : handleFollow}
 					size="small"
+				/>
+				<Button
+					className={styles["start-chat"]}
+					hasVisuallyHiddenLabel
+					href={chatRouteByUser}
+					iconName="chats"
+					label="Start chat"
+					style="primary"
 				/>
 			</div>
 		</article>

@@ -1,4 +1,4 @@
-import welcomeCharacter from "~/assets/img/svg/welcome-character.svg";
+import welcomeCharacter from "~/assets/img/welcome-character.svg";
 import { Button } from "~/libs/components/components.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 

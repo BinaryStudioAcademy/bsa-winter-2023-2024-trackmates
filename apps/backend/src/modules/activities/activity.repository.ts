@@ -81,6 +81,7 @@ class ActivityRepository
 					firstName: activity.user.userDetails.firstName,
 					id: activity.user.id,
 					lastName: activity.user.userDetails.lastName,
+					nickname: activity.user.userDetails.nickname,
 					passwordHash: "",
 					passwordSalt: "",
 					updatedAt: activity.user.updatedAt,

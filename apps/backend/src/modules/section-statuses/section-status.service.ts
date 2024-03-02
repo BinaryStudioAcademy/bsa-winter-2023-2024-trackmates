@@ -5,9 +5,9 @@ import { type Service } from "~/libs/types/types.js";
 import { SectionStatusError } from "./libs/exceptions/exceptions.js";
 import {
 	type SectionStatusAddRequestDto,
-	type SectionStatusDto,
+	type SectionStatusGetAllRequestDto,
 	type SectionStatusGetAllResponseDto,
-	type SectionStatusGetRequestDto,
+	type SectionStatusResponseDto,
 	type SectionStatusUpdateRequestDto,
 } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
@@ -25,13 +25,15 @@ class SectionStatusService implements Service {
 	}
 
 	public async create(
-		payload: SectionStatusAddRequestDto,
-	): Promise<SectionStatusDto> {
+		payload: SectionStatusAddRequestDto & { userId: number },
+	): Promise<SectionStatusResponseDto> {
+		const { courseSectionId, status, userId } = payload;
+
 		const sectionStatus = await this.sectionStatusRepository.create(
 			SectionStatusEntity.initializeNew({
-				courseSectionId: payload.courseSectionId,
-				status: payload.status,
-				userId: payload.userId,
+				courseSectionId: courseSectionId,
+				status: status,
+				userId: userId,
 			}),
 		);
 
@@ -51,7 +53,7 @@ class SectionStatusService implements Service {
 		return await this.sectionStatusRepository.delete(id);
 	}
 
-	public async find(id: number): Promise<SectionStatusEntity> {
+	public async find(id: number): Promise<SectionStatusResponseDto> {
 		const sectionStatus = await this.sectionStatusRepository.find(id);
 
 		if (!sectionStatus) {
@@ -61,7 +63,7 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		return sectionStatus;
+		return sectionStatus.toObject();
 	}
 
 	public async findAll(): Promise<SectionStatusGetAllResponseDto> {
@@ -73,20 +75,20 @@ class SectionStatusService implements Service {
 	}
 
 	public async findAllByCourseIdAndUserId(
-		query: SectionStatusGetRequestDto,
-	): Promise<SectionStatusDto[]> {
+		query: SectionStatusGetAllRequestDto,
+	): Promise<SectionStatusGetAllResponseDto> {
 		const sectionStatuses =
-			await this.sectionStatusRepository.getAllByCourseSectionIdAndUserId(
-				query,
-			);
+			await this.sectionStatusRepository.findAllByCourseIdAndUserId(query);
 
-		return sectionStatuses.map((sectionStatus) => sectionStatus.toObject());
+		return {
+			items: sectionStatuses.map((sectionStatus) => sectionStatus.toObject()),
+		};
 	}
 
 	public async update(
 		id: number,
 		payload: SectionStatusUpdateRequestDto,
-	): Promise<SectionStatusEntity> {
+	): Promise<SectionStatusResponseDto> {
 		const sectionStatus = await this.sectionStatusRepository.find(id);
 
 		if (!sectionStatus) {
@@ -96,7 +98,7 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		return await this.sectionStatusRepository.update(
+		const updatedSection = await this.sectionStatusRepository.update(
 			id,
 			SectionStatusEntity.initializeNew({
 				courseSectionId: sectionStatus.courseSectionId,
@@ -104,6 +106,8 @@ class SectionStatusService implements Service {
 				userId: sectionStatus.userId,
 			}),
 		);
+
+		return updatedSection.toObject();
 	}
 }
 

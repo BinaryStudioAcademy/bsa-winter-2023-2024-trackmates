@@ -1,6 +1,8 @@
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
-import { type SectionStatusGetRequestDto } from "./libs/types/types.js";
+import { RELATION_NAME } from "./libs/constants/constants.js";
+import { type SectionStatusGetAllRequestDto } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusModel } from "./section-status.model.js";
 
@@ -74,14 +76,19 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 		});
 	}
 
-	public async getAllByCourseSectionIdAndUserId({
-		courseSectionId,
+	public async findAllByCourseIdAndUserId({
+		courseId,
 		userId,
-	}: SectionStatusGetRequestDto): Promise<SectionStatusEntity[]> {
+	}: SectionStatusGetAllRequestDto): Promise<SectionStatusEntity[]> {
 		const sectionStatusModels = await this.sectionStatusModel
 			.query()
-			.where("courseSectionId", courseSectionId)
+			.whereIn("courseSectionId", function () {
+				void this.select("id")
+					.from(DatabaseTableName.COURSE_SECTIONS)
+					.where("courseId", courseId);
+			})
 			.andWhere("userId", userId)
+			.withGraphFetched(RELATION_NAME)
 			.execute();
 
 		return sectionStatusModels.map((sectionStatusModel) => {

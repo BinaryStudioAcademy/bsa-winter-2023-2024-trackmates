@@ -121,6 +121,7 @@ class ActivityEntity implements Entity {
 			firstName: string;
 			id: number;
 			lastName: string;
+			nickname: null | string;
 			updatedAt: string;
 		};
 		userId: number;

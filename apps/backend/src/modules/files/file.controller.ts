@@ -57,6 +57,8 @@ class FileController extends BaseController {
 	 * @swagger
 	 * /files/upload-avatar:
 	 *    post:
+	 *      tags:
+	 *        - Files
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Uploads user's avatar

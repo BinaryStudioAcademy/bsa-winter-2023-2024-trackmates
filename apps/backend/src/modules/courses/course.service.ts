@@ -127,7 +127,6 @@ class CourseService {
 		return sections.map((section) => {
 			return CourseSectionEntity.initializeNew({
 				courseId: id,
-				description: section.description,
 				title: section.title,
 			});
 		});

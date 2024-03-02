@@ -13,6 +13,8 @@ import {
 } from "~/modules/users/users.js";
 
 import { UsersApiPath } from "./libs/enums/enums.js";
+import { type UserGetByIdRequestDto } from "./libs/types/types.js";
+import { userIdParametersValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 class UserController extends BaseController {
 	private userService: UserService;
@@ -27,13 +29,28 @@ class UserController extends BaseController {
 				this.updateUser(
 					options as APIHandlerOptions<{
 						body: UserProfileRequestDto;
-						params: Record<"id", string>;
+						params: { id: string };
 					}>,
 				),
 			method: "PATCH",
-			path: `${UsersApiPath.ROOT}:id`,
+			path: UsersApiPath.$ID,
 			validation: {
 				body: userProfileValidationSchema,
+			},
+		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.findById(
+					options as APIHandlerOptions<{
+						params: UserGetByIdRequestDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: UsersApiPath.$ID,
+			validation: {
+				params: userIdParametersValidationSchema,
 			},
 		});
 	}
@@ -41,7 +58,46 @@ class UserController extends BaseController {
 	/**
 	 * @swagger
 	 * /users/{id}:
+	 *   get:
+	 *     tags:
+	 *       - Users
+	 *     security:
+	 *       - bearerAuth: []
+	 *     description: Returns found user
+	 *     parameters:
+	 *       - in: path
+	 *         name: id
+	 *         description: ID of the user
+	 *         required: true
+	 *         schema:
+	 *           type: number
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               $ref: '#/components/schemas/User'
+	 */
+	private async findById(
+		options: APIHandlerOptions<{
+			params: {
+				id: number;
+			};
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userService.findById(options.params.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /users/{id}:
 	 *    patch:
+	 *      tags:
+	 *        - Users
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Updates a user's details
@@ -64,6 +120,8 @@ class UserController extends BaseController {
 	 *                  type: string
 	 *                lastName:
 	 *                  type: string
+	 *                nickname:
+	 *                  type: string
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation
@@ -76,7 +134,9 @@ class UserController extends BaseController {
 	private async updateUser(
 		options: APIHandlerOptions<{
 			body: UserProfileRequestDto;
-			params: { id: string };
+			params: {
+				id: string;
+			};
 		}>,
 	): Promise<APIHandlerResponse> {
 		const userId = Number(options.params.id);
