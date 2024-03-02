@@ -240,7 +240,7 @@ class SectionStatusController extends BaseController {
 	 *                    type: string
 	 *                    enum: [completed, in-progress]
 	 *      responses:
-	 *        201:
+	 *        200:
 	 *          description: Successful operation
 	 *          content:
 	 *            application/json:
