@@ -31,10 +31,6 @@ type Properties = {
 	onClose: () => void;
 };
 
-const handleFormSubmit = (event_: React.FormEvent<HTMLFormElement>): void => {
-	event_.preventDefault();
-};
-
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
@@ -75,6 +71,13 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 			}),
 		);
 	};
+
+	const handleFormSubmit = useCallback(
+		(event_: React.FormEvent<HTMLFormElement>): void => {
+			event_.preventDefault();
+		},
+		[],
+	);
 
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
 		void handleSubmit(handleSearchCourses)(event_);
