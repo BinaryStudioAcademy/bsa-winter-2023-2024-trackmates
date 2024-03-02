@@ -4,7 +4,7 @@ type FinishSectionDto = {
 		title: string;
 		vendorId: number;
 	};
-	id: null | number;
+	id: number;
 	title: string;
 };
 

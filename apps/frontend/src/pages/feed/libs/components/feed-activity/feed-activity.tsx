@@ -7,7 +7,6 @@ import {
 
 import styles from "./styles.module.css";
 
-// todo  open-close principe
 const getTitle = (activity: ActivityDto<ActivityType>): string => {
 	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
 	const title = activity.payload.title;

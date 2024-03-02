@@ -64,6 +64,7 @@ class ActivityRepository
 					.where({ followerId: userId }),
 			)
 			.withGraphJoined("user.userDetails.avatarFile")
+			.orderBy("updatedAt", "DESC")
 			.castTo<ActivityModel[]>()
 			.execute();
 

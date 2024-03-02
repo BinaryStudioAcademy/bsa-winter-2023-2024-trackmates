@@ -1,29 +1,36 @@
 import { type Entity } from "~/libs/types/types.js";
 
+import { type CourseEntity } from "../courses/course.entity.js";
+
 class CourseSectionEntity implements Entity {
+	private course: CourseEntity | null;
+
+	private courseId: number;
+
 	private createdAt: string;
 
 	private id: null | number;
 
-	public courseId: number;
+	private title: string;
 
-	public title: string;
-
-	public updatedAt: string;
+	private updatedAt: string;
 
 	private constructor({
+		course,
 		courseId,
 		createdAt,
 		id,
 		title,
 		updatedAt,
 	}: {
+		course: CourseEntity | null;
 		courseId: number;
 		createdAt: string;
 		id: null | number;
 		title: string;
 		updatedAt: string;
 	}) {
+		this.course = course;
 		this.createdAt = createdAt;
 		this.id = id;
 		this.title = title;
@@ -32,12 +39,14 @@ class CourseSectionEntity implements Entity {
 	}
 
 	public static initialize({
+		course,
 		courseId,
 		createdAt,
 		id,
 		title,
 		updatedAt,
 	}: {
+		course: CourseEntity | null;
 		courseId: number;
 		createdAt: string;
 		id: null | number;
@@ -45,6 +54,7 @@ class CourseSectionEntity implements Entity {
 		updatedAt: string;
 	}): CourseSectionEntity {
 		return new CourseSectionEntity({
+			course,
 			courseId,
 			createdAt,
 			id,
@@ -61,6 +71,7 @@ class CourseSectionEntity implements Entity {
 		title: string;
 	}): CourseSectionEntity {
 		return new CourseSectionEntity({
+			course: null,
 			courseId,
 			createdAt: "",
 			id: null,
@@ -80,11 +91,13 @@ class CourseSectionEntity implements Entity {
 	}
 
 	public toObject(): {
+		course: ReturnType<CourseEntity["toObject"]> | null;
 		courseId: number;
 		id: number;
 		title: string;
 	} {
 		return {
+			course: this.course?.toObject() || null,
 			courseId: this.courseId,
 			id: this.id as number,
 			title: this.title,

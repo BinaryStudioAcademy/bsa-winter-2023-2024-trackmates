@@ -9,4 +9,5 @@ const activityRepository = new ActivityRepository(ActivityModel);
 const activityService = new ActivityService({ activityRepository });
 const activityController = new ActivityController(logger, activityService);
 
-export { activityController };
+export { activityController, activityService };
+export { type ActivityService } from "./activity.service.js";

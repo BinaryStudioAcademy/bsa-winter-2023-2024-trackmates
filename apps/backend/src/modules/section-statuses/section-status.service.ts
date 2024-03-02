@@ -1,7 +1,10 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/types.js";
+import { type ActivityService } from "~/modules/activities/activities.js";
+import { type CourseSectionRepository } from "~/modules/course-sections/course-sections.js";
 
+import { SectionStatus } from "./libs/enums/enums.js";
 import { SectionStatusError } from "./libs/exceptions/exceptions.js";
 import {
 	type SectionStatusAddRequestDto,
@@ -14,14 +17,64 @@ import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusRepository } from "./section-status.repository.js";
 
 type Constructor = {
+	activityService: ActivityService;
+	courseSectionRepository: CourseSectionRepository;
 	sectionStatusRepository: SectionStatusRepository;
 };
 
 class SectionStatusService implements Service {
+	private activityService: ActivityService;
+	private courseSectionRepository: CourseSectionRepository;
 	private sectionStatusRepository: SectionStatusRepository;
 
-	public constructor({ sectionStatusRepository }: Constructor) {
+	public constructor({
+		activityService,
+		courseSectionRepository,
+		sectionStatusRepository,
+	}: Constructor) {
+		this.activityService = activityService;
+		this.courseSectionRepository = courseSectionRepository;
 		this.sectionStatusRepository = sectionStatusRepository;
+	}
+
+	private async addActivity(sectionStatus: SectionStatusEntity): Promise<void> {
+		const { courseSectionId, id: actionId, userId } = sectionStatus.toObject();
+
+		const courseSection =
+			await this.courseSectionRepository.find(courseSectionId);
+
+		if (!courseSection) {
+			return;
+		}
+
+		const { course, id, title } = courseSection.toObject();
+
+		course &&
+			(await this.activityService.apply<"FINISH_SECTION">({
+				actionId,
+				payload: {
+					course: {
+						id: course.id,
+						title: course.title,
+						vendorId: course.vendorId,
+					},
+					id,
+					title,
+				},
+				type: "FINISH_SECTION",
+				userId,
+			}));
+	}
+
+	private async deleteActivity(
+		actionId: number,
+		userId: number,
+	): Promise<void> {
+		await this.activityService.cancel<"FINISH_SECTION">({
+			actionId,
+			type: "FINISH_SECTION",
+			userId,
+		});
 	}
 
 	public async create(
@@ -37,6 +90,8 @@ class SectionStatusService implements Service {
 			}),
 		);
 
+		await this.addActivity(sectionStatus);
+
 		return sectionStatus.toObject();
 	}
 
@@ -50,7 +105,11 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		return await this.sectionStatusRepository.delete(id);
+		const isDeleted = await this.sectionStatusRepository.delete(id);
+		isDeleted &&
+			(await this.deleteActivity(id, sectionStatus.toObject().userId));
+
+		return isDeleted;
 	}
 
 	public async find(id: number): Promise<SectionStatusResponseDto> {
@@ -98,7 +157,7 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		const updatedSection = await this.sectionStatusRepository.update(
+		const updatedStatusEntity = await this.sectionStatusRepository.update(
 			id,
 			SectionStatusEntity.initializeNew({
 				courseSectionId: sectionStatus.courseSectionId,
@@ -106,8 +165,14 @@ class SectionStatusService implements Service {
 				userId: sectionStatus.userId,
 			}),
 		);
+		const updatedStatus = updatedStatusEntity.toObject();
+		const { status, userId } = updatedStatus;
 
-		return updatedSection.toObject();
+		status === SectionStatus.COMPLETED
+			? await this.addActivity(updatedStatusEntity)
+			: await this.deleteActivity(id, userId);
+
+		return updatedStatus;
 	}
 }
 
