@@ -1,4 +1,5 @@
 import { Model, type RelationMappings } from "objection";
+
 import {
 	AbstractModel,
 	DatabaseTableName,
