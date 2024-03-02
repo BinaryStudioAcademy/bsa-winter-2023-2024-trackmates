@@ -22,9 +22,37 @@ import {
 type ApplyRequestDto<TYPE extends ActivityType> = {
 	actionId: number;
 	payload: ActivityPayloadMap[TYPE];
-	type: TYPE;
 };
 
+/**
+ * @swagger
+ * components:
+ *    schemas:
+ *      Activity:
+ *        type: object
+ *        properties:
+ *          actionId:
+ *            type: number
+ *            format: number
+ *            minimum: 1
+ *          id:
+ *            type: number
+ *            format: number
+ *            minimum: 1
+ *          payload:
+ *            type: string
+ *          type:
+ *            type: string
+ *          updatedAt:
+ *            type: string
+ *          userId:
+ *            type: number
+ *            format: number
+ *            minimum: 1
+ *          user:
+ *            type: object
+ *            $ref: "#/components/schemas/User"
+ */
 class ActivityController extends BaseController {
 	private activityService: ActivityService;
 
@@ -76,14 +104,62 @@ class ActivityController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /activities/finish-section:
+	 *    post:
+	 *      description: add FINISH_SECTION activity to DB
+	 *      security:
+	 *        - bearerAuth: []
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                actionId:
+	 *                  type: number
+	 *                  format: number
+	 *                  minimum: 1
+	 *                payload:
+	 *                  type: object
+	 *                  properties:
+	 *                    title:
+	 *                      type: string
+	 *                    course:
+	 *                      type: object
+	 *                      properties:
+	 *                        id:
+	 *                          type: number
+	 *                          format: number
+	 *                          minimum: 1
+	 *                        title:
+	 *                          type: string
+	 *                        vendorId:
+	 *                          type: number
+	 *                          format: number
+	 *                          minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Activity"
+	 */
 	private async apply<TYPE extends ActivityType>({
-		body,
+		actionId,
+		payload,
+		type,
 		user,
-	}: APIHandlerOptions<{
-		body: ApplyRequestDto<TYPE>;
+	}: {
+		actionId: number;
+		payload: ActivityPayloadMap[TYPE];
+		type: TYPE;
 		user: UserAuthResponseDto;
-	}>): Promise<APIHandlerResponse> {
-		const { actionId, payload, type } = body;
+	}): Promise<APIHandlerResponse> {
 		const activity = { actionId, payload, type, userId: user.id };
 
 		return {
@@ -92,13 +168,45 @@ class ActivityController extends BaseController {
 		};
 	}
 
-	private async applyFinishSection(
-		options: APIHandlerOptions<{
-			body: ApplyRequestDto<"FINISH_SECTION">;
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		return await this.apply<"FINISH_SECTION">(options);
+	/**
+	 * @swagger
+	 * /activities/finish-section/{id}:
+	 *    delete:
+	 *      description: delete FINISH_SECTION activity from DB
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: Action ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
+	private async applyFinishSection({
+		body: { actionId, payload },
+		user,
+	}: APIHandlerOptions<{
+		body: ApplyRequestDto<"FINISH_SECTION">;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return await this.apply<"FINISH_SECTION">({
+			actionId,
+			payload,
+			type: "FINISH_SECTION",
+			user,
+		});
 	}
 
 	private async cancel<TYPE extends ActivityType>({
@@ -111,9 +219,10 @@ class ActivityController extends BaseController {
 		user: UserAuthResponseDto;
 	}): Promise<APIHandlerResponse> {
 		const activity = { actionId: Number(actionId), type, userId: user.id };
+		const success = await this.activityService.cancel(activity);
 
 		return {
-			payload: await this.activityService.cancel(activity),
+			payload: { success },
 			status: HTTPCode.OK,
 		};
 	}
@@ -132,6 +241,27 @@ class ActivityController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /activities:
+	 *    post:
+	 *      description: get all user friends activities
+	 *      security:
+	 *        - bearerAuth: []
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Activity"
+	 */
 	private async getAll({
 		user,
 	}: APIHandlerOptions<{
