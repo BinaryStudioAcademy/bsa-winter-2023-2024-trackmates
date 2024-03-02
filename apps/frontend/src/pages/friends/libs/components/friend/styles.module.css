@@ -47,3 +47,9 @@
 	object-fit: cover;
 	object-position: center;
 }
+
+.start-chat {
+	min-height: unset;
+	padding: 7px;
+	fill: currentcolor;
+}

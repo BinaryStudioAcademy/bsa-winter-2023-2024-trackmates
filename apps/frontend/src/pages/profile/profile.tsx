@@ -1,12 +1,12 @@
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
 import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
 	useCallback,
+	useRef,
 } from "~/libs/hooks/hooks.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
@@ -22,16 +22,18 @@ const Profile: React.FC = () => {
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
 	});
+	const fileInputReference = useRef<HTMLInputElement | null>(null);
 	const dispatch = useAppDispatch();
 
-	const { control, errors, handleSubmit } = useAppForm<UserProfileRequestDto>({
-		defaultValues: {
-			firstName: user.firstName,
-			lastName: user.lastName,
-			nickname: user.nickname ?? "",
-		},
-		validationSchema: userProfileValidationSchema,
-	});
+	const { control, errors, handleSubmit, reset } =
+		useAppForm<UserProfileRequestDto>({
+			defaultValues: {
+				firstName: user.firstName,
+				lastName: user.lastName,
+				nickname: user.nickname ?? "",
+			},
+			validationSchema: userProfileValidationSchema,
+		});
 
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -65,6 +67,16 @@ const Profile: React.FC = () => {
 		[handleSubmit, handleInputChange],
 	);
 
+	const handleResetForm = useCallback(() => {
+		reset();
+	}, [reset]);
+
+	const handleOpenFileInput = useCallback((): void => {
+		if (fileInputReference.current) {
+			fileInputReference.current.click();
+		}
+	}, [fileInputReference]);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -75,12 +87,20 @@ const Profile: React.FC = () => {
 							<Image
 								alt="avatar"
 								className={styles["profile-image"]}
+								shape="circle"
 								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+							/>
+							<Button
+								label="Change photo"
+								onClick={handleOpenFileInput}
+								size="small"
+								style="secondary"
 							/>
 							<input
 								accept="image/*"
 								className={styles["file-input"]}
 								onChange={handleFileChange}
+								ref={fileInputReference}
 								type="file"
 							/>
 						</div>
@@ -124,8 +144,8 @@ const Profile: React.FC = () => {
 					<div className={styles["btnWrapper"]}>
 						<Button
 							className={styles["button"]}
-							href={AppRoute.ROOT}
 							label="Cancel"
+							onClick={handleResetForm}
 							size="small"
 							style="secondary"
 						/>

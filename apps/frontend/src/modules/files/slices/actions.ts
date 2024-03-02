@@ -15,7 +15,7 @@ const updateUserAvatar = createAsyncThunk<
 
 	const user = await filesApi.updateAvatar(payload);
 
-	notification.success(NotificationMessage.AVATAR_CHANGED);
+	notification.success(NotificationMessage.PROFILE_CHANGES_SAVED);
 
 	return user;
 });
