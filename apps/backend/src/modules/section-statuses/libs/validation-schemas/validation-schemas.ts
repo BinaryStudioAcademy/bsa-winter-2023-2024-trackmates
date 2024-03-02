@@ -1,6 +1,6 @@
 export {
 	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
 	sectionStatusUpdateBodyValidationSchema,
 	sectionStatusUpdateQueryValidationSchema,
-	sectionStatusesGetAllQueryValidationSchema,
 } from "@trackmates/shared";

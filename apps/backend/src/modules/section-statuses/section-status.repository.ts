@@ -1,7 +1,7 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
-import { RELATION_NAME } from "./libs/enums/enums.js";
+import { RELATION_NAME } from "./libs/constants/constants.js";
 import { type SectionStatusGetAllRequestDto } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusModel } from "./section-status.model.js";
@@ -82,12 +82,12 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 	}: SectionStatusGetAllRequestDto): Promise<SectionStatusEntity[]> {
 		const sectionStatusModels = await this.sectionStatusModel
 			.query()
-			.whereIn("course_section_id", function () {
+			.whereIn("courseSectionId", function () {
 				void this.select("id")
 					.from(DatabaseTableName.COURSE_SECTIONS)
-					.where("course_id", courseId);
+					.where("courseId", courseId);
 			})
-			.andWhere("user_id", userId)
+			.andWhere("userId", userId)
 			.withGraphFetched(RELATION_NAME)
 			.execute();
 

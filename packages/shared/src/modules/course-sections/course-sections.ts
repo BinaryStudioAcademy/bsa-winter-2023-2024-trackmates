@@ -5,7 +5,7 @@ export {
 	type CourseSectionDto,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
-	type CourseSectionWithStatusRelation,
+	type CourseSectionWithStatusDto,
 } from "./libs/types/types.js";
 export {
 	courseSectionGetAllQuery as courseSectionGetAllQueryValidationSchema,

@@ -40,7 +40,7 @@
 	right: 1px;
 	bottom: -1px;
 	font-size: 13px;
-	color: #ffffff;
+	color: var(--main-white);
 	content: "\2714";
 }
 

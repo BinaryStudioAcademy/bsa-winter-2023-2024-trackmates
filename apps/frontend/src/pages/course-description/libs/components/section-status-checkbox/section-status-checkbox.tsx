@@ -1,12 +1,12 @@
 import { Checkbox } from "~/libs/components/components.js";
 import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
-import { type CourseSectionWithStatusRelation } from "~/modules/course-sections/course.sections.js";
+import { type CourseSectionWithStatusDto } from "~/modules/course-sections/course-sections.js";
 
 type Properties = {
 	isChecked: boolean;
 	name: string;
-	onToggle: (section: CourseSectionWithStatusRelation) => void;
-	section: CourseSectionWithStatusRelation;
+	onToggle: (section: CourseSectionWithStatusDto) => void;
+	section: CourseSectionWithStatusDto;
 };
 
 const SectionStatusCheckbox: React.FC<Properties> = ({

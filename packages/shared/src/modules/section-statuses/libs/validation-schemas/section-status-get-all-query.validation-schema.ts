@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-const sectionStatusesGetAllQuery = z
+const sectionStatusGetAllQuery = z
 	.object({
 		courseId: z.coerce.number(),
 		userId: z.coerce.number(),
 	})
 	.required();
 
-export { sectionStatusesGetAllQuery };
+export { sectionStatusGetAllQuery };

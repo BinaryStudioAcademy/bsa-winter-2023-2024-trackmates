@@ -9,7 +9,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	sectionStatusCreateBody as sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQuery as sectionStatusGetAllQueryValidationSchema,
 	sectionStatusUpdateBody as sectionStatusUpdateBodyValidationSchema,
 	sectionStatusUpdateQuery as sectionStatusUpdateQueryValidationSchema,
-	sectionStatusesGetAllQuery as sectionStatusesGetAllQueryValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

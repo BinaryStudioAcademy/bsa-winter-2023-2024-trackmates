@@ -8,8 +8,8 @@ import {
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
 	type CourseSectionDto,
-	type CourseSectionWithStatusRelation,
-} from "~/modules/course-sections/course.sections.js";
+	type CourseSectionWithStatusDto,
+} from "~/modules/course-sections/course-sections.js";
 import {
 	SectionStatus,
 	actions as sectionStatusActions,
@@ -37,13 +37,12 @@ const CourseSections: React.FC<Properties> = ({
 	});
 
 	const handleToggle = useCallback(
-		(section: CourseSectionWithStatusRelation) => {
+		(section: CourseSectionWithStatusDto) => {
 			if (!section.status) {
 				return void dispatch(
 					sectionStatusActions.create({
 						courseSectionId: section.id as number,
 						status: SectionStatus.COMPLETED,
-						userId: user.id,
 					}),
 				);
 			}
@@ -60,7 +59,7 @@ const CourseSections: React.FC<Properties> = ({
 				}),
 			);
 		},
-		[dispatch, user.id],
+		[dispatch],
 	);
 
 	useEffect(() => {

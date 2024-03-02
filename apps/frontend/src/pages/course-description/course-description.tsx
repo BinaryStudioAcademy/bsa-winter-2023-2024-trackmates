@@ -8,7 +8,7 @@ import {
 	useEffect,
 	useParams,
 } from "~/libs/hooks/hooks.js";
-import { actions as courseSectionsActions } from "~/modules/course-sections/course.sections.js";
+import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
 
@@ -58,12 +58,17 @@ const CourseDescription: React.FC = () => {
 
 	return (
 		<>
-			<Button
-				className={styles["back-btn"]}
-				href={AppRoute.ROOT}
-				iconName="backRound"
-				label="Back to overview"
-			/>
+			<div className={styles["back-container"]}>
+				<Button
+					className={styles["back-button"]}
+					hasVisuallyHiddenLabel
+					href={AppRoute.ROOT}
+					iconName="backArrow"
+					label="Back to overview"
+					size="small"
+				/>
+				<span className={styles["subtitle"]}>Back to overview</span>
+			</div>
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (

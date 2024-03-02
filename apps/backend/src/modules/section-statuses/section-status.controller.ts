@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { SectionStatusesApiPath } from "./libs/enums/enums.js";
 import {
@@ -15,9 +16,9 @@ import {
 } from "./libs/types/types.js";
 import {
 	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
 	sectionStatusUpdateBodyValidationSchema,
 	sectionStatusUpdateQueryValidationSchema,
-	sectionStatusesGetAllQueryValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 import { type SectionStatusService } from "./section-status.service.js";
 
@@ -46,7 +47,7 @@ import { type SectionStatusService } from "./section-status.service.js";
  *           readOnly: true
  *         status:
  *           type: string
- *           enum: [completed, inprogress]
+ *           enum: [completed, in-progress]
  */
 class SectionStatusController extends BaseController {
 	private sectionStatusService: SectionStatusService;
@@ -64,6 +65,7 @@ class SectionStatusController extends BaseController {
 				return this.createStatus(
 					options as APIHandlerOptions<{
 						body: SectionStatusAddRequestDto;
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -85,7 +87,7 @@ class SectionStatusController extends BaseController {
 			method: "GET",
 			path: SectionStatusesApiPath.ROOT,
 			validation: {
-				query: sectionStatusesGetAllQueryValidationSchema,
+				query: sectionStatusGetAllQueryValidationSchema,
 			},
 		});
 
@@ -95,6 +97,7 @@ class SectionStatusController extends BaseController {
 					options as APIHandlerOptions<{
 						body: SectionStatusUpdateRequestDto;
 						params: Record<"id", number>;
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -123,15 +126,12 @@ class SectionStatusController extends BaseController {
 	 *            schema:
 	 *              type: object
 	 *              properties:
-	 *                userId:
-	 *                  type: number
-	 *                  minimum: 1
 	 *                courseSectionId:
 	 *                  type: number
 	 *                  minimum: 1
 	 *                status:
 	 *                  type: string
-	 *                  enum: [completed, inprogress]
+	 *                  enum: [completed, in-progress]
 	 *      responses:
 	 *        201:
 	 *          description: Successful operation
@@ -144,10 +144,16 @@ class SectionStatusController extends BaseController {
 	private async createStatus(
 		options: APIHandlerOptions<{
 			body: SectionStatusAddRequestDto;
+			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
+		const { body, user } = options;
+
 		return {
-			payload: await this.sectionStatusService.create(options.body),
+			payload: await this.sectionStatusService.create({
+				...body,
+				userId: user.id,
+			}),
 			status: HTTPCode.CREATED,
 		};
 	}
@@ -232,7 +238,7 @@ class SectionStatusController extends BaseController {
 	 *              properties:
 	 *                  status:
 	 *                    type: string
-	 *                    enum: [completed, inprogress]
+	 *                    enum: [completed, in-progress]
 	 *      responses:
 	 *        201:
 	 *          description: Successful operation
