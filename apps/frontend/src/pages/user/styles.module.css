@@ -58,3 +58,7 @@
 .courses-title {
 	font-size: var(--font-size-400);
 }
+
+.follow-button {
+	width: 120px;
+}
