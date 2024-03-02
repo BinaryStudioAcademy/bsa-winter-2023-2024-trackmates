@@ -92,6 +92,11 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	PermissionError,
+	type PermissionRequestDto,
+	type PermissionResponseDto,
+} from "./modules/permissions/permissions.js";
+export {
 	UserCoursesApiPath,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
