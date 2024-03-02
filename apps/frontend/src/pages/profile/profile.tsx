@@ -6,6 +6,7 @@ import {
 	useAppForm,
 	useAppSelector,
 	useCallback,
+	useRef,
 } from "~/libs/hooks/hooks.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
@@ -21,6 +22,7 @@ const Profile: React.FC = () => {
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
 	});
+	const fileInputReference = useRef<HTMLInputElement | null>(null);
 	const dispatch = useAppDispatch();
 
 	const { control, errors, handleSubmit, reset } =
@@ -69,6 +71,12 @@ const Profile: React.FC = () => {
 		reset();
 	}, [reset]);
 
+	const handleOpenFileInput = useCallback((): void => {
+		if (fileInputReference.current) {
+			fileInputReference.current.click();
+		}
+	}, [fileInputReference]);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -82,10 +90,17 @@ const Profile: React.FC = () => {
 								shape="circle"
 								src={user.avatarUrl ?? defaultAvatar}
 							/>
+							<Button
+								label="Change photo"
+								onClick={handleOpenFileInput}
+								size="small"
+								style="secondary"
+							/>
 							<input
 								accept="image/*"
 								className={styles["file-input"]}
 								onChange={handleFileChange}
+								ref={fileInputReference}
 								type="file"
 							/>
 						</div>
