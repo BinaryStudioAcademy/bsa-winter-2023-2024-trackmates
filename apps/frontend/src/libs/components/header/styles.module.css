@@ -18,11 +18,26 @@
 	flex: 1;
 	column-gap: 24px;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
+}
+
+.search-bar {
+	margin-right: auto;
+}
+
+@media screen and (--medium-screen) {
+	.header:has(.search-bar-input:focus) .navigation {
+		display: none;
+	}
+
+	.search-bar {
+		margin-right: unset;
+	}
 }
 
 .navigation {
 	display: flex;
+	flex-shrink: 0;
 	column-gap: 24px;
 }
 
