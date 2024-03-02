@@ -1,4 +1,26 @@
 .form {
-	position: relative;
+	z-index: var(--z-index-low);
 	flex-basis: 360px;
+	transition: 0.3s ease-in-out;
+}
+
+@media screen and (--medium-screen) {
+	.form {
+		flex-basis: 0;
+	}
+
+	.search {
+		width: 0;
+		padding-right: 0;
+		background-color: var(--main-white);
+	}
+
+	.search:focus {
+		width: 100%;
+		background-color: var(--color-background);
+	}
+
+	.form:has(.search:focus) {
+		flex-basis: 100%;
+	}
 }

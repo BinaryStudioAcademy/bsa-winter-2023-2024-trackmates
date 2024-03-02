@@ -1,7 +1,11 @@
 import { Link } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
+import {
+	DEFAULT_USER_AVATAR,
+	PAGES_WITH_SEARCH_BAR,
+} from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { useAppSelector } from "~/libs/hooks/hooks.js";
+import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
+import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Button } from "../button/button.js";
@@ -10,15 +14,25 @@ import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
+	const { pathname } = useLocation();
+
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
+	});
+
+	const isSearchBarShown = PAGES_WITH_SEARCH_BAR.some((template) => {
+		return checkIfPathMatchingPattern(pathname, template);
 	});
 
 	return (
 		<header className={styles["header"]}>
 			<div className={styles["toolbar"]}>
-				<SearchBar />
-
+				{isSearchBarShown && (
+					<SearchBar
+						className={styles["search-bar"]}
+						inputClassName={styles["search-bar-input"]}
+					/>
+				)}
 				<nav className={styles["navigation"]}>
 					<Button
 						className={styles["icon-button"]}
