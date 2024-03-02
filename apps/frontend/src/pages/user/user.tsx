@@ -80,11 +80,11 @@ const User: React.FC = () => {
 	return (
 		<div className={styles["container"]}>
 			<Button
-				className={styles["return-button"]}
+				className={styles["back-button"]}
 				hasVisuallyHiddenLabel
 				href={AppRoute.FRIENDS}
 				iconName="back"
-				label="Go back"
+				label="Back to friends"
 				size="small"
 			/>
 
