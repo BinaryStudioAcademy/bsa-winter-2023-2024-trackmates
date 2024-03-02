@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.22.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.21.0...v1.22.0) (2024-03-02)
+
+
+### Features
+
+* move test strategy and test plan to the GitHub tm-188 ([#262](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/262)) ([f07a143](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f07a14358f7688cd94d42033baeae1fd5318cb2e))
+
 ## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.20.1...v1.21.0) (2024-03-02)
 
 
