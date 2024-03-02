@@ -14,15 +14,14 @@ import {
 	type ActivityPayloadMap,
 	type ActivityType,
 } from "./libs/types/types.js";
+import {
+	actionIdParameterValidationSchema,
+	applyFinishSectionValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 type ApplyRequestDto<TYPE extends ActivityType> = {
 	actionId: number;
 	payload: ActivityPayloadMap[TYPE];
-	type: TYPE;
-};
-
-type CancelRequestDto<TYPE extends ActivityType> = {
-	actionId: number;
 	type: TYPE;
 };
 
@@ -47,7 +46,7 @@ class ActivityController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.apply(
+				return this.applyFinishSection(
 					options as APIHandlerOptions<{
 						body: ApplyRequestDto<"FINISH_SECTION">;
 						user: UserAuthResponseDto;
@@ -56,18 +55,24 @@ class ActivityController extends BaseController {
 			},
 			method: "POST",
 			path: ActivitiesApiPath.FINISH_SECTION,
+			validation: {
+				body: applyFinishSectionValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.cancel(
+				return this.cancelFinishSection(
 					options as APIHandlerOptions<{
-						body: CancelRequestDto<"FINISH_SECTION">;
+						params: { actionId: string };
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "DELETE",
-			path: ActivitiesApiPath.FINISH_SECTION,
+			path: ActivitiesApiPath.FINISH_SECTION_$ID,
+			validation: {
+				params: actionIdParameterValidationSchema,
+			},
 		});
 	}
 
@@ -87,20 +92,44 @@ class ActivityController extends BaseController {
 		};
 	}
 
+	private async applyFinishSection(
+		options: APIHandlerOptions<{
+			body: ApplyRequestDto<"FINISH_SECTION">;
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return await this.apply<"FINISH_SECTION">(options);
+	}
+
 	private async cancel<TYPE extends ActivityType>({
-		body,
+		actionId,
+		type,
 		user,
-	}: APIHandlerOptions<{
-		body: CancelRequestDto<TYPE>;
+	}: {
+		actionId: string;
+		type: TYPE;
 		user: UserAuthResponseDto;
-	}>): Promise<APIHandlerResponse> {
-		const { actionId, type } = body;
-		const activity = { actionId, type, userId: user.id };
+	}): Promise<APIHandlerResponse> {
+		const activity = { actionId: Number(actionId), type, userId: user.id };
 
 		return {
 			payload: await this.activityService.cancel(activity),
 			status: HTTPCode.OK,
 		};
+	}
+
+	private async cancelFinishSection({
+		params: { actionId },
+		user,
+	}: APIHandlerOptions<{
+		params: { actionId: string };
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return await this.cancel<"FINISH_SECTION">({
+			actionId,
+			type: "FINISH_SECTION",
+			user,
+		});
 	}
 
 	private async getAll({

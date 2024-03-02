@@ -36,7 +36,11 @@ export {
 	type ActivityDto,
 	type ActivityPayloadMap,
 	type ActivityType,
+	// type FinishCourseDto,
+	// type FinishSectionDto,
 	type GetActivitiesResponseDto,
+	actionIdParameterValidationSchema,
+	applyFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {

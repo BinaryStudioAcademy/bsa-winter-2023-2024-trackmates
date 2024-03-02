@@ -1,10 +1,8 @@
-import { type CourseSectionDto } from "../../../course-sections/course-sections.js";
-import { type CourseDto } from "../../../courses/courses.js";
+import { type FinishCourseDto, type FinishSectionDto } from "./types.js";
 
-//TODO create separate types instead of dto
 type ActivityPayloadMap = {
-	FINISH_COURSE: CourseDto;
-	FINISH_SECTION: CourseSectionDto;
+	FINISH_COURSE: FinishCourseDto;
+	FINISH_SECTION: FinishSectionDto;
 };
 
 export { type ActivityPayloadMap };
