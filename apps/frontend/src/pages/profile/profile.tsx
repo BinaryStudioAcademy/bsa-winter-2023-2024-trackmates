@@ -1,6 +1,6 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -80,7 +80,7 @@ const Profile: React.FC = () => {
 								alt="avatar"
 								className={styles["profile-image"]}
 								shape="circle"
-								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+								src={user.avatarUrl ?? defaultAvatar}
 							/>
 							<input
 								accept="image/*"
