@@ -15,4 +15,3 @@ const sectionStatusController = new SectionStatusController(
 );
 
 export { sectionStatusController, sectionStatusRepository };
-export { SectionStatus } from "./libs/enums/enums.js";

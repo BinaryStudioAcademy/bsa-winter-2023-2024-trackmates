@@ -103,6 +103,25 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 		});
 	}
 
+	public async getNumberOfCompletedSections({
+		courseId,
+		userId,
+	}: {
+		courseId: number;
+		userId: number;
+	}): Promise<number> {
+		return await this.sectionStatusModel
+			.query()
+			.whereIn("courseSectionId", function () {
+				void this.select("id")
+					.from(DatabaseTableName.COURSE_SECTIONS)
+					.where("courseId", courseId);
+			})
+			.andWhere("userId", userId)
+			.andWhere("status", "completed")
+			.resultSize();
+	}
+
 	public async update(
 		id: number,
 		entity: SectionStatusEntity,

@@ -6,7 +6,6 @@ import {
 	type CourseSectionRepository,
 } from "~/modules/course-sections/course-sections.js";
 import { type SectionStatusRepository } from "~/modules/section-statuses/section-status.repository.js";
-import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
 import {
 	type VendorApi,
 	type VendorResponseDto,
@@ -247,19 +246,17 @@ class CourseService {
 		courseId: number;
 		userId: number;
 	}): Promise<number> {
-		const courseSections =
-			await this.courseSectionRepository.findCourseSections(courseId);
-		const statuses =
-			await this.sectionStatusRepository.findAllByCourseIdAndUserId({
+		const numberOfCourseSections =
+			await this.courseSectionRepository.getNumberOfCourseSections(courseId);
+		const numberOfCompletedCourseSections =
+			await this.sectionStatusRepository.getNumberOfCompletedSections({
 				courseId,
 				userId,
 			});
 
 		return getPercentage({
-			part: statuses
-				.map((status) => status.toNewObject())
-				.filter(({ status }) => status === SectionStatus.COMPLETED).length,
-			total: courseSections.length,
+			part: numberOfCompletedCourseSections,
+			total: numberOfCourseSections,
 		});
 	}
 
