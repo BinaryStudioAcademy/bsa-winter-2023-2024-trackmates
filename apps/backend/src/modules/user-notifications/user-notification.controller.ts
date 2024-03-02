@@ -22,6 +22,7 @@ import { UserNotificationsApiPath } from "./libs/enums/enums.js";
  *           type: string
  *         id:
  *           type: number
+ *           minimum: 1
  *         message:
  *           type: string
  *         userAvatarUrl:
@@ -30,6 +31,7 @@ import { UserNotificationsApiPath } from "./libs/enums/enums.js";
  *           type: string
  *         userId:
  *           type: number
+ *           minimum: 1
  *         userLastName:
  *           type: string
  *         status:
@@ -39,6 +41,7 @@ import { UserNotificationsApiPath } from "./libs/enums/enums.js";
  *           type: string
  *         receiverUserId:
  *           type: number
+ *           minimum: 1
  *         type:
  *           type: string
  *           enum: [new_follower]
