@@ -4,7 +4,7 @@ import {
 	PAGES_WITH_SEARCH_BAR,
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { isPathMatchingPattern } from "~/libs/helpers/helpers.js";
+import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 	});
 
 	const isSearchBarShown = PAGES_WITH_SEARCH_BAR.some((template) => {
-		return isPathMatchingPattern(pathname, template);
+		return checkIfPathMatchingPattern(pathname, template);
 	});
 
 	return (
