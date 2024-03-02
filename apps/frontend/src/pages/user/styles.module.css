@@ -59,3 +59,7 @@
 	background-color: transparent;
 	border-color: var(--color-background);
 }
+
+.courses-title {
+	font-size: var(--font-size-400);
+}
