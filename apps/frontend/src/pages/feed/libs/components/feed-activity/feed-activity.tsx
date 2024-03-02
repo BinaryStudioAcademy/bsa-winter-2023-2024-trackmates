@@ -31,13 +31,15 @@ const FeedAction: React.FC<Properties> = ({ activity }: Properties) => {
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
-				<Image
-					alt="User avatar"
-					className={styles["card-photo"]}
-					src={activity.user.avatarUrl ?? DEFAULT_USER_AVATAR}
-				/>
-				<div className={styles["card-info"]}>
-					<p className={styles["card-info-title"]}>{getTitle(activity)}</p>
+				<div className={styles["card-content-wrapper"]}>
+					<Image
+						alt="User avatar"
+						className={styles["card-photo"]}
+						src={activity.user.avatarUrl ?? DEFAULT_USER_AVATAR}
+					/>
+				</div>
+				<div className={styles["card-content-wrapper"]}>
+					<div className={styles["card-info"]}>{getTitle(activity)}</div>
 				</div>
 			</div>
 		</article>
