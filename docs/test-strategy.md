@@ -51,7 +51,7 @@ Scrum model is used for SDLC.
 
 [Mind Map](https://miro.com/app/board/uXjVNuSbBvw=/?share_link_id=272684492193)
 
-[Test Plan](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/blob/main/docs/test-plan.md)
+[Test Plan](./test-plan.md)
 
 ### Project team
 
@@ -183,7 +183,7 @@ The following types of testing will be used:
 
 All artifacts, including this Test Strategy, should be placed in the **/docs** directory of the project repository:
 
-- [Test Plan](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/blob/main/docs/test-plan.md)
+- [Test Plan](./test-plan.md)
 - [Mind Map](https://miro.com/app/board/uXjVNuSbBvw=/?share_link_id=272684492193)
 - Check-list
 - Test Cases
@@ -284,7 +284,7 @@ The master branch must be frozen at least one day before demo each sprint.
 
 ## 8. Test Plan
 
-**[Test Plan](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/blob/main/docs/test-plan.md)** is composed by the QA team and contains:
+**[Test Plan](./test-plan.md)** is composed by the QA team and contains:
 
 1. Feature priorities
 2. Team availability hours
