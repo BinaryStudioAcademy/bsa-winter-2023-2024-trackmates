@@ -5,25 +5,26 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {
 	type AddCourseRequestDto,
-	type CourseDto,
-	type CoursesResponseDto,
+	type UserCourseDto,
+	type UserCoursesResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-courses.slice.js";
 
-const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
-	`${sliceName}/add`,
-	async (requestPayload, { extra }) => {
-		const { notification, userCourseApi } = extra;
+const add = createAsyncThunk<
+	UserCourseDto,
+	AddCourseRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/add`, async (requestPayload, { extra }) => {
+	const { notification, userCourseApi } = extra;
 
-		const newCourse = await userCourseApi.add(requestPayload);
-		notification.success(NotificationMessage.COURSE_ADDED);
+	const newCourse = await userCourseApi.add(requestPayload);
+	notification.success(NotificationMessage.COURSE_ADDED);
 
-		return newCourse;
-	},
-);
+	return newCourse;
+});
 
 const loadMyCourses = createAsyncThunk<
-	CoursesResponseDto,
+	UserCoursesResponseDto,
 	{
 		id: number;
 		search: string;
@@ -36,7 +37,7 @@ const loadMyCourses = createAsyncThunk<
 });
 
 const loadUserCourses = createAsyncThunk<
-	CoursesResponseDto,
+	UserCoursesResponseDto,
 	number,
 	AsyncThunkConfig
 >(`${sliceName}/load-user-courses`, (userId, { extra }) => {

@@ -4,6 +4,7 @@ import { UserModel } from "~/modules/users/user.model.js";
 import { udemyService, vendorService } from "~/modules/vendors/vendors.js";
 
 import { courseSectionRepository } from "../course-sections/course-sections.js";
+import { sectionStatusRepository } from "../section-statuses/section-statuses.js";
 import { CourseController } from "./course.controller.js";
 import { CourseModel } from "./course.model.js";
 import { CourseRepository } from "./course.repository.js";
@@ -17,6 +18,7 @@ const courseService = new CourseService({
 	courseRepository,
 	courseSectionRepository,
 	openAI,
+	sectionStatusRepository,
 	vendorService,
 	vendorsApiMap,
 });

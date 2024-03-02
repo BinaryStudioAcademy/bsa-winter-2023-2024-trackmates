@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { type CourseDto } from "../libs/types/types.js";
+import { type UserCourseDto } from "../libs/types/types.js";
 import { add, loadMyCourses, loadUserCourses } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	myCourses: CourseDto[];
-	userCourses: CourseDto[];
+	myCourses: UserCourseDto[];
+	userCourses: UserCourseDto[];
 };
 
 const initialState: State = {

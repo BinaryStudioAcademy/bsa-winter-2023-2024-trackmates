@@ -3,13 +3,16 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
-import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
+import {
+	type AddCourseRequestDto,
+	type UserCourseDto,
+} from "~/modules/user-courses/user-courses.js";
 
 import { CourseCard } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto;
+	course: CourseDto | UserCourseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
 };
 

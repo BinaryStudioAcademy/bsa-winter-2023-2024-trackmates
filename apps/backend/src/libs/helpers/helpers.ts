@@ -1,1 +1,1 @@
-export { getSizeInBytes } from "@trackmates/shared";
+export { getPercentage, getSizeInBytes } from "@trackmates/shared";

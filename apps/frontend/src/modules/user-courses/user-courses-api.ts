@@ -6,8 +6,8 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
-	type CourseDto,
-	type CoursesResponseDto,
+	type UserCourseDto,
+	type UserCoursesResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -21,7 +21,7 @@ class UserCourseApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USER_COURSES, storage });
 	}
 
-	public async add(payload: AddCourseRequestDto): Promise<CourseDto> {
+	public async add(payload: AddCourseRequestDto): Promise<UserCourseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UserCoursesApiPath.ROOT, {}),
 			{
@@ -32,7 +32,7 @@ class UserCourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<CourseDto>();
+		return await response.json<UserCourseDto>();
 	}
 
 	public async getAllByUserId({
@@ -41,7 +41,7 @@ class UserCourseApi extends BaseHTTPApi {
 	}: {
 		id: number;
 		search: string;
-	}): Promise<CoursesResponseDto> {
+	}): Promise<UserCoursesResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(`${UserCoursesApiPath.ROOT}${id}`, {}),
 			{
@@ -54,7 +54,7 @@ class UserCourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<CoursesResponseDto>();
+		return await response.json<UserCoursesResponseDto>();
 	}
 }
 
