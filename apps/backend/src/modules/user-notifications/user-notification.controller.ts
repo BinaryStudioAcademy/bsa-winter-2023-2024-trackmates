@@ -110,6 +110,23 @@ class UserNotificationController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /user-notifications/unread:
+	 *    get:
+	 *      tags:
+	 *        - User notifications
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Checks if user has unread notifications
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: boolean
+	 */
 	public async hasUserUnreadNotifications(
 		options: APIHandlerOptions<{
 			user: UserAuthResponseDto;
