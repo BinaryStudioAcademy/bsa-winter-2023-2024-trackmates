@@ -9,7 +9,7 @@ import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
 	type CourseSectionDto,
 	type CourseSectionWithStatusDto,
-} from "~/modules/course-sections/course.sections.js";
+} from "~/modules/course-sections/course-sections.js";
 import {
 	SectionStatus,
 	actions as sectionStatusActions,

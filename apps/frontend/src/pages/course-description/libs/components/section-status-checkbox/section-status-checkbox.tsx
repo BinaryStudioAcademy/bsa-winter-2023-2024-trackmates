@@ -1,6 +1,6 @@
 import { Checkbox } from "~/libs/components/components.js";
 import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
-import { type CourseSectionWithStatusDto } from "~/modules/course-sections/course.sections.js";
+import { type CourseSectionWithStatusDto } from "~/modules/course-sections/course-sections.js";
 
 type Properties = {
 	isChecked: boolean;

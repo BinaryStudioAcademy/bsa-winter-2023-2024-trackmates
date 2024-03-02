@@ -1,6 +1,6 @@
 import { Content, Image } from "~/libs/components/components.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
-import { type CourseSectionDto } from "~/modules/course-sections/course.sections.js";
+import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";

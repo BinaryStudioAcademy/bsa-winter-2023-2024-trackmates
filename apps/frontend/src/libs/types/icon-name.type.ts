@@ -1,7 +1,7 @@
 type IconName =
 	| "add"
 	| "back"
-	| "backRound"
+	| "backArrow"
 	| "burger"
 	| "chats"
 	| "cross"
