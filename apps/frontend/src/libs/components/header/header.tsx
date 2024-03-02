@@ -39,7 +39,7 @@ const Header: React.FC = () => {
 								)}
 								hasVisuallyHiddenLabel
 								href={AppRoute.NOTIFICATIONS}
-								iconName="notificationBell"
+								iconName="notification"
 								label="Notifications"
 							/>
 						</li>
