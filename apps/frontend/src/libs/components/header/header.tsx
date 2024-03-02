@@ -38,41 +38,33 @@ const Header: React.FC = () => {
 					/>
 				)}
 				<nav className={styles["navigation"]}>
-					<ul className={styles["navbar"]}>
-						<li>
-							<Button
-								className={styles["icon-button"]}
-								hasVisuallyHiddenLabel
-								href={AppRoute.CHATS}
-								iconName="chats"
-								label="To chats"
-							/>
-						</li>
-						<li>
-							<Button
-								className={getValidClassNames(
-									styles["icon-button"],
-									hasUnreadNotifications && styles["unread"],
-								)}
-								hasVisuallyHiddenLabel
-								href={AppRoute.NOTIFICATIONS}
-								iconName="notification"
-								label="Notifications"
-							/>
-						</li>
-						<li>
-							<Link to={AppRoute.PROFILE}>
-								<Image
-									alt="user-avatar"
-									className={styles["image"]}
-									height="48"
-									shape="circle"
-									src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
-									width="48"
-								/>
-							</Link>
-						</li>
-					</ul>
+					<Button
+						className={styles["icon-button"]}
+						hasVisuallyHiddenLabel
+						href={AppRoute.CHATS}
+						iconName="chats"
+						label="To chats"
+					/>
+					<Button
+						className={getValidClassNames(
+							styles["icon-button"],
+							hasUnreadNotifications && styles["unread"],
+						)}
+						hasVisuallyHiddenLabel
+						href={AppRoute.NOTIFICATIONS}
+						iconName="notification"
+						label="Notifications"
+					/>
+					<Link to={AppRoute.PROFILE}>
+						<Image
+							alt="user-avatar"
+							className={styles["image"]}
+							height="48"
+							shape="circle"
+							src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+							width="48"
+						/>
+					</Link>
 				</nav>
 			</div>
 		</header>

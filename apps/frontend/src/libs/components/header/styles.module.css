@@ -35,18 +35,11 @@
 	}
 }
 
-.navbar {
+.navigation {
 	display: flex;
-	gap: 30px;
+	flex-shrink: 0;
+	column-gap: 24px;
 	align-items: center;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-.navbar-button:hover {
-	background-color: transparent;
-	border-color: transparent;
 }
 
 .unread::before {
