@@ -33,12 +33,12 @@ const CourseDetails: React.FC<Properties> = ({
 				<input
 					checked={isChecked}
 					className={styles["tabs-radio"]}
-					id="tab1"
-					name="tabs-example"
+					id="about"
+					name="about"
 					onChange={handleCheckboxChange}
 					type="radio"
 				/>
-				<label className={styles["label"]} htmlFor="tab1">
+				<label className={styles["label"]} htmlFor="about">
 					About
 				</label>
 				<div className={styles["content"]}>
@@ -55,12 +55,12 @@ const CourseDetails: React.FC<Properties> = ({
 				</div>
 				<input
 					className={styles["tabs-radio"]}
-					id="tab2"
-					name="tabs-example"
+					id="details"
+					name="details"
 					onChange={handleCheckboxChange}
 					type="radio"
 				/>
-				<label className={styles["label"]} htmlFor="tab2">
+				<label className={styles["label"]} htmlFor="details">
 					Details
 				</label>
 				<div className={styles["content"]}>

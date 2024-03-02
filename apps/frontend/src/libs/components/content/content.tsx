@@ -1,4 +1,7 @@
-import { getSanitizedHtml } from "~/libs/helpers/helpers.js";
+import {
+	getSanitizedHtml,
+	getTruncatedContent,
+} from "~/libs/helpers/helpers.js";
 
 import { MAXIMUM_CONTENT_LENGTH, START_INDEX } from "./libs/constants.js";
 
@@ -13,8 +16,11 @@ const Content: React.FC<Properties> = ({ string }: Properties) => {
 		return <div dangerouslySetInnerHTML={{ __html: sanitizedString || "" }} />;
 	}
 
-	const truncatedContent =
-		string.slice(START_INDEX, MAXIMUM_CONTENT_LENGTH) + "...";
+	const truncatedContent = getTruncatedContent(
+		string,
+		START_INDEX,
+		MAXIMUM_CONTENT_LENGTH,
+	);
 
 	return <div dangerouslySetInnerHTML={{ __html: truncatedContent }} />;
 };
