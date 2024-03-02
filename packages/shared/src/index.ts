@@ -98,10 +98,12 @@ export {
 } from "./modules/friends/friends.js";
 export {
 	type AllNotificationsResponseDto,
+	type CreateNotificationRequestDto,
 	NotificationError,
-	type NotificationRequestDto,
 	type NotificationResponseDto,
 	NotificationStatus,
+	type NotificationType,
+	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
 export {
 	UserCoursesApiPath,

@@ -39,6 +39,9 @@ import { UserNotificationsApiPath } from "./libs/enums/enums.js";
  *           type: string
  *         receiverUserId:
  *           type: number
+ *         type:
+ *           type: string
+ *           enum: [new_follower]
  */
 class UserNotificationController extends BaseController {
 	private notificationService: NotificationService;

@@ -2,11 +2,14 @@ import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/service.type.js";
 
+import { NotificationMessage, NotificationStatus } from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
 import {
 	type AllNotificationsResponseDto,
-	type NotificationRequestDto,
+	type CreateNotificationRequestDto,
 	type NotificationResponseDto,
+	type NotificationType,
+	type UpdateNotificationRequestDto,
 } from "./libs/types/types.js";
 import { NotificationEntity } from "./notification.entity.js";
 import { type NotificationRepository } from "./notification.repository.js";
@@ -18,16 +21,27 @@ class NotificationService implements Service {
 		this.notificationRepository = notificationRepository;
 	}
 
+	private getMessageByType(type: NotificationType): string {
+		const notificationTypeToMessageMap: Record<NotificationType, string> = {
+			new_follower: NotificationMessage.NEW_FOLLOWER_MESSAGE,
+		};
+
+		return notificationTypeToMessageMap[type];
+	}
+
 	public async create(
-		payload: NotificationRequestDto,
+		payload: CreateNotificationRequestDto,
 	): Promise<NotificationResponseDto> {
-		const { message, receiverUserId, status, userId } = payload;
+		const { receiverUserId, type, userId } = payload;
+
+		const message = this.getMessageByType(type);
 
 		const notification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
 				message,
 				receiverUserId,
-				status,
+				status: NotificationStatus.UNREAD,
+				type,
 				userId,
 			}),
 		);
@@ -86,7 +100,7 @@ class NotificationService implements Service {
 
 	public async update(
 		notificationId: number,
-		payload: NotificationRequestDto,
+		payload: UpdateNotificationRequestDto,
 	): Promise<NotificationResponseDto> {
 		const notification = await this.notificationRepository.find(notificationId);
 
@@ -97,7 +111,9 @@ class NotificationService implements Service {
 			});
 		}
 
-		const { message, receiverUserId, status, userId } = payload;
+		const { receiverUserId, status, type, userId } = payload;
+
+		const message = this.getMessageByType(type);
 
 		const updatedNotification = await this.notificationRepository.update(
 			notificationId,
@@ -105,6 +121,7 @@ class NotificationService implements Service {
 				message,
 				receiverUserId,
 				status,
+				type,
 				userId,
 			}),
 		);

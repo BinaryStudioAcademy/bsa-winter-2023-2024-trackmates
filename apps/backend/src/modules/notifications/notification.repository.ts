@@ -15,11 +15,11 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	public async create(
 		payload: NotificationEntity,
 	): Promise<NotificationEntity> {
-		const { message, receiverUserId, userId } = payload.toNewObject();
+		const { message, receiverUserId, type, userId } = payload.toNewObject();
 
 		const createdNotification = await this.notificationModel
 			.query()
-			.insert({ message, receiverUserId, userId })
+			.insert({ message, receiverUserId, type, userId })
 			.returning("*")
 			.withGraphFetched(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -32,6 +32,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			message: createdNotification.message,
 			receiverUserId: createdNotification.receiverUserId,
 			status: createdNotification.status,
+			type: createdNotification.type,
 			updatedAt: createdNotification.updatedAt,
 			userAvatarUrl:
 				createdNotification.user.userDetails.avatarFile?.url ?? null,
@@ -68,6 +69,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					message: notification.message,
 					receiverUserId: notification.receiverUserId,
 					status: notification.status,
+					type: notification.type,
 					updatedAt: notification.updatedAt,
 					userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
 					userFirstName: notification.user.userDetails.firstName,
@@ -92,6 +94,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				message: notification.message,
 				receiverUserId: notification.receiverUserId,
 				status: notification.status,
+				type: notification.type,
 				updatedAt: notification.updatedAt,
 				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
 				userFirstName: notification.user.userDetails.firstName,
@@ -119,6 +122,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				message: notification.message,
 				receiverUserId: notification.receiverUserId,
 				status: notification.status,
+				type: notification.type,
 				updatedAt: notification.updatedAt,
 				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
 				userFirstName: notification.user.userDetails.firstName,
@@ -157,6 +161,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			message: updatedNotification.message,
 			receiverUserId: updatedNotification.receiverUserId,
 			status: updatedNotification.status,
+			type: updatedNotification.type,
 			updatedAt: updatedNotification.updatedAt,
 			userAvatarUrl:
 				updatedNotification.user.userDetails.avatarFile?.url ?? null,

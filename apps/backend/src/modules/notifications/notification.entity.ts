@@ -1,6 +1,7 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
 
 import { type NotificationStatus } from "./libs/enums/enums.js";
+import { type NotificationType } from "./libs/types/types.js";
 
 class NotificationEntity implements Entity {
 	private createdAt: string;
@@ -12,6 +13,8 @@ class NotificationEntity implements Entity {
 	private receiverUserId: number;
 
 	private status: ValueOf<typeof NotificationStatus>;
+
+	private type: NotificationType;
 
 	private updatedAt: string;
 
@@ -29,6 +32,7 @@ class NotificationEntity implements Entity {
 		message,
 		receiverUserId,
 		status,
+		type,
 		updatedAt,
 		userAvatarUrl,
 		userFirstName,
@@ -40,6 +44,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
+		type: NotificationType;
 		updatedAt: string;
 		userAvatarUrl: null | string;
 		userFirstName: null | string;
@@ -51,6 +56,7 @@ class NotificationEntity implements Entity {
 		this.message = message;
 		this.receiverUserId = receiverUserId;
 		this.status = status;
+		this.type = type;
 		this.updatedAt = updatedAt;
 		this.userAvatarUrl = userAvatarUrl;
 		this.userFirstName = userFirstName;
@@ -64,6 +70,7 @@ class NotificationEntity implements Entity {
 		message,
 		receiverUserId,
 		status,
+		type,
 		updatedAt,
 		userAvatarUrl,
 		userFirstName,
@@ -75,6 +82,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
+		type: NotificationType;
 		updatedAt: string;
 		userAvatarUrl: null | string;
 		userFirstName: string;
@@ -87,6 +95,7 @@ class NotificationEntity implements Entity {
 			message,
 			receiverUserId,
 			status,
+			type,
 			updatedAt,
 			userAvatarUrl,
 			userFirstName,
@@ -99,11 +108,13 @@ class NotificationEntity implements Entity {
 		message,
 		receiverUserId,
 		status,
+		type,
 		userId,
 	}: {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
+		type: NotificationType;
 		userId: number;
 	}): NotificationEntity {
 		return new NotificationEntity({
@@ -112,6 +123,7 @@ class NotificationEntity implements Entity {
 			message,
 			receiverUserId,
 			status,
+			type,
 			updatedAt: "",
 			userAvatarUrl: null,
 			userFirstName: null,
@@ -125,6 +137,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
+		type: NotificationType;
 		updatedAt: string;
 		userId: number;
 	} {
@@ -133,6 +146,7 @@ class NotificationEntity implements Entity {
 			message: this.message,
 			receiverUserId: this.receiverUserId,
 			status: this.status,
+			type: this.type,
 			updatedAt: this.updatedAt,
 			userId: this.userId,
 		};
@@ -144,6 +158,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
+		type: NotificationType;
 		updatedAt: string;
 		userAvatarUrl: string;
 		userFirstName: string;
@@ -156,6 +171,7 @@ class NotificationEntity implements Entity {
 			message: this.message,
 			receiverUserId: this.receiverUserId,
 			status: this.status,
+			type: this.type,
 			updatedAt: this.updatedAt,
 			userAvatarUrl: this.userAvatarUrl as string,
 			userFirstName: this.userFirstName as string,

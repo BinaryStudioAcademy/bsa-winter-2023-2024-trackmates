@@ -18,6 +18,7 @@ const ColumnName = {
 	MESSAGE: "message",
 	RECEIVER_USER_ID: "receiver_user_id",
 	STATUS: "status",
+	TYPE: "type",
 	UPDATED_AT: "updated_at",
 	USER_ID: "user_id",
 } as const;
@@ -43,6 +44,7 @@ function up(knex: Knex): Promise<void> {
 			])
 			.defaultTo(NotificationStatus.UNREAD)
 			.notNullable();
+		table.enum(ColumnName.TYPE, ["new_follower"]).notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()

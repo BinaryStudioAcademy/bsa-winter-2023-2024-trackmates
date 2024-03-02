@@ -133,6 +133,7 @@ erDiagram
     int user_id FK
     varchar message
     enum status
+    enum type
    }
 
    users ||--|| user_details : user_id
