@@ -34,7 +34,10 @@ class UserNotificationsApi extends BaseHTTPApi {
 
 	public async hasUserUnreadNotifications(): Promise<boolean> {
 		const response = await this.load(
-			this.getFullEndpoint(UserNotificationsApiPath.UNREAD, {}),
+			this.getFullEndpoint(
+				UserNotificationsApiPath.HAS_UNREAD_NOTIFICATIONS,
+				{},
+			),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,

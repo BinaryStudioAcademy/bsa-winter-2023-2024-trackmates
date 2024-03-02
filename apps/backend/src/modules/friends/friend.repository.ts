@@ -111,7 +111,6 @@ class FriendRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
-
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,

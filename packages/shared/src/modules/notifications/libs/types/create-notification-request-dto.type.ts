@@ -1,8 +1,9 @@
-import { type NotificationType } from "./notification-type.type.js";
+import { type ValueOf } from "../../../../libs/types/types.js";
+import { type NotificationType } from "../enums/enums.js";
 
 type CreateNotificationRequestDto = {
 	receiverUserId: number;
-	type: NotificationType;
+	type: ValueOf<typeof NotificationType>;
 	userId: number;
 };
 

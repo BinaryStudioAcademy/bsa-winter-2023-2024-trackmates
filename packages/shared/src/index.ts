@@ -102,7 +102,7 @@ export {
 	NotificationError,
 	type NotificationResponseDto,
 	NotificationStatus,
-	type NotificationType,
+	NotificationType,
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
 export {

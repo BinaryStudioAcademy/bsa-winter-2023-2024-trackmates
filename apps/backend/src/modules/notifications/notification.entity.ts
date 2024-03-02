@@ -1,7 +1,9 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
 
-import { type NotificationStatus } from "./libs/enums/enums.js";
-import { type NotificationType } from "./libs/types/types.js";
+import {
+	type NotificationStatus,
+	type NotificationType,
+} from "./libs/enums/enums.js";
 
 class NotificationEntity implements Entity {
 	private createdAt: string;
@@ -14,7 +16,7 @@ class NotificationEntity implements Entity {
 
 	private status: ValueOf<typeof NotificationStatus>;
 
-	private type: NotificationType;
+	private type: ValueOf<typeof NotificationType>;
 
 	private updatedAt: string;
 
@@ -44,7 +46,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
-		type: NotificationType;
+		type: ValueOf<typeof NotificationType>;
 		updatedAt: string;
 		userAvatarUrl: null | string;
 		userFirstName: null | string;
@@ -82,7 +84,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
-		type: NotificationType;
+		type: ValueOf<typeof NotificationType>;
 		updatedAt: string;
 		userAvatarUrl: null | string;
 		userFirstName: string;
@@ -114,7 +116,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
-		type: NotificationType;
+		type: ValueOf<typeof NotificationType>;
 		userId: number;
 	}): NotificationEntity {
 		return new NotificationEntity({
@@ -137,7 +139,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
-		type: NotificationType;
+		type: ValueOf<typeof NotificationType>;
 		updatedAt: string;
 		userId: number;
 	} {
@@ -158,7 +160,7 @@ class NotificationEntity implements Entity {
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
-		type: NotificationType;
+		type: ValueOf<typeof NotificationType>;
 		updatedAt: string;
 		userAvatarUrl: string;
 		userFirstName: string;

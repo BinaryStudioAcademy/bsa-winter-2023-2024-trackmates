@@ -75,7 +75,7 @@ class UserNotificationController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: UserNotificationsApiPath.UNREAD,
+			path: UserNotificationsApiPath.HAS_UNREAD_NOTIFICATIONS,
 		});
 	}
 
@@ -115,7 +115,7 @@ class UserNotificationController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /user-notifications/unread:
+	 * /user-notifications/has-unread-notifications:
 	 *    get:
 	 *      tags:
 	 *        - User notifications

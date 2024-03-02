@@ -1,14 +1,17 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { type Service } from "~/libs/types/service.type.js";
+import { type Service, type ValueOf } from "~/libs/types/types.js";
 
-import { NotificationMessage, NotificationStatus } from "./libs/enums/enums.js";
+import {
+	NotificationMessage,
+	NotificationStatus,
+	type NotificationType,
+} from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
 import {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
 	type NotificationResponseDto,
-	type NotificationType,
 	type UpdateNotificationRequestDto,
 } from "./libs/types/types.js";
 import { NotificationEntity } from "./notification.entity.js";
@@ -21,8 +24,11 @@ class NotificationService implements Service {
 		this.notificationRepository = notificationRepository;
 	}
 
-	private getMessageByType(type: NotificationType): string {
-		const notificationTypeToMessageMap: Record<NotificationType, string> = {
+	private getMessageByType(type: ValueOf<typeof NotificationType>): string {
+		const notificationTypeToMessageMap: Record<
+			ValueOf<typeof NotificationType>,
+			string
+		> = {
 			new_follower: NotificationMessage.NEW_FOLLOWER_MESSAGE,
 		};
 

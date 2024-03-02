@@ -7,8 +7,10 @@ import {
 import { type ValueOf } from "~/libs/types/types.js";
 import { UserModel } from "~/modules/users/users.js";
 
-import { type NotificationStatus } from "./libs/enums/enums.js";
-import { type NotificationType } from "./libs/types/types.js";
+import {
+	type NotificationStatus,
+	type NotificationType,
+} from "./libs/enums/enums.js";
 
 class NotificationModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
@@ -27,7 +29,7 @@ class NotificationModel extends AbstractModel {
 	public message!: string;
 	public receiverUserId!: number;
 	public status!: ValueOf<typeof NotificationStatus>;
-	public type!: NotificationType;
+	public type!: ValueOf<typeof NotificationType>;
 	public user!: UserModel;
 	public userId!: number;
 

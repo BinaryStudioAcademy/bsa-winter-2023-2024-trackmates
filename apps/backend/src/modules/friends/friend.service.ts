@@ -1,5 +1,8 @@
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
-import { type NotificationService } from "~/modules/notifications/notifications.js";
+import {
+	type NotificationService,
+	NotificationType,
+} from "~/modules/notifications/notifications.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import {
@@ -51,7 +54,7 @@ class FriendService {
 
 		await this.notificationService.create({
 			receiverUserId: followingUserId,
-			type: "new_follower",
+			type: NotificationType.NEW_FOLLOWER,
 			userId: followerUserId,
 		});
 

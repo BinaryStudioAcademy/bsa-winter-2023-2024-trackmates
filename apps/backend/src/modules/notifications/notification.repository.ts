@@ -1,3 +1,4 @@
+import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { RelationName } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
 
@@ -133,14 +134,12 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	}
 
 	public async hasUserUnreadNotifications(userId: number): Promise<boolean> {
-		const emptyArrayLength = 0;
-
 		const unreadNotifications = await this.notificationModel
 			.query()
 			.where("receiverUserId", "=", userId)
 			.andWhere("status", "=", NotificationStatus.UNREAD);
 
-		return unreadNotifications.length > emptyArrayLength;
+		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
 	}
 
 	public async update(
