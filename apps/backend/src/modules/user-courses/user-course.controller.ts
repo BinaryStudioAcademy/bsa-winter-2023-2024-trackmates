@@ -61,6 +61,8 @@ class UserCourseController extends BaseController {
 	 *      tags:
 	 *        - User courses
 	 *      description: Fetch course from vendor API and add for user in DB
+	 *      security:
+	 *        - bearerAuth: []
 	 *      requestBody:
 	 *        required: true
 	 *        content:
