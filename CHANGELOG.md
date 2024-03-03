@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.23.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.1...v1.23.2) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** add course functionality tm-27 ([#277](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/277)) ([760cdbb](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/760cdbbddc9698feab7ddc07de14c8e80d668557))
+
 ## [1.23.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.0...v1.23.1) (2024-03-03)
 
 
