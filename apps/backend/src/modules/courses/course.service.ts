@@ -4,7 +4,6 @@ import {
 	CourseSectionEntity,
 	type CourseSectionRepository,
 } from "~/modules/course-sections/course-sections.js";
-import { type SectionStatusRepository } from "~/modules/section-statuses/section-status.repository.js";
 import {
 	type VendorApi,
 	type VendorResponseDto,
@@ -21,7 +20,6 @@ type Constructor = {
 	courseRepository: CourseRepository;
 	courseSectionRepository: CourseSectionRepository;
 	openAI: OpenAI;
-	sectionStatusRepository: SectionStatusRepository;
 	vendorService: VendorService;
 	vendorsApiMap: Record<string, VendorApi>;
 };
@@ -30,7 +28,6 @@ class CourseService {
 	private courseRepository: CourseRepository;
 	private courseSectionRepository: CourseSectionRepository;
 	private openAI: OpenAI;
-	private sectionStatusRepository: SectionStatusRepository;
 	private vendorService: VendorService;
 	private vendorsApiMap: Record<string, VendorApi>;
 
@@ -38,7 +35,6 @@ class CourseService {
 		courseRepository,
 		courseSectionRepository,
 		openAI,
-		sectionStatusRepository,
 		vendorService,
 		vendorsApiMap,
 	}: Constructor) {
@@ -47,7 +43,6 @@ class CourseService {
 		this.openAI = openAI;
 		this.vendorsApiMap = vendorsApiMap;
 		this.vendorService = vendorService;
-		this.sectionStatusRepository = sectionStatusRepository;
 	}
 
 	private async addSectionsToCourse(
