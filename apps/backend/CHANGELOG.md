@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.2...backend-v1.11.3) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** Add Friend page tm-40 ([#284](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/284)) ([eed6857](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eed6857e334fca5b70bf7984878626c1d4403472))
+
 ## [1.11.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.1...backend-v1.11.2) (2024-03-03)
 
 
