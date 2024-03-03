@@ -4,7 +4,7 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-import { CourseModel } from "~/modules/courses/courses.js";
+import { CourseModel } from "~/modules/courses/course.model.js";
 
 class CourseSectionModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {

@@ -1,5 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
-import { type VendorEntity } from "~/modules/vendors/vendors.js";
+import { type VendorEntity } from "~/modules/vendors/vendor.entity.js";
 
 class CourseEntity implements Entity {
 	private createdAt: string;

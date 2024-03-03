@@ -1,9 +1,9 @@
 import { logger } from "~/libs/modules/logger/logger.js";
 import { openAI } from "~/libs/modules/open-ai/open-ai.js";
+import { courseSectionRepository } from "~/modules/course-sections/course-sections.js";
 import { UserModel } from "~/modules/users/user.model.js";
 import { udemyService, vendorService } from "~/modules/vendors/vendors.js";
 
-import { courseSectionRepository } from "../course-sections/course-sections.js";
 import { CourseController } from "./course.controller.js";
 import { CourseModel } from "./course.model.js";
 import { CourseRepository } from "./course.repository.js";

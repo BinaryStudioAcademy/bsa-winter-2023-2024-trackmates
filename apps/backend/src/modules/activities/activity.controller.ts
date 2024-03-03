@@ -97,7 +97,7 @@ class ActivityController extends BaseController {
 				);
 			},
 			method: "DELETE",
-			path: ActivitiesApiPath.FINISH_SECTION_$ID,
+			path: ActivitiesApiPath.FINISH_SECTION_$ACTION_ID,
 			validation: {
 				params: actionIdParameterValidationSchema,
 			},
@@ -109,6 +109,8 @@ class ActivityController extends BaseController {
 	 * /activities/finish-section:
 	 *    post:
 	 *      description: add FINISH_SECTION activity to DB
+	 *      tags:
+	 *        - Activities
 	 *      security:
 	 *        - bearerAuth: []
 	 *      requestBody:
@@ -173,6 +175,8 @@ class ActivityController extends BaseController {
 	 * /activities/finish-section/{id}:
 	 *    delete:
 	 *      description: delete FINISH_SECTION activity from DB
+	 *      tags:
+	 *        - Activities
 	 *      security:
 	 *        - bearerAuth: []
 	 *      parameters:
@@ -246,6 +250,8 @@ class ActivityController extends BaseController {
 	 * /activities:
 	 *    post:
 	 *      description: get all user friends activities
+	 *      tags:
+	 *        - Activities
 	 *      security:
 	 *        - bearerAuth: []
 	 *      responses:
