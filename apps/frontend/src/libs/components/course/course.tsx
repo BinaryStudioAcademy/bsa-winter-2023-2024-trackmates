@@ -1,5 +1,5 @@
 import { Button, Image } from "~/libs/components/components.js";
-import { useCallback } from "~/libs/hooks/hooks.js";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
@@ -12,12 +12,14 @@ type Properties = {
 
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 	const { image, title, url, vendor, vendorCourseId } = course;
+	const [isButtonDisabled, setDisabled] = useState<boolean>(false);
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
 			vendorCourseId: vendorCourseId,
 			vendorId: vendor.id,
 		});
+		setDisabled(true);
 	}, [onAddCourse, vendor.id, vendorCourseId]);
 
 	return (
@@ -46,6 +48,7 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 					<Button
 						className={styles["course-add-button"]}
 						iconName="plusOutlined"
+						isDisabled={isButtonDisabled}
 						label="Add"
 						onClick={handleAddCourse}
 						size="small"
