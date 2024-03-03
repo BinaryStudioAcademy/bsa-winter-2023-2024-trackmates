@@ -4,7 +4,7 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-import { UserCourseModel } from "~/modules/user-courses/user-course-model.js";
+import { UserCourseModel } from "~/modules/user-courses/user-course.model.js";
 
 import { UserDetailsModel } from "./user-details.model.js";
 
