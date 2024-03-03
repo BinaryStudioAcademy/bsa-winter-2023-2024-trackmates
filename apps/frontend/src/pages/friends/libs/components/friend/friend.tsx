@@ -1,6 +1,6 @@
-import friendImage from "~/assets/img/friend.jpeg";
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Link } from "~/libs/components/components.js";
-import { type AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -29,6 +29,10 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 		state.friends.followings.some((user) => user.id === friend.id),
 	);
 	const dispatch = useAppDispatch();
+
+	const parameters = new URLSearchParams({ user: String(friend.id) });
+	const chatRouteByUser =
+		`${AppRoute.CHATS}?${parameters.toString()}` as typeof AppRoute.CHATS;
 
 	useEffect(() => {
 		setIsFollowing(isFollowingFromSelector);
@@ -59,7 +63,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
-					src={friendImage}
+					src={friend.avatarUrl ?? defaultAvatar}
 				/>
 				<p
 					className={styles["fullName"]}
@@ -73,6 +77,14 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					label={isFollowing ? "Following" : "Follow"}
 					onClick={isFollowing ? handleUnfollow : handleFollow}
 					size="small"
+				/>
+				<Button
+					className={styles["start-chat"]}
+					hasVisuallyHiddenLabel
+					href={chatRouteByUser}
+					iconName="chats"
+					label="Start chat"
+					style="primary"
 				/>
 			</div>
 		</article>

@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .header {
 	box-sizing: border-box;
 	display: flex;
@@ -11,7 +13,6 @@
 
 .image {
 	object-fit: cover;
-	height: auto;
 }
 
 .toolbar {
@@ -19,7 +20,43 @@
 	flex: 1;
 	column-gap: 24px;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
+}
+
+.search-bar {
+	margin-right: auto;
+}
+
+@media screen and (--medium-screen) {
+	.header:has(.search-bar-input:focus) .navigation {
+		display: none;
+	}
+
+	.search-bar {
+		margin-right: unset;
+	}
+}
+
+.navigation {
+	display: flex;
+	flex-shrink: 0;
+	column-gap: 24px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	color: var(--color-text-200);
+	border: unset;
+	fill: currentcolor;
+}
+
+.icon-button:hover {
+	padding: 0;
+	color: var(--main-orange);
+	background-color: var(--main-white);
+	border: unset;
+	fill: currentcolor;
 }
 
 @media screen and (--small-screen) {

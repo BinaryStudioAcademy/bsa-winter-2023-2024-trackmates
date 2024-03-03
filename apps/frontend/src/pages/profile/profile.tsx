@@ -1,11 +1,12 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
 	useCallback,
+	useRef,
 } from "~/libs/hooks/hooks.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
@@ -21,6 +22,7 @@ const Profile: React.FC = () => {
 	const user = useAppSelector(({ auth }) => {
 		return auth.user as UserAuthResponseDto;
 	});
+	const fileInputReference = useRef<HTMLInputElement | null>(null);
 	const dispatch = useAppDispatch();
 
 	const { control, errors, handleSubmit, reset } =
@@ -69,6 +71,12 @@ const Profile: React.FC = () => {
 		reset();
 	}, [reset]);
 
+	const handleOpenFileInput = useCallback((): void => {
+		if (fileInputReference.current) {
+			fileInputReference.current.click();
+		}
+	}, [fileInputReference]);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -79,15 +87,20 @@ const Profile: React.FC = () => {
 							<Image
 								alt="avatar"
 								className={styles["profile-image"]}
-								height="133"
 								shape="circle"
-								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
-								width="133"
+								src={user.avatarUrl ?? defaultAvatar}
+							/>
+							<Button
+								label="Change photo"
+								onClick={handleOpenFileInput}
+								size="small"
+								style="secondary"
 							/>
 							<input
 								accept="image/*"
 								className={styles["file-input"]}
 								onChange={handleFileChange}
+								ref={fileInputReference}
 								type="file"
 							/>
 						</div>
