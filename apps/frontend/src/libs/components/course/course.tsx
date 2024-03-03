@@ -1,7 +1,7 @@
 import { Button, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { configureString } from "~/libs/helpers/helpers.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
@@ -11,10 +11,25 @@ import styles from "./styles.module.css";
 type Properties = {
 	course: CourseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
+	userId?: number | undefined;
 };
 
-const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
+const Course: React.FC<Properties> = ({
+	course,
+	onAddCourse,
+	userId,
+}: Properties) => {
 	const { id, url, vendor, vendorCourseId } = course;
+
+	const courseDescriptionRouteById = configureString(
+		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
+		{
+			courseId: String(id),
+			userId: String(userId),
+		},
+	) as typeof AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID;
+
+	const hasAddCourse = !!onAddCourse;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -25,18 +40,14 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 
 	return (
 		<article className={styles["container"]}>
-			{onAddCourse ? (
+			{hasAddCourse ? (
 				<CourseCard course={course} />
 			) : (
-				<Link
-					to={
-						`${AppRoute.COURSE_DESCRIPTION}/${id}` as ValueOf<typeof AppRoute>
-					}
-				>
+				<Link to={courseDescriptionRouteById}>
 					<CourseCard course={course} />
 				</Link>
 			)}
-			{onAddCourse && (
+			{hasAddCourse && (
 				<div className={styles["actions"]}>
 					<a
 						className={styles["course-details-link"]}

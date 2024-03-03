@@ -1,3 +1,4 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import {
 	Button,
 	Courses,
@@ -5,7 +6,6 @@ import {
 	Loader,
 	Navigate,
 } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -94,8 +94,7 @@ const User: React.FC = () => {
 						alt="avatar"
 						className={styles["profile-image"]}
 						src={
-							(profileUser as UserAuthResponseDto).avatarUrl ??
-							DEFAULT_USER_AVATAR
+							(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
 						}
 					/>
 				</div>
@@ -120,7 +119,7 @@ const User: React.FC = () => {
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} />
+					<Courses courses={courses} userId={userId} />
 				)}
 			</div>
 		</div>

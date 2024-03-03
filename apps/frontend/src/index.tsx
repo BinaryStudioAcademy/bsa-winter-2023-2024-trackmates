@@ -72,7 +72,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							},
 							{
 								element: <ProtectedRoute component={<CourseDescription />} />,
-								path: AppRoute.COURSE_DESCRIPTION_$ID,
+								path: AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
 							},
 							{
 								element: <ProtectedRoute component={<User />} />,

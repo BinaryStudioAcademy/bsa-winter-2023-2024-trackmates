@@ -39,11 +39,6 @@
 	display: none;
 }
 
-.details-list {
-	padding: 15px;
-	list-style: decimal;
-}
-
 .label {
 	padding: 10px 73px;
 	cursor: pointer;
@@ -72,7 +67,12 @@
 	border-bottom: 3px solid var(--main-orange);
 }
 
-.tabs-radio:checked + .label + .content {
+.active {
 	display: initial;
 	width: 100%;
+}
+
+.details-list {
+	padding: 15px;
+	list-style: decimal;
 }
