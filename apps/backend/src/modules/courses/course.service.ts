@@ -1,5 +1,4 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
-import { getPercentage } from "~/libs/helpers/helpers.js";
 import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
 import {
 	CourseSectionEntity,
@@ -237,27 +236,6 @@ class CourseService {
 		courses = await this.filterCourses(courses, userId);
 
 		return { courses };
-	}
-
-	public async getProgress({
-		courseId,
-		userId,
-	}: {
-		courseId: number;
-		userId: number;
-	}): Promise<number> {
-		const numberOfCourseSections =
-			await this.courseSectionRepository.getNumberOfCourseSections(courseId);
-		const numberOfCompletedCourseSections =
-			await this.sectionStatusRepository.getNumberOfCompletedSections({
-				courseId,
-				userId,
-			});
-
-		return getPercentage({
-			part: numberOfCompletedCourseSections,
-			total: numberOfCourseSections,
-		});
 	}
 
 	public async getRecommendedCoursesByAI(parameters: {

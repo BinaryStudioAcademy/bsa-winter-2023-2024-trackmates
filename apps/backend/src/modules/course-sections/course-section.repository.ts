@@ -90,13 +90,6 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		});
 	}
 
-	public async getNumberOfCourseSections(courseId: number): Promise<number> {
-		return await this.courseSectionModel
-			.query()
-			.where("courseId", courseId)
-			.resultSize();
-	}
-
 	public async update(
 		id: number,
 		entity: CourseSectionEntity,

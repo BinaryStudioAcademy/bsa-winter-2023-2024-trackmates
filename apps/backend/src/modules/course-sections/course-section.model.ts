@@ -4,8 +4,7 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-
-import { SectionStatusModel } from "../section-statuses/section-status.model.js";
+import { SectionStatusModel } from "~/modules/section-statuses/section-statuses.js";
 
 class CourseSectionModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {

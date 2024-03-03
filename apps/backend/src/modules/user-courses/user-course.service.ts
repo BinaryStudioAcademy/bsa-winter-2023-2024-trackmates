@@ -32,14 +32,9 @@ class UserCourseService {
 			vendorId,
 		});
 
-		const progress = await this.courseService.getProgress({
-			courseId: course.id as number,
-			userId,
-		});
-
 		return {
 			...course,
-			progress,
+			progress: 0,
 		};
 	}
 
