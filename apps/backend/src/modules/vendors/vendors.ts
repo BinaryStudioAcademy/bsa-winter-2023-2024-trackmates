@@ -10,7 +10,7 @@ import { VendorRepository } from "./vendor.repository.js";
 import { VendorService } from "./vendor.service.js";
 
 const edxService = new EdxService({
-	baseUrl: "https://courses.edx.org/",
+	baseUrl: config.ENV.EDX.URL,
 	http,
 });
 
