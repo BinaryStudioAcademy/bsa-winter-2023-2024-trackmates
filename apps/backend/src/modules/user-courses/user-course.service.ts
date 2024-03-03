@@ -45,7 +45,7 @@ class UserCourseService {
 		search: string;
 		userId: number;
 	}): Promise<UserCourseDto[]> {
-		const entities = await this.courseRepository.findByUserId({
+		const entities = await this.courseRepository.findByUserIdWithProgress({
 			search,
 			userId,
 		});
