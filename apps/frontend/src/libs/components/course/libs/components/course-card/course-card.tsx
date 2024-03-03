@@ -1,8 +1,9 @@
 import { Image } from "~/libs/components/components.js";
+// eslint-disable-next-line import/no-unresolved
+import { LinearProgress } from "~/libs/components/linear-progress/linear-progress.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type UserCourseDto } from "~/modules/user-courses/user-courses.js";
 
-import { LinearProgress } from "../../../../linear-progress/linear-progress.js";
 import styles from "./styles.module.css";
 
 type Properties = {

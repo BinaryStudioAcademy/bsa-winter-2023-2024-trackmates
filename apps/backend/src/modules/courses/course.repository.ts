@@ -228,11 +228,11 @@ class CourseRepository implements Repository<CourseEntity> {
 		const progressData = (await CourseSectionModel.query()
 			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
 			.countDistinct(
-				`${DatabaseTableName.COURSE_SECTIONS}.id as total_sections`,
+				`${DatabaseTableName.COURSE_SECTIONS}.id as total_sections_count`,
 			)
 			.select(
 				raw(`
-					count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END) as completed_sections
+					count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END) as completed_sections_count
 				`),
 			)
 			.leftJoin(
