@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.23.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.0...v1.23.1) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend:** fix add lightning css for css bundling tm-210  ([#256](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/256)) ([2965e18](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2965e1897e4d285ea1b51388ca2bff329814522b))
+
 ## [1.23.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.22.0...v1.23.0) (2024-03-02)
 
 
