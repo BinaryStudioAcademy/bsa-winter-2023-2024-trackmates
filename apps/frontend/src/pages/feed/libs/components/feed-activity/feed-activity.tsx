@@ -1,6 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image } from "~/libs/components/components.js";
-import { ActivityTypeValue } from "~/modules/activities/libs/enums/enums.js";
+import { getActivityTitle } from "~/modules/activities/libs/helpers/helpers.js";
 import {
 	type ActivityDto,
 	type ActivityType,
@@ -8,26 +8,11 @@ import {
 
 import styles from "./styles.module.css";
 
-const getTitle = (activity: ActivityDto<ActivityType>): string => {
-	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
-	const title = activity.payload.title;
-
-	switch (activity.type) {
-		case ActivityTypeValue.FINISH_COURSE: {
-			return `Course: ${userFullName} has finished course "${title}". Congratulate her(him)!`;
-		}
-
-		case ActivityTypeValue.FINISH_SECTION: {
-			return `Module:  ${userFullName} has finished module "${title}". Congratulate her(him)!`;
-		}
-	}
-};
-
 type Properties = {
 	activity: ActivityDto<ActivityType>;
 };
 
-const FeedAction: React.FC<Properties> = ({ activity }: Properties) => {
+const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
@@ -39,11 +24,13 @@ const FeedAction: React.FC<Properties> = ({ activity }: Properties) => {
 					/>
 				</div>
 				<div className={styles["card-content-wrapper"]}>
-					<div className={styles["card-info"]}>{getTitle(activity)}</div>
+					<div className={styles["card-info"]}>
+						{getActivityTitle(activity)}
+					</div>
 				</div>
 			</div>
 		</article>
 	);
 };
 
-export { FeedAction };
+export { FeedActivity };

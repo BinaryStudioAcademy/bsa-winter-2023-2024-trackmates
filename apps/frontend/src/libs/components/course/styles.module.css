@@ -13,7 +13,7 @@
 
 .container:hover {
 	border: 1px solid var(--color-menu);
-	box-shadow: 3px 11px 22px -14px #00000080;
+	box-shadow: 3px 11px 22px -14px var(--color-container-hover-border);
 }
 
 .actions {
