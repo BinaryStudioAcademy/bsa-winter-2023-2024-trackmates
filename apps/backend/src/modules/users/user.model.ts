@@ -4,7 +4,7 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
-import { CourseModel } from "~/modules/courses/course.model.js";
+import { UserCourseModel } from "~/modules/user-courses/user-course-model.js";
 
 import { UserDetailsModel } from "./user-details.model.js";
 
@@ -20,7 +20,7 @@ class UserModel extends AbstractModel {
 					},
 					to: `${DatabaseTableName.COURSES}.id`,
 				},
-				modelClass: CourseModel,
+				modelClass: UserCourseModel,
 				relation: Model.ManyToManyRelation,
 			},
 			friends: {

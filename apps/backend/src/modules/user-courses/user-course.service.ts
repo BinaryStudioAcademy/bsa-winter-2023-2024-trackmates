@@ -51,27 +51,11 @@ class UserCourseService {
 		userId: number;
 	}): Promise<UserCourseDto[]> {
 		const entities = await this.courseRepository.findByUserId({
-			search: search,
+			search,
 			userId,
 		});
 
-		const courses = entities.map((entity) => entity.toObject());
-
-		return await Promise.all(
-			courses.map(async (course) => {
-				const progress = Math.round(
-					await this.courseService.getProgress({
-						courseId: course.id,
-						userId,
-					}),
-				);
-
-				return {
-					...course,
-					progress,
-				};
-			}),
-		);
+		return entities.map((entity) => entity.toObject());
 	}
 }
 
