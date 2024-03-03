@@ -30,7 +30,7 @@ const CourseActivities: React.FC<Properties> = ({ progress }: Properties) => {
 							styles["tag-in-process"],
 						)}
 					/>
-					<span className={styles["tag-name"]}>In Process</span>
+					<span className={styles["tag-name"]}>In Progress</span>
 				</div>
 			</div>
 		</div>
