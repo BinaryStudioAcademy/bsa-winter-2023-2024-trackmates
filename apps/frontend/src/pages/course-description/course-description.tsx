@@ -21,7 +21,7 @@ const CourseDescription: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	const { id } = useParams<{ id: string }>();
+	const { id, userId } = useParams<{ id: string; userId: string }>();
 
 	useEffect(() => {
 		if (id) {
@@ -57,6 +57,7 @@ const CourseDescription: React.FC = () => {
 					<CourseSections
 						courseId={Number(course.id)}
 						courseSections={courseSections}
+						userId={Number(userId)}
 					/>
 				)}
 			</div>

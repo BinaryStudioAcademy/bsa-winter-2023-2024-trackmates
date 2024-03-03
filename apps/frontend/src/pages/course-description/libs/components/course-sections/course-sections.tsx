@@ -21,11 +21,13 @@ import styles from "./styles.module.css";
 type Properties = {
 	courseId: number;
 	courseSections: CourseSectionDto[];
+	userId: number;
 };
 
 const CourseSections: React.FC<Properties> = ({
 	courseId,
 	courseSections,
+	userId,
 }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { sectionStatuses, user } = useAppSelector((state) => {
@@ -36,8 +38,14 @@ const CourseSections: React.FC<Properties> = ({
 		};
 	});
 
+	const isCurrentUserCourse = userId === user.id;
+
 	const handleToggle = useCallback(
 		(section: CourseSectionWithStatusDto) => {
+			if (!isCurrentUserCourse) {
+				return;
+			}
+
 			if (!section.status) {
 				return void dispatch(
 					sectionStatusActions.create({
@@ -59,14 +67,12 @@ const CourseSections: React.FC<Properties> = ({
 				}),
 			);
 		},
-		[dispatch],
+		[dispatch, isCurrentUserCourse],
 	);
 
 	useEffect(() => {
-		void dispatch(
-			sectionStatusActions.getAll({ courseId: courseId, userId: user.id }),
-		);
-	}, [courseId, dispatch, user.id]);
+		void dispatch(sectionStatusActions.getAll({ courseId, userId }));
+	}, [courseId, dispatch, userId]);
 
 	const sections = courseSections.map((section) => {
 		return {
@@ -88,6 +94,7 @@ const CourseSections: React.FC<Properties> = ({
 							{section.title}
 							<SectionStatusCheckbox
 								isChecked={section.status?.status === SectionStatus.COMPLETED}
+								isDisabled={!isCurrentUserCourse}
 								name={`section-${section.id}-status`}
 								onToggle={handleToggle}
 								section={section}

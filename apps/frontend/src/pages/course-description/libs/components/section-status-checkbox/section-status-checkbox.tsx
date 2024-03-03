@@ -4,6 +4,7 @@ import { type CourseSectionWithStatusDto } from "~/modules/course-sections/cours
 
 type Properties = {
 	isChecked: boolean;
+	isDisabled?: boolean;
 	name: string;
 	onToggle: (section: CourseSectionWithStatusDto) => void;
 	section: CourseSectionWithStatusDto;
@@ -11,6 +12,7 @@ type Properties = {
 
 const SectionStatusCheckbox: React.FC<Properties> = ({
 	isChecked,
+	isDisabled,
 	name,
 	onToggle,
 	section,
@@ -37,6 +39,7 @@ const SectionStatusCheckbox: React.FC<Properties> = ({
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
+				isDisabled={isDisabled}
 				label="Toggle section status"
 				name={name}
 			/>
