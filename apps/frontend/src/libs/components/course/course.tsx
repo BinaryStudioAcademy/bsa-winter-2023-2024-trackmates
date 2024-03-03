@@ -1,7 +1,7 @@
 import { Button, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
-import { useCallback } from "~/libs/hooks/hooks.js";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
@@ -20,6 +20,7 @@ const Course: React.FC<Properties> = ({
 	userId,
 }: Properties) => {
 	const { id, url, vendor, vendorCourseId } = course;
+	const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
 	const courseDescriptionRouteById = configureString(
 		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
@@ -36,6 +37,7 @@ const Course: React.FC<Properties> = ({
 			vendorCourseId: vendorCourseId,
 			vendorId: vendor.id,
 		});
+		setIsButtonDisabled(true);
 	}, [onAddCourse, vendor.id, vendorCourseId]);
 
 	return (
@@ -60,6 +62,7 @@ const Course: React.FC<Properties> = ({
 					<Button
 						className={styles["course-add-button"]}
 						iconName="plusOutlined"
+						isDisabled={isButtonDisabled}
 						label="Add"
 						onClick={handleAddCourse}
 						size="small"
