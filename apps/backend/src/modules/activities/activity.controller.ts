@@ -74,7 +74,7 @@ class ActivityController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.applyFinishSection(
+				return this.createFinishSection(
 					options as APIHandlerOptions<{
 						body: ApplyRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
 						user: UserAuthResponseDto;
@@ -89,7 +89,7 @@ class ActivityController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.cancelFinishSection(
+				return this.deleteFinishSection(
 					options as APIHandlerOptions<{
 						params: { actionId: string };
 						user: UserAuthResponseDto;
@@ -151,7 +151,7 @@ class ActivityController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/Activity"
 	 */
-	private async apply<T extends ActivityType>({
+	private async create<T extends ActivityType>({
 		actionId,
 		payload,
 		type,
@@ -165,7 +165,7 @@ class ActivityController extends BaseController {
 		const activity = { actionId, payload, type, userId: user.id };
 
 		return {
-			payload: await this.activityService.apply(activity),
+			payload: await this.activityService.create(activity),
 			status: HTTPCode.OK,
 		};
 	}
@@ -198,14 +198,14 @@ class ActivityController extends BaseController {
 	 *                  success:
 	 *                    type: boolean
 	 */
-	private async applyFinishSection({
+	private async createFinishSection({
 		body: { actionId, payload },
 		user,
 	}: APIHandlerOptions<{
 		body: ApplyRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.apply<typeof ActivityTypeValue.FINISH_SECTION>({
+		return await this.create<typeof ActivityTypeValue.FINISH_SECTION>({
 			actionId,
 			payload,
 			type: ActivityTypeValue.FINISH_SECTION,
@@ -213,7 +213,7 @@ class ActivityController extends BaseController {
 		});
 	}
 
-	private async cancel<T extends ActivityType>({
+	private async delete<T extends ActivityType>({
 		actionId,
 		type,
 		user,
@@ -223,7 +223,7 @@ class ActivityController extends BaseController {
 		user: UserAuthResponseDto;
 	}): Promise<APIHandlerResponse> {
 		const activity = { actionId: Number(actionId), type, userId: user.id };
-		const success = await this.activityService.cancel(activity);
+		const success = await this.activityService.delete(activity);
 
 		return {
 			payload: { success },
@@ -231,14 +231,14 @@ class ActivityController extends BaseController {
 		};
 	}
 
-	private async cancelFinishSection({
+	private async deleteFinishSection({
 		params: { actionId },
 		user,
 	}: APIHandlerOptions<{
 		params: { actionId: string };
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.cancel<typeof ActivityTypeValue.FINISH_SECTION>({
+		return await this.delete<typeof ActivityTypeValue.FINISH_SECTION>({
 			actionId,
 			type: ActivityTypeValue.FINISH_SECTION,
 			user,

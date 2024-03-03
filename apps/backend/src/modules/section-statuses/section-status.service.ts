@@ -38,7 +38,9 @@ class SectionStatusService implements Service {
 		this.sectionStatusRepository = sectionStatusRepository;
 	}
 
-	private async addActivity(sectionStatus: SectionStatusEntity): Promise<void> {
+	private async createActivity(
+		sectionStatus: SectionStatusEntity,
+	): Promise<void> {
 		const { courseSectionId, id: actionId, userId } = sectionStatus.toObject();
 
 		const courseSection =
@@ -50,8 +52,8 @@ class SectionStatusService implements Service {
 
 		const { course, id, title } = courseSection.toObject();
 
-		course &&
-			(await this.activityService.apply<
+		if (course) {
+			await this.activityService.create<
 				typeof ActivityTypeValue.FINISH_SECTION
 			>({
 				actionId,
@@ -66,14 +68,15 @@ class SectionStatusService implements Service {
 				},
 				type: ActivityTypeValue.FINISH_SECTION,
 				userId,
-			}));
+			});
+		}
 	}
 
 	private async deleteActivity(
 		actionId: number,
 		userId: number,
 	): Promise<void> {
-		await this.activityService.cancel<typeof ActivityTypeValue.FINISH_SECTION>({
+		await this.activityService.delete<typeof ActivityTypeValue.FINISH_SECTION>({
 			actionId,
 			type: ActivityTypeValue.FINISH_SECTION,
 			userId,
@@ -93,7 +96,7 @@ class SectionStatusService implements Service {
 			}),
 		);
 
-		await this.addActivity(sectionStatus);
+		await this.createActivity(sectionStatus);
 
 		return sectionStatus.toObject();
 	}
@@ -109,8 +112,10 @@ class SectionStatusService implements Service {
 		}
 
 		const isDeleted = await this.sectionStatusRepository.delete(id);
-		isDeleted &&
-			(await this.deleteActivity(id, sectionStatus.toObject().userId));
+
+		if (isDeleted) {
+			await this.deleteActivity(id, sectionStatus.toObject().userId);
+		}
 
 		return isDeleted;
 	}
@@ -172,7 +177,7 @@ class SectionStatusService implements Service {
 		const { status, userId } = updatedStatus;
 
 		status === SectionStatus.COMPLETED
-			? await this.addActivity(updatedStatusEntity)
+			? await this.createActivity(updatedStatusEntity)
 			: await this.deleteActivity(id, userId);
 
 		return updatedStatus;

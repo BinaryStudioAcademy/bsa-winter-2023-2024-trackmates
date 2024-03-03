@@ -27,7 +27,7 @@ class ActivityService {
 		return { ...activity, payload };
 	}
 
-	public async apply<T extends ActivityType>({
+	public async create<T extends ActivityType>({
 		actionId,
 		payload,
 		type,
@@ -48,7 +48,7 @@ class ActivityService {
 		);
 	}
 
-	public async cancel<T extends ActivityType>({
+	public async delete<T extends ActivityType>({
 		actionId,
 		type,
 		userId,

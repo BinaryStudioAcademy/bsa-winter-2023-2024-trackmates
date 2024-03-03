@@ -1,4 +1,7 @@
-import { DatabaseTableName } from "~/libs/modules/database/database.js";
+import {
+	DatabaseTableName,
+	SortOrder,
+} from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
@@ -67,7 +70,7 @@ class ActivityRepository
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.orderBy("updatedAt", "DESC")
+			.orderBy("updatedAt", SortOrder.DESC)
 			.castTo<ActivityModel[]>()
 			.execute();
 
