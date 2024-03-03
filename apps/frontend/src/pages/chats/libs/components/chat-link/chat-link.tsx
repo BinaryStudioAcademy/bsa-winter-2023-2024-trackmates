@@ -1,5 +1,5 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image, Link } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { AppRoute, DateValue, FormatDateType } from "~/libs/enums/enums.js";
 import {
 	configureString,
@@ -32,7 +32,7 @@ const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
 				alt="User avatar"
 				height="48"
 				shape="circle"
-				src={interlocutor.avatarUrl ?? DEFAULT_USER_AVATAR}
+				src={interlocutor.avatarUrl ?? defaultAvatar}
 				width="48"
 			/>
 			<div className={styles["text-container"]}>

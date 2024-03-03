@@ -25,7 +25,7 @@ const CourseDescription: React.FC = () => {
 
 	useEffect(() => {
 		if (id) {
-			void dispatch(courseActions.getById({ id: id }));
+			void dispatch(courseActions.getById({ id }));
 			void dispatch(
 				courseSectionsActions.getAllByCourseId({ courseId: Number(id) }),
 			);
@@ -33,7 +33,7 @@ const CourseDescription: React.FC = () => {
 	}, [dispatch, id]);
 
 	if (!course) {
-		return;
+		return null;
 	}
 
 	const hasCourseSections = courseSections.length > EMPTY_ARRAY_LENGTH;

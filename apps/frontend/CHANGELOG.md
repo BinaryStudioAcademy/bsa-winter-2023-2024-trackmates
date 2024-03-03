@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.16.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.0...frontend-v1.16.1) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend:** fix add lightning css for css bundling tm-210  ([#256](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/256)) ([2965e18](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2965e1897e4d285ea1b51388ca2bff329814522b))
+
+## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.15.0...frontend-v1.16.0) (2024-03-02)
+
+
+### Features
+
+* **frontend:** search field mobile responsiveness tm-227 ([#263](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/263)) ([2953856](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/29538561641471e04f3c30d26770d22c1de8142a))
+
+
+### Bug Fixes
+
+* **frontend:** fix default pictures on the friend page tm-266 ([#279](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/279)) ([fc6a72c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fc6a72c588ba3025b0bd9215ae901f358475a4de))
+
+## [1.15.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.2...frontend-v1.15.0) (2024-03-02)
+
+
+### Features
+
+* **frontend:** add change photo button tm-273 ([#278](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/278)) ([4466795](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/446679556ace759775567d4256e04ef9f573df2f))
+
 ## [1.14.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.1...frontend-v1.14.2) (2024-03-01)
 
 
