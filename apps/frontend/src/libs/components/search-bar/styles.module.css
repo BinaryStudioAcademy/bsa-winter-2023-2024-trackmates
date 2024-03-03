@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .form {
 	z-index: var(--z-index-low);
 	flex-basis: 360px;
