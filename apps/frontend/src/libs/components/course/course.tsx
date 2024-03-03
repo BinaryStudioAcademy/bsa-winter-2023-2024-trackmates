@@ -12,14 +12,14 @@ type Properties = {
 
 const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 	const { image, title, url, vendor, vendorCourseId } = course;
-	const [isButtonDisabled, setDisabled] = useState<boolean>(false);
+	const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
 			vendorCourseId: vendorCourseId,
 			vendorId: vendor.id,
 		});
-		setDisabled(true);
+		setIsButtonDisabled(true);
 	}, [onAddCourse, vendor.id, vendorCourseId]);
 
 	return (
