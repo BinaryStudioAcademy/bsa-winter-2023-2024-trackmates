@@ -1,6 +1,4 @@
-.container {
-	width: 720px;
-}
+@import url("~/assets/css/media.css");
 
 .title {
 	padding-bottom: 17px;
@@ -40,7 +38,9 @@
 }
 
 .label {
-	padding: 10px 73px;
+	width: 50%;
+	padding: 10px 0;
+	text-align: center;
 	cursor: pointer;
 	border-bottom: 1px solid #e4e4e4;
 }
@@ -75,4 +75,18 @@
 .details-list {
 	padding: 15px;
 	list-style: decimal;
+}
+
+@media screen and (--large-screen) {
+	.tabs {
+		margin-top: 16px;
+	}
+
+	.content-title {
+		padding-top: 16px;
+	}
+
+	.label {
+		padding: 0 0 16px;
+	}
 }

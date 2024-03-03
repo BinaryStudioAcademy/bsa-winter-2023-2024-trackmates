@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .title {
 	font-size: var(--font-size-400);
 	font-weight: 600;
@@ -24,4 +26,16 @@
 	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-radius: 10px;
+}
+
+@media screen and (width <= 1280px) {
+	.item {
+		min-width: 298px;
+	}
+}
+
+@media screen and (--large-screen) {
+	.item {
+		min-width: 298px;
+	}
 }
