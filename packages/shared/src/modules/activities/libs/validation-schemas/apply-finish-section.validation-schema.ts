@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { ActivityTypeValue } from "../enums/enums.js";
+
 const applyFinishSection = z
 	.object({
 		actionId: z.number().int(),
@@ -14,7 +16,9 @@ const applyFinishSection = z
 				title: z.string(),
 			})
 			.required(),
-		type: z.string().refine((type) => type === "FINISH_SECTION"),
+		type: z
+			.string()
+			.refine((type) => type === ActivityTypeValue.FINISH_SECTION),
 	})
 	.required();
 

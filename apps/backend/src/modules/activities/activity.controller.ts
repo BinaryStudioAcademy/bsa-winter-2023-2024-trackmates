@@ -9,7 +9,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type ActivityService } from "./activity.service.js";
-import { ActivitiesApiPath } from "./libs/enums/enums.js";
+import { ActivitiesApiPath, ActivityTypeValue } from "./libs/enums/enums.js";
 import {
 	type ActivityPayloadMap,
 	type ActivityType,
@@ -19,9 +19,9 @@ import {
 	applyFinishSectionValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
-type ApplyRequestDto<TYPE extends ActivityType> = {
+type ApplyRequestDto<T extends ActivityType> = {
 	actionId: number;
-	payload: ActivityPayloadMap[TYPE];
+	payload: ActivityPayloadMap[T];
 };
 
 /**
@@ -76,7 +76,7 @@ class ActivityController extends BaseController {
 			handler: (options) => {
 				return this.applyFinishSection(
 					options as APIHandlerOptions<{
-						body: ApplyRequestDto<"FINISH_SECTION">;
+						body: ApplyRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -151,15 +151,15 @@ class ActivityController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/Activity"
 	 */
-	private async apply<TYPE extends ActivityType>({
+	private async apply<T extends ActivityType>({
 		actionId,
 		payload,
 		type,
 		user,
 	}: {
 		actionId: number;
-		payload: ActivityPayloadMap[TYPE];
-		type: TYPE;
+		payload: ActivityPayloadMap[T];
+		type: T;
 		user: UserAuthResponseDto;
 	}): Promise<APIHandlerResponse> {
 		const activity = { actionId, payload, type, userId: user.id };
@@ -202,24 +202,24 @@ class ActivityController extends BaseController {
 		body: { actionId, payload },
 		user,
 	}: APIHandlerOptions<{
-		body: ApplyRequestDto<"FINISH_SECTION">;
+		body: ApplyRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.apply<"FINISH_SECTION">({
+		return await this.apply<typeof ActivityTypeValue.FINISH_SECTION>({
 			actionId,
 			payload,
-			type: "FINISH_SECTION",
+			type: ActivityTypeValue.FINISH_SECTION,
 			user,
 		});
 	}
 
-	private async cancel<TYPE extends ActivityType>({
+	private async cancel<T extends ActivityType>({
 		actionId,
 		type,
 		user,
 	}: {
 		actionId: string;
-		type: TYPE;
+		type: T;
 		user: UserAuthResponseDto;
 	}): Promise<APIHandlerResponse> {
 		const activity = { actionId: Number(actionId), type, userId: user.id };
@@ -238,9 +238,9 @@ class ActivityController extends BaseController {
 		params: { actionId: string };
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.cancel<"FINISH_SECTION">({
+		return await this.cancel<typeof ActivityTypeValue.FINISH_SECTION>({
 			actionId,
-			type: "FINISH_SECTION",
+			type: ActivityTypeValue.FINISH_SECTION,
 			user,
 		});
 	}

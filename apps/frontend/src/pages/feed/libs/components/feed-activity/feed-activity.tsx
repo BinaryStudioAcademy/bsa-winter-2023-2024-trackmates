@@ -1,5 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image } from "~/libs/components/components.js";
+import { ActivityTypeValue } from "~/modules/activities/libs/enums/enums.js";
 import {
 	type ActivityDto,
 	type ActivityType,
@@ -12,11 +13,11 @@ const getTitle = (activity: ActivityDto<ActivityType>): string => {
 	const title = activity.payload.title;
 
 	switch (activity.type) {
-		case "FINISH_COURSE": {
+		case ActivityTypeValue.FINISH_COURSE: {
 			return `Course: ${userFullName} has finished course "${title}". Congratulate her(him)!`;
 		}
 
-		case "FINISH_SECTION": {
+		case ActivityTypeValue.FINISH_SECTION: {
 			return `Module:  ${userFullName} has finished module "${title}". Congratulate her(him)!`;
 		}
 	}
