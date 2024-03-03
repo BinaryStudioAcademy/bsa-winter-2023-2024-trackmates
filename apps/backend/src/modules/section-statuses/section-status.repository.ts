@@ -2,6 +2,7 @@ import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
 import { RELATION_NAME } from "./libs/constants/constants.js";
+import { SectionStatus } from "./libs/enums/enums.js";
 import { type SectionStatusGetAllRequestDto } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusModel } from "./section-status.model.js";
@@ -118,7 +119,7 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 					.where("courseId", courseId);
 			})
 			.andWhere("userId", userId)
-			.andWhere("status", "completed")
+			.andWhere("status", SectionStatus.COMPLETED)
 			.resultSize();
 	}
 
