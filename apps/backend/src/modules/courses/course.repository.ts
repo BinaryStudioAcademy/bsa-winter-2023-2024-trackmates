@@ -218,7 +218,7 @@ class CourseRepository implements Repository<CourseEntity> {
 			});
 		}
 
-		const courses = await user
+		const courseModels = await user
 			.$relatedQuery(DatabaseTableName.COURSES)
 			.for(userId)
 			.whereILike("title", `%${search}%`)
@@ -242,13 +242,13 @@ class CourseRepository implements Repository<CourseEntity> {
 			)
 			.whereIn(
 				`${DatabaseTableName.COURSE_SECTIONS}.course_id`,
-				courses.map((course) => course.id),
+				courseModels.map((course) => course.id),
 			)
 			.groupBy(
 				`${DatabaseTableName.COURSE_SECTIONS}.course_id`,
 			)) as unknown as ProgressDataItem[];
 
-		const coursesWithProgress = courses.map((course) => {
+		const coursesWithProgress = courseModels.map((course) => {
 			const progress = progressData.find((p) => p.courseId === course.id);
 
 			const progressPercentage = progress
