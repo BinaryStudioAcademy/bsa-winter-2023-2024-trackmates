@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.4...v1.24.0) (2024-03-03)
+
+
+### Features
+
+* **backend:** Convert text to varchar in DB for fields with a maximum length tm-265 ([#298](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/298)) ([d5d8a70](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d5d8a70b41ab67a65cdf173c86be392f734fa2b0))
+
 ## [1.23.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.3...v1.23.4) (2024-03-03)
 
 
