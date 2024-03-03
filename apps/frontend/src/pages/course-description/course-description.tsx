@@ -21,16 +21,19 @@ const CourseDescription: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	const { id, userId } = useParams<{ id: string; userId: string }>();
+	const { courseId, userId } = useParams<{
+		courseId: string;
+		userId: string;
+	}>();
 
 	useEffect(() => {
-		if (id) {
-			void dispatch(courseActions.getById({ id }));
+		if (courseId) {
+			void dispatch(courseActions.getById({ id: courseId }));
 			void dispatch(
-				courseSectionsActions.getAllByCourseId({ courseId: Number(id) }),
+				courseSectionsActions.getAllByCourseId({ courseId: Number(courseId) }),
 			);
 		}
-	}, [dispatch, id]);
+	}, [dispatch, courseId]);
 
 	if (!course) {
 		return null;
