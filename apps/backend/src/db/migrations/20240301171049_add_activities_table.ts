@@ -15,7 +15,10 @@ const ColumnName = {
 	USER_ID: "user_id",
 } as const;
 
-const columnTypeValues = ["FINISH_COURSE", "FINISH_SECTION"];
+const columnTypeValues = {
+	FINISH_COURSE: "finish-course",
+	FINISH_SECTION: "finish-section",
+} as const;
 
 const DELETE_STRATEGY = "CASCADE";
 
@@ -24,7 +27,7 @@ function up(knex: Knex): Promise<void> {
 		table.increments(ColumnName.ID).primary();
 		table.integer(ColumnName.ACTION_ID).notNullable();
 		table.text(ColumnName.PAYLOAD);
-		table.enu(ColumnName.TYPE, columnTypeValues);
+		table.enum(ColumnName.TYPE, Object.values(columnTypeValues));
 		table
 			.integer(ColumnName.USER_ID)
 			.references(ColumnName.ID)
