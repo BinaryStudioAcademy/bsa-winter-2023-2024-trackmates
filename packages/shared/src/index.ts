@@ -44,8 +44,6 @@ export {
 	type ActivityDto,
 	type ActivityPayloadMap,
 	type ActivityType,
-	// type FinishCourseDto,
-	// type FinishSectionDto,
 	type GetActivitiesResponseDto,
 	actionIdParameterValidationSchema,
 	applyFinishSectionValidationSchema,

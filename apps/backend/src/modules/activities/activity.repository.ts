@@ -4,6 +4,7 @@ import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
+import { RelationName } from "./libs/enums/enums.js";
 import { type ActivityType } from "./libs/types/types.js";
 
 class ActivityRepository
@@ -63,13 +64,15 @@ class ActivityRepository
 					.select("followingId")
 					.where({ followerId: userId }),
 			)
-			.withGraphJoined("user.userDetails.avatarFile")
+			.withGraphJoined(
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.orderBy("updatedAt", "DESC")
 			.castTo<ActivityModel[]>()
 			.execute();
 
-		return activities.map((activity) =>
-			ActivityEntity.initialize({
+		return activities.map((activity) => {
+			return ActivityEntity.initialize({
 				actionId: activity.actionId,
 				id: activity.id,
 				payload: activity.payload,
@@ -88,8 +91,8 @@ class ActivityRepository
 					updatedAt: activity.user.updatedAt,
 				}),
 				userId: activity.userId,
-			}),
-		);
+			});
+		});
 	}
 }
 

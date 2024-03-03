@@ -3,8 +3,6 @@ export {
 	type ActivityDto,
 	type ActivityPayloadMap,
 	type ActivityType,
-	// type FinishCourseDto,
-	// type FinishSectionDto,
 	type GetActivitiesResponseDto,
 } from "./libs/types/types.js";
 export {
