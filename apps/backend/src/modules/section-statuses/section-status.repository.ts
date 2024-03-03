@@ -1,7 +1,7 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 
-import { RelationName, SectionStatus } from "./libs/enums/enums.js";
+import { RelationName } from "./libs/enums/enums.js";
 import { type SectionStatusGetAllRequestDto } from "./libs/types/types.js";
 import { SectionStatusEntity } from "./section-status.entity.js";
 import { type SectionStatusModel } from "./section-status.model.js";
@@ -101,25 +101,6 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 				userId: sectionStatusModel.userId,
 			});
 		});
-	}
-
-	public async getNumberOfCompletedSections({
-		courseId,
-		userId,
-	}: {
-		courseId: number;
-		userId: number;
-	}): Promise<number> {
-		return await this.sectionStatusModel
-			.query()
-			.whereIn("courseSectionId", function () {
-				void this.select("id")
-					.from(DatabaseTableName.COURSE_SECTIONS)
-					.where("courseId", courseId);
-			})
-			.andWhere("userId", userId)
-			.andWhere("status", SectionStatus.COMPLETED)
-			.resultSize();
 	}
 
 	public async update(
