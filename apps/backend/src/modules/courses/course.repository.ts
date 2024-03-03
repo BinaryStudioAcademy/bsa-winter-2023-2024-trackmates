@@ -225,28 +225,9 @@ class CourseRepository implements Repository<CourseEntity> {
 			.withGraphFetched("vendor")
 			.castTo<CourseModel[]>();
 
-		const progressData = (await CourseSectionModel.query()
-			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
-			.countDistinct(
-				`${DatabaseTableName.COURSE_SECTIONS}.id as total_sections_count`,
-			)
-			.select(
-				raw(`
-					count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END) as completed_sections_count
-				`),
-			)
-			.leftJoin(
-				DatabaseTableName.SECTION_STATUSES,
-				`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
-				`${DatabaseTableName.COURSE_SECTIONS}.id`,
-			)
-			.whereIn(
-				`${DatabaseTableName.COURSE_SECTIONS}.course_id`,
-				courseModels.map((course) => course.id),
-			)
-			.groupBy(
-				`${DatabaseTableName.COURSE_SECTIONS}.course_id`,
-			)) as unknown as ProgressDataItem[];
+		const progressData = await this.getProgressData(
+			courseModels.map((course) => course.id),
+		);
 
 		const coursesWithProgress = courseModels.map((course) => {
 			const progress = progressData.find((p) => p.courseId === course.id);
@@ -317,6 +298,30 @@ class CourseRepository implements Repository<CourseEntity> {
 					vendorId: course.vendorId,
 				})
 			: null;
+	}
+
+	public async getProgressData(
+		courseIds: number[],
+	): Promise<ProgressDataItem[]> {
+		return (await CourseSectionModel.query()
+			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
+			.countDistinct(
+				`${DatabaseTableName.COURSE_SECTIONS}.id as total_sections_count`,
+			)
+			.select(
+				raw(`
+					count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END) as completed_sections_count
+				`),
+			)
+			.leftJoin(
+				DatabaseTableName.SECTION_STATUSES,
+				`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
+				`${DatabaseTableName.COURSE_SECTIONS}.id`,
+			)
+			.whereIn(`${DatabaseTableName.COURSE_SECTIONS}.course_id`, courseIds)
+			.groupBy(
+				`${DatabaseTableName.COURSE_SECTIONS}.course_id`,
+			)) as unknown as ProgressDataItem[];
 	}
 
 	public async update(
