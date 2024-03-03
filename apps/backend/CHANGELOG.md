@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.3...backend-v1.11.4) (2024-03-03)
+
+
+### Bug Fixes
+
+* **backend:** remove mutual followers check tm-290 ([#296](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/296)) ([da012ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/da012ae1bb67433ac78077857993327551a3d0e0))
+
 ## [1.11.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.2...backend-v1.11.3) (2024-03-03)
 
 
