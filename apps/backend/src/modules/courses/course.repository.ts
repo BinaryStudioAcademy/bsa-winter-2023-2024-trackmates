@@ -254,8 +254,8 @@ class CourseRepository implements Repository<CourseEntity> {
 			const progressPercentage = progress
 				? Math.round(
 						getPercentage({
-							part: progress.completedSections,
-							total: progress.totalSections,
+							part: progress.completedSectionsCount,
+							total: progress.totalSectionsCount,
 						}),
 					)
 				: NO_PROGRESS;
