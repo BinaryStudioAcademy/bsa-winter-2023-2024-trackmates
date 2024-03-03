@@ -105,6 +105,7 @@ const User: React.FC = () => {
 						{(profileUser as UserAuthResponseDto).lastName}
 					</p>
 					<Button
+						className={styles["follow-button"]}
 						iconName={isFollowing ? "cross" : "add"}
 						label={isFollowing ? "Following" : "Follow"}
 						onClick={isFollowing ? handleUnfollow : handleFollow}
@@ -119,7 +120,7 @@ const User: React.FC = () => {
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} />
+					<Courses courses={courses} userId={userId} />
 				)}
 			</div>
 		</div>
