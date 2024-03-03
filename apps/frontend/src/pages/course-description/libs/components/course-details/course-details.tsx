@@ -72,14 +72,14 @@ const CourseDetails: React.FC<Properties> = ({
 			<Image alt="Course" className={styles["image"]} src={image} />
 			<form onChange={handleFormChange}>
 				<div className={styles["tabs"]}>
-					{Object.values(Tab).map((it) => (
+					{Object.values(Tab).map((item) => (
 						<TabItem
-							key={it}
-							label={it === Tab.ABOUT ? "About" : "Details"}
+							key={item}
+							label={item === Tab.ABOUT ? "About" : "Details"}
 							name="tab"
 							register={register}
 							selectedTab={selectedTab}
-							tab={it}
+							tab={item}
 							tabContents={tabContents}
 						/>
 					))}
