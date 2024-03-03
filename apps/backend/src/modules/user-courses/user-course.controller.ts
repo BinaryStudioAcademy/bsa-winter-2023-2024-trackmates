@@ -104,43 +104,47 @@ class UserCourseController extends BaseController {
 	/**
 	 * @swagger
 	 * /user-courses/{userId}:
-	 *    get:
-	 *      tags:
-	 *        - User courses
-	 *      description: Return all user courses
-	 *      security:
-	 *        - bearerAuth: []
-	 *      parameters:
-	 *        - name: userId
-	 *          in: path
-	 *          description: The vendor ID
-	 *          required: true
-	 *          schema:
-	 *            type: integer
-	 *            minimum: 1
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  courses:
-	 *                    type: array
-	 *                    items:
-	 *                      type: object
-	 *                      $ref: "#/components/schemas/Course"
+	 *   get:
+	 *     tags:
+	 *       - User courses
+	 *     description: Return all user courses
+	 *     security:
+	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: userId
+	 *         in: path
+	 *         description: The vendor ID
+	 *         required: true
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
+	 *       - in: query
+	 *         name: search
+	 *         schema:
+	 *           type: string
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: object
+	 *               properties:
+	 *                 courses:
+	 *                   type: array
+	 *                   items:
+	 *                     type: object
+	 *                     $ref: '#/components/schemas/Course'
 	 */
 	private async findAllByUser({
 		params: { userId },
 		query: { search },
 	}: APIHandlerOptions<{
 		params: { userId: string };
-		query: { search: string };
+		query: { search: string | undefined };
 	}>): Promise<APIHandlerResponse> {
 		const courses = await this.userCourseService.findAllByUser({
-			search,
+			search: search ?? "",
 			userId: Number(userId),
 		});
 

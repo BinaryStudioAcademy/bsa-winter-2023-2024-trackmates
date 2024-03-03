@@ -47,15 +47,18 @@
 
 .return-button {
 	align-self: flex-start;
-	padding: 0;
+	width: 25px;
+	height: 25px;
 	margin-bottom: 17px;
 	color: var(--color-text-200);
-	background-color: transparent;
-	border-color: var(--color-background);
+	background-color: #e0e0e0;
+	fill: currentcolor;
 }
 
-.return-button:hover {
-	color: var(--color-text-200);
-	background-color: transparent;
-	border-color: var(--color-background);
+.courses-title {
+	font-size: var(--font-size-400);
+}
+
+.follow-button {
+	max-width: 120px;
 }
