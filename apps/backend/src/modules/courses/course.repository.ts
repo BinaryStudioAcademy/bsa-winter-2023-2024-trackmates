@@ -27,6 +27,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		this.courseModel = courseModel;
 		this.userModel = userModel;
 	}
+
 	private async createCourseWithRelation(
 		courseEntity: CourseEntity,
 		userId: number,
