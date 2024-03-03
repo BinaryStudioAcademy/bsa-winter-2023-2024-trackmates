@@ -31,9 +31,9 @@ class SectionStatusService implements Service {
 
 		const sectionStatus = await this.sectionStatusRepository.create(
 			SectionStatusEntity.initializeNew({
-				courseSectionId: courseSectionId,
-				status: status,
-				userId: userId,
+				courseSectionId,
+				status,
+				userId,
 			}),
 		);
 

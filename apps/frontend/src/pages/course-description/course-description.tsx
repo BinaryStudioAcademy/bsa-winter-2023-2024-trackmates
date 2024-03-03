@@ -39,19 +39,22 @@ const CourseDescription: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	const { id } = useParams<{ id: string }>();
+	const { courseId, userId } = useParams<{
+		courseId: string;
+		userId: string;
+	}>();
 
 	useEffect(() => {
-		if (id) {
-			void dispatch(courseActions.getById({ id: id }));
+		if (courseId) {
+			void dispatch(courseActions.getById({ id: courseId }));
 			void dispatch(
-				courseSectionsActions.getAllByCourseId({ courseId: Number(id) }),
+				courseSectionsActions.getAllByCourseId({ courseId: Number(courseId) }),
 			);
 		}
-	}, [dispatch, id]);
+	}, [dispatch, courseId]);
 
 	if (!course) {
-		return;
+		return null;
 	}
 
 	const hasCourseSections = courseSections.length > EMPTY_ARRAY_LENGTH;
@@ -76,6 +79,7 @@ const CourseDescription: React.FC = () => {
 						<CourseSections
 							courseId={Number(course.id)}
 							courseSections={courseSections}
+							userId={Number(userId)}
 						/>
 						<CourseActivities progress={progress} />
 					</div>

@@ -10,18 +10,20 @@ import styles from "./styles.module.css";
 type Properties = {
 	courses: (CourseDto | UserCourseDto)[];
 	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
+	userId?: number;
 };
 
 const Courses: React.FC<Properties> = ({
 	courses,
 	onAddCourse,
+	userId,
 }: Properties) => {
 	return (
 		<ul className={styles["list"]}>
 			{courses.map((course) => {
 				return (
 					<li className={styles["item"]} key={course.vendorCourseId}>
-						<Course course={course} onAddCourse={onAddCourse} />
+						<Course course={course} onAddCourse={onAddCourse} userId={userId} />
 					</li>
 				);
 			})}
