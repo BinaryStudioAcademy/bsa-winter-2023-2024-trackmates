@@ -22,29 +22,19 @@ class ActivityService {
 
 	private mapToDto(entity: ActivityEntity): ActivityResponseDto<ActivityType> {
 		const activity = entity.toObject();
-		const payload = JSON.parse(activity.payload) as ValueOf<ActivityPayloadMap>;
+		const payload = activity.payload as ValueOf<ActivityPayloadMap>;
 
 		return { ...activity, payload };
 	}
 
-	public async create<T extends ActivityType>({
-		actionId,
-		payload,
-		type,
-		userId,
-	}: {
+	public async create<T extends ActivityType>(activity: {
 		actionId: number;
 		payload: ActivityPayloadMap[T];
 		type: T;
 		userId: number;
 	}): Promise<ActivityEntity> {
 		return await this.activityRepository.create(
-			ActivityEntity.initializeNew({
-				actionId,
-				payload: JSON.stringify(payload),
-				type,
-				userId,
-			}),
+			ActivityEntity.initializeNew(activity),
 		);
 	}
 

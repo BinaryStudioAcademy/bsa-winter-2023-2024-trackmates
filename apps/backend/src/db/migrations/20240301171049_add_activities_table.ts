@@ -26,7 +26,7 @@ function up(knex: Knex): Promise<void> {
 	return knex.schema.createTable(TableName.ACTIVITIES, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table.integer(ColumnName.ACTION_ID).notNullable();
-		table.text(ColumnName.PAYLOAD);
+		table.jsonb(ColumnName.PAYLOAD);
 		table.enum(ColumnName.TYPE, Object.values(columnTypeValues));
 		table
 			.integer(ColumnName.USER_ID)

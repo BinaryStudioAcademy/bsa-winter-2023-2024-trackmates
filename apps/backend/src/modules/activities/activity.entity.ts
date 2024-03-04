@@ -8,7 +8,7 @@ class ActivityEntity implements Entity {
 
 	public id: null | number;
 
-	public payload: string;
+	public payload: Record<string, unknown>;
 
 	public type: ActivityType;
 
@@ -29,7 +29,7 @@ class ActivityEntity implements Entity {
 	}: {
 		actionId: number;
 		id: null | number;
-		payload: string;
+		payload: Record<string, unknown>;
 		type: ActivityType;
 		updatedAt: string;
 		user: UserEntity | null;
@@ -55,7 +55,7 @@ class ActivityEntity implements Entity {
 	}: {
 		actionId: number;
 		id: number;
-		payload: string;
+		payload: Record<string, unknown>;
 		type: ActivityType;
 		updatedAt: string;
 		user: UserEntity | null;
@@ -79,7 +79,7 @@ class ActivityEntity implements Entity {
 		userId,
 	}: {
 		actionId: number;
-		payload: string;
+		payload: Record<string, unknown>;
 		type: ActivityType;
 		userId: number;
 	}): ActivityEntity {
@@ -96,7 +96,7 @@ class ActivityEntity implements Entity {
 
 	public toNewObject(): {
 		actionId: number;
-		payload: string;
+		payload: Record<string, unknown>;
 		type: ActivityType;
 		userId: number;
 	} {
@@ -111,7 +111,7 @@ class ActivityEntity implements Entity {
 	public toObject(): {
 		actionId: number;
 		id: number;
-		payload: string;
+		payload: Record<string, unknown>;
 		type: ActivityType;
 		updatedAt: string;
 		user: {

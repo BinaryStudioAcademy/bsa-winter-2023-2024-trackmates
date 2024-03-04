@@ -24,7 +24,7 @@ class ActivityModel extends AbstractModel {
 
 	public actionId!: number;
 
-	public payload!: string;
+	public payload!: Record<string, unknown>;
 
 	public time!: string;
 
