@@ -1,4 +1,4 @@
-const EdxCourseField: Record<string, string> = {
+const EdxCourseField = {
 	DESCRIPTION: "short_description",
 	ID: "course_id",
 	TITLE: "name",

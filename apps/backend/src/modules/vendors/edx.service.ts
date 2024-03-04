@@ -1,19 +1,15 @@
 import {
 	ContentType,
 	type HTTP,
-	HTTPCode,
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
 
-import {
-	EdxApiPath,
-	EdxCourseFieldsMapping,
-	VendorErrorMessage,
-} from "./libs/enums/enums.js";
-import { VendorError } from "./libs/exceptions/exceptions.js";
+import { EdxApiPath, EdxCourseFieldsMapping } from "./libs/enums/enums.js";
 import {
 	type Course,
+	type CourseFieldsMapping,
 	type CourseSection,
+	type EdxCourseResponseDto,
 	type VendorService,
 } from "./libs/types/types.js";
 
@@ -51,26 +47,25 @@ class EdxService implements VendorService {
 	private async loadResults(
 		url: string,
 		query: Record<string, unknown>,
-	): Promise<Record<string, unknown>[]> {
+	): Promise<EdxCourseResponseDto[]> {
 		const result = await this.load(url, query);
-		const items = (await result.json()) as Record<"results", unknown>;
+		const items = (await result.json()) as Record<
+			"results",
+			EdxCourseResponseDto[]
+		>;
 
-		if (!items.results) {
-			throw new VendorError({
-				message: VendorErrorMessage.WRONG_RESPONSE_FROM_VENDOR_API,
-				status: HTTPCode.INTERNAL_SERVER_ERROR,
-			});
-		}
-
-		return items.results as Record<string, unknown>[];
+		return items.results;
 	}
 
-	private mapItem<FROM_FIELD extends string, TO_FIELD extends string>(
-		item: Record<FROM_FIELD, unknown>,
+	private mapItem<
+		FROM_FIELD extends keyof EdxCourseResponseDto,
+		TO_FIELD extends keyof CourseFieldsMapping,
+	>(
+		item: EdxCourseResponseDto,
 		mapping: Record<TO_FIELD, FROM_FIELD>,
-	): Record<TO_FIELD, unknown> {
+	): Record<TO_FIELD, EdxCourseResponseDto[FROM_FIELD]> {
 		const mappingEntries = Object.entries(mapping) as [TO_FIELD, FROM_FIELD][];
-		const mappedItem = {} as Record<TO_FIELD, unknown>;
+		const mappedItem = {} as Record<TO_FIELD, EdxCourseResponseDto[FROM_FIELD]>;
 
 		for (const [to, from] of mappingEntries) {
 			mappedItem[to] = item[from];
@@ -79,14 +74,14 @@ class EdxService implements VendorService {
 		return mappedItem;
 	}
 
-	private mapToCourse(item: Record<string, unknown>): Course {
+	private mapToCourse(item: EdxCourseResponseDto): Course {
 		const course = this.mapItem(item, EdxCourseFieldsMapping);
 
-		const media = item["media"] as Record<string, unknown>;
-		const courseImage = media["course_image"] as Record<string, unknown>;
+		const media = item["media"];
+		const courseImage = media["course_image"];
 
-		course.image = `${this.baseUrl}${courseImage["uri"] as string}`;
-		course.url = "https://www.edx.org/" as string;
+		course.image = `${this.baseUrl}${courseImage["uri"]}`;
+		course.url = "https://www.edx.org/";
 
 		return course as Course;
 	}
@@ -96,7 +91,7 @@ class EdxService implements VendorService {
 			`${this.baseUrl}${EdxApiPath.COURSES}${id}`,
 			{},
 		);
-		const item = (await result.json()) as Record<string, unknown>;
+		const item = (await result.json()) as EdxCourseResponseDto;
 
 		return this.mapToCourse(item);
 	}

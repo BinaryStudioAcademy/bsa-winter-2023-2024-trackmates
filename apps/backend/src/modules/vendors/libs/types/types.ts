@@ -1,5 +1,6 @@
 export { type CourseFieldsMapping } from "./course-fields-mapping.type.js";
 export { type CourseSectionFieldsMapping } from "./course-section-fields-mapping.type.js";
+export { type EdxCourseResponseDto } from "./edx-course-response-dto.type.js";
 export {
 	type Course,
 	type CourseSection,

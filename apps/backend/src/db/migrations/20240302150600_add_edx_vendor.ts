@@ -3,6 +3,7 @@ import { type Knex } from "knex";
 const TABLE_NAME = "vendors";
 
 const KEY_COLUMN = "key";
+
 const Row = { key: "edx", name: "edX", url: "https://www.edx.org" } as const;
 
 async function up(knex: Knex): Promise<void> {
