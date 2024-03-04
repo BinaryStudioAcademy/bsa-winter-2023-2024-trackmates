@@ -10,3 +10,4 @@ export {
 	PaginationValue,
 } from "./pagination/pagination.js";
 export { ServerErrorType } from "./server-error-type.enum.js";
+export { SortOrder } from "./sort/sort.js";
