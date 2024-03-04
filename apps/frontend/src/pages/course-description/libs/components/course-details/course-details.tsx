@@ -1,5 +1,6 @@
 import { Content, Image, TabItem } from "~/libs/components/components.js";
 import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
@@ -8,7 +9,7 @@ import { tabToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type TabValue = {
-	tab: string;
+	tab: ValueOf<typeof Tab>;
 };
 
 type Properties = {
@@ -26,7 +27,9 @@ const CourseDetails: React.FC<Properties> = ({
 		defaultValues: { tab: Tab.ABOUT },
 	});
 
-	const [selectedTab, setSelectedTab] = useState<string>(Tab.ABOUT);
+	const [selectedTab, setSelectedTab] = useState<ValueOf<typeof Tab>>(
+		Tab.ABOUT,
+	);
 
 	const handleTabChange = (item: TabValue): void => {
 		setSelectedTab(item.tab);
