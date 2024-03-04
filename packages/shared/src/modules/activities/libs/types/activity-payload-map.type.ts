@@ -1,8 +1,11 @@
-import { type FinishCourseDto, type FinishSectionDto } from "./types.js";
+import {
+	type ActivityFinishCourseRequestDto,
+	type ActivityFinishSectionRequestDto,
+} from "./types.js";
 
 type ActivityPayloadMap = {
-	"finish-course": FinishCourseDto;
-	"finish-section": FinishSectionDto;
+	"finish-course": ActivityFinishCourseRequestDto;
+	"finish-section": ActivityFinishSectionRequestDto;
 };
 
 export { type ActivityPayloadMap };

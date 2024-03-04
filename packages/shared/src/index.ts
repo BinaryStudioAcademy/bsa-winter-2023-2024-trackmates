@@ -41,11 +41,11 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
-	type ActivityDto,
+	type ActivityGetActivitiesResponseDto,
 	type ActivityPayloadMap,
+	type ActivityResponseDto,
 	type ActivityType,
 	ActivityTypeValue,
-	type GetActivitiesResponseDto,
 	activityActionIdParameterValidationSchema,
 	activityApplyFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";

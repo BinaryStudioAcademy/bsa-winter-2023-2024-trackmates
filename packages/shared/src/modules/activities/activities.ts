@@ -1,9 +1,9 @@
 export { ActivitiesApiPath, ActivityTypeValue } from "./libs/enums/enums.js";
 export {
-	type ActivityDto,
+	type ActivityGetActivitiesResponseDto,
 	type ActivityPayloadMap,
+	type ActivityResponseDto,
 	type ActivityType,
-	type GetActivitiesResponseDto,
 } from "./libs/types/types.js";
 export {
 	activityActionIdParameter as activityActionIdParameterValidationSchema,

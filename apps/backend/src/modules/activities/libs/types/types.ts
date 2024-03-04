@@ -1,6 +1,6 @@
 export {
-	type ActivityDto,
+	type ActivityGetActivitiesResponseDto,
 	type ActivityPayloadMap,
+	type ActivityResponseDto,
 	type ActivityType,
-	type GetActivitiesResponseDto,
 } from "@trackmates/shared";

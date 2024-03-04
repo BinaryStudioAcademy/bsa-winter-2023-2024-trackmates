@@ -3,10 +3,10 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
 import {
-	type ActivityDto,
+	type ActivityGetActivitiesResponseDto,
 	type ActivityPayloadMap,
+	type ActivityResponseDto,
 	type ActivityType,
-	type GetActivitiesResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -20,7 +20,7 @@ class ActivityService {
 		this.activityRepository = activityRepository;
 	}
 
-	private mapToDto(entity: ActivityEntity): ActivityDto<ActivityType> {
+	private mapToDto(entity: ActivityEntity): ActivityResponseDto<ActivityType> {
 		const activity = entity.toObject();
 		const payload = JSON.parse(activity.payload) as ValueOf<ActivityPayloadMap>;
 
@@ -64,7 +64,9 @@ class ActivityService {
 		});
 	}
 
-	public async getAll(userId: number): Promise<GetActivitiesResponseDto> {
+	public async getAll(
+		userId: number,
+	): Promise<ActivityGetActivitiesResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
 		const activities = friendsActivities.map((entity) => this.mapToDto(entity));
 

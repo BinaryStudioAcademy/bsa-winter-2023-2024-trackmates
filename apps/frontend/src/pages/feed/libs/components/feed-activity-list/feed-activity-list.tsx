@@ -1,5 +1,5 @@
 import {
-	type ActivityDto,
+	type ActivityResponseDto,
 	type ActivityType,
 } from "~/modules/activities/libs/types/types.js";
 
@@ -7,7 +7,7 @@ import { FeedActivity } from "../feed-activity/feed-activity.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	activities: ActivityDto<ActivityType>[];
+	activities: ActivityResponseDto<ActivityType>[];
 };
 
 const FeedActivityList: React.FC<Properties> = ({ activities }: Properties) => {
