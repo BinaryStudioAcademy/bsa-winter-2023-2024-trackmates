@@ -1,10 +1,8 @@
 import { Content, Image, TabItem } from "~/libs/components/components.js";
-import { initDebounce } from "~/libs/helpers/helpers.js";
-import { useAppForm, useState } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
-import { COURSE_DETAILS_DELAY_MS } from "./libs/constants/constants.js";
 import { Tab } from "./libs/enums/enums.js";
 import { tabToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -34,9 +32,12 @@ const CourseDetails: React.FC<Properties> = ({
 		setSelectedTab(item.tab);
 	};
 
-	const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
-		void handleSubmit(handleTabChange)(event_);
-	}, COURSE_DETAILS_DELAY_MS);
+	const handleFormChange = useCallback(
+		(event_: React.BaseSyntheticEvent) => {
+			void handleSubmit(handleTabChange)(event_);
+		},
+		[handleSubmit],
+	);
 
 	const handleTabContentRender = (selectedTab: string): React.ReactNode => {
 		switch (selectedTab) {
