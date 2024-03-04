@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.27.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.26.0...v1.27.0) (2024-03-04)
+
+
+### Features
+
+* add app domain and ssl tm-287 ([#316](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/316)) ([0f77495](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0f77495780fc59f036f2db534ec4082ad5c5d781))
+
 ## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.25.0...v1.26.0) (2024-03-04)
 
 
