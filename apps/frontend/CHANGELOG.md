@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.17.0...frontend-v1.18.0) (2024-03-04)
+
+
+### Features
+
+* **frontend:** update nickname placeholder tm-305 ([#312](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/312)) ([e38d4ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e38d4aee5d39fb016f820ad0c1ec2a96a9e14788))
+
 ## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.3...frontend-v1.17.0) (2024-03-03)
 
 
