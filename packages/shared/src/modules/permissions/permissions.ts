@@ -1,4 +1,7 @@
-export { PermissionsApiPath } from "./libs/enums/enums.js";
+export {
+	PermissionErrorMessage,
+	PermissionsApiPath,
+} from "./libs/enums/enums.js";
 export { PermissionError } from "./libs/exceptions/exceptions.js";
 export {
 	type PermissionRequestDto,
