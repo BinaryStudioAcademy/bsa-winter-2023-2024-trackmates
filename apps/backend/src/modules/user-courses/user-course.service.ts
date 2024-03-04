@@ -48,7 +48,7 @@ class UserCourseService {
 			await this.courseRepository.findAllByUser({
 				count,
 				page: convertPageToZeroIndexed(page),
-				search: search,
+				search,
 				userId,
 			});
 

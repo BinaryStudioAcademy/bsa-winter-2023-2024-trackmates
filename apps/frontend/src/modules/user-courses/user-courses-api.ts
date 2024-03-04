@@ -1,5 +1,3 @@
-import { type CourseGetAllByUserRequestDto } from "@trackmates/shared";
-
 import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
@@ -10,6 +8,7 @@ import { UserCoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
+	type CourseGetAllByUserRequestDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
