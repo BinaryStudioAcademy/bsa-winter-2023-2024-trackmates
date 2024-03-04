@@ -4,34 +4,33 @@ import {
 	type UseFormRegister,
 } from "react-hook-form";
 
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
+
 import styles from "./styles.module.css";
 
-type TabContents = {
-	[key: string]: JSX.Element;
-};
-
 type Properties<T extends FieldValues> = {
+	isSelected: boolean;
 	label: string;
 	name: Path<T>;
 	register: UseFormRegister<T>;
-	selectedTab: string;
 	tab: string;
-	tabContents: TabContents;
 };
 
 const TabItem = <T extends FieldValues>({
+	isSelected,
 	label,
 	name,
 	register,
-	selectedTab,
 	tab,
-	tabContents,
 }: Properties<T>): JSX.Element => {
 	return (
 		<>
 			<input
 				{...register(name)}
-				className={styles["tabs-radio"]}
+				className={getValidClassNames(
+					styles["tabs-radio"],
+					isSelected && styles["active"],
+				)}
 				id={tab}
 				name={name}
 				type="radio"
@@ -40,7 +39,6 @@ const TabItem = <T extends FieldValues>({
 			<label className={styles["label"]} htmlFor={tab}>
 				{label}
 			</label>
-			{selectedTab === tab && tabContents[tab]}
 		</>
 	);
 };

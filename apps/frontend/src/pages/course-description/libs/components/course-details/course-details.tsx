@@ -1,15 +1,15 @@
 import { Content, Image, TabItem } from "~/libs/components/components.js";
-import { initDebounce } from "~/libs/helpers/helpers.js";
-import { useAppForm, useState } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
-import { COURSE_DETAILS_DELAY_MS } from "./libs/constants/constants.js";
 import { Tab } from "./libs/enums/enums.js";
+import { tabToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type TabValue = {
-	tab: string;
+	tab: ValueOf<typeof Tab>;
 };
 
 type Properties = {
@@ -27,43 +27,57 @@ const CourseDetails: React.FC<Properties> = ({
 		defaultValues: { tab: Tab.ABOUT },
 	});
 
-	const [selectedTab, setSelectedTab] = useState<string>(Tab.ABOUT);
+	const [selectedTab, setSelectedTab] = useState<ValueOf<typeof Tab>>(
+		Tab.ABOUT,
+	);
 
 	const handleTabChange = (item: TabValue): void => {
 		setSelectedTab(item.tab);
 	};
 
-	const handleFormChange = initDebounce((event_: React.BaseSyntheticEvent) => {
-		void handleSubmit(handleTabChange)(event_);
-	}, COURSE_DETAILS_DELAY_MS);
+	const handleFormChange = useCallback(
+		(event_: React.BaseSyntheticEvent) => {
+			void handleSubmit(handleTabChange)(event_);
+		},
+		[handleSubmit],
+	);
 
-	const tabContents = {
-		[Tab.ABOUT]: (
-			<div className={styles["content"]}>
-				<div className={styles["content-title"]}>About this course</div>
-				<Content string={description} />
-				<a
-					className={styles["link"]}
-					href={`${vendor.url}${url}`}
-					rel="noreferrer"
-					target="_blank"
-				>
-					Read more
-				</a>
-			</div>
-		),
-		[Tab.DETAILS]: (
-			<div className={styles["content"]}>
-				<div className={styles["content-title"]}>Course Details</div>
-				<ul className={styles["details-list"]}>
-					{courseSections.map((section) => (
-						<li className={styles["details-item"]} key={section.id}>
-							{section.title}
-						</li>
-					))}
-				</ul>
-			</div>
-		),
+	const handleTabContentRender = (selectedTab: string): React.ReactNode => {
+		switch (selectedTab) {
+			case Tab.ABOUT: {
+				return (
+					<div className={styles["content"]}>
+						<div className={styles["content-title"]}>About this course</div>
+						<Content content={description} />
+						<a
+							className={styles["link"]}
+							href={`${vendor.url}${url}`}
+							rel="noreferrer"
+							target="_blank"
+						>
+							Read more
+						</a>
+					</div>
+				);
+			}
+
+			case Tab.DETAILS: {
+				return (
+					<div className={styles["content"]}>
+						<div className={styles["content-title"]}>Course Details</div>
+						<ul className={styles["details-list"]}>
+							{courseSections.map((section) => (
+								<li className={styles["details-item"]} key={section.id}>
+									{section.title}
+								</li>
+							))}
+						</ul>
+					</div>
+				);
+			}
+		}
+
+		return null;
 	};
 
 	return (
@@ -71,20 +85,21 @@ const CourseDetails: React.FC<Properties> = ({
 			<div className={styles["title"]}>{title}</div>
 			<Image alt="Course" className={styles["image"]} src={image} />
 			<form onChange={handleFormChange}>
-				<div className={styles["tabs"]}>
+				<ul className={styles["tabs"]}>
 					{Object.values(Tab).map((item) => (
-						<TabItem
-							key={item}
-							label={item === Tab.ABOUT ? "About" : "Details"}
-							name="tab"
-							register={register}
-							selectedTab={selectedTab}
-							tab={item}
-							tabContents={tabContents}
-						/>
+						<li className={styles["tab-item"]} key={item}>
+							<TabItem
+								isSelected={item === selectedTab}
+								label={tabToReadable[item]}
+								name="tab"
+								register={register}
+								tab={item}
+							/>
+						</li>
 					))}
-				</div>
+				</ul>
 			</form>
+			<div>{handleTabContentRender(selectedTab)}</div>
 		</div>
 	);
 };
