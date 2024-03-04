@@ -6,18 +6,18 @@ import {
 import { MAXIMUM_CONTENT_LENGTH, START_INDEX } from "./libs/constants.js";
 
 type Properties = {
-	string: string;
+	content: string;
 };
 
-const Content: React.FC<Properties> = ({ string }: Properties) => {
-	const sanitizedString = getSanitizedHtml(string);
+const Content: React.FC<Properties> = ({ content }: Properties) => {
+	const sanitizedString = getSanitizedHtml(content);
 
-	if (string.length <= MAXIMUM_CONTENT_LENGTH) {
+	if (content.length <= MAXIMUM_CONTENT_LENGTH) {
 		return <div dangerouslySetInnerHTML={{ __html: sanitizedString }} />;
 	}
 
 	const truncatedContent = getTruncatedContent(
-		string,
+		content,
 		START_INDEX,
 		MAXIMUM_CONTENT_LENGTH,
 	);

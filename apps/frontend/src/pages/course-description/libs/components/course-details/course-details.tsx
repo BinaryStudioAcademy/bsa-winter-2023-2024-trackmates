@@ -41,7 +41,7 @@ const CourseDetails: React.FC<Properties> = ({
 		[Tab.ABOUT]: (
 			<div className={styles["content"]}>
 				<div className={styles["content-title"]}>About this course</div>
-				<Content string={description} />
+				<Content content={description} />
 				<a
 					className={styles["link"]}
 					href={`${vendor.url}${url}`}
