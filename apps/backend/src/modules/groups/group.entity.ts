@@ -44,7 +44,13 @@ class GroupEntity implements Entity {
 		name: string;
 		updatedAt: string;
 	}): GroupEntity {
-		return new GroupEntity({ createdAt, id, key, name, updatedAt });
+		return new GroupEntity({
+			createdAt,
+			id,
+			key,
+			name,
+			updatedAt,
+		});
 	}
 
 	public static initializeNew({
