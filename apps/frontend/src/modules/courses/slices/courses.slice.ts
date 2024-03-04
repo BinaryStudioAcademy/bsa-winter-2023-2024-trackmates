@@ -50,19 +50,21 @@ const { actions, name, reducer } = createSlice({
 			action: PayloadAction<AddCourseRequestDto[]>,
 		) {
 			state.recommendedCourses = state.recommendedCourses.filter((course) => {
-				return !action.payload.some(
-					(payload) =>
+				return !action.payload.some((payload) => {
+					return (
 						payload.vendorCourseId === course.vendorCourseId &&
-						payload.vendorId === course.vendor.id,
-				);
+						payload.vendorId === course.vendor.id
+					);
+				});
 			});
 
 			state.searchedCourses = state.searchedCourses.filter((course) => {
-				return !action.payload.some(
-					(payload) =>
+				return !action.payload.some((payload) => {
+					return (
 						payload.vendorCourseId === course.vendorCourseId &&
-						payload.vendorId === course.vendor.id,
-				);
+						payload.vendorId === course.vendor.id
+					);
+				});
 			});
 		},
 	},
