@@ -195,7 +195,7 @@ class ActivityController extends BaseController {
 		user: UserAuthResponseDto;
 	}): Promise<APIHandlerResponse> {
 		const activity = { actionId: Number(actionId), type, userId: user.id };
-		const success = await this.activityService.delete(activity);
+		const success = await this.activityService.deleteByKeyFields(activity);
 
 		return {
 			payload: { success },
@@ -274,7 +274,7 @@ class ActivityController extends BaseController {
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.activityService.getAll(user.id),
+			payload: await this.activityService.findAll(user.id),
 			status: HTTPCode.OK,
 		};
 	}

@@ -76,7 +76,9 @@ class SectionStatusService implements Service {
 		actionId: number,
 		userId: number,
 	): Promise<void> {
-		await this.activityService.delete<typeof ActivityTypeValue.FINISH_SECTION>({
+		await this.activityService.deleteByKeyFields<
+			typeof ActivityTypeValue.FINISH_SECTION
+		>({
 			actionId,
 			type: ActivityTypeValue.FINISH_SECTION,
 			userId,

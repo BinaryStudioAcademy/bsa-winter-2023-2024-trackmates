@@ -22,7 +22,7 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(loadActivities.fulfilled, (state, action) => {
-			state.activities = action.payload.activities;
+			state.activities = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadActivities.pending, (state) => {

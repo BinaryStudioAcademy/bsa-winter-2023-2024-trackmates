@@ -1,4 +1,4 @@
-import { type ValueOf } from "~/libs/types/types.js";
+import { type Service, type ValueOf } from "~/libs/types/types.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
@@ -13,7 +13,7 @@ type Constructor = {
 	activityRepository: ActivityRepository;
 };
 
-class ActivityService {
+class ActivityService implements Service {
 	private activityRepository: ActivityRepository;
 
 	public constructor({ activityRepository }: Constructor) {
@@ -38,7 +38,11 @@ class ActivityService {
 		);
 	}
 
-	public async delete<T extends ActivityType>({
+	public async delete(id: number): Promise<boolean> {
+		return await this.activityRepository.delete(id);
+	}
+
+	public async deleteByKeyFields<T extends ActivityType>({
 		actionId,
 		type,
 		userId,
@@ -47,20 +51,37 @@ class ActivityService {
 		type: T;
 		userId: number;
 	}): Promise<boolean> {
-		return await this.activityRepository.delete({
+		return await this.activityRepository.deleteByKeyFields({
 			actionId,
 			type,
 			userId,
 		});
 	}
 
-	public async getAll(
+	public async find(
+		id: number,
+	): Promise<ActivityResponseDto<ActivityType> | null> {
+		const activity = await this.activityRepository.find(id);
+
+		return activity
+			? (activity.toObject() as ActivityResponseDto<ActivityType>)
+			: null;
+	}
+
+	public async findAll(
 		userId: number,
 	): Promise<ActivityGetActivitiesResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
-		const activities = friendsActivities.map((entity) => this.mapToDto(entity));
+		const items = friendsActivities.map((entity) => this.mapToDto(entity));
 
-		return { activities };
+		return { items };
+	}
+
+	public async update(
+		id: number,
+		activity: ActivityEntity,
+	): Promise<ActivityEntity | null> {
+		return await this.activityRepository.update(id, activity);
 	}
 }
 
