@@ -61,6 +61,8 @@ class UserModel extends AbstractModel {
 
 	public email!: string;
 
+	public groups!: GroupModel[];
+
 	public passwordHash!: string;
 
 	public passwordSalt!: string;

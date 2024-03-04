@@ -40,6 +40,14 @@ class UserController extends BaseController {
 		});
 
 		this.addRoute({
+			handler: () => {
+				return this.findAll();
+			},
+			method: "GET",
+			path: UsersApiPath.ROOT,
+		});
+
+		this.addRoute({
 			handler: (options) => {
 				return this.findById(
 					options as APIHandlerOptions<{
@@ -53,6 +61,13 @@ class UserController extends BaseController {
 				params: userIdParametersValidationSchema,
 			},
 		});
+	}
+
+	private async findAll(): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userService.findAll(),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
