@@ -1,5 +1,6 @@
-import { Content, Image, TabItem } from "~/libs/components/components.js";
-import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
+import { Button, Content, Image } from "~/libs/components/components.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
@@ -7,10 +8,6 @@ import { type CourseDto } from "~/modules/courses/courses.js";
 import { Tab } from "./libs/enums/enums.js";
 import { tabToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
-
-type TabValue = {
-	tab: ValueOf<typeof Tab>;
-};
 
 type Properties = {
 	course: CourseDto;
@@ -23,24 +20,15 @@ const CourseDetails: React.FC<Properties> = ({
 }: Properties) => {
 	const { description, image, title, url, vendor } = course;
 
-	const { handleSubmit, register } = useAppForm({
-		defaultValues: { tab: Tab.ABOUT },
-	});
-
 	const [selectedTab, setSelectedTab] = useState<ValueOf<typeof Tab>>(
 		Tab.ABOUT,
 	);
 
-	const handleTabChange = (item: TabValue): void => {
-		setSelectedTab(item.tab);
-	};
-
-	const handleFormChange = useCallback(
-		(event_: React.BaseSyntheticEvent) => {
-			void handleSubmit(handleTabChange)(event_);
-		},
-		[handleSubmit],
-	);
+	const handleTabChange = useCallback((item: ValueOf<typeof Tab>) => {
+		return () => {
+			setSelectedTab(item);
+		};
+	}, []);
 
 	const handleTabContentRender = (selectedTab: string): React.ReactNode => {
 		switch (selectedTab) {
@@ -84,21 +72,21 @@ const CourseDetails: React.FC<Properties> = ({
 		<div className={styles["container"]}>
 			<div className={styles["title"]}>{title}</div>
 			<Image alt="Course" className={styles["image"]} src={image} />
-			<form onChange={handleFormChange}>
-				<ul className={styles["tabs"]}>
-					{Object.values(Tab).map((item) => (
-						<li className={styles["tab-item"]} key={item}>
-							<TabItem
-								isSelected={item === selectedTab}
-								label={tabToReadable[item]}
-								name="tab"
-								register={register}
-								tab={item}
-							/>
-						</li>
-					))}
-				</ul>
-			</form>
+			<ul className={styles["tabs"]}>
+				{Object.values(Tab).map((item) => (
+					<li className={styles["tab-item"]} key={item}>
+						<Button
+							className={getValidClassNames(
+								styles["button"],
+								item === selectedTab && styles["active"],
+							)}
+							label={tabToReadable[item]}
+							onClick={handleTabChange(item)}
+							type="button"
+						/>
+					</li>
+				))}
+			</ul>
 			<div>{handleTabContentRender(selectedTab)}</div>
 		</div>
 	);

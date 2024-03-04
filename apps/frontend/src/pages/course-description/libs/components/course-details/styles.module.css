@@ -59,3 +59,30 @@
 	padding: 15px;
 	list-style: decimal;
 }
+
+.button {
+	display: block;
+	width: 100%;
+	padding: 10px 73px;
+	font-size: var(--font-size-300);
+	color: var(--color-text-500);
+	cursor: pointer;
+	background-color: var(--color-background);
+	border: none;
+	border-bottom: 1px solid #e4e4e4;
+	border-radius: 0;
+}
+
+.button:hover {
+	font-weight: bold;
+	color: var(--color-text-600);
+	cursor: pointer;
+	background-color: transparent;
+	border-bottom: 1px solid #e4e4e4;
+}
+
+.active {
+	font-weight: bold;
+	color: var(--color-text-600);
+	border-bottom: 3px solid var(--main-orange);
+}
