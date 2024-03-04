@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
 import { type CourseDto } from "../libs/types/types.js";
 import { getAll, getRecommended } from "./actions.js";
@@ -43,7 +44,28 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "courses",
-	reducers: {},
+	reducers: {
+		removeAlreadyAddedCourses(
+			state,
+			action: PayloadAction<AddCourseRequestDto[]>,
+		) {
+			state.recommendedCourses = state.recommendedCourses.filter((course) => {
+				return !action.payload.some(
+					(payload) =>
+						payload.vendorCourseId === course.vendorCourseId &&
+						payload.vendorId === course.vendor.id,
+				);
+			});
+
+			state.searchedCourses = state.searchedCourses.filter((course) => {
+				return !action.payload.some(
+					(payload) =>
+						payload.vendorCourseId === course.vendorCourseId &&
+						payload.vendorId === course.vendor.id,
+				);
+			});
+		},
+	},
 });
 
 export { actions, name, reducer };
