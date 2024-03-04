@@ -37,6 +37,10 @@
 	list-style: none;
 }
 
+.tab-item {
+	width: 50%;
+}
+
 .content {
 	order: 1;
 	font-size: var(--font-size-200);

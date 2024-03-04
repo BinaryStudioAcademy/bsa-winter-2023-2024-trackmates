@@ -3,6 +3,8 @@
 }
 
 .label {
+	display: block;
+	width: 100%;
 	padding: 10px 73px;
 	cursor: pointer;
 	border-bottom: 1px solid #e4e4e4;
