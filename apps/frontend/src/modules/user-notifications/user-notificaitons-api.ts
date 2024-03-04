@@ -4,7 +4,11 @@ import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
-import { type NotificationResponseDto } from "./libs/types/types.js";
+import {
+	type AllNotificationsResponseDto,
+	type NotificationResponseDto,
+	type ReadNotificationsRequestDto,
+} from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -46,6 +50,22 @@ class UserNotificationsApi extends BaseHTTPApi {
 		);
 
 		return await response.json<boolean>();
+	}
+
+	public async setReadNotifications(
+		payload: ReadNotificationsRequestDto,
+	): Promise<AllNotificationsResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(UserNotificationsApiPath.READ_NOTIFICATIONS, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "PATCH",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<AllNotificationsResponseDto>();
 	}
 }
 

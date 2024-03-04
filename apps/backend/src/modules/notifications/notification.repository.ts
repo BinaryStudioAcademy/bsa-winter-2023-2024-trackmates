@@ -142,6 +142,36 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
 	}
 
+	public async setReadNotifications(
+		notifactionIds: number[],
+	): Promise<NotificationEntity[]> {
+		const updatedNotifications = await this.notificationModel
+			.query()
+			.where("id", "in", notifactionIds)
+			.update({ status: NotificationStatus.READ })
+			.withGraphFetched(
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
+			.returning("*")
+			.execute();
+
+		return updatedNotifications.map((notification) => {
+			return NotificationEntity.initialize({
+				createdAt: notification.createdAt,
+				id: notification.id,
+				message: notification.message,
+				receiverUserId: notification.receiverUserId,
+				status: notification.status,
+				type: notification.type,
+				updatedAt: notification.updatedAt,
+				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+				userFirstName: notification.user.userDetails.firstName,
+				userId: notification.userId,
+				userLastName: notification.user.userDetails.lastName,
+			});
+		});
+	}
+
 	public async update(
 		notificationId: number,
 		payload: NotificationEntity,

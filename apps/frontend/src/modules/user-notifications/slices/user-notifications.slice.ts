@@ -4,7 +4,7 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type NotificationResponseDto } from "../libs/types/types.js";
-import { getUserNotifications } from "./actions.js";
+import { getUserNotifications, setReadNotifications } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
@@ -26,6 +26,22 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(getUserNotifications.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+		builder.addCase(setReadNotifications.fulfilled, (state, action) => {
+			state.notifications = state.notifications.map((value) => {
+				const updatedNotification = action.payload.items.find(
+					(notification) => notification.id === value.id,
+				);
+
+				return updatedNotification ?? value;
+			});
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(setReadNotifications.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(setReadNotifications.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 	},

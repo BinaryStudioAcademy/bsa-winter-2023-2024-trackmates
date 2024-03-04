@@ -104,6 +104,17 @@ class NotificationService implements Service {
 		return await this.notificationRepository.hasUserUnreadNotifications(userId);
 	}
 
+	public async setReadNotifications(
+		notifactionIds: number[],
+	): Promise<AllNotificationsResponseDto> {
+		const readNotifications =
+			await this.notificationRepository.setReadNotifications(notifactionIds);
+
+		return {
+			items: readNotifications.map((notifcation) => notifcation.toObject()),
+		};
+	}
+
 	public async update(
 		notificationId: number,
 		payload: UpdateNotificationRequestDto,

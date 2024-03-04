@@ -109,7 +109,11 @@ export {
 	UserCoursesApiPath,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
-export { UserNotificationsApiPath } from "./modules/user-notifications/user-notifications.js";
+export {
+	type ReadNotificationsRequestDto,
+	UserNotificationsApiPath,
+	readNotificationsValidationSchema,
+} from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,
 	UserError,

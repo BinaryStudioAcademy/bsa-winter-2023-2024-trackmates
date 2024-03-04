@@ -10,6 +10,8 @@ import { type NotificationService } from "~/modules/notifications/notifications.
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
+import { type ReadNotificationsRequestDto } from "./libs/types/types.js";
+import { readNotificationsValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -77,6 +79,19 @@ class UserNotificationController extends BaseController {
 			method: "GET",
 			path: UserNotificationsApiPath.HAS_UNREAD_NOTIFICATIONS,
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.setReadNotifications(
+					options as APIHandlerOptions<{ body: ReadNotificationsRequestDto }>,
+				);
+			},
+			method: "PATCH",
+			path: UserNotificationsApiPath.READ_NOTIFICATIONS,
+			validation: {
+				body: readNotificationsValidationSchema,
+			},
+		});
 	}
 
 	/**
@@ -138,6 +153,19 @@ class UserNotificationController extends BaseController {
 		return {
 			payload: await this.notificationService.hasUserUnreadNotifications(
 				options.user.id,
+			),
+			status: HTTPCode.OK,
+		};
+	}
+
+	public async setReadNotifications(
+		options: APIHandlerOptions<{
+			body: ReadNotificationsRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.notificationService.setReadNotifications(
+				options.body.notificationIds,
 			),
 			status: HTTPCode.OK,
 		};

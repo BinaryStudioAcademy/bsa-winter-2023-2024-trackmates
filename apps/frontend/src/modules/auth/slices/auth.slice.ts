@@ -97,19 +97,11 @@ const { actions, name, reducer } = createSlice({
 			userNotificationsActions.hasUserUnreadNotifications.fulfilled,
 			(state, action) => {
 				state.hasUnreadNotifications = action.payload;
-				state.dataStatus = DataStatus.FULFILLED;
-			},
-		);
-		builder.addCase(
-			userNotificationsActions.hasUserUnreadNotifications.pending,
-			(state) => {
-				state.dataStatus = DataStatus.PENDING;
 			},
 		);
 		builder.addCase(
 			userNotificationsActions.hasUserUnreadNotifications.rejected,
 			(state) => {
-				state.user = null;
 				state.dataStatus = DataStatus.REJECTED;
 			},
 		);
