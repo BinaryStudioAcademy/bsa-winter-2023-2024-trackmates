@@ -17,7 +17,7 @@ import { VendorError } from "./libs/exceptions/exceptions.js";
 import {
 	UdemyCourseFieldsMapping,
 	UdemyCourseSectionFieldsMapping,
-} from "./libs/mapping/mappings.js";
+} from "./libs/mapper/mappers.js";
 import {
 	type Course,
 	type CourseSection,
