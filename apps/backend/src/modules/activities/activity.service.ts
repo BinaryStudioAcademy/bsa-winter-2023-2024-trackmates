@@ -35,9 +35,30 @@ class ActivityService implements Service {
 		type: T;
 		userId: number;
 	}): Promise<ActivityEntity> {
-		return await this.activityRepository.create(
-			ActivityEntity.initializeNew(activity),
-		);
+		const { actionId, payload, type, userId } = activity;
+		const existingActivity = await this.activityRepository.findByKeyFields({
+			actionId,
+			type,
+			userId,
+		});
+
+		if (existingActivity) {
+			const id = existingActivity.toPlainObject().id;
+
+			return (await this.activityRepository.update(
+				id,
+				ActivityEntity.initializeNew({
+					actionId: actionId,
+					payload: payload,
+					type: type,
+					userId: userId,
+				}),
+			)) as ActivityEntity;
+		} else {
+			return await this.activityRepository.create(
+				ActivityEntity.initializeNew(activity),
+			);
+		}
 	}
 
 	public async delete(id: number): Promise<boolean> {

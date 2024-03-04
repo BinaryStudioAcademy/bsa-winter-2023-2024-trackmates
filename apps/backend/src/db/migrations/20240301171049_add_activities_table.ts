@@ -42,6 +42,10 @@ function up(knex: Knex): Promise<void> {
 			.dateTime(ColumnName.UPDATED_AT)
 			.notNullable()
 			.defaultTo(knex.fn.now());
+		table.unique([ColumnName.ACTION_ID, ColumnName.USER_ID, ColumnName.TYPE], {
+			indexName: "action_id_user_id_type_index",
+			useConstraint: true,
+		});
 	});
 }
 

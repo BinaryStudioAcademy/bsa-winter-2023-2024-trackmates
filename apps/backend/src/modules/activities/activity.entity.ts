@@ -136,6 +136,24 @@ class ActivityEntity implements Entity {
 			userId: this.userId,
 		};
 	}
+
+	public toPlainObject(): {
+		actionId: number;
+		id: number;
+		payload: unknown;
+		type: ValueOf<typeof ActivityTypeValue>;
+		updatedAt: string;
+		userId: number;
+	} {
+		return {
+			actionId: this.actionId,
+			id: this.id as number,
+			payload: this.payload,
+			type: this.type,
+			updatedAt: this.updatedAt,
+			userId: this.userId,
+		};
+	}
 }
 
 export { ActivityEntity };
