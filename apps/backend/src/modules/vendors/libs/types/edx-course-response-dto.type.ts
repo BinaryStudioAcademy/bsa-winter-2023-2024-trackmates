@@ -1,15 +1,6 @@
-type EdxImage = {
-	[key: string]: unknown;
-	uri: string;
-};
-
-type EdxMedia = {
-	[key: string]: unknown;
-	course_image: EdxImage;
-};
+import { type EdxMedia } from "./edx-media.type.js";
 
 type EdxCourseResponseDto = {
-	[key: string]: unknown;
 	course_id: string;
 	media: EdxMedia;
 	name: string;

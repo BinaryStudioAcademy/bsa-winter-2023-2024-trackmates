@@ -10,6 +10,7 @@ import {
 	type CourseFieldsMapping,
 	type CourseSection,
 	type EdxCourseResponseDto,
+	type EdxQuery,
 	type VendorService,
 } from "./libs/types/types.js";
 
@@ -35,7 +36,7 @@ class EdxService implements VendorService {
 		return headers;
 	}
 
-	private load(url: string, query: Record<string, unknown>): Promise<Response> {
+	private load(url: string, query: EdxQuery): Promise<Response> {
 		return this.http.load(url, {
 			headers: this.getHeaders(),
 			method: "GET",
@@ -44,25 +45,12 @@ class EdxService implements VendorService {
 		});
 	}
 
-	private async loadResults(
-		url: string,
-		query: Record<string, unknown>,
-	): Promise<EdxCourseResponseDto[]> {
-		const result = await this.load(url, query);
-		const items = (await result.json()) as Record<
-			"results",
-			EdxCourseResponseDto[]
-		>;
-
-		return items.results;
-	}
-
 	private mapItem<
 		FROM_FIELD extends keyof EdxCourseResponseDto,
 		TO_FIELD extends keyof CourseFieldsMapping,
 	>(
 		item: EdxCourseResponseDto,
-		mapping: Record<TO_FIELD, FROM_FIELD>,
+		mapping: CourseFieldsMapping,
 	): Record<TO_FIELD, EdxCourseResponseDto[FROM_FIELD]> {
 		const mappingEntries = Object.entries(mapping) as [TO_FIELD, FROM_FIELD][];
 		const mappedItem = {} as Record<TO_FIELD, EdxCourseResponseDto[FROM_FIELD]>;
@@ -103,16 +91,21 @@ class EdxService implements VendorService {
 	}
 
 	public async getCourses(search: string): Promise<Course[]> {
-		const query: Record<string, unknown> = {
+		const query: EdxQuery = {
 			search_term: search,
 		};
 
-		const result = await this.loadResults(
+		const result = await this.load(
 			`${this.baseUrl}${EdxApiPath.COURSES}`,
 			query,
 		);
 
-		return result.map((item) => this.mapToCourse(item));
+		const items = (await result.json()) as Record<
+			"results",
+			EdxCourseResponseDto[]
+		>;
+
+		return items.results.map((item) => this.mapToCourse(item));
 	}
 }
 
