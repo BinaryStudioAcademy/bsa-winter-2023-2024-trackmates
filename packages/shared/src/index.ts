@@ -115,9 +115,7 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
-	type UserCourseDto,
 	UserCoursesApiPath,
-	type UserCoursesResponseDto,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {
