@@ -13,14 +13,14 @@ type Properties = {
 };
 
 const ONE_ITEM_COUNT = 1;
-const MAX_PAGES_DISPLAYED = 5;
+const DEFAULT_MAX_PAGES_DISPLAYED = 5;
 const NO_ITEMS_PAGE_COUNT = 0;
 
 const Pagination: React.FC<Properties> = ({
 	currentPage,
 	onPageChange,
 	pageSize,
-	pagesCutCount = MAX_PAGES_DISPLAYED,
+	pagesCutCount = DEFAULT_MAX_PAGES_DISPLAYED,
 	totalCount,
 }: Properties) => {
 	const pagesCount = Math.ceil(totalCount / pageSize);
