@@ -102,6 +102,7 @@ export {
 } from "./modules/friends/friends.js";
 export {
 	UserCoursesApiPath,
+	userCourseGetAllQueryValidationSchema,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {
