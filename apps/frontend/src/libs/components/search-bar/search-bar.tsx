@@ -1,3 +1,4 @@
+import { PaginationValue } from "@trackmates/shared";
 import { type FormEvent } from "react";
 
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
@@ -45,8 +46,10 @@ const SearchBar: React.FC<Properties> = ({
 	): void => {
 		void dispatch(
 			userCourseActions.loadMyCourses({
-				id: user.id,
+				count: PaginationValue.DEFAULT_COUNT,
+				page: PaginationValue.DEFAULT_PAGE,
 				search: filterFormData.search,
+				userId: user.id,
 			}),
 		);
 	};

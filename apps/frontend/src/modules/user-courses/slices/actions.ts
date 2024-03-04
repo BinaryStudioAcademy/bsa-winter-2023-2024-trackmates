@@ -1,12 +1,16 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { PaginationValue } from "@trackmates/shared";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import {
+	type AsyncThunkConfig,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
-	type CoursesResponseDto,
+	type CourseGetAllByUserRequestDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-courses.slice.js";
 
@@ -23,11 +27,8 @@ const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
 );
 
 const loadMyCourses = createAsyncThunk<
-	CoursesResponseDto,
-	{
-		id: number;
-		search: string;
-	},
+	PaginationResponseDto<CourseDto>,
+	CourseGetAllByUserRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/load-all`, (loadMyCoursesPayload, { extra }) => {
 	const { userCourseApi } = extra;
@@ -36,15 +37,17 @@ const loadMyCourses = createAsyncThunk<
 });
 
 const loadUserCourses = createAsyncThunk<
-	CoursesResponseDto,
+	PaginationResponseDto<CourseDto>,
 	number,
 	AsyncThunkConfig
 >(`${sliceName}/load-user-courses`, (userId, { extra }) => {
 	const { userCourseApi } = extra;
 
 	return userCourseApi.getAllByUserId({
-		id: userId,
+		count: PaginationValue.DEFAULT_COUNT,
+		page: PaginationValue.DEFAULT_PAGE,
 		search: "",
+		userId,
 	});
 });
 

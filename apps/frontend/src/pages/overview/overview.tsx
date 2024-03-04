@@ -1,10 +1,11 @@
-import { Courses, Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { Courses, Loader, Pagination } from "~/libs/components/components.js";
+import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useEffect,
+	usePagination,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
@@ -14,16 +15,18 @@ import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
-	const { courses, isLoading, user } = useAppSelector((state) => {
+	const { courses, isLoading, total, user } = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.myCourses,
 			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
+			total: state.userCourses.totalMyCourses,
 			user: state.auth.user as UserAuthResponseDto,
 		};
 	});
 	const dispatch = useAppDispatch();
 	const [isAddCourseModalOpen, setIsAddCourseModalOpen] =
 		useState<boolean>(false);
+	const { handlePageChange: handleMyCoursesPageChange, page } = usePagination();
 
 	const handleModalOpen = useCallback(() => {
 		setIsAddCourseModalOpen(true);
@@ -35,11 +38,13 @@ const Overview: React.FC = () => {
 	useEffect(() => {
 		void dispatch(
 			userCourseActions.loadMyCourses({
-				id: user.id,
+				count: PaginationValue.DEFAULT_COUNT,
+				page,
 				search: "",
+				userId: user.id,
 			}),
 		);
-	}, [dispatch, user]);
+	}, [dispatch, user, page]);
 
 	return (
 		<div className={styles["container"]}>
@@ -51,6 +56,12 @@ const Overview: React.FC = () => {
 				) : (
 					<Courses courses={courses} />
 				)}
+				<Pagination
+					currentPage={page}
+					onPageChange={handleMyCoursesPageChange}
+					pageSize={PaginationValue.DEFAULT_COUNT}
+					totalCount={total}
+				/>
 			</div>
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
 		</div>

@@ -9,6 +9,7 @@ export {
 	DateValue,
 	ExceptionMessage,
 	FormatDateType,
+	PaginationValue,
 	ServerErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
@@ -30,6 +31,8 @@ export {
 } from "./libs/modules/http/http.js";
 export { type Storage } from "./libs/modules/storage/storage.js";
 export {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
 	type ServerCommonErrorResponse,
 	type ServerErrorDetail,
 	type ServerErrorResponse,
@@ -74,6 +77,7 @@ export {
 	type CourseDto,
 	CourseError,
 	CourseErrorMessage,
+	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	CoursesApiPath,
