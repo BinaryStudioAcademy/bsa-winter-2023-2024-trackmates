@@ -28,21 +28,13 @@
 .tabs {
 	display: flex;
 	flex-wrap: wrap;
-	max-width: 700px;
+	width: 100%;
 	margin-top: 31px;
 	color: var(--color-text-500);
 }
 
 .tabs-radio {
 	display: none;
-}
-
-.label {
-	width: 50%;
-	padding: 10px 0;
-	text-align: center;
-	cursor: pointer;
-	border-bottom: 1px solid #e4e4e4;
 }
 
 .content {
@@ -82,9 +74,5 @@
 
 	.content-title {
 		padding-top: 16px;
-	}
-
-	.label {
-		padding: 0 0 16px;
 	}
 }

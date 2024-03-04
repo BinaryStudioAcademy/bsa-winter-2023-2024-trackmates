@@ -1,9 +1,13 @@
+@import url("~/assets/css/media.css");
+
 .tabs-radio {
 	display: none;
 }
 
 .label {
-	padding: 10px 73px;
+	width: 50%;
+	padding: 10px 0;
+	text-align: center;
 	cursor: pointer;
 	border-bottom: 1px solid #e4e4e4;
 }
@@ -12,4 +16,10 @@
 	font-weight: bold;
 	color: var(--color-text-600);
 	border-bottom: 3px solid var(--main-orange);
+}
+
+@media screen and (--large-screen) {
+	.label {
+		padding: 0 0 16px;
+	}
 }
