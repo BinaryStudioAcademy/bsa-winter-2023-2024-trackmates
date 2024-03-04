@@ -15,8 +15,8 @@ import {
 	type ActivityType,
 } from "./libs/types/types.js";
 import {
-	actionIdParameterValidationSchema,
-	applyFinishSectionValidationSchema,
+	activityActionIdParameterValidationSchema,
+	activityApplyFinishSectionValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 type ApplyRequestDto<T extends ActivityType> = {
@@ -84,7 +84,7 @@ class ActivityController extends BaseController {
 			method: "POST",
 			path: ActivitiesApiPath.FINISH_SECTION,
 			validation: {
-				body: applyFinishSectionValidationSchema,
+				body: activityApplyFinishSectionValidationSchema,
 			},
 		});
 		this.addRoute({
@@ -99,9 +99,28 @@ class ActivityController extends BaseController {
 			method: "DELETE",
 			path: ActivitiesApiPath.FINISH_SECTION_$ACTION_ID,
 			validation: {
-				params: actionIdParameterValidationSchema,
+				params: activityActionIdParameterValidationSchema,
 			},
 		});
+	}
+
+	private async create<T extends ActivityType>({
+		actionId,
+		payload,
+		type,
+		user,
+	}: {
+		actionId: number;
+		payload: ActivityPayloadMap[T];
+		type: T;
+		user: UserAuthResponseDto;
+	}): Promise<APIHandlerResponse> {
+		const activity = { actionId, payload, type, userId: user.id };
+
+		return {
+			payload: await this.activityService.create(activity),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
@@ -151,53 +170,6 @@ class ActivityController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/Activity"
 	 */
-	private async create<T extends ActivityType>({
-		actionId,
-		payload,
-		type,
-		user,
-	}: {
-		actionId: number;
-		payload: ActivityPayloadMap[T];
-		type: T;
-		user: UserAuthResponseDto;
-	}): Promise<APIHandlerResponse> {
-		const activity = { actionId, payload, type, userId: user.id };
-
-		return {
-			payload: await this.activityService.create(activity),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /activities/finish-section/{id}:
-	 *    delete:
-	 *      description: delete FINISH_SECTION activity from DB
-	 *      tags:
-	 *        - Activities
-	 *      security:
-	 *        - bearerAuth: []
-	 *      parameters:
-	 *        - name: id
-	 *          in: path
-	 *          description: Action ID
-	 *          required: true
-	 *          schema:
-	 *            type: integer
-	 *            minimum: 1
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
-	 */
 	private async createFinishSection({
 		body: { actionId, payload },
 		user,
@@ -231,6 +203,34 @@ class ActivityController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /activities/finish-section/{id}:
+	 *    delete:
+	 *      description: delete FINISH_SECTION activity from DB
+	 *      tags:
+	 *        - Activities
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: Action ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
 	private async deleteFinishSection({
 		params: { actionId },
 		user,
@@ -248,7 +248,7 @@ class ActivityController extends BaseController {
 	/**
 	 * @swagger
 	 * /activities:
-	 *    post:
+	 *    get:
 	 *      description: get all user friends activities
 	 *      tags:
 	 *        - Activities

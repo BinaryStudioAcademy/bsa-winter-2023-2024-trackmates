@@ -46,8 +46,8 @@ export {
 	type ActivityType,
 	ActivityTypeValue,
 	type GetActivitiesResponseDto,
-	actionIdParameterValidationSchema,
-	applyFinishSectionValidationSchema,
+	activityActionIdParameterValidationSchema,
+	activityApplyFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {

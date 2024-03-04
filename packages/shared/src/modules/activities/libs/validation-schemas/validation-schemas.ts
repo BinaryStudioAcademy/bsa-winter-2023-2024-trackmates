@@ -1,2 +1,2 @@
-export { actionIdParameter } from "./action-id-parameter.validation-schema.js";
-export { applyFinishSection } from "./apply-finish-section.validation-schema.js";
+export { activityActionIdParameter } from "./activity-action-id-parameter.validation-schema.js";
+export { activityApplyFinishSection } from "./activity-apply-finish-section.validation-schema.js";
