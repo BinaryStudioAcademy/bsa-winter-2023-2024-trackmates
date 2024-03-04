@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.3...frontend-v1.17.0) (2024-03-03)
+
+
+### Features
+
+* **frontend:** make add button disable after adding the course tm-291 ([#297](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/297)) ([a04f704](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a04f704f7acf1c7516acf35410bc18a513fb23d2))
+
+## [1.16.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.2...frontend-v1.16.3) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** Add Friend page tm-40 ([#284](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/284)) ([eed6857](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eed6857e334fca5b70bf7984878626c1d4403472))
+
 ## [1.16.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.1...frontend-v1.16.2) (2024-03-03)
 
 

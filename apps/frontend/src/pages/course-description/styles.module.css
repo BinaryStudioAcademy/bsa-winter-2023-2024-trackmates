@@ -17,18 +17,11 @@
 }
 
 .back-button {
-	justify-content: center;
-	padding: 2px 13px;
+	width: 24px;
+	height: 24px;
 	margin-left: 39px;
-	color: #e0e0e0;
+	color: var(--color-text-400);
 	background-color: #e0e0e0;
-	border: none;
-	border-radius: 50%;
-	fill: transparent;
-}
-
-.back-button:hover {
-	color: var(--main-orange);
 }
 
 @media screen and (--large-screen) {

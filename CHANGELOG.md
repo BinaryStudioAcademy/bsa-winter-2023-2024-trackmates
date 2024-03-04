@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.25.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.24.0...v1.25.0) (2024-03-03)
+
+
+### Features
+
+* **frontend:** make add button disable after adding the course tm-291 ([#297](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/297)) ([a04f704](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a04f704f7acf1c7516acf35410bc18a513fb23d2))
+
+## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.4...v1.24.0) (2024-03-03)
+
+
+### Features
+
+* **backend:** Convert text to varchar in DB for fields with a maximum length tm-265 ([#298](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/298)) ([d5d8a70](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d5d8a70b41ab67a65cdf173c86be392f734fa2b0))
+
+## [1.23.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.3...v1.23.4) (2024-03-03)
+
+
+### Bug Fixes
+
+* **backend:** remove mutual followers check tm-290 ([#296](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/296)) ([da012ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/da012ae1bb67433ac78077857993327551a3d0e0))
+
+## [1.23.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.2...v1.23.3) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** Add Friend page tm-40 ([#284](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/284)) ([eed6857](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eed6857e334fca5b70bf7984878626c1d4403472))
+
 ## [1.23.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.23.1...v1.23.2) (2024-03-03)
 
 

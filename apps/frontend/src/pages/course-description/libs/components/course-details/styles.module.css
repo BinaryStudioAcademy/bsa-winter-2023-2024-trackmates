@@ -28,7 +28,7 @@
 .tabs {
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
+	max-width: 700px;
 	margin-top: 31px;
 	color: var(--color-text-500);
 }
@@ -46,9 +46,7 @@
 }
 
 .content {
-	display: none;
 	order: 1;
-	width: 100%;
 	font-size: var(--font-size-200);
 	font-weight: 400;
 	line-height: 20px;
