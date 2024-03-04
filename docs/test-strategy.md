@@ -1,4 +1,4 @@
-# BSWA 2023-2024 – [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) – Test Strategy
+# BSWA 2023-2024 – [TrackMates](https://trackmates.net/) – Test Strategy
 
 ## 1. Introduction
 
@@ -175,7 +175,7 @@ The following types of testing will be used:
 
 - **Environments defined for the project:**
   - [Local environment](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates)
-  - [Test environment](http://development.eu-central-1.elasticbeanstalk.com/)
+  - [Test environment](https://trackmates.net/)
 
 ## 4. Testing Tools and Artifacts
 
