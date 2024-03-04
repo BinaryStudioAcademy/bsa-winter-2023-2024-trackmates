@@ -12,4 +12,7 @@ const permissionController = new PermissionController(
 	permissionService,
 );
 
-export { permissionController };
+export { permissionController, permissionService };
+export { type PermissionResponseDto } from "./libs/types/types.js";
+export { PermissionModel } from "./permission.model.js";
+export { type PermissionService } from "./permission.service.js";

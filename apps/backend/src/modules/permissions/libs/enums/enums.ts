@@ -1,1 +1,1 @@
-export { PermissionsApiPath } from "@trackmates/shared";
+export { PermissionErrorMessage, PermissionsApiPath } from "@trackmates/shared";

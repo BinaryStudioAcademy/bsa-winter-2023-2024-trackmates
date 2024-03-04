@@ -92,7 +92,14 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	GroupError,
+	GroupErrorMessage,
+	type GroupRequestDto,
+	type GroupResponseDto,
+} from "./modules/groups/groups.js";
+export {
 	PermissionError,
+	PermissionErrorMessage,
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 	PermissionsApiPath,

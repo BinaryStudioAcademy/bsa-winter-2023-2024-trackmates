@@ -67,6 +67,23 @@ class PermissionRepository implements Repository<PermissionEntity> {
 		});
 	}
 
+	public async findByKey(key: string): Promise<PermissionEntity | null> {
+		const permissionByKey = await this.permissionModel
+			.query()
+			.findOne("key", key)
+			.execute();
+
+		return permissionByKey
+			? PermissionEntity.initialize({
+					createdAt: permissionByKey.createdAt,
+					id: permissionByKey.id,
+					key: permissionByKey.key,
+					name: permissionByKey.name,
+					updatedAt: permissionByKey.updatedAt,
+				})
+			: null;
+	}
+
 	public async update(
 		id: number,
 		entity: PermissionEntity,

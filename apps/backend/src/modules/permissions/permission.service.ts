@@ -1,6 +1,7 @@
-import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
+import { HTTPCode } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/service.type.js";
 
+import { PermissionErrorMessage } from "./libs/enums/enums.js";
 import { PermissionError } from "./libs/exceptions/exceptions.js";
 import {
 	type PermissionRequestDto,
@@ -20,6 +21,15 @@ class PermissionService implements Service {
 		permission: PermissionRequestDto,
 	): Promise<PermissionResponseDto> {
 		const { key, name } = permission;
+		const permissionByKey = await this.permissionRepository.findByKey(key);
+
+		if (permissionByKey) {
+			throw new PermissionError({
+				message: PermissionErrorMessage.PERMISSION_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
 		const createdPermission = await this.permissionRepository.create(
 			PermissionEntity.initializeNew({ key, name }),
 		);
@@ -32,7 +42,7 @@ class PermissionService implements Service {
 
 		if (!permissionById) {
 			throw new PermissionError({
-				message: ExceptionMessage.PERMISSION_NOT_FOUND,
+				message: PermissionErrorMessage.PERMISSION_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
@@ -45,7 +55,7 @@ class PermissionService implements Service {
 
 		if (!permissionById) {
 			throw new PermissionError({
-				message: ExceptionMessage.PERMISSION_NOT_FOUND,
+				message: PermissionErrorMessage.PERMISSION_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
@@ -63,6 +73,19 @@ class PermissionService implements Service {
 		};
 	}
 
+	public async findByKey(key: string): Promise<PermissionResponseDto> {
+		const permissionByKey = await this.permissionRepository.findByKey(key);
+
+		if (!permissionByKey) {
+			throw new PermissionError({
+				message: PermissionErrorMessage.PERMISSION_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		return permissionByKey.toObject();
+	}
+
 	public async update(
 		id: number,
 		permission: PermissionRequestDto,
@@ -71,7 +94,7 @@ class PermissionService implements Service {
 
 		if (!permissionById) {
 			throw new PermissionError({
-				message: ExceptionMessage.PERMISSION_NOT_FOUND,
+				message: PermissionErrorMessage.PERMISSION_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
 			});
 		}
