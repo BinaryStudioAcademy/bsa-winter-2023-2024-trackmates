@@ -29,6 +29,11 @@ const CourseDetails: React.FC<Properties> = ({
 
 	const [selectedTab, setSelectedTab] = useState<string>(Tab.ABOUT);
 
+	const tabToReadable = {
+		[Tab.ABOUT]: "About",
+		[Tab.DETAILS]: "Details",
+	};
+
 	const handleTabChange = (item: TabValue): void => {
 		setSelectedTab(item.tab);
 	};
@@ -75,7 +80,7 @@ const CourseDetails: React.FC<Properties> = ({
 					{Object.values(Tab).map((item) => (
 						<TabItem
 							key={item}
-							label={item === Tab.ABOUT ? "About" : "Details"}
+							label={tabToReadable[item]}
 							name="tab"
 							register={register}
 							selectedTab={selectedTab}
