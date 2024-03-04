@@ -1,3 +1,7 @@
+export {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "./pagination/pagination.js";
 export { type ServerErrorDetail } from "./server-error-detail.type.js";
 export {
 	type ServerCommonErrorResponse,
