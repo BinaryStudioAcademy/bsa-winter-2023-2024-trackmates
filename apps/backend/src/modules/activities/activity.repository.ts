@@ -2,13 +2,12 @@ import {
 	DatabaseTableName,
 	SortOrder,
 } from "~/libs/modules/database/database.js";
-import { type Repository } from "~/libs/types/types.js";
+import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
-import { RelationName } from "./libs/enums/enums.js";
-import { type ActivityType } from "./libs/types/types.js";
+import { type ActivityTypeValue, RelationName } from "./libs/enums/enums.js";
 
 class ActivityRepository implements Repository<ActivityEntity> {
 	private activityModel: typeof ActivityModel;
@@ -52,7 +51,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		userId,
 	}: {
 		actionId: number;
-		type: ActivityType;
+		type: ValueOf<typeof ActivityTypeValue>;
 		userId: number;
 	}): Promise<boolean> {
 		const deletedItemsCount = await this.activityModel

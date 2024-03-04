@@ -1,7 +1,7 @@
-import { type Entity } from "~/libs/types/types.js";
+import { type Entity, type ValueOf } from "~/libs/types/types.js";
 import { type UserEntity } from "~/modules/users/user.entity.js";
 
-import { type ActivityType } from "./libs/types/types.js";
+import { type ActivityTypeValue } from "./libs/enums/enums.js";
 
 class ActivityEntity implements Entity {
 	public actionId: number;
@@ -10,7 +10,7 @@ class ActivityEntity implements Entity {
 
 	public payload: unknown;
 
-	public type: ActivityType;
+	public type: ValueOf<typeof ActivityTypeValue>;
 
 	public updatedAt: string;
 
@@ -30,7 +30,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: null | number;
 		payload: unknown;
-		type: ActivityType;
+		type: ValueOf<typeof ActivityTypeValue>;
 		updatedAt: string;
 		user: UserEntity | null;
 		userId: number;
@@ -56,7 +56,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: number;
 		payload: unknown;
-		type: ActivityType;
+		type: ValueOf<typeof ActivityTypeValue>;
 		updatedAt: string;
 		user: UserEntity | null;
 		userId: number;
@@ -80,7 +80,7 @@ class ActivityEntity implements Entity {
 	}: {
 		actionId: number;
 		payload: unknown;
-		type: ActivityType;
+		type: ValueOf<typeof ActivityTypeValue>;
 		userId: number;
 	}): ActivityEntity {
 		return new ActivityEntity({
@@ -97,7 +97,7 @@ class ActivityEntity implements Entity {
 	public toNewObject(): {
 		actionId: number;
 		payload: unknown;
-		type: ActivityType;
+		type: ValueOf<typeof ActivityTypeValue>;
 		userId: number;
 	} {
 		return {
@@ -112,7 +112,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: number;
 		payload: unknown;
-		type: ActivityType;
+		type: ValueOf<typeof ActivityTypeValue>;
 		updatedAt: string;
 		user: {
 			avatarUrl: string;

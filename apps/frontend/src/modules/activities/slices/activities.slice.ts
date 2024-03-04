@@ -3,14 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import {
-	type ActivityResponseDto,
-	type ActivityType,
-} from "../libs/types/types.js";
+import { type ActivityTypeValue } from "../libs/enums/enums.js";
+import { type ActivityResponseDto } from "../libs/types/types.js";
 import { loadActivities } from "./actions.js";
 
 type State = {
-	activities: ActivityResponseDto<ActivityType>[];
+	activities: ActivityResponseDto<ValueOf<typeof ActivityTypeValue>>[];
 	dataStatus: ValueOf<typeof DataStatus>;
 };
 

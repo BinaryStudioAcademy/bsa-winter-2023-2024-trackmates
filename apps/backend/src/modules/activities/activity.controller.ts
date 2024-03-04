@@ -6,20 +6,18 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type ActivityService } from "./activity.service.js";
 import { ActivitiesApiPath, ActivityTypeValue } from "./libs/enums/enums.js";
-import {
-	type ActivityPayloadMap,
-	type ActivityType,
-} from "./libs/types/types.js";
+import { type ActivityPayloadMap } from "./libs/types/types.js";
 import {
 	activityActionIdParameterValidationSchema,
 	activityApplyFinishSectionValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
-type ApplyRequestDto<T extends ActivityType> = {
+type ApplyRequestDto<T extends ValueOf<typeof ActivityTypeValue>> = {
 	actionId: number;
 	payload: ActivityPayloadMap[T];
 };
@@ -104,7 +102,7 @@ class ActivityController extends BaseController {
 		});
 	}
 
-	private async create<T extends ActivityType>({
+	private async create<T extends ValueOf<typeof ActivityTypeValue>>({
 		actionId,
 		payload,
 		type,
@@ -185,7 +183,7 @@ class ActivityController extends BaseController {
 		});
 	}
 
-	private async delete<T extends ActivityType>({
+	private async delete<T extends ValueOf<typeof ActivityTypeValue>>({
 		actionId,
 		type,
 		user,

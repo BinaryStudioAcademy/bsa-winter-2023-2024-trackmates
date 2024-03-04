@@ -3,4 +3,3 @@ export { type ActivityFinishSectionRequestDto } from "./activity-finish-section-
 export { type ActivityGetActivitiesResponseDto } from "./activity-get-activities-response-dto.type.js";
 export { type ActivityPayloadMap } from "./activity-payload-map.type.js";
 export { type ActivityResponseDto } from "./activity-response-dto.type.js";
-export { type ActivityType } from "./activity-type.type.js";

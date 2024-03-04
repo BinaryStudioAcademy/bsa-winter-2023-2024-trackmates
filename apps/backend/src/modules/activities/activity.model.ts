@@ -4,9 +4,10 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { UserModel } from "~/modules/users/users.js";
 
-import { type ActivityType } from "./libs/types/types.js";
+import { type ActivityTypeValue } from "./libs/enums/enums.js";
 
 class ActivityModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
@@ -28,7 +29,7 @@ class ActivityModel extends AbstractModel {
 
 	public time!: string;
 
-	public type!: ActivityType;
+	public type!: ValueOf<typeof ActivityTypeValue>;
 
 	public user!: UserModel;
 

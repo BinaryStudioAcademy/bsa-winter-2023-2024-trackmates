@@ -3,7 +3,6 @@ export {
 	type ActivityGetActivitiesResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
-	type ActivityType,
 } from "./libs/types/types.js";
 export {
 	activityActionIdParameter as activityActionIdParameterValidationSchema,

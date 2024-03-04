@@ -1,15 +1,16 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image } from "~/libs/components/components.js";
-import { getActivityTitle } from "~/modules/activities/libs/helpers/helpers.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
-	type ActivityType,
-} from "~/modules/activities/libs/types/types.js";
+	type ActivityTypeValue,
+	getActivityTitle,
+} from "~/modules/activities/activities.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	activity: ActivityResponseDto<ActivityType>;
+	activity: ActivityResponseDto<ValueOf<typeof ActivityTypeValue>>;
 };
 
 const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {

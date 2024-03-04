@@ -2,11 +2,11 @@ import { type Service, type ValueOf } from "~/libs/types/types.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
+import { type ActivityTypeValue } from "./libs/enums/enums.js";
 import {
 	type ActivityGetActivitiesResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
-	type ActivityType,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -20,14 +20,16 @@ class ActivityService implements Service {
 		this.activityRepository = activityRepository;
 	}
 
-	private mapToDto(entity: ActivityEntity): ActivityResponseDto<ActivityType> {
+	private mapToDto(
+		entity: ActivityEntity,
+	): ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> {
 		const activity = entity.toObject();
 		const payload = activity.payload as ValueOf<ActivityPayloadMap>;
 
 		return { ...activity, payload };
 	}
 
-	public async create<T extends ActivityType>(activity: {
+	public async create<T extends ValueOf<typeof ActivityTypeValue>>(activity: {
 		actionId: number;
 		payload: ActivityPayloadMap[T];
 		type: T;
@@ -42,7 +44,7 @@ class ActivityService implements Service {
 		return await this.activityRepository.delete(id);
 	}
 
-	public async deleteByKeyFields<T extends ActivityType>({
+	public async deleteByKeyFields<T extends ValueOf<typeof ActivityTypeValue>>({
 		actionId,
 		type,
 		userId,
@@ -60,11 +62,13 @@ class ActivityService implements Service {
 
 	public async find(
 		id: number,
-	): Promise<ActivityResponseDto<ActivityType> | null> {
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> | null> {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
-			? (activity.toObject() as ActivityResponseDto<ActivityType>)
+			? (activity.toObject() as ActivityResponseDto<
+					ValueOf<typeof ActivityTypeValue>
+				>)
 			: null;
 	}
 

@@ -11,8 +11,7 @@ const activitiesApi = new ActivitiesApi({
 });
 
 export { activitiesApi };
-export {
-	type ActivityResponseDto,
-	type ActivityType,
-} from "./libs/types/types.js";
+export { ActivityTypeValue } from "./libs/enums/enums.js";
+export { getActivityTitle } from "./libs/helpers/helpers.js";
+export { type ActivityResponseDto } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/activities.js";

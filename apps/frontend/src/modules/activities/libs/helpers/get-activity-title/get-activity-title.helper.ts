@@ -1,11 +1,11 @@
-import { ActivityTypeValue } from "~/modules/activities/libs/enums/enums.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
-	type ActivityType,
-} from "~/modules/activities/libs/types/types.js";
+	ActivityTypeValue,
+} from "~/modules/activities/activities.js";
 
 const getActivityTitle = (
-	activity: ActivityResponseDto<ActivityType>,
+	activity: ActivityResponseDto<ValueOf<typeof ActivityTypeValue>>,
 ): string => {
 	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
 	const title = activity.payload.title;
