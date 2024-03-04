@@ -38,33 +38,42 @@ const CourseDetails: React.FC<Properties> = ({
 		void handleSubmit(handleTabChange)(event_);
 	}, COURSE_DETAILS_DELAY_MS);
 
-	const tabContents = {
-		[Tab.ABOUT]: (
-			<div className={styles["content"]}>
-				<div className={styles["content-title"]}>About this course</div>
-				<Content content={description} />
-				<a
-					className={styles["link"]}
-					href={`${vendor.url}${url}`}
-					rel="noreferrer"
-					target="_blank"
-				>
-					Read more
-				</a>
-			</div>
-		),
-		[Tab.DETAILS]: (
-			<div className={styles["content"]}>
-				<div className={styles["content-title"]}>Course Details</div>
-				<ul className={styles["details-list"]}>
-					{courseSections.map((section) => (
-						<li className={styles["details-item"]} key={section.id}>
-							{section.title}
-						</li>
-					))}
-				</ul>
-			</div>
-		),
+	const handleTabContentRender = (selectedTab: string): React.ReactNode => {
+		switch (selectedTab) {
+			case Tab.ABOUT: {
+				return (
+					<div className={styles["content"]}>
+						<div className={styles["content-title"]}>About this course</div>
+						<Content content={description} />
+						<a
+							className={styles["link"]}
+							href={`${vendor.url}${url}`}
+							rel="noreferrer"
+							target="_blank"
+						>
+							Read more
+						</a>
+					</div>
+				);
+			}
+
+			case Tab.DETAILS: {
+				return (
+					<div className={styles["content"]}>
+						<div className={styles["content-title"]}>Course Details</div>
+						<ul className={styles["details-list"]}>
+							{courseSections.map((section) => (
+								<li className={styles["details-item"]} key={section.id}>
+									{section.title}
+								</li>
+							))}
+						</ul>
+					</div>
+				);
+			}
+		}
+
+		return null;
 	};
 
 	return (
@@ -72,20 +81,21 @@ const CourseDetails: React.FC<Properties> = ({
 			<div className={styles["title"]}>{title}</div>
 			<Image alt="Course" className={styles["image"]} src={image} />
 			<form onChange={handleFormChange}>
-				<div className={styles["tabs"]}>
+				<ul className={styles["tabs"]}>
 					{Object.values(Tab).map((item) => (
-						<TabItem
-							key={item}
-							label={tabToReadable[item]}
-							name="tab"
-							register={register}
-							selectedTab={selectedTab}
-							tab={item}
-							tabContents={tabContents}
-						/>
+						<li className={styles["tab-item"]} key={item}>
+							<TabItem
+								isSelected={item === selectedTab}
+								label={tabToReadable[item]}
+								name="tab"
+								register={register}
+								tab={item}
+							/>
+						</li>
 					))}
-				</div>
+				</ul>
 			</form>
+			<div>{handleTabContentRender(selectedTab)}</div>
 		</div>
 	);
 };

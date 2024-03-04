@@ -1,3 +1,7 @@
+.container {
+	width: 100%;
+}
+
 .title {
 	padding-bottom: 17px;
 	font-size: var(--font-size-400);
@@ -26,9 +30,11 @@
 .tabs {
 	display: flex;
 	flex-wrap: wrap;
-	max-width: 700px;
+	width: 100%;
+	padding: 0;
 	margin-top: 31px;
 	color: var(--color-text-500);
+	list-style: none;
 }
 
 .content {
