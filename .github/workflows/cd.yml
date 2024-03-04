@@ -41,7 +41,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: development
-      url: http://development.eu-central-1.elasticbeanstalk.com/
+      url: https://trackmates.net/
 
     steps:
       - name: Code Checkout
