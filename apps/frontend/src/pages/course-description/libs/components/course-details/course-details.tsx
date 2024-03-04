@@ -6,6 +6,7 @@ import { type CourseDto } from "~/modules/courses/courses.js";
 
 import { COURSE_DETAILS_DELAY_MS } from "./libs/constants/constants.js";
 import { Tab } from "./libs/enums/enums.js";
+import { tabToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type TabValue = {
@@ -28,11 +29,6 @@ const CourseDetails: React.FC<Properties> = ({
 	});
 
 	const [selectedTab, setSelectedTab] = useState<string>(Tab.ABOUT);
-
-	const tabToReadable = {
-		[Tab.ABOUT]: "About",
-		[Tab.DETAILS]: "Details",
-	};
 
 	const handleTabChange = (item: TabValue): void => {
 		setSelectedTab(item.tab);
