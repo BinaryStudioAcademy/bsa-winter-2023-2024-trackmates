@@ -4,6 +4,7 @@ import {
 	type ChatMessageModel,
 	MessageStatus,
 } from "~/modules/chat-messages/chat-messages.js";
+import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";
@@ -35,6 +36,15 @@ class ChatRepository implements Repository<ChatEntity> {
 				createdAt: createdChat.firstUser.createdAt,
 				email: createdChat.firstUser.email,
 				firstName: createdChat.firstUser.userDetails.firstName,
+				groups: createdChat.firstUser.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: createdChat.firstUser.id,
 				lastName: createdChat.firstUser.userDetails.lastName,
 				nickname: createdChat.firstUser.userDetails.nickname,
@@ -49,6 +59,15 @@ class ChatRepository implements Repository<ChatEntity> {
 				createdAt: createdChat.secondUser.createdAt,
 				email: createdChat.secondUser.email,
 				firstName: createdChat.secondUser.userDetails.firstName,
+				groups: createdChat.secondUser.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: createdChat.secondUser.id,
 				lastName: createdChat.secondUser.userDetails.lastName,
 				nickname: createdChat.secondUser.userDetails.nickname,
@@ -86,6 +105,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						createdAt: chatById.firstUser.createdAt,
 						email: chatById.firstUser.email,
 						firstName: chatById.firstUser.userDetails.firstName,
+						groups: chatById.firstUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatById.firstUser.id,
 						lastName: chatById.firstUser.userDetails.lastName,
 						nickname: chatById.firstUser.userDetails.nickname,
@@ -99,6 +127,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						createdAt: chatById.secondUser.createdAt,
 						email: chatById.secondUser.email,
 						firstName: chatById.secondUser.userDetails.firstName,
+						groups: chatById.secondUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatById.secondUser.id,
 						lastName: chatById.secondUser.userDetails.lastName,
 						nickname: chatById.secondUser.userDetails.nickname,
@@ -150,6 +187,15 @@ class ChatRepository implements Repository<ChatEntity> {
 					createdAt: chatByUserId.firstUser.createdAt,
 					email: chatByUserId.firstUser.email,
 					firstName: chatByUserId.firstUser.userDetails.firstName,
+					groups: chatByUserId.firstUser.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: chatByUserId.firstUser.id,
 					lastName: chatByUserId.firstUser.userDetails.lastName,
 					nickname: chatByUserId.firstUser.userDetails.nickname,
@@ -170,6 +216,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						email: chatByUserId.lastMessage.senderUser.email,
 						firstName:
 							chatByUserId.lastMessage.senderUser.userDetails.firstName,
+						groups: chatByUserId.lastMessage.senderUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatByUserId.lastMessage.senderUser.id,
 						lastName: chatByUserId.lastMessage.senderUser.userDetails.lastName,
 						nickname: chatByUserId.lastMessage.senderUser.userDetails.nickname,
@@ -187,6 +242,15 @@ class ChatRepository implements Repository<ChatEntity> {
 					createdAt: chatByUserId.secondUser.createdAt,
 					email: chatByUserId.secondUser.email,
 					firstName: chatByUserId.secondUser.userDetails.firstName,
+					groups: chatByUserId.secondUser.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: chatByUserId.secondUser.id,
 					lastName: chatByUserId.secondUser.userDetails.lastName,
 					nickname: chatByUserId.secondUser.userDetails.nickname,
@@ -222,6 +286,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						createdAt: chatByMembersIds.firstUser.createdAt,
 						email: chatByMembersIds.firstUser.email,
 						firstName: chatByMembersIds.firstUser.userDetails.firstName,
+						groups: chatByMembersIds.firstUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatByMembersIds.firstUser.id,
 						lastName: chatByMembersIds.firstUser.userDetails.lastName,
 						nickname: chatByMembersIds.firstUser.userDetails.nickname,
@@ -241,6 +314,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								createdAt: message.senderUser.createdAt,
 								email: message.senderUser.email,
 								firstName: message.senderUser.userDetails.firstName,
+								groups: message.senderUser.groups.map((group) => {
+									return GroupEntity.initialize({
+										createdAt: group.createdAt,
+										id: group.id,
+										key: group.key,
+										name: group.name,
+										updatedAt: group.updatedAt,
+									});
+								}),
 								id: message.senderUser.id,
 								lastName: message.senderUser.userDetails.lastName,
 								nickname: message.senderUser.userDetails.nickname,
@@ -259,6 +341,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						createdAt: chatByMembersIds.secondUser.createdAt,
 						email: chatByMembersIds.secondUser.email,
 						firstName: chatByMembersIds.secondUser.userDetails.firstName,
+						groups: chatByMembersIds.secondUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatByMembersIds.secondUser.id,
 						lastName: chatByMembersIds.secondUser.userDetails.lastName,
 						nickname: chatByMembersIds.secondUser.userDetails.nickname,
@@ -291,6 +382,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						createdAt: chatById.firstUser.createdAt,
 						email: chatById.firstUser.email,
 						firstName: chatById.firstUser.userDetails.firstName,
+						groups: chatById.firstUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatById.firstUser.id,
 						lastName: chatById.firstUser.userDetails.lastName,
 						nickname: chatById.firstUser.userDetails.nickname,
@@ -310,6 +410,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								createdAt: message.senderUser.createdAt,
 								email: message.senderUser.email,
 								firstName: message.senderUser.userDetails.firstName,
+								groups: message.senderUser.groups.map((group) => {
+									return GroupEntity.initialize({
+										createdAt: group.createdAt,
+										id: group.id,
+										key: group.key,
+										name: group.name,
+										updatedAt: group.updatedAt,
+									});
+								}),
 								id: message.senderUser.id,
 								lastName: message.senderUser.userDetails.lastName,
 								nickname: message.senderUser.userDetails.nickname,
@@ -327,6 +436,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						createdAt: chatById.secondUser.createdAt,
 						email: chatById.secondUser.email,
 						firstName: chatById.secondUser.userDetails.firstName,
+						groups: chatById.secondUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatById.secondUser.id,
 						lastName: chatById.secondUser.userDetails.lastName,
 						nickname: chatById.secondUser.userDetails.nickname,
@@ -354,6 +472,15 @@ class ChatRepository implements Repository<ChatEntity> {
 				createdAt: updatedChat.firstUser.createdAt,
 				email: updatedChat.firstUser.email,
 				firstName: updatedChat.firstUser.userDetails.firstName,
+				groups: updatedChat.firstUser.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: updatedChat.firstUser.id,
 				lastName: updatedChat.firstUser.userDetails.lastName,
 				nickname: updatedChat.firstUser.userDetails.nickname,
@@ -367,6 +494,15 @@ class ChatRepository implements Repository<ChatEntity> {
 				createdAt: updatedChat.secondUser.createdAt,
 				email: updatedChat.secondUser.email,
 				firstName: updatedChat.secondUser.userDetails.firstName,
+				groups: updatedChat.secondUser.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: updatedChat.secondUser.id,
 				lastName: updatedChat.secondUser.userDetails.lastName,
 				nickname: updatedChat.secondUser.userDetails.nickname,

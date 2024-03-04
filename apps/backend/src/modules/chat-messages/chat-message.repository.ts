@@ -1,4 +1,5 @@
 import { type Repository } from "~/libs/types/types.js";
+import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
@@ -39,6 +40,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				createdAt: createdMessage.senderUser.createdAt,
 				email: createdMessage.senderUser.email,
 				firstName: createdMessage.senderUser.userDetails.firstName,
+				groups: createdMessage.senderUser.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: createdMessage.senderUser.id,
 				lastName: createdMessage.senderUser.userDetails.lastName,
 				nickname: createdMessage.senderUser.userDetails.nickname,
@@ -81,6 +91,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 						createdAt: chatMessageById.senderUser.createdAt,
 						email: chatMessageById.senderUser.email,
 						firstName: chatMessageById.senderUser.userDetails.firstName,
+						groups: chatMessageById.senderUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: chatMessageById.senderUser.id,
 						lastName: chatMessageById.senderUser.userDetails.lastName,
 						nickname: chatMessageById.senderUser.userDetails.nickname,
@@ -115,6 +134,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 					createdAt: messageByUserId.senderUser.createdAt,
 					email: messageByUserId.senderUser.email,
 					firstName: messageByUserId.senderUser.userDetails.firstName,
+					groups: messageByUserId.senderUser.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: messageByUserId.senderUser.id,
 					lastName: messageByUserId.senderUser.userDetails.lastName,
 					nickname: messageByUserId.senderUser.userDetails.nickname,
@@ -154,6 +182,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				createdAt: updatedChatMessage.senderUser.createdAt,
 				email: updatedChatMessage.senderUser.email,
 				firstName: updatedChatMessage.senderUser.userDetails.firstName,
+				groups: updatedChatMessage.senderUser.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: updatedChatMessage.senderUser.id,
 				lastName: updatedChatMessage.senderUser.userDetails.lastName,
 				nickname: updatedChatMessage.senderUser.userDetails.nickname,

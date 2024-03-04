@@ -1,6 +1,7 @@
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
+import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -51,6 +52,15 @@ class FriendRepository implements Repository<UserEntity> {
 			createdAt: followingUser.createdAt,
 			email: followingUser.email,
 			firstName: followingUser.userDetails.firstName,
+			groups: followingUser.groups.map((group) => {
+				return GroupEntity.initialize({
+					createdAt: group.createdAt,
+					id: group.id,
+					key: group.key,
+					name: group.name,
+					updatedAt: group.updatedAt,
+				});
+			}),
 			id: followingUser.id,
 			lastName: followingUser.userDetails.lastName,
 			nickname: followingUser.userDetails.nickname,
@@ -105,6 +115,15 @@ class FriendRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -132,6 +151,15 @@ class FriendRepository implements Repository<UserEntity> {
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
+				groups: user.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: user.id,
 				lastName: user.userDetails.lastName,
 				nickname: user.userDetails.nickname,
@@ -210,6 +238,15 @@ class FriendRepository implements Repository<UserEntity> {
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
+				groups: user.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: user.id,
 				lastName: user.userDetails.lastName,
 				nickname: user.userDetails.nickname,
@@ -238,6 +275,15 @@ class FriendRepository implements Repository<UserEntity> {
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
+				groups: user.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: user.id,
 				lastName: user.userDetails.lastName,
 				nickname: user.userDetails.nickname,
@@ -266,6 +312,15 @@ class FriendRepository implements Repository<UserEntity> {
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
+				groups: user.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: user.id,
 				lastName: user.userDetails.lastName,
 				nickname: user.userDetails.nickname,
@@ -289,6 +344,15 @@ class FriendRepository implements Repository<UserEntity> {
 			createdAt: updatedSubscription.createdAt,
 			email: updatedSubscription.email,
 			firstName: updatedSubscription.userDetails.firstName,
+			groups: updatedSubscription.groups.map((group) => {
+				return GroupEntity.initialize({
+					createdAt: group.createdAt,
+					id: group.id,
+					key: group.key,
+					name: group.name,
+					updatedAt: group.updatedAt,
+				});
+			}),
 			id: updatedSubscription.id,
 			lastName: updatedSubscription.userDetails.lastName,
 			nickname: updatedSubscription.userDetails.nickname,
