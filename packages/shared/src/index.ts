@@ -96,6 +96,7 @@ export {
 	GroupErrorMessage,
 	type GroupRequestDto,
 	type GroupResponseDto,
+	GroupsApiPath,
 } from "./modules/groups/groups.js";
 export {
 	PermissionError,

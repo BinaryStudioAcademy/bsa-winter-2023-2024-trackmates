@@ -9,6 +9,7 @@ import { courseSectionController } from "~/modules/course-sections/course-sectio
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
 import { friendController } from "~/modules/friends/friends.js";
+import { groupController } from "~/modules/groups/groups.js";
 import { permissionController } from "~/modules/permissions/permissions.js";
 import { userCourseController } from "~/modules/user-courses/user-courses.js";
 import { userController, userService } from "~/modules/users/users.js";
@@ -28,6 +29,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...userCourseController.routes,
 	...fileController.routes,
 	...friendController.routes,
+	...groupController.routes,
 	...permissionController.routes,
 	...userController.routes,
 	...courseSectionController.routes,

@@ -1,4 +1,4 @@
-export { GroupErrorMessage } from "./libs/enums/enums.js";
+export { GroupErrorMessage, GroupsApiPath } from "./libs/enums/enums.js";
 export { GroupError } from "./libs/exceptions/exceptions.js";
 export {
 	type GroupRequestDto,
