@@ -1,7 +1,7 @@
 import {
 	type ActivityResponseDto,
 	type ActivityType,
-} from "~/modules/activities/libs/types/types.js";
+} from "~/modules/activities/activities.js";
 
 import { FeedActivity } from "../feed-activity/feed-activity.js";
 import styles from "./styles.module.css";

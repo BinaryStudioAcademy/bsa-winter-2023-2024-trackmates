@@ -11,4 +11,8 @@ const activitiesApi = new ActivitiesApi({
 });
 
 export { activitiesApi };
+export {
+	type ActivityResponseDto,
+	type ActivityType,
+} from "./libs/types/types.js";
 export { actions, reducer } from "./slices/activities.js";
