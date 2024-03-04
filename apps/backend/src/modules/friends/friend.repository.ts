@@ -53,7 +53,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.from(DatabaseTableName.FRIENDS)
 			.select("*")
 			.where({
-				id: id,
+				id,
 			})
 			.first()
 			.delete();

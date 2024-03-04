@@ -9,13 +9,15 @@ import {
 	CourseField,
 	CourseSectionField,
 	UdemyApiPath,
-	UdemyCourseFieldsMapping,
-	UdemyCourseSectionFieldsMapping,
 	UdemyDefaultSearchPageParameter,
 	UdemyPageParameter,
 	VendorErrorMessage,
 } from "./libs/enums/enums.js";
 import { VendorError } from "./libs/exceptions/exceptions.js";
+import {
+	UdemyCourseFieldsMapping,
+	UdemyCourseSectionFieldsMapping,
+} from "./libs/mapping/mappings.js";
 import {
 	type Course,
 	type CourseSection,
@@ -70,14 +72,14 @@ class UdemyService implements VendorService {
 		let page = 0;
 
 		do {
-			page = page + UdemyPageParameter.step;
+			page = page + UdemyPageParameter.STEP;
 			results = await this.loadResults(url, {
 				...query,
 				page,
-				page_size: UdemyPageParameter.size,
+				page_size: UdemyPageParameter.SIZE,
 			});
 			items = [...items, ...results];
-		} while (results.length == UdemyPageParameter.size);
+		} while (results.length == UdemyPageParameter.SIZE);
 
 		return items;
 	}

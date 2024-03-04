@@ -1,8 +1,9 @@
-import { Button, Image } from "~/libs/components/components.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
+import { Button } from "../button/button.js";
+import { Image } from "../image/image.js";
 import styles from "./styles.module.css";
 
 type Properties = {
