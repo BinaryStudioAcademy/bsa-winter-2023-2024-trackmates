@@ -1,5 +1,5 @@
 import { Courses, Loader } from "~/libs/components/components.js";
-import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -33,7 +33,7 @@ const Overview: React.FC = () => {
 		setIsAddCourseModalOpen(false);
 	}, [setIsAddCourseModalOpen]);
 
-	useAppTitle(AppTitle.TRACKMATES);
+	useAppTitle();
 
 	useEffect(() => {
 		void dispatch(

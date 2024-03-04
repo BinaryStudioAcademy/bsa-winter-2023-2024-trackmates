@@ -1,8 +1,8 @@
 import { useEffect } from "~/libs/hooks/hooks.js";
 
-const useAppTitle = (title: string): void => {
+const useAppTitle = (title?: string): void => {
 	useEffect(() => {
-		document.title = title;
+		document.title = title ? `${title} | TrackMates` : "TrackMates";
 	}, [title]);
 };
 
