@@ -4,7 +4,7 @@ import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 
 import { ActivitiesApiPath } from "./libs/enums/enums.js";
-import { type ActivityGetActivitiesResponseDto } from "./libs/types/types.js";
+import { type ActivityGetAllResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -17,7 +17,7 @@ class ActivitiesApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.ACTIVITIES, storage });
 	}
 
-	public async getActivities(): Promise<ActivityGetActivitiesResponseDto> {
+	public async getActivities(): Promise<ActivityGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(ActivitiesApiPath.ROOT, {}),
 			{
@@ -27,7 +27,7 @@ class ActivitiesApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<ActivityGetActivitiesResponseDto>();
+		return await response.json<ActivityGetAllResponseDto>();
 	}
 }
 
