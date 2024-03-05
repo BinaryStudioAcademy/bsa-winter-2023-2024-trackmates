@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.12.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.11.0...shared-v1.12.0) (2024-03-05)
+
+
+### Features
+
+* **frontend/backend/shared:** add possibility to complete remove completion of a course section tm-161 ([#275](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/275)) ([f216ba4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f216ba4d3b50f2fe2670f494e7216cbaad79fd5b))
+
 ## [1.11.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.10.2...shared-v1.11.0) (2024-03-05)
 
 
