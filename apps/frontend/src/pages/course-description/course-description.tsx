@@ -21,7 +21,10 @@ const CourseDescription: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	const { courseId } = useParams<{ courseId: string }>();
+	const { courseId, userId } = useParams<{
+		courseId: string;
+		userId: string;
+	}>();
 
 	useEffect(() => {
 		if (courseId) {
@@ -54,7 +57,11 @@ const CourseDescription: React.FC = () => {
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (
-					<CourseSections courseSections={courseSections} />
+					<CourseSections
+						courseId={Number(courseId)}
+						courseSections={courseSections}
+						userId={Number(userId)}
+					/>
 				)}
 			</div>
 		</>

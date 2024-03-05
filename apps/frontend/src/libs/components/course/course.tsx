@@ -34,7 +34,7 @@ const Course: React.FC<Properties> = ({
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
-			vendorCourseId: vendorCourseId,
+			vendorCourseId,
 			vendorId: vendor.id,
 		});
 		setIsButtonDisabled(true);
