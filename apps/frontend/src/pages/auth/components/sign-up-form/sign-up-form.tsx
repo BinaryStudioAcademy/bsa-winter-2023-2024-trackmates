@@ -1,6 +1,11 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
-import { useAppForm, useCallback, useState } from "~/libs/hooks/hooks.js";
+import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
+import {
+	useAppForm,
+	useAppTitle,
+	useCallback,
+	useState,
+} from "~/libs/hooks/hooks.js";
 import {
 	type UserSignUpRequestDto,
 	userSignUpValidationSchema,
@@ -31,6 +36,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	const handleChangePasswordVisibility = useCallback(() => {
 		setPasswordVisibility(!isPasswordVisible);
 	}, [isPasswordVisible]);
+
+	useAppTitle(AppTitle.SIGN_UP);
 
 	return (
 		<form className={styles["form"]} onSubmit={handleFormSubmit}>

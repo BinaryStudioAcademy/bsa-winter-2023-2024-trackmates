@@ -3,6 +3,7 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useCallback,
 	useEffect,
 	useState,
@@ -31,6 +32,8 @@ const Overview: React.FC = () => {
 	const handleModalClose = useCallback(() => {
 		setIsAddCourseModalOpen(false);
 	}, [setIsAddCourseModalOpen]);
+
+	useAppTitle();
 
 	useEffect(() => {
 		void dispatch(
