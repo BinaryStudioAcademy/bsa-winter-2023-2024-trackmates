@@ -13,6 +13,7 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { socketService } from "~/libs/modules/socket/socket.js";
 import { type Token } from "~/libs/modules/token/token.js";
 import { authorization, fileUpload } from "~/libs/plugins/plugins.js";
 import {
@@ -157,6 +158,10 @@ class BaseServerApplication implements ServerApplication {
 		});
 	}
 
+	private initSocket(): void {
+		socketService.initialize(this.app.server);
+	}
+
 	private initValidationCompiler(): void {
 		this.app.setValidatorCompiler<ValidationSchema>(({ schema }) => {
 			return <T, R = ReturnType<ValidationSchema["parse"]>>(data: T): R => {
@@ -202,6 +207,8 @@ class BaseServerApplication implements ServerApplication {
 		await this.initPlugins();
 
 		this.initRoutes();
+
+		this.initSocket();
 
 		this.database.connect();
 
