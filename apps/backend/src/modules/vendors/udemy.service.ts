@@ -15,8 +15,8 @@ import {
 } from "./libs/enums/enums.js";
 import { VendorError } from "./libs/exceptions/exceptions.js";
 import {
-	UdemyCourseFieldsMap,
-	UdemyCourseSectionFieldsMap,
+	UdemyCourseFieldsToCourse,
+	UdemyCourseSectionFieldsToCourseSection,
 } from "./libs/maps/maps.js";
 import {
 	type Course,
@@ -116,7 +116,7 @@ class UdemyService implements VendorService {
 	}
 
 	private mapToCourse(item: Record<string, unknown>): Course {
-		const course = this.mapItem(item, UdemyCourseFieldsMap);
+		const course = this.mapItem(item, UdemyCourseFieldsToCourse);
 
 		const vendorCourseId = (
 			course.vendorCourseId as number | string
@@ -126,7 +126,10 @@ class UdemyService implements VendorService {
 	}
 
 	private mapToCourseSection(item: Record<string, unknown>): CourseSection {
-		return this.mapItem(item, UdemyCourseSectionFieldsMap) as CourseSection;
+		return this.mapItem(
+			item,
+			UdemyCourseSectionFieldsToCourseSection,
+		) as CourseSection;
 	}
 
 	public async getCourseById(id: string): Promise<Course> {

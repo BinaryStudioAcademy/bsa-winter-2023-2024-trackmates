@@ -1,7 +1,7 @@
 import { CourseField } from "~/modules/vendors/libs/enums/enums.js";
 import { type CourseFieldsMapping } from "~/modules/vendors/libs/types/types.js";
 
-const UdemyCourseFieldsMap: CourseFieldsMapping = {
+const UdemyCourseFieldsToCourse: CourseFieldsMapping = {
 	description: CourseField["DESCRIPTION"] as string,
 	image: CourseField["IMAGE"] as string,
 	title: CourseField["TITLE"] as string,
@@ -9,4 +9,4 @@ const UdemyCourseFieldsMap: CourseFieldsMapping = {
 	vendorCourseId: CourseField["ID"] as string,
 } as const;
 
-export { UdemyCourseFieldsMap };
+export { UdemyCourseFieldsToCourse };

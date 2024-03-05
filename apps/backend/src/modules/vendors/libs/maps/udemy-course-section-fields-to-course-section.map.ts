@@ -1,8 +1,8 @@
 import { CourseSectionField } from "~/modules/vendors/libs/enums/enums.js";
 import { type CourseSectionFieldsMapping } from "~/modules/vendors/libs/types/types.js";
 
-const UdemyCourseSectionFieldsMap: CourseSectionFieldsMapping = {
+const UdemyCourseSectionFieldsToCourseSection: CourseSectionFieldsMapping = {
 	title: CourseSectionField["TITLE"] as string,
 } as const;
 
-export { UdemyCourseSectionFieldsMap };
+export { UdemyCourseSectionFieldsToCourseSection };
