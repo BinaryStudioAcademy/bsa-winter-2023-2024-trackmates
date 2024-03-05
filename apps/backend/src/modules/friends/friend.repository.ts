@@ -13,23 +13,6 @@ class FriendRepository implements Repository<UserEntity> {
 		this.userModel = userModel;
 	}
 
-	public async checkIsMutualFollowersByIds(
-		firstUserId: number,
-		secondUserId: number,
-	): Promise<boolean> {
-		const [firstUserSubscription, secondUserSubscription] = await this.userModel
-			.query()
-			.from(DatabaseTableName.FRIENDS)
-			.where({ followerId: firstUserId, followingId: secondUserId })
-			.orWhere({ followerId: secondUserId, followingId: firstUserId })
-			.execute();
-
-		const isFirstUserSubscribed = Boolean(firstUserSubscription);
-		const isSecondUserSubscribed = Boolean(secondUserSubscription);
-
-		return isFirstUserSubscribed && isSecondUserSubscribed;
-	}
-
 	public async create({
 		followerUserId,
 		followingUserId,

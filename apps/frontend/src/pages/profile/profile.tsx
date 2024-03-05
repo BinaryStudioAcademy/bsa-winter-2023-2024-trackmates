@@ -77,6 +77,8 @@ const Profile: React.FC = () => {
 		}
 	}, [fileInputReference]);
 
+	const placeholder = `${user.firstName.toLowerCase()}_${user.lastName.toLowerCase()}_${user.id}`;
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -129,7 +131,7 @@ const Profile: React.FC = () => {
 								errors={errors}
 								label="Nickname"
 								name="nickname"
-								placeholder="nickname"
+								placeholder={placeholder}
 								type="text"
 							/>
 						</fieldset>

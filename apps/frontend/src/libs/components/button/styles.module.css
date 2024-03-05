@@ -62,3 +62,11 @@
 	background-color: transparent;
 	opacity: 1;
 }
+
+.button.disabled,
+.button.disabled:hover,
+.button.disabled:focus {
+	color: var(--main-white);
+	background-color: var(--color-text-100);
+	border-color: var(--color-text-100);
+}
