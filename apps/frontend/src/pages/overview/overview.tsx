@@ -14,11 +14,11 @@ import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Overview: React.FC = () => {
-	const { isLoading, user, userCourses } = useAppSelector((state) => {
+	const { courses, isLoading, user } = useAppSelector((state) => {
 		return {
+			courses: state.userCourses.myCourses,
 			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			user: state.auth.user as UserAuthResponseDto,
-			userCourses: state.userCourses.myCourses,
 		};
 	});
 	const dispatch = useAppDispatch();
@@ -49,7 +49,7 @@ const Overview: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses userCourses={userCourses} userId={user.id} />
+					<Courses courses={courses} userId={user.id} />
 				)}
 			</div>
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}

@@ -6,23 +6,20 @@ import { LinearProgress } from "../../../../linear-progress/linear-progress.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course?: CourseDto;
-	userCourse?: UserCourseResponseDto;
+	course: CourseDto | UserCourseResponseDto;
 };
 
-const CourseCard: React.FC<Properties> = ({
-	course,
-	userCourse,
-}: Properties) => {
-	const hasCourse = Boolean(course);
-	const hasUserCourse = Boolean(userCourse);
-	const { image, title, vendor } = hasCourse
-		? (course as CourseDto)
-		: (userCourse as UserCourseResponseDto);
+const isUserCourse = (
+	dto: CourseDto | UserCourseResponseDto,
+): dto is UserCourseResponseDto => {
+	return "progress" in dto;
+};
 
-	const percentage = hasUserCourse
-		? (userCourse as UserCourseResponseDto).progress
-		: null;
+const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
+	const { image, title, vendor } = course;
+
+	const { progress } = isUserCourse(course) ? course : { progress: null };
+	const percentage = progress;
 
 	return (
 		<div className={styles["content"]}>
@@ -35,7 +32,7 @@ const CourseCard: React.FC<Properties> = ({
 			<div className={styles["info-container"]}>
 				<h2 className={styles["title"]}>{title}</h2>
 
-				{hasUserCourse && (
+				{isUserCourse(course) && (
 					<div className={styles["progress"]}>
 						<LinearProgress progress={percentage as number} />
 						<p className={styles["progress-info"]}>Completed {percentage}%</p>

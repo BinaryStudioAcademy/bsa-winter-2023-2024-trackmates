@@ -12,22 +12,17 @@ import { CourseCard } from "./libs/component/component.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course?: CourseDto;
+	course: CourseDto | UserCourseResponseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
-	userCourse?: UserCourseResponseDto;
 	userId?: number | undefined;
 };
 
 const Course: React.FC<Properties> = ({
 	course,
 	onAddCourse,
-	userCourse,
 	userId,
 }: Properties) => {
-	const hasCourse = Boolean(course);
-	const { id, url, vendor, vendorCourseId } = hasCourse
-		? (course as CourseDto)
-		: (userCourse as UserCourseResponseDto);
+	const { id, url, vendor, vendorCourseId } = course;
 	const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
 
 	const courseDescriptionRouteById = configureString(
@@ -51,10 +46,10 @@ const Course: React.FC<Properties> = ({
 	return (
 		<article className={styles["container"]}>
 			{hasAddCourse ? (
-				<CourseCard course={course as CourseDto} />
+				<CourseCard course={course} />
 			) : (
 				<Link className={styles["link"]} to={courseDescriptionRouteById}>
-					<CourseCard userCourse={userCourse as UserCourseResponseDto} />
+					<CourseCard course={course} />
 				</Link>
 			)}
 			{hasAddCourse && (
