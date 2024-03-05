@@ -1,7 +1,5 @@
-import {
-	DatabaseTableName,
-	SortOrder,
-} from "~/libs/modules/database/database.js";
+import { SortOrder } from "~/libs/enums/enums.js";
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 

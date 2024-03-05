@@ -5,3 +5,4 @@ export { DateValue } from "./date-value.enum.js";
 export { ExceptionMessage } from "./exception-message.enum.js";
 export { FormatDateType } from "./format-date-type.enums.js";
 export { ServerErrorType } from "./server-error-type.enum.js";
+export { SortOrder } from "./sort-order.enum.js";

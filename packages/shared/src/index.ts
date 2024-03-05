@@ -10,6 +10,7 @@ export {
 	ExceptionMessage,
 	FormatDateType,
 	ServerErrorType,
+	SortOrder,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
