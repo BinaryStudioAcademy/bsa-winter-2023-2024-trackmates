@@ -1,7 +1,5 @@
-export {
-	type PaginationRequestDto,
-	type PaginationResponseDto,
-} from "./pagination/pagination.js";
+export { type PaginationRequestDto } from "./pagination-request-dto.js";
+export { type PaginationResponseDto } from "./pagination-response-dto.js";
 export { type ServerErrorDetail } from "./server-error-detail.type.js";
 export {
 	type ServerCommonErrorResponse,
