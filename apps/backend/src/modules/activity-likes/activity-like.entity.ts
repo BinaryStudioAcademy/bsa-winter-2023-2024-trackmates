@@ -1,9 +1,9 @@
 import { type Entity } from "~/libs/types/types.js";
 
 class ActivityLikeEntity implements Entity {
-	private createdAt: string;
-
 	private activityId: number;
+
+	private createdAt: string;
 
 	private id: null | number;
 
@@ -12,14 +12,14 @@ class ActivityLikeEntity implements Entity {
 	private userId: number;
 
 	private constructor({
-		createdAt,
 		activityId,
+		createdAt,
 		id,
 		updatedAt,
 		userId,
 	}: {
-		createdAt: string;
 		activityId: number;
+		createdAt: string;
 		id: null | number;
 		updatedAt: string;
 		userId: number;
@@ -32,21 +32,21 @@ class ActivityLikeEntity implements Entity {
 	}
 
 	public static initialize({
-		createdAt,
 		activityId,
+		createdAt,
 		id,
 		updatedAt,
 		userId,
 	}: {
-		createdAt: string;
 		activityId: number;
+		createdAt: string;
 		id: null | number;
 		updatedAt: string;
 		userId: number;
 	}): ActivityLikeEntity {
 		return new ActivityLikeEntity({
-			createdAt,
 			activityId,
+			createdAt,
 			id,
 			updatedAt,
 			userId,
@@ -61,8 +61,8 @@ class ActivityLikeEntity implements Entity {
 		userId: number;
 	}): ActivityLikeEntity {
 		return new ActivityLikeEntity({
-			createdAt: "",
 			activityId,
+			createdAt: "",
 			id: null,
 			updatedAt: "",
 			userId,

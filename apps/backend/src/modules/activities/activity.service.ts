@@ -23,7 +23,7 @@ class ActivityService implements Service {
 	private mapToDto(
 		entity: ActivityEntity,
 	): ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> {
-		const activity = entity.toObject();
+		const activity = entity.toObjectWithReactionsCounts();
 		const payload = activity.payload as ValueOf<ActivityPayloadMap>;
 
 		return { ...activity, payload };
@@ -87,7 +87,7 @@ class ActivityService implements Service {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
-			? (activity.toObject() as ActivityResponseDto<
+			? (activity.toObjectWithReactionsCounts() as ActivityResponseDto<
 					ValueOf<typeof ActivityTypeValue>
 				>)
 			: null;

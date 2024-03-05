@@ -67,15 +67,24 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		const activity = await this.activityModel
 			.query()
 			.findById(id)
+			.select(
+				"*",
+				this.activityModel.relatedQuery("likes").count().as("likesCount"),
+			)
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.castTo<ActivityModel>()
+			.castTo<
+				ActivityModel & {
+					likesCount: number;
+				}
+			>()
 			.execute();
 
-		return ActivityEntity.initialize({
+		return ActivityEntity.initializeWithReactionsCounts({
 			actionId: activity.actionId,
 			id: activity.id,
+			likesCount: activity.likesCount,
 			payload: activity.payload,
 			type: activity.type,
 			updatedAt: activity.updatedAt,
@@ -98,6 +107,10 @@ class ActivityRepository implements Repository<ActivityEntity> {
 	public async findAll(userId: number): Promise<ActivityEntity[]> {
 		const activities = await this.activityModel
 			.query()
+			.select(
+				"*",
+				this.activityModel.relatedQuery("likes").count().as("likesCount"),
+			)
 			.whereIn(
 				`${DatabaseTableName.ACTIVITIES}.userId`,
 				this.activityModel
@@ -110,13 +123,18 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.orderBy("updatedAt", SortOrder.DESC)
-			.castTo<ActivityModel[]>()
+			.castTo<
+				(ActivityModel & {
+					likesCount: number;
+				})[]
+			>()
 			.execute();
 
 		return activities.map((activity) => {
-			return ActivityEntity.initialize({
+			return ActivityEntity.initializeWithReactionsCounts({
 				actionId: activity.actionId,
 				id: activity.id,
+				likesCount: activity.likesCount,
 				payload: activity.payload,
 				type: activity.type,
 				updatedAt: activity.updatedAt,

@@ -12,6 +12,14 @@ import { type ActivityTypeValue } from "./libs/enums/enums.js";
 class ActivityModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
 		return {
+			likes: {
+				join: {
+					from: `${DatabaseTableName.ACTIVITIES}.id`,
+					to: `${DatabaseTableName.ACTIVITY_LIKES}.activityId`,
+				},
+				modelClass: UserModel,
+				relation: Model.HasManyRelation,
+			},
 			user: {
 				join: {
 					from: `${DatabaseTableName.ACTIVITIES}.userId`,

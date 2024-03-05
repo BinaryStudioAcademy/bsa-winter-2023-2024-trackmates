@@ -1,7 +1,7 @@
 import { type Repository } from "~/libs/types/types.js";
 
-import { type ActivityLikeModel } from "./activity-like.model.js";
 import { ActivityLikeEntity } from "./activity-like.entity.js";
+import { type ActivityLikeModel } from "./activity-like.model.js";
 
 class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 	private activityLikeModel: typeof ActivityLikeModel;
@@ -21,8 +21,8 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 			.execute();
 
 		return ActivityLikeEntity.initialize({
-			createdAt: activityLikeModel.createdAt,
 			activityId: activityLikeModel.activityId,
+			createdAt: activityLikeModel.createdAt,
 			id: activityLikeModel.id,
 			updatedAt: activityLikeModel.updatedAt,
 			userId: activityLikeModel.userId,
@@ -46,8 +46,8 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 
 		return activityLike
 			? ActivityLikeEntity.initialize({
-					createdAt: activityLike.createdAt,
 					activityId: activityLike.activityId,
+					createdAt: activityLike.createdAt,
 					id: activityLike.id,
 					updatedAt: activityLike.updatedAt,
 					userId: activityLike.userId,
@@ -60,8 +60,8 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 
 		return actinityLikes.map((activityLike) => {
 			return ActivityLikeEntity.initialize({
-				createdAt: activityLike.createdAt,
 				activityId: activityLike.activityId,
+				createdAt: activityLike.createdAt,
 				id: activityLike.id,
 				updatedAt: activityLike.updatedAt,
 				userId: activityLike.userId,
@@ -81,8 +81,8 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 
 		return activityLike
 			? ActivityLikeEntity.initialize({
-					createdAt: activityLike.createdAt,
 					activityId: activityLike.activityId,
+					createdAt: activityLike.createdAt,
 					id: activityLike.id,
 					updatedAt: activityLike.updatedAt,
 					userId: activityLike.userId,
@@ -104,8 +104,8 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 			.execute();
 
 		return ActivityLikeEntity.initialize({
-			createdAt: activityLikeModel.createdAt,
 			activityId: activityLikeModel.activityId,
+			createdAt: activityLikeModel.createdAt,
 			id: activityLikeModel.id,
 			updatedAt: activityLikeModel.updatedAt,
 			userId: activityLikeModel.userId,

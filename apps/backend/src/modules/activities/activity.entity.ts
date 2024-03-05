@@ -8,6 +8,8 @@ class ActivityEntity implements Entity {
 
 	public id: null | number;
 
+	public likesCount: null | number;
+
 	public payload: unknown;
 
 	public type: ValueOf<typeof ActivityTypeValue>;
@@ -21,6 +23,7 @@ class ActivityEntity implements Entity {
 	private constructor({
 		actionId,
 		id,
+		likesCount,
 		payload,
 		type,
 		updatedAt,
@@ -29,6 +32,7 @@ class ActivityEntity implements Entity {
 	}: {
 		actionId: number;
 		id: null | number;
+		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityTypeValue>;
 		updatedAt: string;
@@ -37,6 +41,7 @@ class ActivityEntity implements Entity {
 	}) {
 		this.actionId = actionId;
 		this.id = id;
+		this.likesCount = likesCount;
 		this.payload = payload;
 		this.type = type;
 		this.updatedAt = updatedAt;
@@ -64,6 +69,7 @@ class ActivityEntity implements Entity {
 		return new ActivityEntity({
 			actionId,
 			id,
+			likesCount: null,
 			payload,
 			type,
 			updatedAt,
@@ -86,10 +92,42 @@ class ActivityEntity implements Entity {
 		return new ActivityEntity({
 			actionId,
 			id: null,
+			likesCount: null,
 			payload,
 			type,
 			updatedAt: "",
 			user: null,
+			userId,
+		});
+	}
+
+	public static initializeWithReactionsCounts({
+		actionId,
+		id,
+		likesCount,
+		payload,
+		type,
+		updatedAt,
+		user,
+		userId,
+	}: {
+		actionId: number;
+		id: number;
+		likesCount: number;
+		payload: unknown;
+		type: ValueOf<typeof ActivityTypeValue>;
+		updatedAt: string;
+		user: UserEntity | null;
+		userId: number;
+	}): ActivityEntity {
+		return new ActivityEntity({
+			actionId,
+			id,
+			likesCount,
+			payload,
+			type,
+			updatedAt,
+			user,
 			userId,
 		});
 	}
@@ -129,6 +167,37 @@ class ActivityEntity implements Entity {
 		return {
 			actionId: this.actionId,
 			id: this.id as number,
+			payload: this.payload,
+			type: this.type,
+			updatedAt: this.updatedAt,
+			user: (this.user as UserEntity).toObject(),
+			userId: this.userId,
+		};
+	}
+
+	public toObjectWithReactionsCounts(): {
+		actionId: number;
+		id: number;
+		likesCount: number;
+		payload: unknown;
+		type: ValueOf<typeof ActivityTypeValue>;
+		updatedAt: string;
+		user: {
+			avatarUrl: string;
+			createdAt: string;
+			email: string;
+			firstName: string;
+			id: number;
+			lastName: string;
+			nickname: null | string;
+			updatedAt: string;
+		};
+		userId: number;
+	} {
+		return {
+			actionId: this.actionId,
+			id: this.id as number,
+			likesCount: this.likesCount as number,
 			payload: this.payload,
 			type: this.type,
 			updatedAt: this.updatedAt,

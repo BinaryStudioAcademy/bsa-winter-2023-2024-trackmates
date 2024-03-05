@@ -1,4 +1,4 @@
-import type { Knex } from "knex";
+import { type Knex } from "knex";
 
 const TableName = {
 	ACTIVITIES: "activities",
@@ -8,8 +8,8 @@ const TableName = {
 
 const ColumnName = {
 	ACTIVITY_ID: "activity_id",
-	ID: "id",
 	CREATED_AT: "created_at",
+	ID: "id",
 	UPDATED_AT: "updated_at",
 	USER_ID: "user_id",
 } as const;
@@ -17,7 +17,7 @@ const ColumnName = {
 const DELETE_STRATEGY = "CASCADE";
 
 async function up(knex: Knex): Promise<void> {
-	return knex.schema.createTable(TableName.ACTIVITY_LIKES, (table) => {
+	await knex.schema.createTable(TableName.ACTIVITY_LIKES, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table
 			.integer(ColumnName.USER_ID)
@@ -43,7 +43,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	return knex.schema.dropTableIfExists(TableName.ACTIVITY_LIKES);
+	await knex.schema.dropTableIfExists(TableName.ACTIVITY_LIKES);
 }
 
 export { down, up };
