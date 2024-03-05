@@ -11,7 +11,7 @@ import styles from "./styles.module.css";
 type Properties = {
 	isMessageLoading: boolean;
 	messages: ChatMessageItemResponseDto[];
-	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => Promise<void>;
+	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
 	receiver: UserAuthResponseDto;
 };
 
