@@ -19,7 +19,7 @@ const Overview: React.FC = () => {
 		return {
 			courses: state.userCourses.myCourses,
 			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
-			total: state.userCourses.totalMyCourses,
+			total: state.userCourses.totalMyCoursesCount,
 			user: state.auth.user as UserAuthResponseDto,
 		};
 	});

@@ -1,6 +1,6 @@
-import { PaginationValue } from "@trackmates/shared";
 import { type FormEvent } from "react";
 
+import { PaginationValue } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,

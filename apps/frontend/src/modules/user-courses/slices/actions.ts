@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { PaginationValue } from "@trackmates/shared";
 
+import { PaginationValue } from "~/libs/enums/enums.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import {
 	type AsyncThunkConfig,
