@@ -91,7 +91,11 @@
 
 @media screen and (--large-screen) {
 	.tabs {
-		margin-top: 16px;
+		margin-top: 0;
+	}
+
+	.button {
+		padding: 10px 0;
 	}
 
 	.content-title {

@@ -11,11 +11,15 @@
 	height: 400px;
 	padding: 0;
 	margin-top: 6px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	list-style: none;
 }
 
 .item {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	justify-content: space-between;
 	min-width: 398px;
 	height: fit-content;
 	padding: 20px 26px;
