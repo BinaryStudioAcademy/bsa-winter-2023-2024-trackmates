@@ -66,6 +66,8 @@ const CourseDetails: React.FC<Properties> = ({
 				);
 			}
 		}
+
+		return null;
 	};
 
 	return (
