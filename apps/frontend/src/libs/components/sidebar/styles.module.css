@@ -41,6 +41,7 @@
 	min-height: 54px;
 	padding: 8px 24px;
 	font-size: var(--font-size-300);
+	font-weight: 700;
 	color: var(--main-white);
 	background-color: transparent;
 	border-color: transparent;
