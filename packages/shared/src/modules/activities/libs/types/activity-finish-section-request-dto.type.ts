@@ -1,6 +1,6 @@
 type ActivityFinishSectionRequestDto = {
 	course: {
-		id: null | number;
+		id: number;
 		title: string;
 		vendorId: number;
 	};

@@ -78,7 +78,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			type: activity.type,
 			updatedAt: activity.updatedAt,
 			user: UserEntity.initialize({
-				avatarUrl: activity.user.userDetails.avatarFile?.url || null,
+				avatarUrl: activity.user.userDetails.avatarFile?.url ?? null,
 				createdAt: activity.user.createdAt,
 				email: activity.user.email,
 				firstName: activity.user.userDetails.firstName,

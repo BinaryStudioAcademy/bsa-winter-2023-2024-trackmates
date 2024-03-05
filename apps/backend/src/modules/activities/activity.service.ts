@@ -20,15 +20,6 @@ class ActivityService implements Service {
 		this.activityRepository = activityRepository;
 	}
 
-	private mapToDto(
-		entity: ActivityEntity,
-	): ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> {
-		const activity = entity.toObject();
-		const payload = activity.payload as ValueOf<ActivityPayloadMap>;
-
-		return { ...activity, payload };
-	}
-
 	public async create<T extends ValueOf<typeof ActivityTypeValue>>(activity: {
 		actionId: number;
 		payload: ActivityPayloadMap[T];
@@ -95,7 +86,11 @@ class ActivityService implements Service {
 
 	public async findAll(userId: number): Promise<ActivityGetAllResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
-		const items = friendsActivities.map((entity) => this.mapToDto(entity));
+		const items = friendsActivities.map((entity) => {
+			return entity.toObject() as ActivityResponseDto<
+				ValueOf<typeof ActivityTypeValue>
+			>;
+		});
 
 		return { items };
 	}

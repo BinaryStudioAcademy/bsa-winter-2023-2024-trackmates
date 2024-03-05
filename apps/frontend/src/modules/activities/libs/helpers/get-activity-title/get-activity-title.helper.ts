@@ -8,7 +8,7 @@ const getActivityTitle = (
 	activity: ActivityResponseDto<ValueOf<typeof ActivityTypeValue>>,
 ): string => {
 	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
-	const title = activity.payload.title;
+	const { title } = activity.payload;
 
 	switch (activity.type) {
 		case ActivityTypeValue.FINISH_COURSE: {
