@@ -6,12 +6,16 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type PaginationRequestDto } from "~/libs/types/types.js";
 import { type AddCourseRequestDto } from "~/modules/courses/libs/types/types.js";
 import { addCourseValidationSchema } from "~/modules/courses/libs/validation-schemas/validation-schemas.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
-import { userIdParameterValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	userCourseGetAllQueryValidationSchema,
+	userIdParameterValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 import { type UserCourseService } from "./user-course.service.js";
 
 class UserCourseController extends BaseController {
@@ -42,7 +46,7 @@ class UserCourseController extends BaseController {
 				return this.findAllByUser(
 					options as APIHandlerOptions<{
 						params: { userId: string };
-						query: { search: string };
+						query: { search: string } & PaginationRequestDto;
 					}>,
 				);
 			},
@@ -50,6 +54,7 @@ class UserCourseController extends BaseController {
 			path: UserCoursesApiPath.$USER_ID,
 			validation: {
 				params: userIdParameterValidationSchema,
+				query: userCourseGetAllQueryValidationSchema,
 			},
 		});
 	}
@@ -122,7 +127,15 @@ class UserCourseController extends BaseController {
 	 *         name: search
 	 *         schema:
 	 *           type: string
-	 *     responses:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: string
+	 *           minimum: 1
 	 *       200:
 	 *         description: Successful operation
 	 *         content:
@@ -138,18 +151,20 @@ class UserCourseController extends BaseController {
 	 */
 	private async findAllByUser({
 		params: { userId },
-		query: { search },
+		query: { count, page, search },
 	}: APIHandlerOptions<{
 		params: { userId: string };
-		query: { search: string | undefined };
+		query: { search: string | undefined } & PaginationRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		const courses = await this.userCourseService.findAllByUser({
+		const { items, total } = await this.userCourseService.findAllByUser({
+			count,
+			page,
 			search: search ?? "",
 			userId: Number(userId),
 		});
 
 		return {
-			payload: { courses },
+			payload: { items, total },
 			status: HTTPCode.OK,
 		};
 	}

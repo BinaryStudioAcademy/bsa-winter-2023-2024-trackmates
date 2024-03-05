@@ -1,8 +1,9 @@
 import { Button } from "~/libs/components/components.js";
-import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
+import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useCallback,
 	useEffect,
 	useLocation,
@@ -32,6 +33,8 @@ const Chats: React.FC = () => {
 			interlocutor: chats.interlocutor,
 			isMessageLoading: chatMessages.dataStatus === DataStatus.PENDING,
 		}));
+
+	useAppTitle(AppTitle.CHATS);
 
 	useEffect(() => {
 		void dispatch(chatsActions.getAllChats());
