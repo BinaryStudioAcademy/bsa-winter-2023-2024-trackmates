@@ -4,6 +4,7 @@ import { AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useEffect,
 	useParams,
 } from "~/libs/hooks/hooks.js";
@@ -25,6 +26,8 @@ const CourseDescription: React.FC = () => {
 		courseId: string;
 		userId: string;
 	}>();
+
+	useAppTitle();
 
 	useEffect(() => {
 		if (courseId) {
