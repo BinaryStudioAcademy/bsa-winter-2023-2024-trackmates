@@ -281,8 +281,8 @@ class CourseRepository implements Repository<CourseEntity> {
 			return { ...course, progress: progressItem?.progress ?? NO_PROGRESS };
 		});
 
-		return coursesWithProgress.map((model) =>
-			UserCourseEntity.initialize({
+		return coursesWithProgress.map((model) => {
+			return UserCourseEntity.initialize({
 				createdAt: model.createdAt,
 				description: model.description,
 				id: model.id,
@@ -301,8 +301,8 @@ class CourseRepository implements Repository<CourseEntity> {
 				}),
 				vendorCourseId: model.vendorCourseId,
 				vendorId: model.vendorId,
-			}),
-		);
+			});
+		});
 	}
 
 	public async findByVendorCourseId(
