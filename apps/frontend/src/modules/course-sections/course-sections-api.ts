@@ -29,7 +29,7 @@ class CourseSectionsApi extends BaseHTTPApi {
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
-				query: query,
+				query,
 			},
 		);
 
