@@ -45,7 +45,7 @@ const Course: React.FC<Properties> = ({
 			{hasAddCourse ? (
 				<CourseCard course={course} />
 			) : (
-				<Link to={courseDescriptionRouteById}>
+				<Link className={styles["link"]} to={courseDescriptionRouteById}>
 					<CourseCard course={course} />
 				</Link>
 			)}
