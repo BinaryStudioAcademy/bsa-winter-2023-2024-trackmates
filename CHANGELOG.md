@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.32.0...v1.33.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** update favicon and page titles tm-295 ([#311](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/311)) ([f5e563a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f5e563a9fc3895960b15e3f53960fb0db657151b))
+
 ## [1.32.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.31.2...v1.32.0) (2024-03-05)
 
 
