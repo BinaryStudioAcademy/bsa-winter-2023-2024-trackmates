@@ -6,6 +6,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useLocation,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -30,9 +31,22 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	);
 	const dispatch = useAppDispatch();
 
-	const parameters = new URLSearchParams({ user: String(friend.id) });
+	const { pathname } = useLocation();
+
+	const Parameters = {
+		CHAT_PARAMETERS: new URLSearchParams({ user: String(friend.id) }),
+		REDIRECT_TO_PARAMETERS: new URLSearchParams({
+			redirectTo: pathname,
+		}),
+	} as const;
+
 	const chatRouteByUser =
-		`${AppRoute.CHATS}?${parameters.toString()}` as typeof AppRoute.CHATS;
+		`${AppRoute.CHATS}?${Parameters.CHAT_PARAMETERS.toString()}` as typeof AppRoute.CHATS;
+
+	const userRouteWithRedirect =
+		`/users/${friend.id}?${Parameters.REDIRECT_TO_PARAMETERS.toString()}` as ValueOf<
+			typeof AppRoute
+		>;
 
 	useEffect(() => {
 		setIsFollowing(isFollowingFromSelector);
@@ -56,10 +70,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 
 	return (
 		<article className={styles["card"]}>
-			<Link
-				className={styles["card-content"]}
-				to={`/users/${friend.id}` as ValueOf<typeof AppRoute>}
-			>
+			<Link className={styles["card-content"]} to={userRouteWithRedirect}>
 				<Image
 					alt="User avatar"
 					className={styles["portrait"]}
