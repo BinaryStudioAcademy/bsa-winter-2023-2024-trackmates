@@ -1,4 +1,10 @@
-import { APIPath, HTTPCode } from "~/libs/enums/enums.js";
+import {
+	APIPath,
+	HTTPCode,
+	PermissionKey,
+	PermissionMode,
+} from "~/libs/enums/enums.js";
+import { checkUserPermissions } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -27,6 +33,10 @@ class GroupController extends BaseController {
 			},
 			method: "PUT",
 			path: GroupsApiPath.$GROUP_ID_PERMISSIONS_$PERMISSION_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -39,6 +49,10 @@ class GroupController extends BaseController {
 			},
 			method: "PUT",
 			path: GroupsApiPath.$GROUP_ID_USERS_$USER_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -51,6 +65,10 @@ class GroupController extends BaseController {
 			},
 			method: "POST",
 			path: GroupsApiPath.ROOT,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -63,6 +81,10 @@ class GroupController extends BaseController {
 			},
 			method: "DELETE",
 			path: GroupsApiPath.$GROUP_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -75,6 +97,10 @@ class GroupController extends BaseController {
 			},
 			method: "GET",
 			path: GroupsApiPath.$GROUP_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -87,6 +113,10 @@ class GroupController extends BaseController {
 			},
 			method: "GET",
 			path: GroupsApiPath.ROOT,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -99,6 +129,10 @@ class GroupController extends BaseController {
 			},
 			method: "GET",
 			path: GroupsApiPath.$GROUP_ID_PERMISSIONS,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 
 		this.addRoute({
@@ -112,6 +146,10 @@ class GroupController extends BaseController {
 			},
 			method: "PATCH",
 			path: GroupsApiPath.$GROUP_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
+			),
 		});
 	}
 
