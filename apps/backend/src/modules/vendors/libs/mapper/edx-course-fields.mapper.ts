@@ -4,7 +4,7 @@ import {
 	type EdxCourseResponseDto,
 } from "~/modules/vendors/libs/types/types.js";
 
-const EdxCourseFieldsMap: CourseFieldsMapping = {
+const edxCourseToCourse: CourseFieldsMapping = {
 	description: EdxCourseField["DESCRIPTION"] as keyof EdxCourseResponseDto,
 	image: "",
 	title: EdxCourseField["TITLE"] as keyof EdxCourseResponseDto,
@@ -12,4 +12,4 @@ const EdxCourseFieldsMap: CourseFieldsMapping = {
 	vendorCourseId: EdxCourseField["ID"] as keyof EdxCourseResponseDto,
 };
 
-export { EdxCourseFieldsMap };
+export { edxCourseToCourse };
