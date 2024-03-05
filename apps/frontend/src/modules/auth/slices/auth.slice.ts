@@ -4,20 +4,17 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { actions as filesActions } from "~/modules/files/files.js";
-import { actions as userNotificationsActions } from "~/modules/user-notifications/user-notifications.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
 import { getAuthenticatedUser, logOut, signIn, signUp } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	hasUnreadNotifications: boolean;
 	user: UserAuthResponseDto | null;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	hasUnreadNotifications: false,
 	user: null,
 };
 
@@ -93,18 +90,6 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(filesActions.updateUserAvatar.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
-		builder.addCase(
-			userNotificationsActions.hasUserUnreadNotifications.fulfilled,
-			(state, action) => {
-				state.hasUnreadNotifications = action.payload;
-			},
-		);
-		builder.addCase(
-			userNotificationsActions.hasUserUnreadNotifications.rejected,
-			(state) => {
-				state.dataStatus = DataStatus.REJECTED;
-			},
-		);
 	},
 	initialState,
 	name: "auth",

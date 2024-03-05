@@ -13,12 +13,14 @@ import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { hasUnreadNotifications, user } = useAppSelector(({ auth }) => {
-		return {
-			hasUnreadNotifications: auth.hasUnreadNotifications,
-			user: auth.user as UserAuthResponseDto,
-		};
-	});
+	const { hasUnreadNotifications, user } = useAppSelector(
+		({ auth, userNotifications }) => {
+			return {
+				hasUnreadNotifications: userNotifications.hasUnreadNotifications,
+				user: auth.user as UserAuthResponseDto,
+			};
+		},
+	);
 
 	const { pathname } = useLocation();
 

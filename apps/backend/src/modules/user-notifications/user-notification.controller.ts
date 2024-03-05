@@ -70,14 +70,14 @@ class UserNotificationController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.hasUserUnreadNotifications(
+				return this.checkHasUserUnreadNotifications(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
-			path: UserNotificationsApiPath.HAS_UNREAD_NOTIFICATIONS,
+			path: UserNotificationsApiPath.CHECK_HAS_USER_UNREAD_NOTIFICATIONS,
 		});
 
 		this.addRoute({
@@ -92,6 +92,36 @@ class UserNotificationController extends BaseController {
 				body: readNotificationsValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /user-notifications/check-has-user-unread-notifications:
+	 *    get:
+	 *      tags:
+	 *        - User notifications
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Checks if user has unread notifications
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: boolean
+	 */
+	public async checkHasUserUnreadNotifications(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.notificationService.checkHasUserUnreadNotifications(
+				options.user.id,
+			),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
@@ -124,36 +154,6 @@ class UserNotificationController extends BaseController {
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
-				options.user.id,
-			),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /user-notifications/has-unread-notifications:
-	 *    get:
-	 *      tags:
-	 *        - User notifications
-	 *      security:
-	 *        - bearerAuth: []
-	 *      description: Checks if user has unread notifications
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: boolean
-	 */
-	public async hasUserUnreadNotifications(
-		options: APIHandlerOptions<{
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.notificationService.hasUserUnreadNotifications(
 				options.user.id,
 			),
 			status: HTTPCode.OK,

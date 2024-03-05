@@ -1,5 +1,4 @@
-import notificationCharacter from "~/assets/img/notification-character.svg";
-import { Image, Loader } from "~/libs/components/components.js";
+import { Loader } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -37,13 +36,7 @@ const Notifications: React.FC = () => {
 					<NotificationList notifications={notifications} />
 				)}
 			</div>
-			<div className={styles["background"]}>
-				<Image
-					alt="notification character"
-					className={styles["notification-character"]}
-					src={notificationCharacter}
-				/>
-			</div>
+			<div className={styles["background"]} />
 		</div>
 	);
 };

@@ -21,6 +21,22 @@ class UserNotificationsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USER_NOTIFICATIONS, storage });
 	}
 
+	public async checkHasUserUnreadNotifications(): Promise<boolean> {
+		const response = await this.load(
+			this.getFullEndpoint(
+				UserNotificationsApiPath.CHECK_HAS_USER_UNREAD_NOTIFICATIONS,
+				{},
+			),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<boolean>();
+	}
+
 	public async getUserNotifications(): Promise<{
 		items: NotificationResponseDto[];
 	}> {
@@ -34,22 +50,6 @@ class UserNotificationsApi extends BaseHTTPApi {
 		);
 
 		return await response.json<{ items: NotificationResponseDto[] }>();
-	}
-
-	public async hasUserUnreadNotifications(): Promise<boolean> {
-		const response = await this.load(
-			this.getFullEndpoint(
-				UserNotificationsApiPath.HAS_UNREAD_NOTIFICATIONS,
-				{},
-			),
-			{
-				contentType: ContentType.JSON,
-				hasAuth: true,
-				method: "GET",
-			},
-		);
-
-		return await response.json<boolean>();
 	}
 
 	public async setReadNotifications(

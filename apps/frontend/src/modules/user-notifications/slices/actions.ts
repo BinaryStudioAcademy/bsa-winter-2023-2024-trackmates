@@ -18,14 +18,14 @@ const getUserNotifications = createAsyncThunk<
 	return userNotificationsApi.getUserNotifications();
 });
 
-const hasUserUnreadNotifications = createAsyncThunk<
+const checkHasUserUnreadNotifications = createAsyncThunk<
 	boolean,
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/has-user-unread-notifications`, (_, { extra }) => {
+>(`${sliceName}/check-has-user-unread-notifications`, (_, { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.hasUserUnreadNotifications();
+	return userNotificationsApi.checkHasUserUnreadNotifications();
 });
 
 const setReadNotifications = createAsyncThunk<
@@ -40,14 +40,14 @@ const setReadNotifications = createAsyncThunk<
 		const readNotifications =
 			await userNotificationsApi.setReadNotifications(payload);
 
-		void dispatch(hasUserUnreadNotifications());
+		void dispatch(checkHasUserUnreadNotifications());
 
 		return readNotifications;
 	},
 );
 
 export {
+	checkHasUserUnreadNotifications,
 	getUserNotifications,
-	hasUserUnreadNotifications,
 	setReadNotifications,
 };

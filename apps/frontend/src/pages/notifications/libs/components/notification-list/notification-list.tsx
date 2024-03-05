@@ -34,7 +34,7 @@ const NotificationList: React.FC<Properties> = ({
 		[setReadNotificationIds],
 	);
 
-	const setReadNotifications = (): void => {
+	const handleReadNotifications = (): void => {
 		void dispatch(
 			userNotificationsActions.setReadNotifications({
 				notificationIds: readNotificationIds,
@@ -42,20 +42,20 @@ const NotificationList: React.FC<Properties> = ({
 		);
 	};
 
-	const setReadNotificationsDebounced = initDebounce(
-		setReadNotifications,
+	const handleReadNotificationsDebounced = initDebounce(
+		handleReadNotifications,
 		READ_NOTIFICATIONS_DELAY_MS,
 	);
 
 	useEffect(() => {
 		if (readNotificationIds.length > EMPTY_ARRAY_LENGTH) {
-			setReadNotificationsDebounced();
+			handleReadNotificationsDebounced();
 
 			return () => {
-				setReadNotificationsDebounced.clear();
+				handleReadNotificationsDebounced.clear();
 			};
 		}
-	}, [readNotificationIds, setReadNotificationsDebounced]);
+	}, [readNotificationIds, handleReadNotificationsDebounced]);
 
 	return (
 		<ul className={styles["notification-list"]}>

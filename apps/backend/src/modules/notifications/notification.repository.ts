@@ -1,13 +1,9 @@
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { RelationName } from "~/libs/enums/enums.js";
+import { RelationName, SortOrder } from "~/libs/enums/enums.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/users.js";
 
-import {
-	NotificationMessage,
-	NotificationStatus,
-	NotificationType,
-} from "./libs/enums/enums.js";
+import { NotificationStatus, NotificationType } from "./libs/enums/enums.js";
 import { NotificationEntity } from "./notification.entity.js";
 import { type NotificationModel } from "./notification.model.js";
 
@@ -22,14 +18,25 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		type: ValueOf<typeof NotificationType>,
 		user: UserModel,
 	): string {
-		const notificationTypeToMessageMap: Record<
+		const notificationTypeToMessage: Record<
 			ValueOf<typeof NotificationType>,
 			string
 		> = {
-			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName}|${NotificationMessage.NEW_FOLLOWER_MESSAGE}`,
+			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName}|started following you.`,
 		};
 
-		return notificationTypeToMessageMap[type];
+		return notificationTypeToMessage[type];
+	}
+
+	public async checkHasUserUnreadNotifications(
+		userId: number,
+	): Promise<boolean> {
+		const unreadNotifications = await this.notificationModel
+			.query()
+			.where("receiverUserId", "=", userId)
+			.andWhere("status", "=", NotificationStatus.UNREAD);
+
+		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
 	}
 
 	public async create(
@@ -136,7 +143,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.orderBy("notifications.createdAt", "desc")
+			.orderBy("notifications.createdAt", SortOrder.DESC)
 			.returning("*")
 			.execute();
 
@@ -157,21 +164,12 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		});
 	}
 
-	public async hasUserUnreadNotifications(userId: number): Promise<boolean> {
-		const unreadNotifications = await this.notificationModel
-			.query()
-			.where("receiverUserId", "=", userId)
-			.andWhere("status", "=", NotificationStatus.UNREAD);
-
-		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
-	}
-
 	public async setReadNotifications(
 		notifactionIds: number[],
 	): Promise<NotificationEntity[]> {
 		const updatedNotifications = await this.notificationModel
 			.query()
-			.where("id", "in", notifactionIds)
+			.whereIn("id", notifactionIds)
 			.update({ status: NotificationStatus.READ })
 			.withGraphFetched(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,

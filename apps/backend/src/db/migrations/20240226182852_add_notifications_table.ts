@@ -10,9 +10,7 @@ const NotificationStatus = {
 	UNREAD: "unread",
 } as const;
 
-const NotificationType = {
-	NEW_FOLLOWER: "new-follower",
-} as const;
+const NEW_FOLLOWER = "new-follower";
 
 const DELETE_STRATEGY = "CASCADE";
 
@@ -46,7 +44,7 @@ function up(knex: Knex): Promise<void> {
 			])
 			.defaultTo(NotificationStatus.UNREAD)
 			.notNullable();
-		table.enum(ColumnName.TYPE, [NotificationType.NEW_FOLLOWER]).notNullable();
+		table.enum(ColumnName.TYPE, [NEW_FOLLOWER]).notNullable();
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()
