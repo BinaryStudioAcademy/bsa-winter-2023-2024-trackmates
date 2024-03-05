@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .welcome-section-header {
 	position: relative;
 	display: flex;
@@ -65,7 +67,7 @@
 }
 
 .add-course-button {
-	font-weight: bold;
+	font-weight: 700;
 	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
@@ -73,6 +75,22 @@
 
 .add-course-button:hover {
 	color: var(--main-white);
+}
+
+@media screen and (width <= 1400px) {
+	.welcome-section-header-content {
+		max-width: 40%;
+	}
+
+	.welcome-section-header-subtitle {
+		font-size: var(--font-size-600);
+	}
+}
+
+@media screen and (width <= 1290px) {
+	.welcome-section-header {
+		gap: 20px;
+	}
 }
 
 @media screen and (--large-screen) {
@@ -92,11 +110,35 @@
 		padding: 8px 15px;
 		font-size: var(--font-size-200);
 	}
+
+	.particle {
+		display: none;
+	}
+}
+
+@media screen and (width <= 836px) {
+	.welcome-character {
+		right: 190px;
+	}
+
+	.welcome-section-header {
+		padding: 30px 15px;
+	}
+
+	.welcome-section-header-subtitle {
+		font-size: var(--font-size-400);
+	}
+
+	.add-course-button {
+		min-height: 40px;
+		padding: 8px 10px;
+		font-size: var(--font-size-200);
+	}
 }
 
 @media screen and (--medium-screen) {
 	.welcome-character {
-		right: 190px;
+		display: none;
 	}
 
 	.welcome-section-header {
@@ -115,6 +157,20 @@
 		min-height: 40px;
 		padding: 8px 10px;
 		font-size: var(--font-size-200);
+	}
+}
+
+@media screen and (width <= 600px) {
+	.welcome-section-header-content {
+		max-width: 150px;
+	}
+
+	.welcome-section-header-subtitle {
+		font-size: var(--font-size-300);
+	}
+
+	.add-course-button {
+		font-size: var(--font-size-100);
 	}
 }
 

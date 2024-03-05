@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .form {
 	display: flex;
 	flex-direction: column;
@@ -52,7 +54,7 @@
 }
 
 .button {
-	font-weight: 600;
+	font-weight: 700;
 }
 
 @media screen and (--small-screen) {

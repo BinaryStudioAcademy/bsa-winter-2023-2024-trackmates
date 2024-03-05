@@ -10,11 +10,11 @@ const ExceptionMessage = {
 	NICKNAME_ALREADY_EXISTS: "Nickname is already taken.",
 	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	NO_PERMISSION: "No permission.",
+	SECTION_STATUS_NOT_FOUND: "Section status not found.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",
 	UNKNOWN_ERROR: "Unknown error occurred.",
 	USER_NOT_FOUND: "User not found.",
-	USER_NOT_MUTUAL_FOLLOWERS: "User not mutual follower.",
 	USER_WITH_EMAIL_NOT_FOUND: "User with this email not found.",
 	USERNAME_ALREADY_EXISTS: "Username is already taken.",
 } as const;

@@ -9,13 +9,16 @@ export {
 	DateValue,
 	ExceptionMessage,
 	FormatDateType,
+	PaginationValue,
 	ServerErrorType,
+	SortOrder,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
@@ -31,6 +34,8 @@ export {
 export { SocketEvent, SocketNamespace } from "./libs/modules/socket/socket.js";
 export { type Storage } from "./libs/modules/storage/storage.js";
 export {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
 	type ServerCommonErrorResponse,
 	type ServerErrorDetail,
 	type ServerErrorResponse,
@@ -68,7 +73,9 @@ export {
 	CourseSectionError,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	type CourseSectionWithStatusDto,
 	CourseSectionsApiPath,
+	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,
 } from "./modules/course-sections/course-sections.js";
 export {
@@ -76,6 +83,7 @@ export {
 	type CourseDto,
 	CourseError,
 	CourseErrorMessage,
+	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	CoursesApiPath,
@@ -99,7 +107,22 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	SectionStatus,
+	type SectionStatusAddRequestDto,
+	SectionStatusError,
+	type SectionStatusGetAllRequestDto,
+	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
+	type SectionStatusUpdateRequestDto,
+	SectionStatusesApiPath,
+	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
+	sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQueryValidationSchema,
+} from "./modules/section-statuses/section-statuses.js";
+export {
 	UserCoursesApiPath,
+	userCourseGetAllQueryValidationSchema,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {

@@ -1,5 +1,5 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image, Loader } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -29,7 +29,7 @@ const Chat: React.FC<Properties> = ({
 						alt="User avatar"
 						height="40"
 						shape="circle"
-						src={receiver.avatarUrl ?? DEFAULT_USER_AVATAR}
+						src={receiver.avatarUrl ?? defaultAvatar}
 						width="40"
 					/>
 				</div>

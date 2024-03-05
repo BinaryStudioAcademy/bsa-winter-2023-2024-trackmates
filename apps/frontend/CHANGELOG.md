@@ -1,5 +1,115 @@
 # Changelog
 
+## [1.25.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.24.0...frontend-v1.25.0) (2024-03-05)
+
+
+### Features
+
+* **frontend/backend/shared:** add pagination to overview tm-276 ([#322](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/322)) ([957ebf7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/957ebf70faa09672204f34610ec3ae94831d3db3))
+
+## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.23.0...frontend-v1.24.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** Implement Open Graph Protocol tm-304 ([#314](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/314)) ([d577240](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d577240e91c959718b8c3b43e40b6b87e83b9e08))
+
+## [1.23.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.22.0...frontend-v1.23.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** update favicon and page titles tm-295 ([#311](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/311)) ([f5e563a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f5e563a9fc3895960b15e3f53960fb0db657151b))
+
+## [1.22.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.21.2...frontend-v1.22.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** course description screen mobile responsiveness tm-63 ([#303](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/303)) ([38d3ca7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/38d3ca7c21de417da9c7578f0b2ceb7cef595355))
+
+## [1.21.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.21.1...frontend-v1.21.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* **frontend:** fix overlaid character in welcome header tm-330 ([#341](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/341)) ([64ac53c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/64ac53c65a77ce82d65589f18cc3e921db4f8087))
+
+## [1.21.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.21.0...frontend-v1.21.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* update config indentation to spaces tm-287 ([#334](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/334)) ([469239a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/469239a082ef50844f2edd9558707f1fb824b920))
+
+## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.20.0...frontend-v1.21.0) (2024-03-05)
+
+
+### Features
+
+* **frontend/backend/shared:** add possibility to complete remove completion of a course section tm-161 ([#275](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/275)) ([f216ba4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f216ba4d3b50f2fe2670f494e7216cbaad79fd5b))
+
+## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.19.0...frontend-v1.20.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** make the following button outlined tm-317 ([#332](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/332)) ([4ca4b58](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4ca4b58c80331bac7e00a942c60f4edb1eb1ad32))
+
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.18.0...frontend-v1.19.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** add course description screen tm-28 ([#267](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/267)) ([381d6be](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/381d6be0aa04d8d919ffb6acad3262e5fc23d0e7))
+
+## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.17.0...frontend-v1.18.0) (2024-03-04)
+
+
+### Features
+
+* **frontend:** update nickname placeholder tm-305 ([#312](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/312)) ([e38d4ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e38d4aee5d39fb016f820ad0c1ec2a96a9e14788))
+
+## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.3...frontend-v1.17.0) (2024-03-03)
+
+
+### Features
+
+* **frontend:** make add button disable after adding the course tm-291 ([#297](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/297)) ([a04f704](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a04f704f7acf1c7516acf35410bc18a513fb23d2))
+
+## [1.16.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.2...frontend-v1.16.3) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** Add Friend page tm-40 ([#284](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/284)) ([eed6857](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eed6857e334fca5b70bf7984878626c1d4403472))
+
+## [1.16.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.1...frontend-v1.16.2) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** add course functionality tm-27 ([#277](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/277)) ([760cdbb](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/760cdbbddc9698feab7ddc07de14c8e80d668557))
+
+## [1.16.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.16.0...frontend-v1.16.1) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend:** fix add lightning css for css bundling tm-210  ([#256](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/256)) ([2965e18](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2965e1897e4d285ea1b51388ca2bff329814522b))
+
+## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.15.0...frontend-v1.16.0) (2024-03-02)
+
+
+### Features
+
+* **frontend:** search field mobile responsiveness tm-227 ([#263](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/263)) ([2953856](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/29538561641471e04f3c30d26770d22c1de8142a))
+
+
+### Bug Fixes
+
+* **frontend:** fix default pictures on the friend page tm-266 ([#279](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/279)) ([fc6a72c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fc6a72c588ba3025b0bd9215ae901f358475a4de))
+
 ## [1.15.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.14.2...frontend-v1.15.0) (2024-03-02)
 
 

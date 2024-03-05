@@ -1,10 +1,12 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
-import { DEFAULT_USER_AVATAR } from "~/libs/constants/constants.js";
+import { AppTitle } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
+	useAppTitle,
 	useCallback,
 	useRef,
 } from "~/libs/hooks/hooks.js";
@@ -77,6 +79,10 @@ const Profile: React.FC = () => {
 		}
 	}, [fileInputReference]);
 
+	const placeholder = `${user.firstName.toLowerCase()}_${user.lastName.toLowerCase()}_${user.id}`;
+
+	useAppTitle(AppTitle.PROFILE);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -88,7 +94,7 @@ const Profile: React.FC = () => {
 								alt="avatar"
 								className={styles["profile-image"]}
 								shape="circle"
-								src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+								src={user.avatarUrl ?? defaultAvatar}
 							/>
 							<Button
 								label="Change photo"
@@ -129,7 +135,7 @@ const Profile: React.FC = () => {
 								errors={errors}
 								label="Nickname"
 								name="nickname"
-								placeholder="nickname"
+								placeholder={placeholder}
 								type="text"
 							/>
 						</fieldset>

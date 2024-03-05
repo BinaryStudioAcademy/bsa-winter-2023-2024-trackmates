@@ -50,7 +50,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 					type: "image/png",
 				},
 				{
-					sizes: "450x320",
+					sizes: "595x715",
 					src: "/assets/screen-tablet.png",
 					type: "image/png",
 				},
@@ -75,6 +75,9 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		},
 		css: {
 			lightningcss: {
+				drafts: {
+					customMedia: true,
+				},
 				include: Features.MediaQueries,
 				targets: browserslistToTargets(
 					browserslist(["last 2 version", "not dead"]),

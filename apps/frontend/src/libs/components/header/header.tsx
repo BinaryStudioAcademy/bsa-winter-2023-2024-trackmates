@@ -1,8 +1,6 @@
+import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Link } from "~/libs/components/components.js";
-import {
-	DEFAULT_USER_AVATAR,
-	PAGES_WITH_SEARCH_BAR,
-} from "~/libs/constants/constants.js";
+import { PAGES_WITH_SEARCH_BAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
@@ -47,7 +45,7 @@ const Header: React.FC = () => {
 							className={styles["image"]}
 							height="48"
 							shape="circle"
-							src={user.avatarUrl ?? DEFAULT_USER_AVATAR}
+							src={user.avatarUrl ?? defaultAvatar}
 							width="48"
 						/>
 					</Link>
