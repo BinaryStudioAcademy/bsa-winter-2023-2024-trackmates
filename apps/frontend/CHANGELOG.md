@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.21.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.21.0...frontend-v1.21.1) (2024-03-05)
+
+
+### Bug Fixes
+
+* update config indentation to spaces tm-287 ([#334](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/334)) ([469239a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/469239a082ef50844f2edd9558707f1fb824b920))
+
+## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.20.0...frontend-v1.21.0) (2024-03-05)
+
+
+### Features
+
+* **frontend/backend/shared:** add possibility to complete remove completion of a course section tm-161 ([#275](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/275)) ([f216ba4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f216ba4d3b50f2fe2670f494e7216cbaad79fd5b))
+
 ## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.19.0...frontend-v1.20.0) (2024-03-05)
 
 
