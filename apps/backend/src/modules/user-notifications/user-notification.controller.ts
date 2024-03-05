@@ -160,6 +160,41 @@ class UserNotificationController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /user-notifications/read-notifications:
+	 *    patch:
+	 *      tags:
+	 *        - User notifications
+	 *      description: Read user notifications
+	 *      security:
+	 *        - bearerAuth: []
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                notificationIds:
+	 *                  type: array
+	 *                  items:
+	 *                    type: number
+	 *                    minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Notification"
+	 */
 	public async setReadNotifications(
 		options: APIHandlerOptions<{
 			body: ReadNotificationsRequestDto;
