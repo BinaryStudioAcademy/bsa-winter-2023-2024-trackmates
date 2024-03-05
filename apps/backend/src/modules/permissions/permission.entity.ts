@@ -71,18 +71,14 @@ class PermissionEntity implements Entity {
 	}
 
 	public toObject(): {
-		createdAt: string;
 		id: number;
 		key: string;
 		name: string;
-		updatedAt: string;
 	} {
 		return {
-			createdAt: this.createdAt,
 			id: this.id as number,
 			key: this.key,
 			name: this.name,
-			updatedAt: this.updatedAt,
 		};
 	}
 }

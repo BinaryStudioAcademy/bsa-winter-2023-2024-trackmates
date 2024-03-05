@@ -1,5 +1,10 @@
 import { type Entity } from "~/libs/types/types.js";
 
+import {
+	type PermissionEntity,
+	type PermissionResponseDto,
+} from "../permissions/permissions.js";
+
 class GroupEntity implements Entity {
 	private createdAt: string;
 
@@ -9,6 +14,8 @@ class GroupEntity implements Entity {
 
 	private name: string;
 
+	private permissions: PermissionEntity[];
+
 	private updatedAt: string;
 
 	private constructor({
@@ -16,18 +23,21 @@ class GroupEntity implements Entity {
 		id,
 		key,
 		name,
+		permissions,
 		updatedAt,
 	}: {
 		createdAt: string;
 		id: null | number;
 		key: string;
 		name: string;
+		permissions: PermissionEntity[];
 		updatedAt: string;
 	}) {
 		this.createdAt = createdAt;
 		this.id = id;
 		this.key = key;
 		this.name = name;
+		this.permissions = permissions;
 		this.updatedAt = updatedAt;
 	}
 
@@ -36,12 +46,14 @@ class GroupEntity implements Entity {
 		id,
 		key,
 		name,
+		permissions,
 		updatedAt,
 	}: {
 		createdAt: string;
 		id: null | number;
 		key: string;
 		name: string;
+		permissions: PermissionEntity[];
 		updatedAt: string;
 	}): GroupEntity {
 		return new GroupEntity({
@@ -49,6 +61,7 @@ class GroupEntity implements Entity {
 			id,
 			key,
 			name,
+			permissions,
 			updatedAt,
 		});
 	}
@@ -65,6 +78,7 @@ class GroupEntity implements Entity {
 			id: null,
 			key,
 			name,
+			permissions: [],
 			updatedAt: "",
 		});
 	}
@@ -77,18 +91,18 @@ class GroupEntity implements Entity {
 	}
 
 	public toObject(): {
-		createdAt: string;
 		id: number;
 		key: string;
 		name: string;
-		updatedAt: string;
+		permissions: PermissionResponseDto[];
 	} {
 		return {
-			createdAt: this.createdAt,
 			id: this.id as number,
 			key: this.key,
 			name: this.name,
-			updatedAt: this.updatedAt,
+			permissions: this.permissions.map((permission) => {
+				return permission.toObject();
+			}),
 		};
 	}
 }

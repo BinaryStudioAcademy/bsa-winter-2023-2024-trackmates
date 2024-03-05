@@ -3,6 +3,7 @@ import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { PermissionEntity } from "../permissions/permissions.js";
 import { RelationName } from "./libs/enums/enums.js";
 import { type UserProfileRequestDto } from "./libs/types/types.js";
 import { type UserDetailsModel } from "./user-details.model.js";
@@ -56,6 +57,15 @@ class UserRepository implements Repository<UserEntity> {
 					id: group.id,
 					key: group.key,
 					name: group.name,
+					permissions: group.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
 					updatedAt: group.updatedAt,
 				});
 			}),
@@ -77,7 +87,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(userId)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}]`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -93,6 +103,15 @@ class UserRepository implements Repository<UserEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -110,7 +129,7 @@ class UserRepository implements Repository<UserEntity> {
 		const users = await this.userModel
 			.query()
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}]`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -126,6 +145,15 @@ class UserRepository implements Repository<UserEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -144,7 +172,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(id)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}]`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -160,6 +188,15 @@ class UserRepository implements Repository<UserEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -178,7 +215,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findOne({ email })
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}]`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -194,6 +231,15 @@ class UserRepository implements Repository<UserEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -220,7 +266,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findOne({ nickname })
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}]`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -236,6 +282,15 @@ class UserRepository implements Repository<UserEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -267,7 +322,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(userId)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}]`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.withGraphJoined(`${RelationName.GROUPS}.userId}`)
 			.execute();
@@ -284,6 +339,15 @@ class UserRepository implements Repository<UserEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),

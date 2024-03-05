@@ -42,6 +42,8 @@ class GroupModel extends AbstractModel {
 
 	public name!: string;
 
+	public permissions!: PermissionModel[];
+
 	public static override get tableName(): string {
 		return DatabaseTableName.GROUPS;
 	}

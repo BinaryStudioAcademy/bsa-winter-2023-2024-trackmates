@@ -58,7 +58,7 @@ class GroupRepository implements Repository<GroupEntity> {
 
 		const groups = await this.groupModel
 			.query()
-			.withGraphJoined(RelationName.USERS)
+			.withGraphJoined(`[${RelationName.USERS}, ${RelationName.PERMISSIONS}]`)
 			.where(`${RelationName.USERS}.id`, userId)
 			.execute();
 
@@ -68,6 +68,15 @@ class GroupRepository implements Repository<GroupEntity> {
 				id: group.id,
 				key: group.key,
 				name: group.name,
+				permissions: group.permissions.map((permission) => {
+					return PermissionEntity.initialize({
+						createdAt: permission.createdAt,
+						id: permission.id,
+						key: permission.key,
+						name: permission.name,
+						updatedAt: permission.updatedAt,
+					});
+				}),
 				updatedAt: group.updatedAt,
 			});
 		});
@@ -78,6 +87,7 @@ class GroupRepository implements Repository<GroupEntity> {
 		const createdGroup = await this.groupModel
 			.query()
 			.insert({ key, name })
+			.returning("*")
 			.execute();
 
 		return GroupEntity.initialize({
@@ -85,6 +95,7 @@ class GroupRepository implements Repository<GroupEntity> {
 			id: createdGroup.id,
 			key: createdGroup.key,
 			name: createdGroup.name,
+			permissions: [],
 			updatedAt: createdGroup.updatedAt,
 		});
 	}
@@ -96,7 +107,11 @@ class GroupRepository implements Repository<GroupEntity> {
 	}
 
 	public async find(id: number): Promise<GroupEntity | null> {
-		const groupById = await this.groupModel.query().findById(id).execute();
+		const groupById = await this.groupModel
+			.query()
+			.withGraphJoined(RelationName.PERMISSIONS)
+			.findById(id)
+			.execute();
 
 		return groupById
 			? GroupEntity.initialize({
@@ -104,13 +119,25 @@ class GroupRepository implements Repository<GroupEntity> {
 					id: groupById.id,
 					key: groupById.key,
 					name: groupById.name,
+					permissions: groupById.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
 					updatedAt: groupById.updatedAt,
 				})
 			: null;
 	}
 
 	public async findAll(): Promise<GroupEntity[]> {
-		const groups = await this.groupModel.query().execute();
+		const groups = await this.groupModel
+			.query()
+			.withGraphJoined(RelationName.PERMISSIONS)
+			.execute();
 
 		return groups.map((group) => {
 			return GroupEntity.initialize({
@@ -118,6 +145,15 @@ class GroupRepository implements Repository<GroupEntity> {
 				id: group.id,
 				key: group.key,
 				name: group.name,
+				permissions: group.permissions.map((permission) => {
+					return PermissionEntity.initialize({
+						createdAt: permission.createdAt,
+						id: permission.id,
+						key: permission.key,
+						name: permission.name,
+						updatedAt: permission.updatedAt,
+					});
+				}),
 				updatedAt: group.updatedAt,
 			});
 		});
@@ -149,6 +185,7 @@ class GroupRepository implements Repository<GroupEntity> {
 		const groups = await this.userModel
 			.relatedQuery(RelationName.GROUPS)
 			.for(userId)
+			.withGraphFetched(RelationName.PERMISSIONS)
 			.castTo<GroupModel[]>()
 			.execute();
 
@@ -158,6 +195,15 @@ class GroupRepository implements Repository<GroupEntity> {
 				id: group.id,
 				key: group.key,
 				name: group.name,
+				permissions: group.permissions.map((permission) => {
+					return PermissionEntity.initialize({
+						createdAt: permission.createdAt,
+						id: permission.id,
+						key: permission.key,
+						name: permission.name,
+						updatedAt: permission.updatedAt,
+					});
+				}),
 				updatedAt: group.updatedAt,
 			});
 		});
@@ -166,7 +212,8 @@ class GroupRepository implements Repository<GroupEntity> {
 	public async findByKey(key: string): Promise<GroupEntity | null> {
 		const groupByKey = await this.groupModel
 			.query()
-			.findOne("key", key)
+			.withGraphJoined(RelationName.PERMISSIONS)
+			.findOne(`${RelationName.GROUPS}.key`, key)
 			.execute();
 
 		return groupByKey
@@ -175,6 +222,15 @@ class GroupRepository implements Repository<GroupEntity> {
 					id: groupByKey.id,
 					key: groupByKey.key,
 					name: groupByKey.name,
+					permissions: groupByKey.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
 					updatedAt: groupByKey.updatedAt,
 				})
 			: null;
@@ -212,7 +268,9 @@ class GroupRepository implements Repository<GroupEntity> {
 			.whereExists(
 				this.userModel.relatedQuery(RelationName.GROUPS).where({ groupId }),
 			)
-			.withGraphFetched(RelationName.USER_DETAILS)
+			.withGraphFetched(
+				`[${RelationName.GROUPS}.${RelationName.PERMISSIONS}, ${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}]`,
+			)
 			.first()
 			.execute();
 
@@ -228,6 +286,15 @@ class GroupRepository implements Repository<GroupEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -245,13 +312,24 @@ class GroupRepository implements Repository<GroupEntity> {
 		const { key, name } = entity.toNewObject();
 		const updatedGroup = await this.groupModel
 			.query()
-			.updateAndFetchById(id, { key, name });
+			.where(`${RelationName.GROUPS}.id`, id)
+			.updateAndFetchById(id, { key, name })
+			.withGraphFetched(RelationName.PERMISSIONS);
 
 		return GroupEntity.initialize({
 			createdAt: updatedGroup.createdAt,
 			id: updatedGroup.id,
 			key: updatedGroup.key,
 			name: updatedGroup.name,
+			permissions: updatedGroup.permissions.map((permission) => {
+				return PermissionEntity.initialize({
+					createdAt: permission.createdAt,
+					id: permission.id,
+					key: permission.key,
+					name: permission.name,
+					updatedAt: permission.updatedAt,
+				});
+			}),
 			updatedAt: updatedGroup.updatedAt,
 		});
 	}
