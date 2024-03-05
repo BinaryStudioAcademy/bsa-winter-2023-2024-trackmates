@@ -1,5 +1,6 @@
 import { type Repository } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
+import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
@@ -46,6 +47,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -97,6 +107,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -140,6 +159,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -188,6 +216,15 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),

@@ -2,6 +2,7 @@ import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository } from "~/libs/types/types.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
+import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -58,6 +59,15 @@ class FriendRepository implements Repository<UserEntity> {
 					id: group.id,
 					key: group.key,
 					name: group.name,
+					permissions: group.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
 					updatedAt: group.updatedAt,
 				});
 			}),
@@ -121,6 +131,15 @@ class FriendRepository implements Repository<UserEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -157,6 +176,15 @@ class FriendRepository implements Repository<UserEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -244,6 +272,15 @@ class FriendRepository implements Repository<UserEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -281,6 +318,15 @@ class FriendRepository implements Repository<UserEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -318,6 +364,15 @@ class FriendRepository implements Repository<UserEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -350,6 +405,15 @@ class FriendRepository implements Repository<UserEntity> {
 					id: group.id,
 					key: group.key,
 					name: group.name,
+					permissions: group.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
 					updatedAt: group.updatedAt,
 				});
 			}),

@@ -5,6 +5,7 @@ import {
 	MessageStatus,
 } from "~/modules/chat-messages/chat-messages.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
+import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatEntity } from "./chat.entity.js";
@@ -42,6 +43,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -65,6 +75,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -111,6 +130,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -133,6 +161,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -193,6 +230,15 @@ class ChatRepository implements Repository<ChatEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -222,6 +268,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -248,6 +303,15 @@ class ChatRepository implements Repository<ChatEntity> {
 							id: group.id,
 							key: group.key,
 							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
 							updatedAt: group.updatedAt,
 						});
 					}),
@@ -292,6 +356,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -320,6 +393,15 @@ class ChatRepository implements Repository<ChatEntity> {
 										id: group.id,
 										key: group.key,
 										name: group.name,
+										permissions: group.permissions.map((permission) => {
+											return PermissionEntity.initialize({
+												createdAt: permission.createdAt,
+												id: permission.id,
+												key: permission.key,
+												name: permission.name,
+												updatedAt: permission.updatedAt,
+											});
+										}),
 										updatedAt: group.updatedAt,
 									});
 								}),
@@ -347,6 +429,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -388,6 +479,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -416,6 +516,15 @@ class ChatRepository implements Repository<ChatEntity> {
 										id: group.id,
 										key: group.key,
 										name: group.name,
+										permissions: group.permissions.map((permission) => {
+											return PermissionEntity.initialize({
+												createdAt: permission.createdAt,
+												id: permission.id,
+												key: permission.key,
+												name: permission.name,
+												updatedAt: permission.updatedAt,
+											});
+										}),
 										updatedAt: group.updatedAt,
 									});
 								}),
@@ -442,6 +551,15 @@ class ChatRepository implements Repository<ChatEntity> {
 								id: group.id,
 								key: group.key,
 								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
 								updatedAt: group.updatedAt,
 							});
 						}),
@@ -478,6 +596,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
@@ -500,6 +627,15 @@ class ChatRepository implements Repository<ChatEntity> {
 						id: group.id,
 						key: group.key,
 						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
 						updatedAt: group.updatedAt,
 					});
 				}),
