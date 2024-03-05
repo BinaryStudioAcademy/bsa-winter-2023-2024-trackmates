@@ -1,9 +1,12 @@
-import { Content, Image } from "~/libs/components/components.js";
+import { Button, Content, Image } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useAppForm } from "~/libs/hooks/hooks.js";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
+import { Tab } from "./libs/enums/enums.js";
+import { tabToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -17,35 +20,25 @@ const CourseDetails: React.FC<Properties> = ({
 }: Properties) => {
 	const { description, image, title, url, vendor } = course;
 
-	const { register, watch } = useAppForm({ defaultValues: { tab: "about" } });
+	const [selectedTab, setSelectedTab] = useState<ValueOf<typeof Tab>>(
+		Tab.ABOUT,
+	);
 
-	const selectedTab = watch("tab");
+	const handleTabChange = useCallback((item: ValueOf<typeof Tab>) => {
+		return () => {
+			setSelectedTab(item);
+		};
+	}, []);
 
-	return (
-		<div className={styles["container"]}>
-			<div className={styles["title"]}>{title}</div>
-			<Image alt="Course" className={styles["image"]} src={image} />
-			<form>
-				<div className={styles["tabs"]}>
-					<input
-						{...register("tab")}
-						className={styles["tabs-radio"]}
-						id="about-tab"
-						name="tab"
-						type="radio"
-						value="about"
-					/>
-					<label className={styles["label"]} htmlFor="about-tab">
-						About
-					</label>
-					<div
-						className={getValidClassNames(
-							styles["content"],
-							selectedTab === "about" && styles["active"],
-						)}
-					>
+	const handleTabContentRender = (
+		selectedTab: ValueOf<typeof Tab>,
+	): React.ReactNode => {
+		switch (selectedTab) {
+			case Tab.ABOUT: {
+				return (
+					<div className={styles["content"]}>
 						<div className={styles["content-title"]}>About this course</div>
-						<Content string={description} />
+						<Content content={description} />
 						<a
 							className={styles["link"]}
 							href={`${vendor.url}${url}`}
@@ -55,36 +48,46 @@ const CourseDetails: React.FC<Properties> = ({
 							Read more
 						</a>
 					</div>
-					<input
-						{...register("tab")}
-						className={styles["tabs-radio"]}
-						id="details-tab"
-						name="tab"
-						type="radio"
-						value="details"
-					/>
-					<label className={styles["label"]} htmlFor="details-tab">
-						Details
-					</label>
-					<div
-						className={getValidClassNames(
-							styles["content"],
-							selectedTab === "details" && styles["active"],
-						)}
-					>
+				);
+			}
+
+			case Tab.DETAILS: {
+				return (
+					<div className={styles["content"]}>
 						<div className={styles["content-title"]}>Course Details</div>
 						<ul className={styles["details-list"]}>
-							{courseSections.map((section) => {
-								return (
-									<li className={styles["details-item"]} key={section.id}>
-										{section.title}
-									</li>
-								);
-							})}
+							{courseSections.map((section) => (
+								<li className={styles["details-item"]} key={section.id}>
+									{section.title}
+								</li>
+							))}
 						</ul>
 					</div>
-				</div>
-			</form>
+				);
+			}
+		}
+	};
+
+	return (
+		<div className={styles["container"]}>
+			<div className={styles["title"]}>{title}</div>
+			<Image alt="Course" className={styles["image"]} src={image} />
+			<ul className={styles["tabs"]}>
+				{Object.values(Tab).map((item) => (
+					<li className={styles["tab-item"]} key={item}>
+						<Button
+							className={getValidClassNames(
+								styles["button"],
+								item === selectedTab && styles["active"],
+							)}
+							label={tabToReadable[item]}
+							onClick={handleTabChange(item)}
+							type="button"
+						/>
+					</li>
+				))}
+			</ul>
+			<div>{handleTabContentRender(selectedTab)}</div>
 		</div>
 	);
 };

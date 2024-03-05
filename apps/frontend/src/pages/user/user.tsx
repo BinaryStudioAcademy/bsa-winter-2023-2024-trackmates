@@ -105,11 +105,12 @@ const User: React.FC = () => {
 						{(profileUser as UserAuthResponseDto).lastName}
 					</p>
 					<Button
+						className={styles["follow-button"]}
 						iconName={isFollowing ? "cross" : "add"}
 						label={isFollowing ? "Following" : "Follow"}
 						onClick={isFollowing ? handleUnfollow : handleFollow}
 						size="small"
-						style="primary"
+						style={isFollowing ? "secondary" : "primary"}
 					/>
 				</div>
 			</div>
