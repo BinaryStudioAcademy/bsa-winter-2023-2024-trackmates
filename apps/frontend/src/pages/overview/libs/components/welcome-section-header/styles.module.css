@@ -79,7 +79,7 @@
 
 @media screen and (width <= 1400px) {
 	.welcome-section-header-content {
-		max-width: 450px;
+		max-width: 40%;
 	}
 
 	.welcome-section-header-subtitle {
@@ -110,6 +110,10 @@
 		padding: 8px 15px;
 		font-size: var(--font-size-200);
 	}
+
+	.particle {
+		display: none;
+	}
 }
 
 @media screen and (width <= 836px) {
@@ -123,10 +127,6 @@
 
 	.welcome-section-header-subtitle {
 		font-size: var(--font-size-400);
-	}
-
-	.welcome-section-header-content {
-		max-width: 250px;
 	}
 
 	.add-course-button {
@@ -162,7 +162,7 @@
 
 @media screen and (width <= 600px) {
 	.welcome-section-header-content {
-		max-width: 170px;
+		max-width: 150px;
 	}
 
 	.welcome-section-header-subtitle {
