@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.20.0...frontend-v1.21.0) (2024-03-05)
+
+
+### Features
+
+* **frontend/backend/shared:** add possibility to complete remove completion of a course section tm-161 ([#275](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/275)) ([f216ba4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f216ba4d3b50f2fe2670f494e7216cbaad79fd5b))
+
+## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.19.0...frontend-v1.20.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** make the following button outlined tm-317 ([#332](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/332)) ([4ca4b58](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4ca4b58c80331bac7e00a942c60f4edb1eb1ad32))
+
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.18.0...frontend-v1.19.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** add course description screen tm-28 ([#267](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/267)) ([381d6be](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/381d6be0aa04d8d919ffb6acad3262e5fc23d0e7))
+
 ## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.17.0...frontend-v1.18.0) (2024-03-04)
 
 

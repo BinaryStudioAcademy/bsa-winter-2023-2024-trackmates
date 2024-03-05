@@ -1,0 +1,30 @@
+.title {
+	font-size: var(--font-size-400);
+	font-weight: 600;
+	color: var(--color-text-300);
+}
+
+.list {
+	display: flex;
+	flex-direction: column;
+	gap: 11px;
+	height: 400px;
+	padding: 0;
+	margin-top: 6px;
+	overflow-y: scroll;
+	list-style: none;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	min-width: 398px;
+	height: fit-content;
+	padding: 20px 26px;
+	font-size: var(--font-size-300);
+	font-weight: 600;
+	color: var(--color-text-300);
+	background-color: var(--main-white);
+	border-radius: 10px;
+}

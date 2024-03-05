@@ -1,9 +1,10 @@
-import { getAll, getRecommended } from "./actions.js";
+import { getAll, getById, getRecommended } from "./actions.js";
 import { actions } from "./courses.slice.js";
 
 const allActions = {
 	...actions,
 	getAll,
+	getById,
 	getRecommended,
 };
 

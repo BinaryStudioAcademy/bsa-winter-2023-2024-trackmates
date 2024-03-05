@@ -54,7 +54,7 @@ const Overview: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} />
+					<Courses courses={courses} userId={user.id} />
 				)}
 				<Pagination
 					currentPage={page}

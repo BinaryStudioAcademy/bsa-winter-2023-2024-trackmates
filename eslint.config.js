@@ -68,6 +68,7 @@ const jsConfig = {
 					"ImportDeclaration[importKind=type],ExportNamedDeclaration[exportKind=type]",
 			},
 		],
+		"object-shorthand": ["error"],
 		quotes: ["error", "double"],
 	},
 };
