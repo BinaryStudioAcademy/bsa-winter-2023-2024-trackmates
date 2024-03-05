@@ -1,9 +1,10 @@
+import { type PermissionResponseDto } from "../../../permissions/permissions.js";
+
 type GroupResponseDto = {
-	createdAt: string;
 	id: number;
 	key: string;
 	name: string;
-	updatedAt: string;
+	permissions: PermissionResponseDto[];
 };
 
 export { type GroupResponseDto };

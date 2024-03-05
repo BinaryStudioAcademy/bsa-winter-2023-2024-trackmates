@@ -101,6 +101,8 @@ export {
 export {
 	PermissionError,
 	PermissionErrorMessage,
+	PermissionKey,
+	PermissionMode,
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 	PermissionsApiPath,
