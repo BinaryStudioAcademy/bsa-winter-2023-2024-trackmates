@@ -1,7 +1,6 @@
 type ProgressDataItem = {
-	completedSectionsCount: number;
 	courseId: number;
-	totalSectionsCount: number;
+	progress: number;
 };
 
 export { type ProgressDataItem };

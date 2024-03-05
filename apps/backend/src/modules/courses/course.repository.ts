@@ -1,6 +1,5 @@
 import { raw } from "objection";
 
-import { getPercentage } from "~/libs/helpers/helpers.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
@@ -11,7 +10,6 @@ import { VendorEntity } from "~/modules/vendors/vendors.js";
 import { CourseSectionModel } from "../course-sections/course-sections.js";
 import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
-import { NO_PROGRESS } from "./libs/constants/constants.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
 import { type ProgressDataItem } from "./libs/types/types.js";
@@ -275,19 +273,12 @@ class CourseRepository implements Repository<CourseEntity> {
 			courseModels.map((course) => course.id),
 		);
 
+		const NO_PROGRESS = 0;
+
 		const coursesWithProgress = courseModels.map((course) => {
-			const progress = progressData.find((p) => p.courseId === course.id);
+			const progressItem = progressData.find((p) => p.courseId === course.id);
 
-			const progressPercentage = progress
-				? Math.round(
-						getPercentage({
-							part: progress.completedSectionsCount,
-							total: progress.totalSectionsCount,
-						}),
-					)
-				: NO_PROGRESS;
-
-			return { ...course, progress: progressPercentage };
+			return { ...course, progress: progressItem?.progress ?? NO_PROGRESS };
 		});
 
 		return coursesWithProgress.map((model) =>
@@ -351,12 +342,13 @@ class CourseRepository implements Repository<CourseEntity> {
 	): Promise<ProgressDataItem[]> {
 		return await CourseSectionModel.query()
 			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
-			.countDistinct(
-				`${DatabaseTableName.COURSE_SECTIONS}.id as total_sections_count`,
-			)
 			.select(
 				raw(`
-					count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END) as completed_sections_count
+						ROUND(
+							(count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END)::float
+								/
+							count(distinct ${DatabaseTableName.COURSE_SECTIONS}.id)::float) * 100
+							) as progress
 				`),
 			)
 			.leftJoin(
