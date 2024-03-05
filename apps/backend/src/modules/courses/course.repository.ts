@@ -1,9 +1,9 @@
+import { type UserCourseResponseDto } from "@trackmates/shared";
 import { raw } from "objection";
 
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Repository } from "~/libs/types/types.js";
-import { UserCourseEntity } from "~/modules/user-courses/user-course.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
@@ -252,7 +252,7 @@ class CourseRepository implements Repository<CourseEntity> {
 	}: {
 		search: string;
 		userId: number;
-	}): Promise<UserCourseEntity[]> {
+	}): Promise<UserCourseResponseDto[]> {
 		const user = await this.userModel.query().findById(userId);
 
 		if (!user) {
@@ -275,33 +275,22 @@ class CourseRepository implements Repository<CourseEntity> {
 
 		const NO_PROGRESS = 0;
 
-		const coursesWithProgress = courseModels.map((course) => {
+		return courseModels.map((course) => {
 			const progressItem = progressData.find((p) => p.courseId === course.id);
 
-			return { ...course, progress: progressItem?.progress ?? NO_PROGRESS };
-		});
-
-		return coursesWithProgress.map((model) => {
-			return UserCourseEntity.initialize({
-				createdAt: model.createdAt,
-				description: model.description,
-				id: model.id,
-				image: model.image,
-				progress: model.progress,
-				title: model.title,
-				updatedAt: model.updatedAt,
-				url: model.url,
-				vendor: VendorEntity.initialize({
-					createdAt: model.vendor.createdAt,
-					id: model.vendor.id,
-					key: model.vendor.key,
-					name: model.vendor.name,
-					updatedAt: model.vendor.updatedAt,
-					url: model.vendor.url,
-				}),
-				vendorCourseId: model.vendorCourseId,
-				vendorId: model.vendorId,
-			});
+			return {
+				createdAt: course.createdAt,
+				description: course.description,
+				id: course.id,
+				image: course.image,
+				progress: progressItem?.progress ?? NO_PROGRESS,
+				title: course.title,
+				updatedAt: course.updatedAt,
+				url: course.url,
+				vendor: course.vendor,
+				vendorCourseId: course.vendorCourseId,
+				vendorId: course.vendorId,
+			};
 		});
 	}
 

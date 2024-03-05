@@ -45,12 +45,10 @@ class UserCourseService {
 		search: string;
 		userId: number;
 	}): Promise<UserCourseResponseDto[]> {
-		const entities = await this.courseRepository.findByUserIdWithProgress({
+		return await this.courseRepository.findByUserIdWithProgress({
 			search,
 			userId,
 		});
-
-		return entities.map((entity) => entity.toObject());
 	}
 }
 
