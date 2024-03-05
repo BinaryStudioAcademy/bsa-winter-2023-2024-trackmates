@@ -19,7 +19,6 @@ const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, title, vendor } = course;
 
 	const { progress } = isUserCourse(course) ? course : { progress: null };
-	const percentage = progress;
 
 	return (
 		<div className={styles["content"]}>
@@ -34,8 +33,8 @@ const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 
 				{isUserCourse(course) && (
 					<div className={styles["progress"]}>
-						<LinearProgress progress={percentage as number} />
-						<p className={styles["progress-info"]}>Completed {percentage}%</p>
+						<LinearProgress progress={progress as number} />
+						<p className={styles["progress-info"]}>Completed {progress}%</p>
 					</div>
 				)}
 			</div>
