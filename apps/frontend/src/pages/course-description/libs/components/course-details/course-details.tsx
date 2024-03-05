@@ -30,7 +30,9 @@ const CourseDetails: React.FC<Properties> = ({
 		};
 	}, []);
 
-	const handleTabContentRender = (selectedTab: string): React.ReactNode => {
+	const handleTabContentRender = (
+		selectedTab: ValueOf<typeof Tab>,
+	): React.ReactNode => {
 		switch (selectedTab) {
 			case Tab.ABOUT: {
 				return (

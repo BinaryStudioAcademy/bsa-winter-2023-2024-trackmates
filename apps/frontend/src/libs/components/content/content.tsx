@@ -10,10 +10,10 @@ type Properties = {
 };
 
 const Content: React.FC<Properties> = ({ content }: Properties) => {
-	const sanitizedString = getSanitizedHtml(content);
+	const sanitizedContent = getSanitizedHtml(content);
 
 	if (content.length <= MAXIMUM_CONTENT_LENGTH) {
-		return <div dangerouslySetInnerHTML={{ __html: sanitizedString }} />;
+		return <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />;
 	}
 
 	const truncatedContent = getTruncatedContent(
