@@ -16,6 +16,10 @@ import {
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
 import {
+	courseSectionsApi,
+	reducer as courseSectionsReducer,
+} from "~/modules/course-sections/course-sections.js";
+import {
 	courseApi,
 	reducer as coursesReducer,
 } from "~/modules/courses/courses.js";
@@ -24,6 +28,10 @@ import {
 	friendsApi,
 	reducer as friendsReducer,
 } from "~/modules/friends/friends.js";
+import {
+	sectionStatusApi,
+	reducer as sectionStatusesReducer,
+} from "~/modules/section-statuses/section-statuses.js";
 import {
 	userCourseApi,
 	reducer as userCoursesReducer,
@@ -42,8 +50,10 @@ type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	chatMessages: ReturnType<typeof chatMessagesReducer>;
 	chats: ReturnType<typeof chatsReducer>;
+	course: ReturnType<typeof courseSectionsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
+	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	users: ReturnType<typeof usersReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
@@ -54,9 +64,11 @@ type ExtraArguments = {
 	chatMessagesApi: typeof chatMessagesApi;
 	chatsApi: typeof chatsApi;
 	courseApi: typeof courseApi;
+	courseSectionsApi: typeof courseSectionsApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
+	sectionStatusApi: typeof sectionStatusApi;
 	storage: typeof storage;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
@@ -87,8 +99,10 @@ class Store {
 				auth: authReducer,
 				chatMessages: chatMessagesReducer,
 				chats: chatsReducer,
+				course: courseSectionsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,
+				sectionStatuses: sectionStatusesReducer,
 				userCourses: userCoursesReducer,
 				users: usersReducer,
 				vendors: vendorsReducer,
@@ -102,9 +116,11 @@ class Store {
 			chatMessagesApi,
 			chatsApi,
 			courseApi,
+			courseSectionsApi,
 			filesApi,
 			friendsApi,
 			notification,
+			sectionStatusApi,
 			storage,
 			userApi,
 			userCourseApi,
