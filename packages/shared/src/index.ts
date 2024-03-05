@@ -16,6 +16,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";

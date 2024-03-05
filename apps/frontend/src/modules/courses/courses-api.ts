@@ -5,6 +5,7 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 
 import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
+	type CourseDto,
 	type CourseSearchFilterDto,
 	type CoursesResponseDto,
 } from "./libs/types/types.js";
@@ -34,6 +35,20 @@ class CourseApi extends BaseHTTPApi {
 		);
 
 		return await response.json<CoursesResponseDto>();
+	}
+	public async getById(id: string): Promise<CourseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(CoursesApiPath.$COURSE_ID, {
+				courseId: id,
+			}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<CourseDto>();
 	}
 
 	public async getRecommended(
