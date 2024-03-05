@@ -1,6 +1,12 @@
+import { type Page } from "objection";
+
+import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { type Repository } from "~/libs/types/types.js";
+import {
+	type PaginationResponseDto,
+	type Repository,
+} from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
@@ -8,6 +14,7 @@ import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
+import { type CourseGetAllByUserRequestDto } from "./libs/types/types.js";
 
 class CourseRepository implements Repository<CourseEntity> {
 	private courseModel: typeof CourseModel;
@@ -193,6 +200,60 @@ class CourseRepository implements Repository<CourseEntity> {
 				vendorId: course.vendorId,
 			});
 		});
+	}
+
+	public async findAllByUser({
+		count,
+		page,
+		search,
+		userId,
+	}: CourseGetAllByUserRequestDto): Promise<
+		PaginationResponseDto<CourseEntity>
+	> {
+		const user = await this.userModel.query().findById(userId);
+
+		if (!user) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_USER,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const { results, total } = await user
+			.$relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.whereILike("title", `%${search}%`)
+			.withGraphFetched("vendor")
+			.orderBy("courses.updatedAt", SortOrder.ASC)
+			.page(page, count)
+			.castTo<Page<CourseModel>>();
+
+		const courseItems = results.map((course) =>
+			CourseEntity.initialize({
+				createdAt: course.createdAt,
+				description: course.description,
+				id: course.id,
+				image: course.image,
+				title: course.title,
+				updatedAt: course.updatedAt,
+				url: course.url,
+				vendor: VendorEntity.initialize({
+					createdAt: course.vendor.createdAt,
+					id: course.vendor.id,
+					key: course.vendor.key,
+					name: course.vendor.name,
+					updatedAt: course.vendor.updatedAt,
+					url: course.vendor.url,
+				}),
+				vendorCourseId: course.vendorCourseId,
+				vendorId: course.vendorId,
+			}),
+		);
+
+		return {
+			items: courseItems,
+			total,
+		};
 	}
 
 	public async findByUserId({
