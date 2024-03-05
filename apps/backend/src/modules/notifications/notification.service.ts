@@ -1,12 +1,8 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { type Service, type ValueOf } from "~/libs/types/types.js";
+import { type Service } from "~/libs/types/types.js";
 
-import {
-	NotificationMessage,
-	NotificationStatus,
-	type NotificationType,
-} from "./libs/enums/enums.js";
+import { NotificationStatus } from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
 import {
 	type AllNotificationsResponseDto,
@@ -24,27 +20,13 @@ class NotificationService implements Service {
 		this.notificationRepository = notificationRepository;
 	}
 
-	private getMessageByType(type: ValueOf<typeof NotificationType>): string {
-		const notificationTypeToMessageMap: Record<
-			ValueOf<typeof NotificationType>,
-			string
-		> = {
-			new_follower: NotificationMessage.NEW_FOLLOWER_MESSAGE,
-		};
-
-		return notificationTypeToMessageMap[type];
-	}
-
 	public async create(
 		payload: CreateNotificationRequestDto,
 	): Promise<NotificationResponseDto> {
 		const { receiverUserId, type, userId } = payload;
 
-		const message = this.getMessageByType(type);
-
 		const notification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
-				message,
 				receiverUserId,
 				status: NotificationStatus.UNREAD,
 				type,
@@ -89,11 +71,11 @@ class NotificationService implements Service {
 		};
 	}
 
-	public async findAllByUserId(
-		userId: number,
+	public async findAllByReceiverUserId(
+		receiverUserId: number,
 	): Promise<AllNotificationsResponseDto> {
 		const userNotifications =
-			await this.notificationRepository.findAllByUserId(userId);
+			await this.notificationRepository.findAllByReceiverUserId(receiverUserId);
 
 		return {
 			items: userNotifications.map((notification) => notification.toObject()),
@@ -130,12 +112,9 @@ class NotificationService implements Service {
 
 		const { receiverUserId, status, type, userId } = payload;
 
-		const message = this.getMessageByType(type);
-
 		const updatedNotification = await this.notificationRepository.update(
 			notificationId,
 			NotificationEntity.initializeNew({
-				message,
 				receiverUserId,
 				status,
 				type,

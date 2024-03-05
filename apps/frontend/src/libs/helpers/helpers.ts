@@ -4,5 +4,6 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getTimeDistanceFormatDate,
 	initDebounce,
 } from "@trackmates/shared";

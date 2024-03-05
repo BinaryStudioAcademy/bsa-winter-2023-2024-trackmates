@@ -8,7 +8,7 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as appActions } from "~/libs/slices/app/app.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
-import { actions as userNotificationsAction } from "~/modules/user-notifications/user-notifications.js";
+import { actions as userNotificationsActions } from "~/modules/user-notifications/user-notifications.js";
 
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		if (user) {
-			void dispatch(userNotificationsAction.hasUserUnreadNotifications());
+			void dispatch(userNotificationsActions.hasUserUnreadNotifications());
 		}
 	}, [dispatch, user]);
 

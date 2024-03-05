@@ -8,7 +8,7 @@ import {
 } from "~/libs/hooks/hooks.js";
 import {
 	type NotificationResponseDto,
-	actions,
+	actions as userNotificationsActions,
 } from "~/modules/user-notifications/user-notifications.js";
 
 import { READ_NOTIFICATIONS_DELAY_MS } from "../../constants/constants.js";
@@ -36,7 +36,9 @@ const NotificationList: React.FC<Properties> = ({
 
 	const setReadNotifications = (): void => {
 		void dispatch(
-			actions.setReadNotifications({ notificationIds: readNotificationIds }),
+			userNotificationsActions.setReadNotifications({
+				notificationIds: readNotificationIds,
+			}),
 		);
 	};
 

@@ -1,8 +1,13 @@
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { RelationName } from "~/libs/enums/enums.js";
-import { type Repository } from "~/libs/types/types.js";
+import { type Repository, type ValueOf } from "~/libs/types/types.js";
+import { type UserModel } from "~/modules/users/users.js";
 
-import { NotificationStatus } from "./libs/enums/enums.js";
+import {
+	NotificationMessage,
+	NotificationStatus,
+	NotificationType,
+} from "./libs/enums/enums.js";
 import { NotificationEntity } from "./notification.entity.js";
 import { type NotificationModel } from "./notification.model.js";
 
@@ -13,14 +18,28 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		this.notificationModel = notificationModel;
 	}
 
+	private getMessageByType(
+		type: ValueOf<typeof NotificationType>,
+		user: UserModel,
+	): string {
+		const notificationTypeToMessageMap: Record<
+			ValueOf<typeof NotificationType>,
+			string
+		> = {
+			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName}|${NotificationMessage.NEW_FOLLOWER_MESSAGE}`,
+		};
+
+		return notificationTypeToMessageMap[type];
+	}
+
 	public async create(
 		payload: NotificationEntity,
 	): Promise<NotificationEntity> {
-		const { message, receiverUserId, type, userId } = payload.toNewObject();
+		const { receiverUserId, type, userId } = payload.toNewObject();
 
 		const createdNotification = await this.notificationModel
 			.query()
-			.insert({ message, receiverUserId, type, userId })
+			.insert({ receiverUserId, type, userId })
 			.returning("*")
 			.withGraphFetched(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -30,7 +49,10 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		return NotificationEntity.initialize({
 			createdAt: createdNotification.createdAt,
 			id: createdNotification.id,
-			message: createdNotification.message,
+			message: this.getMessageByType(
+				createdNotification.type,
+				createdNotification.user,
+			),
 			receiverUserId: createdNotification.receiverUserId,
 			status: createdNotification.status,
 			type: createdNotification.type,
@@ -67,7 +89,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			? NotificationEntity.initialize({
 					createdAt: notification.createdAt,
 					id: notification.id,
-					message: notification.message,
+					message: this.getMessageByType(notification.type, notification.user),
 					receiverUserId: notification.receiverUserId,
 					status: notification.status,
 					type: notification.type,
@@ -92,7 +114,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			return NotificationEntity.initialize({
 				createdAt: notification.createdAt,
 				id: notification.id,
-				message: notification.message,
+				message: this.getMessageByType(notification.type, notification.user),
 				receiverUserId: notification.receiverUserId,
 				status: notification.status,
 				type: notification.type,
@@ -105,10 +127,12 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		});
 	}
 
-	public async findAllByUserId(userId: number): Promise<NotificationEntity[]> {
+	public async findAllByReceiverUserId(
+		receiverUserId: number,
+	): Promise<NotificationEntity[]> {
 		const userNotifications = await this.notificationModel
 			.query()
-			.where("notifications.receiverUserId", "=", userId)
+			.where("notifications.receiverUserId", "=", receiverUserId)
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
@@ -120,7 +144,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			return NotificationEntity.initialize({
 				createdAt: notification.createdAt,
 				id: notification.id,
-				message: notification.message,
+				message: this.getMessageByType(notification.type, notification.user),
 				receiverUserId: notification.receiverUserId,
 				status: notification.status,
 				type: notification.type,
@@ -159,7 +183,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			return NotificationEntity.initialize({
 				createdAt: notification.createdAt,
 				id: notification.id,
-				message: notification.message,
+				message: this.getMessageByType(notification.type, notification.user),
 				receiverUserId: notification.receiverUserId,
 				status: notification.status,
 				type: notification.type,
@@ -187,7 +211,10 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		return NotificationEntity.initialize({
 			createdAt: updatedNotification.createdAt,
 			id: updatedNotification.id,
-			message: updatedNotification.message,
+			message: this.getMessageByType(
+				updatedNotification.type,
+				updatedNotification.user,
+			),
 			receiverUserId: updatedNotification.receiverUserId,
 			status: updatedNotification.status,
 			type: updatedNotification.type,

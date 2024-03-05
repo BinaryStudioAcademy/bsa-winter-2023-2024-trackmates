@@ -107,13 +107,11 @@ class NotificationEntity implements Entity {
 	}
 
 	public static initializeNew({
-		message,
 		receiverUserId,
 		status,
 		type,
 		userId,
 	}: {
-		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		type: ValueOf<typeof NotificationType>;
@@ -122,7 +120,7 @@ class NotificationEntity implements Entity {
 		return new NotificationEntity({
 			createdAt: "",
 			id: null,
-			message,
+			message: "",
 			receiverUserId,
 			status,
 			type,
@@ -135,21 +133,17 @@ class NotificationEntity implements Entity {
 	}
 
 	public toNewObject(): {
-		createdAt: string;
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		type: ValueOf<typeof NotificationType>;
-		updatedAt: string;
 		userId: number;
 	} {
 		return {
-			createdAt: this.createdAt,
 			message: this.message,
 			receiverUserId: this.receiverUserId,
 			status: this.status,
 			type: this.type,
-			updatedAt: this.updatedAt,
 			userId: this.userId,
 		};
 	}
@@ -183,10 +177,9 @@ class NotificationEntity implements Entity {
 	}
 
 	public toUpdateObject(): {
-		message: string;
 		status: ValueOf<typeof NotificationStatus>;
 	} {
-		return { message: this.message, status: this.status };
+		return { status: this.status };
 	}
 }
 

@@ -131,7 +131,6 @@ erDiagram
     dateTime updated_at
     int receiver_user_id FK
     int user_id FK
-    varchar message
     enum status
     enum type
    }

@@ -11,7 +11,7 @@ const NotificationStatus = {
 } as const;
 
 const NotificationType = {
-	NEW_FOLLOWER: "new_follower",
+	NEW_FOLLOWER: "new-follower",
 } as const;
 
 const DELETE_STRATEGY = "CASCADE";
@@ -19,7 +19,6 @@ const DELETE_STRATEGY = "CASCADE";
 const ColumnName = {
 	CREATED_AT: "created_at",
 	ID: "id",
-	MESSAGE: "message",
 	RECEIVER_USER_ID: "receiver_user_id",
 	STATUS: "status",
 	TYPE: "type",
@@ -30,7 +29,6 @@ const ColumnName = {
 function up(knex: Knex): Promise<void> {
 	return knex.schema.createTable(TableName.NOTIFICATIONS, (table) => {
 		table.increments(ColumnName.ID).primary();
-		table.string(ColumnName.MESSAGE);
 		table
 			.integer(ColumnName.RECEIVER_USER_ID)
 			.references(ColumnName.ID)

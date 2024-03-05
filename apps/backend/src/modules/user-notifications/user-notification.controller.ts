@@ -46,7 +46,7 @@ import { readNotificationsValidationSchema } from "./libs/validation-schemas/val
  *           minimum: 1
  *         type:
  *           type: string
- *           enum: [new_follower]
+ *           enum: [new-follower]
  */
 class UserNotificationController extends BaseController {
 	private notificationService: NotificationService;
@@ -123,7 +123,9 @@ class UserNotificationController extends BaseController {
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.notificationService.findAllByUserId(options.user.id),
+			payload: await this.notificationService.findAllByReceiverUserId(
+				options.user.id,
+			),
 			status: HTTPCode.OK,
 		};
 	}
