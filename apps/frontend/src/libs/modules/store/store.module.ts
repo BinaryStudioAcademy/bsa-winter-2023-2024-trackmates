@@ -16,6 +16,10 @@ import {
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
 import {
+	courseSectionsApi,
+	reducer as courseSectionsReducer,
+} from "~/modules/course-sections/course-sections.js";
+import {
 	courseApi,
 	reducer as coursesReducer,
 } from "~/modules/courses/courses.js";
@@ -42,6 +46,7 @@ type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	chatMessages: ReturnType<typeof chatMessagesReducer>;
 	chats: ReturnType<typeof chatsReducer>;
+	course: ReturnType<typeof courseSectionsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
@@ -54,6 +59,7 @@ type ExtraArguments = {
 	chatMessagesApi: typeof chatMessagesApi;
 	chatsApi: typeof chatsApi;
 	courseApi: typeof courseApi;
+	courseSectionsApi: typeof courseSectionsApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
@@ -87,6 +93,7 @@ class Store {
 				auth: authReducer,
 				chatMessages: chatMessagesReducer,
 				chats: chatsReducer,
+				course: courseSectionsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,
 				userCourses: userCoursesReducer,
@@ -102,6 +109,7 @@ class Store {
 			chatMessagesApi,
 			chatsApi,
 			courseApi,
+			courseSectionsApi,
 			filesApi,
 			friendsApi,
 			notification,

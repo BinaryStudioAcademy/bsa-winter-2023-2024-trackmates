@@ -10,6 +10,7 @@ const AppRoute = {
 	SIGN_IN: "/sign-in",
 	SIGN_UP: "/sign-up",
 	USERS_$ID: "/users/:id",
+	USERS_$USER_ID_COURSES_$COURSE_ID: "/users/:userId/courses/:courseId",
 } as const;
 
 export { AppRoute };

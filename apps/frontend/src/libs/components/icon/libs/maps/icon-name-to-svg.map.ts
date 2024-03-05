@@ -1,5 +1,6 @@
 import AddIcon from "~/assets/icons/add.svg?react";
 import BackIcon from "~/assets/icons/back.svg?react";
+import BackArrowIcon from "~/assets/icons/back-arrow.svg?react";
 import BurgerIcon from "~/assets/icons/burger.svg?react";
 import ChatsIcon from "~/assets/icons/chats.svg?react";
 import CrossIcon from "~/assets/icons/cross.svg?react";
@@ -20,6 +21,7 @@ const iconNameToSvg: Record<
 > = {
 	add: AddIcon,
 	back: BackIcon,
+	backArrow: BackArrowIcon,
 	burger: BurgerIcon,
 	chats: ChatsIcon,
 	cross: CrossIcon,
