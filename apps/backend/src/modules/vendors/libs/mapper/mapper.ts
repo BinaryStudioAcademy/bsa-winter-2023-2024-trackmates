@@ -1,1 +1,1 @@
-export { EdxCourseFieldsMapping } from "./edx-course-fields.mapper.js";
+export { EdxCourseFieldsMap } from "./edx-course-fields.mapper.js";

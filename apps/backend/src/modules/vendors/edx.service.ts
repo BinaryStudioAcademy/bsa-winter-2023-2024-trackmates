@@ -5,7 +5,7 @@ import {
 } from "~/libs/modules/http/http.js";
 
 import { EdxApiPath } from "./libs/enums/enums.js";
-import { EdxCourseFieldsMapping } from "./libs/mapper/mapper.js";
+import { EdxCourseFieldsMap } from "./libs/mapper/mapper.js";
 import {
 	type Course,
 	type CourseFieldsMapping,
@@ -64,7 +64,7 @@ class EdxService implements VendorService {
 	}
 
 	private mapToCourse(item: EdxCourseResponseDto): Course {
-		const course = this.mapItem(item, EdxCourseFieldsMapping);
+		const course = this.mapItem(item, EdxCourseFieldsMap);
 
 		const media = item["media"];
 		const courseImage = media["course_image"];
