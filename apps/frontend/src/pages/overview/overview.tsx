@@ -14,19 +14,25 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
+const PAGINATION_PAGES_CUT_COUNT = 5;
+
 const Overview: React.FC = () => {
-	const { courses, isLoading, total, user } = useAppSelector((state) => {
+	const { courses, isLoading, totalCount, user } = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.myCourses,
 			isLoading: state.userCourses.dataStatus === DataStatus.PENDING,
-			total: state.userCourses.totalMyCoursesCount,
+			totalCount: state.userCourses.totalMyCoursesCount,
 			user: state.auth.user as UserAuthResponseDto,
 		};
 	});
 	const dispatch = useAppDispatch();
 	const [isAddCourseModalOpen, setIsAddCourseModalOpen] =
 		useState<boolean>(false);
-	const { handlePageChange: handleMyCoursesPageChange, page } = usePagination();
+	const { handlePageChange, page, pages, pagesCount } = usePagination({
+		pageSize: PaginationValue.DEFAULT_COUNT,
+		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		totalCount,
+	});
 
 	const handleModalOpen = useCallback(() => {
 		setIsAddCourseModalOpen(true);
@@ -58,9 +64,9 @@ const Overview: React.FC = () => {
 				)}
 				<Pagination
 					currentPage={page}
-					onPageChange={handleMyCoursesPageChange}
-					pageSize={PaginationValue.DEFAULT_COUNT}
-					totalCount={total}
+					onPageChange={handlePageChange}
+					pages={pages}
+					pagesCount={pagesCount}
 				/>
 			</div>
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}

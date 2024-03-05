@@ -1,10 +1,8 @@
-type GetPagesCutParameters = {
+type GetPagesCut = (options: {
 	currentPage: number;
 	pagesCount: number;
 	pagesCutCount: number;
-};
-
-type GetPagesCutReturn = {
+}) => {
 	end: number;
 	start: number;
 };
@@ -12,11 +10,9 @@ type GetPagesCutReturn = {
 const ONE_ITEM = 1;
 const HALF_DIVIDER = 2;
 
-const getPagesCut = ({
-	currentPage,
-	pagesCount,
-	pagesCutCount,
-}: GetPagesCutParameters): GetPagesCutReturn => {
+const getPagesCut: GetPagesCut = (options) => {
+	const { currentPage, pagesCount, pagesCutCount } = options;
+
 	const ceiling = Math.ceil(pagesCutCount / HALF_DIVIDER);
 	const floor = Math.floor(pagesCutCount / HALF_DIVIDER);
 

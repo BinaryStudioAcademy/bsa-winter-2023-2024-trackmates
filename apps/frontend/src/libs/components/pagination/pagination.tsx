@@ -1,31 +1,24 @@
 import { useCallback } from "react";
 
 import { PaginationItem } from "./libs/components/components.js";
-import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
 	currentPage: number;
 	onPageChange: (nextPage: number) => void;
-	pageSize: number;
-	pagesCutCount?: number;
-	totalCount: number;
+	pages: number[];
+	pagesCount: number;
 };
 
 const ONE_ITEM_COUNT = 1;
-const DEFAULT_MAX_PAGES_DISPLAYED = 5;
 const NO_ITEMS_PAGE_COUNT = 0;
 
 const Pagination: React.FC<Properties> = ({
 	currentPage,
 	onPageChange,
-	pageSize,
-	pagesCutCount = DEFAULT_MAX_PAGES_DISPLAYED,
-	totalCount,
+	pages,
+	pagesCount,
 }: Properties) => {
-	const pagesCount = Math.ceil(totalCount / pageSize);
-	const pagesCut = getPagesCut({ currentPage, pagesCount, pagesCutCount });
-	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 	const isFirstPage = currentPage === ONE_ITEM_COUNT;
 	const isLastPage =
 		currentPage === pagesCount || pagesCount === NO_ITEMS_PAGE_COUNT;
