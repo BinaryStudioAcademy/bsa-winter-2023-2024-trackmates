@@ -14,12 +14,14 @@ import { name as sliceName } from "./chats.slice.js";
 
 const getAllChats = createAsyncThunk<
 	{ items: ChatGetAllItemResponseDto[] },
-	undefined,
+	{
+		search: string;
+	},
 	AsyncThunkConfig
->(`${sliceName}/get-all-chats`, async (_payload, { extra }) => {
+>(`${sliceName}/get-all-chats`, async (getAllChatsPayload, { extra }) => {
 	const { chatsApi } = extra;
 
-	return await chatsApi.getAllChats();
+	return await chatsApi.getAllChats(getAllChatsPayload);
 });
 
 const getChat = createAsyncThunk<ChatItemResponseDto, number, AsyncThunkConfig>(
@@ -47,7 +49,7 @@ const createChat = createAsyncThunk<
 	}) as typeof AppRoute.CHATS_$ID;
 
 	void dispatch(appActions.navigate(newChatRouteById));
-	void dispatch(getAllChats());
+	void dispatch(getAllChats({ search: "" }));
 	dispatch(chatMessagesAction.updateMessages(newChat.messages));
 
 	return newChat;

@@ -10,6 +10,13 @@ const chatsApi = new ChatsApi({
 	storage,
 });
 
-export { type ChatGetAllItemResponseDto } from "./libs/types/types.js";
+export {
+	DEFAULT_SEARCH_CHAT_PAYLOAD,
+	SEARCH_CHAT_DELAY_MS,
+} from "./libs/constants/constants.js";
+export {
+	type ChatGetAllItemResponseDto,
+	type ChatSearchDto,
+} from "./libs/types/types.js";
 export { chatsApi };
 export { actions, reducer } from "./slices/chats.js";

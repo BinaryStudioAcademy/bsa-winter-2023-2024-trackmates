@@ -111,7 +111,13 @@ class ChatRepository implements Repository<ChatEntity> {
 			: null;
 	}
 
-	public async findAll(userId: number): Promise<ChatEntity[]> {
+	public async findAll({
+		search,
+		userId,
+	}: {
+		search: string;
+		userId: number;
+	}): Promise<ChatEntity[]> {
 		const chatsByUserId = await this.chatModel
 			.query()
 			.select(
@@ -133,6 +139,11 @@ class ChatRepository implements Repository<ChatEntity> {
 			.withGraphJoined(
 				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.LAST_MESSAGE}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
 			)
+			.where((builder) => {
+				if (search) {
+					void builder.where("firstName", "ilike", `%${search}%`);
+				}
+			})
 			.orderBy(`${RelationName.LAST_MESSAGE}:id`, "desc")
 			.castTo<
 				(ChatModel & {
