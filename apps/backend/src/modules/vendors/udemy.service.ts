@@ -15,8 +15,8 @@ import {
 } from "./libs/enums/enums.js";
 import { VendorError } from "./libs/exceptions/exceptions.js";
 import {
-	UdemyCourseSectionToCourseSection,
-	UdemyCourseToCourse,
+	udemyCourseSectionToCourseSection,
+	udemyCourseToCourse,
 } from "./libs/maps/maps.js";
 import {
 	type Course,
@@ -116,7 +116,7 @@ class UdemyService implements VendorService {
 	}
 
 	private mapToCourse(item: Record<string, unknown>): Course {
-		const course = this.mapItem(item, UdemyCourseToCourse);
+		const course = this.mapItem(item, udemyCourseToCourse);
 
 		const vendorCourseId = (
 			course.vendorCourseId as number | string
@@ -128,7 +128,7 @@ class UdemyService implements VendorService {
 	private mapToCourseSection(item: Record<string, unknown>): CourseSection {
 		return this.mapItem(
 			item,
-			UdemyCourseSectionToCourseSection,
+			udemyCourseSectionToCourseSection,
 		) as CourseSection;
 	}
 
