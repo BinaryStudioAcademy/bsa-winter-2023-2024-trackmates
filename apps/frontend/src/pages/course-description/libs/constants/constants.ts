@@ -1,0 +1,3 @@
+const BACK_NAVIGATION_VALUE = -1;
+
+export { BACK_NAVIGATION_VALUE };
