@@ -16,6 +16,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
@@ -66,7 +67,9 @@ export {
 	CourseSectionError,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	type CourseSectionWithStatusDto,
 	CourseSectionsApiPath,
+	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,
 } from "./modules/course-sections/course-sections.js";
 export {
@@ -96,6 +99,20 @@ export {
 	addFriendValidationSchema,
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
+export {
+	SectionStatus,
+	type SectionStatusAddRequestDto,
+	SectionStatusError,
+	type SectionStatusGetAllRequestDto,
+	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
+	type SectionStatusUpdateRequestDto,
+	SectionStatusesApiPath,
+	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
+	sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQueryValidationSchema,
+} from "./modules/section-statuses/section-statuses.js";
 export {
 	UserCoursesApiPath,
 	userIdParameterValidationSchema,

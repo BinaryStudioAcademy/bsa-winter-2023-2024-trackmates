@@ -77,6 +77,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					label={isFollowing ? "Following" : "Follow"}
 					onClick={isFollowing ? handleUnfollow : handleFollow}
 					size="small"
+					style={isFollowing ? "secondary" : "primary"}
 				/>
 				<Button
 					className={styles["start-chat"]}
