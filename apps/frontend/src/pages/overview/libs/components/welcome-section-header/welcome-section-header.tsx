@@ -34,6 +34,7 @@ const WelcomeHeader: React.FC<Properties> = ({
 			<div className={styles["welcome-section-header-actions"]}>
 				<Button
 					className={styles["add-course-button"]}
+					hoverIconName="invertedPlus"
 					iconName="plus"
 					label="Add course"
 					onClick={onAddCourseClick}
