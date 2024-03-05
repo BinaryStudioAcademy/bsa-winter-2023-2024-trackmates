@@ -1,10 +1,12 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input } from "~/libs/components/components.js";
+import { AppTitle } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
+	useAppTitle,
 	useCallback,
 	useRef,
 } from "~/libs/hooks/hooks.js";
@@ -78,6 +80,8 @@ const Profile: React.FC = () => {
 	}, [fileInputReference]);
 
 	const placeholder = `${user.firstName.toLowerCase()}_${user.lastName.toLowerCase()}_${user.id}`;
+
+	useAppTitle(AppTitle.PROFILE);
 
 	return (
 		<>
