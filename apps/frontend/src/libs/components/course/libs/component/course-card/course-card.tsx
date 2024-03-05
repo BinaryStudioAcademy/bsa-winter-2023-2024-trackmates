@@ -1,8 +1,8 @@
 import { Image } from "~/libs/components/components.js";
+import { LinearProgress } from "~/libs/components/linear-progress/linear-progress.jsx";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.js";
 
-import { LinearProgress } from "../../../../linear-progress/linear-progress.js";
 import styles from "./styles.module.css";
 
 type Properties = {
