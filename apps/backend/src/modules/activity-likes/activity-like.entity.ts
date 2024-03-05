@@ -1,4 +1,4 @@
-import { type Entity, type ValueOf } from "~/libs/types/types.js";
+import { type Entity } from "~/libs/types/types.js";
 
 class ActivityLikeEntity implements Entity {
 	private createdAt: string;
@@ -67,6 +67,28 @@ class ActivityLikeEntity implements Entity {
 			updatedAt: "",
 			userId,
 		});
+	}
+
+	public toNewObject(): {
+		activityId: number;
+		userId: number;
+	} {
+		return {
+			activityId: this.activityId,
+			userId: this.userId,
+		};
+	}
+
+	public toObject(): {
+		activityId: number;
+		id: number;
+		userId: number;
+	} {
+		return {
+			activityId: this.activityId,
+			id: this.id as number,
+			userId: this.userId,
+		};
 	}
 }
 
