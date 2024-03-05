@@ -16,6 +16,9 @@
 }
 
 .item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	min-width: 398px;
 	height: fit-content;
 	padding: 20px 26px;
