@@ -349,7 +349,7 @@ class CourseRepository implements Repository<CourseEntity> {
 	public async getProgressData(
 		courseIds: number[],
 	): Promise<ProgressDataItem[]> {
-		return (await CourseSectionModel.query()
+		return await CourseSectionModel.query()
 			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
 			.countDistinct(
 				`${DatabaseTableName.COURSE_SECTIONS}.id as total_sections_count`,
@@ -365,9 +365,8 @@ class CourseRepository implements Repository<CourseEntity> {
 				`${DatabaseTableName.COURSE_SECTIONS}.id`,
 			)
 			.whereIn(`${DatabaseTableName.COURSE_SECTIONS}.course_id`, courseIds)
-			.groupBy(
-				`${DatabaseTableName.COURSE_SECTIONS}.course_id`,
-			)) as unknown as ProgressDataItem[];
+			.groupBy(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
+			.castTo<ProgressDataItem[]>();
 	}
 
 	public async update(
