@@ -1,4 +1,4 @@
-import { type CourseDto } from "~/modules/courses/courses.js";
+import { type CourseDto } from "../../../courses/courses.js";
 
 type UserCourseDto = { progress: number } & CourseDto;
 

@@ -1,3 +1,5 @@
-export { type UserCourseDto } from "./user-course-dto.type.js";
-export { type UserCoursesResponseDto } from "./user-courses-response-dto.type.js";
-export { type AddCourseRequestDto } from "@trackmates/shared";
+export {
+	type AddCourseRequestDto,
+	type UserCourseDto,
+	type UserCoursesResponseDto,
+} from "@trackmates/shared";
