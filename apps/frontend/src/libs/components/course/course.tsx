@@ -5,14 +5,14 @@ import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
-	type UserCourseDto,
+	type UserCourseResponseDto,
 } from "~/modules/user-courses/user-courses.js";
 
 import { CourseCard } from "./libs/component/component.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | UserCourseDto;
+	course: CourseDto | UserCourseResponseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
 	userId?: number | undefined;
 };

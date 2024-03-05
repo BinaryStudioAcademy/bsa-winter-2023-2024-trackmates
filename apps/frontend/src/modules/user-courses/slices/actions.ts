@@ -5,13 +5,13 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {
 	type AddCourseRequestDto,
-	type UserCourseDto,
+	type UserCourseResponseDto,
 	type UserCoursesResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-courses.slice.js";
 
 const add = createAsyncThunk<
-	UserCourseDto,
+	UserCourseResponseDto,
 	AddCourseRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/add`, async (requestPayload, { extra }) => {

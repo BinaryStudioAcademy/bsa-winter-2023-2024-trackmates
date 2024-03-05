@@ -1,14 +1,14 @@
 import { type CourseDto } from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
-	type UserCourseDto,
+	type UserCourseResponseDto,
 } from "~/modules/user-courses/user-courses.js";
 
 import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	courses: (CourseDto | UserCourseDto)[];
+	courses: (CourseDto | UserCourseResponseDto)[];
 	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
 	userId?: number;
 };

@@ -1,18 +1,18 @@
 import { Image } from "~/libs/components/components.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
-import { type UserCourseDto } from "~/modules/user-courses/user-courses.js";
+import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.js";
 
 import { LinearProgress } from "../../../../linear-progress/linear-progress.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | UserCourseDto;
+	course: CourseDto | UserCourseResponseDto;
 };
 
 const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, title, vendor } = course;
 
-	const { progress } = course as UserCourseDto;
+	const { progress } = course as UserCourseResponseDto;
 	const percentage = progress as number | undefined;
 
 	return (

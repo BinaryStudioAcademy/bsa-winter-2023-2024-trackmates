@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { type UserCourseDto } from "../libs/types/types.js";
+import { type UserCourseResponseDto } from "../libs/types/types.js";
 import { add, loadMyCourses, loadUserCourses } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	myCourses: UserCourseDto[];
-	userCourses: UserCourseDto[];
+	myCourses: UserCourseResponseDto[];
+	userCourses: UserCourseResponseDto[];
 };
 
 const initialState: State = {
@@ -31,7 +31,7 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadMyCourses.fulfilled, (state, action) => {
-			state.myCourses = action.payload.courses;
+			state.myCourses = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadMyCourses.pending, (state) => {
@@ -41,7 +41,7 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadUserCourses.fulfilled, (state, action) => {
-			state.userCourses = action.payload.courses;
+			state.userCourses = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadUserCourses.pending, (state) => {

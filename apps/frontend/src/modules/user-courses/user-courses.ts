@@ -12,7 +12,7 @@ const userCourseApi = new UserCourseApi({
 
 export {
 	type AddCourseRequestDto,
-	type UserCourseDto,
+	type UserCourseResponseDto,
 } from "./libs/types/types.js";
 export { userCourseApi };
 export { actions, reducer } from "./slices/user-courses.js";
