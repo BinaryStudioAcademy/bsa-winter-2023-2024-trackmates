@@ -16,6 +16,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getSanitizedHtml,
 	getSizeInBytes,
 	getTimeDistanceFormatDate,
 	initDebounce,
@@ -67,7 +68,9 @@ export {
 	CourseSectionError,
 	type CourseSectionGetAllRequestDto,
 	type CourseSectionGetAllResponseDto,
+	type CourseSectionWithStatusDto,
 	CourseSectionsApiPath,
+	courseSectionGetAllQueryValidationSchema,
 	courseSectionIdParameterValidationSchema,
 } from "./modules/course-sections/course-sections.js";
 export {
@@ -106,6 +109,20 @@ export {
 	NotificationType,
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
+export {
+	SectionStatus,
+	type SectionStatusAddRequestDto,
+	SectionStatusError,
+	type SectionStatusGetAllRequestDto,
+	type SectionStatusGetAllResponseDto,
+	type SectionStatusResponseDto,
+	type SectionStatusUpdateRequestDto,
+	SectionStatusesApiPath,
+	sectionStatusCreateBodyValidationSchema,
+	sectionStatusGetAllQueryValidationSchema,
+	sectionStatusUpdateBodyValidationSchema,
+	sectionStatusUpdateQueryValidationSchema,
+} from "./modules/section-statuses/section-statuses.js";
 export {
 	UserCoursesApiPath,
 	userIdParameterValidationSchema,

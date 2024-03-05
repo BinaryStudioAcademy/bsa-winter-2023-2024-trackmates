@@ -7,6 +7,7 @@ const APIPath = {
 	FILES: "/files",
 	FRIENDS: "/friends",
 	NOTIFICATIONS: "/notifications",
+	SECTION_STATUSES: "/section-statuses",
 	USER_COURSES: "/user-courses",
 	USER_NOTIFICATIONS: "/user-notifications",
 	USERS: "/users",

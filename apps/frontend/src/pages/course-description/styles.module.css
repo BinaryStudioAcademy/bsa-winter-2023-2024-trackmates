@@ -1,0 +1,23 @@
+.wrapper {
+	position: relative;
+	display: flex;
+	gap: 27px;
+	justify-content: center;
+	padding: 15px 40px;
+}
+
+.back-container {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	margin-top: 15px;
+	color: var(--color-text-400);
+}
+
+.back-button {
+	width: 24px;
+	height: 24px;
+	margin-left: 39px;
+	color: var(--color-text-400);
+	background-color: #e0e0e0;
+}
