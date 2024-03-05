@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.31.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.31.1...v1.31.2) (2024-03-05)
+
+
+### Bug Fixes
+
+* **frontend:** fix overlaid character in welcome header tm-330 ([#341](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/341)) ([64ac53c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/64ac53c65a77ce82d65589f18cc3e921db4f8087))
+
 ## [1.31.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.31.0...v1.31.1) (2024-03-05)
 
 
