@@ -3,6 +3,6 @@ import { type CourseSectionFieldsMapping } from "~/modules/vendors/libs/types/ty
 
 const udemyCourseSectionToCourseSection: CourseSectionFieldsMapping = {
 	title: CourseSectionField["TITLE"] as string,
-} as const;
+};
 
 export { udemyCourseSectionToCourseSection };

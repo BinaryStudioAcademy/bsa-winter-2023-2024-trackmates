@@ -7,6 +7,6 @@ const udemyCourseToCourse: CourseFieldsMapping = {
 	title: CourseField["TITLE"] as string,
 	url: CourseField["URL"] as string,
 	vendorCourseId: CourseField["ID"] as string,
-} as const;
+};
 
 export { udemyCourseToCourse };
