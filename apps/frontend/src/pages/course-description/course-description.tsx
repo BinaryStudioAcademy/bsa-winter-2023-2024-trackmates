@@ -5,6 +5,7 @@ import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useEffect,
 	useParams,
 } from "~/libs/hooks/hooks.js";
@@ -43,6 +44,8 @@ const CourseDescription: React.FC = () => {
 		courseId: string;
 		userId: string;
 	}>();
+
+	useAppTitle();
 
 	useEffect(() => {
 		if (courseId) {

@@ -9,12 +9,14 @@ import { add, loadMyCourses, loadUserCourses } from "./actions.js";
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];
+	totalMyCoursesCount: number;
 	userCourses: UserCourseResponseDto[];
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
+	totalMyCoursesCount: 0,
 	userCourses: [],
 };
 
@@ -32,6 +34,7 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(loadMyCourses.fulfilled, (state, action) => {
 			state.myCourses = action.payload.items;
+			state.totalMyCoursesCount = action.payload.total;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadMyCourses.pending, (state) => {

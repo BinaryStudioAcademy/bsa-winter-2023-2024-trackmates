@@ -1,4 +1,10 @@
-import { type CourseService } from "~/modules/courses/courses.js";
+import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
+import { type PaginationResponseDto } from "~/libs/types/types.js";
+import {
+	type CourseDto,
+	type CourseGetAllByUserRequestDto,
+	type CourseService,
+} from "~/modules/courses/courses.js";
 
 import { type CourseRepository } from "../courses/course.repository.js";
 import { type UserCourseResponseDto } from "./libs/types/types.js";
@@ -39,13 +45,14 @@ class UserCourseService {
 	}
 
 	public async findAllByUser({
+		count,
+		page,
 		search,
 		userId,
-	}: {
-		search: string;
-		userId: number;
-	}): Promise<UserCourseResponseDto[]> {
-		return await this.courseRepository.findByUserIdWithProgress({
+	}: CourseGetAllByUserRequestDto): Promise<PaginationResponseDto<CourseDto>> {
+		return await this.courseRepository.findAllByUser({
+			count,
+			page: convertPageToZeroIndexed(page),
 			search,
 			userId,
 		});

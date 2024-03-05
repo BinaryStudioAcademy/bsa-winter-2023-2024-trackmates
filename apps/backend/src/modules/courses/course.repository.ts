@@ -1,9 +1,14 @@
 import { type UserCourseResponseDto } from "@trackmates/shared";
 import { raw } from "objection";
+import { type Page } from "objection";
 
+import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { type Repository } from "~/libs/types/types.js";
+import {
+	type PaginationResponseDto,
+	type Repository,
+} from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
@@ -12,7 +17,10 @@ import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
-import { type ProgressDataItem } from "./libs/types/types.js";
+import {
+	type CourseGetAllByUserRequestDto,
+	type ProgressDataItem,
+} from "./libs/types/types.js";
 
 class CourseRepository implements Repository<CourseEntity> {
 	private courseModel: typeof CourseModel;
@@ -200,6 +208,60 @@ class CourseRepository implements Repository<CourseEntity> {
 		});
 	}
 
+	public async findAllByUser({
+		count,
+		page,
+		search,
+		userId,
+	}: CourseGetAllByUserRequestDto): Promise<
+		PaginationResponseDto<UserCourseResponseDto>
+	> {
+		const user = await this.userModel.query().findById(userId);
+
+		if (!user) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_USER,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const { results, total } = await user
+			.$relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.whereILike("title", `%${search}%`)
+			.withGraphFetched("vendor")
+			.orderBy("courses.updatedAt", SortOrder.ASC)
+			.page(page, count)
+			.castTo<Page<CourseModel>>();
+
+		const progressData = await this.getProgressData(
+			results.map((course) => course.id),
+		);
+
+		const NO_PROGRESS = 0;
+
+		return {
+			items: results.map((course) => {
+				const progressItem = progressData.find((p) => p.courseId === course.id);
+
+				return {
+					createdAt: course.createdAt,
+					description: course.description,
+					id: course.id,
+					image: course.image,
+					progress: progressItem?.progress ?? NO_PROGRESS,
+					title: course.title,
+					updatedAt: course.updatedAt,
+					url: course.url,
+					vendor: course.vendor,
+					vendorCourseId: course.vendorCourseId,
+					vendorId: course.vendorId,
+				};
+			}),
+			total,
+		};
+	}
+
 	public async findByUserId({
 		search,
 		userId,
@@ -244,54 +306,6 @@ class CourseRepository implements Repository<CourseEntity> {
 				vendorId: model.vendorId,
 			}),
 		);
-	}
-
-	public async findByUserIdWithProgress({
-		search,
-		userId,
-	}: {
-		search: string;
-		userId: number;
-	}): Promise<UserCourseResponseDto[]> {
-		const user = await this.userModel.query().findById(userId);
-
-		if (!user) {
-			throw new CourseError({
-				message: CourseErrorMessage.NOT_FOUND_USER,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
-		const courseModels = await user
-			.$relatedQuery(DatabaseTableName.COURSES)
-			.for(userId)
-			.whereILike("title", `%${search}%`)
-			.withGraphFetched("vendor")
-			.castTo<CourseModel[]>();
-
-		const progressData = await this.getProgressData(
-			courseModels.map((course) => course.id),
-		);
-
-		const NO_PROGRESS = 0;
-
-		return courseModels.map((course) => {
-			const progressItem = progressData.find((p) => p.courseId === course.id);
-
-			return {
-				createdAt: course.createdAt,
-				description: course.description,
-				id: course.id,
-				image: course.image,
-				progress: progressItem?.progress ?? NO_PROGRESS,
-				title: course.title,
-				updatedAt: course.updatedAt,
-				url: course.url,
-				vendor: course.vendor,
-				vendorCourseId: course.vendorCourseId,
-				vendorId: course.vendorId,
-			};
-		});
 	}
 
 	public async findByVendorCourseId(

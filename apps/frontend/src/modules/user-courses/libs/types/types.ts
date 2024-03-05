@@ -1,5 +1,5 @@
 export {
 	type AddCourseRequestDto,
+	type CourseGetAllByUserRequestDto,
 	type UserCourseResponseDto,
-	type UserCoursesResponseDto,
 } from "@trackmates/shared";
