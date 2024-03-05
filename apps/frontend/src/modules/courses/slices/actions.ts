@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import {
+	type CourseDto,
 	type CourseSearchFilterDto,
 	type CoursesResponseDto,
 } from "../libs/types/types.js";
@@ -18,6 +19,15 @@ const getAll = createAsyncThunk<
 	return courseApi.getAll(filterPayload);
 });
 
+const getById = createAsyncThunk<CourseDto, { id: string }, AsyncThunkConfig>(
+	`${sliceName}/getById`,
+	({ id }, { extra }) => {
+		const { courseApi } = extra;
+
+		return courseApi.getById(id);
+	},
+);
+
 const getRecommended = createAsyncThunk<
 	CoursesResponseDto,
 	CourseSearchFilterDto,
@@ -28,4 +38,4 @@ const getRecommended = createAsyncThunk<
 	return courseApi.getRecommended(filterPayload);
 });
 
-export { getAll, getRecommended };
+export { getAll, getById, getRecommended };

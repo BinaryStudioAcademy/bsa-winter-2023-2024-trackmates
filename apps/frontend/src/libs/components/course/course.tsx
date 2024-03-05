@@ -1,18 +1,36 @@
-import { Button, Image } from "~/libs/components/components.js";
+import { Button, Link } from "~/libs/components/components.js";
+import { AppRoute } from "~/libs/enums/enums.js";
+import { configureString } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
+import { CourseCard } from "./libs/component/component.js";
 import styles from "./styles.module.css";
 
 type Properties = {
 	course: CourseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
+	userId?: number | undefined;
 };
 
-const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
-	const { image, title, url, vendor, vendorCourseId } = course;
+const Course: React.FC<Properties> = ({
+	course,
+	onAddCourse,
+	userId,
+}: Properties) => {
+	const { id, url, vendor, vendorCourseId } = course;
 	const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+
+	const courseDescriptionRouteById = configureString(
+		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
+		{
+			courseId: String(id),
+			userId: String(userId),
+		},
+	) as typeof AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID;
+
+	const hasAddCourse = !!onAddCourse;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -24,18 +42,14 @@ const Course: React.FC<Properties> = ({ course, onAddCourse }: Properties) => {
 
 	return (
 		<article className={styles["container"]}>
-			<div className={styles["content"]}>
-				<div className={styles["source-container"]}>
-					<Image alt="Course source logo" src={`/vendors/${vendor.key}.svg`} />
-				</div>
-				<div className={styles["image-container"]}>
-					<Image alt="Course" src={image} />
-				</div>
-				<div className={styles["info-container"]}>
-					<h2 className={styles["title"]}>{title}</h2>
-				</div>
-			</div>
-			{onAddCourse && (
+			{hasAddCourse ? (
+				<CourseCard course={course} />
+			) : (
+				<Link to={courseDescriptionRouteById}>
+					<CourseCard course={course} />
+				</Link>
+			)}
+			{hasAddCourse && (
 				<div className={styles["actions"]}>
 					<a
 						className={styles["course-details-link"]}
