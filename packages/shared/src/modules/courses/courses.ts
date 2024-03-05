@@ -3,6 +3,7 @@ export { CourseError } from "./libs/exceptions/exceptions.js";
 export {
 	type AddCourseRequestDto,
 	type CourseDto,
+	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	type CoursesResponseDto,

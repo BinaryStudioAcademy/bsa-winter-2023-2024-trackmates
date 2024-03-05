@@ -8,4 +8,5 @@ export {
 	ExceptionMessage,
 	HTTPCode,
 	ServerErrorType,
+	SortOrder,
 } from "@trackmates/shared";

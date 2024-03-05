@@ -9,12 +9,14 @@ import { add, loadMyCourses, loadUserCourses } from "./actions.js";
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: CourseDto[];
+	totalMyCoursesCount: number;
 	userCourses: CourseDto[];
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
+	totalMyCoursesCount: 0,
 	userCourses: [],
 };
 
@@ -31,7 +33,8 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadMyCourses.fulfilled, (state, action) => {
-			state.myCourses = action.payload.courses;
+			state.myCourses = action.payload.items;
+			state.totalMyCoursesCount = action.payload.total;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadMyCourses.pending, (state) => {
@@ -41,7 +44,7 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadUserCourses.fulfilled, (state, action) => {
-			state.userCourses = action.payload.courses;
+			state.userCourses = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadUserCourses.pending, (state) => {
