@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.23.0...frontend-v1.24.0) (2024-03-05)
+
+
+### Features
+
+* **frontend:** Implement Open Graph Protocol tm-304 ([#314](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/314)) ([d577240](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d577240e91c959718b8c3b43e40b6b87e83b9e08))
+
 ## [1.23.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.22.0...frontend-v1.23.0) (2024-03-05)
 
 
