@@ -6,14 +6,23 @@ import { LinearProgress } from "../../../../linear-progress/linear-progress.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | UserCourseResponseDto;
+	course?: CourseDto;
+	userCourse?: UserCourseResponseDto;
 };
 
-const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
-	const { image, title, vendor } = course;
+const CourseCard: React.FC<Properties> = ({
+	course,
+	userCourse,
+}: Properties) => {
+	const hasCourse = Boolean(course);
+	const hasUserCourse = Boolean(userCourse);
+	const { image, title, vendor } = hasCourse
+		? (course as CourseDto)
+		: (userCourse as UserCourseResponseDto);
 
-	const { progress } = course as UserCourseResponseDto;
-	const percentage = progress as number | undefined;
+	const percentage = hasUserCourse
+		? (userCourse as UserCourseResponseDto).progress
+		: null;
 
 	return (
 		<div className={styles["content"]}>
@@ -26,9 +35,9 @@ const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 			<div className={styles["info-container"]}>
 				<h2 className={styles["title"]}>{title}</h2>
 
-				{percentage !== undefined && (
+				{hasUserCourse && (
 					<div className={styles["progress"]}>
-						<LinearProgress progress={percentage} />
+						<LinearProgress progress={percentage as number} />
 						<p className={styles["progress-info"]}>Completed {percentage}%</p>
 					</div>
 				)}

@@ -143,13 +143,13 @@ class UserCourseController extends BaseController {
 		params: { userId: string };
 		query: { search: string | undefined };
 	}>): Promise<APIHandlerResponse> {
-		const courses = await this.userCourseService.findAllByUser({
+		const items = await this.userCourseService.findAllByUser({
 			search: search ?? "",
 			userId: Number(userId),
 		});
 
 		return {
-			payload: { courses },
+			payload: { items },
 			status: HTTPCode.OK,
 		};
 	}
