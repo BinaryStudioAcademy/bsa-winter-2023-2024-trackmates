@@ -8,7 +8,6 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
-	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 import {
@@ -33,7 +32,6 @@ type Properties = {
 };
 
 const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
-	const [addedCourses, setAddedCourses] = useState<AddCourseRequestDto[]>([]);
 	const dispatch = useAppDispatch();
 	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
 		(state) => {
@@ -53,7 +51,6 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const handleAddCourse = useCallback(
 		(payload: AddCourseRequestDto) => {
 			void dispatch(userCourseActions.add(payload));
-			setAddedCourses((previous) => [...previous, payload]);
 		},
 		[dispatch],
 	);
@@ -108,9 +105,9 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
 
 	const handleOnClose = useCallback((): void => {
-		dispatch(courseActions.removeAlreadyAddedCourses(addedCourses));
+		dispatch(courseActions.clearCourses());
 		onClose();
-	}, [dispatch, addedCourses, onClose]);
+	}, [dispatch, onClose]);
 
 	return (
 		<Modal isOpen onClose={handleOnClose}>
