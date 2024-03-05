@@ -46,7 +46,7 @@ export {
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
-	ActivityTypeValue,
+	ActivityType,
 	activityActionIdParameterValidationSchema,
 	activityApplyFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";

@@ -1,1 +1,1 @@
-export { ActivitiesApiPath, ActivityTypeValue } from "@trackmates/shared";
+export { ActivitiesApiPath, ActivityType } from "@trackmates/shared";

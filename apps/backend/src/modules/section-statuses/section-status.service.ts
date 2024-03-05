@@ -2,7 +2,7 @@ import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/types.js";
 import { type ActivityService } from "~/modules/activities/activities.js";
-import { ActivityTypeValue } from "~/modules/activities/libs/enums/enums.js";
+import { ActivityType } from "~/modules/activities/libs/enums/enums.js";
 import { type CourseSectionRepository } from "~/modules/course-sections/course-sections.js";
 
 import { SectionStatus } from "./libs/enums/enums.js";
@@ -53,9 +53,7 @@ class SectionStatusService implements Service {
 		const { course, id, title } = courseSection.toObject();
 
 		if (course) {
-			await this.activityService.create<
-				typeof ActivityTypeValue.FINISH_SECTION
-			>({
+			await this.activityService.create<typeof ActivityType.FINISH_SECTION>({
 				actionId,
 				payload: {
 					course: {
@@ -66,7 +64,7 @@ class SectionStatusService implements Service {
 					id,
 					title,
 				},
-				type: ActivityTypeValue.FINISH_SECTION,
+				type: ActivityType.FINISH_SECTION,
 				userId,
 			});
 		}
@@ -77,10 +75,10 @@ class SectionStatusService implements Service {
 		userId: number,
 	): Promise<void> {
 		await this.activityService.deleteByKeyFields<
-			typeof ActivityTypeValue.FINISH_SECTION
+			typeof ActivityType.FINISH_SECTION
 		>({
 			actionId,
-			type: ActivityTypeValue.FINISH_SECTION,
+			type: ActivityType.FINISH_SECTION,
 			userId,
 		});
 	}

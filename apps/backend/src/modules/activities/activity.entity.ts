@@ -1,7 +1,7 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
 import { type UserEntity } from "~/modules/users/user.entity.js";
 
-import { type ActivityTypeValue } from "./libs/enums/enums.js";
+import { type ActivityType } from "./libs/enums/enums.js";
 
 class ActivityEntity implements Entity {
 	public actionId: number;
@@ -10,7 +10,7 @@ class ActivityEntity implements Entity {
 
 	public payload: unknown;
 
-	public type: ValueOf<typeof ActivityTypeValue>;
+	public type: ValueOf<typeof ActivityType>;
 
 	public updatedAt: string;
 
@@ -30,7 +30,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: null | number;
 		payload: unknown;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
 		user: UserEntity | null;
 		userId: number;
@@ -56,7 +56,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: number;
 		payload: unknown;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
 		user: UserEntity | null;
 		userId: number;
@@ -80,7 +80,7 @@ class ActivityEntity implements Entity {
 	}: {
 		actionId: number;
 		payload: unknown;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		userId: number;
 	}): ActivityEntity {
 		return new ActivityEntity({
@@ -97,7 +97,7 @@ class ActivityEntity implements Entity {
 	public toNewObject(): {
 		actionId: number;
 		payload: unknown;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		userId: number;
 	} {
 		return {
@@ -112,7 +112,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: number;
 		payload: unknown;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
 		user: {
 			avatarUrl: string;
@@ -141,7 +141,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		id: number;
 		payload: unknown;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
 		userId: number;
 	} {

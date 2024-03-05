@@ -7,7 +7,7 @@ import {
 import { type ValueOf } from "~/libs/types/types.js";
 import { UserModel } from "~/modules/users/users.js";
 
-import { type ActivityTypeValue } from "./libs/enums/enums.js";
+import { type ActivityType } from "./libs/enums/enums.js";
 
 class ActivityModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
@@ -29,7 +29,7 @@ class ActivityModel extends AbstractModel {
 
 	public time!: string;
 
-	public type!: ValueOf<typeof ActivityTypeValue>;
+	public type!: ValueOf<typeof ActivityType>;
 
 	public user!: UserModel;
 

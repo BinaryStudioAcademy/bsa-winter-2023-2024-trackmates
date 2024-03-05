@@ -1,2 +1,2 @@
 export { RelationName } from "./relation-name.enum.js";
-export { ActivitiesApiPath, ActivityTypeValue } from "@trackmates/shared";
+export { ActivitiesApiPath, ActivityType } from "@trackmates/shared";

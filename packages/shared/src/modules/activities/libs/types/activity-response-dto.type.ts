@@ -1,9 +1,9 @@
 import { type ValueOf } from "../../../../libs/types/types.js";
 import { type UserAuthResponseDto } from "../../../users/users.js";
-import { type ActivityTypeValue } from "../enums/enums.js";
+import { type ActivityType } from "../enums/enums.js";
 import { type ActivityPayloadMap } from "./activity-payload-map.type.js";
 
-type ActivityResponseDto<T extends ValueOf<typeof ActivityTypeValue>> = {
+type ActivityResponseDto<T extends ValueOf<typeof ActivityType>> = {
 	id: number;
 	payload: ActivityPayloadMap[T];
 	type: T;

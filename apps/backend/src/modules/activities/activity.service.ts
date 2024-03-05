@@ -2,7 +2,7 @@ import { type Service, type ValueOf } from "~/libs/types/types.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
-import { type ActivityTypeValue } from "./libs/enums/enums.js";
+import { type ActivityType } from "./libs/enums/enums.js";
 import {
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
@@ -20,7 +20,7 @@ class ActivityService implements Service {
 		this.activityRepository = activityRepository;
 	}
 
-	public async create<T extends ValueOf<typeof ActivityTypeValue>>(activity: {
+	public async create<T extends ValueOf<typeof ActivityType>>(activity: {
 		actionId: number;
 		payload: ActivityPayloadMap[T];
 		type: T;
@@ -34,7 +34,7 @@ class ActivityService implements Service {
 		});
 
 		if (existingActivity) {
-			const id = existingActivity.toPlainObject().id;
+			const { id } = existingActivity.toPlainObject();
 
 			return (await this.activityRepository.update(
 				id,
@@ -56,7 +56,7 @@ class ActivityService implements Service {
 		return await this.activityRepository.delete(id);
 	}
 
-	public async deleteByKeyFields<T extends ValueOf<typeof ActivityTypeValue>>({
+	public async deleteByKeyFields<T extends ValueOf<typeof ActivityType>>({
 		actionId,
 		type,
 		userId,
@@ -74,12 +74,12 @@ class ActivityService implements Service {
 
 	public async find(
 		id: number,
-	): Promise<ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> | null> {
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
 			? (activity.toObject() as ActivityResponseDto<
-					ValueOf<typeof ActivityTypeValue>
+					ValueOf<typeof ActivityType>
 				>)
 			: null;
 	}
@@ -88,7 +88,7 @@ class ActivityService implements Service {
 		const friendsActivities = await this.activityRepository.findAll(userId);
 		const items = friendsActivities.map((entity) => {
 			return entity.toObject() as ActivityResponseDto<
-				ValueOf<typeof ActivityTypeValue>
+				ValueOf<typeof ActivityType>
 			>;
 		});
 

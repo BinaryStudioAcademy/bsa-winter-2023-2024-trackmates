@@ -1,4 +1,4 @@
-export { ActivitiesApiPath, ActivityTypeValue } from "./libs/enums/enums.js";
+export { ActivitiesApiPath, ActivityType } from "./libs/enums/enums.js";
 export {
 	type ActivityCreateRequestDto,
 	type ActivityGetAllResponseDto,

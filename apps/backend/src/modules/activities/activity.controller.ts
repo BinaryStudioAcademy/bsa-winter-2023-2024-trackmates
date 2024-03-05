@@ -10,7 +10,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type ActivityService } from "./activity.service.js";
-import { ActivitiesApiPath, ActivityTypeValue } from "./libs/enums/enums.js";
+import { ActivitiesApiPath, ActivityType } from "./libs/enums/enums.js";
 import {
 	type ActivityCreateRequestDto,
 	type ActivityPayloadMap,
@@ -72,9 +72,7 @@ class ActivityController extends BaseController {
 			handler: (options) => {
 				return this.createFinishSection(
 					options as APIHandlerOptions<{
-						body: ActivityCreateRequestDto<
-							typeof ActivityTypeValue.FINISH_SECTION
-						>;
+						body: ActivityCreateRequestDto<typeof ActivityType.FINISH_SECTION>;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -102,7 +100,7 @@ class ActivityController extends BaseController {
 		});
 	}
 
-	private async create<T extends ValueOf<typeof ActivityTypeValue>>({
+	private async create<T extends ValueOf<typeof ActivityType>>({
 		actionId,
 		payload,
 		type,
@@ -172,18 +170,18 @@ class ActivityController extends BaseController {
 		body: { actionId, payload },
 		user,
 	}: APIHandlerOptions<{
-		body: ActivityCreateRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
+		body: ActivityCreateRequestDto<typeof ActivityType.FINISH_SECTION>;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.create<typeof ActivityTypeValue.FINISH_SECTION>({
+		return await this.create<typeof ActivityType.FINISH_SECTION>({
 			actionId,
 			payload,
-			type: ActivityTypeValue.FINISH_SECTION,
+			type: ActivityType.FINISH_SECTION,
 			user,
 		});
 	}
 
-	private async delete<T extends ValueOf<typeof ActivityTypeValue>>({
+	private async delete<T extends ValueOf<typeof ActivityType>>({
 		actionId,
 		type,
 		user,
@@ -236,9 +234,9 @@ class ActivityController extends BaseController {
 		params: { actionId: string };
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.delete<typeof ActivityTypeValue.FINISH_SECTION>({
+		return await this.delete<typeof ActivityType.FINISH_SECTION>({
 			actionId,
-			type: ActivityTypeValue.FINISH_SECTION,
+			type: ActivityType.FINISH_SECTION,
 			user,
 		});
 	}
