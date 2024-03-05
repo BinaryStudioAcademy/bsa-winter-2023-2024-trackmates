@@ -20,13 +20,13 @@
 
 .link {
 	font-weight: 500;
-	color: var(--color-button);
+	color: var(--color-text-500);
 	text-decoration: none;
 	transition: 0.1s color ease;
 }
 
 .link:hover {
-	text-decoration: underline;
+	color: var(--color-button);
 }
 
 .tabs {
