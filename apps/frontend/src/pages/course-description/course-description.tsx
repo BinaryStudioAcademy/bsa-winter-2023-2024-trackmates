@@ -46,17 +46,14 @@ const CourseDescription: React.FC = () => {
 
 	return (
 		<>
-			<div className={styles["back-container"]}>
-				<Button
-					className={styles["back-button"]}
-					hasVisuallyHiddenLabel
-					href={AppRoute.ROOT}
-					iconName="backArrow"
-					label="Back to overview"
-					size="small"
-				/>
-				<span className={styles["subtitle"]}>Back to overview</span>
-			</div>
+			<Button
+				className={styles["back-button"]}
+				hasVisuallyHiddenLabel
+				href={AppRoute.ROOT}
+				iconName="backArrow"
+				label="Back to overview"
+				size="small"
+			/>
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (
