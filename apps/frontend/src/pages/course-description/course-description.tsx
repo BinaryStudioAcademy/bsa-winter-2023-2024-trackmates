@@ -58,7 +58,7 @@ const CourseDescription: React.FC = () => {
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (
 					<CourseSections
-						courseId={Number(course.id)}
+						courseId={Number(courseId)}
 						courseSections={courseSections}
 						userId={Number(userId)}
 					/>

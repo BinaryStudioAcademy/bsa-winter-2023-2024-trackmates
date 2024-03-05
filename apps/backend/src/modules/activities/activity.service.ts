@@ -48,10 +48,10 @@ class ActivityService implements Service {
 			return (await this.activityRepository.update(
 				id,
 				ActivityEntity.initializeNew({
-					actionId: actionId,
-					payload: payload,
-					type: type,
-					userId: userId,
+					actionId,
+					payload,
+					type,
+					userId,
 				}),
 			)) as ActivityEntity;
 		} else {
