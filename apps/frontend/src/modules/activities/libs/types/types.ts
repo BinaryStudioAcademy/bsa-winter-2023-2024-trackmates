@@ -1,4 +1,4 @@
 export {
-	type ActivityGetActivitiesResponseDto,
+	type ActivityGetAllResponseDto,
 	type ActivityResponseDto,
 } from "@trackmates/shared";

@@ -137,6 +137,34 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		});
 	}
 
+	public async findByKeyFields({
+		actionId,
+		type,
+		userId,
+	}: {
+		actionId: number;
+		type: ValueOf<typeof ActivityTypeValue>;
+		userId: number;
+	}): Promise<ActivityEntity | null> {
+		const activity = await this.activityModel
+			.query()
+			.findOne({ actionId, type, userId })
+			.castTo<ActivityModel | null>()
+			.execute();
+
+		return activity
+			? ActivityEntity.initialize({
+					actionId: activity.actionId,
+					id: activity.id,
+					payload: activity.payload,
+					type: activity.type,
+					updatedAt: activity.updatedAt,
+					user: null,
+					userId: activity.userId,
+				})
+			: null;
+	}
+
 	public async update(
 		id: number,
 		activity: ActivityEntity,

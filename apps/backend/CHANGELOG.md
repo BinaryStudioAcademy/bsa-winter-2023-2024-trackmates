@@ -1,5 +1,40 @@
 # Changelog
 
+## [1.13.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.12.0...backend-v1.13.0) (2024-03-05)
+
+
+### Features
+
+* **frontend/backend/shared:** add possibility to complete remove completion of a course section tm-161 ([#275](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/275)) ([f216ba4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f216ba4d3b50f2fe2670f494e7216cbaad79fd5b))
+
+## [1.12.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.4...backend-v1.12.0) (2024-03-03)
+
+
+### Features
+
+* **backend:** Convert text to varchar in DB for fields with a maximum length tm-265 ([#298](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/298)) ([d5d8a70](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d5d8a70b41ab67a65cdf173c86be392f734fa2b0))
+
+## [1.11.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.3...backend-v1.11.4) (2024-03-03)
+
+
+### Bug Fixes
+
+* **backend:** remove mutual followers check tm-290 ([#296](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/296)) ([da012ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/da012ae1bb67433ac78077857993327551a3d0e0))
+
+## [1.11.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.2...backend-v1.11.3) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** Add Friend page tm-40 ([#284](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/284)) ([eed6857](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eed6857e334fca5b70bf7984878626c1d4403472))
+
+## [1.11.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.1...backend-v1.11.2) (2024-03-03)
+
+
+### Bug Fixes
+
+* **frontend/backend:** add course functionality tm-27 ([#277](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/277)) ([760cdbb](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/760cdbbddc9698feab7ddc07de14c8e80d668557))
+
 ## [1.11.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.11.0...backend-v1.11.1) (2024-03-01)
 
 
