@@ -120,7 +120,7 @@ const User: React.FC = () => {
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} />
+					<Courses courses={courses} userId={userId} />
 				)}
 			</div>
 		</div>
