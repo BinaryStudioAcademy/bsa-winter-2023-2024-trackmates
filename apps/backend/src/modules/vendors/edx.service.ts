@@ -4,7 +4,8 @@ import {
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
 
-import { EdxApiPath, EdxCourseFieldsMapping } from "./libs/enums/enums.js";
+import { EdxApiPath } from "./libs/enums/enums.js";
+import { EdxCourseFieldsMapping } from "./libs/mapper/mapper.js";
 import {
 	type Course,
 	type CourseFieldsMapping,

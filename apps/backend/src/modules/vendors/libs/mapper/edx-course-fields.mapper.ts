@@ -1,9 +1,8 @@
+import { EdxCourseField } from "~/modules/vendors/libs/enums/enums.js";
 import {
 	type CourseFieldsMapping,
 	type EdxCourseResponseDto,
 } from "~/modules/vendors/libs/types/types.js";
-
-import { EdxCourseField } from "./edx-course-field.enum.js";
 
 const EdxCourseFieldsMapping: CourseFieldsMapping = {
 	description: EdxCourseField["DESCRIPTION"] as keyof EdxCourseResponseDto,
