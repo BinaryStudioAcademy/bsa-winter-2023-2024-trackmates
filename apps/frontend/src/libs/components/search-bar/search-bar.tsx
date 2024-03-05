@@ -1,5 +1,6 @@
 import { type FormEvent } from "react";
 
+import { PaginationValue } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -45,8 +46,10 @@ const SearchBar: React.FC<Properties> = ({
 	): void => {
 		void dispatch(
 			userCourseActions.loadMyCourses({
-				id: user.id,
+				count: PaginationValue.DEFAULT_COUNT,
+				page: PaginationValue.DEFAULT_PAGE,
 				search: filterFormData.search,
+				userId: user.id,
 			}),
 		);
 	};
