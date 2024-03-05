@@ -42,6 +42,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
+	type ActivityCreateRequestDto,
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,

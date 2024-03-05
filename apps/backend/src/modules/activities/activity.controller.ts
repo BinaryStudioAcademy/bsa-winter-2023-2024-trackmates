@@ -11,16 +11,14 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type ActivityService } from "./activity.service.js";
 import { ActivitiesApiPath, ActivityTypeValue } from "./libs/enums/enums.js";
-import { type ActivityPayloadMap } from "./libs/types/types.js";
+import {
+	type ActivityCreateRequestDto,
+	type ActivityPayloadMap,
+} from "./libs/types/types.js";
 import {
 	activityActionIdParameterValidationSchema,
 	activityApplyFinishSectionValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
-
-type ApplyRequestDto<T extends ValueOf<typeof ActivityTypeValue>> = {
-	actionId: number;
-	payload: ActivityPayloadMap[T];
-};
 
 /**
  * @swagger
@@ -74,7 +72,9 @@ class ActivityController extends BaseController {
 			handler: (options) => {
 				return this.createFinishSection(
 					options as APIHandlerOptions<{
-						body: ApplyRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
+						body: ActivityCreateRequestDto<
+							typeof ActivityTypeValue.FINISH_SECTION
+						>;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -172,7 +172,7 @@ class ActivityController extends BaseController {
 		body: { actionId, payload },
 		user,
 	}: APIHandlerOptions<{
-		body: ApplyRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
+		body: ActivityCreateRequestDto<typeof ActivityTypeValue.FINISH_SECTION>;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return await this.create<typeof ActivityTypeValue.FINISH_SECTION>({
