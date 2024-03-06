@@ -137,12 +137,12 @@ class ChatRepository implements Repository<ChatEntity> {
 						.where((builder) => {
 							void builder
 								.where(
-									"firstUser:user_details.first_name",
+									"firstUser:userDetails.firstName",
 									"ilike",
 									`%${search}%`,
 								)
 								.orWhere(
-									"firstUser:user_details.last_name",
+									"firstUser:userDetails.lastName",
 									"ilike",
 									`%${search}%`,
 								);
@@ -151,12 +151,12 @@ class ChatRepository implements Repository<ChatEntity> {
 						.orWhere((builder) => {
 							void builder
 								.where(
-									"secondUser:user_details.first_name",
+									"secondUser:userDetails.firstName",
 									"ilike",
 									`%${search}%`,
 								)
 								.orWhere(
-									"secondUser:user_details.last_name",
+									"secondUser:userDetails.lastName",
 									"ilike",
 									`%${search}%`,
 								);
