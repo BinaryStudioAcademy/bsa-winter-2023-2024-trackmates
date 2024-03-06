@@ -1,0 +1,48 @@
+@import url("~/assets/css/media.css");
+
+.wrapper {
+	position: relative;
+	display: flex;
+	gap: 27px;
+	justify-content: center;
+	padding: 15px 40px;
+}
+
+.back-container {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+	margin-top: 15px;
+	color: var(--color-text-400);
+}
+
+.back-button {
+	width: 24px;
+	height: 24px;
+	margin-left: 39px;
+	color: var(--color-text-400);
+	background-color: #e0e0e0;
+}
+
+@media screen and (--large-screen) {
+	.wrapper {
+		flex-direction: column;
+	}
+
+	.back-container {
+		display: none;
+	}
+}
+
+@media screen and (--medium-screen) {
+	.wrapper {
+		flex-direction: column;
+		padding: 27px 30px 10px;
+	}
+}
+
+@media screen and (--small-screen) {
+	.wrapper {
+		padding: 27px 20px 10px;
+	}
+}

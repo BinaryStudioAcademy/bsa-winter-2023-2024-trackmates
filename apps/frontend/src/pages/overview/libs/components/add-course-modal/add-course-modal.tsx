@@ -72,6 +72,13 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		);
 	};
 
+	const handleFormSubmit = useCallback(
+		(event_: React.FormEvent<HTMLFormElement>): void => {
+			event_.preventDefault();
+		},
+		[],
+	);
+
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
 		void handleSubmit(handleSearchCourses)(event_);
 	};
@@ -101,18 +108,23 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		<Modal isOpen onClose={onClose}>
 			<div className={styles["add-course-modal"]}>
 				<header className={styles["header"]}>
-					<h3 className={styles["title"]}>Add the Course</h3>
-					<form onChange={handleDebouncedSearchCourses}>
-						<Input
-							className={styles["search-input"]}
-							control={control}
-							errors={errors}
-							hasVisuallyHiddenLabel
-							label="Search course"
-							name="search"
-							placeholder="Course name..."
-							type="text"
-						/>
+					<h3 className={styles["title"]}>Add course</h3>
+					<form
+						onChange={handleDebouncedSearchCourses}
+						onSubmit={handleFormSubmit}
+					>
+						<div className={styles["search-input-container"]}>
+							<Input
+								control={control}
+								errors={errors}
+								hasVisuallyHiddenLabel
+								iconName="search"
+								label="Search course"
+								name="search"
+								placeholder="Course name..."
+								type="text"
+							/>
+						</div>
 						<div className={styles["toolbar"]}>
 							<p className={styles["results-count"]}>
 								{courses.length} results

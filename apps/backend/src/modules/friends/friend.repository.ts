@@ -6,28 +6,13 @@ import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
+import { RelationName } from "./libs/enums/enums.js";
+
 class FriendRepository implements Repository<UserEntity> {
 	private userModel: typeof UserModel;
 
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
-	}
-
-	public async checkIsMutualFollowersByIds(
-		firstUserId: number,
-		secondUserId: number,
-	): Promise<boolean> {
-		const [firstUserSubscription, secondUserSubscription] = await this.userModel
-			.query()
-			.from(DatabaseTableName.FRIENDS)
-			.where({ followerId: firstUserId, followingId: secondUserId })
-			.orWhere({ followerId: secondUserId, followingId: firstUserId })
-			.execute();
-
-		const isFirstUserSubscribed = Boolean(firstUserSubscription);
-		const isSecondUserSubscribed = Boolean(secondUserSubscription);
-
-		return isFirstUserSubscribed && isSecondUserSubscribed;
 	}
 
 	public async create({
@@ -45,7 +30,9 @@ class FriendRepository implements Repository<UserEntity> {
 		const followingUser = await this.userModel
 			.query()
 			.findById(followingUserId)
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.castTo<UserModel>();
 
 		return UserEntity.initialize({
@@ -86,7 +73,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.from(DatabaseTableName.FRIENDS)
 			.select("*")
 			.where({
-				id: id,
+				id,
 			})
 			.first()
 			.delete();
@@ -116,7 +103,9 @@ class FriendRepository implements Repository<UserEntity> {
 		const user = await this.userModel
 			.query()
 			.findById(id)
-			.withGraphJoined("userDetails")
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
 			.execute();
 
 		return user
@@ -162,7 +151,9 @@ class FriendRepository implements Repository<UserEntity> {
 				"=",
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return followings.map((user) => {
 			return UserEntity.initialize({
@@ -258,7 +249,9 @@ class FriendRepository implements Repository<UserEntity> {
 					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
 			)
 			.distinct()
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return potentialFollowers.map((user) => {
 			return UserEntity.initialize({
@@ -304,7 +297,9 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.follower_id`,
 			)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return userFollowers.map((user) => {
 			return UserEntity.initialize({
@@ -350,7 +345,9 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
-			.withGraphJoined("userDetails");
+			.withGraphJoined(
+				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			);
 
 		return userFollowings.map((user) => {
 			return UserEntity.initialize({

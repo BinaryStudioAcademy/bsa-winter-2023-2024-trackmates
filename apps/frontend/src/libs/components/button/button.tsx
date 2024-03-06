@@ -11,6 +11,7 @@ type Properties = {
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
+	isDisabled?: boolean;
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
@@ -23,6 +24,7 @@ const Button: React.FC<Properties> = ({
 	hasVisuallyHiddenLabel = false,
 	href,
 	iconName,
+	isDisabled = false,
 	label,
 	onClick,
 	size = "regular",
@@ -34,6 +36,7 @@ const Button: React.FC<Properties> = ({
 		styles[size],
 		styles[style],
 		className,
+		isDisabled && styles["disabled"],
 	);
 
 	const icon = iconName ? <Icon name={iconName} /> : null;
@@ -49,7 +52,12 @@ const Button: React.FC<Properties> = ({
 					<span className={labelStyle}>{label}</span>
 				</Link>
 			) : (
-				<button className={buttonStyles} onClick={onClick} type={type}>
+				<button
+					className={buttonStyles}
+					disabled={isDisabled}
+					onClick={onClick}
+					type={type}
+				>
 					{icon}
 					<span className={labelStyle}>{label}</span>
 				</button>

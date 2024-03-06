@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .friends {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -17,13 +19,13 @@
 	box-shadow: 3px 11px 22px -14px #00000080;
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (--large-screen) {
 	.friends {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
-@media screen and (width <= 768px) {
+@media screen and (--medium-screen) {
 	.friends {
 		grid-template-columns: repeat(2, 1fr);
 	}

@@ -1,6 +1,6 @@
 .image {
 	display: block;
-	width: 100%;
+	max-width: 100%;
 	background-color: transparent;
 	object-fit: cover;
 }

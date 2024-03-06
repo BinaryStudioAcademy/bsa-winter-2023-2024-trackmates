@@ -8,7 +8,8 @@ Track your progress for all your courses
 
 - Pay attention, that we have certain [quality criteria](https://github.com/BinaryStudioAcademy/quality-criteria/blob/production/src/javascript.md), which we should follow during application development.
 
-TODO: Add development deployment link
+Deployed application:
+[TrackMates](https://trackmates.net/)
 
 ## 2. Domain
 
@@ -80,7 +81,6 @@ erDiagram
     dateTime updated_at
     int course_id FK
     varchar title
-    varchar description
    }
 
    section_statuses {

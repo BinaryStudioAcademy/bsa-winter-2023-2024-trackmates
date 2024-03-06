@@ -8,6 +8,7 @@ const APIPath = {
 	FRIENDS: "/friends",
 	GROUPS: "/groups",
 	PERMISSIONS: "/permissions",
+	SECTION_STATUSES: "/section-statuses",
 	USER_COURSES: "/user-courses",
 	USERS: "/users",
 	VENDORS: "/vendors",

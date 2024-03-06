@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	display: flex;
 	justify-content: center;
@@ -87,14 +89,14 @@
 	left: 12px;
 }
 
-@media screen and (width <= 1024px) {
+@media screen and (--large-screen) {
 	.sign-in::before,
 	.sign-up::before {
 		display: none;
 	}
 }
 
-@media screen and (width <= 768px) {
+@media screen and (--medium-screen) {
 	.container {
 		background-image: url("~/assets/img/background-cloud-one.svg"),
 			url("~/assets/img/background-cloud-three.svg"),
@@ -110,7 +112,7 @@
 	}
 }
 
-@media screen and (width <= 480px) {
+@media screen and (--small-screen) {
 	.container {
 		padding: 0;
 		background-image: url("~/assets/img/background-cloud-four.svg"),

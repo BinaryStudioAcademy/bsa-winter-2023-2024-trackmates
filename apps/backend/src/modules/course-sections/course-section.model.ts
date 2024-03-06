@@ -6,8 +6,6 @@ import {
 class CourseSectionModel extends AbstractModel {
 	public courseId!: number;
 
-	public description!: string;
-
 	public title!: string;
 
 	public static override get tableName(): string {

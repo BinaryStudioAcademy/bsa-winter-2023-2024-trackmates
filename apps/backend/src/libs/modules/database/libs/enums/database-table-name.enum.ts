@@ -10,6 +10,7 @@ const DatabaseTableName = {
 	GROUPS_TO_PERMISSIONS: "groups_to_permissions",
 	MIGRATIONS: "migrations",
 	PERMISSIONS: "permissions",
+	SECTION_STATUSES: "section_statuses",
 	USER_DETAILS: "user_details",
 	USERS: "users",
 	USERS_TO_GROUPS: "users_to_groups",

@@ -28,7 +28,6 @@ class CourseSectionService implements Service {
 		const courseSection = await this.courseSectionRepository.create(
 			CourseSectionEntity.initializeNew({
 				courseId: payload.courseId,
-				description: payload.description,
 				title: payload.title,
 			}),
 		);

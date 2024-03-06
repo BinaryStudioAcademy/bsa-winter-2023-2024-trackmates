@@ -8,4 +8,5 @@ export {
 	PermissionKey,
 	PermissionMode,
 	ServerErrorType,
+	SortOrder,
 } from "@trackmates/shared";

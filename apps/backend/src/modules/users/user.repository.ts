@@ -309,7 +309,7 @@ class UserRepository implements Repository<UserEntity> {
 	): Promise<UserEntity | null> {
 		const userDetails = await this.userDetailsModel
 			.query()
-			.findOne({ userId: userId })
+			.findOne({ userId })
 			.castTo<UserDetailsModel>();
 
 		await this.userDetailsModel.query().patchAndFetchById(userDetails.id, {
