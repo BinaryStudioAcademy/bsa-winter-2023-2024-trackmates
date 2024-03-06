@@ -35,15 +35,15 @@ class GroupRepository implements Repository<GroupEntity> {
 			.castTo<PermissionModel[]>()
 			.execute();
 
-		return permissions.map((permission) =>
-			PermissionEntity.initialize({
+		return permissions.map((permission) => {
+			return PermissionEntity.initialize({
 				createdAt: permission.createdAt,
 				id: permission.id,
 				key: permission.key,
 				name: permission.name,
 				updatedAt: permission.updatedAt,
-			}),
-		);
+			});
+		});
 	}
 
 	public async addUserToGroup(
