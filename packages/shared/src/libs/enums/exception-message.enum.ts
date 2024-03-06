@@ -1,5 +1,6 @@
 const ExceptionMessage = {
 	CHAT_NOT_FOUND: "Chat not found.",
+	COURSE_NOT_FOUND: "Course not found.",
 	COURSE_SECTION_NOT_FOUND: "Course section not found.",
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
 	FILE_IS_TOO_LARGE: "File is too large.",

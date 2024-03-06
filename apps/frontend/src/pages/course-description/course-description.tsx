@@ -1,5 +1,8 @@
 import { Button } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import {
+	BACK_NAVIGATION_STEP,
+	EMPTY_ARRAY_LENGTH,
+} from "~/libs/constants/constants.js";
 import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -19,7 +22,6 @@ import {
 	CourseDetails,
 	CourseSections,
 } from "./libs/components/components.js";
-import { BACK_NAVIGATION_STEP } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {

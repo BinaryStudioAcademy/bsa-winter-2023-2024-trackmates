@@ -1,4 +1,5 @@
 type IconName =
+	| "activities"
 	| "add"
 	| "back"
 	| "backArrow"

@@ -15,6 +15,7 @@ import { Auth } from "~/pages/auth/auth.jsx";
 
 import { Chats } from "./pages/chats/chats.js";
 import { CourseDescription } from "./pages/course-description/course-description.js";
+import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Notifications } from "./pages/notifications/notifications.js";
@@ -37,6 +38,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <ProtectedRoute component={<Chats />} />,
 								path: AppRoute.CHATS_$ID,
+							},
+							{
+								element: <ProtectedRoute component={<Feed />} />,
+								path: AppRoute.FEED,
 							},
 							{
 								element: <ProtectedRoute component={<Friends />} />,
