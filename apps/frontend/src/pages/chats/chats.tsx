@@ -34,7 +34,7 @@ const Chats: React.FC = () => {
 		}));
 
 	useEffect(() => {
-		void dispatch(chatsActions.getAllChats({ search: "" }));
+		void dispatch(chatsActions.getAllChats());
 
 		return () => {
 			dispatch(chatsActions.leaveChat());
@@ -62,7 +62,7 @@ const Chats: React.FC = () => {
 
 				await dispatch(chatMessagesActions.sendMessage(messagePayload));
 				void dispatch(chatsActions.getChat(Number(id)));
-				void dispatch(chatsActions.getAllChats({ search: "" }));
+				void dispatch(chatsActions.getAllChats());
 			}
 		},
 		[dispatch, id],
