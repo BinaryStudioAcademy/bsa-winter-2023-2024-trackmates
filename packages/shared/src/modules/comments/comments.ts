@@ -12,5 +12,4 @@ export {
 	commentGetAllQuery as commentGetAllQueryValidationSchema,
 	commentIdParameter as commentIdParameterValidationSchema,
 	commentText as commentTextValidationSchema,
-	commentUpdateBody as commentUpdateBodyValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

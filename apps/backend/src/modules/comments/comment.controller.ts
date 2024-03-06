@@ -19,7 +19,7 @@ import {
 	commentCreateBodyValidationSchema,
 	commentGetAllQueryValidationSchema,
 	commentIdParameterValidationSchema,
-	commentUpdateBodyValidationSchema,
+	commentTextValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -116,7 +116,7 @@ class CommentController extends BaseController {
 			method: "PATCH",
 			path: CommentsApiPath.$ID,
 			validation: {
-				body: commentUpdateBodyValidationSchema,
+				body: commentTextValidationSchema,
 				params: commentIdParameterValidationSchema,
 			},
 		});

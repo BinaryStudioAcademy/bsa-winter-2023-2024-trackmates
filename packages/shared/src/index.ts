@@ -94,7 +94,6 @@ export {
 	commentGetAllQueryValidationSchema,
 	commentIdParameterValidationSchema,
 	commentTextValidationSchema,
-	commentUpdateBodyValidationSchema,
 } from "./modules/comments/comments.js";
 export {
 	type CourseSectionAddRequestDto,

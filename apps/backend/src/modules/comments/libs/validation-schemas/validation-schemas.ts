@@ -2,5 +2,5 @@ export {
 	commentCreateBodyValidationSchema,
 	commentGetAllQueryValidationSchema,
 	commentIdParameterValidationSchema,
-	commentUpdateBodyValidationSchema,
+	commentTextValidationSchema,
 } from "@trackmates/shared";
