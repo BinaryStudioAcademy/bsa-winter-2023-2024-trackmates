@@ -22,11 +22,9 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(likeActivity.fulfilled, (state, action) => {
-			const updatedActivity = action.payload;
-			const index = state.activities.findIndex(
-				(activity) => activity.id === updatedActivity.id,
-			);
-			state.activities[index] = updatedActivity;
+			state.activities = state.activities.map((activity) => {
+				return activity.id === action.payload.id ? action.payload : activity;
+			});
 			state.likeDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(likeActivity.pending, (state) => {

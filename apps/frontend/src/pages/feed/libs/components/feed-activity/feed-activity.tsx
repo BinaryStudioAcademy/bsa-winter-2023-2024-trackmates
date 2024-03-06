@@ -18,7 +18,7 @@ type Properties = {
 const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 	const dispatch = useAppDispatch();
 
-	const onLike = useCallback(() => {
+	const handleLike = useCallback(() => {
 		void dispatch(activitiesActions.likeActivity(activity.id));
 	}, [dispatch, activity.id]);
 
@@ -45,7 +45,7 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 						className={styles["tool-button"]}
 						iconName="like"
 						label="Like"
-						onClick={onLike}
+						onClick={handleLike}
 					/>
 				</div>
 			</div>
