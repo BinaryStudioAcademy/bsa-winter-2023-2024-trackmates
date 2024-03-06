@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.35.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.35.0...v1.35.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** The "YouTube" character is overlaid on extralong names at certain screen widths tm-330 ([#355](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/355)) ([b314971](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b314971c3c68bc449251e8c43ff8c6d4ca5fa99a))
+
 ## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.34.0...v1.35.0) (2024-03-05)
 
 
