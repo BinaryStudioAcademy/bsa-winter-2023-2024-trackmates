@@ -1,4 +1,4 @@
-import { type RefObject, useEffect } from "react";
+import { type RefObject, useEffect, useState } from "react";
 
 type Properties = {
 	onClick: () => void;
@@ -6,22 +6,35 @@ type Properties = {
 };
 
 const useHandleClickOutside = ({ onClick, ref }: Properties): void => {
+	const [isMouseDownInside, setIsMouseDownInside] = useState<boolean>(false);
+
 	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent | React.MouseEvent): void => {
+		const handleMouseDown = (event: MouseEvent): void => {
+			setIsMouseDownInside(
+				Boolean(ref.current) &&
+					(ref.current as Node).contains(event.target as Node),
+			);
+		};
+
+		const handleClickOutside = (event: MouseEvent): void => {
 			const hasTargetNode = (event.target as Node).contains(ref.current);
 			const isTargetNode = event.target === ref.current;
 
-			if (hasTargetNode && !isTargetNode) {
+			if (!isMouseDownInside && hasTargetNode && !isTargetNode) {
 				onClick();
 			}
+
+			setIsMouseDownInside(false);
 		};
 
-		document.addEventListener("mousedown", handleClickOutside);
+		document.addEventListener("mousedown", handleMouseDown);
+		document.addEventListener("click", handleClickOutside);
 
 		return () => {
-			document.removeEventListener("mousedown", handleClickOutside);
+			document.removeEventListener("mousedown", handleMouseDown);
+			document.removeEventListener("click", handleClickOutside);
 		};
-	}, [onClick, ref]);
+	}, [onClick, ref, isMouseDownInside]);
 };
 
 export { useHandleClickOutside };
