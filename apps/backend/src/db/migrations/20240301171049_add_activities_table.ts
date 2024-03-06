@@ -15,7 +15,7 @@ const ColumnName = {
 	USER_ID: "user_id",
 } as const;
 
-const columnTypeValues = {
+const columnTypeValue = {
 	FINISH_COURSE: "finish-course",
 	FINISH_SECTION: "finish-section",
 } as const;
@@ -27,7 +27,7 @@ function up(knex: Knex): Promise<void> {
 		table.increments(ColumnName.ID).primary();
 		table.integer(ColumnName.ACTION_ID).notNullable();
 		table.jsonb(ColumnName.PAYLOAD);
-		table.enum(ColumnName.TYPE, Object.values(columnTypeValues));
+		table.enum(ColumnName.TYPE, Object.values(columnTypeValue));
 		table
 			.integer(ColumnName.USER_ID)
 			.references(ColumnName.ID)
