@@ -70,13 +70,11 @@ class SectionStatusService implements Service {
 		>({
 			actionId,
 			payload: {
-				course: {
-					id: course.id,
-					title: course.title,
-					vendorId: course.vendorId,
-				},
+				courseId: course.id,
+				courseTitle: course.title,
 				id,
 				title,
+				vendorId: course.vendorId,
 			},
 			type: ActivityType.FINISH_SECTION,
 			userId,

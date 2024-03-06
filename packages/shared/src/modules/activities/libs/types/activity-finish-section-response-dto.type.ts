@@ -1,11 +1,9 @@
 type ActivityFinishSectionResponseDto = {
-	course: {
-		id: number;
-		title: string;
-		vendorId: number;
-	};
+	courseId: number;
+	courseTitle: string;
 	id: number;
 	title: string;
+	vendorId: number;
 };
 
 export { type ActivityFinishSectionResponseDto };
