@@ -80,7 +80,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.execute();
 
 		return activity
-			? ActivityEntity.initializeWithReactionsCounts({
+			? ActivityEntity.initializeWithReactionsCount({
 					actionId: activity.actionId,
 					id: activity.id,
 					likesCount: activity.likesCount,
@@ -130,7 +130,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.execute();
 
 		return activities.map((activity) => {
-			return ActivityEntity.initializeWithReactionsCounts({
+			return ActivityEntity.initializeWithReactionsCount({
 				actionId: activity.actionId,
 				id: activity.id,
 				likesCount: activity.likesCount,

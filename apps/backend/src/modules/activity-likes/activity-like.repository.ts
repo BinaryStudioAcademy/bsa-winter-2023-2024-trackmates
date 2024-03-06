@@ -93,23 +93,25 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 	public async update(
 		id: number,
 		entity: ActivityLikeEntity,
-	): Promise<ActivityLikeEntity> {
+	): Promise<ActivityLikeEntity | null> {
 		const activityLike = entity.toNewObject();
 		const activityLikeModel = await this.activityLikeModel
 			.query()
 			.findById(id)
 			.patch(activityLike)
 			.returning("*")
-			.castTo<ActivityLikeModel>()
+			.castTo<ActivityLikeModel | undefined>()
 			.execute();
 
-		return ActivityLikeEntity.initialize({
-			activityId: activityLikeModel.activityId,
-			createdAt: activityLikeModel.createdAt,
-			id: activityLikeModel.id,
-			updatedAt: activityLikeModel.updatedAt,
-			userId: activityLikeModel.userId,
-		});
+		return activityLikeModel
+			? ActivityLikeEntity.initialize({
+					activityId: activityLikeModel.activityId,
+					createdAt: activityLikeModel.createdAt,
+					id: activityLikeModel.id,
+					updatedAt: activityLikeModel.updatedAt,
+					userId: activityLikeModel.userId,
+				})
+			: null;
 	}
 }
 

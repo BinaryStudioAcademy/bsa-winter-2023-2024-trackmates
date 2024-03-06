@@ -89,7 +89,7 @@ class ActivityService implements Service {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
-			? (activity.toObjectWithReactionsCounts() as ActivityResponseDto<
+			? (activity.toObjectWithReactionsCount() as ActivityResponseDto<
 					ValueOf<typeof ActivityType>
 				>)
 			: null;
@@ -98,7 +98,7 @@ class ActivityService implements Service {
 	public async findAll(userId: number): Promise<ActivityGetAllResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
 		const items = friendsActivities.map((entity) => {
-			return entity.toObjectWithReactionsCounts() as ActivityResponseDto<
+			return entity.toObjectWithReactionsCount() as ActivityResponseDto<
 				ValueOf<typeof ActivityType>
 			>;
 		});
@@ -124,7 +124,7 @@ class ActivityService implements Service {
 		const targetActivity = await this.activityRepository.find(id);
 
 		return targetActivity
-			? (targetActivity.toObjectWithReactionsCounts() as ActivityResponseDto<
+			? (targetActivity.toObjectWithReactionsCount() as ActivityResponseDto<
 					ValueOf<typeof ActivityType>
 				>)
 			: null;

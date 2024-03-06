@@ -101,7 +101,7 @@ class ActivityEntity implements Entity {
 		});
 	}
 
-	public static initializeWithReactionsCounts({
+	public static initializeWithReactionsCount({
 		actionId,
 		id,
 		likesCount,
@@ -175,7 +175,7 @@ class ActivityEntity implements Entity {
 		};
 	}
 
-	public toObjectWithReactionsCounts(): {
+	public toObjectWithReactionsCount(): {
 		actionId: number;
 		id: number;
 		likesCount: number;
