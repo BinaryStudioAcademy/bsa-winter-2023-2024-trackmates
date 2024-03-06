@@ -15,6 +15,6 @@ const groupService = new GroupService({
 });
 const groupController = new GroupController(logger, groupService);
 
-export { type GroupEntity } from "./group.entity.js";
+export { GroupEntity } from "./group.entity.js";
 export { type GroupResponseDto } from "./libs/types/types.js";
 export { groupController };
