@@ -9,8 +9,8 @@ import styles from "./styles.module.css";
 type Properties = {
 	className?: string | undefined;
 	hasVisuallyHiddenLabel?: boolean;
-	hoverIconName?: IconName;
 	href?: ValueOf<typeof AppRoute>;
+	iconClassName?: string | undefined;
 	iconName?: IconName;
 	isDisabled?: boolean;
 	label: string;
@@ -23,8 +23,8 @@ type Properties = {
 const Button: React.FC<Properties> = ({
 	className,
 	hasVisuallyHiddenLabel = false,
-	hoverIconName,
 	href,
+	iconClassName,
 	iconName,
 	isDisabled = false,
 	label,
@@ -41,8 +41,9 @@ const Button: React.FC<Properties> = ({
 		isDisabled && styles["disabled"],
 	);
 
-	const icon = iconName ? <Icon name={iconName} /> : null;
-	const hoverIcon = hoverIconName ? <Icon name={hoverIconName} /> : icon;
+	const icon = iconName ? (
+		<Icon className={iconClassName || ""} name={iconName} />
+	) : null;
 	const labelStyle = getValidClassNames(
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
@@ -61,8 +62,7 @@ const Button: React.FC<Properties> = ({
 					onClick={onClick}
 					type={type}
 				>
-					<div className={styles["icon"]}>{icon}</div>
-					<div className={styles["hoverIcon"]}>{hoverIcon}</div>
+					{icon}
 					<span className={labelStyle}>{label}</span>
 				</button>
 			)}

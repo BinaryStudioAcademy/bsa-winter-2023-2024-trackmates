@@ -8,7 +8,6 @@ type IconName =
 	| "eye"
 	| "eyeOff"
 	| "home"
-	| "invertedPlus"
 	| "logOut"
 	| "message"
 	| "pie"

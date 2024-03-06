@@ -77,6 +77,14 @@
 	color: var(--main-white);
 }
 
+.add-course-button-icon {
+	fill: var(--main-orange);
+}
+
+.add-course-button:hover .add-course-button-icon {
+	fill: var(--main-white);
+}
+
 @media screen and (width <= 1400px) {
 	.welcome-section-header-content {
 		max-width: 40%;
