@@ -87,6 +87,7 @@
 
 .log-out-btn {
 	justify-content: flex-start;
+	font-weight: 700;
 }
 
 @media screen and (--large-screen) {
