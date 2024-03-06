@@ -1,6 +1,6 @@
 {
 	"name": "trackmates",
-	"version": "1.36.3",
+	"version": "1.41.1",
 	"type": "module",
 	"workspaces": [
 		"apps/*",

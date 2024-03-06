@@ -1,3 +1,5 @@
+import { type UserCourseResponseDto } from "@trackmates/shared";
+import { raw } from "objection";
 import { type Page } from "objection";
 
 import { SortOrder } from "~/libs/enums/enums.js";
@@ -10,11 +12,16 @@ import {
 import { type UserModel } from "~/modules/users/user.model.js";
 import { VendorEntity } from "~/modules/vendors/vendors.js";
 
+import { CourseSectionModel } from "../course-sections/course-sections.js";
 import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
+import { NO_PROGRESS_ON_USER_COURSE } from "./libs/constants/constants.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
-import { type CourseGetAllByUserRequestDto } from "./libs/types/types.js";
+import {
+	type CourseGetAllByUserRequestDto,
+	type ProgressDataItem,
+} from "./libs/types/types.js";
 
 class CourseRepository implements Repository<CourseEntity> {
 	private courseModel: typeof CourseModel;
@@ -208,7 +215,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		search,
 		userId,
 	}: CourseGetAllByUserRequestDto): Promise<
-		PaginationResponseDto<CourseEntity>
+		PaginationResponseDto<UserCourseResponseDto>
 	> {
 		const user = await this.userModel.query().findById(userId);
 
@@ -228,30 +235,28 @@ class CourseRepository implements Repository<CourseEntity> {
 			.page(page, count)
 			.castTo<Page<CourseModel>>();
 
-		const courseItems = results.map((course) =>
-			CourseEntity.initialize({
-				createdAt: course.createdAt,
-				description: course.description,
-				id: course.id,
-				image: course.image,
-				title: course.title,
-				updatedAt: course.updatedAt,
-				url: course.url,
-				vendor: VendorEntity.initialize({
-					createdAt: course.vendor.createdAt,
-					id: course.vendor.id,
-					key: course.vendor.key,
-					name: course.vendor.name,
-					updatedAt: course.vendor.updatedAt,
-					url: course.vendor.url,
-				}),
-				vendorCourseId: course.vendorCourseId,
-				vendorId: course.vendorId,
-			}),
+		const progressData = await this.getProgressData(
+			results.map((course) => course.id),
 		);
 
 		return {
-			items: courseItems,
+			items: results.map((course) => {
+				const progressItem = progressData.find((p) => p.courseId === course.id);
+
+				return {
+					createdAt: course.createdAt,
+					description: course.description,
+					id: course.id,
+					image: course.image,
+					progress: progressItem?.progress ?? NO_PROGRESS_ON_USER_COURSE,
+					title: course.title,
+					updatedAt: course.updatedAt,
+					url: course.url,
+					vendor: course.vendor,
+					vendorCourseId: course.vendorCourseId,
+					vendorId: course.vendorId,
+				};
+			}),
 			total,
 		};
 	}
@@ -332,6 +337,30 @@ class CourseRepository implements Repository<CourseEntity> {
 					vendorId: course.vendorId,
 				})
 			: null;
+	}
+
+	public async getProgressData(
+		courseIds: number[],
+	): Promise<ProgressDataItem[]> {
+		return await CourseSectionModel.query()
+			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
+			.select(
+				raw(`
+						ROUND(
+							(count(distinct CASE WHEN ${DatabaseTableName.SECTION_STATUSES}.status = 'completed' THEN ${DatabaseTableName.COURSE_SECTIONS}.id END)::float
+								/
+							count(distinct ${DatabaseTableName.COURSE_SECTIONS}.id)::float) * 100
+							) as progress
+				`),
+			)
+			.leftJoin(
+				DatabaseTableName.SECTION_STATUSES,
+				`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
+				`${DatabaseTableName.COURSE_SECTIONS}.id`,
+			)
+			.whereIn(`${DatabaseTableName.COURSE_SECTIONS}.course_id`, courseIds)
+			.groupBy(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
+			.castTo<ProgressDataItem[]>();
 	}
 
 	public async update(

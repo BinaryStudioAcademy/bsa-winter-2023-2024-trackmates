@@ -6,6 +6,7 @@ import {
 	Loader,
 	Navigate,
 } from "~/libs/components/components.js";
+import { BACK_NAVIGATION_STEP } from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -13,6 +14,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useNavigate,
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
@@ -47,6 +49,8 @@ const User: React.FC = () => {
 		};
 	});
 
+	const navigate = useNavigate();
+
 	const handleFollow = useCallback(() => {
 		void dispatch(friendsActions.follow({ id: userId }))
 			.unwrap()
@@ -62,6 +66,10 @@ const User: React.FC = () => {
 				dispatch(friendsActions.setIsFollowing(false));
 			});
 	}, [dispatch, userId]);
+
+	const handleGoBackToPreviousPage = useCallback((): void => {
+		navigate(BACK_NAVIGATION_STEP);
+	}, [navigate]);
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
@@ -87,9 +95,9 @@ const User: React.FC = () => {
 			<Button
 				className={styles["return-button"]}
 				hasVisuallyHiddenLabel
-				href={AppRoute.FRIENDS}
 				iconName="back"
 				label="Go back"
+				onClick={handleGoBackToPreviousPage}
 				size="small"
 			/>
 

@@ -136,6 +136,7 @@ class UserCourseController extends BaseController {
 	 *         schema:
 	 *           type: string
 	 *           minimum: 1
+	 *     responses:
 	 *       200:
 	 *         description: Successful operation
 	 *         content:

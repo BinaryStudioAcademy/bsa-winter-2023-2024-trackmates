@@ -1,5 +1,66 @@
 # Changelog
 
+## [1.31.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.31.0...frontend-v1.31.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix service worker cache issue with swagger in deployed app tm-1 ([#383](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/383)) ([debc8ab](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/debc8abce100d0d40dc0b17b644bb2d8d34eeb01))
+
+## [1.31.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.30.0...frontend-v1.31.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** add search field to chats page tm-294 ([#366](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/366)) ([ceacdb6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ceacdb6ea6ac09cc5a906cdfdc8db1eeef6c5ddf))
+
+## [1.30.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.29.1...frontend-v1.30.0) (2024-03-06)
+
+
+### Features
+
+* **frontend:** change button icon on hover tm-319 ([#352](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/352)) ([fba4d55](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fba4d55465317baa83e0c457dec92d2156671673))
+
+## [1.29.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.29.0...frontend-v1.29.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** The "Back" button on the "Friend profile" page doesn't navigate to the previous tab on the "Friends" page tm-325 ([#351](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/351)) ([30c8efe](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/30c8efe0176c447b0f94f9484c87adc814c9c866))
+
+## [1.29.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.28.0...frontend-v1.29.0) (2024-03-06)
+
+
+### Features
+
+* **backend:** add edx vendor tm-211 ([#292](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/292)) ([1fc6608](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1fc6608a829d58cb4c5528eb3d07446d6a224749))
+
+## [1.28.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.27.0...frontend-v1.28.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** Add Progress for courses tm-206 ([#282](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/282)) ([d0b7516](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d0b7516f54fde5022ced8264f34a87614e40f7e6))
+
+
+### Bug Fixes
+
+* **frontend:** Implement Open Graph Protocol tm-304 ([#370](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/370)) ([9d6b745](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9d6b745ab6b0253fc8e4e237fab6168e30a73034))
+
+## [1.27.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.4...frontend-v1.27.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** real time chat functionality tm-113 ([#356](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/356)) ([a227949](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a2279498be52c06c287f3598e9ae978726e54d51))
+
+## [1.26.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.3...frontend-v1.26.4) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix align vertically elemetns on the friend page tm-326 ([#367](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/367)) ([99f115f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/99f115f26cfd24c8d78881a5de7da1049f0a3a72))
+
 ## [1.26.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.2...frontend-v1.26.3) (2024-03-06)
 
 

@@ -83,6 +83,7 @@ class ChatController extends BaseController {
 			handler: (options) => {
 				return this.findAll(
 					options as APIHandlerOptions<{
+						query: { search: string };
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -231,12 +232,14 @@ class ChatController extends BaseController {
 	 *                    type: string
 	 */
 	private async findAll({
+		query: { search },
 		user,
 	}: APIHandlerOptions<{
+		query: { search: string };
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatService.findAll(user.id),
+			payload: await this.chatService.findAll({ search, userId: user.id }),
 			status: HTTPCode.OK,
 		};
 	}

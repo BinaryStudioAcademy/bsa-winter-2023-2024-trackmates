@@ -1,11 +1,10 @@
-import { type FormEvent } from "react";
-
 import { PaginationValue } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
+	useCallback,
 } from "~/libs/hooks/hooks.js";
 import {
 	type CourseSearchRequestDto,
@@ -17,10 +16,6 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Input } from "../input/input.js";
 import styles from "./styles.module.css";
-
-const handleFormSubmit = (event_: FormEvent<HTMLFormElement>): void => {
-	event_.preventDefault();
-};
 
 type Properties = {
 	className?: string | undefined;
@@ -40,6 +35,13 @@ const SearchBar: React.FC<Properties> = ({
 		defaultValues: DEFAULT_SEARCH_MY_COURSES_PAYLOAD,
 		mode: "onChange",
 	});
+
+	const handleFormSubmit = useCallback(
+		(event_: React.FormEvent<HTMLFormElement>): void => {
+			event_.preventDefault();
+		},
+		[],
+	);
 
 	const handleSearchCourses = (
 		filterFormData: CourseSearchRequestDto,
