@@ -16,7 +16,7 @@ const readNotificationsRequest = z.object<ReadNotificationsRequestValidation>({
 				message: NotificationValidationMessage.ID_MINIMUM_VALUE,
 			}),
 		)
-		.min(NotificationValidationRule.NOTIFICATION_IDS_ARRAY_MINIMUM_LENGHT, {
+		.min(NotificationValidationRule.NOTIFICATION_IDS_ARRAY_MINIMUM_LENGTH, {
 			message: NotificationValidationMessage.ARRAY_MINIMUM_SIZE,
 		}),
 });

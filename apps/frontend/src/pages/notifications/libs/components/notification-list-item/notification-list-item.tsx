@@ -37,7 +37,7 @@ const NotificationListItem: React.FC<Properties> = ({
 		<li
 			className={getValidClassNames(
 				styles["notification"],
-				isRead ? "" : styles["unread"],
+				!isRead && styles["unread"],
 			)}
 			ref={ref}
 		>
