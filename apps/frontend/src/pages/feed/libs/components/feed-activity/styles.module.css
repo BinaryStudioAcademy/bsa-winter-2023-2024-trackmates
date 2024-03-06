@@ -45,7 +45,7 @@
 	align-items: center;
 	justify-content: end;
 	width: 100%;
-	padding: 25px 45px;
+	padding: 20px 45px;
 	border-top: 1px solid var(--color-text-100);
 }
 
@@ -75,6 +75,10 @@
 	background-color: var(--main-white);
 	border: unset;
 	fill: currentcolor;
+}
+
+.comments-container {
+	padding: 20px 12px;
 }
 
 @media screen and (--medium-screen) {
