@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.1...frontend-v1.26.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** Make all 54px height buttons use bold (700) Roboto font tm-318 ([#353](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/353)) ([a328ced](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a328cedff1cdd717eb0040fde3c1575ed19391a3))
+
 ## [1.26.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.0...frontend-v1.26.1) (2024-03-06)
 
 
