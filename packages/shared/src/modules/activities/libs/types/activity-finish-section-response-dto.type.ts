@@ -1,4 +1,4 @@
-type ActivityFinishSectionRequestDto = {
+type ActivityFinishSectionResponseDto = {
 	course: {
 		id: number;
 		title: string;
@@ -8,4 +8,4 @@ type ActivityFinishSectionRequestDto = {
 	title: string;
 };
 
-export { type ActivityFinishSectionRequestDto };
+export { type ActivityFinishSectionResponseDto };
