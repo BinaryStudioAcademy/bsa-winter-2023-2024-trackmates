@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.25.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.1...frontend-v1.25.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** Search results should reset after reopening the "Add course" pop-up window tm-315 ([#328](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/328)) ([eb2a978](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eb2a978040bae8af8916584f5dcee0bef25edd64))
+
 ## [1.25.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.0...frontend-v1.25.1) (2024-03-06)
 
 
