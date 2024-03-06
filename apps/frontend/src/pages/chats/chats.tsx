@@ -6,7 +6,6 @@ import {
 	useAppTitle,
 	useCallback,
 	useEffect,
-	useLocation,
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import {
@@ -22,17 +21,14 @@ import styles from "./styles.module.css";
 const Chats: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { id } = useParams<{ id: string }>();
-	const { search } = useLocation();
-	const queryParameters = new URLSearchParams(search);
-	const userId = queryParameters.get("user");
 
-	const { chats, currentMessages, interlocutor, isMessageLoading } =
-		useAppSelector(({ chatMessages, chats }) => ({
+	const { chats, currentChat, isMessageLoading } = useAppSelector(
+		({ chatMessages, chats }) => ({
 			chats: chats.chats,
-			currentMessages: chatMessages.currentMessages,
-			interlocutor: chats.interlocutor,
+			currentChat: chats.currentChat,
 			isMessageLoading: chatMessages.dataStatus === DataStatus.PENDING,
-		}));
+		}),
+	);
 
 	useAppTitle(AppTitle.CHATS);
 
@@ -41,7 +37,6 @@ const Chats: React.FC = () => {
 
 		return () => {
 			dispatch(chatsActions.leaveChat());
-			dispatch(chatMessagesActions.updateMessages([]));
 		};
 	}, [dispatch]);
 
@@ -49,23 +44,17 @@ const Chats: React.FC = () => {
 		if (id && !Number.isNaN(Number(id))) {
 			void dispatch(chatsActions.getChat(Number(id)));
 		}
-
-		if (userId) {
-			void dispatch(chatsActions.createChat(Number(userId)));
-		}
-	}, [dispatch, id, userId]);
+	}, [dispatch, id]);
 
 	const onSubmit = useCallback(
-		async (payload: typeof DEFAULT_MESSAGE_PAYLOAD): Promise<void> => {
+		(payload: typeof DEFAULT_MESSAGE_PAYLOAD): void => {
 			if (id) {
 				const messagePayload: ChatMessageCreateRequestDto = {
 					chatId: Number(id),
 					text: payload.message,
 				};
 
-				await dispatch(chatMessagesActions.sendMessage(messagePayload));
-				void dispatch(chatsActions.getChat(Number(id)));
-				void dispatch(chatsActions.getAllChats());
+				void dispatch(chatMessagesActions.sendMessage(messagePayload));
 			}
 		},
 		[dispatch, id],
@@ -87,12 +76,12 @@ const Chats: React.FC = () => {
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />
-				{id && interlocutor ? (
+				{id && currentChat ? (
 					<Chat
 						isMessageLoading={isMessageLoading}
-						messages={currentMessages}
+						messages={currentChat.messages}
 						onSubmit={onSubmit}
-						receiver={interlocutor}
+						receiver={currentChat.interlocutor}
 					/>
 				) : (
 					<EmptyChat />
