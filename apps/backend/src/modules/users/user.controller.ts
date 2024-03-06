@@ -63,6 +63,29 @@ class UserController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /users:
+	 *    get:
+	 *      tags:
+	 *        - Users
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find all users
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/User"
+	 */
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.userService.findAll(),

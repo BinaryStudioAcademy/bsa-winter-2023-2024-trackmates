@@ -17,6 +17,26 @@ import { GroupsApiPath } from "./libs/enums/enums.js";
 import { type GroupRequestDto } from "./libs/types/types.js";
 import { groupIdParameter } from "./libs/validation-schemas/validation-schemas.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Group:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           minimum: 1
+ *         key:
+ *           type: string
+ *         name:
+ *           type: string
+ *         permissions:
+ *           type: array
+ *           items:
+ *             type: object
+ *             $ref: "#/components/schemas/Permission"
+ */
 class GroupController extends BaseController {
 	private groupService: GroupService;
 
@@ -38,9 +58,6 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
-			validation: {
-				params: groupIdParameter,
-			},
 		});
 
 		this.addRoute({
@@ -111,6 +128,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdParameter,
+			},
 		});
 
 		this.addRoute({
@@ -166,6 +186,35 @@ class GroupController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /groups:
+	 *    post:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Create a new group
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                key:
+	 *                  type: string
+	 *                name:
+	 *                  type: string
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Group"
+	 */
 	private async create({
 		body,
 	}: APIHandlerOptions<{
@@ -177,6 +226,31 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups/{id}:
+	 *    delete:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Delete group by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The group id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: boolean
+	 */
 	private async delete({
 		params,
 	}: APIHandlerOptions<{
@@ -188,6 +262,32 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups/{id}:
+	 *    get:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find group by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The group id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Group"
+	 */
 	private async find({
 		params,
 	}: APIHandlerOptions<{
@@ -199,6 +299,35 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups:
+	 *    get:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Get all groups or user groups
+	 *      parameters:
+	 *        - name: userId
+	 *          in: query
+	 *          description: The user id
+	 *          schema:
+	 *            type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Group"
+	 */
 	private async findAllByQuery({
 		query,
 	}: APIHandlerOptions<{
@@ -215,6 +344,36 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups/{groupId}/permissions:
+	 *    get:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Get all group permissions
+	 *      parameters:
+	 *        - name: groupId
+	 *          in: path
+	 *          description: The group id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Group"
+	 */
 	private async findAllPermissionsInGroup({
 		params,
 	}: APIHandlerOptions<{
@@ -228,6 +387,43 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups/{id}:
+	 *    patch:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Update group by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The group id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                key:
+	 *                  type: string
+	 *                name:
+	 *                  type: string
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Group"
+	 */
 	private async update({
 		body,
 		params,
@@ -241,6 +437,41 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups/{groupId}/permissions/{permissionId}:
+	 *    put:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Update group permissions
+	 *      parameters:
+	 *        - name: groupId
+	 *          in: path
+	 *          description: The group id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *        - name: permissionId
+	 *          in: path
+	 *          description: The permission id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: array
+	 *                items:
+	 *                  type: object
+	 *                  $ref: "#/components/schemas/Permission"
+	 */
 	private async updateGroupPermissions({
 		params,
 	}: APIHandlerOptions<{
@@ -255,6 +486,41 @@ class GroupController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /groups/{groupId}/users/{userId}:
+	 *    put:
+	 *      tags:
+	 *        - Groups
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Update user groups
+	 *      parameters:
+	 *        - name: groupId
+	 *          in: path
+	 *          description: The group id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *        - name: userId
+	 *          in: path
+	 *          description: The user id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: array
+	 *                items:
+	 *                  type: object
+	 *                  $ref: "#/components/schemas/Group"
+	 */
 	private async updateUserGroups({
 		params,
 	}: APIHandlerOptions<{

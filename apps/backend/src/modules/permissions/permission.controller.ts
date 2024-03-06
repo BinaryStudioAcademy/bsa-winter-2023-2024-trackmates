@@ -16,6 +16,21 @@ import { PermissionsApiPath } from "./libs/enums/enums.js";
 import { permissionIdParameter } from "./libs/validation-schemas/validation-schemas.js";
 import { type PermissionService } from "./permission.service.js";
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Permission:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: number
+ *           minimum: 1
+ *         key:
+ *           type: string
+ *         name:
+ *           type: string
+ */
 class PermissionController extends BaseController {
 	private permissionService: PermissionService;
 
@@ -55,6 +70,32 @@ class PermissionController extends BaseController {
 		});
 	}
 
+	/**
+	 * @swagger
+	 * /permissions/{id}:
+	 *    get:
+	 *      tags:
+	 *        - Permissions
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find permission by id
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The permission id
+	 *          required: true
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Permission"
+	 */
 	private async find({
 		params,
 	}: APIHandlerOptions<{
@@ -66,6 +107,29 @@ class PermissionController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /permissions:
+	 *    get:
+	 *      tags:
+	 *        - Permissions
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find all permissions
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Permission"
+	 */
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.permissionService.findAll(),
