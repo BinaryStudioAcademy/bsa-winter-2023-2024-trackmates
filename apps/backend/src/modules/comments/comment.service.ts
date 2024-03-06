@@ -72,10 +72,10 @@ class CommentService implements Service {
 	}
 
 	public async findAllByActivityId(
-		articleId: number,
+		activityId: number,
 	): Promise<CommentGetAllResponseDto> {
 		const { items: comments } =
-			await this.commentRepository.findAllByActivityId(articleId);
+			await this.commentRepository.findAllByActivityId(activityId);
 
 		return {
 			items: comments.map((comment) => comment.toObjectWithRelations()),
