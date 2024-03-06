@@ -8,6 +8,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
+import { socket } from "~/libs/modules/socket/socket.js";
 import { reducer as appReducer } from "~/libs/slices/app/app.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
 import {
@@ -69,6 +70,7 @@ type ExtraArguments = {
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
 	sectionStatusApi: typeof sectionStatusApi;
+	socket: typeof socket;
 	storage: typeof storage;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
@@ -92,7 +94,7 @@ class Store {
 					thunk: {
 						extraArgument: this.extraArguments,
 					},
-				}).prepend([handleError, chatSocket]);
+				}).prepend([handleError, chatSocket({ extra: this.extraArguments })]);
 			},
 			reducer: {
 				app: appReducer,
@@ -121,6 +123,7 @@ class Store {
 			friendsApi,
 			notification,
 			sectionStatusApi,
+			socket,
 			storage,
 			userApi,
 			userCourseApi,
@@ -129,4 +132,5 @@ class Store {
 	}
 }
 
+export { type ExtraArguments };
 export { Store };
