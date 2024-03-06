@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.39.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.38.0...v1.39.0) (2024-03-06)
+
+
+### Features
+
+* **backend:** add edx vendor tm-211 ([#292](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/292)) ([1fc6608](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1fc6608a829d58cb4c5528eb3d07446d6a224749))
+
 ## [1.38.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.37.0...v1.38.0) (2024-03-06)
 
 
