@@ -5,6 +5,7 @@ type IconName =
 	| "backArrow"
 	| "burger"
 	| "chats"
+	| "comment"
 	| "cross"
 	| "eye"
 	| "eyeOff"
@@ -14,7 +15,6 @@ type IconName =
 	| "pie"
 	| "plus"
 	| "plusOutlined"
-	| "search"
-	| "comment";
+	| "search";
 
 export { type IconName };
