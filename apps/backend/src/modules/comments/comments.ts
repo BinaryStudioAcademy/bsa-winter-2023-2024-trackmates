@@ -12,3 +12,4 @@ const commentService = new CommentService({
 const commentController = new CommentController(logger, commentService);
 
 export { commentController };
+export { CommentModel } from "./comment.model.js";

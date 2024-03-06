@@ -5,6 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { CommentModel } from "~/modules/comments/comments.js";
 import { UserModel } from "~/modules/users/users.js";
 
 import { type ActivityType } from "./libs/enums/enums.js";
@@ -12,6 +13,14 @@ import { type ActivityType } from "./libs/enums/enums.js";
 class ActivityModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
 		return {
+			comments: {
+				join: {
+					from: `${DatabaseTableName.ACTIVITIES}.id`,
+					to: `${DatabaseTableName.COMMENTS}.activityId`,
+				},
+				modelClass: CommentModel,
+				relation: Model.HasManyRelation,
+			},
 			user: {
 				join: {
 					from: `${DatabaseTableName.ACTIVITIES}.userId`,

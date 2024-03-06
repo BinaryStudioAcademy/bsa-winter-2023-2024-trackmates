@@ -47,6 +47,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
+	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
 	type ActivityGetAllResponseDto,
