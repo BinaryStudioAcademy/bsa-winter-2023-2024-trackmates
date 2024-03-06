@@ -19,6 +19,9 @@ type EnvironmentSchema = {
 		POOL_MAX: number;
 		POOL_MIN: number;
 	};
+	EDX: {
+		URL: string;
+	};
 	JWT: {
 		ALGORITHM: string;
 		EXPIRES_IN: string;

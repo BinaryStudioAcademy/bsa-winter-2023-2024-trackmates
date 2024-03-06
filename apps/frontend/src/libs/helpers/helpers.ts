@@ -5,6 +5,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getPercentage,
 	getSanitizedHtml,
 	initDebounce,
 } from "@trackmates/shared";

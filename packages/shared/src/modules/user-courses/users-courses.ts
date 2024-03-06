@@ -1,4 +1,5 @@
 export { UserCoursesApiPath } from "./libs/enums/enums.js";
+export { type UserCourseResponseDto } from "./libs/types/types.js";
 export {
 	userCourseGetAllQuery as userCourseGetAllQueryValidationSchema,
 	userIdParameter as userIdParameterValidationSchema,
