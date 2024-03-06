@@ -13,7 +13,7 @@ import { type Config } from "~/libs/modules/config/config.js";
 import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { socketService } from "~/libs/modules/socket/socket.js";
+import { type SocketService } from "~/libs/modules/socket/socket.js";
 import { type Token } from "~/libs/modules/token/token.js";
 import { authorization, fileUpload } from "~/libs/plugins/plugins.js";
 import {
@@ -36,6 +36,7 @@ type Constructor = {
 	database: Database;
 	logger: Logger;
 	services: {
+		socketService: SocketService;
 		userService: UserService;
 	};
 	title: string;
@@ -54,6 +55,7 @@ class BaseServerApplication implements ServerApplication {
 	private logger: Logger;
 
 	private services: {
+		socketService: SocketService;
 		userService: UserService;
 	};
 
@@ -159,6 +161,7 @@ class BaseServerApplication implements ServerApplication {
 	}
 
 	private initSocket(): void {
+		const { socketService } = this.services;
 		socketService.initialize(this.app.server);
 	}
 
