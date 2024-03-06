@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.16.0...backend-v1.17.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** Add Progress for courses tm-206 ([#282](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/282)) ([d0b7516](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d0b7516f54fde5022ced8264f34a87614e40f7e6))
+
 ## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.15.1...backend-v1.16.0) (2024-03-06)
 
 
