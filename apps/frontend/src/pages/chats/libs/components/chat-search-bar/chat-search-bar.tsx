@@ -24,15 +24,15 @@ const ChatSearchBar: React.FC = () => {
 		mode: "onChange",
 	});
 
-	const handleSearchCourses = (filterFormData: ChatSearchDto): void => {
+	const handleSearchChats = (filterFormData: ChatSearchDto): void => {
 		void dispatch(chatsActions.getAllChats({ search: filterFormData.search }));
 	};
 
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
-		void handleSubmit(handleSearchCourses)(event_);
+		void handleSubmit(handleSearchChats)(event_);
 	};
 
-	const handleDebouncedSearchCourses = initDebounce(
+	const handleDebouncedSearchChats = initDebounce(
 		handleFormChange,
 		SEARCH_CHAT_DELAY_MS,
 	);
@@ -40,7 +40,7 @@ const ChatSearchBar: React.FC = () => {
 	return (
 		<form
 			className={styles["form"]}
-			onChange={handleDebouncedSearchCourses}
+			onChange={handleDebouncedSearchChats}
 			onSubmit={handleFormSubmit}
 		>
 			<Input
