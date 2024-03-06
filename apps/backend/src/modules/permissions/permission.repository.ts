@@ -70,7 +70,7 @@ class PermissionRepository implements Repository<PermissionEntity> {
 	public async findByKey(key: string): Promise<PermissionEntity | null> {
 		const permissionByKey = await this.permissionModel
 			.query()
-			.findOne("key", key)
+			.findOne({ key })
 			.execute();
 
 		return permissionByKey
@@ -80,6 +80,23 @@ class PermissionRepository implements Repository<PermissionEntity> {
 					key: permissionByKey.key,
 					name: permissionByKey.name,
 					updatedAt: permissionByKey.updatedAt,
+				})
+			: null;
+	}
+
+	public async findByName(name: string): Promise<PermissionEntity | null> {
+		const permissionByName = await this.permissionModel
+			.query()
+			.findOne({ name })
+			.execute();
+
+		return permissionByName
+			? PermissionEntity.initialize({
+					createdAt: permissionByName.createdAt,
+					id: permissionByName.id,
+					key: permissionByName.key,
+					name: permissionByName.name,
+					updatedAt: permissionByName.updatedAt,
 				})
 			: null;
 	}

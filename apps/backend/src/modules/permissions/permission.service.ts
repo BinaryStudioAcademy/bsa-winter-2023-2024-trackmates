@@ -22,8 +22,9 @@ class PermissionService implements Service {
 	): Promise<PermissionResponseDto> {
 		const { key, name } = permission;
 		const permissionByKey = await this.permissionRepository.findByKey(key);
+		const permissionByName = await this.permissionRepository.findByName(name);
 
-		if (permissionByKey) {
+		if (permissionByKey || permissionByName) {
 			throw new PermissionError({
 				message: PermissionErrorMessage.PERMISSION_ALREADY_EXISTS,
 				status: HTTPCode.BAD_REQUEST,
@@ -100,6 +101,22 @@ class PermissionService implements Service {
 		}
 
 		const { key, name } = permission;
+
+		const permissionByKey = await this.permissionRepository.findByKey(key);
+		const permissionByName = await this.permissionRepository.findByName(name);
+		const permissionByKeyId = permissionByKey?.toObject().id;
+		const permissionByNameId = permissionByName?.toObject().id;
+
+		if (
+			(permissionByKey && permissionByKeyId !== Number(id)) ||
+			(permissionByName && permissionByNameId !== Number(id))
+		) {
+			throw new PermissionError({
+				message: PermissionErrorMessage.PERMISSION_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
 		const updatedPermission = await this.permissionRepository.update(
 			id,
 			PermissionEntity.initializeNew({ key, name }),
