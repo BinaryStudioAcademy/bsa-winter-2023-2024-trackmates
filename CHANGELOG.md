@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.40.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.39.1...v1.40.0) (2024-03-06)
+
+
+### Features
+
+* **frontend:** change button icon on hover tm-319 ([#352](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/352)) ([fba4d55](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fba4d55465317baa83e0c457dec92d2156671673))
+
 ## [1.39.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.39.0...v1.39.1) (2024-03-06)
 
 
