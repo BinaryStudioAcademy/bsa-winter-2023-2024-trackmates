@@ -28,9 +28,16 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 					<div className={styles["card-info"]}>
 						{getActivityTitle(activity)}
 					</div>
-					<div className={styles["toolbar"]}>
-						<Button iconName="like" label="Like" />
-					</div>
+				</div>
+			</div>
+			<div className={styles["toolbar"]}>
+				<div className={styles["tool-container"]}>
+					<span className={styles["tool-count"]}>{activity.likesCount}</span>
+					<Button
+						className={styles["tool-button"]}
+						iconName="like"
+						label="Like"
+					/>
 				</div>
 			</div>
 		</article>
