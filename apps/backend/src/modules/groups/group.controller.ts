@@ -15,6 +15,7 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type GroupService } from "./group.service.js";
 import { GroupsApiPath } from "./libs/enums/enums.js";
 import { type GroupRequestDto } from "./libs/types/types.js";
+import { groupIdParameter } from "./libs/validation-schemas/validation-schemas.js";
 
 class GroupController extends BaseController {
 	private groupService: GroupService;
@@ -69,6 +70,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdParameter,
+			},
 		});
 
 		this.addRoute({
@@ -85,6 +89,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdParameter,
+			},
 		});
 
 		this.addRoute({
@@ -101,6 +108,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdParameter,
+			},
 		});
 
 		this.addRoute({
@@ -150,6 +160,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdParameter,
+			},
 		});
 	}
 

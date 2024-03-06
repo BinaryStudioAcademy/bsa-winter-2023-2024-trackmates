@@ -9,3 +9,4 @@ export {
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 } from "./libs/types/types.js";
+export { permissionIdParameter } from "./libs/validation-schemas/validation-schemas.js";

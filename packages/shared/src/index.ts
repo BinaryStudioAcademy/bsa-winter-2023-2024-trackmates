@@ -110,6 +110,7 @@ export {
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
+	groupIdParameter,
 } from "./modules/groups/groups.js";
 export {
 	PermissionError,
@@ -119,6 +120,7 @@ export {
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 	PermissionsApiPath,
+	permissionIdParameter,
 } from "./modules/permissions/permissions.js";
 export {
 	SectionStatus,

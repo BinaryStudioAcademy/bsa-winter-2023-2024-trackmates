@@ -13,6 +13,7 @@ import {
 import { type Logger } from "~/libs/modules/logger/logger.js";
 
 import { PermissionsApiPath } from "./libs/enums/enums.js";
+import { permissionIdParameter } from "./libs/validation-schemas/validation-schemas.js";
 import { type PermissionService } from "./permission.service.js";
 
 class PermissionController extends BaseController {
@@ -36,6 +37,9 @@ class PermissionController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: permissionIdParameter,
+			},
 		});
 
 		this.addRoute({
