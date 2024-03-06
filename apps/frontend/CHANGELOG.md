@@ -1,5 +1,47 @@
 # Changelog
 
+## [1.26.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.2...frontend-v1.26.3) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix the placeholders tm-329 ([#362](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/362)) ([2af2fc0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2af2fc0eeeb7801d65afaea50922788c43c15175))
+
+## [1.26.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.1...frontend-v1.26.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** Make all 54px height buttons use bold (700) Roboto font tm-318 ([#353](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/353)) ([a328ced](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a328cedff1cdd717eb0040fde3c1575ed19391a3))
+
+## [1.26.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.0...frontend-v1.26.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** update styles and the back button of course description screen tm-28 ([#354](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/354)) ([2427ab5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2427ab5e23f661da21c51c355a327214a92444e8))
+
+## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.2...frontend-v1.26.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend:** quality criteria issues tm-310 ([#320](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/320)) ([2ac9f7b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2ac9f7b45bfa5c4084116c126b0011d013758ffb))
+
+## [1.25.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.1...frontend-v1.25.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** Search results should reset after reopening the "Add course" pop-up window tm-315 ([#328](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/328)) ([eb2a978](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eb2a978040bae8af8916584f5dcee0bef25edd64))
+
+## [1.25.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.0...frontend-v1.25.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** The "YouTube" character is overlaid on extralong names at certain screen widths tm-330 ([#355](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/355)) ([b314971](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b314971c3c68bc449251e8c43ff8c6d4ca5fa99a))
+
 ## [1.25.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.24.0...frontend-v1.25.0) (2024-03-05)
 
 

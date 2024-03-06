@@ -8,7 +8,7 @@ import { type Token } from "~/libs/modules/token/token.js";
 import { AuthError } from "~/modules/auth/auth.js";
 import { type UserService } from "~/modules/users/users.js";
 
-import { checkIfWhiteRoute } from "./libs/helpers/helpers.js";
+import { checkIfWhiteRoute } from "../libs/helpers/helpers.js";
 
 type Options = {
 	services: {
