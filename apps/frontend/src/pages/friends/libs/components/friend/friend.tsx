@@ -31,7 +31,6 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	const dispatch = useAppDispatch();
 
 	const parameters = new URLSearchParams({ user: String(friend.id) });
-
 	const chatRouteByUser =
 		`${AppRoute.CHATS}?${parameters.toString()}` as typeof AppRoute.CHATS;
 
