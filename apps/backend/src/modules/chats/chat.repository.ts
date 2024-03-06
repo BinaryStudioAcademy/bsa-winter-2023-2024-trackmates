@@ -132,18 +132,45 @@ class ChatRepository implements Repository<ChatEntity> {
 			)
 			.whereExists(ChatModel.relatedQuery(RelationName.LAST_MESSAGE))
 			.andWhere((builder) => {
-				void builder
-					.where({ firstUserId: userId })
-					.orWhere({ secondUserId: userId });
+				if (search) {
+					void builder
+						.where((builder) => {
+							void builder
+								.where(
+									"firstUser:user_details.first_name",
+									"ilike",
+									`%${search}%`,
+								)
+								.orWhere(
+									"firstUser:user_details.last_name",
+									"ilike",
+									`%${search}%`,
+								);
+						})
+						.andWhere({ secondUserId: userId })
+						.orWhere((builder) => {
+							void builder
+								.where(
+									"secondUser:user_details.first_name",
+									"ilike",
+									`%${search}%`,
+								)
+								.orWhere(
+									"secondUser:user_details.last_name",
+									"ilike",
+									`%${search}%`,
+								);
+						})
+						.andWhere({ firstUserId: userId });
+				} else {
+					void builder
+						.where({ firstUserId: userId })
+						.orWhere({ secondUserId: userId });
+				}
 			})
 			.withGraphJoined(
 				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.LAST_MESSAGE}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
 			)
-			.where((builder) => {
-				if (search) {
-					void builder.where("firstName", "ilike", `%${search}%`);
-				}
-			})
 			.orderBy(`${RelationName.LAST_MESSAGE}:id`, "desc")
 			.castTo<
 				(ChatModel & {
