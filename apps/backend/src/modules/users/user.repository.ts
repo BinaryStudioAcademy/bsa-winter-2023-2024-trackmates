@@ -65,7 +65,6 @@ class UserRepository implements Repository<UserEntity> {
 	public async find(userId: number): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
-			.select("*")
 			.findById(userId)
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -115,7 +114,6 @@ class UserRepository implements Repository<UserEntity> {
 	public async findById(id: number): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
-			.select("*")
 			.findById(id)
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -141,7 +139,6 @@ class UserRepository implements Repository<UserEntity> {
 	public async getByEmail(email: string): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
-			.select("*")
 			.findOne({ email })
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -213,7 +210,6 @@ class UserRepository implements Repository<UserEntity> {
 
 		const user = await this.userModel
 			.query()
-			.select("*")
 			.findById(userId)
 			.withGraphJoined(
 				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,

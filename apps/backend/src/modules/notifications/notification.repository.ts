@@ -33,8 +33,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	): Promise<boolean> {
 		const unreadNotifications = await this.notificationModel
 			.query()
-			.where("receiverUserId", "=", userId)
-			.andWhere("status", "=", NotificationStatus.UNREAD);
+			.where({ receiverUserId: userId })
+			.andWhere({ status: NotificationStatus.UNREAD });
 
 		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
 	}
@@ -139,7 +139,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	): Promise<NotificationEntity[]> {
 		const userNotifications = await this.notificationModel
 			.query()
-			.where("notifications.receiverUserId", "=", receiverUserId)
+			.where({ receiverUserId })
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
@@ -198,9 +198,10 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		notificationId: number,
 		payload: NotificationEntity,
 	): Promise<NotificationEntity> {
+		const { status } = payload.toUpdateObject();
 		const updatedNotification = await this.notificationModel
 			.query()
-			.patchAndFetchById(notificationId, payload.toUpdateObject())
+			.patchAndFetchById(notificationId, { status })
 			.withGraphFetched(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
