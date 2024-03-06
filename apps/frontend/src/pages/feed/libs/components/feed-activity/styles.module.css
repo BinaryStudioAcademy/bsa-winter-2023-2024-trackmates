@@ -29,7 +29,7 @@
 
 .card-info {
 	font-size: var(--font-size-400);
-	color: var(--color-text-100);
+	color: var(--color-text-300);
 }
 
 .card-photo {
@@ -57,7 +57,7 @@
 
 .tool-count {
 	font-size: var(--font-size-200);
-	color: var(--color-text-200);
+	color: var(--color-text-100);
 }
 
 .tool-button {
