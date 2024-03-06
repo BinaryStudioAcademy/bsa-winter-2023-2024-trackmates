@@ -1,3 +1,4 @@
+import ActivitiesIcon from "~/assets/icons/activities.svg?react";
 import AddIcon from "~/assets/icons/add.svg?react";
 import BackIcon from "~/assets/icons/back.svg?react";
 import BackArrowIcon from "~/assets/icons/back-arrow.svg?react";
@@ -19,6 +20,7 @@ const iconNameToSvg: Record<
 	IconName,
 	React.FC<React.SVGProps<SVGSVGElement>>
 > = {
+	activities: ActivitiesIcon,
 	add: AddIcon,
 	back: BackIcon,
 	backArrow: BackArrowIcon,

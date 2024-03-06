@@ -45,6 +45,18 @@ export {
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
+export {
+	ActivitiesApiPath,
+	type ActivityCreateRequestDto,
+	type ActivityDeleteRequestDto,
+	type ActivityGetAllResponseDto,
+	type ActivityPayloadMap,
+	type ActivityResponseDto,
+	ActivityType,
+	activityActionIdParameterValidationSchema,
+	activityCreateFinishSectionValidationSchema,
+	activityDeleteFinishSectionValidationSchema,
+} from "./modules/activities/activities.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
