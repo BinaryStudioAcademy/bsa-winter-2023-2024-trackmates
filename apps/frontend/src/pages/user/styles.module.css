@@ -33,7 +33,7 @@
 }
 
 .fullName {
-	inline-size: 35ch;
+	max-inline-size: 35ch;
 	margin: 0;
 	font-size: var(--font-size-300);
 	font-weight: 500;
