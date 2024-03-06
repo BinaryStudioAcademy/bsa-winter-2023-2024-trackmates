@@ -5,7 +5,7 @@ import {
 } from "~/libs/modules/http/http.js";
 
 import { EdxApiPath } from "./libs/enums/enums.js";
-import { edxCourseToCourse } from "./libs/mapper/mapper.js";
+import { edxCourseToCourse } from "./libs/maps/maps.js";
 import {
 	type Course,
 	type CourseFieldsMapping,
