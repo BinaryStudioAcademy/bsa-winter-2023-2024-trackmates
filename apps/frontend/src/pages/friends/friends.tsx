@@ -1,9 +1,10 @@
 import { Link } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useEffect,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
@@ -25,6 +26,8 @@ const Friends: React.FC = () => {
 	);
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
+
+	useAppTitle(AppTitle.FRIENDS);
 
 	useEffect(() => {
 		switch (pathname) {

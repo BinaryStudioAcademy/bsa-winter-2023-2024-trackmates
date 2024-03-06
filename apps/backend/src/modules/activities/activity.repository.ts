@@ -1,13 +1,11 @@
-import {
-	DatabaseTableName,
-	SortOrder,
-} from "~/libs/modules/database/database.js";
+import { SortOrder } from "~/libs/enums/enums.js";
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
-import { type ActivityTypeValue, RelationName } from "./libs/enums/enums.js";
+import { type ActivityType, RelationName } from "./libs/enums/enums.js";
 
 class ActivityRepository implements Repository<ActivityEntity> {
 	private activityModel: typeof ActivityModel;
@@ -51,7 +49,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		userId,
 	}: {
 		actionId: number;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		userId: number;
 	}): Promise<boolean> {
 		const deletedItemsCount = await this.activityModel
@@ -92,7 +90,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			type: activity.type,
 			updatedAt: activity.updatedAt,
 			user: UserEntity.initialize({
-				avatarUrl: activity.user.userDetails.avatarFile?.url || null,
+				avatarUrl: activity.user.userDetails.avatarFile?.url ?? null,
 				createdAt: activity.user.createdAt,
 				email: activity.user.email,
 				firstName: activity.user.userDetails.firstName,
@@ -167,7 +165,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		userId,
 	}: {
 		actionId: number;
-		type: ValueOf<typeof ActivityTypeValue>;
+		type: ValueOf<typeof ActivityType>;
 		userId: number;
 	}): Promise<ActivityEntity | null> {
 		const activity = await this.activityModel

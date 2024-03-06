@@ -6,7 +6,7 @@ import {
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
-import { type ActivityTypeValue } from "./libs/enums/enums.js";
+import { type ActivityType } from "./libs/enums/enums.js";
 import {
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
@@ -31,16 +31,7 @@ class ActivityService implements Service {
 		this.activityLikeRepository = activityLikeRepository;
 	}
 
-	private mapToDto(
-		entity: ActivityEntity,
-	): ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> {
-		const activity = entity.toObjectWithReactionsCounts();
-		const payload = activity.payload as ValueOf<ActivityPayloadMap>;
-
-		return { ...activity, payload };
-	}
-
-	public async create<T extends ValueOf<typeof ActivityTypeValue>>(activity: {
+	public async create<T extends ValueOf<typeof ActivityType>>(activity: {
 		actionId: number;
 		payload: ActivityPayloadMap[T];
 		type: T;
@@ -54,7 +45,7 @@ class ActivityService implements Service {
 		});
 
 		if (existingActivity) {
-			const id = existingActivity.toPlainObject().id;
+			const { id } = existingActivity.toPlainObject();
 
 			return (await this.activityRepository.update(
 				id,
@@ -76,7 +67,7 @@ class ActivityService implements Service {
 		return await this.activityRepository.delete(id);
 	}
 
-	public async deleteByKeyFields<T extends ValueOf<typeof ActivityTypeValue>>({
+	public async deleteByKeyFields<T extends ValueOf<typeof ActivityType>>({
 		actionId,
 		type,
 		userId,
@@ -94,19 +85,23 @@ class ActivityService implements Service {
 
 	public async find(
 		id: number,
-	): Promise<ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> | null> {
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
 			? (activity.toObjectWithReactionsCounts() as ActivityResponseDto<
-					ValueOf<typeof ActivityTypeValue>
+					ValueOf<typeof ActivityType>
 				>)
 			: null;
 	}
 
 	public async findAll(userId: number): Promise<ActivityGetAllResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
-		const items = friendsActivities.map((entity) => this.mapToDto(entity));
+		const items = friendsActivities.map((entity) => {
+			return entity.toObjectWithReactionsCounts() as ActivityResponseDto<
+				ValueOf<typeof ActivityType>
+			>;
+		});
 
 		return { items };
 	}
@@ -114,7 +109,7 @@ class ActivityService implements Service {
 	public async setLike(
 		id: number,
 		userId: number,
-	): Promise<ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> | null> {
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
 		const like = await this.activityLikeRepository.findByUserIdPostId(
 			id,
 			userId,
@@ -128,7 +123,11 @@ class ActivityService implements Service {
 
 		const targetActivity = await this.activityRepository.find(id);
 
-		return targetActivity ? this.mapToDto(targetActivity) : null;
+		return targetActivity
+			? (targetActivity.toObjectWithReactionsCounts() as ActivityResponseDto<
+					ValueOf<typeof ActivityType>
+				>)
+			: null;
 	}
 
 	public async update(

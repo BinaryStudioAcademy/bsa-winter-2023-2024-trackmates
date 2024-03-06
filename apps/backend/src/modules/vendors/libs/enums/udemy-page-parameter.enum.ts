@@ -1,6 +1,6 @@
 const UdemyPageParameter = {
-	size: 1000,
-	step: 1,
+	SIZE: 1000,
+	STEP: 1,
 } as const;
 
 export { UdemyPageParameter };

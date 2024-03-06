@@ -3,14 +3,14 @@ import { Button, Image } from "~/libs/components/components.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
-	type ActivityTypeValue,
+	type ActivityType,
 	getActivityTitle,
 } from "~/modules/activities/activities.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	activity: ActivityResponseDto<ValueOf<typeof ActivityTypeValue>>;
+	activity: ActivityResponseDto<ValueOf<typeof ActivityType>>;
 };
 
 const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {

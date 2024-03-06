@@ -1,14 +1,14 @@
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
-	type ActivityTypeValue,
+	type ActivityType,
 } from "~/modules/activities/activities.js";
 
 import { FeedActivity } from "../feed-activity/feed-activity.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	activities: ActivityResponseDto<ValueOf<typeof ActivityTypeValue>>[];
+	activities: ActivityResponseDto<ValueOf<typeof ActivityType>>[];
 };
 
 const FeedActivityList: React.FC<Properties> = ({ activities }: Properties) => {

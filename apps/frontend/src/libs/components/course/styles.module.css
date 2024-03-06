@@ -16,6 +16,11 @@
 	box-shadow: 3px 11px 22px -14px var(--color-container-hover-border);
 }
 
+.link {
+	color: var(--color-text-300);
+	text-decoration: none;
+}
+
 .actions {
 	display: flex;
 	flex-shrink: 0;

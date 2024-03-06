@@ -1,2 +1,2 @@
 export { ActivitiesApiPath } from "./activities-api-path.enum.js";
-export { ActivityTypeValue } from "./activity-type-value.enum.js";
+export { ActivityType } from "./activity-type-value.enum.js";

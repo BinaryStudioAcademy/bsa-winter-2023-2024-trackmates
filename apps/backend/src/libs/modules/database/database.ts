@@ -7,5 +7,5 @@ const database = new BaseDatabase(config, logger);
 
 export { database };
 export { Abstract as AbstractModel } from "./abstract.model.js";
-export { DatabaseTableName, SortOrder } from "./libs/enums/enums.js";
+export { DatabaseTableName } from "./libs/enums/enums.js";
 export { type Database } from "./libs/types/types.js";
