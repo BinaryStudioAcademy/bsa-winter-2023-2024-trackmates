@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.37.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.5...v1.37.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** real time chat functionality tm-113 ([#356](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/356)) ([a227949](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a2279498be52c06c287f3598e9ae978726e54d51))
+
+## [1.36.5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.4...v1.36.5) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix align vertically elemetns on the friend page tm-326 ([#367](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/367)) ([99f115f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/99f115f26cfd24c8d78881a5de7da1049f0a3a72))
+
+## [1.36.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.3...v1.36.4) (2024-03-06)
+
+
+### Bug Fixes
+
+* **backend:** fix swagger error in user course controller  tm-368 ([#369](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/369)) ([1719ee8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1719ee842255f06b2703ee9eeac82889f7af33fc))
+
 ## [1.36.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.2...v1.36.3) (2024-03-06)
 
 

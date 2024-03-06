@@ -8,6 +8,7 @@ import { type ChatMessageRepository } from "./chat-message.repository.js";
 import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ChatMessageItemWithReceiverIdResponseDto,
 	type ChatMessageUpdateRequestDto,
 } from "./libs/types/types.js";
 
@@ -38,7 +39,7 @@ class ChatMessageService implements Service {
 	}: {
 		messageData: ChatMessageCreateRequestDto;
 		userId: number;
-	}): Promise<ChatMessageItemResponseDto> {
+	}): Promise<ChatMessageItemWithReceiverIdResponseDto> {
 		const senderUser = await this.userRepository.findById(userId);
 
 		if (!senderUser) {
@@ -61,7 +62,7 @@ class ChatMessageService implements Service {
 			});
 		}
 
-		const createMessage = await this.chatMessageRepository.create(
+		const createdMessage = await this.chatMessageRepository.create(
 			ChatMessageEntity.initializeNew({
 				chatId,
 				senderUser,
@@ -69,7 +70,15 @@ class ChatMessageService implements Service {
 			}),
 		);
 
-		return createMessage.toObject();
+		const chatMessage = createdMessage.toObject();
+
+		return {
+			chatMessage,
+			receiverId:
+				chatMessage.senderUser.id === firstUser.id
+					? secondUser.id
+					: firstUser.id,
+		};
 	}
 
 	public async delete(id: number): Promise<boolean> {
