@@ -94,6 +94,15 @@ class GroupService implements Service {
 	public async findAllPermissionsInGroup(
 		groupId: number,
 	): Promise<{ items: PermissionResponseDto[] }> {
+		const groupById = await this.groupRepository.find(groupId);
+
+		if (!groupById) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
 		const permissionsInGroup =
 			await this.groupRepository.findAllPermissionsInGroup(groupId);
 
@@ -107,6 +116,7 @@ class GroupService implements Service {
 	public async findAllUserGroups(
 		userId: number,
 	): Promise<{ items: GroupResponseDto[] }> {
+		void (await this.userService.findById(userId));
 		const userGroups = await this.groupRepository.findAllUserGroups(userId);
 
 		return {
@@ -171,7 +181,7 @@ class GroupService implements Service {
 		groupId: number,
 		permissionId: number,
 	): Promise<PermissionResponseDto[]> {
-		await this.permissionService.find(permissionId);
+		void (await this.permissionService.find(permissionId));
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
@@ -202,7 +212,7 @@ class GroupService implements Service {
 		groupId: number,
 		userId: number,
 	): Promise<GroupResponseDto[]> {
-		await this.userService.findById(userId);
+		void (await this.userService.findById(userId));
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
