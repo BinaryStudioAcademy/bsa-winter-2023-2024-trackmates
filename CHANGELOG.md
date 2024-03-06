@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.36.5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.4...v1.36.5) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix align vertically elemetns on the friend page tm-326 ([#367](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/367)) ([99f115f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/99f115f26cfd24c8d78881a5de7da1049f0a3a72))
+
 ## [1.36.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.3...v1.36.4) (2024-03-06)
 
 
