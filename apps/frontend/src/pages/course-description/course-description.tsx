@@ -13,7 +13,7 @@ import { actions as courseSectionsActions } from "~/modules/course-sections/cour
 import { actions as courseActions } from "~/modules/courses/courses.js";
 
 import { CourseDetails, CourseSections } from "./libs/components/components.js";
-import { BACK_NAVIGATION_VALUE } from "./libs/constants/constants.js";
+import { BACK_NAVIGATION_STEP } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {
@@ -31,7 +31,7 @@ const CourseDescription: React.FC = () => {
 	}>();
 
 	const handleClick = useCallback(() => {
-		navigate(BACK_NAVIGATION_VALUE);
+		navigate(BACK_NAVIGATION_STEP);
 	}, [navigate]);
 
 	useAppTitle();
