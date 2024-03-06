@@ -85,10 +85,8 @@ class EdxService implements VendorService {
 		return this.mapToCourse(item);
 	}
 
-	public async getCourseSections(vendorId: string): Promise<CourseSection[]> {
-		await Promise.resolve(vendorId);
-
-		return [];
+	public async getCourseSections(): Promise<CourseSection[]> {
+		return await Promise.resolve([]);
 	}
 
 	public async getCourses(search: string): Promise<Course[]> {
