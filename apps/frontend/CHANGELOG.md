@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.0...frontend-v1.26.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** update styles and the back button of course description screen tm-28 ([#354](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/354)) ([2427ab5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2427ab5e23f661da21c51c355a327214a92444e8))
+
 ## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.2...frontend-v1.26.0) (2024-03-06)
 
 
