@@ -42,7 +42,7 @@ const Button: React.FC<Properties> = ({
 	);
 
 	const icon = iconName ? (
-		<Icon className={iconClassName || ""} name={iconName} />
+		<Icon className={iconClassName} name={iconName} />
 	) : null;
 	const labelStyle = getValidClassNames(
 		hasVisuallyHiddenLabel && "visually-hidden",
