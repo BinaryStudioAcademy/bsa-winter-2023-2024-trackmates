@@ -14,6 +14,7 @@ type IconName =
 	| "pie"
 	| "plus"
 	| "plusOutlined"
-	| "search";
+	| "search"
+	| "comment";
 
 export { type IconName };

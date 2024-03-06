@@ -14,6 +14,7 @@ import PieIcon from "~/assets/icons/pie.svg?react";
 import PlusIcon from "~/assets/icons/plus.svg?react";
 import PlusOutlinedIcon from "~/assets/icons/plus-outlined.svg?react";
 import SearchIcon from "~/assets/icons/search.svg?react";
+import CommentIcon from "~/assets/icons/comment.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -36,6 +37,7 @@ const iconNameToSvg: Record<
 	plus: PlusIcon,
 	plusOutlined: PlusOutlinedIcon,
 	search: SearchIcon,
+	comment: CommentIcon,
 };
 
 export { iconNameToSvg };
