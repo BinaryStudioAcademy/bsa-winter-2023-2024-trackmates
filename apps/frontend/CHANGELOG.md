@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.2...frontend-v1.26.3) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix the placeholders tm-329 ([#362](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/362)) ([2af2fc0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2af2fc0eeeb7801d65afaea50922788c43c15175))
+
 ## [1.26.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.1...frontend-v1.26.2) (2024-03-06)
 
 
