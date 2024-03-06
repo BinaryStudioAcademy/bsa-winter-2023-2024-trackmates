@@ -31,7 +31,11 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	);
 
 	return (
-		<form className={styles["form"]} onSubmit={handleCreateComment}>
+		<form
+			autoComplete="off"
+			className={styles["form"]}
+			onSubmit={handleCreateComment}
+		>
 			<Input
 				className={styles["input"]}
 				control={control}

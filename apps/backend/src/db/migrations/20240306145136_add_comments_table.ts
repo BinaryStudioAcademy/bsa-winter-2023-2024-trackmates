@@ -15,6 +15,8 @@ const ColumnName = {
 	USER_ID: "user_id",
 } as const;
 
+const DELETE_STRATEGY = "CASCADE";
+
 async function up(knex: Knex): Promise<void> {
 	await knex.schema.createTable(TableName.COMMENTS, (table) => {
 		table.increments(ColumnName.ID).primary();
@@ -23,12 +25,14 @@ async function up(knex: Knex): Promise<void> {
 			.integer(ColumnName.USER_ID)
 			.notNullable()
 			.references(ColumnName.ID)
-			.inTable(TableName.USERS);
+			.inTable(TableName.USERS)
+			.onDelete(DELETE_STRATEGY);
 		table
 			.integer(ColumnName.ACTIVITY_ID)
 			.notNullable()
 			.references(ColumnName.ID)
-			.inTable(TableName.ACTIVITIES);
+			.inTable(TableName.ACTIVITIES)
+			.onDelete(DELETE_STRATEGY);
 		table
 			.dateTime(ColumnName.CREATED_AT)
 			.notNullable()
