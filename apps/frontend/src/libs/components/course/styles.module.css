@@ -16,6 +16,12 @@
 	box-shadow: 3px 11px 22px -14px #00000080;
 }
 
+.link {
+	height: 100%;
+	color: var(--color-text-300);
+	text-decoration: none;
+}
+
 .actions {
 	display: flex;
 	flex-shrink: 0;
@@ -47,8 +53,4 @@
 
 .course-add-button {
 	flex-grow: 1;
-}
-
-.link {
-	height: 100%;
 }

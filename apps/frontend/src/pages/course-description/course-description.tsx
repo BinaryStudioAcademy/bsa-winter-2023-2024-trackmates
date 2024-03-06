@@ -1,12 +1,13 @@
 import { Button } from "~/libs/components/components.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
 import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useAppTitle,
+	useCallback,
 	useEffect,
+	useNavigate,
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
@@ -18,6 +19,7 @@ import {
 	CourseDetails,
 	CourseSections,
 } from "./libs/components/components.js";
+import { BACK_NAVIGATION_STEP } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {
@@ -39,11 +41,16 @@ const CourseDescription: React.FC = () => {
 	);
 
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const { courseId, userId } = useParams<{
 		courseId: string;
 		userId: string;
 	}>();
+
+	const handleClick = useCallback(() => {
+		navigate(BACK_NAVIGATION_STEP);
+	}, [navigate]);
 
 	useAppTitle();
 
@@ -64,17 +71,14 @@ const CourseDescription: React.FC = () => {
 
 	return (
 		<>
-			<div className={styles["back-container"]}>
-				<Button
-					className={styles["back-button"]}
-					hasVisuallyHiddenLabel
-					href={AppRoute.ROOT}
-					iconName="backArrow"
-					label="Back to overview"
-					size="small"
-				/>
-				<span className={styles["subtitle"]}>Back to overview</span>
-			</div>
+			<Button
+				className={styles["back-button"]}
+				hasVisuallyHiddenLabel
+				iconName="backArrow"
+				label="Back to overview"
+				onClick={handleClick}
+				size="small"
+			/>
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (

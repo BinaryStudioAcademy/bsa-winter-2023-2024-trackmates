@@ -49,6 +49,7 @@
 .light {
 	color: var(--color-text-200);
 	background-color: var(--color-background);
+	border: 1px solid transparent;
 }
 
 .light:focus {

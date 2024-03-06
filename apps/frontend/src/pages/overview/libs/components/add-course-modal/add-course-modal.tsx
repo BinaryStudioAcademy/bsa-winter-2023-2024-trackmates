@@ -104,8 +104,13 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 
 	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
 
+	const handleClose = useCallback((): void => {
+		dispatch(courseActions.clearCourses());
+		onClose();
+	}, [dispatch, onClose]);
+
 	return (
-		<Modal isOpen onClose={onClose}>
+		<Modal isOpen onClose={handleClose}>
 			<div className={styles["add-course-modal"]}>
 				<header className={styles["header"]}>
 					<h3 className={styles["title"]}>Add course</h3>
