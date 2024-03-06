@@ -244,6 +244,34 @@ class ActivityController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /activities/like:
+	 *    put:
+	 *      description: Set like reaction for a specific activity
+	 *      tags:
+	 *        - Activities
+	 *      security:
+	 *        - bearerAuth: []
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                activityId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Activity"
+	 */
 	private async putReaction({
 		body,
 		user,
