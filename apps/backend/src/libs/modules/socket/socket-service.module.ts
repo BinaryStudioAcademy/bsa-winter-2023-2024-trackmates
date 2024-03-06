@@ -5,7 +5,9 @@ import { SocketEvent, SocketNamespace } from "~/libs/modules/socket/socket.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 class SocketService {
-	private chatMessageHandler = (socket: Socket): void => {
+	private io!: SocketServer;
+
+	private chatMessageHandler(socket: Socket): void {
 		socket.on(SocketEvent.CHAT_JOIN_ROOM, (userId: string) => {
 			void socket.join(userId);
 		});
@@ -13,9 +15,7 @@ class SocketService {
 		socket.on(SocketEvent.CHAT_LEAVE_ROOM, (userId: string) => {
 			void socket.leave(userId);
 		});
-	};
-
-	private io!: SocketServer;
+	}
 
 	public emitMessage<T>({
 		event,
@@ -35,7 +35,7 @@ class SocketService {
 		this.io = new SocketServer(server);
 		this.io
 			.of(SocketNamespace.CHAT)
-			.on(SocketEvent.CONNECTION, this.chatMessageHandler);
+			.on(SocketEvent.CONNECTION, this.chatMessageHandler.bind(this));
 	}
 }
 
