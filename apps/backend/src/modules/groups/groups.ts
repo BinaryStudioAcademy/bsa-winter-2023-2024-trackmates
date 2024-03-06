@@ -8,11 +8,11 @@ import { GroupRepository } from "./group.repository.js";
 import { GroupService } from "./group.service.js";
 
 const groupRepository = new GroupRepository(GroupModel, UserModel);
-const groupService = new GroupService(
+const groupService = new GroupService({
 	groupRepository,
 	permissionService,
 	userService,
-);
+});
 const groupController = new GroupController(logger, groupService);
 
 export { type GroupEntity } from "./group.entity.js";

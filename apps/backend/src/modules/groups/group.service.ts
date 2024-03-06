@@ -15,16 +15,22 @@ import {
 	type GroupResponseDto,
 } from "./libs/types/types.js";
 
+type Constructor = {
+	groupRepository: GroupRepository;
+	permissionService: PermissionService;
+	userService: UserService;
+};
+
 class GroupService implements Service {
 	private groupRepository: GroupRepository;
 	private permissionService: PermissionService;
 	private userService: UserService;
 
-	public constructor(
-		groupRepository: GroupRepository,
-		permissionService: PermissionService,
-		userService: UserService,
-	) {
+	public constructor({
+		groupRepository,
+		permissionService,
+		userService,
+	}: Constructor) {
 		this.groupRepository = groupRepository;
 		this.permissionService = permissionService;
 		this.userService = userService;
