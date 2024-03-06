@@ -5,6 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 import { CourseModel } from "~/modules/courses/course.model.js";
+import { SectionStatusModel } from "~/modules/section-statuses/section-statuses.js";
 
 class CourseSectionModel extends AbstractModel {
 	public static relationMappings = (): RelationMappings => {
@@ -16,6 +17,14 @@ class CourseSectionModel extends AbstractModel {
 				},
 				modelClass: CourseModel,
 				relation: Model.HasOneRelation,
+			},
+			sectionStatuses: {
+				join: {
+					from: `${DatabaseTableName.COURSE_SECTIONS}.id`,
+					to: `${DatabaseTableName.SECTION_STATUSES}.courseSectionId`,
+				},
+				modelClass: SectionStatusModel,
+				relation: Model.HasManyRelation,
 			},
 		};
 	};

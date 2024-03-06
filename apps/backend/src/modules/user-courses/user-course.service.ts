@@ -7,6 +7,7 @@ import {
 } from "~/modules/courses/courses.js";
 
 import { type CourseRepository } from "../courses/course.repository.js";
+import { type UserCourseResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
@@ -30,12 +31,17 @@ class UserCourseService {
 		userId: number;
 		vendorCourseId: string;
 		vendorId: number;
-	}): Promise<CourseDto> {
-		return await this.courseService.addCourse({
+	}): Promise<UserCourseResponseDto> {
+		const course = await this.courseService.addCourse({
 			userId,
 			vendorCourseId,
 			vendorId,
 		});
+
+		return {
+			...course,
+			progress: 0,
+		};
 	}
 
 	public async findAllByUser({
@@ -44,18 +50,12 @@ class UserCourseService {
 		search,
 		userId,
 	}: CourseGetAllByUserRequestDto): Promise<PaginationResponseDto<CourseDto>> {
-		const { items: entities, total } =
-			await this.courseRepository.findAllByUser({
-				count,
-				page: convertPageToZeroIndexed(page),
-				search,
-				userId,
-			});
-
-		return {
-			items: entities.map((entity) => entity.toObject()),
-			total,
-		};
+		return await this.courseRepository.findAllByUser({
+			count,
+			page: convertPageToZeroIndexed(page),
+			search,
+			userId,
+		});
 	}
 }
 

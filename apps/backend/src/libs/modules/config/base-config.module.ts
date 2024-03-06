@@ -102,6 +102,14 @@ class BaseConfig implements Config {
 					format: Number,
 				},
 			},
+			EDX: {
+				URL: {
+					default: null,
+					doc: "edX API url",
+					env: "EDX_URL",
+					format: String,
+				},
+			},
 			JWT: {
 				ALGORITHM: {
 					default: null,
