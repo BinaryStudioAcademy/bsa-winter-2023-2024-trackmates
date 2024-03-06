@@ -1,4 +1,8 @@
 import { type Service, type ValueOf } from "~/libs/types/types.js";
+import {
+	ActivityLikeEntity,
+	type ActivityLikeRepository,
+} from "~/modules/activity-likes/activity-likes.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
@@ -10,14 +14,21 @@ import {
 } from "./libs/types/types.js";
 
 type Constructor = {
+	activityLikeRepository: ActivityLikeRepository;
 	activityRepository: ActivityRepository;
 };
 
 class ActivityService implements Service {
+	private activityLikeRepository: ActivityLikeRepository;
+
 	private activityRepository: ActivityRepository;
 
-	public constructor({ activityRepository }: Constructor) {
+	public constructor({
+		activityLikeRepository,
+		activityRepository,
+	}: Constructor) {
 		this.activityRepository = activityRepository;
+		this.activityLikeRepository = activityLikeRepository;
 	}
 
 	private mapToDto(
@@ -98,6 +109,26 @@ class ActivityService implements Service {
 		const items = friendsActivities.map((entity) => this.mapToDto(entity));
 
 		return { items };
+	}
+
+	public async setLike(
+		id: number,
+		userId: number,
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityTypeValue>> | null> {
+		const like = await this.activityLikeRepository.findByUserIdPostId(
+			id,
+			userId,
+		);
+
+		like?.id
+			? await this.activityLikeRepository.delete(like.id)
+			: await this.activityLikeRepository.create(
+					ActivityLikeEntity.initializeNew({ activityId: id, userId }),
+				);
+
+		const targetActivity = await this.activityRepository.find(id);
+
+		return targetActivity ? this.mapToDto(targetActivity) : null;
 	}
 
 	public async update(

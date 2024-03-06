@@ -5,6 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
 import { UserModel } from "~/modules/users/users.js";
 
 import { type ActivityTypeValue } from "./libs/enums/enums.js";
@@ -17,7 +18,7 @@ class ActivityModel extends AbstractModel {
 					from: `${DatabaseTableName.ACTIVITIES}.id`,
 					to: `${DatabaseTableName.ACTIVITY_LIKES}.activityId`,
 				},
-				modelClass: UserModel,
+				modelClass: ActivityLikeModel,
 				relation: Model.HasManyRelation,
 			},
 			user: {

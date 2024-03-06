@@ -69,7 +69,10 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.findById(id)
 			.select(
 				"*",
-				this.activityModel.relatedQuery("likes").count().as("likesCount"),
+				this.activityModel
+					.relatedQuery(RelationName.LIKES)
+					.count()
+					.as("likesCount"),
 			)
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -109,7 +112,10 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.query()
 			.select(
 				"*",
-				this.activityModel.relatedQuery("likes").count().as("likesCount"),
+				this.activityModel
+					.relatedQuery(RelationName.LIKES)
+					.count()
+					.as("likesCount"),
 			)
 			.whereIn(
 				`${DatabaseTableName.ACTIVITIES}.userId`,
@@ -122,7 +128,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.orderBy("updatedAt", SortOrder.DESC)
+			.orderBy(`${DatabaseTableName.ACTIVITIES}.updatedAt`, SortOrder.DESC)
 			.castTo<
 				(ActivityModel & {
 					likesCount: number;

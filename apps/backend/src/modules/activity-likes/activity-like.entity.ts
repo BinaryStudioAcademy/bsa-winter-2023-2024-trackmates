@@ -5,11 +5,11 @@ class ActivityLikeEntity implements Entity {
 
 	private createdAt: string;
 
-	private id: null | number;
-
 	private updatedAt: string;
 
 	private userId: number;
+
+	public id: null | number;
 
 	private constructor({
 		activityId,

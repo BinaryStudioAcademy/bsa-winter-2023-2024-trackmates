@@ -7,6 +7,7 @@ import {
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { type ActivityLikeRequestDto } from "~/modules/activity-likes/activity-likes.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type ActivityService } from "./activity.service.js";
@@ -99,6 +100,18 @@ class ActivityController extends BaseController {
 			validation: {
 				params: activityActionIdParameterValidationSchema,
 			},
+		});
+		this.addRoute({
+			handler: (options) => {
+				return this.putReaction(
+					options as APIHandlerOptions<{
+						body: ActivityLikeRequestDto;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "PUT",
+			path: ActivitiesApiPath.LIKE,
 		});
 	}
 
@@ -273,6 +286,19 @@ class ActivityController extends BaseController {
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.activityService.findAll(user.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	private async putReaction({
+		body,
+		user,
+	}: APIHandlerOptions<{
+		body: ActivityLikeRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.activityService.setLike(body.activityId, user.id),
 			status: HTTPCode.OK,
 		};
 	}
