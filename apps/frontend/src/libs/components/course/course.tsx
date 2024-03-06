@@ -1,10 +1,11 @@
-import { Button, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type AddCourseRequestDto } from "~/modules/user-courses/user-courses.js";
 
+import { Button } from "../button/button.js";
+import { Link } from "../link/link.js";
 import { CourseCard } from "./libs/component/component.js";
 import styles from "./styles.module.css";
 

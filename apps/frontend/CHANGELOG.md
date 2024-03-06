@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.2...frontend-v1.26.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend:** quality criteria issues tm-310 ([#320](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/320)) ([2ac9f7b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2ac9f7b45bfa5c4084116c126b0011d013758ffb))
+
+## [1.25.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.1...frontend-v1.25.2) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** Search results should reset after reopening the "Add course" pop-up window tm-315 ([#328](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/328)) ([eb2a978](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/eb2a978040bae8af8916584f5dcee0bef25edd64))
+
 ## [1.25.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.0...frontend-v1.25.1) (2024-03-06)
 
 
