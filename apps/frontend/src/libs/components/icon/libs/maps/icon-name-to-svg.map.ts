@@ -4,6 +4,7 @@ import BackIcon from "~/assets/icons/back.svg?react";
 import BackArrowIcon from "~/assets/icons/back-arrow.svg?react";
 import BurgerIcon from "~/assets/icons/burger.svg?react";
 import ChatsIcon from "~/assets/icons/chats.svg?react";
+import CommentIcon from "~/assets/icons/comment.svg?react";
 import CrossIcon from "~/assets/icons/cross.svg?react";
 import EyeIcon from "~/assets/icons/eye.svg?react";
 import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
@@ -14,7 +15,6 @@ import PieIcon from "~/assets/icons/pie.svg?react";
 import PlusIcon from "~/assets/icons/plus.svg?react";
 import PlusOutlinedIcon from "~/assets/icons/plus-outlined.svg?react";
 import SearchIcon from "~/assets/icons/search.svg?react";
-import CommentIcon from "~/assets/icons/comment.svg?react";
 import { type IconName } from "~/libs/types/types.js";
 
 const iconNameToSvg: Record<
@@ -27,6 +27,7 @@ const iconNameToSvg: Record<
 	backArrow: BackArrowIcon,
 	burger: BurgerIcon,
 	chats: ChatsIcon,
+	comment: CommentIcon,
 	cross: CrossIcon,
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
@@ -37,7 +38,6 @@ const iconNameToSvg: Record<
 	plus: PlusIcon,
 	plusOutlined: PlusOutlinedIcon,
 	search: SearchIcon,
-	comment: CommentIcon,
 };
 
 export { iconNameToSvg };
