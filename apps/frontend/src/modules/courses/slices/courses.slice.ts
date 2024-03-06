@@ -4,15 +4,17 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type CourseDto } from "../libs/types/types.js";
-import { getAll, getRecommended } from "./actions.js";
+import { getAll, getById, getRecommended } from "./actions.js";
 
 type State = {
+	currentCourse: CourseDto | null;
 	recommendedCourses: CourseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
 	searchedCourses: CourseDto[];
 };
 
 const initialState: State = {
+	currentCourse: null,
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
 	searchedCourses: [],
@@ -30,6 +32,16 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(getAll.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
+		builder.addCase(getById.fulfilled, (state, action) => {
+			state.currentCourse = action.payload;
+			state.searchDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getById.pending, (state) => {
+			state.searchDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(getById.rejected, (state) => {
+			state.searchDataStatus = DataStatus.REJECTED;
+		});
 		builder.addCase(getRecommended.fulfilled, (state, action) => {
 			state.recommendedCourses = action.payload.courses;
 			state.searchDataStatus = DataStatus.FULFILLED;
@@ -43,7 +55,12 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "courses",
-	reducers: {},
+	reducers: {
+		clearCourses(state) {
+			state.recommendedCourses = [];
+			state.searchedCourses = [];
+		},
+	},
 });
 
 export { actions, name, reducer };

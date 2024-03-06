@@ -1,5 +1,8 @@
+import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
+import { type PaginationResponseDto } from "~/libs/types/types.js";
 import {
 	type CourseDto,
+	type CourseGetAllByUserRequestDto,
 	type CourseService,
 } from "~/modules/courses/courses.js";
 
@@ -36,18 +39,23 @@ class UserCourseService {
 	}
 
 	public async findAllByUser({
+		count,
+		page,
 		search,
 		userId,
-	}: {
-		search: string;
-		userId: number;
-	}): Promise<CourseDto[]> {
-		const entities = await this.courseRepository.findByUserId({
-			search: search,
-			userId,
-		});
+	}: CourseGetAllByUserRequestDto): Promise<PaginationResponseDto<CourseDto>> {
+		const { items: entities, total } =
+			await this.courseRepository.findAllByUser({
+				count,
+				page: convertPageToZeroIndexed(page),
+				search,
+				userId,
+			});
 
-		return entities.map((entity) => entity.toObject());
+		return {
+			items: entities.map((entity) => entity.toObject()),
+			total,
+		};
 	}
 }
 

@@ -110,7 +110,7 @@ const User: React.FC = () => {
 						label={isFollowing ? "Following" : "Follow"}
 						onClick={isFollowing ? handleUnfollow : handleFollow}
 						size="small"
-						style="primary"
+						style={isFollowing ? "secondary" : "primary"}
 					/>
 				</div>
 			</div>
@@ -120,7 +120,7 @@ const User: React.FC = () => {
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} />
+					<Courses courses={courses} userId={userId} />
 				)}
 			</div>
 		</div>

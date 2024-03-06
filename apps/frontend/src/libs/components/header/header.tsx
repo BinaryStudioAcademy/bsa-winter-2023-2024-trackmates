@@ -1,5 +1,4 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Link } from "~/libs/components/components.js";
 import { PAGES_WITH_SEARCH_BAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
@@ -8,6 +7,7 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Button } from "../button/button.js";
 import { Image } from "../image/image.js";
+import { Link } from "../link/link.js";
 import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
