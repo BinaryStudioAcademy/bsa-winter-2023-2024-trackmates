@@ -1,6 +1,5 @@
 import { type Entity } from "~/libs/types/types.js";
-
-import { type GroupEntity, type GroupResponseDto } from "../groups/groups.js";
+import { type GroupEntity, type GroupResponseDto } from "~/modules/groups/groups.js";
 
 class UserEntity implements Entity {
 	private avatarUrl: null | string;
