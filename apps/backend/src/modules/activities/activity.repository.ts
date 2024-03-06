@@ -174,29 +174,31 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.findById(id)
 			.patch(activity.toNewObject())
 			.returning("*")
-			.castTo<ActivityModel>()
+			.castTo<ActivityModel | undefined>()
 			.execute();
 
-		return ActivityEntity.initialize({
-			actionId: updatedActivity.actionId,
-			id: updatedActivity.id,
-			payload: updatedActivity.payload,
-			type: updatedActivity.type,
-			updatedAt: updatedActivity.updatedAt,
-			user: UserEntity.initialize({
-				avatarUrl: updatedActivity.user.userDetails.avatarFile?.url || null,
-				createdAt: updatedActivity.user.createdAt,
-				email: updatedActivity.user.email,
-				firstName: updatedActivity.user.userDetails.firstName,
-				id: updatedActivity.user.id,
-				lastName: updatedActivity.user.userDetails.lastName,
-				nickname: updatedActivity.user.userDetails.nickname,
-				passwordHash: "",
-				passwordSalt: "",
-				updatedAt: updatedActivity.user.updatedAt,
-			}),
-			userId: updatedActivity.userId,
-		});
+		return updatedActivity
+			? ActivityEntity.initialize({
+					actionId: updatedActivity.actionId,
+					id: updatedActivity.id,
+					payload: updatedActivity.payload,
+					type: updatedActivity.type,
+					updatedAt: updatedActivity.updatedAt,
+					user: UserEntity.initialize({
+						avatarUrl: updatedActivity.user.userDetails.avatarFile?.url || null,
+						createdAt: updatedActivity.user.createdAt,
+						email: updatedActivity.user.email,
+						firstName: updatedActivity.user.userDetails.firstName,
+						id: updatedActivity.user.id,
+						lastName: updatedActivity.user.userDetails.lastName,
+						nickname: updatedActivity.user.userDetails.nickname,
+						passwordHash: "",
+						passwordSalt: "",
+						updatedAt: updatedActivity.user.updatedAt,
+					}),
+					userId: updatedActivity.userId,
+				})
+			: null;
 	}
 }
 
