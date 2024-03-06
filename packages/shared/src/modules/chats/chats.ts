@@ -5,6 +5,7 @@ export {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
 	type ChatResponseDto,
+	type ChatSearchResponseDto,
 } from "./libs/types/types.js";
 export {
 	chatIdParameter as chatIdParameterValidationSchema,

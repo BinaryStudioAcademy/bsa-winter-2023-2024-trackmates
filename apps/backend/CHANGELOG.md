@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.18.0...backend-v1.19.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** add search field to chats page tm-294 ([#366](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/366)) ([ceacdb6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ceacdb6ea6ac09cc5a906cdfdc8db1eeef6c5ddf))
+
 ## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.17.0...backend-v1.18.0) (2024-03-06)
 
 

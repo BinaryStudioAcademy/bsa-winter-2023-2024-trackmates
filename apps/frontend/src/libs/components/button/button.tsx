@@ -10,6 +10,7 @@ type Properties = {
 	className?: string | undefined;
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
+	iconClassName?: string | undefined;
 	iconName?: IconName;
 	isDisabled?: boolean;
 	label: string;
@@ -23,6 +24,7 @@ const Button: React.FC<Properties> = ({
 	className,
 	hasVisuallyHiddenLabel = false,
 	href,
+	iconClassName,
 	iconName,
 	isDisabled = false,
 	label,
@@ -39,7 +41,9 @@ const Button: React.FC<Properties> = ({
 		isDisabled && styles["disabled"],
 	);
 
-	const icon = iconName ? <Icon name={iconName} /> : null;
+	const icon = iconName ? (
+		<Icon className={iconClassName} name={iconName} />
+	) : null;
 	const labelStyle = getValidClassNames(
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
