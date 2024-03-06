@@ -1,1 +1,1 @@
-export { USER_COURSE_WITHOUT_PROGRESS } from "./user-course-without-progress.js";
+export { NO_PROGRESS_ON_USER_COURSE } from "./no-progress-on-user-course.js";

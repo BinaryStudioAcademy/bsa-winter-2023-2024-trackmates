@@ -15,7 +15,7 @@ import { VendorEntity } from "~/modules/vendors/vendors.js";
 import { CourseSectionModel } from "../course-sections/course-sections.js";
 import { CourseEntity } from "./course.entity.js";
 import { type CourseModel } from "./course.model.js";
-import { USER_COURSE_WITHOUT_PROGRESS } from "./libs/constants/constants.js";
+import { NO_PROGRESS_ON_USER_COURSE } from "./libs/constants/constants.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
 import {
@@ -248,7 +248,7 @@ class CourseRepository implements Repository<CourseEntity> {
 					description: course.description,
 					id: course.id,
 					image: course.image,
-					progress: progressItem?.progress ?? USER_COURSE_WITHOUT_PROGRESS,
+					progress: progressItem?.progress ?? NO_PROGRESS_ON_USER_COURSE,
 					title: course.title,
 					updatedAt: course.updatedAt,
 					url: course.url,
