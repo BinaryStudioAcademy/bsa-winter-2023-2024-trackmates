@@ -11,12 +11,13 @@
 	height: 400px;
 	padding: 0;
 	margin-top: 6px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	list-style: none;
 }
 
 .item {
 	display: flex;
+	gap: 8px;
 	align-items: center;
 	justify-content: space-between;
 	min-width: 398px;
@@ -27,4 +28,10 @@
 	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-radius: 10px;
+}
+
+@media screen and (width <= 1280px) {
+	.item {
+		min-width: 298px;
+	}
 }

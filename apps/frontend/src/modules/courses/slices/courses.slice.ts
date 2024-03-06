@@ -55,7 +55,12 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "courses",
-	reducers: {},
+	reducers: {
+		clearCourses(state) {
+			state.recommendedCourses = [];
+			state.searchedCourses = [];
+		},
+	},
 });
 
 export { actions, name, reducer };
