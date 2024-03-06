@@ -23,7 +23,6 @@ const ActivityCommentForm: React.FC<Properties> = ({
 
 	const handleCreateComment = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
-			event_.preventDefault();
 			void handleSubmit(onSubmit)(event_);
 			reset();
 		},

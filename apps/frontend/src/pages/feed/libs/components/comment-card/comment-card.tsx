@@ -32,7 +32,9 @@ const CommentCard: React.FC<Properties> = ({ comment }: Properties) => {
 				/>
 			</Link>
 			<div className={styles["content"]}>
-				<span className={styles["name"]}>{authorName}</span>
+				<Link className={styles["name"]} to={userLink}>
+					{authorName}
+				</Link>
 				<p className={styles["text"]}>{text}</p>
 			</div>
 		</div>
