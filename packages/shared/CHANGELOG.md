@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.15.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.14.0...shared-v1.15.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** Add Progress for courses tm-206 ([#282](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/282)) ([d0b7516](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d0b7516f54fde5022ced8264f34a87614e40f7e6))
+
+## [1.14.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.13.0...shared-v1.14.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** real time chat functionality tm-113 ([#356](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/356)) ([a227949](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a2279498be52c06c287f3598e9ae978726e54d51))
+
 ## [1.13.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.12.0...shared-v1.13.0) (2024-03-05)
 
 

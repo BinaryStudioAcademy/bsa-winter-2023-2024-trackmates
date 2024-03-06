@@ -1,3 +1,4 @@
+export { type ActivityModelWithLikes } from "./activity-model-with-likes.type.js";
 export {
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,

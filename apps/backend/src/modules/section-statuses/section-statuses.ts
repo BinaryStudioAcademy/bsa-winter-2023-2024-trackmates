@@ -27,4 +27,5 @@ const sectionStatusController = new SectionStatusController(
 );
 
 export { sectionStatusController, sectionStatusService };
+export { SectionStatusModel } from "./section-status.model.js";
 export { type SectionStatusService } from "./section-status.service.js";

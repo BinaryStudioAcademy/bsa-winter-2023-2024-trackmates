@@ -6,6 +6,7 @@ import { UserEntity } from "~/modules/users/user.entity.js";
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
 import { type ActivityType, RelationName } from "./libs/enums/enums.js";
+import { type ActivityModelWithLikes } from "./libs/types/types.js";
 
 class ActivityRepository implements Repository<ActivityEntity> {
 	private activityModel: typeof ActivityModel;
@@ -75,34 +76,32 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.castTo<
-				ActivityModel & {
-					likesCount: number;
-				}
-			>()
+			.castTo<ActivityModelWithLikes | undefined>()
 			.execute();
 
-		return ActivityEntity.initializeWithReactionsCounts({
-			actionId: activity.actionId,
-			id: activity.id,
-			likesCount: activity.likesCount,
-			payload: activity.payload,
-			type: activity.type,
-			updatedAt: activity.updatedAt,
-			user: UserEntity.initialize({
-				avatarUrl: activity.user.userDetails.avatarFile?.url ?? null,
-				createdAt: activity.user.createdAt,
-				email: activity.user.email,
-				firstName: activity.user.userDetails.firstName,
-				id: activity.user.id,
-				lastName: activity.user.userDetails.lastName,
-				nickname: activity.user.userDetails.nickname,
-				passwordHash: "",
-				passwordSalt: "",
-				updatedAt: activity.user.updatedAt,
-			}),
-			userId: activity.userId,
-		});
+		return activity
+			? ActivityEntity.initializeWithReactionsCounts({
+					actionId: activity.actionId,
+					id: activity.id,
+					likesCount: activity.likesCount,
+					payload: activity.payload,
+					type: activity.type,
+					updatedAt: activity.updatedAt,
+					user: UserEntity.initialize({
+						avatarUrl: activity.user.userDetails.avatarFile?.url ?? null,
+						createdAt: activity.user.createdAt,
+						email: activity.user.email,
+						firstName: activity.user.userDetails.firstName,
+						id: activity.user.id,
+						lastName: activity.user.userDetails.lastName,
+						nickname: activity.user.userDetails.nickname,
+						passwordHash: "",
+						passwordSalt: "",
+						updatedAt: activity.user.updatedAt,
+					}),
+					userId: activity.userId,
+				})
+			: null;
 	}
 
 	public async findAll(userId: number): Promise<ActivityEntity[]> {
@@ -127,11 +126,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.orderBy(`${DatabaseTableName.ACTIVITIES}.updatedAt`, SortOrder.DESC)
-			.castTo<
-				(ActivityModel & {
-					likesCount: number;
-				})[]
-			>()
+			.castTo<ActivityModelWithLikes[]>()
 			.execute();
 
 		return activities.map((activity) => {
@@ -171,7 +166,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		const activity = await this.activityModel
 			.query()
 			.findOne({ actionId, type, userId })
-			.castTo<ActivityModel | null>()
+			.castTo<ActivityModel | undefined>()
 			.execute();
 
 		return activity
@@ -196,29 +191,31 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.findById(id)
 			.patch(activity.toNewObject())
 			.returning("*")
-			.castTo<ActivityModel>()
+			.castTo<ActivityModel | undefined>()
 			.execute();
 
-		return ActivityEntity.initialize({
-			actionId: updatedActivity.actionId,
-			id: updatedActivity.id,
-			payload: updatedActivity.payload,
-			type: updatedActivity.type,
-			updatedAt: updatedActivity.updatedAt,
-			user: UserEntity.initialize({
-				avatarUrl: updatedActivity.user.userDetails.avatarFile?.url || null,
-				createdAt: updatedActivity.user.createdAt,
-				email: updatedActivity.user.email,
-				firstName: updatedActivity.user.userDetails.firstName,
-				id: updatedActivity.user.id,
-				lastName: updatedActivity.user.userDetails.lastName,
-				nickname: updatedActivity.user.userDetails.nickname,
-				passwordHash: "",
-				passwordSalt: "",
-				updatedAt: updatedActivity.user.updatedAt,
-			}),
-			userId: updatedActivity.userId,
-		});
+		return updatedActivity
+			? ActivityEntity.initialize({
+					actionId: updatedActivity.actionId,
+					id: updatedActivity.id,
+					payload: updatedActivity.payload,
+					type: updatedActivity.type,
+					updatedAt: updatedActivity.updatedAt,
+					user: UserEntity.initialize({
+						avatarUrl: updatedActivity.user.userDetails.avatarFile?.url || null,
+						createdAt: updatedActivity.user.createdAt,
+						email: updatedActivity.user.email,
+						firstName: updatedActivity.user.userDetails.firstName,
+						id: updatedActivity.user.id,
+						lastName: updatedActivity.user.userDetails.lastName,
+						nickname: updatedActivity.user.userDetails.nickname,
+						passwordHash: "",
+						passwordSalt: "",
+						updatedAt: updatedActivity.user.updatedAt,
+					}),
+					userId: updatedActivity.userId,
+				})
+			: null;
 	}
 }
 

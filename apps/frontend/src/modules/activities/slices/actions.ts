@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
+
+import { type ActivityType } from "../libs/enums/enums.js";
 import {
 	type ActivityGetAllResponseDto,
 	type ActivityResponseDto,
-} from "~/modules/activities/libs/types/types.js";
-
-import { type ActivityType } from "../libs/enums/enums.js";
+} from "../libs/types/types.js";
 import { name as sliceName } from "./activities.slice.js";
 
 const likeActivity = createAsyncThunk<

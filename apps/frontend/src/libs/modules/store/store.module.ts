@@ -8,6 +8,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
+import { socket } from "~/libs/modules/socket/socket.js";
 import { reducer as appReducer } from "~/libs/slices/app/app.js";
 import {
 	activitiesApi,
@@ -47,7 +48,7 @@ import {
 } from "~/modules/vendors/vendors.js";
 
 import { storage } from "../storage/storage.js";
-import { handleError } from "./middlewares/middlewares.js";
+import { chatSocket, handleError } from "./middlewares/middlewares.js";
 
 type RootReducer = {
 	activities: ReturnType<typeof activitiesReducer>;
@@ -75,6 +76,7 @@ type ExtraArguments = {
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
 	sectionStatusApi: typeof sectionStatusApi;
+	socket: typeof socket;
 	storage: typeof storage;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
@@ -98,7 +100,7 @@ class Store {
 					thunk: {
 						extraArgument: this.extraArguments,
 					},
-				}).prepend(handleError);
+				}).prepend([handleError, chatSocket({ extra: this.extraArguments })]);
 			},
 			reducer: {
 				activities: activitiesReducer,
@@ -129,6 +131,7 @@ class Store {
 			friendsApi,
 			notification,
 			sectionStatusApi,
+			socket,
 			storage,
 			userApi,
 			userCourseApi,
@@ -137,4 +140,5 @@ class Store {
 	}
 }
 
+export { type ExtraArguments };
 export { Store };

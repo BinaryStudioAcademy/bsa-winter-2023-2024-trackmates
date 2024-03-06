@@ -1,18 +1,15 @@
-import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { type ChatMessageItemResponseDto } from "../libs/types/types.js";
 import { sendMessage } from "./actions.js";
 
 type State = {
-	currentMessages: ChatMessageItemResponseDto[];
 	dataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
-	currentMessages: [],
 	dataStatus: DataStatus.IDLE,
 };
 
@@ -30,14 +27,7 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "messages",
-	reducers: {
-		updateMessages: (
-			state,
-			action: PayloadAction<ChatMessageItemResponseDto[]>,
-		) => {
-			state.currentMessages = action.payload;
-		},
-	},
+	reducers: {},
 });
 
 export { actions, name, reducer };

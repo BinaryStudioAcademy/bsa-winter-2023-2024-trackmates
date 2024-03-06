@@ -6,7 +6,7 @@ import { DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => Promise<void>;
+	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
