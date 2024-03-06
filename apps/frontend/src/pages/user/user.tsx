@@ -12,10 +12,9 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
-	useLocation,
+	useNavigate,
 	useParams,
 } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 import {
@@ -23,6 +22,7 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { PREVIOUS_PAGE } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
@@ -47,9 +47,7 @@ const User: React.FC = () => {
 		};
 	});
 
-	const { search } = useLocation();
-	const queryParameters = new URLSearchParams(search);
-	const redirectTo = queryParameters.get("redirectTo");
+	const navigate = useNavigate();
 
 	const handleFollow = useCallback(() => {
 		void dispatch(friendsActions.follow({ id: userId }))
@@ -66,6 +64,10 @@ const User: React.FC = () => {
 				dispatch(friendsActions.setIsFollowing(false));
 			});
 	}, [dispatch, userId]);
+
+	const handleGoBackToPreviousPage = useCallback((): void => {
+		navigate(PREVIOUS_PAGE);
+	}, [navigate]);
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
@@ -88,9 +90,9 @@ const User: React.FC = () => {
 			<Button
 				className={styles["return-button"]}
 				hasVisuallyHiddenLabel
-				href={redirectTo as ValueOf<typeof AppRoute>}
 				iconName="back"
 				label="Go back"
+				onClick={handleGoBackToPreviousPage}
 				size="small"
 			/>
 
