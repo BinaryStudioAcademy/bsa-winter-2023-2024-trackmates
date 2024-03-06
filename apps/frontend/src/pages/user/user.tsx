@@ -6,6 +6,7 @@ import {
 	Loader,
 	Navigate,
 } from "~/libs/components/components.js";
+import { BACK_NAVIGATION_STEP } from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -22,7 +23,6 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
-import { BACK_NAVIGATION_STEP } from "../course-description/libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
