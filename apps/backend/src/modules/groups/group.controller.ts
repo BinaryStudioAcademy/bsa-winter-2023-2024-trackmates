@@ -26,38 +26,6 @@ class GroupController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.addPermissionToGroup(
-					options as APIHandlerOptions<{
-						params: { groupId: number; permissionId: number };
-					}>,
-				);
-			},
-			method: "PUT",
-			path: GroupsApiPath.$GROUP_ID_PERMISSIONS_$PERMISSION_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
-		});
-
-		this.addRoute({
-			handler: (options) => {
-				return this.addUserToGroup(
-					options as APIHandlerOptions<{
-						params: { groupId: number; userId: number };
-					}>,
-				);
-			},
-			method: "PUT",
-			path: GroupsApiPath.$GROUP_ID_USERS_$USER_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
-		});
-
-		this.addRoute({
-			handler: (options) => {
 				return this.create(
 					options as APIHandlerOptions<{
 						body: GroupRequestDto;
@@ -164,34 +132,38 @@ class GroupController extends BaseController {
 				params: groupIdParameter,
 			},
 		});
-	}
 
-	private async addPermissionToGroup({
-		params,
-	}: APIHandlerOptions<{
-		params: { groupId: number; permissionId: number };
-	}>): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.groupService.addPermissionToGroup(
-				params.groupId,
-				params.permissionId,
+		this.addRoute({
+			handler: (options) => {
+				return this.updateGroupPermissions(
+					options as APIHandlerOptions<{
+						params: { groupId: number; permissionId: number };
+					}>,
+				);
+			},
+			method: "PUT",
+			path: GroupsApiPath.$GROUP_ID_PERMISSIONS_$PERMISSION_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
 			),
-			status: HTTPCode.OK,
-		};
-	}
+		});
 
-	private async addUserToGroup({
-		params,
-	}: APIHandlerOptions<{
-		params: { groupId: number; userId: number };
-	}>): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.groupService.addUserToGroup(
-				params.groupId,
-				params.userId,
+		this.addRoute({
+			handler: (options) => {
+				return this.updateUserGroups(
+					options as APIHandlerOptions<{
+						params: { groupId: number; userId: number };
+					}>,
+				);
+			},
+			method: "PUT",
+			path: GroupsApiPath.$GROUP_ID_USERS_$USER_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_UAM],
+				PermissionMode.ALL_OF,
 			),
-			status: HTTPCode.OK,
-		};
+		});
 	}
 
 	private async create({
@@ -265,6 +237,34 @@ class GroupController extends BaseController {
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.groupService.update(params.groupId, body),
+			status: HTTPCode.OK,
+		};
+	}
+
+	private async updateGroupPermissions({
+		params,
+	}: APIHandlerOptions<{
+		params: { groupId: number; permissionId: number };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.groupService.updateGroupPermissions(
+				params.groupId,
+				params.permissionId,
+			),
+			status: HTTPCode.OK,
+		};
+	}
+
+	private async updateUserGroups({
+		params,
+	}: APIHandlerOptions<{
+		params: { groupId: number; userId: number };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.groupService.updateUserGroups(
+				params.groupId,
+				params.userId,
+			),
 			status: HTTPCode.OK,
 		};
 	}

@@ -36,83 +36,12 @@ class GroupService implements Service {
 		this.userService = userService;
 	}
 
-	public async addPermissionToGroup(
-		groupId: number,
-		permissionId: number,
-	): Promise<PermissionResponseDto[]> {
-		await this.permissionService.find(permissionId);
-		const groupById = await this.groupRepository.find(groupId);
-
-		if (!groupById) {
-			throw new GroupError({
-				message: GroupErrorMessage.GROUP_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
-		}
-
-		const hasRelation = await this.groupRepository.findPermissionInGroup(
-			groupId,
-			permissionId,
-		);
-
-		if (hasRelation) {
-			throw new GroupError({
-				message: GroupErrorMessage.GROUP_ALREADY_HAS_THIS_PERMISSION,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
-		const permissionsInGroup = await this.groupRepository.addPermissionToGroup(
-			groupId,
-			permissionId,
-		);
-
-		return permissionsInGroup.map((permission) => {
-			return permission.toObject();
-		});
-	}
-
-	public async addUserToGroup(
-		groupId: number,
-		userId: number,
-	): Promise<GroupResponseDto[]> {
-		await this.userService.findById(userId);
-		const groupById = await this.groupRepository.find(groupId);
-
-		if (!groupById) {
-			throw new GroupError({
-				message: GroupErrorMessage.GROUP_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
-		}
-
-		const hasRelation = await this.groupRepository.findUserInGroup(
-			groupId,
-			userId,
-		);
-
-		if (hasRelation) {
-			throw new GroupError({
-				message: GroupErrorMessage.USER_ALREADY_IN_GROUP,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
-		const userGroups = await this.groupRepository.addUserToGroup(
-			groupId,
-			userId,
-		);
-
-		return userGroups.map((group) => {
-			return group.toObject();
-		});
-	}
-
 	public async create(group: GroupRequestDto): Promise<GroupResponseDto> {
 		const { key, name } = group;
 		const groupByKey = await this.groupRepository.findByKey(key);
+		const groupByName = await this.groupRepository.findByName(name);
 
-		if (groupByKey) {
+		if (groupByKey || groupByName) {
 			throw new GroupError({
 				message: GroupErrorMessage.GROUP_ALREADY_EXISTS,
 				status: HTTPCode.BAD_REQUEST,
@@ -214,12 +143,87 @@ class GroupService implements Service {
 		}
 
 		const { key, name } = group;
+
+		const groupByKey = await this.groupRepository.findByKey(key);
+		const groupByName = await this.groupRepository.findByName(name);
+		const groupByKeyId = groupByKey?.toObject().id;
+		const groupByNameId = groupByName?.toObject().id;
+
+		if (
+			(groupByKey && groupByKeyId !== Number(id)) ||
+			(groupByName && groupByNameId !== Number(id))
+		) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_ALREADY_EXISTS,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
 		const updatedGroup = await this.groupRepository.update(
 			id,
 			GroupEntity.initializeNew({ key, name }),
 		);
 
 		return updatedGroup.toObject();
+	}
+
+	public async updateGroupPermissions(
+		groupId: number,
+		permissionId: number,
+	): Promise<PermissionResponseDto[]> {
+		await this.permissionService.find(permissionId);
+		const groupById = await this.groupRepository.find(groupId);
+
+		if (!groupById) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const hasPermission = await this.groupRepository.findPermissionInGroup(
+			groupId,
+			permissionId,
+		);
+
+		const permissionsInGroup = hasPermission
+			? await this.groupRepository.removePermissionFromGroup(
+					groupId,
+					permissionId,
+				)
+			: await this.groupRepository.addPermissionToGroup(groupId, permissionId);
+
+		return permissionsInGroup.map((permission) => {
+			return permission.toObject();
+		});
+	}
+
+	public async updateUserGroups(
+		groupId: number,
+		userId: number,
+	): Promise<GroupResponseDto[]> {
+		await this.userService.findById(userId);
+		const groupById = await this.groupRepository.find(groupId);
+
+		if (!groupById) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const hasGroup = await this.groupRepository.findUserInGroup(
+			groupId,
+			userId,
+		);
+
+		const userGroups = hasGroup
+			? await this.groupRepository.removeUserFromGroup(groupId, userId)
+			: await this.groupRepository.addUserToGroup(groupId, userId);
+
+		return userGroups.map((group) => {
+			return group.toObject();
+		});
 	}
 }
 

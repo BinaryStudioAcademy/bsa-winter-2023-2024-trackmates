@@ -236,6 +236,33 @@ class GroupRepository implements Repository<GroupEntity> {
 			: null;
 	}
 
+	public async findByName(name: string): Promise<GroupEntity | null> {
+		const groupByName = await this.groupModel
+			.query()
+			.withGraphJoined(RelationName.PERMISSIONS)
+			.findOne(`${RelationName.GROUPS}.name`, name)
+			.execute();
+
+		return groupByName
+			? GroupEntity.initialize({
+					createdAt: groupByName.createdAt,
+					id: groupByName.id,
+					key: groupByName.key,
+					name: groupByName.name,
+					permissions: groupByName.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
+					updatedAt: groupByName.updatedAt,
+				})
+			: null;
+	}
+
 	public async findPermissionInGroup(
 		groupId: number,
 		permissionId: number,
@@ -306,6 +333,71 @@ class GroupRepository implements Repository<GroupEntity> {
 					updatedAt: user.updatedAt,
 				})
 			: null;
+	}
+
+	public async removePermissionFromGroup(
+		groupId: number,
+		permissionId: number,
+	): Promise<PermissionEntity[]> {
+		await this.groupModel
+			.relatedQuery(RelationName.PERMISSIONS)
+			.for(groupId)
+			.unrelate()
+			.where({ permissionId })
+			.execute();
+
+		const permissions = await this.groupModel
+			.relatedQuery(RelationName.PERMISSIONS)
+			.for(groupId)
+			.castTo<PermissionModel[]>()
+			.execute();
+
+		return permissions.map((permission) => {
+			return PermissionEntity.initialize({
+				createdAt: permission.createdAt,
+				id: permission.id,
+				key: permission.key,
+				name: permission.name,
+				updatedAt: permission.updatedAt,
+			});
+		});
+	}
+
+	public async removeUserFromGroup(
+		groupId: number,
+		userId: number,
+	): Promise<GroupEntity[]> {
+		await this.userModel
+			.relatedQuery(RelationName.GROUPS)
+			.for(userId)
+			.unrelate()
+			.where({ groupId })
+			.execute();
+
+		const groups = await this.groupModel
+			.query()
+			.withGraphJoined(`[${RelationName.USERS}, ${RelationName.PERMISSIONS}]`)
+			.where(`${RelationName.USERS}.id`, userId)
+			.execute();
+
+		return groups.map((group) => {
+			return GroupEntity.initialize({
+				createdAt: group.createdAt,
+				id: group.id,
+				key: group.key,
+				name: group.name,
+				permissions: group.permissions.map((permission) => {
+					return PermissionEntity.initialize({
+						createdAt: permission.createdAt,
+						id: permission.id,
+						key: permission.key,
+						name: permission.name,
+						updatedAt: permission.updatedAt,
+					});
+				}),
+				updatedAt: group.updatedAt,
+			});
+		});
 	}
 
 	public async update(id: number, entity: GroupEntity): Promise<GroupEntity> {
