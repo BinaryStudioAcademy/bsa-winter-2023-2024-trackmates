@@ -35,6 +35,7 @@ const NotificationList: React.FC<Properties> = ({
 	);
 
 	const handleReadNotifications = (): void => {
+		setReadNotificationIds([]);
 		void dispatch(
 			userNotificationsActions.setReadNotifications({
 				notificationIds: readNotificationIds,

@@ -46,9 +46,6 @@ const { actions, name, reducer } = createSlice({
 			});
 			state.dataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(setReadNotifications.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
-		});
 		builder.addCase(setReadNotifications.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});

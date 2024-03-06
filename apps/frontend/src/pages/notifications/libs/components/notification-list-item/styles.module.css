@@ -35,11 +35,6 @@
 	font-size: var(--font-size-300);
 }
 
-.profile-link {
-	font-weight: 600;
-	color: var(--color-text-300);
-}
-
 .notification-subtitle {
 	margin: 0;
 	font-size: var(--font-size-200);

@@ -33,8 +33,6 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const date = getTimeDistanceFormatDate(notification.createdAt);
 
-	const [username, message] = notification.message.split("|");
-
 	return (
 		<li
 			className={getValidClassNames(
@@ -56,8 +54,7 @@ const NotificationListItem: React.FC<Properties> = ({
 			</Link>
 			<div>
 				<div className={styles["notification-title"]}>
-					<span className={styles["profile-link"]}>{username}</span>
-					<span>{message}</span>
+					<span>{notification.message}</span>
 				</div>
 				<span className={styles["notification-subtitle"]}>{date}</span>
 			</div>

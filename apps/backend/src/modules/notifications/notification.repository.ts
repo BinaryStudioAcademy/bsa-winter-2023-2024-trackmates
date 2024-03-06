@@ -22,7 +22,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			ValueOf<typeof NotificationType>,
 			string
 		> = {
-			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName}|started following you.`,
+			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName} started following you.`,
 		};
 
 		return notificationTypeToMessage[type];

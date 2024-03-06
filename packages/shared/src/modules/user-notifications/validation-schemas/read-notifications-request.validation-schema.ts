@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import {
-	ReadNotificationsValidationMessages,
-	ReadNotificationsValidationRule,
+	NotificationsValidationMessages,
+	NotificationsValidationRule,
 } from "../enums/enums.js";
 
 type ReadNotificationsRequestValidation = {
@@ -12,16 +12,13 @@ type ReadNotificationsRequestValidation = {
 const readNotifications = z.object<ReadNotificationsRequestValidation>({
 	notificationIds: z
 		.array(
-			z.number().min(ReadNotificationsValidationRule.ID_MINIMUM_VALUE, {
-				message: ReadNotificationsValidationMessages.ID_MINIMUM_VALUE,
+			z.number().min(NotificationsValidationRule.ID_MINIMUM_VALUE, {
+				message: NotificationsValidationMessages.ID_MINIMUM_VALUE,
 			}),
 		)
-		.min(
-			ReadNotificationsValidationRule.NOTIFICATION_IDS_ARRAY_MINIMUM_LENGHT,
-			{
-				message: ReadNotificationsValidationMessages.ARRAY_MINIMUM_SIZE,
-			},
-		),
+		.min(NotificationsValidationRule.NOTIFICATION_IDS_ARRAY_MINIMUM_LENGHT, {
+			message: NotificationsValidationMessages.ARRAY_MINIMUM_SIZE,
+		}),
 });
 
 export { readNotifications };

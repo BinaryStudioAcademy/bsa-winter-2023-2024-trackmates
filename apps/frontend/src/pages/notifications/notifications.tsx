@@ -1,8 +1,9 @@
 import { Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/user-notifications/user-notifications.js";
@@ -21,6 +22,8 @@ const Notifications: React.FC = () => {
 	);
 
 	const dispatch = useAppDispatch();
+
+	useAppTitle(AppTitle.NOTIFICATION);
 
 	useEffect(() => {
 		void dispatch(actions.getUserNotifications());
