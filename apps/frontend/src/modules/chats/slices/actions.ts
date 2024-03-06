@@ -84,14 +84,12 @@ const updateChats = createAsyncThunk<
 		};
 	});
 
-	updatedChats.sort(
-		({ lastMessage: lastMessage1 }, { lastMessage: lastMessage2 }) => {
-			return (
-				new Date(lastMessage2.createdAt).getTime() -
-				new Date(lastMessage1.createdAt).getTime()
-			);
-		},
-	);
+	updatedChats.sort((a, b) => {
+		return (
+			new Date(b.lastMessage.createdAt).getTime() -
+			new Date(a.lastMessage.createdAt).getTime()
+		);
+	});
 
 	return updatedChats;
 });
