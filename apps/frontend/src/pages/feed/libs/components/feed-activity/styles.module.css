@@ -39,6 +39,12 @@
 	object-position: center;
 }
 
+.toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 @media screen and (--medium-screen) {
 	.card-content {
 		grid-template-columns: 80px 1fr;

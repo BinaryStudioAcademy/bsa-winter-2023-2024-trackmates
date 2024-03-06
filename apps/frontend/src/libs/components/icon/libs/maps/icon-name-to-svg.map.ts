@@ -8,6 +8,7 @@ import CrossIcon from "~/assets/icons/cross.svg?react";
 import EyeIcon from "~/assets/icons/eye.svg?react";
 import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
 import HomeIcon from "~/assets/icons/home.svg?react";
+import LikeIcon from "~/assets/icons/like.svg?react";
 import LogOutIcon from "~/assets/icons/log-out.svg?react";
 import MessageIcon from "~/assets/icons/message.svg?react";
 import PieIcon from "~/assets/icons/pie.svg?react";
@@ -30,6 +31,7 @@ const iconNameToSvg: Record<
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
+	like: LikeIcon,
 	logOut: LogOutIcon,
 	message: MessageIcon,
 	pie: PieIcon,

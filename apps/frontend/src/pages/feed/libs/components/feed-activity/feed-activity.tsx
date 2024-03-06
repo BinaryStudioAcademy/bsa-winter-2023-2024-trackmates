@@ -1,5 +1,5 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image } from "~/libs/components/components.js";
+import { Button, Image } from "~/libs/components/components.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
@@ -27,6 +27,9 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 				<div className={styles["card-content-wrapper"]}>
 					<div className={styles["card-info"]}>
 						{getActivityTitle(activity)}
+					</div>
+					<div className={styles["toolbar"]}>
+						<Button iconName="like" label="Like" />
 					</div>
 				</div>
 			</div>

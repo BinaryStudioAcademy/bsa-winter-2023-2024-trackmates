@@ -9,6 +9,7 @@ type IconName =
 	| "eye"
 	| "eyeOff"
 	| "home"
+	| "like"
 	| "logOut"
 	| "message"
 	| "pie"
