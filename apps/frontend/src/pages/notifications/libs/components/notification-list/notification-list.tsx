@@ -22,23 +22,25 @@ type Properties = {
 const NotificationList: React.FC<Properties> = ({
 	notifications,
 }: Properties) => {
-	const [readNotificationIds, setReadNotificationIds] = useState<number[]>([]);
+	const [readNotificationIds, setReadNotificationIds] = useState<Set<number>>(
+		new Set<number>(),
+	);
 	const dispatch = useAppDispatch();
 
 	const handleRead = useCallback(
 		(notificationId: number): void => {
 			setReadNotificationIds((previous) => {
-				return [...previous, notificationId];
+				return new Set<number>(previous.add(notificationId));
 			});
 		},
 		[setReadNotificationIds],
 	);
 
 	const handleReadNotifications = (): void => {
-		setReadNotificationIds([]);
+		setReadNotificationIds(new Set<number>());
 		void dispatch(
 			userNotificationsActions.setReadNotifications({
-				notificationIds: readNotificationIds,
+				notificationIds: [...readNotificationIds],
 			}),
 		);
 	};
@@ -49,7 +51,7 @@ const NotificationList: React.FC<Properties> = ({
 	);
 
 	useEffect(() => {
-		if (readNotificationIds.length > EMPTY_ARRAY_LENGTH) {
+		if (readNotificationIds.size > EMPTY_ARRAY_LENGTH) {
 			handleReadNotificationsDebounced();
 
 			return () => {
