@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.28.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.27.0...frontend-v1.28.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** Add Progress for courses tm-206 ([#282](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/282)) ([d0b7516](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d0b7516f54fde5022ced8264f34a87614e40f7e6))
+
+
+### Bug Fixes
+
+* **frontend:** Implement Open Graph Protocol tm-304 ([#370](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/370)) ([9d6b745](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9d6b745ab6b0253fc8e4e237fab6168e30a73034))
+
 ## [1.27.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.26.4...frontend-v1.27.0) (2024-03-06)
 
 
