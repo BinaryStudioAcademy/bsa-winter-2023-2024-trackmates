@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import { UserValidationMessage, UserValidationRule } from "../enums/enums.js";
+import {
+	UserSex,
+	UserValidationMessage,
+	UserValidationRule,
+} from "../enums/enums.js";
 
 type UserProfileRequestValidationDto = {
 	firstName: z.ZodString;
@@ -11,6 +15,7 @@ type UserProfileRequestValidationDto = {
 			z.ZodUnion<[z.ZodString, z.ZodLiteral<null>]>
 		>
 	>;
+	sex: z.ZodNullable<z.ZodEnum<["Male", "Female", "Prefer not to say"]>>;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
@@ -94,6 +99,9 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 				})
 				.or(z.literal(null)),
 		)
+		.nullable(),
+	sex: z
+		.enum([UserSex.MALE, UserSex.FEMALE, UserSex.PREFER_NOT_TO_SAY])
 		.nullable(),
 });
 

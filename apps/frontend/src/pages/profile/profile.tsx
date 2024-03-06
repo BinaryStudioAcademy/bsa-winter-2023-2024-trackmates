@@ -1,6 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
-import { Button, Image, Input } from "~/libs/components/components.js";
+import { Button, Image, Input, Select } from "~/libs/components/components.js";
 import { AppTitle } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -14,6 +14,7 @@ import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
+	UserSex,
 	userProfileValidationSchema,
 	actions as usersActions,
 } from "~/modules/users/users.js";
@@ -33,6 +34,7 @@ const Profile: React.FC = () => {
 				firstName: user.firstName,
 				lastName: user.lastName,
 				nickname: user.nickname ?? "",
+				sex: user.sex,
 			},
 			validationSchema: userProfileValidationSchema,
 		});
@@ -138,6 +140,20 @@ const Profile: React.FC = () => {
 								placeholder={placeholder}
 								type="text"
 							/>
+							<Select
+								color="light"
+								control={control}
+								errors={errors}
+								label="Sex"
+								name="sex"
+								placeholder="Select sex"
+							>
+								<option value={UserSex.MALE}>{UserSex.MALE}</option>
+								<option value={UserSex.FEMALE}>{UserSex.FEMALE}</option>
+								<option value={UserSex.PREFER_NOT_TO_SAY}>
+									{UserSex.PREFER_NOT_TO_SAY}
+								</option>
+							</Select>
 						</fieldset>
 					</div>
 					<Image
