@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.39.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.39.0...v1.39.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** The "Back" button on the "Friend profile" page doesn't navigate to the previous tab on the "Friends" page tm-325 ([#351](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/351)) ([30c8efe](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/30c8efe0176c447b0f94f9484c87adc814c9c866))
+
 ## [1.39.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.38.0...v1.39.0) (2024-03-06)
 
 
