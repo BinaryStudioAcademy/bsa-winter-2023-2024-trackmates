@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.16.0...shared-v1.17.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed tm-158 ([#285](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/285)) ([5f597ee](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5f597eef084762fd2aae20bedf3d795b9a94090a))
+
 ## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.15.0...shared-v1.16.0) (2024-03-06)
 
 
