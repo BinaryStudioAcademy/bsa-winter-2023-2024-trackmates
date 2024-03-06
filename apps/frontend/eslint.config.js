@@ -59,6 +59,16 @@ const jsxA11yConfig = {
 	rules: jsxA11y.configs.recommended.rules,
 };
 
+/** @type {FlatConfig} */
+const explicitGenericsConfig = {
+	rules: {
+		"require-explicit-generics/require-explicit-generics": [
+			"error",
+			["useState"],
+		],
+	},
+};
+
 /** @type {FlatConfig[]} */
 const overridesConfigs = [
 	{
@@ -83,6 +93,7 @@ const config = [
 	reactConfig,
 	reactHooksConfig,
 	jsxA11yConfig,
+	explicitGenericsConfig,
 	...overridesConfigs,
 ];
 

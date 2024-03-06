@@ -2,6 +2,7 @@ export { ChatMessagesApiPath, MessageStatus } from "./libs/enums/enums.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ChatMessageItemWithReceiverIdResponseDto,
 	type ChatMessageUpdateRequestDto,
 } from "./libs/types/types.js";
 export {

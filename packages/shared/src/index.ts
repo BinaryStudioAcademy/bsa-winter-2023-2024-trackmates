@@ -18,6 +18,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getPercentage,
 	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
@@ -31,6 +32,7 @@ export {
 	type HTTPMethod,
 	type HTTPOptions,
 } from "./libs/modules/http/http.js";
+export { SocketEvent, SocketNamespace } from "./libs/modules/socket/socket.js";
 export { type Storage } from "./libs/modules/storage/storage.js";
 export {
 	type PaginationRequestDto,
@@ -47,6 +49,7 @@ export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ChatMessageItemWithReceiverIdResponseDto,
 	type ChatMessageUpdateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
@@ -119,6 +122,7 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
+	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,
 	userIdParameterValidationSchema,

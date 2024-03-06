@@ -10,7 +10,7 @@ type CourseSection = Pick<CourseSectionDto, CourseSectionFieldForMap>;
 
 type VendorService = {
 	getCourseById(id: string): Promise<Course>;
-	getCourseSections(udemyId: string): Promise<CourseSection[]>;
+	getCourseSections(vendorId: string): Promise<CourseSection[]>;
 	getCourses(search: string): Promise<Course[]>;
 };
 
