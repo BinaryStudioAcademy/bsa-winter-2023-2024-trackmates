@@ -7,6 +7,7 @@ import { activityController } from "~/modules/activities/activities.js";
 import { authController } from "~/modules/auth/auth.js";
 import { chatMessageController } from "~/modules/chat-messages/chat-messages.js";
 import { chatController } from "~/modules/chats/chats.js";
+import { commentController } from "~/modules/comments/comments.js";
 import { courseSectionController } from "~/modules/course-sections/course-sections.js";
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
@@ -34,6 +35,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...userController.routes,
 	...courseSectionController.routes,
 	...sectionStatusController.routes,
+	...commentController.routes,
 );
 const serverApplication = new BaseServerApplication({
 	apis: [apiV1],
