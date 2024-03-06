@@ -3,22 +3,17 @@ import { LinearProgress } from "~/libs/components/linear-progress/linear-progres
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.js";
 
+import { checkIsUserCourse } from "../../helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
 	course: CourseDto | UserCourseResponseDto;
 };
 
-const isUserCourse = (
-	dto: CourseDto | UserCourseResponseDto,
-): dto is UserCourseResponseDto => {
-	return "progress" in dto;
-};
-
 const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, title, vendor } = course;
 
-	const { progress } = isUserCourse(course) ? course : { progress: null };
+	const { progress } = checkIsUserCourse(course) ? course : { progress: null };
 
 	return (
 		<div className={styles["content"]}>
@@ -31,7 +26,7 @@ const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 			<div className={styles["info-container"]}>
 				<h2 className={styles["title"]}>{title}</h2>
 
-				{isUserCourse(course) && (
+				{checkIsUserCourse(course) && (
 					<div className={styles["progress"]}>
 						<LinearProgress progress={progress as number} />
 						<p className={styles["progress-info"]}>Completed {progress}%</p>
