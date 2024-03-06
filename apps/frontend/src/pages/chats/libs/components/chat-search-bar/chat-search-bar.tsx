@@ -2,7 +2,7 @@ import { type FormEvent } from "react";
 
 import { Input } from "~/libs/components/components.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useAppForm } from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type ChatSearchDto,
 	DEFAULT_SEARCH_CHAT_PAYLOAD,
@@ -11,10 +11,6 @@ import {
 } from "~/modules/chats/chats.js";
 
 import styles from "./styles.module.css";
-
-const handleFormSubmit = (event_: FormEvent<HTMLFormElement>): void => {
-	event_.preventDefault();
-};
 
 const ChatSearchBar: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -35,6 +31,13 @@ const ChatSearchBar: React.FC = () => {
 	const handleDebouncedSearchChats = initDebounce(
 		handleFormChange,
 		SEARCH_CHAT_DELAY_MS,
+	);
+
+	const handleFormSubmit = useCallback(
+		(event_: FormEvent<HTMLFormElement>): void => {
+			event_.preventDefault();
+		},
+		[],
 	);
 
 	return (
