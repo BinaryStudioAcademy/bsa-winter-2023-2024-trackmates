@@ -6,7 +6,10 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { type ActivityLikeRequestDto } from "~/modules/activity-likes/activity-likes.js";
+import {
+	type ActivityLikeRequestDto,
+	activityLikePutValidationSchema,
+} from "~/modules/activity-likes/activity-likes.js";
 import { type SectionStatusService } from "~/modules/section-statuses/section-statuses.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
@@ -117,6 +120,9 @@ class ActivityController extends BaseController {
 			},
 			method: "PUT",
 			path: ActivitiesApiPath.LIKE,
+			validation: {
+				body: activityLikePutValidationSchema,
+			},
 		});
 	}
 
