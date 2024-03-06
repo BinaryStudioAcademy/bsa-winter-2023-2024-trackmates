@@ -9,7 +9,7 @@ import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-me
 import {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
-	type ChatSearchDto,
+	type ChatSearchResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./chats.slice.js";
 
@@ -17,14 +17,12 @@ const ONE_UNREAD_MESSAGE = 1;
 
 const getAllChats = createAsyncThunk<
 	{ items: ChatGetAllItemResponseDto[] },
-	ChatSearchDto | undefined,
+	ChatSearchResponseDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-all-chats`, async (getAllChatsPayload, { extra }) => {
 	const { chatsApi } = extra;
 
-	const search = getAllChatsPayload?.search ?? "";
-
-	return await chatsApi.getAllChats({ search });
+	return await chatsApi.getAllChats(getAllChatsPayload);
 });
 
 const getChat = createAsyncThunk<ChatItemResponseDto, number, AsyncThunkConfig>(
@@ -67,7 +65,7 @@ const updateChats = createAsyncThunk<
 	);
 
 	if (!isMessageFromExistingChat) {
-		void dispatch(getAllChats());
+		void dispatch(getAllChats({ search: "" }));
 
 		return chats;
 	}

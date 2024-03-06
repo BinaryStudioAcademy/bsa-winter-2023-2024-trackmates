@@ -16,7 +16,7 @@ export {
 } from "./libs/constants/constants.js";
 export {
 	type ChatGetAllItemResponseDto,
-	type ChatSearchDto,
+	type ChatSearchResponseDto,
 } from "./libs/types/types.js";
 export { chatsApi };
 export { actions, reducer } from "./slices/chats.js";

@@ -64,7 +64,7 @@ export {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
 	type ChatResponseDto,
-	type ChatSearchDto,
+	type ChatSearchResponseDto,
 	ChatsApiPath,
 	chatCreateValidationSchema,
 	chatIdParameterValidationSchema,

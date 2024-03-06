@@ -1,6 +1,6 @@
-import { type ChatSearchDto } from "../types/types.js";
+import { type ChatSearchResponseDto } from "../types/types.js";
 
-const DEFAULT_SEARCH_CHAT_PAYLOAD: ChatSearchDto = {
+const DEFAULT_SEARCH_CHAT_PAYLOAD: ChatSearchResponseDto = {
 	search: "",
 };
 

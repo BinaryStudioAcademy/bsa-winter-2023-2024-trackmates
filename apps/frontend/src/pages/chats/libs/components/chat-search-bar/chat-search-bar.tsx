@@ -4,7 +4,7 @@ import { Input } from "~/libs/components/components.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
-	type ChatSearchDto,
+	type ChatSearchResponseDto,
 	DEFAULT_SEARCH_CHAT_PAYLOAD,
 	SEARCH_CHAT_DELAY_MS,
 	actions as chatsActions,
@@ -20,7 +20,7 @@ const ChatSearchBar: React.FC = () => {
 		mode: "onChange",
 	});
 
-	const handleSearchChats = (filterFormData: ChatSearchDto): void => {
+	const handleSearchChats = (filterFormData: ChatSearchResponseDto): void => {
 		void dispatch(chatsActions.getAllChats({ search: filterFormData.search }));
 	};
 
