@@ -136,6 +136,14 @@ erDiagram
     text payload
    }
 
+   activity_likes{
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int activity_id FK
+    int user_id FK
+   }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
@@ -159,6 +167,8 @@ erDiagram
    section_statuses }|--|| users : user_id
    activities }|--|| users : user_id
 
+   users ||--|{ activity_likes : user_id
+   activities ||--|{ activity_likes : activity_id
 ```
 
 ## 5. Architecture
