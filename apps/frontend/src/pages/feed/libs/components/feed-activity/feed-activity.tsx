@@ -1,11 +1,13 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image } from "~/libs/components/components.js";
+import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
 	type ActivityType,
 	getActivityTitle,
 } from "~/modules/activities/activities.js";
+import { actions as activitiesActions } from "~/modules/activities/activities.js";
 
 import styles from "./styles.module.css";
 
@@ -14,6 +16,12 @@ type Properties = {
 };
 
 const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
+	const dispatch = useAppDispatch();
+
+	const onLike = useCallback(() => {
+		void dispatch(activitiesActions.likeActivity(activity.id));
+	}, [dispatch, activity.id]);
+
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
@@ -37,6 +45,7 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 						className={styles["tool-button"]}
 						iconName="like"
 						label="Like"
+						onClick={onLike}
 					/>
 				</div>
 			</div>
