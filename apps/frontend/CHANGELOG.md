@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.31.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.31.0...frontend-v1.31.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **frontend:** fix service worker cache issue with swagger in deployed app tm-1 ([#383](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/383)) ([debc8ab](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/debc8abce100d0d40dc0b17b644bb2d8d34eeb01))
+
 ## [1.31.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.30.0...frontend-v1.31.0) (2024-03-06)
 
 
