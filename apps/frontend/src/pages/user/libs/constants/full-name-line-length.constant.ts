@@ -1,0 +1,3 @@
+const FULL_NAME_LINE_LENGTH = 35;
+
+export { FULL_NAME_LINE_LENGTH };

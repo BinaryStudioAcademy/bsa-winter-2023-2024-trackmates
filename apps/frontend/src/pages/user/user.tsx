@@ -7,6 +7,7 @@ import {
 	Navigate,
 } from "~/libs/components/components.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -21,6 +22,7 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { FULL_NAME_LINE_LENGTH } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
@@ -77,6 +79,9 @@ const User: React.FC = () => {
 		return <Loader color="orange" size="large" />;
 	}
 
+	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
+	const hasTwoLines = fullName.length > FULL_NAME_LINE_LENGTH;
+
 	return (
 		<div className={styles["container"]}>
 			<Button
@@ -100,12 +105,20 @@ const User: React.FC = () => {
 				</div>
 
 				<div className={styles["user-wrapper"]}>
-					<p className={styles["fullName"]}>
+					<p
+						className={getValidClassNames(
+							styles["fullName"],
+							hasTwoLines ? styles["two-lines"] : styles["one-line"],
+						)}
+					>
 						{(profileUser as UserAuthResponseDto).firstName}{" "}
 						{(profileUser as UserAuthResponseDto).lastName}
 					</p>
 					<Button
-						className={styles["follow-button"]}
+						className={getValidClassNames(
+							styles["follow-button"],
+							hasTwoLines ? styles["two-lines"] : styles["one-line"],
+						)}
 						iconName={isFollowing ? "cross" : "add"}
 						label={isFollowing ? "Following" : "Follow"}
 						onClick={isFollowing ? handleUnfollow : handleFollow}

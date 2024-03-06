@@ -32,8 +32,19 @@
 	object-fit: cover;
 }
 
+.fullName.two-lines {
+	top: 20px;
+}
+
+.fullName.one-line {
+	top: 34px;
+}
+
 .fullName {
-	max-inline-size: 35ch;
+	position: absolute;
+	top: 20px;
+	left: 0;
+	inline-size: 35ch;
 	margin: 0;
 	font-size: var(--font-size-300);
 	font-weight: 500;
@@ -42,9 +53,12 @@
 }
 
 .user-wrapper {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	min-width: 120px;
+	height: 100%;
 }
 
 .return-button {
@@ -62,5 +76,15 @@
 }
 
 .follow-button {
+	position: absolute;
+	left: 0;
 	max-width: 120px;
+}
+
+.follow-button.two-lines {
+	top: 74px;
+}
+
+.follow-button.one-line {
+	top: 66px;
 }
