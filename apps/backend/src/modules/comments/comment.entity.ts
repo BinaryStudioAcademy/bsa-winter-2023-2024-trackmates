@@ -104,6 +104,19 @@ class CommentEntity implements Entity {
 
 	public toObject(): {
 		activityId: number;
+		id: number;
+		text: string;
+		userId: number;
+	} {
+		return {
+			activityId: this.activityId,
+			id: this.id as number,
+			text: this.text,
+			userId: this.userId,
+		};
+	}
+	public toObjectWithRelations(): {
+		activityId: number;
 		author: UserDetailsResponseDto;
 		id: number;
 		text: string;

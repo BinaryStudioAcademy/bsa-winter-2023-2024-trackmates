@@ -34,7 +34,7 @@ class CommentService implements Service {
 			}),
 		);
 
-		return comment.toObject();
+		return comment.toObjectWithRelations();
 	}
 
 	public async delete(id: number, userId: number): Promise<boolean> {
@@ -60,14 +60,14 @@ class CommentService implements Service {
 			});
 		}
 
-		return comment.toObject();
+		return comment.toObjectWithRelations();
 	}
 
 	public async findAll(): Promise<CommentGetAllResponseDto> {
 		const comments = await this.commentRepository.findAll();
 
 		return {
-			items: comments.map((comment) => comment.toObject()),
+			items: comments.map((comment) => comment.toObjectWithRelations()),
 		};
 	}
 
@@ -78,7 +78,7 @@ class CommentService implements Service {
 			await this.commentRepository.findAllByActivityId(articleId);
 
 		return {
-			items: comments.map((comment) => comment.toObject()),
+			items: comments.map((comment) => comment.toObjectWithRelations()),
 		};
 	}
 
@@ -104,7 +104,7 @@ class CommentService implements Service {
 			}),
 		);
 
-		return updatedComment.toObject();
+		return updatedComment.toObjectWithRelations();
 	}
 }
 
