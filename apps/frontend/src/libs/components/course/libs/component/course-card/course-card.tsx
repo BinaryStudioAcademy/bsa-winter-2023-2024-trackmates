@@ -13,7 +13,7 @@ type Properties = {
 const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, title, vendor } = course;
 
-	const { progress } = checkIsUserCourse(course) ? course : { progress: null };
+	const progress = checkIsUserCourse(course) ? course.progress : null;
 
 	return (
 		<div className={styles["content"]}>
