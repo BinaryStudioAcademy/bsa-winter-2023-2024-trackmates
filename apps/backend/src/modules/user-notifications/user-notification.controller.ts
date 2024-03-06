@@ -11,7 +11,7 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
 import { type ReadNotificationsRequestDto } from "./libs/types/types.js";
-import { readNotificationsValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import { readNotificationsRequestValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -89,7 +89,7 @@ class UserNotificationController extends BaseController {
 			method: "PATCH",
 			path: UserNotificationsApiPath.READ_NOTIFICATIONS,
 			validation: {
-				body: readNotificationsValidationSchema,
+				body: readNotificationsRequestValidationSchema,
 			},
 		});
 	}

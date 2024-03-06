@@ -23,7 +23,7 @@ const Notifications: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	useAppTitle(AppTitle.NOTIFICATION);
+	useAppTitle(AppTitle.NOTIFICATIONS);
 
 	useEffect(() => {
 		void dispatch(actions.getUserNotifications());

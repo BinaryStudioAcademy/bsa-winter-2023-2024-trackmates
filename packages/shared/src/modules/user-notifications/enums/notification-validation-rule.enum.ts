@@ -1,6 +1,6 @@
-const NotificationsValidationRule = {
+const NotificationValidationRule = {
 	ID_MINIMUM_VALUE: 1,
 	NOTIFICATION_IDS_ARRAY_MINIMUM_LENGHT: 1,
 } as const;
 
-export { NotificationsValidationRule };
+export { NotificationValidationRule };

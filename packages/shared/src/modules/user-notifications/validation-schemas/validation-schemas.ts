@@ -1,1 +1,1 @@
-export { readNotifications } from "./read-notifications-request.validation-schema.js";
+export { readNotificationsRequest } from "./read-notifications-request.validation-schema.js";

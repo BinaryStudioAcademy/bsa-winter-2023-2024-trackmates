@@ -136,7 +136,7 @@ export {
 export {
 	type ReadNotificationsRequestDto,
 	UserNotificationsApiPath,
-	readNotificationsValidationSchema,
+	readNotificationsRequestValidationSchema,
 } from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,

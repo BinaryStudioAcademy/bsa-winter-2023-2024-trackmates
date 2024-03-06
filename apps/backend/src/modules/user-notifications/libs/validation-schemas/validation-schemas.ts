@@ -1,1 +1,1 @@
-export { readNotificationsValidationSchema } from "@trackmates/shared";
+export { readNotificationsRequestValidationSchema } from "@trackmates/shared";
