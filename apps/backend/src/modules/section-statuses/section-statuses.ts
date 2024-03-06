@@ -15,3 +15,4 @@ const sectionStatusController = new SectionStatusController(
 );
 
 export { sectionStatusController };
+export { SectionStatusModel } from "./section-status.model.js";
