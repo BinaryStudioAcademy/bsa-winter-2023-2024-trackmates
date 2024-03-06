@@ -18,6 +18,7 @@ export {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getPercentage,
 	getSanitizedHtml,
 	getSizeInBytes,
 	initDebounce,
@@ -121,6 +122,7 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
+	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,
 	userIdParameterValidationSchema,
