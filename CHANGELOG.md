@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.36.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.3...v1.36.4) (2024-03-06)
+
+
+### Bug Fixes
+
+* **backend:** fix swagger error in user course controller  tm-368 ([#369](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/369)) ([1719ee8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1719ee842255f06b2703ee9eeac82889f7af33fc))
+
 ## [1.36.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.36.2...v1.36.3) (2024-03-06)
 
 
