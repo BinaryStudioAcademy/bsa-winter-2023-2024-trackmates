@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.2...frontend-v1.26.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend:** quality criteria issues tm-310 ([#320](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/320)) ([2ac9f7b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2ac9f7b45bfa5c4084116c126b0011d013758ffb))
+
 ## [1.25.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.25.1...frontend-v1.25.2) (2024-03-06)
 
 
