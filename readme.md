@@ -126,6 +126,16 @@ erDiagram
     text text
    }
 
+   activities {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    enum type
+    int action_id
+    int user_id FK
+    text payload
+   }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
@@ -147,6 +157,7 @@ erDiagram
    course_sections }|--|| courses : course_id
    section_statuses }|--|| course_sections : course_section_id
    section_statuses }|--|| users : user_id
+   activities }|--|| users : user_id
 
 ```
 

@@ -10,6 +10,9 @@ const userCourseApi = new UserCourseApi({
 	storage,
 });
 
-export { type AddCourseRequestDto } from "./libs/types/types.js";
+export {
+	type AddCourseRequestDto,
+	type UserCourseResponseDto,
+} from "./libs/types/types.js";
 export { userCourseApi };
 export { actions, reducer } from "./slices/user-courses.js";

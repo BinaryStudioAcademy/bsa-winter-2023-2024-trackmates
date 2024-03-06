@@ -2,27 +2,35 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { type ChatGetAllItemResponseDto } from "../libs/types/types.js";
-import { createChat, getAllChats, getChat } from "./actions.js";
+import {
+	type ChatGetAllItemResponseDto,
+	type ChatItemResponseDto,
+} from "../libs/types/types.js";
+import {
+	addMessageToCurrentChat,
+	createChat,
+	getAllChats,
+	getChat,
+	updateChats,
+} from "./actions.js";
 
 type State = {
 	chats: ChatGetAllItemResponseDto[];
+	currentChat: ChatItemResponseDto | null;
 	dataStatus: ValueOf<typeof DataStatus>;
-	interlocutor: UserAuthResponseDto | null;
 };
 
 const initialState: State = {
 	chats: [],
+	currentChat: null,
 	dataStatus: DataStatus.IDLE,
-	interlocutor: null,
 };
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(createChat.fulfilled, (state, action) => {
-			state.interlocutor = action.payload.interlocutor;
+			state.currentChat = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(createChat.pending, (state) => {
@@ -44,7 +52,7 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(getChat.fulfilled, (state, action) => {
-			state.interlocutor = action.payload.interlocutor;
+			state.currentChat = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getChat.pending, (state) => {
@@ -53,12 +61,19 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(getChat.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
+
+		builder.addCase(addMessageToCurrentChat.fulfilled, (state, action) => {
+			state.currentChat = action.payload;
+		});
+		builder.addCase(updateChats.fulfilled, (state, action) => {
+			state.chats = action.payload;
+		});
 	},
 	initialState,
 	name: "chats",
 	reducers: {
 		leaveChat: (state) => {
-			state.interlocutor = null;
+			state.currentChat = null;
 		},
 	},
 });

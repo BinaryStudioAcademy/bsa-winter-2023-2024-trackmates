@@ -1,4 +1,5 @@
 const APIPath = {
+	ACTIVITIES: "/activities",
 	AUTH: "/auth",
 	CHAT_MESSAGES: "/chat-messages",
 	CHATS: "/chats",
