@@ -1,8 +1,11 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/types.js";
-import { type ActivityService } from "~/modules/activities/activities.js";
-import { ActivityType } from "~/modules/activities/libs/enums/enums.js";
+import {
+	type ActivityEntity,
+	type ActivityService,
+	ActivityType,
+} from "~/modules/activities/activities.js";
 import { type CourseSectionRepository } from "~/modules/course-sections/course-sections.js";
 
 import { SectionStatus } from "./libs/enums/enums.js";
@@ -40,44 +43,41 @@ class SectionStatusService implements Service {
 
 	private async createActivity(
 		sectionStatus: SectionStatusEntity,
-	): Promise<void> {
+	): Promise<ActivityEntity> {
 		const { courseSectionId, id: actionId, userId } = sectionStatus.toObject();
 
 		const courseSection =
 			await this.courseSectionRepository.find(courseSectionId);
 
 		if (!courseSection) {
-			return;
+			throw new SectionStatusError({
+				message: ExceptionMessage.COURSE_SECTION_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
 		}
 
 		const { course, id, title } = courseSection.toObject();
 
-		if (course) {
-			await this.activityService.create<typeof ActivityType.FINISH_SECTION>({
-				actionId,
-				payload: {
-					course: {
-						id: course.id,
-						title: course.title,
-						vendorId: course.vendorId,
-					},
-					id,
-					title,
-				},
-				type: ActivityType.FINISH_SECTION,
-				userId,
+		if (!course) {
+			throw new SectionStatusError({
+				message: ExceptionMessage.COURSE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
 			});
 		}
-	}
 
-	private async deleteActivity(
-		actionId: number,
-		userId: number,
-	): Promise<void> {
-		await this.activityService.deleteByKeyFields<
+		return await this.activityService.create<
 			typeof ActivityType.FINISH_SECTION
 		>({
 			actionId,
+			payload: {
+				course: {
+					id: course.id,
+					title: course.title,
+					vendorId: course.vendorId,
+				},
+				id,
+				title,
+			},
 			type: ActivityType.FINISH_SECTION,
 			userId,
 		});
@@ -101,6 +101,19 @@ class SectionStatusService implements Service {
 		return sectionStatus.toObject();
 	}
 
+	public async createActivityById(id: number): Promise<ActivityEntity> {
+		const sectionStatus = await this.sectionStatusRepository.find(id);
+
+		if (!sectionStatus) {
+			throw new SectionStatusError({
+				message: ExceptionMessage.SECTION_STATUS_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		return await this.createActivity(sectionStatus);
+	}
+
 	public async delete(id: number): Promise<boolean> {
 		const sectionStatus = await this.sectionStatusRepository.find(id);
 
@@ -118,6 +131,19 @@ class SectionStatusService implements Service {
 		}
 
 		return isDeleted;
+	}
+
+	public async deleteActivity(
+		actionId: number,
+		userId: number,
+	): Promise<boolean> {
+		return await this.activityService.deleteByKeyFields<
+			typeof ActivityType.FINISH_SECTION
+		>({
+			actionId,
+			type: ActivityType.FINISH_SECTION,
+			userId,
+		});
 	}
 
 	public async find(id: number): Promise<SectionStatusResponseDto> {

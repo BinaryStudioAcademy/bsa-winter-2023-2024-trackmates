@@ -6,18 +6,19 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type SectionStatusService } from "~/modules/section-statuses/section-statuses.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type ActivityService } from "./activity.service.js";
-import { ActivitiesApiPath, ActivityType } from "./libs/enums/enums.js";
+import { ActivitiesApiPath } from "./libs/enums/enums.js";
 import {
 	type ActivityCreateRequestDto,
-	type ActivityPayloadMap,
+	type ActivityDeleteRequestDto,
 } from "./libs/types/types.js";
 import {
 	activityActionIdParameterValidationSchema,
-	activityApplyFinishSectionValidationSchema,
+	activityCreateFinishSectionValidationSchema,
+	activityDeleteFinishSectionValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -51,11 +52,17 @@ import {
  */
 class ActivityController extends BaseController {
 	private activityService: ActivityService;
+	private sectionStatusService: SectionStatusService;
 
-	public constructor(logger: Logger, activityService: ActivityService) {
+	public constructor(
+		logger: Logger,
+		activityService: ActivityService,
+		sectionStatusService: SectionStatusService,
+	) {
 		super(logger, APIPath.ACTIVITIES);
 
 		this.activityService = activityService;
+		this.sectionStatusService = sectionStatusService;
 
 		this.addRoute({
 			handler: (options) => {
@@ -72,51 +79,32 @@ class ActivityController extends BaseController {
 			handler: (options) => {
 				return this.createFinishSection(
 					options as APIHandlerOptions<{
-						body: ActivityCreateRequestDto<typeof ActivityType.FINISH_SECTION>;
-						user: UserAuthResponseDto;
+						body: ActivityCreateRequestDto;
 					}>,
 				);
 			},
 			method: "POST",
 			path: ActivitiesApiPath.FINISH_SECTION,
 			validation: {
-				body: activityApplyFinishSectionValidationSchema,
+				body: activityCreateFinishSectionValidationSchema,
 			},
 		});
 		this.addRoute({
 			handler: (options) => {
 				return this.deleteFinishSection(
 					options as APIHandlerOptions<{
+						body: ActivityDeleteRequestDto;
 						params: { actionId: string };
-						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "DELETE",
 			path: ActivitiesApiPath.FINISH_SECTION_$ACTION_ID,
 			validation: {
+				body: activityDeleteFinishSectionValidationSchema,
 				params: activityActionIdParameterValidationSchema,
 			},
 		});
-	}
-
-	private async create<T extends ValueOf<typeof ActivityType>>({
-		actionId,
-		payload,
-		type,
-		user,
-	}: {
-		actionId: number;
-		payload: ActivityPayloadMap[T];
-		type: T;
-		user: UserAuthResponseDto;
-	}): Promise<APIHandlerResponse> {
-		const activity = { actionId, payload, type, userId: user.id };
-
-		return {
-			payload: await this.activityService.create(activity),
-			status: HTTPCode.OK,
-		};
 	}
 
 	/**
@@ -135,28 +123,9 @@ class ActivityController extends BaseController {
 	 *            schema:
 	 *              type: object
 	 *              properties:
-	 *                actionId:
+	 *                sectionStatusId:
 	 *                  type: number
-	 *                  format: number
 	 *                  minimum: 1
-	 *                payload:
-	 *                  type: object
-	 *                  properties:
-	 *                    title:
-	 *                      type: string
-	 *                    course:
-	 *                      type: object
-	 *                      properties:
-	 *                        id:
-	 *                          type: number
-	 *                          format: number
-	 *                          minimum: 1
-	 *                        title:
-	 *                          type: string
-	 *                        vendorId:
-	 *                          type: number
-	 *                          format: number
-	 *                          minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -167,34 +136,13 @@ class ActivityController extends BaseController {
 	 *                $ref: "#/components/schemas/Activity"
 	 */
 	private async createFinishSection({
-		body: { actionId, payload },
-		user,
+		body: { sectionStatusId },
 	}: APIHandlerOptions<{
-		body: ActivityCreateRequestDto<typeof ActivityType.FINISH_SECTION>;
-		user: UserAuthResponseDto;
+		body: ActivityCreateRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.create<typeof ActivityType.FINISH_SECTION>({
-			actionId,
-			payload,
-			type: ActivityType.FINISH_SECTION,
-			user,
-		});
-	}
-
-	private async delete<T extends ValueOf<typeof ActivityType>>({
-		actionId,
-		type,
-		user,
-	}: {
-		actionId: string;
-		type: T;
-		user: UserAuthResponseDto;
-	}): Promise<APIHandlerResponse> {
-		const activity = { actionId: Number(actionId), type, userId: user.id };
-		const success = await this.activityService.deleteByKeyFields(activity);
-
 		return {
-			payload: { success },
+			payload:
+				await this.sectionStatusService.createActivityById(sectionStatusId),
 			status: HTTPCode.OK,
 		};
 	}
@@ -228,17 +176,19 @@ class ActivityController extends BaseController {
 	 *                    type: boolean
 	 */
 	private async deleteFinishSection({
+		body: { userId },
 		params: { actionId },
-		user,
 	}: APIHandlerOptions<{
+		body: ActivityDeleteRequestDto;
 		params: { actionId: string };
-		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		return await this.delete<typeof ActivityType.FINISH_SECTION>({
-			actionId,
-			type: ActivityType.FINISH_SECTION,
-			user,
-		});
+		return {
+			payload: await this.sectionStatusService.deleteActivity(
+				Number(actionId),
+				userId,
+			),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**

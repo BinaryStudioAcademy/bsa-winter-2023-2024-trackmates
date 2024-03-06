@@ -1,4 +1,5 @@
 export {
 	activityActionIdParameterValidationSchema,
-	activityApplyFinishSectionValidationSchema,
+	activityCreateFinishSectionValidationSchema,
+	activityDeleteFinishSectionValidationSchema,
 } from "@trackmates/shared";
