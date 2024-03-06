@@ -51,24 +51,7 @@ class UserRepository implements Repository<UserEntity> {
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
-			groups: user.groups.map((group) => {
-				return GroupEntity.initialize({
-					createdAt: group.createdAt,
-					id: group.id,
-					key: group.key,
-					name: group.name,
-					permissions: group.permissions.map((permission) => {
-						return PermissionEntity.initialize({
-							createdAt: permission.createdAt,
-							id: permission.id,
-							key: permission.key,
-							name: permission.name,
-							updatedAt: permission.updatedAt,
-						});
-					}),
-					updatedAt: group.updatedAt,
-				});
-			}),
+			groups: [],
 			id: user.id,
 			lastName: userDetails.lastName,
 			nickname: null,
