@@ -15,8 +15,8 @@ const ColumnName = {
 	USER_ID: "user_id",
 } as const;
 
-const up = (knex: Knex): Promise<void> => {
-	return knex.schema.createTable(TableName.COMMENTS, (table) => {
+async function up(knex: Knex): Promise<void> {
+	await knex.schema.createTable(TableName.COMMENTS, (table) => {
 		table.increments(ColumnName.ID).primary();
 		table.text(ColumnName.TEXT).notNullable();
 		table
@@ -38,10 +38,10 @@ const up = (knex: Knex): Promise<void> => {
 			.notNullable()
 			.defaultTo(knex.fn.now());
 	});
-};
+}
 
-const down = (knex: Knex): Promise<void> => {
-	return knex.schema.dropTableIfExists(TableName.COMMENTS);
-};
+async function down(knex: Knex): Promise<void> {
+	await knex.schema.dropTableIfExists(TableName.COMMENTS);
+}
 
 export { down, up };
