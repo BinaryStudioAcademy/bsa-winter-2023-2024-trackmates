@@ -1,4 +1,5 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
+import { type GroupResponseDto } from "~/modules/groups/groups.js";
 import { type UserEntity } from "~/modules/users/user.entity.js";
 
 import { type ActivityType } from "./libs/enums/enums.js";
@@ -119,6 +120,7 @@ class ActivityEntity implements Entity {
 			createdAt: string;
 			email: string;
 			firstName: string;
+			groups: GroupResponseDto[];
 			id: number;
 			lastName: string;
 			nickname: null | string;
