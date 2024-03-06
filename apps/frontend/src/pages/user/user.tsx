@@ -22,7 +22,7 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
-import { PREVIOUS_PAGE } from "./libs/constants/constants.js";
+import { BACK_NAVIGATION_STEP } from "../course-description/libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
@@ -66,7 +66,7 @@ const User: React.FC = () => {
 	}, [dispatch, userId]);
 
 	const handleGoBackToPreviousPage = useCallback((): void => {
-		navigate(PREVIOUS_PAGE);
+		navigate(BACK_NAVIGATION_STEP);
 	}, [navigate]);
 
 	useEffect(() => {
