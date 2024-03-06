@@ -5,6 +5,7 @@ import { resolve as tsResolver } from "eslint-import-resolver-typescript";
 import importPlugin from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import perfectionist from "eslint-plugin-perfectionist";
+import explicitGenerics from "eslint-plugin-require-explicit-generics";
 import sonarjs from "eslint-plugin-sonarjs";
 import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
@@ -197,6 +198,13 @@ const jsdocConfig = {
 	},
 };
 
+/** @type {FlatConfig} */
+const explicitGenericsConfig = {
+	plugins: {
+		"require-explicit-generics": explicitGenerics,
+	},
+};
+
 /** @type {FlatConfig[]} */
 const overridesConfigs = [
 	{
@@ -232,6 +240,7 @@ const config = [
 	perfectionistConfig,
 	typescriptConfig,
 	jsdocConfig,
+	explicitGenericsConfig,
 	...overridesConfigs,
 ];
 

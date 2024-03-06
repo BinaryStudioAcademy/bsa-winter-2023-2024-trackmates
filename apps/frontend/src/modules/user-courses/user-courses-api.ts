@@ -2,12 +2,13 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import { type PaginationResponseDto } from "~/libs/types/types.js";
 
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
 	type CourseDto,
-	type CoursesResponseDto,
+	type CourseGetAllByUserRequestDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -36,25 +37,28 @@ class UserCourseApi extends BaseHTTPApi {
 	}
 
 	public async getAllByUserId({
-		id,
+		count,
+		page,
 		search,
-	}: {
-		id: number;
-		search: string;
-	}): Promise<CoursesResponseDto> {
+		userId,
+	}: CourseGetAllByUserRequestDto): Promise<PaginationResponseDto<CourseDto>> {
 		const response = await this.load(
-			this.getFullEndpoint(`${UserCoursesApiPath.ROOT}${id}`, {}),
+			this.getFullEndpoint(UserCoursesApiPath.$USER_ID, {
+				userId: String(userId),
+			}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
 				query: {
+					count,
+					page,
 					search,
 				},
 			},
 		);
 
-		return await response.json<CoursesResponseDto>();
+		return await response.json<PaginationResponseDto<CourseDto>>();
 	}
 }
 
