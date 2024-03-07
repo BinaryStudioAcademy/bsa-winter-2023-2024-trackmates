@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.34.1...frontend-v1.35.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add likes to feed tm-159 ([#378](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/378)) ([b3e7ad5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b3e7ad5a080fea31c2a8d90700437cf9feba8e10))
+
 ## [1.34.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.34.0...frontend-v1.34.1) (2024-03-07)
 
 
