@@ -1,4 +1,5 @@
 type ActivityCounts = {
+	commentCount: number;
 	likesCount: number;
 };
 

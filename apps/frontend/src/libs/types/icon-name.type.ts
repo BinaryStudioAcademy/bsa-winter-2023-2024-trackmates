@@ -5,6 +5,7 @@ type IconName =
 	| "backArrow"
 	| "burger"
 	| "chats"
+	| "comment"
 	| "cross"
 	| "eye"
 	| "eyeOff"

@@ -4,6 +4,7 @@ import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
+import { type CommentModel } from "~/modules/comments/comments.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
@@ -17,6 +18,13 @@ class ActivityRepository implements Repository<ActivityEntity> {
 
 	public constructor(activityModel: typeof ActivityModel) {
 		this.activityModel = activityModel;
+	}
+
+	private getCommentsCountQuery(): QueryBuilder<CommentModel> {
+		return this.activityModel
+			.relatedQuery<CommentModel>(RelationName.COMMENTS)
+			.count()
+			.as("commentCount");
 	}
 
 	private getLikesCountQuery(): QueryBuilder<ActivityLikeModel> {
@@ -36,6 +44,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 
 		return ActivityEntity.initialize({
 			actionId: activityModel.actionId,
+			commentCount: EMPTY_COUNT,
 			id: activityModel.id,
 			likesCount: EMPTY_COUNT,
 			payload: activityModel.payload,
@@ -88,6 +97,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		return activity
 			? ActivityEntity.initialize({
 					actionId: activity.actionId,
+					commentCount: null,
 					id: activity.id,
 					likesCount: activity.likesCount,
 					payload: activity.payload,
@@ -114,6 +124,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		const activities = await this.activityModel
 			.query()
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.whereIn(
 				`${DatabaseTableName.ACTIVITIES}.userId`,
 				this.activityModel
@@ -125,13 +136,15 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.orderBy(`${DatabaseTableName.ACTIVITIES}.updatedAt`, SortOrder.DESC)
+			//.orderBy(`${DatabaseTableName.ACTIVITIES}.updatedAt`, SortOrder.DESC)
+			.orderBy("updatedAt", SortOrder.DESC)
 			.castTo<(ActivityModel & ActivityCounts)[]>()
 			.execute();
 
 		return activities.map((activity) => {
 			return ActivityEntity.initialize({
 				actionId: activity.actionId,
+				commentCount: activity.commentCount,
 				id: activity.id,
 				likesCount: activity.likesCount,
 				payload: activity.payload,
@@ -172,6 +185,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		return activity
 			? ActivityEntity.initialize({
 					actionId: activity.actionId,
+					commentCount: null,
 					id: activity.id,
 					likesCount: null,
 					payload: activity.payload,
@@ -192,6 +206,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.findById(id)
 			.patch(activity.toNewObject())
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.returning("*")
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
@@ -199,6 +214,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		return updatedActivity
 			? ActivityEntity.initialize({
 					actionId: updatedActivity.actionId,
+					commentCount: updatedActivity.commentCount,
 					id: updatedActivity.id,
 					likesCount: updatedActivity.likesCount,
 					payload: updatedActivity.payload,

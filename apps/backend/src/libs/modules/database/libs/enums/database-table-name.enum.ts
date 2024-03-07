@@ -3,6 +3,7 @@ const DatabaseTableName = {
 	ACTIVITY_LIKES: "activity_likes",
 	CHAT_MESSAGES: "chat_messages",
 	CHATS: "chats",
+	COMMENTS: "comments",
 	COURSE_SECTIONS: "course_sections",
 	COURSES: "courses",
 	COURSES_TO_USERS: "courses_to_users",

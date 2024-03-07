@@ -1,6 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image } from "~/libs/components/components.js";
-import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
@@ -9,6 +9,7 @@ import {
 } from "~/modules/activities/activities.js";
 import { actions as activitiesActions } from "~/modules/activities/activities.js";
 
+import { ActivityComments } from "../activity-comments/activity-comments.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -17,6 +18,11 @@ type Properties = {
 
 const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 	const dispatch = useAppDispatch();
+	const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
+
+	const handleCommentsToggle = useCallback(() => {
+		setIsCommentsOpen((isCommentsOpen) => !isCommentsOpen);
+	}, []);
 
 	const handleLike = useCallback(() => {
 		void dispatch(activitiesActions.likeActivity(activity.id));
@@ -48,7 +54,17 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 						onClick={handleLike}
 					/>
 				</div>
+				<div className={styles["tool-container"]}>
+					<span className={styles["tool-count"]}>{activity.commentCount}</span>
+					<Button
+						className={styles["tool-button"]}
+						iconName="comment"
+						label="Comment"
+						onClick={handleCommentsToggle}
+					/>
+				</div>
 			</div>
+			{isCommentsOpen && <ActivityComments activityId={activity.id} />}
 		</article>
 	);
 };

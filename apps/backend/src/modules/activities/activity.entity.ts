@@ -6,6 +6,8 @@ import { type ActivityType } from "./libs/enums/enums.js";
 class ActivityEntity implements Entity {
 	public actionId: number;
 
+	public commentCount: null | number;
+
 	public id: null | number;
 
 	public likesCount: null | number;
@@ -22,6 +24,7 @@ class ActivityEntity implements Entity {
 
 	private constructor({
 		actionId,
+		commentCount,
 		id,
 		likesCount,
 		payload,
@@ -31,6 +34,7 @@ class ActivityEntity implements Entity {
 		userId,
 	}: {
 		actionId: number;
+		commentCount: null | number;
 		id: null | number;
 		likesCount: null | number;
 		payload: unknown;
@@ -45,12 +49,14 @@ class ActivityEntity implements Entity {
 		this.payload = payload;
 		this.type = type;
 		this.updatedAt = updatedAt;
+		this.commentCount = commentCount;
 		this.user = user;
 		this.userId = userId;
 	}
 
 	public static initialize({
 		actionId,
+		commentCount,
 		id,
 		likesCount,
 		payload,
@@ -60,6 +66,7 @@ class ActivityEntity implements Entity {
 		userId,
 	}: {
 		actionId: number;
+		commentCount: null | number;
 		id: number;
 		likesCount: null | number;
 		payload: unknown;
@@ -70,6 +77,7 @@ class ActivityEntity implements Entity {
 	}): ActivityEntity {
 		return new ActivityEntity({
 			actionId,
+			commentCount,
 			id,
 			likesCount,
 			payload,
@@ -93,6 +101,7 @@ class ActivityEntity implements Entity {
 	}): ActivityEntity {
 		return new ActivityEntity({
 			actionId,
+			commentCount: null,
 			id: null,
 			likesCount: null,
 			payload,
@@ -148,6 +157,7 @@ class ActivityEntity implements Entity {
 
 	public toObjectWithRelationsAndCounts(): {
 		actionId: number;
+		commentCount: null | number;
 		id: number;
 		likesCount: null | number;
 		payload: unknown;
@@ -167,6 +177,7 @@ class ActivityEntity implements Entity {
 	} {
 		return {
 			actionId: this.actionId,
+			commentCount: Number(this.commentCount),
 			id: this.id as number,
 			likesCount: Number(this.likesCount),
 			payload: this.payload,
