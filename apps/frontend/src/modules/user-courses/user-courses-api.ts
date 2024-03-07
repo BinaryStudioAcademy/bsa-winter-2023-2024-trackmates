@@ -7,8 +7,8 @@ import { type PaginationResponseDto } from "~/libs/types/types.js";
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
-	type CourseDto,
 	type CourseGetAllByUserRequestDto,
+	type UserCourseResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -22,7 +22,9 @@ class UserCourseApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USER_COURSES, storage });
 	}
 
-	public async add(payload: AddCourseRequestDto): Promise<CourseDto> {
+	public async add(
+		payload: AddCourseRequestDto,
+	): Promise<UserCourseResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UserCoursesApiPath.ROOT, {}),
 			{
@@ -33,7 +35,7 @@ class UserCourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<CourseDto>();
+		return await response.json<UserCourseResponseDto>();
 	}
 
 	public async getAllByUserId({
@@ -41,7 +43,9 @@ class UserCourseApi extends BaseHTTPApi {
 		page,
 		search,
 		userId,
-	}: CourseGetAllByUserRequestDto): Promise<PaginationResponseDto<CourseDto>> {
+	}: CourseGetAllByUserRequestDto): Promise<
+		PaginationResponseDto<UserCourseResponseDto>
+	> {
 		const response = await this.load(
 			this.getFullEndpoint(UserCoursesApiPath.$USER_ID, {
 				userId: String(userId),
@@ -58,7 +62,7 @@ class UserCourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<PaginationResponseDto<CourseDto>>();
+		return await response.json<PaginationResponseDto<UserCourseResponseDto>>();
 	}
 }
 

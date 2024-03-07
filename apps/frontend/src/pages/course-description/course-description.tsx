@@ -1,5 +1,9 @@
 import { Button } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import {
+	BACK_NAVIGATION_STEP,
+	EMPTY_ARRAY_LENGTH,
+} from "~/libs/constants/constants.js";
+import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -11,16 +15,32 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
+import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
 
-import { CourseDetails, CourseSections } from "./libs/components/components.js";
-import { BACK_NAVIGATION_STEP } from "./libs/constants/constants.js";
+import {
+	CourseActivities,
+	CourseDetails,
+	CourseSections,
+} from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {
-	const { course, courseSections } = useAppSelector(({ course, courses }) => ({
-		course: courses.currentCourse,
-		courseSections: course.courseSections,
-	}));
+	const { course, courseSections, sectionStatuses } = useAppSelector(
+		({ course, courses, sectionStatuses }) => ({
+			course: courses.currentCourse,
+			courseSections: course.courseSections,
+			sectionStatuses: sectionStatuses.sectionStatuses,
+		}),
+	);
+
+	const numberOfSections = courseSections.length;
+	const numberOfCompletedSections = sectionStatuses.filter(
+		({ status }) => status === SectionStatus.COMPLETED,
+	).length;
+
+	const progress = Math.round(
+		getPercentage({ part: numberOfCompletedSections, total: numberOfSections }),
+	);
 
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
@@ -64,11 +84,14 @@ const CourseDescription: React.FC = () => {
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (
-					<CourseSections
-						courseId={Number(courseId)}
-						courseSections={courseSections}
-						userId={Number(userId)}
-					/>
+					<div className={styles["course-sections"]}>
+						<CourseSections
+							courseId={Number(course.id)}
+							courseSections={courseSections}
+							userId={Number(userId)}
+						/>
+						<CourseActivities progress={progress} />
+					</div>
 				)}
 			</div>
 		</>

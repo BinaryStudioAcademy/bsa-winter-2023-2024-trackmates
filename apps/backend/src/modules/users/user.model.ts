@@ -5,6 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 import { CourseModel } from "~/modules/courses/course.model.js";
+import { NotificationModel } from "~/modules/notifications/notifications.js";
 
 import { UserDetailsModel } from "./user-details.model.js";
 
@@ -34,6 +35,14 @@ class UserModel extends AbstractModel {
 				},
 				modelClass: UserModel,
 				relation: Model.ManyToManyRelation,
+			},
+			notifications: {
+				join: {
+					from: `${DatabaseTableName.USERS}.id`,
+					to: `${DatabaseTableName.NOTIFICATIONS}.receiverUserId`,
+				},
+				modelClass: NotificationModel,
+				relation: Model.HasManyRelation,
 			},
 			userDetails: {
 				join: {

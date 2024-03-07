@@ -1,0 +1,41 @@
+.notification {
+	position: relative;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	padding: 15px 20px;
+	color: var(--color-text-200);
+	background-color: var(--main-white);
+	border-radius: 12px;
+}
+
+.unread::before {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	width: 10px;
+	height: 10px;
+	content: "";
+	background-color: var(--main-orange);
+	border-radius: 50%;
+}
+
+.notification-source-user-avatar {
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+
+.notification-title {
+	display: flex;
+	flex-wrap: wrap;
+	column-gap: 5px;
+	margin: 0;
+	font-size: var(--font-size-300);
+}
+
+.notification-subtitle {
+	margin: 0;
+	font-size: var(--font-size-200);
+}

@@ -19,8 +19,10 @@ export {
 	convertKebabCaseToRegularString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getPercentage,
 	getSanitizedHtml,
 	getSizeInBytes,
+	getTimeDistanceFormatDate,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
@@ -32,6 +34,7 @@ export {
 	type HTTPMethod,
 	type HTTPOptions,
 } from "./libs/modules/http/http.js";
+export { SocketEvent, SocketNamespace } from "./libs/modules/socket/socket.js";
 export { type Storage } from "./libs/modules/storage/storage.js";
 export {
 	type PaginationRequestDto,
@@ -44,10 +47,24 @@ export {
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
+export {
+	ActivitiesApiPath,
+	type ActivityCounts,
+	type ActivityCreateRequestDto,
+	type ActivityDeleteRequestDto,
+	type ActivityGetAllResponseDto,
+	type ActivityPayloadMap,
+	type ActivityResponseDto,
+	ActivityType,
+	activityActionIdParameterValidationSchema,
+	activityCreateFinishSectionValidationSchema,
+	activityDeleteFinishSectionValidationSchema,
+} from "./modules/activities/activities.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ChatMessageItemWithReceiverIdResponseDto,
 	type ChatMessageUpdateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
@@ -62,10 +79,24 @@ export {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
 	type ChatResponseDto,
+	type ChatSearchResponseDto,
 	ChatsApiPath,
 	chatCreateValidationSchema,
 	chatIdParameterValidationSchema,
 } from "./modules/chats/chats.js";
+export {
+	type CommentCreateRequestDto,
+	CommentError,
+	type CommentGetAllRequestDto,
+	type CommentGetAllResponseDto,
+	type CommentUpdateRequestDto,
+	type CommentWithRelationsResponseDto,
+	CommentsApiPath,
+	commentCreateBodyValidationSchema,
+	commentGetAllQueryValidationSchema,
+	commentIdParameterValidationSchema,
+	commentTextValidationSchema,
+} from "./modules/comments/comments.js";
 export {
 	type CourseSectionAddRequestDto,
 	type CourseSectionDto,
@@ -106,6 +137,15 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	type AllNotificationsResponseDto,
+	type CreateNotificationRequestDto,
+	NotificationError,
+	type NotificationResponseDto,
+	NotificationStatus,
+	NotificationType,
+	type UpdateNotificationRequestDto,
+} from "./modules/notifications/notifications.js";
+export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
 	SectionStatusError,
@@ -120,12 +160,19 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
+	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {
+	type ReadNotificationsRequestDto,
+	UserNotificationsApiPath,
+	readNotificationsRequestValidationSchema,
+} from "./modules/user-notifications/user-notifications.js";
+export {
 	type UserAuthResponseDto,
+	type UserDetailsResponseDto,
 	UserError,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,

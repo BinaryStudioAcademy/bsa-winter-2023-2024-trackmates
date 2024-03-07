@@ -9,25 +9,26 @@ import {
 
 import {
 	type AddCourseRequestDto,
-	type CourseDto,
 	type CourseGetAllByUserRequestDto,
+	type UserCourseResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-courses.slice.js";
 
-const add = createAsyncThunk<CourseDto, AddCourseRequestDto, AsyncThunkConfig>(
-	`${sliceName}/add`,
-	async (requestPayload, { extra }) => {
-		const { notification, userCourseApi } = extra;
+const add = createAsyncThunk<
+	UserCourseResponseDto,
+	AddCourseRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/add`, async (requestPayload, { extra }) => {
+	const { notification, userCourseApi } = extra;
 
-		const newCourse = await userCourseApi.add(requestPayload);
-		notification.success(NotificationMessage.COURSE_ADDED);
+	const newCourse = await userCourseApi.add(requestPayload);
+	notification.success(NotificationMessage.COURSE_ADDED);
 
-		return newCourse;
-	},
-);
+	return newCourse;
+});
 
 const loadMyCourses = createAsyncThunk<
-	PaginationResponseDto<CourseDto>,
+	PaginationResponseDto<UserCourseResponseDto>,
 	CourseGetAllByUserRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/load-all`, (loadMyCoursesPayload, { extra }) => {
@@ -37,7 +38,7 @@ const loadMyCourses = createAsyncThunk<
 });
 
 const loadUserCourses = createAsyncThunk<
-	PaginationResponseDto<CourseDto>,
+	PaginationResponseDto<UserCourseResponseDto>,
 	number,
 	AsyncThunkConfig
 >(`${sliceName}/load-user-courses`, (userId, { extra }) => {
