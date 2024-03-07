@@ -128,6 +128,7 @@ export {
 	type NotificationResponseDto,
 	NotificationStatus,
 	NotificationType,
+	type NotificationWithReceiverIdResponseDto,
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
 export {
