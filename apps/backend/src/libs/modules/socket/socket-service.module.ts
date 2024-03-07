@@ -17,7 +17,7 @@ class SocketService {
 		});
 	}
 
-	private notificationHandler(socket: Socket): void {
+	private notificationsHandler(socket: Socket): void {
 		socket.on(SocketEvent.NOTIFICATIONS_JOIN_ROOM, (userId: string) => {
 			void socket.join(userId);
 		});
@@ -48,7 +48,7 @@ class SocketService {
 			.on(SocketEvent.CONNECTION, this.chatMessageHandler.bind(this));
 		this.io
 			.of(SocketNamespace.NOTIFICATIONS)
-			.on(SocketEvent.CONNECTION, this.notificationHandler.bind(this));
+			.on(SocketEvent.CONNECTION, this.notificationsHandler.bind(this));
 	}
 }
 
