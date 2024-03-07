@@ -1,14 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
 import {
 	type CommentCreateRequestDto,
 	type CommentGetAllResponseDto,
 	type CommentWithRelationsResponseDto,
 } from "~/modules/comments/comments.js";
 
-import { type ActivityGetAllResponseDto } from "../libs/types/types.js";
+import { type ActivityType } from "../libs/enums/enums.js";
+import {
+	type ActivityGetAllResponseDto,
+	type ActivityResponseDto,
+} from "../libs/types/types.js";
 import { name as sliceName } from "./activities.slice.js";
+
+const likeActivity = createAsyncThunk<
+	ActivityResponseDto<ValueOf<typeof ActivityType>>,
+	number,
+	AsyncThunkConfig
+>(`${sliceName}/like-activity`, (activityId, { extra }) => {
+	const { activitiesApi } = extra;
+
+	return activitiesApi.likeActivity({ activityId });
+});
 
 const loadActivities = createAsyncThunk<
 	ActivityGetAllResponseDto,
@@ -40,4 +54,9 @@ const createComment = createAsyncThunk<
 	return commentApi.create(payload);
 });
 
-export { createComment, getAllCommentsToActivity, loadActivities };
+export {
+	createComment,
+	getAllCommentsToActivity,
+	likeActivity,
+	loadActivities,
+};

@@ -10,6 +10,8 @@ class ActivityEntity implements Entity {
 
 	public id: null | number;
 
+	public likesCount: null | number;
+
 	public payload: unknown;
 
 	public type: ValueOf<typeof ActivityType>;
@@ -24,6 +26,7 @@ class ActivityEntity implements Entity {
 		actionId,
 		commentCount,
 		id,
+		likesCount,
 		payload,
 		type,
 		updatedAt,
@@ -33,6 +36,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: null | number;
+		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
@@ -41,6 +45,7 @@ class ActivityEntity implements Entity {
 	}) {
 		this.actionId = actionId;
 		this.id = id;
+		this.likesCount = likesCount;
 		this.payload = payload;
 		this.type = type;
 		this.updatedAt = updatedAt;
@@ -53,6 +58,7 @@ class ActivityEntity implements Entity {
 		actionId,
 		commentCount,
 		id,
+		likesCount,
 		payload,
 		type,
 		updatedAt,
@@ -62,6 +68,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: number;
+		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
@@ -72,6 +79,7 @@ class ActivityEntity implements Entity {
 			actionId,
 			commentCount,
 			id,
+			likesCount,
 			payload,
 			type,
 			updatedAt,
@@ -95,6 +103,7 @@ class ActivityEntity implements Entity {
 			actionId,
 			commentCount: null,
 			id: null,
+			likesCount: null,
 			payload,
 			type,
 			updatedAt: "",
@@ -150,6 +159,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: number;
+		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
@@ -169,6 +179,7 @@ class ActivityEntity implements Entity {
 			actionId: this.actionId,
 			commentCount: Number(this.commentCount),
 			id: this.id as number,
+			likesCount: Number(this.likesCount),
 			payload: this.payload,
 			type: this.type,
 			updatedAt: this.updatedAt,

@@ -59,6 +59,10 @@ export {
 	activityCreateFinishSectionValidationSchema,
 	activityDeleteFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";
+export {
+	type ActivityLikeRequestDto,
+	activityLikeChangeValidationSchema,
+} from "./modules/activity-likes/activity-likes.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
