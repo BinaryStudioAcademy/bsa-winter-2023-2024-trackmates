@@ -66,6 +66,9 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		},
 		outDir: "build",
 		registerType: "autoUpdate",
+		workbox: {
+			navigateFallbackDenylist: [/\/v1\/documentation(\/static\/index\.html)?/],
+		},
 	});
 
 	return defineConfig({

@@ -9,6 +9,11 @@ const MENU_ITEMS: MenuItem[] = [
 		label: "Overview",
 	},
 	{
+		href: AppRoute.FEED,
+		icon: "activities",
+		label: "Activities",
+	},
+	{
 		href: AppRoute.FRIENDS,
 		icon: "pie",
 		label: "Friends",

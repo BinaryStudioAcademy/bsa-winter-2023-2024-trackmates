@@ -1,0 +1,11 @@
+.notification-list {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	align-self: stretch;
+	max-height: 100%;
+	padding: 0;
+	margin: 0;
+	overflow-y: auto;
+	list-style: none;
+}

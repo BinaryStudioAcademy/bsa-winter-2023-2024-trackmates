@@ -1,4 +1,7 @@
 import { type Repository } from "~/libs/types/types.js";
+import { CourseEntity } from "~/modules/courses/course.entity.js";
+import { type CourseModel } from "~/modules/courses/courses.js";
+import { VendorEntity } from "~/modules/vendors/vendor.entity.js";
 
 import { CourseSectionEntity } from "./course-section.entity.js";
 import { type CourseSectionModel } from "./course-section.model.js";
@@ -21,6 +24,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			.execute();
 
 		return CourseSectionEntity.initialize({
+			course: null,
 			courseId: courseSectionModel.courseId,
 			createdAt: courseSectionModel.createdAt,
 			id: courseSectionModel.id,
@@ -42,13 +46,35 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		const courseSection = await this.courseSectionModel
 			.query()
 			.findById(id)
+			.withGraphFetched("course.vendor")
 			.execute();
 
 		if (!courseSection) {
 			return null;
 		}
 
+		const course = courseSection.course as CourseModel;
+
 		return CourseSectionEntity.initialize({
+			course: CourseEntity.initialize({
+				createdAt: course.createdAt,
+				description: course.description,
+				id: course.id,
+				image: course.image,
+				title: course.title,
+				updatedAt: course.updatedAt,
+				url: course.url,
+				vendor: VendorEntity.initialize({
+					createdAt: course.vendor.createdAt,
+					id: course.vendor.id,
+					key: course.vendor.key,
+					name: course.vendor.name,
+					updatedAt: course.vendor.updatedAt,
+					url: course.vendor.url,
+				}),
+				vendorCourseId: course.vendorCourseId,
+				vendorId: course.vendorId,
+			}),
 			courseId: courseSection.courseId,
 			createdAt: courseSection.createdAt,
 			id: courseSection.id,
@@ -62,6 +88,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 
 		return courseSections.map((courseSection) => {
 			return CourseSectionEntity.initialize({
+				course: null,
 				courseId: courseSection.courseId,
 				createdAt: courseSection.createdAt,
 				id: courseSection.id,
@@ -81,6 +108,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 
 		return courseSections.map((courseSection) => {
 			return CourseSectionEntity.initialize({
+				course: null,
 				courseId: courseSection.courseId,
 				createdAt: courseSection.createdAt,
 				id: courseSection.id,
@@ -94,7 +122,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		id: number,
 		entity: CourseSectionEntity,
 	): Promise<CourseSectionEntity> {
-		const courseSection = entity.toObject();
+		const courseSection = entity.toNewObject();
 		const courseSectionModel = await this.courseSectionModel
 			.query()
 			.findById(id)
@@ -104,6 +132,7 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 			.execute();
 
 		return CourseSectionEntity.initialize({
+			course: null,
 			courseId: courseSectionModel.courseId,
 			createdAt: courseSectionModel.createdAt,
 			id: courseSectionModel.id,

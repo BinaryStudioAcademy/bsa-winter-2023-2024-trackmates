@@ -1,22 +1,28 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
+import { Button, Image, Link } from "~/libs/components/components.js";
 import { PAGES_WITH_SEARCH_BAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
+import {
+	checkIfPathMatchingPattern,
+	getValidClassNames,
+} from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { Button } from "../button/button.js";
-import { Image } from "../image/image.js";
-import { Link } from "../link/link.js";
 import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { pathname } = useLocation();
+	const { hasUnreadNotifications, user } = useAppSelector(
+		({ auth, userNotifications }) => {
+			return {
+				hasUnreadNotifications: userNotifications.hasUnreadNotifications,
+				user: auth.user as UserAuthResponseDto,
+			};
+		},
+	);
 
-	const user = useAppSelector(({ auth }) => {
-		return auth.user as UserAuthResponseDto;
-	});
+	const { pathname } = useLocation();
 
 	const isSearchBarShown = PAGES_WITH_SEARCH_BAR.some((template) => {
 		return checkIfPathMatchingPattern(pathname, template);
@@ -38,6 +44,16 @@ const Header: React.FC = () => {
 						href={AppRoute.CHATS}
 						iconName="chats"
 						label="To chats"
+					/>
+					<Button
+						className={getValidClassNames(
+							styles["icon-button"],
+							hasUnreadNotifications && styles["unread"],
+						)}
+						hasVisuallyHiddenLabel
+						href={AppRoute.NOTIFICATIONS}
+						iconName="notification"
+						label="Notifications"
 					/>
 					<Link to={AppRoute.PROFILE}>
 						<Image
