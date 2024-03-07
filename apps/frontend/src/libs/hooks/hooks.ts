@@ -6,4 +6,5 @@ export { useHandleClickOutside } from "./use-handle-click-outside/use-handle-cli
 export { usePagination } from "./use-pagination/use-pagination.hook.js";
 export { useCallback, useEffect, useMemo, useRef, useState } from "react";
 export { useController as useFormController } from "react-hook-form";
+export { useInView } from "react-intersection-observer";
 export { useLocation, useNavigate, useParams } from "react-router-dom";

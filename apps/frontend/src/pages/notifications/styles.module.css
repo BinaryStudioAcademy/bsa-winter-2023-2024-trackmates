@@ -1,0 +1,25 @@
+.page {
+	display: flex;
+	flex-grow: 1;
+	padding: 10px 30px;
+	overflow: hidden;
+}
+
+.content {
+	flex: 1;
+}
+
+.title {
+	margin: 0;
+	margin-bottom: 10px;
+	font-size: var(--font-size-400);
+	font-weight: 600;
+}
+
+.background {
+	flex: 1;
+	background-image: url("~/assets/img/notification-character.svg");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: 60% auto;
+}

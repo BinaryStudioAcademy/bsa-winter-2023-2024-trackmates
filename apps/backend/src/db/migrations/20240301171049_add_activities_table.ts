@@ -15,7 +15,7 @@ const ColumnName = {
 	USER_ID: "user_id",
 } as const;
 
-const ColumnTypeValue = {
+const ActivityType = {
 	FINISH_COURSE: "finish-course",
 	FINISH_SECTION: "finish-section",
 } as const;
@@ -28,8 +28,8 @@ function up(knex: Knex): Promise<void> {
 		table.integer(ColumnName.ACTION_ID).notNullable();
 		table.jsonb(ColumnName.PAYLOAD);
 		table.enum(ColumnName.TYPE, [
-			ColumnTypeValue.FINISH_COURSE,
-			ColumnTypeValue.FINISH_SECTION,
+			ActivityType.FINISH_COURSE,
+			ActivityType.FINISH_SECTION,
 		]);
 		table
 			.integer(ColumnName.USER_ID)

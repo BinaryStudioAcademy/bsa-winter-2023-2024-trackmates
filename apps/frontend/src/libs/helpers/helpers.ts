@@ -7,5 +7,6 @@ export {
 	getFormattedDate,
 	getPercentage,
 	getSanitizedHtml,
+	getTimeDistanceFormatDate,
 	initDebounce,
 } from "@trackmates/shared";

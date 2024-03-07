@@ -11,6 +11,7 @@ import HomeIcon from "~/assets/icons/home.svg?react";
 import LikeIcon from "~/assets/icons/like.svg?react";
 import LogOutIcon from "~/assets/icons/log-out.svg?react";
 import MessageIcon from "~/assets/icons/message.svg?react";
+import NotificationIcon from "~/assets/icons/notification.svg?react";
 import PieIcon from "~/assets/icons/pie.svg?react";
 import PlusIcon from "~/assets/icons/plus.svg?react";
 import PlusOutlinedIcon from "~/assets/icons/plus-outlined.svg?react";
@@ -34,6 +35,7 @@ const iconNameToSvg: Record<
 	like: LikeIcon,
 	logOut: LogOutIcon,
 	message: MessageIcon,
+	notification: NotificationIcon,
 	pie: PieIcon,
 	plus: PlusIcon,
 	plusOutlined: PlusOutlinedIcon,

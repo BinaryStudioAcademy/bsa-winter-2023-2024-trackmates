@@ -1,5 +1,5 @@
 type ActivityFinishCourseResponseDto = {
-	id: null | number;
+	id: number;
 	image: string;
 	title: string;
 	vendorId: number;

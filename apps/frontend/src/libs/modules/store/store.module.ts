@@ -41,6 +41,10 @@ import {
 	userCourseApi,
 	reducer as userCoursesReducer,
 } from "~/modules/user-courses/user-courses.js";
+import {
+	userNotificationsApi,
+	reducer as userNotificationsReducer,
+} from "~/modules/user-notifications/user-notifications.js";
 import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 import {
 	vendorApi,
@@ -61,6 +65,7 @@ type RootReducer = {
 	friends: ReturnType<typeof friendsReducer>;
 	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
+	userNotifications: ReturnType<typeof userNotificationsReducer>;
 	users: ReturnType<typeof usersReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
@@ -80,6 +85,7 @@ type ExtraArguments = {
 	storage: typeof storage;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
+	userNotificationsApi: typeof userNotificationsApi;
 	vendorApi: typeof vendorApi;
 };
 
@@ -113,6 +119,7 @@ class Store {
 				friends: friendsReducer,
 				sectionStatuses: sectionStatusesReducer,
 				userCourses: userCoursesReducer,
+				userNotifications: userNotificationsReducer,
 				users: usersReducer,
 				vendors: vendorsReducer,
 			},
@@ -135,6 +142,7 @@ class Store {
 			storage,
 			userApi,
 			userCourseApi,
+			userNotificationsApi,
 			vendorApi,
 		};
 	}

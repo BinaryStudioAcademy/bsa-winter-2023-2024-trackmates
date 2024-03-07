@@ -1,7 +1,7 @@
 {
 	"name": "@trackmates/frontend",
 	"private": true,
-	"version": "1.29.0",
+	"version": "1.33.1",
 	"type": "module",
 	"engines": {
 		"node": "18.x.x",
@@ -38,6 +38,7 @@
 		"eslint-plugin-react": "7.33.2",
 		"eslint-plugin-react-hooks": "4.6.0",
 		"lightningcss": "1.24.0",
+		"react-intersection-observer": "9.8.1",
 		"vite": "5.0.12",
 		"vite-plugin-pwa": "0.18.1",
 		"vite-plugin-svgr": "4.2.0"

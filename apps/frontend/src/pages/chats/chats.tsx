@@ -33,7 +33,7 @@ const Chats: React.FC = () => {
 	useAppTitle(AppTitle.CHATS);
 
 	useEffect(() => {
-		void dispatch(chatsActions.getAllChats());
+		void dispatch(chatsActions.getAllChats({ search: "" }));
 
 		return () => {
 			dispatch(chatsActions.leaveChat());
