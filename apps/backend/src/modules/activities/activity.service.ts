@@ -31,6 +31,30 @@ class ActivityService implements Service {
 		this.activityLikeRepository = activityLikeRepository;
 	}
 
+	public async changeLike(
+		id: number,
+		userId: number,
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
+		const like = await this.activityLikeRepository.findByUserIdPostId(
+			id,
+			userId,
+		);
+
+		like?.id
+			? await this.activityLikeRepository.delete(like.id)
+			: await this.activityLikeRepository.create(
+					ActivityLikeEntity.initializeNew({ activityId: id, userId }),
+				);
+
+		const targetActivity = await this.activityRepository.find(id);
+
+		return targetActivity
+			? (targetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
+					ValueOf<typeof ActivityType>
+				>)
+			: null;
+	}
+
 	public async create<T extends ValueOf<typeof ActivityType>>(activity: {
 		actionId: number;
 		payload: ActivityPayloadMap[T];
@@ -104,30 +128,6 @@ class ActivityService implements Service {
 		});
 
 		return { items };
-	}
-
-	public async setLike(
-		id: number,
-		userId: number,
-	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
-		const like = await this.activityLikeRepository.findByUserIdPostId(
-			id,
-			userId,
-		);
-
-		like?.id
-			? await this.activityLikeRepository.delete(like.id)
-			: await this.activityLikeRepository.create(
-					ActivityLikeEntity.initializeNew({ activityId: id, userId }),
-				);
-
-		const targetActivity = await this.activityRepository.find(id);
-
-		return targetActivity
-			? (targetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
-					ValueOf<typeof ActivityType>
-				>)
-			: null;
 	}
 
 	public async update(

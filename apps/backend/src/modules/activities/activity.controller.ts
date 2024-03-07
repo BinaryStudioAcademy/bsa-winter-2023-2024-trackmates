@@ -111,7 +111,7 @@ class ActivityController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.putReaction(
+				return this.changeReaction(
 					options as APIHandlerOptions<{
 						body: ActivityLikeRequestDto;
 						user: UserAuthResponseDto;
@@ -124,6 +124,47 @@ class ActivityController extends BaseController {
 				body: activityLikeChangeValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /activities/like:
+	 *    patch:
+	 *      description: Set like reaction for a specific activity
+	 *      tags:
+	 *        - Activities
+	 *      security:
+	 *        - bearerAuth: []
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                activityId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Activity"
+	 */
+	private async changeReaction({
+		body,
+		user,
+	}: APIHandlerOptions<{
+		body: ActivityLikeRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.activityService.changeLike(body.activityId, user.id),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
@@ -240,47 +281,6 @@ class ActivityController extends BaseController {
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.activityService.findAll(user.id),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /activities/like:
-	 *    patch:
-	 *      description: Set like reaction for a specific activity
-	 *      tags:
-	 *        - Activities
-	 *      security:
-	 *        - bearerAuth: []
-	 *      requestBody:
-	 *        required: true
-	 *        content:
-	 *          application/json:
-	 *            schema:
-	 *              type: object
-	 *              properties:
-	 *                activityId:
-	 *                  type: number
-	 *                  minimum: 1
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                $ref: "#/components/schemas/Activity"
-	 */
-	private async putReaction({
-		body,
-		user,
-	}: APIHandlerOptions<{
-		body: ActivityLikeRequestDto;
-		user: UserAuthResponseDto;
-	}>): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.activityService.setLike(body.activityId, user.id),
 			status: HTTPCode.OK,
 		};
 	}
