@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.22.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.21.0...backend-v1.22.0) (2024-03-07)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed comment tm-308 ([#387](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/387)) ([2aff1ca](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2aff1ca6b2a7b0e1640ee9b736322b647516d965))
+
+## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.20.0...backend-v1.21.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add notifications tm-198 ([#259](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/259)) ([4f28983](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4f28983e6df7a324099d3960d09486f527fd02ae))
+
+## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.19.0...backend-v1.20.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed tm-158 ([#285](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/285)) ([5f597ee](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5f597eef084762fd2aae20bedf3d795b9a94090a))
+
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.18.0...backend-v1.19.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** add search field to chats page tm-294 ([#366](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/366)) ([ceacdb6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ceacdb6ea6ac09cc5a906cdfdc8db1eeef6c5ddf))
+
 ## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.17.0...backend-v1.18.0) (2024-03-06)
 
 

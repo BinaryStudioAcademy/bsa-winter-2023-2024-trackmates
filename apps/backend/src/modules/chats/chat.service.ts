@@ -87,10 +87,17 @@ class ChatService implements Service {
 		return chatById.toObject();
 	}
 
-	public async findAll(
-		userId: number,
-	): Promise<{ items: ChatGetAllItemResponseDto[] }> {
-		const chatsByUserId = await this.chatRepository.findAll(userId);
+	public async findAll({
+		search,
+		userId,
+	}: {
+		search: string;
+		userId: number;
+	}): Promise<{ items: ChatGetAllItemResponseDto[] }> {
+		const chatsByUserId = await this.chatRepository.findAll({
+			search,
+			userId,
+		});
 
 		return {
 			items: chatsByUserId.map((chatByUserId) => {

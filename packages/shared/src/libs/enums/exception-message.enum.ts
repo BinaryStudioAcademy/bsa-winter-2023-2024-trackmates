@@ -1,5 +1,7 @@
 const ExceptionMessage = {
 	CHAT_NOT_FOUND: "Chat not found.",
+	COMMENT_NOT_FOUND: "Comment not found.",
+	COURSE_NOT_FOUND: "Course not found.",
 	COURSE_SECTION_NOT_FOUND: "Course section not found.",
 	EMAIL_ALREADY_EXISTS: "Email is already taken.",
 	FILE_IS_TOO_LARGE: "File is too large.",
@@ -10,6 +12,7 @@ const ExceptionMessage = {
 	NICKNAME_ALREADY_EXISTS: "Nickname is already taken.",
 	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	NO_PERMISSION: "No permission.",
+	NOTIFICATION_NOT_FOUND: "Notification not found.",
 	SECTION_STATUS_NOT_FOUND: "Section status not found.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",

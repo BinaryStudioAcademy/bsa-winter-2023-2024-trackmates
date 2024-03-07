@@ -1,0 +1,3 @@
+const SEARCH_CHAT_DELAY_MS = 700;
+
+export { SEARCH_CHAT_DELAY_MS };

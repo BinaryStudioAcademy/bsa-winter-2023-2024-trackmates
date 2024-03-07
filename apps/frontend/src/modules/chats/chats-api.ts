@@ -37,12 +37,19 @@ class ChatsApi extends BaseHTTPApi {
 		return await response.json<ChatItemResponseDto>();
 	}
 
-	public async getAllChats(): Promise<{ items: ChatGetAllItemResponseDto[] }> {
+	public async getAllChats({
+		search,
+	}: {
+		search: string;
+	}): Promise<{ items: ChatGetAllItemResponseDto[] }> {
 		const response = await this.load(
 			this.getFullEndpoint(ChatsApiPath.ROOT, {}),
 			{
 				hasAuth: true,
 				method: "GET",
+				query: {
+					search,
+				},
 			},
 		);
 

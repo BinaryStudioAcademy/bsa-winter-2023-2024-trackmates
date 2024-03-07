@@ -41,9 +41,24 @@
 	display: flex;
 	flex-shrink: 0;
 	column-gap: 24px;
+	align-items: center;
+}
+
+.unread::before {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10px;
+	height: 10px;
+	content: "";
+	background-color: var(--main-orange);
+	border-radius: 50%;
+	outline: 3px solid var(--main-white);
 }
 
 .icon-button {
+	position: relative;
+	gap: 0;
 	min-height: unset;
 	padding: 0;
 	color: var(--color-text-200);
