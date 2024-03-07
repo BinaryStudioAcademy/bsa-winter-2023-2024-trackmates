@@ -33,10 +33,13 @@
 }
 
 .fullName {
+	inline-size: 120px;
 	margin: 0;
+	overflow: hidden;
 	font-size: var(--font-size-300);
 	font-weight: 500;
 	color: var(--main-white);
+	text-overflow: ellipsis;
 }
 
 .user-wrapper {
