@@ -11,6 +11,7 @@ type Properties = {
 	activeClassName?: string | undefined;
 	children: React.ReactNode;
 	className?: string | undefined;
+	isDisabled?: boolean;
 	to: ValueOf<typeof AppRoute>;
 };
 
@@ -18,6 +19,7 @@ const Link: React.FC<Properties> = ({
 	activeClassName,
 	children,
 	className,
+	isDisabled = false,
 	to,
 }: Properties) => {
 	const handleLinkStyles = useCallback(
@@ -31,8 +33,17 @@ const Link: React.FC<Properties> = ({
 		[activeClassName, className],
 	);
 
+	const onClick = useCallback(
+		(event: React.MouseEvent): void => {
+			if (isDisabled) {
+				event.preventDefault();
+			}
+		},
+		[isDisabled],
+	);
+
 	return (
-		<NavLink className={handleLinkStyles} to={to}>
+		<NavLink className={handleLinkStyles} onClick={onClick} to={to}>
 			{children}
 		</NavLink>
 	);

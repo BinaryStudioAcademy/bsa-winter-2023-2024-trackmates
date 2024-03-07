@@ -29,7 +29,7 @@ const Overview: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const [isAddCourseModalOpen, setIsAddCourseModalOpen] =
 		useState<boolean>(false);
-	const { handlePageChange, page, pages, pagesCount } = usePagination({
+	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount,
@@ -65,12 +65,7 @@ const Overview: React.FC = () => {
 				) : (
 					<Courses courses={courses} userId={user.id} />
 				)}
-				<Pagination
-					currentPage={page}
-					onPageChange={handlePageChange}
-					pages={pages}
-					pagesCount={pagesCount}
-				/>
+				<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
 			</div>
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
 		</div>

@@ -1,19 +1,22 @@
+import { type AppRoute } from "~/libs/enums/app-route.enum.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
+import { Link } from "../../../../link/link.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	children: React.ReactNode;
 	isActive?: boolean | undefined;
 	isDisabled?: boolean | undefined;
-	label: React.ReactNode;
-	onPageChange: () => void;
+	to: ValueOf<typeof AppRoute>;
 };
 
 const PaginationItem: React.FC<Properties> = ({
+	children,
 	isActive,
 	isDisabled,
-	label,
-	onPageChange,
+	to,
 }: Properties) => {
 	const linkClasses = getValidClassNames(styles["item"], {
 		[styles["active"] as string]: isActive,
@@ -22,13 +25,9 @@ const PaginationItem: React.FC<Properties> = ({
 
 	return (
 		<li className={styles["item-container"]}>
-			<button
-				className={linkClasses}
-				disabled={isDisabled}
-				onClick={onPageChange}
-			>
-				{label}
-			</button>
+			<Link className={linkClasses} isDisabled={isDisabled ?? false} to={to}>
+				{children}
+			</Link>
 		</li>
 	);
 };

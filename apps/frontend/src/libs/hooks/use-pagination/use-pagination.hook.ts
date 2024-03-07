@@ -1,15 +1,15 @@
 import { PaginationValue } from "~/libs/enums/enums.js";
 import {
 	useEffect,
-	useLocation,
 	useNavigate,
+	useSearchParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
 
 import {
+	checkIsPageValid,
 	getPagesCut,
 	getPagesRange,
-	getPagesValid,
 } from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
@@ -17,7 +17,6 @@ type UsePagination = (options: {
 	pagesCutCount: number;
 	totalCount: number;
 }) => {
-	handlePageChange: (page: number) => void;
 	page: number;
 	pages: number[];
 	pagesCount: number;
@@ -29,8 +28,7 @@ const usePagination: UsePagination = ({
 	totalCount,
 }) => {
 	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
-	const location = useLocation();
-	const history = useNavigate();
+	const navigate = useNavigate();
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
 		currentPage: page,
@@ -38,27 +36,21 @@ const usePagination: UsePagination = ({
 		pagesCutCount,
 	});
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
+	const [searchParameters] = useSearchParams();
 
 	useEffect(() => {
-		const searchParameters = new URLSearchParams(location.search);
 		const pageFromUrl = Number(searchParameters.get("page"));
-		const isValidPage = getPagesValid({ pageFromUrl, searchParameters });
+		const isValidPage = checkIsPageValid(pageFromUrl);
 
 		if (pageFromUrl <= pagesCount && isValidPage) {
 			setPage(pageFromUrl);
 		} else if (pagesCount !== PaginationValue.PAGE_NOT_EXISTS) {
-			history("", { replace: true });
+			navigate("", { replace: true });
 			setPage(PaginationValue.DEFAULT_PAGE);
 		}
-	}, [location.search, page, pagesCount]);
+	}, [searchParameters, page, pagesCount]);
 
-	const handlePageChange = (page: number): void => {
-		setPage(page);
-
-		history(`?page=${page}`, { replace: true });
-	};
-
-	return { handlePageChange, page, pages, pagesCount };
+	return { page, pages, pagesCount };
 };
 
 export { usePagination };

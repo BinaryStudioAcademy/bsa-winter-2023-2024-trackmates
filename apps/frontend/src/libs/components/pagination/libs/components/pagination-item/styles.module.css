@@ -9,7 +9,7 @@
 	transition: 0.1s ease-out;
 }
 
-.item:disabled {
+.disabled {
 	cursor: default;
 	opacity: 0.5;
 }
@@ -25,7 +25,7 @@
 	border-bottom-right-radius: 8px;
 }
 
-.item:hover:not(:disabled) {
+.item:not(.disabled):hover {
 	color: var(--main-white);
 	background-color: var(--color-button);
 }
