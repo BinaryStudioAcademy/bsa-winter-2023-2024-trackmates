@@ -7,10 +7,10 @@ const getPagesValid = ({
 	pageFromUrl: number;
 	searchParameters: URLSearchParams;
 }): boolean => {
-	const hasPageParameter = searchParameters.has("page");
+	const isPageParameterExist = searchParameters.has("page");
 	const isValidNumber = pageFromUrl > PaginationValue.DEFAULT_PAGE;
 
-	return hasPageParameter && isValidNumber;
+	return isPageParameterExist && isValidNumber;
 };
 
 export { getPagesValid };
