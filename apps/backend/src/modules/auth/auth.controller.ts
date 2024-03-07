@@ -44,7 +44,7 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *            nullable: true
  *          sex:
  *            type: string
- *            enum: [Male, Female, Prefer not to say]
+ *            enum: [male, female, prefer-not-to-say]
  *          updatedAt:
  *            type: string
  */
