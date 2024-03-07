@@ -1,5 +1,5 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
-import { type Service } from "~/libs/types/service.type.js";
+import { type Service } from "~/libs/types/types.js";
 
 import {
 	type PermissionResponseDto,

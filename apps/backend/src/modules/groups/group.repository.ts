@@ -1,4 +1,4 @@
-import { type Repository } from "~/libs/types/repository.type.js";
+import { type Repository } from "~/libs/types/types.js";
 
 import { PermissionEntity } from "../permissions/permission.entity.js";
 import { type PermissionModel } from "../permissions/permission.model.js";
