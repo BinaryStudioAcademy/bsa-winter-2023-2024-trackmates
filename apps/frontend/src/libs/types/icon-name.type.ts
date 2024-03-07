@@ -10,6 +10,7 @@ type IconName =
 	| "eye"
 	| "eyeOff"
 	| "home"
+	| "like"
 	| "logOut"
 	| "message"
 	| "notification"
