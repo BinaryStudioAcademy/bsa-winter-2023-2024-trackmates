@@ -202,44 +202,44 @@ graph LR
 
    subgraph TrackMates
       subgraph Web
-         Web_image("<img src='./docs/application-schema/web.jpeg'; /> ")
+         Web_image("<img src='/docs/application-schema/web.jpeg'; /> ")
       end
 
       subgraph Mobile
-         Mobile_image("<img src='./docs/application-schema/mobile.jpeg'; /> ")
+         Mobile_image("<img src='/docs/application-schema/mobile.jpeg'; /> ")
       end
    end
 
    subgraph Route53
-      Route53_image("<img src='./docs/application-schema/route53.png'; />")
+      Route53_image("<img src='/docs/application-schema/route53.png'; />")
    end
 
    subgraph ELB["Elastic Load Balancer (ELB)"]
-      ELB_image("<img src='./docs/application-schema/elb.png'; />")
+      ELB_image("<img src='/docs/application-schema/elb.png'; />")
    end
 
    subgraph EC2["Amazon EC2 Instance"]
-      EC2_image("<img src='./docs/application-schema/ec2.png'; />")
+      EC2_image("<img src='/docs/application-schema/ec2.png'; />")
    end
 
    subgraph NodeJS
-      NodeJS_image("<img src='./docs/application-schema/nodejs.png'; />")
+      NodeJS_image("<img src='/docs/application-schema/nodejs.png'; />")
    end
 
    subgraph RDS["PostgreSQL Database"]
-      RDS_image("<img src='./docs/application-schema/rds.png'; />")
+      RDS_image("<img src='/docs/application-schema/rds.png'; />")
    end
 
    subgraph S3["Amazon S3 Storage"]
-      S3_image("<img src='./docs/application-schema/s3.png'; />")
+      S3_image("<img src='/docs/application-schema/s3.png'; />")
    end
 
    subgraph OpenAI["OpenAI API"]
-      OpenAI_image("<img src='./docs/application-schema/open-ai.webp';  />")
+      OpenAI_image("<img src='/docs/application-schema/open-ai.webp'; />")
    end
 
    subgraph Udemy["Udemy API"]
-      Udemy_image("<img src='./docs/application-schema/udemy.jpeg'; />")
+      Udemy_image("<img src='/docs/application-schema/udemy.jpeg'; />")
    end
 
    TrackMates -->|Connects to| Route53
