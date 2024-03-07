@@ -5,20 +5,14 @@ const TABLE_NAME = "user_details";
 const COLUMN_NAME = "sex";
 
 const UserSex = {
-	FEMALE: "Female",
-	MALE: "Male",
-	PREFER_NOT_TO_SAY: "Prefer not to say",
+	FEMALE: "female",
+	MALE: "male",
+	PREFER_NOT_TO_SAY: "prefer-not-to-say",
 } as const;
 
 async function up(knex: Knex): Promise<void> {
 	await knex.schema.alterTable(TABLE_NAME, (table) => {
-		table
-			.enum(COLUMN_NAME, [
-				UserSex.FEMALE,
-				UserSex.MALE,
-				UserSex.PREFER_NOT_TO_SAY,
-			])
-			.defaultTo(null);
+		table.enum(COLUMN_NAME, Object.values(UserSex)).defaultTo(null);
 	});
 }
 

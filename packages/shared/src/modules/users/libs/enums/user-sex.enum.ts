@@ -1,7 +1,7 @@
 const UserSex = {
-	FEMALE: "Female",
-	MALE: "Male",
-	PREFER_NOT_TO_SAY: "Prefer not to say",
+	FEMALE: "female",
+	MALE: "male",
+	PREFER_NOT_TO_SAY: "prefer-not-to-say",
 } as const;
 
 export { UserSex };
