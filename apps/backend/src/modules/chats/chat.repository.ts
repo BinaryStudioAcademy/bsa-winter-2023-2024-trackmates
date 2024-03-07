@@ -25,7 +25,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			.query()
 			.insert({ firstUserId, secondUserId })
 			.withGraphFetched(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.SECOND_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]]`,
 			)
 			.returning("*")
 			.execute();
@@ -112,7 +112,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			.query()
 			.findById(id)
 			.withGraphFetched(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.SECOND_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]]`,
 			)
 			.execute();
 
@@ -221,7 +221,7 @@ class ChatRepository implements Repository<ChatEntity> {
 					.andWhere({ firstUserId: userId });
 			})
 			.withGraphJoined(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.LAST_MESSAGE}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.SECOND_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.LAST_MESSAGE}.${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]]`,
 			)
 			.orderBy(`${RelationName.LAST_MESSAGE}:id`, "desc")
 			.castTo<
@@ -353,7 +353,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			.where({ firstUserId, secondUserId })
 			.orWhere({ firstUserId: secondUserId, secondUserId: firstUserId })
 			.withGraphFetched(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.SECOND_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]]`,
 			)
 			.first();
 
@@ -474,7 +474,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			.query()
 			.findById(id)
 			.withGraphFetched(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.SECOND_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}], ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]]`,
 			)
 			.modifyGraph<ChatMessageModel>(RelationName.MESSAGES, (builder) => {
 				void builder.orderBy("id", "desc");

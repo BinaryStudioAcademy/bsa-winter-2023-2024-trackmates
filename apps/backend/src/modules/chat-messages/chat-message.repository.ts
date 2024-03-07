@@ -26,7 +26,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				text,
 			})
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.returning("*")
 			.execute();
@@ -86,7 +86,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.query()
 			.findById(id)
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -138,7 +138,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.query()
 			.where({ senderUserId: userId })
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -196,7 +196,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				text,
 			})
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 

@@ -31,7 +31,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.findById(followingUserId)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<UserModel>();
 
@@ -104,7 +104,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.findById(id)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -152,7 +152,7 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			);
 
 		return followings.map((user) => {
@@ -250,7 +250,7 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.distinct()
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			);
 
 		return potentialFollowers.map((user) => {
@@ -298,7 +298,7 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			);
 
 		return userFollowers.map((user) => {
@@ -346,7 +346,7 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			);
 
 		return userFollowings.map((user) => {
