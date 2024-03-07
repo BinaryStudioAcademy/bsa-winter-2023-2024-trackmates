@@ -16,22 +16,29 @@ import {
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
 	followers: UserAuthResponseDto[];
+	followersTotalCount: number;
 	followings: UserAuthResponseDto[];
+	followingsTotalCount: number;
 	isFollowing: boolean;
 	potentialFriends: UserAuthResponseDto[];
+	potentialFriendsTotalCount: number;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
 	followers: [],
+	followersTotalCount: 0,
 	followings: [],
+	followingsTotalCount: 0,
 	isFollowing: false,
 	potentialFriends: [],
+	potentialFriendsTotalCount: 0,
 };
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(getPotentialFriends.fulfilled, (state, action) => {
-			state.potentialFriends = action.payload;
+			state.potentialFriends = action.payload.items;
+			state.potentialFriendsTotalCount = action.payload.total;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getPotentialFriends.pending, (state) => {
@@ -42,7 +49,8 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(getFollowers.fulfilled, (state, action) => {
-			state.followers = action.payload;
+			state.followers = action.payload.items;
+			state.followersTotalCount = action.payload.total;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getFollowers.pending, (state) => {
@@ -53,7 +61,8 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(getFollowings.fulfilled, (state, action) => {
-			state.followings = action.payload;
+			state.followings = action.payload.items;
+			state.followingsTotalCount = action.payload.total;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getFollowings.pending, (state) => {

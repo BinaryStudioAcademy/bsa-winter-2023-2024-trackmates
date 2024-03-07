@@ -1,72 +1,82 @@
 import { Link } from "~/libs/components/components.js";
 import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useAppSelector,
-	useAppTitle,
-	useEffect,
-	useLocation,
-} from "~/libs/hooks/hooks.js";
+import { useAppTitle, useCallback, useLocation } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/friends/friends.js";
 
-import { FriendList } from "./libs/components/components.js";
+import { FriendsTab } from "./friends-tab.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
-const Friends: React.FC = () => {
-	const { followers, followings, potentialFriends } = useAppSelector(
-		({ friends }) => {
-			return {
-				followers: friends.followers,
-				followings: friends.followings,
-				potentialFriends: friends.potentialFriends,
-			};
-		},
-	);
-	const dispatch = useAppDispatch();
-	const { pathname } = useLocation();
+// type State = ReturnType<typeof store.instance.getState>;
 
+// const friendsSelector = (
+// 	state: State,
+// ): PaginationResponseDto<UserAuthResponseDto> => {
+// 	return {
+// 		items: state.friends.potentialFriends,
+// 		total: state.friends.potentialFriendsTotalCount,
+// 	};
+// };
+
+// const followersSelector = (
+// 	state: State,
+// ): PaginationResponseDto<UserAuthResponseDto> => {
+// 	return {
+// 		items: state.friends.followers,
+// 		total: state.friends.followersTotalCount,
+// 	};
+// };
+
+// const followingsSelector = (
+// 	state: State,
+// ): PaginationResponseDto<UserAuthResponseDto> => {
+// 	return {
+// 		items: state.friends.followings,
+// 		total: state.friends.followingsTotalCount,
+// 	};
+// };
+
+const Friends: React.FC = () => {
 	useAppTitle(AppTitle.FRIENDS);
 
-	useEffect(() => {
-		switch (pathname) {
-			case AppRoute.FRIENDS: {
-				void dispatch(actions.getPotentialFriends());
-				void dispatch(actions.getFollowings());
-				break;
-			}
+	const { pathname } = useLocation();
 
-			case AppRoute.FRIENDS_FOLLOWERS: {
-				void dispatch(actions.getFollowers());
-				void dispatch(actions.getFollowings());
-				break;
-			}
-
-			case AppRoute.FRIENDS_FOLLOWINGS: {
-				void dispatch(actions.getFollowings());
-				break;
-			}
-		}
-	}, [dispatch, pathname]);
-
-	const handleScreenRender = (screen: string): React.ReactNode => {
+	const handleScreenRender = useCallback((screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.FRIENDS: {
-				return <FriendList friends={potentialFriends} />;
+				return (
+					<FriendsTab
+						action={actions.getPotentialFriends}
+						itemsKey="potentialFriends"
+						totalKey="potentialFriendsTotalCount"
+					/>
+				);
 			}
 
 			case AppRoute.FRIENDS_FOLLOWERS: {
-				return <FriendList friends={followers} />;
+				return (
+					<FriendsTab
+						action={actions.getFollowers}
+						itemsKey="followers"
+						totalKey="followersTotalCount"
+					/>
+				);
 			}
 
 			case AppRoute.FRIENDS_FOLLOWINGS: {
-				return <FriendList friends={followings} />;
+				return (
+					<FriendsTab
+						action={actions.getFollowings}
+						itemsKey="followings"
+						totalKey="followingsTotalCount"
+					/>
+				);
 			}
 		}
 
 		return null;
-	};
+	}, []);
 
 	return (
 		<div className={styles["wrapper"]}>
