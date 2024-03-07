@@ -28,22 +28,14 @@ const Link: React.FC<Properties> = ({
 				isActive && activeClassName,
 				className,
 				styles["link"],
+				isDisabled && styles["disabled"],
 			);
 		},
-		[activeClassName, className],
-	);
-
-	const onClick = useCallback(
-		(event: React.MouseEvent): void => {
-			if (isDisabled) {
-				event.preventDefault();
-			}
-		},
-		[isDisabled],
+		[activeClassName, className, isDisabled],
 	);
 
 	return (
-		<NavLink className={handleLinkStyles} onClick={onClick} to={to}>
+		<NavLink className={handleLinkStyles} to={to}>
 			{children}
 		</NavLink>
 	);
