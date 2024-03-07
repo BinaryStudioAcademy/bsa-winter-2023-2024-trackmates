@@ -1,14 +1,7 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
-import {
-	Button,
-	Image,
-	Input,
-	type Option,
-	Select,
-} from "~/libs/components/components.js";
+import { Button, Image, Input, Select } from "~/libs/components/components.js";
 import { AppTitle } from "~/libs/enums/enums.js";
-import { convertKebabCaseToRegularString } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -18,6 +11,7 @@ import {
 	useMemo,
 	useRef,
 } from "~/libs/hooks/hooks.js";
+import { type SelectOption, type ValueOf } from "~/libs/types/types.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
@@ -93,10 +87,16 @@ const Profile: React.FC = () => {
 
 	useAppTitle(AppTitle.PROFILE);
 
-	const sexSelectOptions = useMemo<Option[]>(() => {
+	const sexSelectOptions = useMemo<SelectOption[]>(() => {
+		const userSexToTheSelectLabel: Record<ValueOf<typeof UserSex>, string> = {
+			[UserSex.FEMALE]: "Female",
+			[UserSex.MALE]: "Male",
+			[UserSex.PREFER_NOT_TO_SAY]: "Prefer not to say",
+		};
+
 		return Object.values(UserSex).map((sex) => {
 			return {
-				label: convertKebabCaseToRegularString(sex, { capitalize: true }),
+				label: userSexToTheSelectLabel[sex],
 				value: sex,
 			};
 		});
