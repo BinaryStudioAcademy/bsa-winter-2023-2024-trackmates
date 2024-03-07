@@ -7,12 +7,10 @@ import { sendMessage } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	errorMessage: string;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	errorMessage: "",
 };
 
 const { actions, name, reducer } = createSlice({
