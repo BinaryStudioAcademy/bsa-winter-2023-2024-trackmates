@@ -1,3 +1,8 @@
+import {
+	SocketEvent,
+	SocketNamespace,
+	type SocketService,
+} from "~/libs/modules/socket/socket.js";
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 import {
 	type NotificationService,
@@ -14,13 +19,16 @@ import {
 class FriendService {
 	private friendRepository: FriendRepository;
 	private notificationService: NotificationService;
+	private socketService: SocketService;
 
 	public constructor(
 		friendRepository: FriendRepository,
 		notificationService: NotificationService,
+		socketService: SocketService,
 	) {
 		this.friendRepository = friendRepository;
 		this.notificationService = notificationService;
+		this.socketService = socketService;
 	}
 
 	public async createSubscription(
@@ -52,10 +60,17 @@ class FriendService {
 			followingUserId,
 		});
 
-		await this.notificationService.create({
+		const { notification, receiverId } = await this.notificationService.create({
 			receiverUserId: followingUserId,
 			type: NotificationType.NEW_FOLLOWER,
 			userId: followerUserId,
+		});
+
+		this.socketService.emitMessage({
+			event: SocketEvent.NOTIFICATION_NEW_FOLLOWER,
+			payload: notification,
+			receiversIds: [String(notification.userId), String(receiverId)],
+			targetNamespace: SocketNamespace.NOTIFICATION,
 		});
 
 		return followingUser.toObject();

@@ -8,6 +8,7 @@ import {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
 	type NotificationResponseDto,
+	type NotificationWithReceiverIdResponseDto,
 	type UpdateNotificationRequestDto,
 } from "./libs/types/types.js";
 import { NotificationEntity } from "./notification.entity.js";
@@ -30,10 +31,10 @@ class NotificationService implements Service {
 
 	public async create(
 		payload: CreateNotificationRequestDto,
-	): Promise<NotificationResponseDto> {
+	): Promise<NotificationWithReceiverIdResponseDto> {
 		const { receiverUserId, type, userId } = payload;
 
-		const notification = await this.notificationRepository.create(
+		const createdNotification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
 				receiverUserId,
 				status: NotificationStatus.UNREAD,
@@ -42,7 +43,12 @@ class NotificationService implements Service {
 			}),
 		);
 
-		return notification.toObject();
+		const notification = createdNotification.toObject();
+
+		return {
+			notification,
+			receiverId: receiverUserId,
+		};
 	}
 
 	public async delete(notificationId: number): Promise<boolean> {
