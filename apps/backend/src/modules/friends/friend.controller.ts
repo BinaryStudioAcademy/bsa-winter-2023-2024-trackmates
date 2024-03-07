@@ -491,10 +491,10 @@ class FriendController extends BaseController {
 		query: PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const query = { count, id, page };
+		const parameters = { count, id, page };
 
 		return {
-			payload: await this.friendService.getPotentialFollowers(query),
+			payload: await this.friendService.getPotentialFollowers(parameters),
 			status: HTTPCode.OK,
 		};
 	}
@@ -535,10 +535,10 @@ class FriendController extends BaseController {
 		query: PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const query = { count, id, page };
+		const parameters = { count, id, page };
 
 		return {
-			payload: await this.friendService.getUserFollowers(query),
+			payload: await this.friendService.getUserFollowers(parameters),
 			status: HTTPCode.OK,
 		};
 	}
@@ -579,10 +579,10 @@ class FriendController extends BaseController {
 		query: PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const query = { count, id, page };
+		const parameters = { count, id, page };
 
 		return {
-			payload: await this.friendService.getUserFollowings(query),
+			payload: await this.friendService.getUserFollowings(parameters),
 			status: HTTPCode.OK,
 		};
 	}
