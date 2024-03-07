@@ -136,7 +136,6 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			//.orderBy(`${DatabaseTableName.ACTIVITIES}.updatedAt`, SortOrder.DESC)
 			.orderBy("updatedAt", SortOrder.DESC)
 			.castTo<(ActivityModel & ActivityCounts)[]>()
 			.execute();
