@@ -3,6 +3,7 @@ import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 import { commentTextValidationSchema } from "~/modules/comments/comments.js";
 
+import { DEFAULT_COMMENT_PAYLOAD } from "../../constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -15,9 +16,7 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	onSubmit,
 }: Properties) => {
 	const { control, errors, handleSubmit, reset } = useAppForm({
-		defaultValues: {
-			text: "",
-		},
+		defaultValues: DEFAULT_COMMENT_PAYLOAD,
 		validationSchema: commentTextValidationSchema,
 	});
 
