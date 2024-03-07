@@ -202,44 +202,44 @@ graph LR
 
    subgraph TrackMates
       subgraph Web
-         Web_image("<img src='/docs/application-schema/web.jpeg'; width='30'; /> ")
+         Web_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/web.jpeg'; /> ")
       end
 
       subgraph Mobile
-         Mobile_image("<img src='/docs/application-schema/mobile.jpeg'; width='30'; /> ")
+         Mobile_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/mobile.jpeg'; /> ")
       end
    end
 
    subgraph Route53
-      Route53_image("<img src='/docs/application-schema/route53.png'; width='30'; />")
+      Route53_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/route53.png'; />")
    end
 
    subgraph ELB["Elastic Load Balancer (ELB)"]
-      ELB_image("<img src='/docs/application-schema/elb.png'; width='30'; />")
+      ELB_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/elb.png'; />")
    end
 
    subgraph EC2["Amazon EC2 Instance"]
-      EC2_image("<img src='/docs/application-schema/ec2.png'; width='30'; />")
+      EC2_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/ec2.png'; />")
    end
 
    subgraph NodeJS
-      NodeJS_image("<img src='/docs/application-schema/nodejs.png'; width='30'; />")
+      NodeJS_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/nodejs.png'; />")
    end
 
    subgraph RDS["PostgreSQL Database"]
-      RDS_image("<img src='/docs/application-schema/rds.png'; width='30'; />")
+      RDS_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/rds.png'; />")
    end
 
    subgraph S3["Amazon S3 Storage"]
-      S3_image("<img src='/docs/application-schema/s3.png'; width='30'; />")
+      S3_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/s3.png'; />")
    end
 
    subgraph OpenAI["OpenAI API"]
-      OpenAI_image("<img src='/docs/application-schema/open-ai.webp'; width='30'; />")
+      OpenAI_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/open-ai.webp'; />")
    end
 
    subgraph Udemy["Udemy API"]
-      Udemy_image("<img src='/docs/application-schema/udemy.jpeg'; width='30'; />")
+      Udemy_image("<img src='https://trackmates-dev.s3.eu-central-1.amazonaws.com/udemy.jpeg'; />")
    end
 
    TrackMates -->|Connects to| Route53
