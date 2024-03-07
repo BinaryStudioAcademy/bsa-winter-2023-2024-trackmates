@@ -49,12 +49,12 @@ const Select = <T extends FieldValues>({
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 
-	const deffaulValue = field.value ?? "";
+	const defaultValue = field.value ?? "";
 
 	return (
 		<label className={styles["container"]}>
 			<span className={labelClasses}>{label}</span>
-			<select className={selectClasses} {...field} value={deffaulValue}>
+			<select className={selectClasses} {...field} value={defaultValue}>
 				<option disabled hidden value="">
 					{placeholder}
 				</option>

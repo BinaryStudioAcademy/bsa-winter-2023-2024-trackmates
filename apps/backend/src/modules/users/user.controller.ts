@@ -124,7 +124,7 @@ class UserController extends BaseController {
 	 *                  type: string
 	 *                sex:
 	 *                  type: string
-	 *                  enum: [Male, Female, Prefere not to say]
+	 *                  enum: [Male, Female, Prefer not to say]
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation
