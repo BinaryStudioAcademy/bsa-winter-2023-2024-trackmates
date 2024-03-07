@@ -48,6 +48,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
+	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
 	type ActivityGetAllResponseDto,
@@ -82,6 +83,19 @@ export {
 	chatCreateValidationSchema,
 	chatIdParameterValidationSchema,
 } from "./modules/chats/chats.js";
+export {
+	type CommentCreateRequestDto,
+	CommentError,
+	type CommentGetAllRequestDto,
+	type CommentGetAllResponseDto,
+	type CommentUpdateRequestDto,
+	type CommentWithRelationsResponseDto,
+	CommentsApiPath,
+	commentCreateBodyValidationSchema,
+	commentGetAllQueryValidationSchema,
+	commentIdParameterValidationSchema,
+	commentTextValidationSchema,
+} from "./modules/comments/comments.js";
 export {
 	type CourseSectionAddRequestDto,
 	type CourseSectionDto,
@@ -157,6 +171,7 @@ export {
 } from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,
+	type UserDetailsResponseDto,
 	UserError,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,

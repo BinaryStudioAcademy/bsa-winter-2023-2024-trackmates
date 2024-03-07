@@ -1,5 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image } from "~/libs/components/components.js";
+import { Button, Image } from "~/libs/components/components.js";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
@@ -7,6 +8,7 @@ import {
 	getActivityTitle,
 } from "~/modules/activities/activities.js";
 
+import { ActivityComments } from "../activity-comments/activity-comments.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -14,6 +16,12 @@ type Properties = {
 };
 
 const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
+	const [isCommentsOpen, setIsCommentsOpen] = useState<boolean>(false);
+
+	const handleCommentsToggle = useCallback(() => {
+		setIsCommentsOpen((isCommentsOpen) => !isCommentsOpen);
+	}, []);
+
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content"]}>
@@ -30,6 +38,18 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 					</div>
 				</div>
 			</div>
+			<div className={styles["toolbar"]}>
+				<div className={styles["tool-container"]}>
+					<span className={styles["tool-count"]}>{activity.commentCount}</span>
+					<Button
+						className={styles["tool-button"]}
+						iconName="comment"
+						label="Comment"
+						onClick={handleCommentsToggle}
+					/>
+				</div>
+			</div>
+			{isCommentsOpen && <ActivityComments activityId={activity.id} />}
 		</article>
 	);
 };

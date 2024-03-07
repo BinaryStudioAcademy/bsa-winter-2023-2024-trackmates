@@ -78,7 +78,7 @@ class ActivityService implements Service {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
-			? (activity.toObject() as ActivityResponseDto<
+			? (activity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
 					ValueOf<typeof ActivityType>
 				>)
 			: null;
@@ -87,7 +87,7 @@ class ActivityService implements Service {
 	public async findAll(userId: number): Promise<ActivityGetAllResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
 		const items = friendsActivities.map((entity) => {
-			return entity.toObject() as ActivityResponseDto<
+			return entity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
 				ValueOf<typeof ActivityType>
 			>;
 		});

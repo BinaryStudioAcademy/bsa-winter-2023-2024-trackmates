@@ -1,3 +1,4 @@
+export { type ActivityCounts } from "./activity-counts.type.js";
 export { type ActivityCreateRequestDto } from "./activity-create-request-dto.type.js";
 export { type ActivityDeleteRequestDto } from "./activity-delete-request-dto.type.js";
 export { type ActivityFinishCourseResponseDto } from "./activity-finish-course-response-dto.type.js";

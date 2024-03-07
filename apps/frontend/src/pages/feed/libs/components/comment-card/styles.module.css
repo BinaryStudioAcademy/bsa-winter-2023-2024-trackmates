@@ -1,0 +1,30 @@
+.comment-card {
+	display: flex;
+	gap: 12px;
+	padding: 8px;
+	cursor: default;
+	background-color: var(--color-background);
+	border-radius: 8px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+}
+
+.avatar {
+	flex-shrink: 0;
+}
+
+.name {
+	font-weight: 600;
+	color: var(--color-text-300);
+}
+
+.text {
+	padding: 0;
+	margin: 0;
+	color: var(--color-text-300);
+	word-break: break-word;
+}

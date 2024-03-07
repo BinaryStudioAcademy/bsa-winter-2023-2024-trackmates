@@ -6,6 +6,8 @@ import { type ActivityType } from "./libs/enums/enums.js";
 class ActivityEntity implements Entity {
 	public actionId: number;
 
+	public commentCount: null | number;
+
 	public id: null | number;
 
 	public payload: unknown;
@@ -20,6 +22,7 @@ class ActivityEntity implements Entity {
 
 	private constructor({
 		actionId,
+		commentCount,
 		id,
 		payload,
 		type,
@@ -28,6 +31,7 @@ class ActivityEntity implements Entity {
 		userId,
 	}: {
 		actionId: number;
+		commentCount: null | number;
 		id: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
@@ -40,12 +44,14 @@ class ActivityEntity implements Entity {
 		this.payload = payload;
 		this.type = type;
 		this.updatedAt = updatedAt;
+		this.commentCount = commentCount;
 		this.user = user;
 		this.userId = userId;
 	}
 
 	public static initialize({
 		actionId,
+		commentCount,
 		id,
 		payload,
 		type,
@@ -54,6 +60,7 @@ class ActivityEntity implements Entity {
 		userId,
 	}: {
 		actionId: number;
+		commentCount: null | number;
 		id: number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
@@ -63,6 +70,7 @@ class ActivityEntity implements Entity {
 	}): ActivityEntity {
 		return new ActivityEntity({
 			actionId,
+			commentCount,
 			id,
 			payload,
 			type,
@@ -85,6 +93,7 @@ class ActivityEntity implements Entity {
 	}): ActivityEntity {
 		return new ActivityEntity({
 			actionId,
+			commentCount: null,
 			id: null,
 			payload,
 			type,
@@ -128,6 +137,37 @@ class ActivityEntity implements Entity {
 	} {
 		return {
 			actionId: this.actionId,
+			id: this.id as number,
+			payload: this.payload,
+			type: this.type,
+			updatedAt: this.updatedAt,
+			user: (this.user as UserEntity).toObject(),
+			userId: this.userId,
+		};
+	}
+
+	public toObjectWithRelationsAndCounts(): {
+		actionId: number;
+		commentCount: null | number;
+		id: number;
+		payload: unknown;
+		type: ValueOf<typeof ActivityType>;
+		updatedAt: string;
+		user: {
+			avatarUrl: string;
+			createdAt: string;
+			email: string;
+			firstName: string;
+			id: number;
+			lastName: string;
+			nickname: null | string;
+			updatedAt: string;
+		};
+		userId: number;
+	} {
+		return {
+			actionId: this.actionId,
+			commentCount: Number(this.commentCount),
 			id: this.id as number,
 			payload: this.payload,
 			type: this.type,
