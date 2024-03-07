@@ -1,6 +1,8 @@
 import { type NotificationResponseDto } from "./notification-response-dto.type.js";
 
-type NotificationWithReceiverIdResponseDto = Record<"receiverId", number> &
-	Record<"notification", NotificationResponseDto>;
+type NotificationWithReceiverIdResponseDto = {
+	notification: NotificationResponseDto;
+	receiverId: number;
+};
 
 export { type NotificationWithReceiverIdResponseDto };
