@@ -67,12 +67,12 @@ const Chat: React.FC<Properties> = ({
 			<ul className={styles["chat-container"]}>
 				{messages.map((message) => {
 					if (checkIsDateBefore(message.createdAt, lastDate)) {
-						const previous = lastDate;
+						const previousDate = lastDate;
 						lastDate = message.createdAt;
 
 						return (
 							<Fragment key={message.id}>
-								<ChatDate date={previous} />
+								<ChatDate date={previousDate} />
 								<ChatMessage
 									isCurrentUserSender={receiver.id !== message.senderUser.id}
 									message={message}
