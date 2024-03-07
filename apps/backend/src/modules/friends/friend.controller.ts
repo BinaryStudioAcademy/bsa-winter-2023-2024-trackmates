@@ -16,6 +16,7 @@ import {
 } from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import { type FriendFollowRequestDto } from "./libs/types/types.js";
+import { friendGetAllQueryValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -143,6 +144,9 @@ class FriendController extends BaseController {
 			},
 			method: "GET",
 			path: FriendsApiPath.FOLLOWERS,
+			validation: {
+				query: friendGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -155,6 +159,9 @@ class FriendController extends BaseController {
 			},
 			method: "GET",
 			path: FriendsApiPath.FOLLOWINGS,
+			validation: {
+				query: friendGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -167,6 +174,9 @@ class FriendController extends BaseController {
 			},
 			method: "GET",
 			path: FriendsApiPath.POTENTIAL_FOLLOWINGS,
+			validation: {
+				query: friendGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -454,6 +464,16 @@ class FriendController extends BaseController {
 	 *     description: Returns an array of User that the user does not follow
 	 *     security:
 	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
 	 *     responses:
 	 *       200:
 	 *         description: Successful operation
@@ -488,6 +508,16 @@ class FriendController extends BaseController {
 	 *     description: Returns an array of User that the user is followed by
 	 *     security:
 	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
 	 *     responses:
 	 *       200:
 	 *         description: Successful operation
@@ -522,6 +552,16 @@ class FriendController extends BaseController {
 	 *     description: Returns an array of User that the user is following
 	 *     security:
 	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
 	 *     responses:
 	 *       200:
 	 *         description: Successful operation

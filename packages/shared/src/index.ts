@@ -105,6 +105,7 @@ export {
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,
+	friendGetAllQueryValidationSchema,
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
