@@ -11,6 +11,7 @@ const ExceptionMessage = {
 	NICKNAME_ALREADY_EXISTS: "Nickname is already taken.",
 	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	NO_PERMISSION: "No permission.",
+	NOTIFICATION_NOT_FOUND: "Notification not found.",
 	SECTION_STATUS_NOT_FOUND: "Section status not found.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",

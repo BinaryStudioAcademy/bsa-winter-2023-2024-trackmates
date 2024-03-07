@@ -8,6 +8,7 @@ const DatabaseTableName = {
 	FILES: "files",
 	FRIENDS: "friends",
 	MIGRATIONS: "migrations",
+	NOTIFICATIONS: "notifications",
 	SECTION_STATUSES: "section_statuses",
 	USER_DETAILS: "user_details",
 	USERS: "users",
