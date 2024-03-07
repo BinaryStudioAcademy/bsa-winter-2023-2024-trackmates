@@ -1,6 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Link } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import { type AppRoute } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -9,6 +9,7 @@ import {
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { actions as chatsActions } from "~/modules/chats/chats.js";
 import { actions } from "~/modules/friends/friends.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -30,13 +31,13 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	);
 	const dispatch = useAppDispatch();
 
-	const parameters = new URLSearchParams({ user: String(friend.id) });
-	const chatRouteByUser =
-		`${AppRoute.CHATS}?${parameters.toString()}` as typeof AppRoute.CHATS;
-
 	useEffect(() => {
 		setIsFollowing(isFollowingFromSelector);
 	}, [isFollowingFromSelector]);
+
+	const handleCreateChat = useCallback(() => {
+		void dispatch(chatsActions.createChat(friend.id));
+	}, [dispatch, friend.id]);
 
 	const handleFollow = useCallback(() => {
 		void dispatch(actions.follow({ id: friend.id }))
@@ -82,9 +83,9 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				<Button
 					className={styles["start-chat"]}
 					hasVisuallyHiddenLabel
-					href={chatRouteByUser}
 					iconName="chats"
 					label="Start chat"
+					onClick={handleCreateChat}
 					style="primary"
 				/>
 			</div>

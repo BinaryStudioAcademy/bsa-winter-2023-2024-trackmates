@@ -1,0 +1,56 @@
+@import url("~/assets/css/media.css");
+
+.card {
+	width: 100%;
+	padding: 0;
+	overflow: hidden;
+	cursor: pointer;
+	background-color: var(--main-white);
+	border: 1px solid transparent;
+	border-radius: 12px;
+}
+
+.card:hover {
+	border: 1px solid var(--color-menu);
+	box-shadow: 3px 11px 22px -14px var(--color-container-hover-border);
+}
+
+.card-content {
+	display: grid;
+	grid-template-columns: 125px 1fr;
+	gap: 16px;
+	padding: 12px;
+}
+
+.card-content-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.card-info {
+	font-size: var(--font-size-400);
+	color: var(--color-text-300);
+}
+
+.card-photo {
+	aspect-ratio: 1 / 1;
+	border-radius: 12px;
+	object-fit: cover;
+	object-position: center;
+}
+
+@media screen and (--medium-screen) {
+	.card-content {
+		grid-template-columns: 80px 1fr;
+	}
+
+	.card-info {
+		font-size: var(--font-size-300);
+	}
+}
+
+@media screen and (--small-screen) {
+	.card-content {
+		grid-template-columns: 1fr;
+	}
+}

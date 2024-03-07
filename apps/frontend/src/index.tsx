@@ -15,8 +15,10 @@ import { Auth } from "~/pages/auth/auth.jsx";
 
 import { Chats } from "./pages/chats/chats.js";
 import { CourseDescription } from "./pages/course-description/course-description.js";
+import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
+import { Notifications } from "./pages/notifications/notifications.js";
 import { Overview } from "./pages/overview/overview.js";
 import { Profile } from "./pages/profile/profile.js";
 import { User } from "./pages/user/user.js";
@@ -38,6 +40,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.CHATS_$ID,
 							},
 							{
+								element: <ProtectedRoute component={<Feed />} />,
+								path: AppRoute.FEED,
+							},
+							{
 								element: <ProtectedRoute component={<Friends />} />,
 								path: AppRoute.FRIENDS,
 							},
@@ -48,6 +54,10 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <ProtectedRoute component={<Friends />} />,
 								path: AppRoute.FRIENDS_FOLLOWINGS,
+							},
+							{
+								element: <ProtectedRoute component={<Notifications />} />,
+								path: AppRoute.NOTIFICATIONS,
 							},
 							{
 								element: <ProtectedRoute component={<Overview />} />,

@@ -1,4 +1,5 @@
 import { logger } from "~/libs/modules/logger/logger.js";
+import { socketService } from "~/libs/modules/socket/socket.js";
 import { chatService } from "~/modules/chats/chats.js";
 import { userRepository } from "~/modules/users/users.js";
 
@@ -17,6 +18,7 @@ const chatMessageService = new ChatMessageService({
 const chatMessageController = new ChatMessageController(
 	logger,
 	chatMessageService,
+	socketService,
 );
 
 export { chatMessageController };

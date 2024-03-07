@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.20.0...backend-v1.21.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add notifications tm-198 ([#259](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/259)) ([4f28983](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4f28983e6df7a324099d3960d09486f527fd02ae))
+
+## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.19.0...backend-v1.20.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed tm-158 ([#285](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/285)) ([5f597ee](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5f597eef084762fd2aae20bedf3d795b9a94090a))
+
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.18.0...backend-v1.19.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** add search field to chats page tm-294 ([#366](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/366)) ([ceacdb6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ceacdb6ea6ac09cc5a906cdfdc8db1eeef6c5ddf))
+
+## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.17.0...backend-v1.18.0) (2024-03-06)
+
+
+### Features
+
+* **backend:** add edx vendor tm-211 ([#292](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/292)) ([1fc6608](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1fc6608a829d58cb4c5528eb3d07446d6a224749))
+
+## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.16.0...backend-v1.17.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend/shared:** Add Progress for courses tm-206 ([#282](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/282)) ([d0b7516](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d0b7516f54fde5022ced8264f34a87614e40f7e6))
+
+## [1.16.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.15.1...backend-v1.16.0) (2024-03-06)
+
+
+### Features
+
+* **backend/frontend/shared:** real time chat functionality tm-113 ([#356](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/356)) ([a227949](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a2279498be52c06c287f3598e9ae978726e54d51))
+
+## [1.15.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.15.0...backend-v1.15.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **backend:** fix swagger error in user course controller  tm-368 ([#369](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/369)) ([1719ee8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/1719ee842255f06b2703ee9eeac82889f7af33fc))
+
+## [1.15.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.14.0...backend-v1.15.0) (2024-03-06)
+
+
+### Features
+
+* **frontend/backend:** quality criteria issues tm-310 ([#320](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/320)) ([2ac9f7b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2ac9f7b45bfa5c4084116c126b0011d013758ffb))
+
 ## [1.14.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.13.0...backend-v1.14.0) (2024-03-05)
 
 

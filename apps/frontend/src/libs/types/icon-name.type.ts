@@ -1,4 +1,5 @@
 type IconName =
+	| "activities"
 	| "add"
 	| "back"
 	| "backArrow"
@@ -10,6 +11,7 @@ type IconName =
 	| "home"
 	| "logOut"
 	| "message"
+	| "notification"
 	| "pie"
 	| "plus"
 	| "plusOutlined"

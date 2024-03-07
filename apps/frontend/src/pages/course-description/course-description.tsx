@@ -1,31 +1,58 @@
 import { Button } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import {
+	BACK_NAVIGATION_STEP,
+	EMPTY_ARRAY_LENGTH,
+} from "~/libs/constants/constants.js";
+import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useAppTitle,
+	useCallback,
 	useEffect,
+	useNavigate,
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
+import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
 
-import { CourseDetails, CourseSections } from "./libs/components/components.js";
+import {
+	CourseActivities,
+	CourseDetails,
+	CourseSections,
+} from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {
-	const { course, courseSections } = useAppSelector(({ course, courses }) => ({
-		course: courses.currentCourse,
-		courseSections: course.courseSections,
-	}));
+	const { course, courseSections, sectionStatuses } = useAppSelector(
+		({ course, courses, sectionStatuses }) => ({
+			course: courses.currentCourse,
+			courseSections: course.courseSections,
+			sectionStatuses: sectionStatuses.sectionStatuses,
+		}),
+	);
+
+	const numberOfSections = courseSections.length;
+	const numberOfCompletedSections = sectionStatuses.filter(
+		({ status }) => status === SectionStatus.COMPLETED,
+	).length;
+
+	const progress = Math.round(
+		getPercentage({ part: numberOfCompletedSections, total: numberOfSections }),
+	);
 
 	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const { courseId, userId } = useParams<{
 		courseId: string;
 		userId: string;
 	}>();
+
+	const handleClick = useCallback(() => {
+		navigate(BACK_NAVIGATION_STEP);
+	}, [navigate]);
 
 	useAppTitle();
 
@@ -46,25 +73,25 @@ const CourseDescription: React.FC = () => {
 
 	return (
 		<>
-			<div className={styles["back-container"]}>
-				<Button
-					className={styles["back-button"]}
-					hasVisuallyHiddenLabel
-					href={AppRoute.ROOT}
-					iconName="backArrow"
-					label="Back to overview"
-					size="small"
-				/>
-				<span className={styles["subtitle"]}>Back to overview</span>
-			</div>
+			<Button
+				className={styles["back-button"]}
+				hasVisuallyHiddenLabel
+				iconName="backArrow"
+				label="Back to overview"
+				onClick={handleClick}
+				size="small"
+			/>
 			<div className={styles["wrapper"]}>
 				<CourseDetails course={course} courseSections={courseSections} />
 				{hasCourseSections && (
-					<CourseSections
-						courseId={Number(courseId)}
-						courseSections={courseSections}
-						userId={Number(userId)}
-					/>
+					<div className={styles["course-sections"]}>
+						<CourseSections
+							courseId={Number(course.id)}
+							courseSections={courseSections}
+							userId={Number(userId)}
+						/>
+						<CourseActivities progress={progress} />
+					</div>
 				)}
 			</div>
 		</>

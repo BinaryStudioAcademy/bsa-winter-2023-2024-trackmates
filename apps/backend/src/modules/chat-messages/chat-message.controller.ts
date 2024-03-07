@@ -5,6 +5,11 @@ import {
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import {
+	SocketEvent,
+	SocketNamespace,
+	type SocketService,
+} from "~/libs/modules/socket/socket.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type ChatMessageService } from "./chat-message.service.js";
@@ -50,9 +55,16 @@ import {
 class ChatMessageController extends BaseController {
 	private chatMessageService: ChatMessageService;
 
-	public constructor(logger: Logger, chatMessageService: ChatMessageService) {
+	private socketService: SocketService;
+
+	public constructor(
+		logger: Logger,
+		chatMessageService: ChatMessageService,
+		socketService: SocketService,
+	) {
 		super(logger, APIPath.CHAT_MESSAGES);
 		this.chatMessageService = chatMessageService;
+		this.socketService = socketService;
 
 		this.addRoute({
 			handler: (options) => {
@@ -172,11 +184,20 @@ class ChatMessageController extends BaseController {
 		body: ChatMessageCreateRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
+		const { chatMessage, receiverId } = await this.chatMessageService.create({
+			messageData: body,
+			userId: user.id,
+		});
+
+		this.socketService.emitMessage({
+			event: SocketEvent.CHAT_ADD_NEW_MESSAGE,
+			payload: chatMessage,
+			receiversIds: [String(chatMessage.senderUser.id), String(receiverId)],
+			targetNamespace: SocketNamespace.CHAT,
+		});
+
 		return {
-			payload: await this.chatMessageService.create({
-				messageData: body,
-				userId: user.id,
-			}),
+			payload: chatMessage,
 			status: HTTPCode.CREATED,
 		};
 	}

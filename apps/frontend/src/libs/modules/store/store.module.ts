@@ -8,7 +8,12 @@ import { configureStore } from "@reduxjs/toolkit";
 import { AppEnvironment } from "~/libs/enums/enums.js";
 import { type Config } from "~/libs/modules/config/config.js";
 import { notification } from "~/libs/modules/notification/notification.js";
+import { socket } from "~/libs/modules/socket/socket.js";
 import { reducer as appReducer } from "~/libs/slices/app/app.js";
+import {
+	activitiesApi,
+	reducer as activitiesReducer,
+} from "~/modules/activities/activities.js";
 import { authApi, reducer as authReducer } from "~/modules/auth/auth.js";
 import {
 	chatMessagesApi,
@@ -36,6 +41,10 @@ import {
 	userCourseApi,
 	reducer as userCoursesReducer,
 } from "~/modules/user-courses/user-courses.js";
+import {
+	userNotificationsApi,
+	reducer as userNotificationsReducer,
+} from "~/modules/user-notifications/user-notifications.js";
 import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 import {
 	vendorApi,
@@ -43,9 +52,10 @@ import {
 } from "~/modules/vendors/vendors.js";
 
 import { storage } from "../storage/storage.js";
-import { handleError } from "./middlewares/middlewares.js";
+import { chatSocket, handleError } from "./middlewares/middlewares.js";
 
 type RootReducer = {
+	activities: ReturnType<typeof activitiesReducer>;
 	app: ReturnType<typeof appReducer>;
 	auth: ReturnType<typeof authReducer>;
 	chatMessages: ReturnType<typeof chatMessagesReducer>;
@@ -55,11 +65,13 @@ type RootReducer = {
 	friends: ReturnType<typeof friendsReducer>;
 	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
+	userNotifications: ReturnType<typeof userNotificationsReducer>;
 	users: ReturnType<typeof usersReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
 
 type ExtraArguments = {
+	activitiesApi: typeof activitiesApi;
 	authApi: typeof authApi;
 	chatMessagesApi: typeof chatMessagesApi;
 	chatsApi: typeof chatsApi;
@@ -69,9 +81,11 @@ type ExtraArguments = {
 	friendsApi: typeof friendsApi;
 	notification: typeof notification;
 	sectionStatusApi: typeof sectionStatusApi;
+	socket: typeof socket;
 	storage: typeof storage;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
+	userNotificationsApi: typeof userNotificationsApi;
 	vendorApi: typeof vendorApi;
 };
 
@@ -92,9 +106,10 @@ class Store {
 					thunk: {
 						extraArgument: this.extraArguments,
 					},
-				}).prepend(handleError);
+				}).prepend([handleError, chatSocket({ extra: this.extraArguments })]);
 			},
 			reducer: {
+				activities: activitiesReducer,
 				app: appReducer,
 				auth: authReducer,
 				chatMessages: chatMessagesReducer,
@@ -104,6 +119,7 @@ class Store {
 				friends: friendsReducer,
 				sectionStatuses: sectionStatusesReducer,
 				userCourses: userCoursesReducer,
+				userNotifications: userNotificationsReducer,
 				users: usersReducer,
 				vendors: vendorsReducer,
 			},
@@ -112,6 +128,7 @@ class Store {
 
 	public get extraArguments(): ExtraArguments {
 		return {
+			activitiesApi,
 			authApi,
 			chatMessagesApi,
 			chatsApi,
@@ -121,12 +138,15 @@ class Store {
 			friendsApi,
 			notification,
 			sectionStatusApi,
+			socket,
 			storage,
 			userApi,
 			userCourseApi,
+			userNotificationsApi,
 			vendorApi,
 		};
 	}
 }
 
+export { type ExtraArguments };
 export { Store };
