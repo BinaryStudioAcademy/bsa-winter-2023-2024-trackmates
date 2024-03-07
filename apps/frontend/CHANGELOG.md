@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.33.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.33.0...frontend-v1.33.1) (2024-03-07)
+
+
+### Bug Fixes
+
+* **frontend:** The element on the Friend profile section move regarding the user name tm-327 ([#365](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/365)) ([954336d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/954336d9b2f40d31c131e8291147e2139c919bb2))
+
 ## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.32.0...frontend-v1.33.0) (2024-03-07)
 
 
