@@ -1,3 +1,0 @@
-const EMPTY_COMMENT_COUNT = 0;
-
-export { EMPTY_COMMENT_COUNT };

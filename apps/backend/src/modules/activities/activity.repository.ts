@@ -8,7 +8,7 @@ import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
-import { EMPTY_COMMENT_COUNT } from "./libs/constants/constants.js";
+import { EMPTY_COUNT } from "./libs/constants/constants.js";
 import { type ActivityType, RelationName } from "./libs/enums/enums.js";
 import { type ActivityCounts } from "./libs/types/types.js";
 
@@ -36,7 +36,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 
 		return ActivityEntity.initialize({
 			actionId: activityModel.actionId,
-			commentCount: EMPTY_COMMENT_COUNT,
+			commentCount: EMPTY_COUNT,
 			id: activityModel.id,
 			payload: activityModel.payload,
 			type: activityModel.type,

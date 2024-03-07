@@ -1,1 +1,1 @@
-export { EMPTY_COMMENT_COUNT } from "./empty-comment-count.constant.js";
+export { EMPTY_COUNT } from "./empty-count.constant.js";
