@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.17.0...shared-v1.18.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add notifications tm-198 ([#259](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/259)) ([4f28983](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4f28983e6df7a324099d3960d09486f527fd02ae))
+
 ## [1.17.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.16.0...shared-v1.17.0) (2024-03-06)
 
 
