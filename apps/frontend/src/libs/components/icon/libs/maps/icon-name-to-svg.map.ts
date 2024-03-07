@@ -4,10 +4,12 @@ import BackIcon from "~/assets/icons/back.svg?react";
 import BackArrowIcon from "~/assets/icons/back-arrow.svg?react";
 import BurgerIcon from "~/assets/icons/burger.svg?react";
 import ChatsIcon from "~/assets/icons/chats.svg?react";
+import CommentIcon from "~/assets/icons/comment.svg?react";
 import CrossIcon from "~/assets/icons/cross.svg?react";
 import EyeIcon from "~/assets/icons/eye.svg?react";
 import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
 import HomeIcon from "~/assets/icons/home.svg?react";
+import LikeIcon from "~/assets/icons/like.svg?react";
 import LogOutIcon from "~/assets/icons/log-out.svg?react";
 import MessageIcon from "~/assets/icons/message.svg?react";
 import NotificationIcon from "~/assets/icons/notification.svg?react";
@@ -27,10 +29,12 @@ const iconNameToSvg: Record<
 	backArrow: BackArrowIcon,
 	burger: BurgerIcon,
 	chats: ChatsIcon,
+	comment: CommentIcon,
 	cross: CrossIcon,
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
+	like: LikeIcon,
 	logOut: LogOutIcon,
 	message: MessageIcon,
 	notification: NotificationIcon,

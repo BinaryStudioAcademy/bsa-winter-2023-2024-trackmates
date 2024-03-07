@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.19.0...shared-v1.20.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add likes to feed tm-159 ([#378](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/378)) ([b3e7ad5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b3e7ad5a080fea31c2a8d90700437cf9feba8e10))
+
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.18.0...shared-v1.19.0) (2024-03-07)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed comment tm-308 ([#387](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/387)) ([2aff1ca](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2aff1ca6b2a7b0e1640ee9b736322b647516d965))
+
 ## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.17.0...shared-v1.18.0) (2024-03-07)
 
 

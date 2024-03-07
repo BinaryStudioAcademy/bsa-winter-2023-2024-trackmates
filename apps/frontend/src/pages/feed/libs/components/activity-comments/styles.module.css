@@ -1,0 +1,11 @@
+.container {
+	padding: 10px 12px 24px;
+}
+
+.comments-container {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	width: 100%;
+	margin-bottom: 16px;
+}

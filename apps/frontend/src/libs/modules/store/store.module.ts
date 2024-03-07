@@ -20,6 +20,7 @@ import {
 	reducer as chatMessagesReducer,
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
+import { commentApi } from "~/modules/comments/comments.js";
 import {
 	courseSectionsApi,
 	reducer as courseSectionsReducer,
@@ -79,6 +80,7 @@ type ExtraArguments = {
 	authApi: typeof authApi;
 	chatMessagesApi: typeof chatMessagesApi;
 	chatsApi: typeof chatsApi;
+	commentApi: typeof commentApi;
 	courseApi: typeof courseApi;
 	courseSectionsApi: typeof courseSectionsApi;
 	filesApi: typeof filesApi;
@@ -140,6 +142,7 @@ class Store {
 			authApi,
 			chatMessagesApi,
 			chatsApi,
+			commentApi,
 			courseApi,
 			courseSectionsApi,
 			filesApi,

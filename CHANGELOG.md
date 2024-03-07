@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.44.1...v1.45.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add likes to feed tm-159 ([#378](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/378)) ([b3e7ad5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b3e7ad5a080fea31c2a8d90700437cf9feba8e10))
+
+## [1.44.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.44.0...v1.44.1) (2024-03-07)
+
+
+### Bug Fixes
+
+* **frontend:** The "YouTube" character is overlaid on extralong names at certain screen widths tm-330 ([#392](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/392)) ([7b059e3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7b059e39aa0182f446c46bf72ed53488cbb9b022))
+
+## [1.44.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.43.1...v1.44.0) (2024-03-07)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed comment tm-308 ([#387](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/387)) ([2aff1ca](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2aff1ca6b2a7b0e1640ee9b736322b647516d965))
+
 ## [1.43.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.43.0...v1.43.1) (2024-03-07)
 
 
