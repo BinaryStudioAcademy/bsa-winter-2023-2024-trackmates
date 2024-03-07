@@ -21,6 +21,7 @@ export {
 	getPercentage,
 	getSanitizedHtml,
 	getSizeInBytes,
+	getTimeDistanceFormatDate,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
@@ -135,6 +136,15 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	type AllNotificationsResponseDto,
+	type CreateNotificationRequestDto,
+	NotificationError,
+	type NotificationResponseDto,
+	NotificationStatus,
+	NotificationType,
+	type UpdateNotificationRequestDto,
+} from "./modules/notifications/notifications.js";
+export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
 	SectionStatusError,
@@ -154,6 +164,11 @@ export {
 	userCourseGetAllQueryValidationSchema,
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
+export {
+	type ReadNotificationsRequestDto,
+	UserNotificationsApiPath,
+	readNotificationsRequestValidationSchema,
+} from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,

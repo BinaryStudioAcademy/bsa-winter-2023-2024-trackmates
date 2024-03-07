@@ -14,6 +14,7 @@ import { fileController } from "~/modules/files/files.js";
 import { friendController } from "~/modules/friends/friends.js";
 import { sectionStatusController } from "~/modules/section-statuses/section-statuses.js";
 import { userCourseController } from "~/modules/user-courses/user-courses.js";
+import { userNotificationController } from "~/modules/user-notifications/user-notifications.js";
 import { userController, userService } from "~/modules/users/users.js";
 import { vendorController } from "~/modules/vendors/vendors.js";
 
@@ -33,6 +34,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...fileController.routes,
 	...friendController.routes,
 	...userController.routes,
+	...userNotificationController.routes,
 	...courseSectionController.routes,
 	...sectionStatusController.routes,
 	...commentController.routes,

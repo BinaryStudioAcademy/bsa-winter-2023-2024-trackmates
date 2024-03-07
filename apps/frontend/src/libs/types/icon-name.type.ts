@@ -12,6 +12,7 @@ type IconName =
 	| "home"
 	| "logOut"
 	| "message"
+	| "notification"
 	| "pie"
 	| "plus"
 	| "plusOutlined"

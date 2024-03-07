@@ -126,6 +126,16 @@ erDiagram
     text text
    }
 
+   notifications {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int receiver_user_id FK
+    int user_id FK
+    enum status
+    enum type
+   }
+
    activities {
     int id PK
     dateTime created_at
@@ -171,6 +181,8 @@ erDiagram
    comments }|--|| activities : activity_id
    comments }|--|| users : user_id
 
+   users ||--|{ notifications : receiver_user_id
+   users ||--|{ notifications : user_id
 ```
 
 ## 5. Architecture
