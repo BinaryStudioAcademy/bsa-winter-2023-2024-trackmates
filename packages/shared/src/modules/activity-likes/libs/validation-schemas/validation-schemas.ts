@@ -1,1 +1,1 @@
-export { activityLikePut } from "./activity-like-put.validation-schema.js";
+export { activityLikeChange } from "./activity-like-change.validation-schema.js";

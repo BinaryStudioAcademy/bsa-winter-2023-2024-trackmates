@@ -1,5 +1,5 @@
-export { type ActivityModelWithLikes } from "./activity-model-with-likes.type.js";
 export {
+	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
 	type ActivityGetAllResponseDto,

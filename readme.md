@@ -145,7 +145,7 @@ erDiagram
     text payload
    }
 
-   activity_likes{
+   activity_likes {
     int id PK
     dateTime created_at
     dateTime updated_at

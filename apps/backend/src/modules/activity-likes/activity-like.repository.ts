@@ -13,11 +13,12 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 	public async create(
 		activityLike: ActivityLikeEntity,
 	): Promise<ActivityLikeEntity> {
+		const { activityId, userId } = activityLike.toNewObject();
+
 		const activityLikeModel = await this.activityLikeModel
 			.query()
-			.insert(activityLike.toNewObject())
+			.insert({ activityId, userId })
 			.returning("*")
-			.castTo<ActivityLikeModel>()
 			.execute();
 
 		return ActivityLikeEntity.initialize({
@@ -93,25 +94,21 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 	public async update(
 		id: number,
 		entity: ActivityLikeEntity,
-	): Promise<ActivityLikeEntity | null> {
+	): Promise<ActivityLikeEntity> {
 		const activityLike = entity.toNewObject();
+
 		const activityLikeModel = await this.activityLikeModel
 			.query()
-			.findById(id)
-			.patch(activityLike)
-			.returning("*")
-			.castTo<ActivityLikeModel | undefined>()
+			.patchAndFetchById(id, activityLike)
 			.execute();
 
-		return activityLikeModel
-			? ActivityLikeEntity.initialize({
-					activityId: activityLikeModel.activityId,
-					createdAt: activityLikeModel.createdAt,
-					id: activityLikeModel.id,
-					updatedAt: activityLikeModel.updatedAt,
-					userId: activityLikeModel.userId,
-				})
-			: null;
+		return ActivityLikeEntity.initialize({
+			activityId: activityLikeModel.activityId,
+			createdAt: activityLikeModel.createdAt,
+			id: activityLikeModel.id,
+			updatedAt: activityLikeModel.updatedAt,
+			userId: activityLikeModel.userId,
+		});
 	}
 }
 

@@ -1,2 +1,2 @@
 export { type ActivityLikeRequestDto } from "./libs/types/types.js";
-export { activityLikePut as activityLikePutValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+export { activityLikeChange as activityLikeChangeValidationSchema } from "./libs/validation-schemas/validation-schemas.js";

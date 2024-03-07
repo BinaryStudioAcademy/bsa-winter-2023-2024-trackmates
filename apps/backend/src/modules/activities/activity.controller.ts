@@ -8,7 +8,7 @@ import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import {
 	type ActivityLikeRequestDto,
-	activityLikePutValidationSchema,
+	activityLikeChangeValidationSchema,
 } from "~/modules/activity-likes/activity-likes.js";
 import { type SectionStatusService } from "~/modules/section-statuses/section-statuses.js";
 
@@ -118,10 +118,10 @@ class ActivityController extends BaseController {
 					}>,
 				);
 			},
-			method: "PUT",
+			method: "PATCH",
 			path: ActivitiesApiPath.LIKE,
 			validation: {
-				body: activityLikePutValidationSchema,
+				body: activityLikeChangeValidationSchema,
 			},
 		});
 	}
@@ -247,7 +247,7 @@ class ActivityController extends BaseController {
 	/**
 	 * @swagger
 	 * /activities/like:
-	 *    put:
+	 *    patch:
 	 *      description: Set like reaction for a specific activity
 	 *      tags:
 	 *        - Activities

@@ -1,5 +1,6 @@
 export { ActivitiesApiPath, ActivityType } from "./libs/enums/enums.js";
 export {
+	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
 	type ActivityGetAllResponseDto,

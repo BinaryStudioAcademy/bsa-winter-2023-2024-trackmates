@@ -52,6 +52,7 @@ class ActivityEntity implements Entity {
 	public static initialize({
 		actionId,
 		id,
+		likesCount,
 		payload,
 		type,
 		updatedAt,
@@ -60,6 +61,7 @@ class ActivityEntity implements Entity {
 	}: {
 		actionId: number;
 		id: number;
+		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
@@ -69,7 +71,7 @@ class ActivityEntity implements Entity {
 		return new ActivityEntity({
 			actionId,
 			id,
-			likesCount: null,
+			likesCount,
 			payload,
 			type,
 			updatedAt,
@@ -97,37 +99,6 @@ class ActivityEntity implements Entity {
 			type,
 			updatedAt: "",
 			user: null,
-			userId,
-		});
-	}
-
-	public static initializeWithReactionsCount({
-		actionId,
-		id,
-		likesCount,
-		payload,
-		type,
-		updatedAt,
-		user,
-		userId,
-	}: {
-		actionId: number;
-		id: number;
-		likesCount: number;
-		payload: unknown;
-		type: ValueOf<typeof ActivityType>;
-		updatedAt: string;
-		user: UserEntity | null;
-		userId: number;
-	}): ActivityEntity {
-		return new ActivityEntity({
-			actionId,
-			id,
-			likesCount,
-			payload,
-			type,
-			updatedAt,
-			user,
 			userId,
 		});
 	}
@@ -175,10 +146,10 @@ class ActivityEntity implements Entity {
 		};
 	}
 
-	public toObjectWithReactionsCount(): {
+	public toObjectWithRelationsAndCounts(): {
 		actionId: number;
 		id: number;
-		likesCount: number;
+		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
 		updatedAt: string;
@@ -197,7 +168,7 @@ class ActivityEntity implements Entity {
 		return {
 			actionId: this.actionId,
 			id: this.id as number,
-			likesCount: this.likesCount as number,
+			likesCount: Number(this.likesCount),
 			payload: this.payload,
 			type: this.type,
 			updatedAt: this.updatedAt,

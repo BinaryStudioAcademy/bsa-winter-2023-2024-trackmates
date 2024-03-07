@@ -48,6 +48,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
+	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
 	type ActivityGetAllResponseDto,
@@ -60,7 +61,7 @@ export {
 } from "./modules/activities/activities.js";
 export {
 	type ActivityLikeRequestDto,
-	activityLikePutValidationSchema,
+	activityLikeChangeValidationSchema,
 } from "./modules/activity-likes/activity-likes.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {

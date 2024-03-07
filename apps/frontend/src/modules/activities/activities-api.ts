@@ -43,7 +43,7 @@ class ActivitiesApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "PUT",
+				method: "PATCH",
 				payload: JSON.stringify(payload),
 			},
 		);
