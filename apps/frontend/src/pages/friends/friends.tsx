@@ -1,94 +1,44 @@
 import { Link } from "~/libs/components/components.js";
-import { AppRoute, AppTitle, PaginationValue } from "~/libs/enums/enums.js";
+import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useAppSelector,
-	useAppTitle,
-	useEffect,
-	useLocation,
-	usePagination,
-} from "~/libs/hooks/hooks.js";
-import { actions } from "~/modules/friends/friends.js";
+import { useAppTitle, useLocation } from "~/libs/hooks/hooks.js";
+import { actions, useLoadFriends } from "~/modules/friends/friends.js";
 
 import { FriendsTab } from "./libs/components/components.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
-const PAGINATION_PAGES_CUT_COUNT = 5;
-
 const Friends: React.FC = () => {
 	useAppTitle(AppTitle.FRIENDS);
 
 	const { pathname } = useLocation();
-	const dispatch = useAppDispatch();
 
-	const potentialFriendsData = useAppSelector((state) => {
-		return {
-			items: state.friends.potentialFriends,
-			total: state.friends.potentialFriendsTotalCount,
-		};
-	});
-	const potentialFriendsPagination = usePagination({
-		pageSize: PaginationValue.DEFAULT_COUNT,
-		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount: potentialFriendsData.total,
-	});
-	useEffect(() => {
-		void dispatch(
-			actions.getPotentialFriends({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: potentialFriendsPagination.page,
-			}),
-		);
-	}, [dispatch, potentialFriendsPagination.page]);
+	const { items: potentialFriends, pagination: potentialFriendsPagination } =
+		useLoadFriends({
+			itemsKey: "potentialFriends",
+			loadAction: actions.getPotentialFriends,
+			totalKey: "potentialFriendsTotalCount",
+		});
 
-	const followersData = useAppSelector((state) => {
-		return {
-			items: state.friends.followers,
-			total: state.friends.followersTotalCount,
-		};
+	const { items: followers, pagination: followersPagination } = useLoadFriends({
+		itemsKey: "followers",
+		loadAction: actions.getFollowers,
+		totalKey: "followersTotalCount",
 	});
-	const followersPagination = usePagination({
-		pageSize: PaginationValue.DEFAULT_COUNT,
-		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount: followersData.total,
-	});
-	useEffect(() => {
-		void dispatch(
-			actions.getFollowers({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: followersPagination.page,
-			}),
-		);
-	}, [dispatch, followersPagination.page]);
 
-	const followingsData = useAppSelector((state) => {
-		return {
-			items: state.friends.followings,
-			total: state.friends.followingsTotalCount,
-		};
-	});
-	const followingsPagination = usePagination({
-		pageSize: PaginationValue.DEFAULT_COUNT,
-		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount: followingsData.total,
-	});
-	useEffect(() => {
-		void dispatch(
-			actions.getFollowings({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: followingsPagination.page,
-			}),
-		);
-	}, [dispatch, followingsPagination.page]);
+	const { items: followings, pagination: followingsPagination } =
+		useLoadFriends({
+			itemsKey: "followings",
+			loadAction: actions.getFollowings,
+			totalKey: "followingsTotalCount",
+		});
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.FRIENDS: {
 				return (
 					<FriendsTab
-						items={potentialFriendsData.items}
+						items={potentialFriends}
 						pagination={potentialFriendsPagination}
 					/>
 				);
@@ -96,19 +46,13 @@ const Friends: React.FC = () => {
 
 			case AppRoute.FRIENDS_FOLLOWERS: {
 				return (
-					<FriendsTab
-						items={followersData.items}
-						pagination={followersPagination}
-					/>
+					<FriendsTab items={followers} pagination={followersPagination} />
 				);
 			}
 
 			case AppRoute.FRIENDS_FOLLOWINGS: {
 				return (
-					<FriendsTab
-						items={followingsData.items}
-						pagination={followingsPagination}
-					/>
+					<FriendsTab items={followings} pagination={followingsPagination} />
 				);
 			}
 		}

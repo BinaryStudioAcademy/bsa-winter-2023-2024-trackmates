@@ -11,4 +11,5 @@ const friendsApi = new FriendsApi({
 });
 
 export { friendsApi };
+export { useLoadFriends } from "./libs/hooks/hooks.js";
 export { actions, reducer } from "./slices/friends.js";
