@@ -197,7 +197,61 @@ erDiagram
 
 ## 5. Architecture
 
-TODO: add application schema
+```mermaid
+graph LR
+
+   subgraph TrackMates
+      subgraph Web
+         Web_image("<img src='./docs/application-schema/web.jpeg'; /> ")
+      end
+
+      subgraph Mobile
+         Mobile_image("<img src='./docs/application-schema/mobile.jpeg'; /> ")
+      end
+   end
+
+   subgraph Route53
+      Route53_image("<img src='./docs/application-schema/route53.png'; />")
+   end
+
+   subgraph ELB["Elastic Load Balancer (ELB)"]
+      ELB_image("<img src='./docs/application-schema/elb.png'; />")
+   end
+
+   subgraph EC2["Amazon EC2 Instance"]
+      EC2_image("<img src='./docs/application-schema/ec2.png'; />")
+   end
+
+   subgraph NodeJS
+      NodeJS_image("<img src='./docs/application-schema/nodejs.png'; />")
+   end
+
+   subgraph RDS["PostgreSQL Database"]
+      RDS_image("<img src='./docs/application-schema/rds.png'; />")
+   end
+
+   subgraph S3["Amazon S3 Storage"]
+      S3_image("<img src='./docs/application-schema/s3.png'; />")
+   end
+
+   subgraph OpenAI["OpenAI API"]
+      OpenAI_image("<img src='./docs/application-schema/open-ai.webp';  />")
+   end
+
+   subgraph Udemy["Udemy API"]
+      Udemy_image("<img src='./docs/application-schema/udemy.jpeg'; />")
+   end
+
+   TrackMates -->|Connects to| Route53
+   Mobile-->|Connects to| Route53
+   Route53 -->|Sends traffic to| ELB
+   ELB -->|Reroutes traffic to| EC2
+   EC2 -->|Connects to| RDS
+   EC2 -->|Connects to| S3
+   EC2 -->|Uses| NodeJS
+   EC2 -->|Connects to| OpenAI
+   EC2 -->|Connects to| Udemy
+```
 
 ### 5.1 Global
 
