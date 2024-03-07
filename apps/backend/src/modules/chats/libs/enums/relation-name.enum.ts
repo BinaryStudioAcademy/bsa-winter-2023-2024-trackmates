@@ -1,4 +1,5 @@
 const RelationName = {
+	AVATAR_FILE: "avatarFile",
 	FIRST_USER: "firstUser",
 	LAST_MESSAGE: "lastMessage",
 	MESSAGES: "messages",

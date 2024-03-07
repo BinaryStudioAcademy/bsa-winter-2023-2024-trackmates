@@ -1,9 +1,16 @@
+import { Fragment } from "react";
+
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image, Loader } from "~/libs/components/components.js";
+import { Button, Image, Loader } from "~/libs/components/components.js";
+import { LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
+import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
+import { actions } from "~/modules/chats/chats.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
+import { checkIsDateBefore } from "../../helpers/helpers.js";
+import { ChatDate } from "../chat-date/chat-date.js";
 import { ChatForm } from "../chat-form/chat-form.js";
 import { ChatMessage } from "../chat-message/chat-message.js";
 import styles from "./styles.module.css";
@@ -21,28 +28,77 @@ const Chat: React.FC<Properties> = ({
 	onSubmit,
 	receiver,
 }: Properties) => {
+	const dispatch = useAppDispatch();
+
+	const handleClick = useCallback((): void => {
+		dispatch(actions.leaveChat());
+	}, [dispatch]);
+
+	let lastDate = "";
+
 	return (
 		<div className={styles["container"]}>
-			<div className={styles["user-container"]}>
-				<div className={styles["image-container"]}>
-					<Image
-						alt="User avatar"
-						height="40"
-						shape="circle"
-						src={receiver.avatarUrl ?? defaultAvatar}
-						width="40"
-					/>
+			<div className={styles["nav-container"]}>
+				<Button
+					className={styles["back-button"]}
+					hasVisuallyHiddenLabel
+					iconClassName={styles["back-button-icon"]}
+					iconName="backArrow"
+					label="Back to overview"
+					onClick={handleClick}
+					size="small"
+				/>
+
+				<div className={styles["user-container"]}>
+					<div className={styles["image-container"]}>
+						<Image
+							alt="User avatar"
+							height="48"
+							shape="circle"
+							src={receiver.avatarUrl ?? defaultAvatar}
+							width="48"
+						/>
+					</div>
+					<span
+						className={styles["full-name"]}
+					>{`${receiver.firstName} ${receiver.lastName}`}</span>
 				</div>
-				<span>{`${receiver.firstName} ${receiver.lastName}`}</span>
 			</div>
 			<ul className={styles["chat-container"]}>
-				{messages.map((message) => (
-					<ChatMessage
-						isCurrentUserSender={receiver.id !== message.senderUser.id}
-						key={message.id}
-						message={message}
+				{messages.map((message) => {
+					if (checkIsDateBefore(message.createdAt, lastDate)) {
+						const previous = lastDate;
+						lastDate = message.createdAt;
+
+						return (
+							<Fragment key={message.id}>
+								<ChatDate date={previous} />
+								<ChatMessage
+									isCurrentUserSender={receiver.id !== message.senderUser.id}
+									message={message}
+								/>
+							</Fragment>
+						);
+					}
+
+					lastDate = message.createdAt;
+
+					return (
+						<ChatMessage
+							isCurrentUserSender={receiver.id !== message.senderUser.id}
+							key={message.id}
+							message={message}
+						/>
+					);
+				})}
+				{messages.at(LAST_ARRAY_ITEM) && (
+					<ChatDate
+						date={
+							(messages.at(LAST_ARRAY_ITEM) as ChatMessageItemResponseDto)
+								.createdAt
+						}
 					/>
-				))}
+				)}
 			</ul>
 			{isMessageLoading && (
 				<div className={styles["loader"]}>

@@ -147,7 +147,7 @@ class ChatRepository implements Repository<ChatEntity> {
 					.andWhere({ firstUserId: userId });
 			})
 			.withGraphJoined(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.LAST_MESSAGE}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.LAST_MESSAGE}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
 			)
 			.orderBy(`${RelationName.LAST_MESSAGE}:id`, "desc")
 			.castTo<
@@ -292,7 +292,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			.query()
 			.findById(id)
 			.withGraphFetched(
-				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}, ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
+				`[${RelationName.FIRST_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.SECOND_USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.MESSAGES}.${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}]`,
 			)
 			.modifyGraph<ChatMessageModel>(RelationName.MESSAGES, (builder) => {
 				void builder.orderBy("id", "desc");
