@@ -18,11 +18,11 @@ class SocketService {
 	}
 
 	private notificationHandler(socket: Socket): void {
-		socket.on(SocketEvent.NOTIFICATION_JOIN_ROOM, (userId: string) => {
+		socket.on(SocketEvent.NOTIFICATIONS_JOIN_ROOM, (userId: string) => {
 			void socket.join(userId);
 		});
 
-		socket.on(SocketEvent.NOTIFICATION_LEAVE_ROOM, (userId: string) => {
+		socket.on(SocketEvent.NOTIFICATIONS_LEAVE_ROOM, (userId: string) => {
 			void socket.leave(userId);
 		});
 	}
@@ -47,7 +47,7 @@ class SocketService {
 			.of(SocketNamespace.CHAT)
 			.on(SocketEvent.CONNECTION, this.chatMessageHandler.bind(this));
 		this.io
-			.of(SocketNamespace.NOTIFICATION)
+			.of(SocketNamespace.NOTIFICATIONS)
 			.on(SocketEvent.CONNECTION, this.notificationHandler.bind(this));
 	}
 }

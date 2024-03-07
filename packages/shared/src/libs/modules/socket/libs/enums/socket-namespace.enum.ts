@@ -1,6 +1,6 @@
 const SocketNamespace = {
 	CHAT: "/chat",
-	NOTIFICATION: "/notification",
+	NOTIFICATIONS: "/notifications",
 } as const;
 
 export { SocketNamespace };

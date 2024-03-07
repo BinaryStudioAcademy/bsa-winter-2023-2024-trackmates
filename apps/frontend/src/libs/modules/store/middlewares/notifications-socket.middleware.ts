@@ -15,12 +15,12 @@ const notificationsSocket = ({
 	extra: ExtraArguments;
 }): Middleware<unknown, RootState, AppDispatch> => {
 	const notificationsSocketInstance = socket.getInstance(
-		SocketNamespace.NOTIFICATION,
+		SocketNamespace.NOTIFICATIONS,
 	);
 
 	return ({ dispatch }) => {
 		notificationsSocketInstance.on(
-			SocketEvent.NOTIFICATION_NEW_FOLLOWER,
+			SocketEvent.NOTIFICATIONS_NEW_FOLLOWER,
 			() => {
 				void dispatch(userNotificationsActions.getUserNotifications());
 				void dispatch(
@@ -36,7 +36,7 @@ const notificationsSocket = ({
 					action.type === userNotificationsActions.joinRoom.type
 				) {
 					notificationsSocketInstance.emit(
-						SocketEvent.NOTIFICATION_JOIN_ROOM,
+						SocketEvent.NOTIFICATIONS_JOIN_ROOM,
 						(action as PayloadAction<string>).payload,
 					);
 				}
@@ -46,7 +46,7 @@ const notificationsSocket = ({
 					action.type === userNotificationsActions.leaveRoom.type
 				) {
 					notificationsSocketInstance.emit(
-						SocketEvent.NOTIFICATION_LEAVE_ROOM,
+						SocketEvent.NOTIFICATIONS_LEAVE_ROOM,
 						(action as PayloadAction<string>).payload,
 					);
 				}

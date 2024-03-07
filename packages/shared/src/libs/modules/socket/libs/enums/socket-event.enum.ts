@@ -3,9 +3,9 @@ const SocketEvent = {
 	CHAT_JOIN_ROOM: "chat-join-room",
 	CHAT_LEAVE_ROOM: "chat-leave-room",
 	CONNECTION: "connection",
-	NOTIFICATION_JOIN_ROOM: "notification-join-room",
-	NOTIFICATION_LEAVE_ROOM: "notification-leave-room",
-	NOTIFICATION_NEW_FOLLOWER: "notification-new-follower",
+	NOTIFICATIONS_JOIN_ROOM: "notifications-join-room",
+	NOTIFICATIONS_LEAVE_ROOM: "notifications-leave-room",
+	NOTIFICATIONS_NEW_FOLLOWER: "notifications-new-follower",
 } as const;
 
 export { SocketEvent };

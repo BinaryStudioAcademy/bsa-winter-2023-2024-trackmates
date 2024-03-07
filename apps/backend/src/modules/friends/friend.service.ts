@@ -67,10 +67,10 @@ class FriendService {
 		});
 
 		this.socketService.emitMessage({
-			event: SocketEvent.NOTIFICATION_NEW_FOLLOWER,
+			event: SocketEvent.NOTIFICATIONS_NEW_FOLLOWER,
 			payload: notification,
 			receiversIds: [String(notification.userId), String(receiverId)],
-			targetNamespace: SocketNamespace.NOTIFICATION,
+			targetNamespace: SocketNamespace.NOTIFICATIONS,
 		});
 
 		return followingUser.toObject();
