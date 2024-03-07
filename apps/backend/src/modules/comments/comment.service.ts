@@ -37,16 +37,7 @@ class CommentService implements Service {
 		return comment.toObjectWithRelations();
 	}
 
-	public async delete(id: number, userId: number): Promise<boolean> {
-		const commentToDelete = await this.find(id);
-
-		if (commentToDelete.userId !== userId) {
-			throw new CommentError({
-				message: ExceptionMessage.NO_PERMISSION,
-				status: HTTPCode.NOT_FOUND,
-			});
-		}
-
+	public async delete(id: number): Promise<boolean> {
 		return await this.commentRepository.delete(id);
 	}
 
