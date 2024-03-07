@@ -8,35 +8,6 @@ import { FriendsTab } from "./friends-tab.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
-// type State = ReturnType<typeof store.instance.getState>;
-
-// const friendsSelector = (
-// 	state: State,
-// ): PaginationResponseDto<UserAuthResponseDto> => {
-// 	return {
-// 		items: state.friends.potentialFriends,
-// 		total: state.friends.potentialFriendsTotalCount,
-// 	};
-// };
-
-// const followersSelector = (
-// 	state: State,
-// ): PaginationResponseDto<UserAuthResponseDto> => {
-// 	return {
-// 		items: state.friends.followers,
-// 		total: state.friends.followersTotalCount,
-// 	};
-// };
-
-// const followingsSelector = (
-// 	state: State,
-// ): PaginationResponseDto<UserAuthResponseDto> => {
-// 	return {
-// 		items: state.friends.followings,
-// 		total: state.friends.followingsTotalCount,
-// 	};
-// };
-
 const Friends: React.FC = () => {
 	useAppTitle(AppTitle.FRIENDS);
 

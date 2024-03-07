@@ -9,7 +9,6 @@ import {
 	usePagination,
 } from "~/libs/hooks/hooks.js";
 import {
-	// RootState,
 	type AsyncThunkConfig,
 	type PaginationRequestDto,
 	type PaginationResponseDto,
