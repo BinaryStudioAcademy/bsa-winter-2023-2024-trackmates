@@ -7,8 +7,8 @@ import {
 	useEffect,
 	usePagination,
 } from "~/libs/hooks/hooks.js";
-import { type AsyncThunkConfig } from "~/libs/types/async-thunk-config.type.js";
 import {
+	type AsyncThunkConfig,
 	type PaginationRequestDto,
 	type PaginationResponseDto,
 } from "~/libs/types/types.js";
