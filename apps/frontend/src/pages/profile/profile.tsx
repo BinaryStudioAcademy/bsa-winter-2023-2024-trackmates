@@ -8,6 +8,7 @@ import {
 	Select,
 } from "~/libs/components/components.js";
 import { AppTitle } from "~/libs/enums/enums.js";
+import { convertKebabCaseToRegularString } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -95,7 +96,7 @@ const Profile: React.FC = () => {
 	const sexSelectOptions = useMemo<Option[]>(() => {
 		return Object.values(UserSex).map((sex) => {
 			return {
-				label: sex,
+				label: convertKebabCaseToRegularString(sex, { capitalize: true }),
 				value: sex,
 			};
 		});
