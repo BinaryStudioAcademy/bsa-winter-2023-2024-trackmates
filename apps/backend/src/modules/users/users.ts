@@ -14,6 +14,7 @@ const userController = new UserController(logger, userService);
 export { userController, userRepository, userService };
 export {
 	type UserAuthResponseDto,
+	type UserDetailsResponseDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,

@@ -1,8 +1,16 @@
-import { loadActivities } from "./actions.js";
+import {
+	createComment,
+	getAllCommentsToActivity,
+	likeActivity,
+	loadActivities,
+} from "./actions.js";
 import { actions } from "./activities.slice.js";
 
 const allActions = {
 	...actions,
+	createComment,
+	getAllCommentsToActivity,
+	likeActivity,
 	loadActivities,
 };
 

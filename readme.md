@@ -135,7 +135,6 @@ erDiagram
     enum status
     enum type
    }
-
    activities {
     int id PK
     dateTime created_at
@@ -145,6 +144,23 @@ erDiagram
     int user_id FK
     text payload
    }
+
+   activity_likes {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int activity_id FK
+    int user_id FK
+   }
+
+  comments {
+    int id PK
+    dateTime created_at
+    dateTime update_at
+    text text
+    int user_id FK
+    int activity_id FK
+  }
 
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
@@ -168,6 +184,12 @@ erDiagram
    section_statuses }|--|| course_sections : course_section_id
    section_statuses }|--|| users : user_id
    activities }|--|| users : user_id
+
+   users ||--|{ activity_likes : user_id
+   activities ||--|{ activity_likes : activity_id
+
+   comments }|--|| activities : activity_id
+   comments }|--|| users : user_id
 
    users ||--|{ notifications : receiver_user_id
    users ||--|{ notifications : user_id
