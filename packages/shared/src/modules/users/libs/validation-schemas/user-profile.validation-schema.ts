@@ -1,13 +1,10 @@
 import { z } from "zod";
 
-import { type ValueOf } from "../../../../libs/types/types.js";
 import {
 	UserSex,
 	UserValidationMessage,
 	UserValidationRule,
 } from "../enums/enums.js";
-
-type UserSexValuesType = ValueOf<typeof UserSex>;
 
 type UserProfileRequestValidationDto = {
 	firstName: z.ZodString;
@@ -18,7 +15,7 @@ type UserProfileRequestValidationDto = {
 			z.ZodUnion<[z.ZodString, z.ZodLiteral<null>]>
 		>
 	>;
-	sex: z.ZodNullable<z.ZodEnum<[UserSexValuesType, ...UserSexValuesType[]]>>;
+	sex: z.ZodNullable<z.ZodNativeEnum<typeof UserSex>>;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
@@ -103,9 +100,7 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 				.or(z.literal(null)),
 		)
 		.nullable(),
-	sex: z
-		.enum([UserSex.MALE, UserSex.FEMALE, UserSex.PREFER_NOT_TO_SAY])
-		.nullable(),
+	sex: z.nativeEnum(UserSex).nullable(),
 });
 
 export { userProfile };

@@ -1,6 +1,12 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
-import { Button, Image, Input, Select } from "~/libs/components/components.js";
+import {
+	Button,
+	Image,
+	Input,
+	type Option,
+	Select,
+} from "~/libs/components/components.js";
 import { AppTitle } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -8,6 +14,7 @@ import {
 	useAppSelector,
 	useAppTitle,
 	useCallback,
+	useMemo,
 	useRef,
 } from "~/libs/hooks/hooks.js";
 import { actions as filesActions } from "~/modules/files/files.js";
@@ -85,6 +92,15 @@ const Profile: React.FC = () => {
 
 	useAppTitle(AppTitle.PROFILE);
 
+	const sexSelectOptions = useMemo<Option[]>(() => {
+		return Object.values(UserSex).map((sex) => {
+			return {
+				label: sex,
+				value: sex,
+			};
+		});
+	}, []);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -141,19 +157,13 @@ const Profile: React.FC = () => {
 								type="text"
 							/>
 							<Select
-								color="light"
 								control={control}
 								errors={errors}
 								label="Sex"
 								name="sex"
+								options={sexSelectOptions}
 								placeholder="Select sex"
-							>
-								<option value={UserSex.MALE}>{UserSex.MALE}</option>
-								<option value={UserSex.FEMALE}>{UserSex.FEMALE}</option>
-								<option value={UserSex.PREFER_NOT_TO_SAY}>
-									{UserSex.PREFER_NOT_TO_SAY}
-								</option>
-							</Select>
+							/>
 						</fieldset>
 					</div>
 					<Image

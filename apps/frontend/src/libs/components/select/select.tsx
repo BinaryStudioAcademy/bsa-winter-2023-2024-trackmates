@@ -8,29 +8,26 @@ import {
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
 
+import { type Option } from "./libs/types/types.js";
 import styles from "./styles.module.css";
 
 type Properties<T extends FieldValues> = {
-	children: React.ReactNode;
-	className?: string | undefined;
-	color?: "dark" | "light";
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
 	hasVisuallyHiddenLabel?: boolean;
 	label: string;
 	name: FieldPath<T>;
+	options: Option[];
 	placeholder?: string;
 };
 
 const Select = <T extends FieldValues>({
-	children,
-	className,
-	color = "light",
 	control,
 	errors,
 	hasVisuallyHiddenLabel,
 	label,
 	name,
+	options,
 	placeholder = "",
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
@@ -39,9 +36,7 @@ const Select = <T extends FieldValues>({
 	const hasError = Boolean(error);
 
 	const selectClasses = getValidClassNames(
-		className,
 		styles["select"],
-		styles[color],
 		hasError && styles["error-input"],
 	);
 	const labelClasses = getValidClassNames(
@@ -58,7 +53,11 @@ const Select = <T extends FieldValues>({
 				<option disabled hidden value="">
 					{placeholder}
 				</option>
-				{children}
+				{options.map((option) => (
+					<option key={option.value} value={option.value}>
+						{option.label}
+					</option>
+				))}
 			</select>
 			{hasError && <span className={styles["error"]}>{error as string}</span>}
 		</label>
@@ -66,3 +65,4 @@ const Select = <T extends FieldValues>({
 };
 
 export { Select };
+export { type Option } from "./libs/types/types.js";
