@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.34.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.34.0...frontend-v1.34.1) (2024-03-07)
+
+
+### Bug Fixes
+
+* **frontend:** The "YouTube" character is overlaid on extralong names at certain screen widths tm-330 ([#392](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/392)) ([7b059e3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7b059e39aa0182f446c46bf72ed53488cbb9b022))
+
+## [1.34.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.33.1...frontend-v1.34.0) (2024-03-07)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed comment tm-308 ([#387](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/387)) ([2aff1ca](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2aff1ca6b2a7b0e1640ee9b736322b647516d965))
+
+## [1.33.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.33.0...frontend-v1.33.1) (2024-03-07)
+
+
+### Bug Fixes
+
+* **frontend:** The element on the Friend profile section move regarding the user name tm-327 ([#365](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/365)) ([954336d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/954336d9b2f40d31c131e8291147e2139c919bb2))
+
+## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.32.0...frontend-v1.33.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add notifications tm-198 ([#259](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/259)) ([4f28983](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4f28983e6df7a324099d3960d09486f527fd02ae))
+
 ## [1.32.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.31.1...frontend-v1.32.0) (2024-03-06)
 
 

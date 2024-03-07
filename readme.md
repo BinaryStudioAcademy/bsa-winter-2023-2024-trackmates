@@ -126,6 +126,16 @@ erDiagram
     text text
    }
 
+   notifications {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int receiver_user_id FK
+    int user_id FK
+    enum status
+    enum type
+   }
+
    activities {
     int id PK
     dateTime created_at
@@ -135,6 +145,15 @@ erDiagram
     int user_id FK
     text payload
    }
+
+  comments {
+    int id PK
+    dateTime created_at
+    dateTime update_at
+    text text
+    int user_id FK
+    int activity_id FK
+  }
 
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
@@ -159,6 +178,11 @@ erDiagram
    section_statuses }|--|| users : user_id
    activities }|--|| users : user_id
 
+   comments }|--|| activities : activity_id
+   comments }|--|| users : user_id
+
+   users ||--|{ notifications : receiver_user_id
+   users ||--|{ notifications : user_id
 ```
 
 ## 5. Architecture

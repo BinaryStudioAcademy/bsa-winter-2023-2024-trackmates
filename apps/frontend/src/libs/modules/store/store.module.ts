@@ -20,6 +20,7 @@ import {
 	reducer as chatMessagesReducer,
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
+import { commentApi } from "~/modules/comments/comments.js";
 import {
 	courseSectionsApi,
 	reducer as courseSectionsReducer,
@@ -41,6 +42,10 @@ import {
 	userCourseApi,
 	reducer as userCoursesReducer,
 } from "~/modules/user-courses/user-courses.js";
+import {
+	userNotificationsApi,
+	reducer as userNotificationsReducer,
+} from "~/modules/user-notifications/user-notifications.js";
 import { userApi, reducer as usersReducer } from "~/modules/users/users.js";
 import {
 	vendorApi,
@@ -61,6 +66,7 @@ type RootReducer = {
 	friends: ReturnType<typeof friendsReducer>;
 	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
+	userNotifications: ReturnType<typeof userNotificationsReducer>;
 	users: ReturnType<typeof usersReducer>;
 	vendors: ReturnType<typeof vendorsReducer>;
 };
@@ -70,6 +76,7 @@ type ExtraArguments = {
 	authApi: typeof authApi;
 	chatMessagesApi: typeof chatMessagesApi;
 	chatsApi: typeof chatsApi;
+	commentApi: typeof commentApi;
 	courseApi: typeof courseApi;
 	courseSectionsApi: typeof courseSectionsApi;
 	filesApi: typeof filesApi;
@@ -80,6 +87,7 @@ type ExtraArguments = {
 	storage: typeof storage;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
+	userNotificationsApi: typeof userNotificationsApi;
 	vendorApi: typeof vendorApi;
 };
 
@@ -113,6 +121,7 @@ class Store {
 				friends: friendsReducer,
 				sectionStatuses: sectionStatusesReducer,
 				userCourses: userCoursesReducer,
+				userNotifications: userNotificationsReducer,
 				users: usersReducer,
 				vendors: vendorsReducer,
 			},
@@ -125,6 +134,7 @@ class Store {
 			authApi,
 			chatMessagesApi,
 			chatsApi,
+			commentApi,
 			courseApi,
 			courseSectionsApi,
 			filesApi,
@@ -135,6 +145,7 @@ class Store {
 			storage,
 			userApi,
 			userCourseApi,
+			userNotificationsApi,
 			vendorApi,
 		};
 	}
