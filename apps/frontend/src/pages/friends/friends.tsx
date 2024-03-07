@@ -35,14 +35,6 @@ const Friends: React.FC = () => {
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount: potentialFriendsData.total,
 	});
-	useEffect(() => {
-		void dispatch(
-			actions.getPotentialFriends({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: potentialFriendsPagination.page,
-			}),
-		);
-	}, [dispatch, potentialFriendsPagination.page]);
 
 	const followersData = useAppSelector((state) => {
 		return {
@@ -55,14 +47,6 @@ const Friends: React.FC = () => {
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount: followersData.total,
 	});
-	useEffect(() => {
-		void dispatch(
-			actions.getFollowers({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: followersPagination.page,
-			}),
-		);
-	}, [dispatch, followersPagination.page]);
 
 	const followingsData = useAppSelector((state) => {
 		return {
@@ -75,14 +59,46 @@ const Friends: React.FC = () => {
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount: followingsData.total,
 	});
+
 	useEffect(() => {
-		void dispatch(
-			actions.getFollowings({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: followingsPagination.page,
-			}),
-		);
-	}, [dispatch, followingsPagination.page]);
+		switch (pathname) {
+			case AppRoute.FRIENDS: {
+				void dispatch(
+					actions.getPotentialFriends({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: potentialFriendsPagination.page,
+					}),
+				);
+				break;
+			}
+
+			case AppRoute.FRIENDS_FOLLOWERS: {
+				void dispatch(
+					actions.getFollowers({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: followersPagination.page,
+					}),
+				);
+				break;
+			}
+
+			case AppRoute.FRIENDS_FOLLOWINGS: {
+				void dispatch(
+					actions.getFollowings({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: followingsPagination.page,
+					}),
+				);
+				break;
+			}
+		}
+	}, [
+		dispatch,
+		pathname,
+		potentialFriendsPagination.page,
+		followersPagination.page,
+		followingsPagination.page,
+	]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
