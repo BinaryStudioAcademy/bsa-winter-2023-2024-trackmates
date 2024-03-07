@@ -32,21 +32,23 @@ class ActivityService implements Service {
 	}
 
 	public async changeLike(
-		id: number,
+		activityId: number,
 		userId: number,
 	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
 		const like = await this.activityLikeRepository.findByUserIdPostId(
-			id,
+			activityId,
 			userId,
 		);
 
-		like?.id
-			? await this.activityLikeRepository.delete(like.id)
+		const likeObject = like?.toObject();
+
+		likeObject?.id
+			? await this.activityLikeRepository.delete(likeObject.id)
 			: await this.activityLikeRepository.create(
-					ActivityLikeEntity.initializeNew({ activityId: id, userId }),
+					ActivityLikeEntity.initializeNew({ activityId, userId }),
 				);
 
-		const targetActivity = await this.activityRepository.find(id);
+		const targetActivity = await this.activityRepository.find(activityId);
 
 		return targetActivity
 			? (targetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
