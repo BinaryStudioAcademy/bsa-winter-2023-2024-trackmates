@@ -46,7 +46,7 @@ const usePagination: UsePagination = ({
 
 		if (pageFromUrl <= pagesCount && isValidPage) {
 			setPage(pageFromUrl);
-		} else if (pagesCount !== PaginationValue.PAGE_NOT_EXIST) {
+		} else if (pagesCount !== PaginationValue.PAGE_NOT_EXISTS) {
 			history("", { replace: true });
 			setPage(PaginationValue.DEFAULT_PAGE);
 		}
