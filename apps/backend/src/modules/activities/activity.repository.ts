@@ -88,7 +88,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.query()
 			.findById(id)
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
+			//.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
@@ -98,7 +98,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		return activity
 			? ActivityEntity.initialize({
 					actionId: activity.actionId,
-					commentCount: activity.commentCount,
+					commentCount: null,
 					id: activity.id,
 					likesCount: activity.likesCount,
 					payload: activity.payload,
