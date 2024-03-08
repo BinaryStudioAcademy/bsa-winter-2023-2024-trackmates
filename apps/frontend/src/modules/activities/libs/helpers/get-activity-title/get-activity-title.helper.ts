@@ -11,8 +11,7 @@ const getActivityTitle = (
 	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
 	const { title } = activity.payload;
 
-	// or it is better to set default value in UserAuthResponseDto and UserEntity?
-	const sex = activity.user.sex || UserSex.PREFER_NOT_TO_SAY;
+	const sex = activity.user.sex ?? UserSex.PREFER_NOT_TO_SAY;
 	const pronoun = UserSexToPronoun[sex].OBJECTIVE;
 
 	switch (activity.type) {
