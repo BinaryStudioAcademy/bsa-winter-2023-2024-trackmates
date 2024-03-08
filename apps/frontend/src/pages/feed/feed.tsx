@@ -1,4 +1,5 @@
 import { Loader } from "~/libs/components/components.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -21,6 +22,7 @@ const Feed: React.FC = () => {
 	}, [dispatch]);
 
 	const isLoading = dataStatus === DataStatus.PENDING;
+	const hasActivities = activities.length > EMPTY_ARRAY_LENGTH;
 
 	return (
 		<div className={styles["wrapper"]}>
@@ -28,7 +30,15 @@ const Feed: React.FC = () => {
 			{isLoading ? (
 				<Loader color="orange" size="large" />
 			) : (
-				<FeedActivityList activities={activities} />
+				<>
+					{hasActivities ? (
+						<FeedActivityList activities={activities} />
+					) : (
+						<p className={styles["empty-page-placeholder"]}>
+							There are no activities yet
+						</p>
+					)}
+				</>
 			)}
 		</div>
 	);
