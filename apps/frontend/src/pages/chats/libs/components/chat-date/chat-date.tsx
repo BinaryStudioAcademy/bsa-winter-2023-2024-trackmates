@@ -1,4 +1,5 @@
-import { getFormattedChatDate } from "../../helpers/helpers.js";
+import { getFormattedChatDate } from "~/libs/helpers/helpers.js";
+
 import styles from "./styles.module.css";
 
 type Properties = {

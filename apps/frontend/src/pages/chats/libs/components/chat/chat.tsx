@@ -3,13 +3,13 @@ import { Fragment } from "react";
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Loader } from "~/libs/components/components.js";
 import { LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
+import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 import { actions } from "~/modules/chats/chats.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
-import { checkIsDateBefore } from "../../helpers/helpers.js";
 import { ChatDate } from "../chat-date/chat-date.js";
 import { ChatForm } from "../chat-form/chat-form.js";
 import { ChatMessage } from "../chat-message/chat-message.js";
@@ -66,7 +66,7 @@ const Chat: React.FC<Properties> = ({
 			</div>
 			<ul className={styles["chat-container"]}>
 				{messages.map((message) => {
-					if (checkIsDateBefore(message.createdAt, lastDate)) {
+					if (checkIsDatePrecedesAnotherByOneDay(message.createdAt, lastDate)) {
 						const previousDate = lastDate;
 						lastDate = message.createdAt;
 
