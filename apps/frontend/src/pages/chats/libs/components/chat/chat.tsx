@@ -4,10 +4,10 @@ import {
 	LAST_ARRAY_ITEM,
 	PREVIOUS_INDEX_OFFSET,
 } from "~/libs/constants/constants.js";
+import { AppRoute } from "~/libs/enums/app-route.enum.js";
 import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
+import { useCallback, useNavigate } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
-import { actions as chatActions } from "~/modules/chats/chats.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
@@ -29,11 +29,11 @@ const Chat: React.FC<Properties> = ({
 	onSubmit,
 	receiver,
 }: Properties) => {
-	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
 
 	const handleClick = useCallback((): void => {
-		dispatch(chatActions.leaveChat());
-	}, [dispatch]);
+		navigate(AppRoute.CHATS);
+	}, [navigate]);
 
 	return (
 		<div className={styles["container"]}>
