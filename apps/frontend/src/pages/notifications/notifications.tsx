@@ -1,4 +1,5 @@
 import { Loader } from "~/libs/components/components.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -29,6 +30,8 @@ const Notifications: React.FC = () => {
 		void dispatch(actions.getUserNotifications());
 	}, [dispatch]);
 
+	const hasNotifications = notifications.length > EMPTY_ARRAY_LENGTH;
+
 	return (
 		<div className={styles["page"]}>
 			<div className={styles["content"]}>
@@ -36,7 +39,15 @@ const Notifications: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<NotificationList notifications={notifications} />
+					<>
+						{hasNotifications ? (
+							<NotificationList notifications={notifications} />
+						) : (
+							<p className={styles["empty-page-placeholder"]}>
+								You don&apos;t have any notifications yet
+							</p>
+						)}
+					</>
 				)}
 			</div>
 			<div className={styles["background"]} />
