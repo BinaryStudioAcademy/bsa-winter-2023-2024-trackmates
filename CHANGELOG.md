@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.50.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.49.0...v1.50.0) (2024-03-08)
+
+
+### Features
+
+* **backend:** Implement cascade user deletion tm-402 ([#416](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/416)) ([9bbdcf3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9bbdcf35e9ddac341c7d20976344b6b4d1fb788e))
+
+## [1.49.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.48.0...v1.49.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** friends pagination tm-309 ([#401](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/401)) ([071602f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/071602f48dc1cc92d5abaca4ecac1f34017e60f5))
+
 ## [1.48.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.47.0...v1.48.0) (2024-03-08)
 
 
