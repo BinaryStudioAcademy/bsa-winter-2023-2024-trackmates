@@ -115,7 +115,7 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS: {
 				return (
 					<FriendsTab
-						emptyPlaceholder={"There aren't any potential friends"}
+						emptyPlaceholder="There aren't any potential friends"
 						items={potentialFriendsData.items}
 						pagination={potentialFriendsPagination}
 					/>
@@ -125,7 +125,7 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS_FOLLOWERS: {
 				return (
 					<FriendsTab
-						emptyPlaceholder={"You don't have any followers yet"}
+						emptyPlaceholder="You don't have any followers yet"
 						items={followersData.items}
 						pagination={followersPagination}
 					/>
@@ -135,7 +135,7 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS_FOLLOWINGS: {
 				return (
 					<FriendsTab
-						emptyPlaceholder={"You aren't following anyone yet"}
+						emptyPlaceholder="You aren't following anyone yet"
 						items={followingsData.items}
 						pagination={followingsPagination}
 					/>
