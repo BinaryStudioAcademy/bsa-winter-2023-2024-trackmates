@@ -1,1 +1,1 @@
-export { getFormattedChatDate } from "./get-formatted-chat-date.js";
+export { getFormattedChatDate } from "./get-formatted-chat-date.helper.js";

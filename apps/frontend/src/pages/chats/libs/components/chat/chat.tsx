@@ -1,16 +1,14 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Loader } from "~/libs/components/components.js";
-import {
-	LAST_ARRAY_ITEM,
-	PREVIOUS_INDEX_OFFSET,
-} from "~/libs/constants/constants.js";
+import { LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
 import { useCallback, useNavigate } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
+import { MessageItemOption } from "../../enums/message-item-option.enum.js";
+import { prepareMessageItems } from "../../helpers/prepare-message-items.helper.js";
 import { ChatDate } from "../chat-date/chat-date.js";
 import { ChatForm } from "../chat-form/chat-form.js";
 import { ChatMessage } from "../chat-message/chat-message.js";
@@ -64,34 +62,19 @@ const Chat: React.FC<Properties> = ({
 				</div>
 			</div>
 			<ul className={styles["chat-container"]}>
-				{messages.flatMap((message, index) => {
-					const components = [];
-					const previousMessage = messages[index - PREVIOUS_INDEX_OFFSET];
-
-					if (
-						previousMessage &&
-						checkIsDatePrecedesAnotherByOneDay(
-							message.createdAt,
-							previousMessage.createdAt,
-						)
-					) {
-						components.push(
-							<ChatDate
-								date={previousMessage.createdAt}
-								key={`date-${message.id}`}
-							/>,
-						);
-					}
-
-					components.push(
+				{prepareMessageItems(messages).map((item, index) => {
+					return item.type === MessageItemOption.DATE ? (
+						<ChatDate date={item.value as string} key={`date-${index}`} />
+					) : (
 						<ChatMessage
-							isCurrentUserSender={receiver.id !== message.senderUser.id}
-							key={message.id}
-							message={message}
-						/>,
+							isCurrentUserSender={
+								receiver.id !==
+								(item.value as ChatMessageItemResponseDto).senderUser.id
+							}
+							key={(item.value as ChatMessageItemResponseDto).id}
+							message={item.value as ChatMessageItemResponseDto}
+						/>
 					);
-
-					return components;
 				})}
 				{messages.at(LAST_ARRAY_ITEM) && (
 					<ChatDate
