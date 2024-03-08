@@ -7,8 +7,8 @@ import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-me
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
-import { MessageItemOption } from "../../enums/message-item-option.enum.js";
-import { prepareMessageItems } from "../../helpers/prepare-message-items.helper.js";
+import { MessageItemOption } from "../../enums/enums.js";
+import { prepareMessageItems } from "../../helpers/helpers.js";
 import { ChatDate } from "../chat-date/chat-date.js";
 import { ChatForm } from "../chat-form/chat-form.js";
 import { ChatMessage } from "../chat-message/chat-message.js";
