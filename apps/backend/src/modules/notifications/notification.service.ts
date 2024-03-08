@@ -1,5 +1,10 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
+import {
+	SocketEvent,
+	SocketNamespace,
+	type SocketService,
+} from "~/libs/modules/socket/socket.js";
 import { type Service } from "~/libs/types/types.js";
 
 import { NotificationStatus } from "./libs/enums/enums.js";
@@ -8,7 +13,6 @@ import {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
 	type NotificationResponseDto,
-	type NotificationWithReceiverIdResponseDto,
 	type UpdateNotificationRequestDto,
 } from "./libs/types/types.js";
 import { NotificationEntity } from "./notification.entity.js";
@@ -17,8 +21,14 @@ import { type NotificationRepository } from "./notification.repository.js";
 class NotificationService implements Service {
 	private notificationRepository: NotificationRepository;
 
-	public constructor(notificationRepository: NotificationRepository) {
+	private socketService: SocketService;
+
+	public constructor(
+		notificationRepository: NotificationRepository,
+		socketService: SocketService,
+	) {
 		this.notificationRepository = notificationRepository;
+		this.socketService = socketService;
 	}
 
 	public async checkHasUserUnreadNotifications(
@@ -31,7 +41,7 @@ class NotificationService implements Service {
 
 	public async create(
 		payload: CreateNotificationRequestDto,
-	): Promise<NotificationWithReceiverIdResponseDto> {
+	): Promise<NotificationResponseDto> {
 		const { receiverUserId, type, userId } = payload;
 
 		const createdNotification = await this.notificationRepository.create(
@@ -45,10 +55,14 @@ class NotificationService implements Service {
 
 		const notification = createdNotification.toObject();
 
-		return {
-			notification,
-			receiverId: receiverUserId,
-		};
+		this.socketService.emitMessage({
+			event: SocketEvent.NEW_NOTIFICATION,
+			payload: notification,
+			receiversIds: [String(notification.userId), String(receiverUserId)],
+			targetNamespace: SocketNamespace.NOTIFICATIONS,
+		});
+
+		return notification;
 	}
 
 	public async delete(notificationId: number): Promise<boolean> {
