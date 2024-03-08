@@ -63,16 +63,15 @@ const Chat: React.FC<Properties> = ({
 			</div>
 			<ul className={styles["chat-container"]}>
 				{prepareMessageItems(messages).map((item, index) => {
+					const message = item.value as ChatMessageItemResponseDto;
+
 					return item.type === MessageItemOption.DATE ? (
 						<ChatDate date={item.value as string} key={`date-${index}`} />
 					) : (
 						<ChatMessage
-							isCurrentUserSender={
-								receiver.id !==
-								(item.value as ChatMessageItemResponseDto).senderUser.id
-							}
-							key={(item.value as ChatMessageItemResponseDto).id}
-							message={item.value as ChatMessageItemResponseDto}
+							isCurrentUserSender={receiver.id !== message.senderUser.id}
+							key={message.id}
+							message={message}
 						/>
 					);
 				})}
