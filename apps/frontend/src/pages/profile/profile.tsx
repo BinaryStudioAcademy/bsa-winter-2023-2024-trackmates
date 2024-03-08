@@ -1,6 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
-import { Button, Image, Input } from "~/libs/components/components.js";
+import { Button, Image, Input, Select } from "~/libs/components/components.js";
 import { AppTitle } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -8,16 +8,20 @@ import {
 	useAppSelector,
 	useAppTitle,
 	useCallback,
+	useMemo,
 	useRef,
 } from "~/libs/hooks/hooks.js";
+import { type SelectOption } from "~/libs/types/types.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
+	UserSex,
 	userProfileValidationSchema,
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { userSexToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
@@ -33,6 +37,7 @@ const Profile: React.FC = () => {
 				firstName: user.firstName,
 				lastName: user.lastName,
 				nickname: user.nickname ?? "",
+				sex: user.sex,
 			},
 			validationSchema: userProfileValidationSchema,
 		});
@@ -82,6 +87,15 @@ const Profile: React.FC = () => {
 	const placeholder = `${user.firstName.toLowerCase()}_${user.lastName.toLowerCase()}_${user.id}`;
 
 	useAppTitle(AppTitle.PROFILE);
+
+	const sexSelectOptions = useMemo<SelectOption[]>(() => {
+		return Object.values(UserSex).map((sex) => {
+			return {
+				label: userSexToReadable[sex],
+				value: sex,
+			};
+		});
+	}, []);
 
 	return (
 		<>
@@ -137,6 +151,14 @@ const Profile: React.FC = () => {
 								name="nickname"
 								placeholder={placeholder}
 								type="text"
+							/>
+							<Select
+								control={control}
+								errors={errors}
+								label="Sex"
+								name="sex"
+								options={sexSelectOptions}
+								placeholder="Select sex"
 							/>
 						</fieldset>
 					</div>

@@ -54,6 +54,7 @@ class UserRepository implements Repository<UserEntity> {
 			nickname: null,
 			passwordHash: user.passwordHash,
 			passwordSalt: user.passwordSalt,
+			sex: userDetails.sex,
 			updatedAt: user.updatedAt,
 		});
 	}
@@ -82,6 +83,7 @@ class UserRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -106,6 +108,7 @@ class UserRepository implements Repository<UserEntity> {
 				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
 				updatedAt: user.updatedAt,
 			}),
 		);
@@ -131,6 +134,7 @@ class UserRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -156,6 +160,7 @@ class UserRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -189,6 +194,7 @@ class UserRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -206,6 +212,7 @@ class UserRepository implements Repository<UserEntity> {
 			firstName: data.firstName,
 			lastName: data.lastName,
 			nickname: data.nickname,
+			sex: data.sex,
 		});
 
 		const user = await this.userModel
@@ -227,6 +234,7 @@ class UserRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;

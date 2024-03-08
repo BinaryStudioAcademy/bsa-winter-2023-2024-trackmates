@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.48.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.47.0...v1.48.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** add real time notifications tm-260 ([#404](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/404)) ([7c33ec5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7c33ec51a2a2d0d9f656432c54e2ce04c9dd044c))
+* **backend:** add migration unique index to prevent creating 2 chats simultaneously tm-386 ([#408](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/408)) ([8ec841e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8ec841ed48a274c51c7023ade58e025e47c85e13))
+
+
+### Bug Fixes
+
+* **backend:** likes shouldn't reset coments count tm-159 ([#406](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/406)) ([983631c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/983631ca48086a2e149f7c2905d7e28c8dfe985b))
+* **frontend:** fix loading fonts tm-389 ([#405](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/405)) ([ddce56f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ddce56fefafd0b7536f868352958e3afdac10380))
+
+## [1.47.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.46.0...v1.47.0) (2024-03-08)
+
+
+### Features
+
+* **frontend:** close modal on esc tm-396 ([#411](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/411)) ([0e6cf6b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0e6cf6bcb08af0169e2e8bee5503be48b5519305))
+
+## [1.46.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.45.0...v1.46.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** add sex property to the user tm-343 ([#379](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/379)) ([41fd5ad](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/41fd5ad815b434622d8c98eb685a4a9c68460bc6))
+
 ## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.44.1...v1.45.0) (2024-03-07)
 
 
