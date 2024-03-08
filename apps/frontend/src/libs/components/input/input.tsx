@@ -4,7 +4,6 @@ import {
 	type FieldPath,
 	type FieldValues,
 } from "react-hook-form";
-import ReactTextareaAutosize from "react-textarea-autosize";
 
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useFormController } from "~/libs/hooks/hooks.js";
@@ -69,7 +68,7 @@ const Input = <T extends FieldValues>({
 			<span className={labelClasses}>{label}</span>
 			{icon}
 			{isTextArea ? (
-				<ReactTextareaAutosize
+				<textarea
 					className={inputClasses}
 					{...field}
 					placeholder={placeholder}
