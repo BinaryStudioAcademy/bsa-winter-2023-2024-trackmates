@@ -19,13 +19,15 @@ export {
 	checkIsDatePrecedesAnotherByOneDay,
 	configureString,
 	getDifferenceInHours,
-	getFormattedChatDate,
 	getFormattedDate,
 	getPercentage,
 	getSanitizedHtml,
 	getSizeInBytes,
 	getTimeDistanceFormatDate,
 	initDebounce,
+	isThisYear,
+	isToday,
+	isYesterday,
 } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
 export {

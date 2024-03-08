@@ -5,10 +5,12 @@ export {
 	checkIsDatePrecedesAnotherByOneDay,
 	configureString,
 	getDifferenceInHours,
-	getFormattedChatDate,
 	getFormattedDate,
 	getPercentage,
 	getSanitizedHtml,
 	getTimeDistanceFormatDate,
 	initDebounce,
+	isThisYear,
+	isToday,
+	isYesterday,
 } from "@trackmates/shared";

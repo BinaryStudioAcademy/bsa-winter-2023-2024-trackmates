@@ -1,4 +1,9 @@
-import { format, isThisYear, isToday, isYesterday } from "date-fns";
+import {
+	getFormattedDate,
+	isThisYear,
+	isToday,
+	isYesterday,
+} from "~/libs/helpers/helpers.js";
 
 const getFormattedChatDate = (dateString: string): string => {
 	const date = new Date(dateString);
@@ -8,9 +13,9 @@ const getFormattedChatDate = (dateString: string): string => {
 	} else if (isYesterday(date)) {
 		return "yesterday";
 	} else if (isThisYear(date)) {
-		return format(date, "MMMM do").toLowerCase();
+		return getFormattedDate(dateString, "MMMM do").toLowerCase();
 	} else {
-		return format(date, "MMMM do, yyyy").toLowerCase();
+		return getFormattedDate(dateString, "MMMM do, yyyy").toLowerCase();
 	}
 };
 
