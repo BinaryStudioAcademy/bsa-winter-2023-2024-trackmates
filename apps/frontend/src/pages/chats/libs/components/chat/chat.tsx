@@ -6,7 +6,7 @@ import { LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
-import { actions } from "~/modules/chats/chats.js";
+import { actions as chatActions } from "~/modules/chats/chats.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
@@ -31,7 +31,7 @@ const Chat: React.FC<Properties> = ({
 	const dispatch = useAppDispatch();
 
 	const handleClick = useCallback((): void => {
-		dispatch(actions.leaveChat());
+		dispatch(chatActions.leaveChat());
 	}, [dispatch]);
 
 	let lastDate = "";
