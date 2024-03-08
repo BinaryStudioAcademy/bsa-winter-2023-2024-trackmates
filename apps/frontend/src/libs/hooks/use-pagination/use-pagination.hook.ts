@@ -1,22 +1,14 @@
 import { PaginationValue } from "~/libs/enums/enums.js";
-import {
-	useEffect,
-	useNavigate,
-	useSearchParams,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { useEffect, useSearchParams, useState } from "~/libs/hooks/hooks.js";
 
-import {
-	checkIsPageValid,
-	getPagesCut,
-	getPagesRange,
-} from "./libs/helpers/helpers.js";
+import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
 	pageSize: number;
 	pagesCutCount: number;
 	totalCount: number;
 }) => {
+	handlePageChange: (page: number) => void;
 	page: number;
 	pages: number[];
 	pagesCount: number;
@@ -27,8 +19,15 @@ const usePagination: UsePagination = ({
 	pagesCutCount,
 	totalCount,
 }) => {
-	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
-	const navigate = useNavigate();
+	const queryName = "page";
+	const [searchParameters, setSearchParameters] = useSearchParams();
+	const pageFromQuery = Number(searchParameters.get(queryName));
+	const validPage =
+		pageFromQuery > PaginationValue.PAGE_NOT_EXISTS
+			? pageFromQuery
+			: PaginationValue.DEFAULT_PAGE;
+	const [page, setPage] = useState<number>(validPage);
+
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
 		currentPage: page,
@@ -36,21 +35,33 @@ const usePagination: UsePagination = ({
 		pagesCutCount,
 	});
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
-	const [searchParameters] = useSearchParams();
 
 	useEffect(() => {
-		const pageFromUrl = Number(searchParameters.get("page"));
-		const isValidPage = checkIsPageValid(pageFromUrl);
+		const updatedSearchParameters = new URLSearchParams(
+			searchParameters.toString(),
+		);
 
-		if (pageFromUrl <= pagesCount && isValidPage) {
-			setPage(pageFromUrl);
-		} else if (pagesCount !== PaginationValue.PAGE_NOT_EXISTS) {
-			navigate("", { replace: true });
+		if (pagesCount >= pageFromQuery) {
+			updatedSearchParameters.set(queryName, String(page));
+			setSearchParameters(updatedSearchParameters);
+		} else if (
+			pagesCount !== PaginationValue.PAGE_NOT_EXISTS ||
+			!pageFromQuery
+		) {
+			updatedSearchParameters.set(
+				queryName,
+				String(PaginationValue.DEFAULT_PAGE),
+			);
+			setSearchParameters(updatedSearchParameters);
 			setPage(PaginationValue.DEFAULT_PAGE);
 		}
-	}, [searchParameters, page, pagesCount]);
+	}, [page, pagesCount]);
 
-	return { page, pages, pagesCount };
+	const handlePageChange = (page: number): void => {
+		setPage(page);
+	};
+
+	return { handlePageChange, page, pages, pagesCount };
 };
 
 export { usePagination };

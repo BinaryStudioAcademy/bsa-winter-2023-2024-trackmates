@@ -11,7 +11,6 @@ type Properties = {
 	activeClassName?: string | undefined;
 	children: React.ReactNode;
 	className?: string | undefined;
-	isDisabled?: boolean;
 	to: ValueOf<typeof AppRoute>;
 };
 
@@ -19,7 +18,6 @@ const Link: React.FC<Properties> = ({
 	activeClassName,
 	children,
 	className,
-	isDisabled = false,
 	to,
 }: Properties) => {
 	const handleLinkStyles = useCallback(
@@ -28,10 +26,9 @@ const Link: React.FC<Properties> = ({
 				isActive && activeClassName,
 				className,
 				styles["link"],
-				isDisabled && styles["disabled"],
 			);
 		},
-		[activeClassName, className, isDisabled],
+		[activeClassName, className],
 	);
 
 	return (
