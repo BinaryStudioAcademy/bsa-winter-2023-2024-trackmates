@@ -2,6 +2,7 @@ export {
 	EMPTY_ARRAY_LENGTH,
 	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
+	PREVIOUS_INDEX_OFFSET,
 } from "./libs/constants/constants.js";
 export {
 	APIPath,

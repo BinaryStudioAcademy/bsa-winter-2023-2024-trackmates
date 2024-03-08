@@ -1,8 +1,9 @@
-import { Fragment } from "react";
-
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Loader } from "~/libs/components/components.js";
-import { LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
+import {
+	LAST_ARRAY_ITEM,
+	PREVIOUS_INDEX_OFFSET,
+} from "~/libs/constants/constants.js";
 import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
@@ -34,8 +35,6 @@ const Chat: React.FC<Properties> = ({
 		dispatch(chatActions.leaveChat());
 	}, [dispatch]);
 
-	let lastDate = "";
-
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["nav-container"]}>
@@ -65,31 +64,34 @@ const Chat: React.FC<Properties> = ({
 				</div>
 			</div>
 			<ul className={styles["chat-container"]}>
-				{messages.map((message) => {
-					if (checkIsDatePrecedesAnotherByOneDay(message.createdAt, lastDate)) {
-						const previousDate = lastDate;
-						lastDate = message.createdAt;
+				{messages.flatMap((message, index) => {
+					const components = [];
+					const previousMessage = messages[index - PREVIOUS_INDEX_OFFSET];
 
-						return (
-							<Fragment key={message.id}>
-								<ChatDate date={previousDate} />
-								<ChatMessage
-									isCurrentUserSender={receiver.id !== message.senderUser.id}
-									message={message}
-								/>
-							</Fragment>
+					if (
+						previousMessage &&
+						checkIsDatePrecedesAnotherByOneDay(
+							message.createdAt,
+							previousMessage.createdAt,
+						)
+					) {
+						components.push(
+							<ChatDate
+								date={previousMessage.createdAt}
+								key={`date-${message.id}`}
+							/>,
 						);
 					}
 
-					lastDate = message.createdAt;
-
-					return (
+					components.push(
 						<ChatMessage
 							isCurrentUserSender={receiver.id !== message.senderUser.id}
 							key={message.id}
 							message={message}
-						/>
+						/>,
 					);
+
+					return components;
 				})}
 				{messages.at(LAST_ARRAY_ITEM) && (
 					<ChatDate
