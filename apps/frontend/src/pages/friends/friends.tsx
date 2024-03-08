@@ -1,4 +1,5 @@
 import { Link } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
 import { AppRoute, AppTitle, PaginationValue } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -14,8 +15,6 @@ import { actions } from "~/modules/friends/friends.js";
 import { FriendsTab } from "./libs/components/components.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
-
-const PAGINATION_PAGES_CUT_COUNT = 5;
 
 const Friends: React.FC = () => {
 	useAppTitle(AppTitle.FRIENDS);
