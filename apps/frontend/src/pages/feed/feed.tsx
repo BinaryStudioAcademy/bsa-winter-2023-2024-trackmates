@@ -1,8 +1,9 @@
 import { Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/activities/activities.js";
@@ -11,6 +12,8 @@ import { FeedActivityList } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const Feed: React.FC = () => {
+	useAppTitle(AppTitle.ACTIVITIES);
+
 	const { activities, dataStatus } = useAppSelector(
 		(state) => state.activities,
 	);
