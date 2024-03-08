@@ -181,6 +181,7 @@ export {
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,
 	UserSex,
+	UserSexToPronoun,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
