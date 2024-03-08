@@ -1,5 +1,8 @@
 import { Courses, Loader, Pagination } from "~/libs/components/components.js";
-import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
+import {
+	EMPTY_ARRAY_LENGTH,
+	PAGINATION_PAGES_CUT_COUNT,
+} from "~/libs/constants/constants.js";
 import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -54,6 +57,8 @@ const Overview: React.FC = () => {
 		);
 	}, [dispatch, user, page]);
 
+	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
+
 	return (
 		<div className={styles["container"]}>
 			<WelcomeHeader onAddCourseClick={handleModalOpen} user={user} />
@@ -62,14 +67,24 @@ const Overview: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} userId={user.id} />
+					<>
+						{hasCourses ? (
+							<>
+								<Courses courses={courses} userId={user.id} />
+								<Pagination
+									currentPage={page}
+									onPageChange={handlePageChange}
+									pages={pages}
+									pagesCount={pagesCount}
+								/>
+							</>
+						) : (
+							<p className={styles["empty-page-placeholder"]}>
+								You haven&apos;t added any courses yet
+							</p>
+						)}
+					</>
 				)}
-				<Pagination
-					currentPage={page}
-					onPageChange={handlePageChange}
-					pages={pages}
-					pagesCount={pagesCount}
-				/>
 			</div>
 			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
 		</div>
