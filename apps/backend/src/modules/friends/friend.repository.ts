@@ -43,6 +43,7 @@ class FriendRepository implements Repository<UserEntity> {
 			nickname: followingUser.userDetails.nickname,
 			passwordHash: followingUser.passwordHash,
 			passwordSalt: followingUser.passwordSalt,
+			sex: followingUser.userDetails.sex,
 			updatedAt: followingUser.updatedAt,
 		});
 	}
@@ -99,6 +100,7 @@ class FriendRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -128,6 +130,7 @@ class FriendRepository implements Repository<UserEntity> {
 				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
 				updatedAt: user.updatedAt,
 			});
 		});
@@ -208,6 +211,7 @@ class FriendRepository implements Repository<UserEntity> {
 				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
 				updatedAt: user.updatedAt,
 			});
 		});
@@ -238,6 +242,7 @@ class FriendRepository implements Repository<UserEntity> {
 				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
 				updatedAt: user.updatedAt,
 			});
 		});
@@ -268,6 +273,7 @@ class FriendRepository implements Repository<UserEntity> {
 				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
 				updatedAt: user.updatedAt,
 			});
 		});
@@ -291,6 +297,7 @@ class FriendRepository implements Repository<UserEntity> {
 			nickname: updatedSubscription.userDetails.nickname,
 			passwordHash: updatedSubscription.passwordHash,
 			passwordSalt: updatedSubscription.passwordSalt,
+			sex: updatedSubscription.userDetails.sex,
 			updatedAt: updatedSubscription.updatedAt,
 		});
 	}
