@@ -4,7 +4,7 @@ import {
 	LAST_ARRAY_ITEM,
 	PREVIOUS_INDEX_OFFSET,
 } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/app-route.enum.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
 import { useCallback, useNavigate } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
