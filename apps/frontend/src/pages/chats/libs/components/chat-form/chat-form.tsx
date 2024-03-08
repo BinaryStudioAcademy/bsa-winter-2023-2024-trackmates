@@ -28,7 +28,7 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	const handleKeyDown = useCallback(
 		(_event: React.KeyboardEvent): void => {
-			if (_event.code == EventCode.ENTER && !_event.shiftKey) {
+			if (_event.code === EventCode.ENTER && !_event.shiftKey) {
 				_event.preventDefault();
 				handleFormSubmit(_event);
 			}
