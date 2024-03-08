@@ -15,7 +15,7 @@ type Properties = {
 const PaginationItem: React.FC<Properties> = ({
 	children,
 	isActive,
-	isDisabled,
+	isDisabled = false,
 	to,
 }: Properties) => {
 	const linkClasses = getValidClassNames(styles["item"], {
@@ -25,7 +25,7 @@ const PaginationItem: React.FC<Properties> = ({
 
 	return (
 		<li className={styles["item-container"]}>
-			<Link className={linkClasses} isDisabled={isDisabled ?? false} to={to}>
+			<Link className={linkClasses} isDisabled={isDisabled} to={to}>
 				{children}
 			</Link>
 		</li>

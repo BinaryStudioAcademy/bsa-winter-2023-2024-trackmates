@@ -19,7 +19,7 @@ const Link: React.FC<Properties> = ({
 	activeClassName,
 	children,
 	className,
-	isDisabled,
+	isDisabled = false,
 	to,
 }: Properties) => {
 	const handleLinkStyles = useCallback(
