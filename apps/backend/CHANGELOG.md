@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.23.0...backend-v1.24.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** add sex property to the user tm-343 ([#379](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/379)) ([41fd5ad](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/41fd5ad815b434622d8c98eb685a4a9c68460bc6))
+
 ## [1.23.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.22.0...backend-v1.23.0) (2024-03-07)
 
 
