@@ -11,7 +11,7 @@ import {
 	useMemo,
 	useRef,
 } from "~/libs/hooks/hooks.js";
-import { type SelectOption, type ValueOf } from "~/libs/types/types.js";
+import { type SelectOption } from "~/libs/types/types.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
@@ -21,6 +21,7 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { userSexToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
@@ -88,15 +89,9 @@ const Profile: React.FC = () => {
 	useAppTitle(AppTitle.PROFILE);
 
 	const sexSelectOptions = useMemo<SelectOption[]>(() => {
-		const userSexToTheSelectLabel: Record<ValueOf<typeof UserSex>, string> = {
-			[UserSex.FEMALE]: "Female",
-			[UserSex.MALE]: "Male",
-			[UserSex.PREFER_NOT_TO_SAY]: "Prefer not to say",
-		};
-
 		return Object.values(UserSex).map((sex) => {
 			return {
-				label: userSexToTheSelectLabel[sex],
+				label: userSexToReadable[sex],
 				value: sex,
 			};
 		});
