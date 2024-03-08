@@ -44,12 +44,20 @@
 	align-items: center;
 }
 
-.unread::before {
+.notifications-container {
+	position: relative;
+}
+
+.notifications-count {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 10px;
 	height: 10px;
+	font-size: 7px;
+	font-weight: 700;
+	color: var(--main-white);
+	text-align: center;
 	content: "";
 	background-color: var(--main-orange);
 	border-radius: 50%;

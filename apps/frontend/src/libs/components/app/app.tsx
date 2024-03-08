@@ -31,6 +31,7 @@ const App: React.FC = () => {
 	useEffect(() => {
 		if (user) {
 			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
+			void dispatch(userNotificationsActions.getUserNotifications());
 		}
 	}, [dispatch, user]);
 

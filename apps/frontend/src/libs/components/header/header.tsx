@@ -2,10 +2,7 @@ import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Link } from "~/libs/components/components.js";
 import { PAGES_WITH_SEARCH_BAR } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import {
-	checkIfPathMatchingPattern,
-	getValidClassNames,
-} from "~/libs/helpers/helpers.js";
+import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -13,14 +10,19 @@ import { SearchBar } from "../search-bar/search-bar.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { hasUnreadNotifications, user } = useAppSelector(
+	const { hasUnreadNotifications, notifications, user } = useAppSelector(
 		({ auth, userNotifications }) => {
 			return {
 				hasUnreadNotifications: userNotifications.hasUnreadNotifications,
+				notifications: userNotifications.notifications,
 				user: auth.user as UserAuthResponseDto,
 			};
 		},
 	);
+
+	const unreadNotificationsCount = notifications.filter(
+		(notification) => notification.status === "unread",
+	).length;
 
 	const { pathname } = useLocation();
 
@@ -45,16 +47,20 @@ const Header: React.FC = () => {
 						iconName="chats"
 						label="To chats"
 					/>
-					<Button
-						className={getValidClassNames(
-							styles["icon-button"],
-							hasUnreadNotifications && styles["unread"],
+					<div className={styles["notifications-container"]}>
+						<Button
+							className={styles["icon-button"]}
+							hasVisuallyHiddenLabel
+							href={AppRoute.NOTIFICATIONS}
+							iconName="notification"
+							label="Notifications"
+						/>{" "}
+						{hasUnreadNotifications && (
+							<span className={styles["notifications-count"]}>
+								{unreadNotificationsCount}
+							</span>
 						)}
-						hasVisuallyHiddenLabel
-						href={AppRoute.NOTIFICATIONS}
-						iconName="notification"
-						label="Notifications"
-					/>
+					</div>
 					<Link to={AppRoute.PROFILE}>
 						<Image
 							alt="user-avatar"
