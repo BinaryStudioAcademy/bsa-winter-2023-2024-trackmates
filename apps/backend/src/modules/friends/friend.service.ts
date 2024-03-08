@@ -1,3 +1,5 @@
+import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
+import { type PaginationResponseDto } from "~/libs/types/types.js";
 import { type FriendRepository } from "~/modules/friends/friend.repository.js";
 import {
 	type NotificationService,
@@ -132,24 +134,67 @@ class FriendService {
 		);
 	}
 
-	public async getPotentialFollowers(
-		id: number,
-	): Promise<UserAuthResponseDto[]> {
-		const followers = await this.friendRepository.getPotentialFollowers(id);
+	public async getPotentialFollowers({
+		count,
+		id,
+		page,
+	}: {
+		count: number;
+		id: number;
+		page: number;
+	}): Promise<PaginationResponseDto<UserAuthResponseDto>> {
+		const { items, total } = await this.friendRepository.getPotentialFollowers({
+			count,
+			id,
+			page: convertPageToZeroIndexed(page),
+		});
 
-		return followers.map((user) => user.toObject());
+		return {
+			items: items.map((user) => user.toObject()),
+			total,
+		};
 	}
 
-	public async getUserFollowers(id: number): Promise<UserAuthResponseDto[]> {
-		const followers = await this.friendRepository.getUserFollowers(id);
+	public async getUserFollowers({
+		count,
+		id,
+		page,
+	}: {
+		count: number;
+		id: number;
+		page: number;
+	}): Promise<PaginationResponseDto<UserAuthResponseDto>> {
+		const { items, total } = await this.friendRepository.getUserFollowers({
+			count,
+			id,
+			page: convertPageToZeroIndexed(page),
+		});
 
-		return followers.map((user) => user.toObject());
+		return {
+			items: items.map((user) => user.toObject()),
+			total,
+		};
 	}
 
-	public async getUserFollowings(id: number): Promise<UserAuthResponseDto[]> {
-		const followings = await this.friendRepository.getUserFollowings(id);
+	public async getUserFollowings({
+		count,
+		id,
+		page,
+	}: {
+		count: number;
+		id: number;
+		page: number;
+	}): Promise<PaginationResponseDto<UserAuthResponseDto>> {
+		const { items, total } = await this.friendRepository.getUserFollowings({
+			count,
+			id,
+			page: convertPageToZeroIndexed(page),
+		});
 
-		return followings.map((user) => user.toObject());
+		return {
+			items: items.map((user) => user.toObject()),
+			total,
+		};
 	}
 
 	public async update(id: number): Promise<UserAuthResponseDto> {
