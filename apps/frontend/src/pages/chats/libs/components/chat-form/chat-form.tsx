@@ -38,6 +38,7 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				hasVisuallyHiddenLabel
 				label="Send a message"
 				name="message"
+				onSubmit={handleFormSubmit}
 				rows={1}
 			/>
 			<Button
