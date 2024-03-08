@@ -53,7 +53,11 @@ import {
 } from "~/modules/vendors/vendors.js";
 
 import { storage } from "../storage/storage.js";
-import { chatSocket, handleError } from "./middlewares/middlewares.js";
+import {
+	chatSocket,
+	handleError,
+	notificationsSocket,
+} from "./middlewares/middlewares.js";
 
 type RootReducer = {
 	activities: ReturnType<typeof activitiesReducer>;
@@ -108,7 +112,11 @@ class Store {
 					thunk: {
 						extraArgument: this.extraArguments,
 					},
-				}).prepend([handleError, chatSocket({ extra: this.extraArguments })]);
+				}).prepend([
+					handleError,
+					chatSocket({ extra: this.extraArguments }),
+					notificationsSocket({ extra: this.extraArguments }),
+				]);
 			},
 			reducer: {
 				activities: activitiesReducer,
