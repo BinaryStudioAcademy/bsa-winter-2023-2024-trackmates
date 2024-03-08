@@ -7,7 +7,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 class SocketService {
 	private io!: SocketServer;
 
-	private chatMessageHandler(socket: Socket): void {
+	private handleChatMessage(socket: Socket): void {
 		socket.on(SocketEvent.CHAT_JOIN_ROOM, (userId: string) => {
 			void socket.join(userId);
 		});
@@ -17,7 +17,7 @@ class SocketService {
 		});
 	}
 
-	private notificationsHandler(socket: Socket): void {
+	private handleNotifications(socket: Socket): void {
 		socket.on(SocketEvent.NOTIFICATIONS_JOIN_ROOM, (userId: string) => {
 			void socket.join(userId);
 		});
@@ -45,10 +45,10 @@ class SocketService {
 		this.io = new SocketServer(server);
 		this.io
 			.of(SocketNamespace.CHAT)
-			.on(SocketEvent.CONNECTION, this.chatMessageHandler.bind(this));
+			.on(SocketEvent.CONNECTION, this.handleChatMessage.bind(this));
 		this.io
 			.of(SocketNamespace.NOTIFICATIONS)
-			.on(SocketEvent.CONNECTION, this.notificationsHandler.bind(this));
+			.on(SocketEvent.CONNECTION, this.handleNotifications.bind(this));
 	}
 }
 
