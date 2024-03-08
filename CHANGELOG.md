@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.47.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.46.0...v1.47.0) (2024-03-08)
+
+
+### Features
+
+* **frontend:** close modal on esc tm-396 ([#411](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/411)) ([0e6cf6b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0e6cf6bcb08af0169e2e8bee5503be48b5519305))
+
 ## [1.46.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.45.0...v1.46.0) (2024-03-08)
 
 
