@@ -67,7 +67,7 @@ class FriendService {
 		});
 
 		this.socketService.emitMessage({
-			event: SocketEvent.NOTIFICATIONS_NEW_FOLLOWER,
+			event: SocketEvent.NEW_NOTIFICATION,
 			payload: notification,
 			receiversIds: [String(notification.userId), String(receiverId)],
 			targetNamespace: SocketNamespace.NOTIFICATIONS,

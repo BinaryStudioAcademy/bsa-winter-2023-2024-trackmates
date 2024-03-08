@@ -19,15 +19,10 @@ const notificationsSocket = ({
 	);
 
 	return ({ dispatch }) => {
-		notificationsSocketInstance.on(
-			SocketEvent.NOTIFICATIONS_NEW_FOLLOWER,
-			() => {
-				void dispatch(userNotificationsActions.getUserNotifications());
-				void dispatch(
-					userNotificationsActions.checkHasUserUnreadNotifications(),
-				);
-			},
-		);
+		notificationsSocketInstance.on(SocketEvent.NEW_NOTIFICATION, () => {
+			void dispatch(userNotificationsActions.getUserNotifications());
+			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
+		});
 
 		return (next) => {
 			return (action) => {
