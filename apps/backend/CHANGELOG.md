@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.25.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.24.0...backend-v1.25.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** add real time notifications tm-260 ([#404](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/404)) ([7c33ec5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7c33ec51a2a2d0d9f656432c54e2ce04c9dd044c))
+* **backend:** add migration unique index to prevent creating 2 chats simultaneously tm-386 ([#408](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/408)) ([8ec841e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8ec841ed48a274c51c7023ade58e025e47c85e13))
+
+
+### Bug Fixes
+
+* **backend:** likes shouldn't reset coments count tm-159 ([#406](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/406)) ([983631c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/983631ca48086a2e149f7c2905d7e28c8dfe985b))
+
 ## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.23.0...backend-v1.24.0) (2024-03-08)
 
 
