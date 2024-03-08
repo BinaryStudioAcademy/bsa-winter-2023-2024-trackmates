@@ -1,4 +1,4 @@
-import { Button, Textarea } from "~/libs/components/components.js";
+import { Button, Input } from "~/libs/components/components.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { chatMessageValidationSchema } from "~/modules/chat-messages/chat-messages.js";
 
@@ -31,7 +31,7 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			className={styles["form"]}
 			onSubmit={handleFormSubmit}
 		>
-			<Textarea
+			<Input
 				className={styles["textarea"]}
 				control={control}
 				errors={errors}
