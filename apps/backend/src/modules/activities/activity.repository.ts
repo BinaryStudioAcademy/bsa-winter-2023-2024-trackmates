@@ -88,6 +88,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.query()
 			.findById(id)
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
@@ -97,7 +98,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		return activity
 			? ActivityEntity.initialize({
 					actionId: activity.actionId,
-					commentCount: null,
+					commentCount: activity.commentCount,
 					id: activity.id,
 					likesCount: activity.likesCount,
 					payload: activity.payload,
@@ -113,6 +114,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						nickname: activity.user.userDetails.nickname,
 						passwordHash: "",
 						passwordSalt: "",
+						sex: activity.user.userDetails.sex,
 						updatedAt: activity.user.updatedAt,
 					}),
 					userId: activity.userId,
@@ -159,6 +161,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					nickname: activity.user.userDetails.nickname,
 					passwordHash: "",
 					passwordSalt: "",
+					sex: activity.user.userDetails.sex,
 					updatedAt: activity.user.updatedAt,
 				}),
 				userId: activity.userId,
@@ -229,6 +232,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						nickname: updatedActivity.user.userDetails.nickname,
 						passwordHash: "",
 						passwordSalt: "",
+						sex: updatedActivity.user.userDetails.sex,
 						updatedAt: updatedActivity.user.updatedAt,
 					}),
 					userId: updatedActivity.userId,

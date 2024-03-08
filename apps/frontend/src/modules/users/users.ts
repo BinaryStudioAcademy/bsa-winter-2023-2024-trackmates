@@ -11,6 +11,7 @@ const userApi = new UserApi({
 });
 
 export { userApi };
+export { UserSex } from "./libs/enums/enums.js";
 export {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,

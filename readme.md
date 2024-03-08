@@ -43,6 +43,7 @@ erDiagram
     varchar first_name
     varchar last_name
     varchar nickname
+    enum sex
     int avatar_file_id FK
    }
 

@@ -60,7 +60,7 @@ const { actions, name, reducer } = createSlice({
 		});
 	},
 	initialState,
-	name: "user-notifactions",
+	name: "user-notifications",
 	reducers: {},
 });
 
