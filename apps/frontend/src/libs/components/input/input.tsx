@@ -5,9 +5,8 @@ import {
 	type FieldValues,
 } from "react-hook-form";
 
-import { EventCode } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useCallback, useFormController } from "~/libs/hooks/hooks.js";
+import { useFormController } from "~/libs/hooks/hooks.js";
 import { type IconName } from "~/libs/types/types.js";
 
 import { Icon } from "../icon/icon.js";
@@ -22,7 +21,7 @@ type Properties<T extends FieldValues> = {
 	iconName?: IconName;
 	label: string;
 	name: FieldPath<T>;
-	onSubmit?: (_event: React.BaseSyntheticEvent) => void;
+	onKeyDown?: (_event: React.KeyboardEvent) => void;
 	placeholder?: string;
 	rows?: number;
 	type?: "email" | "password" | "text";
@@ -37,7 +36,7 @@ const Input = <T extends FieldValues>({
 	iconName,
 	label,
 	name,
-	onSubmit,
+	onKeyDown,
 	placeholder = "",
 	rows,
 	type = "text",
@@ -66,16 +65,6 @@ const Input = <T extends FieldValues>({
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 
-	const handleKeyDown = useCallback(
-		(_event: React.KeyboardEvent): void => {
-			if (_event.code == EventCode.ENTER && !_event.shiftKey) {
-				_event.preventDefault();
-				onSubmit && onSubmit(_event);
-			}
-		},
-		[onSubmit],
-	);
-
 	return (
 		<label className={styles["container"]}>
 			<span className={labelClasses}>{label}</span>
@@ -84,7 +73,7 @@ const Input = <T extends FieldValues>({
 				<textarea
 					className={inputClasses}
 					{...field}
-					onKeyDown={handleKeyDown}
+					onKeyDown={onKeyDown}
 					placeholder={placeholder}
 					rows={rows}
 				/>
