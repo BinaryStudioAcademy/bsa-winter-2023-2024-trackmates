@@ -2,6 +2,10 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../auth/auth.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
@@ -38,40 +42,49 @@ class FriendsApi extends BaseHTTPApi {
 		return await response.json<FriendFollowResponseDto>();
 	}
 
-	public async getAllPotentialFriends(): Promise<UserAuthResponseDto[]> {
+	public async getAllPotentialFriends(
+		query: PaginationRequestDto,
+	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.POTENTIAL_FOLLOWINGS, {}),
 			{
 				hasAuth: true,
 				method: "GET",
+				query,
 			},
 		);
 
-		return await response.json<UserAuthResponseDto[]>();
+		return await response.json<PaginationResponseDto<UserAuthResponseDto>>();
 	}
 
-	public async getFollowers(): Promise<UserAuthResponseDto[]> {
+	public async getFollowers(
+		query: PaginationRequestDto,
+	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOWERS, {}),
 			{
 				hasAuth: true,
 				method: "GET",
+				query,
 			},
 		);
 
-		return await response.json<UserAuthResponseDto[]>();
+		return await response.json<PaginationResponseDto<UserAuthResponseDto>>();
 	}
 
-	public async getFollowings(): Promise<UserAuthResponseDto[]> {
+	public async getFollowings(
+		query: PaginationRequestDto,
+	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOWINGS, {}),
 			{
 				hasAuth: true,
 				method: "GET",
+				query,
 			},
 		);
 
-		return await response.json<UserAuthResponseDto[]>();
+		return await response.json<PaginationResponseDto<UserAuthResponseDto>>();
 	}
 
 	public async getIsFollowing(id: number): Promise<boolean> {
