@@ -1,19 +1,19 @@
 import { DateValue, FormatDateType } from "~/libs/enums/enums.js";
 import {
+	checkIsThisYear,
+	checkIsToday,
+	checkIsYesterday,
 	getFormattedDate,
-	isThisYear,
-	isToday,
-	isYesterday,
 } from "~/libs/helpers/helpers.js";
 
 const getFormattedChatDate = (dateString: string): string => {
 	const date = new Date(dateString);
 
-	if (isToday(date)) {
+	if (checkIsToday(date)) {
 		return DateValue.TODAY;
-	} else if (isYesterday(date)) {
+	} else if (checkIsYesterday(date)) {
 		return DateValue.YESTERDAY;
-	} else if (isThisYear(date)) {
+	} else if (checkIsThisYear(date)) {
 		return getFormattedDate(dateString, FormatDateType.MMMM_DO).toLowerCase();
 	} else {
 		return getFormattedDate(
