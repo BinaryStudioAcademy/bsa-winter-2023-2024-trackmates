@@ -1,6 +1,11 @@
-import { Link } from "~/libs/components/components.js";
+import { Link, Loader } from "~/libs/components/components.js";
 import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
-import { AppRoute, AppTitle, PaginationValue } from "~/libs/enums/enums.js";
+import {
+	AppRoute,
+	AppTitle,
+	DataStatus,
+	PaginationValue,
+} from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -22,6 +27,12 @@ const Friends: React.FC = () => {
 	const { pathname } = useLocation();
 
 	const dispatch = useAppDispatch();
+
+	const { isLoading } = useAppSelector((state) => {
+		return {
+			isLoading: state.friends.dataStatus === DataStatus.PENDING,
+		};
+	});
 
 	const potentialFriendsData = useAppSelector((state) => {
 		return {
@@ -104,6 +115,7 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS: {
 				return (
 					<FriendsTab
+						emptyPlaceholder={"There aren't any potential friends"}
 						items={potentialFriendsData.items}
 						pagination={potentialFriendsPagination}
 					/>
@@ -113,6 +125,7 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS_FOLLOWERS: {
 				return (
 					<FriendsTab
+						emptyPlaceholder={"You don't have any followers yet"}
 						items={followersData.items}
 						pagination={followersPagination}
 					/>
@@ -122,6 +135,7 @@ const Friends: React.FC = () => {
 			case AppRoute.FRIENDS_FOLLOWINGS: {
 				return (
 					<FriendsTab
+						emptyPlaceholder={"You aren't following anyone yet"}
 						items={followingsData.items}
 						pagination={followingsPagination}
 					/>
@@ -149,7 +163,11 @@ const Friends: React.FC = () => {
 					</li>
 				))}
 			</ul>
-			{handleScreenRender(pathname)}
+			{isLoading ? (
+				<Loader color="orange" size="large" />
+			) : (
+				handleScreenRender(pathname)
+			)}
 		</div>
 	);
 };
