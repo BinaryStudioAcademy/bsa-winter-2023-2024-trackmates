@@ -60,6 +60,7 @@ class UserNotificationController extends BaseController {
 			handler: (options) => {
 				return this.getNotificationsByUserId(
 					options as APIHandlerOptions<{
+						query: { search: string };
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -132,6 +133,10 @@ class UserNotificationController extends BaseController {
 	 *        - User notifications
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: search
+	 *          in: query
+	 *          type: string
 	 *      description: Returns all user notifications
 	 *      responses:
 	 *        200:
@@ -149,12 +154,14 @@ class UserNotificationController extends BaseController {
 	 */
 	public async getNotificationsByUserId(
 		options: APIHandlerOptions<{
+			query?: { search?: string };
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
 				options.user.id,
+				options.query?.search ?? "",
 			),
 			status: HTTPCode.OK,
 		};
