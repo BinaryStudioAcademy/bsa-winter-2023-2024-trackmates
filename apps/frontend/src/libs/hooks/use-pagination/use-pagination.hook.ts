@@ -14,6 +14,8 @@ type UsePagination = (options: {
 	pagesCount: number;
 };
 
+const QUERY_SECTION_SIZE = 1;
+
 const usePagination: UsePagination = ({
 	pageSize,
 	pagesCutCount,
@@ -22,12 +24,12 @@ const usePagination: UsePagination = ({
 	const queryName = "page";
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
+	const queryParameters = new URLSearchParams(location.search);
 	const validPage =
 		pageFromQuery > PaginationValue.PAGE_NOT_EXISTS
 			? pageFromQuery
 			: PaginationValue.DEFAULT_PAGE;
 	const [page, setPage] = useState<number>(validPage);
-
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
 		currentPage: page,
@@ -46,13 +48,9 @@ const usePagination: UsePagination = ({
 			setSearchParameters(updatedSearchParameters);
 		} else if (
 			pagesCount !== PaginationValue.PAGE_NOT_EXISTS ||
-			!pageFromQuery
+			queryParameters.size > QUERY_SECTION_SIZE
 		) {
-			updatedSearchParameters.set(
-				queryName,
-				String(PaginationValue.DEFAULT_PAGE),
-			);
-			setSearchParameters(updatedSearchParameters);
+			setSearchParameters();
 			setPage(PaginationValue.DEFAULT_PAGE);
 		}
 	}, [page, pagesCount]);
