@@ -13,6 +13,10 @@
 
 .input {
 	max-height: 37px;
+}
+
+.input,
+.textarea {
 	padding: 12px;
 	font-family: inherit;
 	font-weight: 500;
@@ -31,16 +35,9 @@
 
 .textarea {
 	box-sizing: content-box;
-	padding: 12px;
 	overflow: hidden;
-	font-family: inherit;
-	font-weight: 500;
 	line-height: 20px;
-	cursor: text;
 	resize: none;
-	border: none;
-	border-radius: 51px;
-	outline: none;
 }
 
 .dark {
