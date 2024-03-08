@@ -1,3 +1,6 @@
+import { type ValueOf } from "../../../../libs/types/types.js";
+import { type UserSex } from "../enums/enums.js";
+
 type UserAuthResponseDto = {
 	avatarUrl: null | string;
 	createdAt: string;
@@ -6,6 +9,7 @@ type UserAuthResponseDto = {
 	id: number;
 	lastName: string;
 	nickname: null | string;
+	sex: ValueOf<typeof UserSex> | null;
 	updatedAt: string;
 };
 
