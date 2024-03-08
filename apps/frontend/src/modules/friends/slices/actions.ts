@@ -1,7 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import {
+	type AsyncThunkConfig,
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import {
@@ -11,23 +15,23 @@ import {
 import { name as sliceName } from "./friends.slice.js";
 
 const getPotentialFriends = createAsyncThunk<
-	UserAuthResponseDto[],
-	undefined,
+	PaginationResponseDto<UserAuthResponseDto>,
+	PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-potential-friends`, (_, { extra }) => {
+>(`${sliceName}/get-potential-friends`, ({ count, page }, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getAllPotentialFriends();
+	return friendsApi.getAllPotentialFriends({ count, page });
 });
 
 const getFollowers = createAsyncThunk<
-	UserAuthResponseDto[],
-	undefined,
+	PaginationResponseDto<UserAuthResponseDto>,
+	PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-followers`, (_, { extra }) => {
+>(`${sliceName}/get-followers`, ({ count, page }, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getFollowers();
+	return friendsApi.getFollowers({ count, page });
 });
 
 const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
@@ -40,13 +44,13 @@ const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 );
 
 const getFollowings = createAsyncThunk<
-	UserAuthResponseDto[],
-	undefined,
+	PaginationResponseDto<UserAuthResponseDto>,
+	PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-followings`, (_, { extra }) => {
+>(`${sliceName}/get-followings`, ({ count, page }, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getFollowings();
+	return friendsApi.getFollowings({ count, page });
 });
 
 const follow = createAsyncThunk<
