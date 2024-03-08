@@ -30,6 +30,7 @@ const usePagination: UsePagination = ({
 			? pageFromQuery
 			: PaginationValue.DEFAULT_PAGE;
 	const [page, setPage] = useState<number>(validPage);
+	const [path, setPath] = useState<string>(location.pathname);
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
 		currentPage: page,
@@ -43,6 +44,13 @@ const usePagination: UsePagination = ({
 			searchParameters.toString(),
 		);
 
+		if (path !== location.pathname) {
+			setPath(location.pathname);
+			setPage(PaginationValue.DEFAULT_COUNT);
+
+			return;
+		}
+
 		if (pagesCount >= pageFromQuery) {
 			updatedSearchParameters.set(queryName, String(page));
 			setSearchParameters(updatedSearchParameters);
@@ -50,10 +58,14 @@ const usePagination: UsePagination = ({
 			pagesCount !== PaginationValue.PAGE_NOT_EXISTS ||
 			queryParameters.size > QUERY_SECTION_SIZE
 		) {
-			setSearchParameters();
-			setPage(PaginationValue.DEFAULT_PAGE);
+			setPage(PaginationValue.DEFAULT_COUNT);
+			updatedSearchParameters.set(
+				queryName,
+				String(PaginationValue.DEFAULT_COUNT),
+			);
+			setSearchParameters(updatedSearchParameters);
 		}
-	}, [page, pagesCount]);
+	}, [page, pagesCount, location.pathname]);
 
 	const handlePageChange = (page: number): void => {
 		setPage(page);
