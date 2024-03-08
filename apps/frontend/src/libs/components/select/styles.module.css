@@ -22,7 +22,6 @@
 	appearance: none;
 	cursor: pointer;
 	background-color: var(--color-background);
-	background-image: none;
 	background-image: url("~/assets/icons/select-arrow.svg");
 	background-repeat: no-repeat;
 	background-position: calc(100% - 12px) center;

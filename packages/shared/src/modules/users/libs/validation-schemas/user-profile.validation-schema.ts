@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { type ValueOf } from "../../../../libs/types/types.js";
 import {
 	UserSex,
 	UserValidationMessage,
@@ -15,7 +16,9 @@ type UserProfileRequestValidationDto = {
 			z.ZodUnion<[z.ZodString, z.ZodLiteral<null>]>
 		>
 	>;
-	sex: z.ZodNullable<z.ZodNativeEnum<typeof UserSex>>;
+	sex: z.ZodNullable<
+		z.ZodEnum<[ValueOf<typeof UserSex>, ...ValueOf<typeof UserSex>[]]>
+	>;
 };
 
 const userProfile = z.object<UserProfileRequestValidationDto>({
@@ -100,7 +103,9 @@ const userProfile = z.object<UserProfileRequestValidationDto>({
 				.or(z.literal(null)),
 		)
 		.nullable(),
-	sex: z.nativeEnum(UserSex).nullable(),
+	sex: z
+		.enum([UserSex.FEMALE, UserSex.MALE, UserSex.PREFER_NOT_TO_SAY])
+		.nullable(),
 });
 
 export { userProfile };
