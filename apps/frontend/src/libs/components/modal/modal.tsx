@@ -1,5 +1,9 @@
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useHandleClickOutside, useRef } from "~/libs/hooks/hooks.js";
+import {
+	useHandleClickOutside,
+	useHandleEscPress,
+	useRef,
+} from "~/libs/hooks/hooks.js";
 
 import { Button } from "../button/button.js";
 import { Portal } from "../portal/portal.js";
@@ -20,6 +24,10 @@ const Modal: React.FC<Properties> = ({
 	useHandleClickOutside({
 		onClick: onClose,
 		ref: contentReference,
+	});
+
+	useHandleEscPress({
+		onEscPress: onClose,
 	});
 
 	return (
