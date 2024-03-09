@@ -6,6 +6,10 @@
 	transition: 0.3s ease-in-out;
 }
 
+.search::placeholder {
+	color: var(--color-text-100);
+}
+
 @media screen and (--medium-screen) {
 	.form {
 		flex-basis: 0;
