@@ -51,7 +51,10 @@ const SearchBar: React.FC<Properties> = ({
 			switch (pathname) {
 				case AppRoute.NOTIFICATIONS: {
 					void dispatch(
-						userNotificationActions.getUserNotifications(payload.search),
+						userNotificationActions.getUserNotifications({
+							search: payload.search,
+							type: "all",
+						}),
 					);
 					break;
 				}

@@ -1,4 +1,4 @@
 export {
-	type NotificationTypeFilterRequestDto,
+	type NotificationFilterRequestDto,
 	type ReadNotificationsRequestDto,
 } from "@trackmates/shared";

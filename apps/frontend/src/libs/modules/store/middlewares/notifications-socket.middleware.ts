@@ -20,7 +20,12 @@ const notificationsSocket = ({
 
 	return ({ dispatch }) => {
 		notificationsSocketInstance.on(SocketEvent.NEW_NOTIFICATION, () => {
-			void dispatch(userNotificationsActions.getUserNotifications());
+			void dispatch(
+				userNotificationsActions.getUserNotifications({
+					search: "",
+					type: "all",
+				}),
+			);
 			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
 		});
 

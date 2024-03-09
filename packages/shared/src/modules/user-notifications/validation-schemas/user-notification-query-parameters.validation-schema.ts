@@ -3,7 +3,8 @@ import { z } from "zod";
 import { type ValueOf } from "../../../libs/types/types.js";
 import { NotificationFilter } from "../enums/enums.js";
 
-type NotificationTypeQueryParameterValidation = {
+type NotificationQueryParametersValidation = {
+	search: z.ZodOptional<z.ZodString>;
 	type: z.ZodOptional<
 		z.ZodEnum<
 			[
@@ -14,8 +15,9 @@ type NotificationTypeQueryParameterValidation = {
 	>;
 };
 
-const notificationTypeQueryParameter =
-	z.object<NotificationTypeQueryParameterValidation>({
+const userNotificationQueryParameters =
+	z.object<NotificationQueryParametersValidation>({
+		search: z.string().trim().optional(),
 		type: z
 			.enum([
 				NotificationFilter.ALL,
@@ -26,4 +28,4 @@ const notificationTypeQueryParameter =
 			.optional(),
 	});
 
-export { notificationTypeQueryParameter };
+export { userNotificationQueryParameters };

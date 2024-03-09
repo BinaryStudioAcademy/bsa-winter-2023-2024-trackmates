@@ -1,9 +1,9 @@
 export { NotificationFilter, UserNotificationsApiPath } from "./enums/enums.js";
 export {
-	type NotificationTypeFilterRequestDto,
+	type NotificationFilterRequestDto,
 	type ReadNotificationsRequestDto,
 } from "./types/types.js";
 export {
-	notificationTypeQueryParameter as notificationTypeQueryParameterValidationSchema,
 	readNotificationsRequest as readNotificationsRequestValidationSchema,
+	userNotificationQueryParameters as userNotificationQueryParametersValidationSchema,
 } from "./validation-schemas/validation-schemas.js";

@@ -195,11 +195,11 @@ export {
 } from "./modules/user-courses/users-courses.js";
 export {
 	NotificationFilter,
-	type NotificationTypeFilterRequestDto,
+	type NotificationFilterRequestDto,
 	type ReadNotificationsRequestDto,
 	UserNotificationsApiPath,
-	notificationTypeQueryParameterValidationSchema,
 	readNotificationsRequestValidationSchema,
+	userNotificationQueryParametersValidationSchema,
 } from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,

@@ -1,4 +1,4 @@
 export {
-	notificationTypeQueryParameterValidationSchema,
 	readNotificationsRequestValidationSchema,
+	userNotificationQueryParametersValidationSchema,
 } from "@trackmates/shared";

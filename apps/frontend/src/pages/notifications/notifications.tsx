@@ -56,7 +56,9 @@ const Notifications: React.FC = () => {
 			return;
 		}
 
-		void dispatch(actions.getUserNotifications(notificationType));
+		void dispatch(
+			actions.getUserNotifications({ search: "", type: notificationType }),
+		);
 	}, [dispatch, notificationType, navigate, possibleTypeValues]);
 
 	const hasNotifications = notifications.length > EMPTY_ARRAY_LENGTH;

@@ -41,7 +41,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 	}
 
 	public async getUserNotifications(
-		search: string,
+		search: string | undefined,
 		type: ValueOf<typeof NotificationFilter> | null,
 	): Promise<{
 		items: NotificationResponseDto[];
@@ -54,8 +54,8 @@ class UserNotificationsApi extends BaseHTTPApi {
 
 		if (type) {
 			options.query = {
-				type,
 				search,
+				type,
 			};
 		}
 
