@@ -2,8 +2,8 @@ import { PREVIOUS_INDEX_OFFSET } from "~/libs/constants/constants.js";
 import { checkIsDatePrecedesAnotherByOneDay } from "~/libs/helpers/helpers.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
-import { MessageItemOption } from "../enums/enums.js";
-import { type MessageItem } from "../types/types.js";
+import { MessageItemOption } from "../../enums/enums.js";
+import { type MessageItem } from "../../types/types.js";
 
 const prepareMessageItems = (
 	messages: ChatMessageItemResponseDto[],
