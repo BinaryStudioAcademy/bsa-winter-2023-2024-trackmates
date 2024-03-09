@@ -11,16 +11,20 @@ const getFormattedChatDate = (dateString: string): string => {
 
 	if (checkIsToday(date)) {
 		return DateValue.TODAY;
-	} else if (checkIsYesterday(date)) {
-		return DateValue.YESTERDAY;
-	} else if (checkIsThisYear(date)) {
-		return getFormattedDate(dateString, FormatDateType.MMMM_DO).toLowerCase();
-	} else {
-		return getFormattedDate(
-			dateString,
-			FormatDateType.MMMM_DO_YYYY,
-		).toLowerCase();
 	}
+
+	if (checkIsYesterday(date)) {
+		return DateValue.YESTERDAY;
+	}
+
+	if (checkIsThisYear(date)) {
+		return getFormattedDate(dateString, FormatDateType.MMMM_DO).toLowerCase();
+	}
+
+	return getFormattedDate(
+		dateString,
+		FormatDateType.MMMM_DO_YYYY,
+	).toLowerCase();
 };
 
 export { getFormattedChatDate };
