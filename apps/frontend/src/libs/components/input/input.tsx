@@ -21,7 +21,6 @@ type Properties<T extends FieldValues> = {
 	iconName?: IconName;
 	label: string;
 	name: FieldPath<T>;
-	onKeyDown?: (_event: React.KeyboardEvent) => void;
 	placeholder?: string;
 	rows?: number;
 	type?: "email" | "password" | "text";
@@ -36,7 +35,6 @@ const Input = <T extends FieldValues>({
 	iconName,
 	label,
 	name,
-	onKeyDown,
 	placeholder = "",
 	rows,
 	type = "text",
@@ -73,7 +71,6 @@ const Input = <T extends FieldValues>({
 				<textarea
 					className={inputClasses}
 					{...field}
-					onKeyDown={onKeyDown}
 					placeholder={placeholder}
 					rows={rows}
 				/>

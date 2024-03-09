@@ -1,5 +1,4 @@
 import { Button, Input } from "~/libs/components/components.js";
-import { EventCode } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { chatMessageValidationSchema } from "~/modules/chat-messages/chat-messages.js";
 
@@ -26,16 +25,6 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		[handleSubmit, onSubmit, reset],
 	);
 
-	const handleKeyDown = useCallback(
-		(_event: React.KeyboardEvent): void => {
-			if (_event.code === EventCode.ENTER && !_event.shiftKey) {
-				_event.preventDefault();
-				handleFormSubmit(_event);
-			}
-		},
-		[handleFormSubmit],
-	);
-
 	return (
 		<form
 			autoComplete="off"
@@ -49,7 +38,6 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				hasVisuallyHiddenLabel
 				label="Send a message"
 				name="message"
-				onKeyDown={handleKeyDown}
 				rows={1}
 			/>
 			<Button
