@@ -9,6 +9,7 @@ import { type ActivityResponseDto } from "../libs/types/types.js";
 import {
 	createComment,
 	getAllCommentsToActivity,
+	likeActivity,
 	loadActivities,
 } from "./actions.js";
 
@@ -18,6 +19,7 @@ type State = {
 	createCommentDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
 	getActivityCommentsDataStatus: ValueOf<typeof DataStatus>;
+	likeDataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
@@ -26,10 +28,24 @@ const initialState: State = {
 	createCommentDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
 	getActivityCommentsDataStatus: DataStatus.IDLE,
+	likeDataStatus: DataStatus.IDLE,
 };
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
+		builder.addCase(likeActivity.fulfilled, (state, action) => {
+			state.activities = state.activities.map((activity) => {
+				return activity.id === action.payload.id ? action.payload : activity;
+			});
+			state.likeDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(likeActivity.pending, (state) => {
+			state.likeDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(likeActivity.rejected, (state) => {
+			state.likeDataStatus = DataStatus.REJECTED;
+		});
+
 		builder.addCase(loadActivities.fulfilled, (state, action) => {
 			state.activities = action.payload.items;
 			state.dataStatus = DataStatus.FULFILLED;

@@ -72,6 +72,7 @@
 	color: var(--color-menu);
 	background-color: var(--main-white);
 	border-color: var(--main-white);
+	outline: none;
 }
 
 .add-course-button:hover {

@@ -1,5 +1,11 @@
+import { type Page } from "objection";
+
+import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
-import { type Repository } from "~/libs/types/types.js";
+import {
+	type PaginationResponseDto,
+	type Repository,
+} from "~/libs/types/types.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
@@ -63,6 +69,7 @@ class FriendRepository implements Repository<UserEntity> {
 			nickname: followingUser.userDetails.nickname,
 			passwordHash: followingUser.passwordHash,
 			passwordSalt: followingUser.passwordSalt,
+			sex: followingUser.userDetails.sex,
 			updatedAt: followingUser.updatedAt,
 		});
 	}
@@ -137,6 +144,7 @@ class FriendRepository implements Repository<UserEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -184,6 +192,7 @@ class FriendRepository implements Repository<UserEntity> {
 				nickname: user.userDetails.nickname,
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
 				updatedAt: user.updatedAt,
 			});
 		});
@@ -224,8 +233,16 @@ class FriendRepository implements Repository<UserEntity> {
 		return Boolean(subscription);
 	}
 
-	public async getPotentialFollowers(id: number): Promise<UserEntity[]> {
-		const potentialFollowers = await this.userModel
+	public async getPotentialFollowers({
+		count,
+		id,
+		page,
+	}: {
+		count: number;
+		id: number;
+		page: number;
+	}): Promise<PaginationResponseDto<UserEntity>> {
+		const { results, total } = await this.userModel
 			.query()
 			.where("users.id", "<>", id)
 			.leftJoin(
@@ -251,44 +268,59 @@ class FriendRepository implements Repository<UserEntity> {
 			.distinct()
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
-			);
+			)
+			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
+			.page(page, count)
+			.castTo<Page<UserModel>>();
 
-		return potentialFollowers.map((user) => {
-			return UserEntity.initialize({
-				avatarUrl: user.userDetails.avatarFile?.url ?? null,
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				groups: user.groups.map((group) => {
-					return GroupEntity.initialize({
-						createdAt: group.createdAt,
-						id: group.id,
-						key: group.key,
-						name: group.name,
-						permissions: group.permissions.map((permission) => {
-							return PermissionEntity.initialize({
-								createdAt: permission.createdAt,
-								id: permission.id,
-								key: permission.key,
-								name: permission.name,
-								updatedAt: permission.updatedAt,
-							});
-						}),
-						updatedAt: group.updatedAt,
-					});
-				}),
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				nickname: user.userDetails.nickname,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				updatedAt: user.updatedAt,
-			});
-		});
+		return {
+			items: results.map((user) => {
+				return UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
+					updatedAt: user.updatedAt,
+				});
+			}),
+			total,
+		};
 	}
 
-	public async getUserFollowers(id: number): Promise<UserEntity[]> {
-		const userFollowers = await this.userModel
+	public async getUserFollowers({
+		count,
+		id,
+		page,
+	}: {
+		count: number;
+		id: number;
+		page: number;
+	}): Promise<PaginationResponseDto<UserEntity>> {
+		const { results, total } = await this.userModel
 			.query()
 			.leftJoin(
 				DatabaseTableName.FRIENDS,
@@ -299,44 +331,59 @@ class FriendRepository implements Repository<UserEntity> {
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
-			);
+			)
+			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
+			.page(page, count)
+			.castTo<Page<UserModel>>();
 
-		return userFollowers.map((user) => {
-			return UserEntity.initialize({
-				avatarUrl: user.userDetails.avatarFile?.url ?? null,
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				groups: user.groups.map((group) => {
-					return GroupEntity.initialize({
-						createdAt: group.createdAt,
-						id: group.id,
-						key: group.key,
-						name: group.name,
-						permissions: group.permissions.map((permission) => {
-							return PermissionEntity.initialize({
-								createdAt: permission.createdAt,
-								id: permission.id,
-								key: permission.key,
-								name: permission.name,
-								updatedAt: permission.updatedAt,
-							});
-						}),
-						updatedAt: group.updatedAt,
-					});
-				}),
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				nickname: user.userDetails.nickname,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				updatedAt: user.updatedAt,
-			});
-		});
+		return {
+			items: results.map((user) => {
+				return UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
+					updatedAt: user.updatedAt,
+				});
+			}),
+			total,
+		};
 	}
 
-	public async getUserFollowings(id: number): Promise<UserEntity[]> {
-		const userFollowings = await this.userModel
+	public async getUserFollowings({
+		count,
+		id,
+		page,
+	}: {
+		count: number;
+		id: number;
+		page: number;
+	}): Promise<PaginationResponseDto<UserEntity>> {
+		const { results, total } = await this.userModel
 			.query()
 			.leftJoin(
 				DatabaseTableName.FRIENDS,
@@ -347,40 +394,47 @@ class FriendRepository implements Repository<UserEntity> {
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
-			);
+			)
+			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
+			.page(page, count)
+			.castTo<Page<UserModel>>();
 
-		return userFollowings.map((user) => {
-			return UserEntity.initialize({
-				avatarUrl: user.userDetails.avatarFile?.url ?? null,
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				groups: user.groups.map((group) => {
-					return GroupEntity.initialize({
-						createdAt: group.createdAt,
-						id: group.id,
-						key: group.key,
-						name: group.name,
-						permissions: group.permissions.map((permission) => {
-							return PermissionEntity.initialize({
-								createdAt: permission.createdAt,
-								id: permission.id,
-								key: permission.key,
-								name: permission.name,
-								updatedAt: permission.updatedAt,
-							});
-						}),
-						updatedAt: group.updatedAt,
-					});
-				}),
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				nickname: user.userDetails.nickname,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				updatedAt: user.updatedAt,
-			});
-		});
+		return {
+			items: results.map((user) => {
+				return UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
+					updatedAt: user.updatedAt,
+				});
+			}),
+			total,
+		};
 	}
 
 	public async update(id: number): Promise<UserEntity> {
@@ -419,6 +473,7 @@ class FriendRepository implements Repository<UserEntity> {
 			nickname: updatedSubscription.userDetails.nickname,
 			passwordHash: updatedSubscription.passwordHash,
 			passwordSalt: updatedSubscription.passwordSalt,
+			sex: updatedSubscription.userDetails.sex,
 			updatedAt: updatedSubscription.updatedAt,
 		});
 	}

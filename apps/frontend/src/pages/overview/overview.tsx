@@ -1,4 +1,5 @@
 import { Courses, Loader, Pagination } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
 import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -14,8 +15,6 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
-
-const PAGINATION_PAGES_CUT_COUNT = 5;
 
 const Overview: React.FC = () => {
 	const { courses, isLoading, totalCount, user } = useAppSelector((state) => {
@@ -53,7 +52,7 @@ const Overview: React.FC = () => {
 				userId: user.id,
 			}),
 		);
-	}, [dispatch, user, page]);
+	}, [dispatch, user, page, totalCount]);
 
 	return (
 		<div className={styles["container"]}>

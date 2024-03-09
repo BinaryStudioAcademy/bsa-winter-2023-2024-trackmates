@@ -59,6 +59,10 @@ export {
 	activityCreateFinishSectionValidationSchema,
 	activityDeleteFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";
+export {
+	type ActivityLikeRequestDto,
+	activityLikeChangeValidationSchema,
+} from "./modules/activity-likes/activity-likes.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
@@ -133,6 +137,7 @@ export {
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,
+	friendGetAllQueryValidationSchema,
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
@@ -194,6 +199,7 @@ export {
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,
+	UserSex,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
