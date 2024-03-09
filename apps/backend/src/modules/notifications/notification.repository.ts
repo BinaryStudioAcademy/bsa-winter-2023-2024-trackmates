@@ -4,6 +4,7 @@ import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/users.js";
 
 import { NotificationStatus, NotificationType } from "./libs/enums/enums.js";
+import { type filterQueryParameterToNotificationType } from "./libs/maps/maps.js";
 import { NotificationEntity } from "./notification.entity.js";
 import { type NotificationModel } from "./notification.model.js";
 
@@ -22,7 +23,9 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			ValueOf<typeof NotificationType>,
 			string
 		> = {
+			[NotificationType.NEW_COMMENT]: `${user.userDetails.firstName} ${user.userDetails.lastName} left a comment.`,
 			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName} started following you.`,
+			[NotificationType.NEW_LIKE]: `${user.userDetails.firstName} ${user.userDetails.lastName} liked your activity.`,
 		};
 
 		return notificationTypeToMessage[type];
@@ -136,10 +139,16 @@ class NotificationRepository implements Repository<NotificationEntity> {
 
 	public async findAllByReceiverUserId(
 		receiverUserId: number,
+		type: ValueOf<typeof filterQueryParameterToNotificationType>,
 	): Promise<NotificationEntity[]> {
 		const userNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId })
+			.andWhere((builder) => {
+				if (type) {
+					void builder.where({ type });
+				}
+			})
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)

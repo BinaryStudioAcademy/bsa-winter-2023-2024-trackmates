@@ -10,8 +10,14 @@ import { type NotificationService } from "~/modules/notifications/notifications.
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
-import { type ReadNotificationsRequestDto } from "./libs/types/types.js";
-import { readNotificationsRequestValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	type NotificationTypeFilterRequestDto,
+	type ReadNotificationsRequestDto,
+} from "./libs/types/types.js";
+import {
+	notificationTypeQueryParameterValidationSchema,
+	readNotificationsRequestValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -60,12 +66,16 @@ class UserNotificationController extends BaseController {
 			handler: (options) => {
 				return this.getNotificationsByUserId(
 					options as APIHandlerOptions<{
+						query: NotificationTypeFilterRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
 			path: UserNotificationsApiPath.ROOT,
+			validation: {
+				query: notificationTypeQueryParameterValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -133,6 +143,13 @@ class UserNotificationController extends BaseController {
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Returns all user notifications
+	 *      parameters:
+	 *        - name: type
+	 *          in: query
+	 *          description: The type of notification
+	 *          schema:
+	 *            type: string
+	 *            enum: [all, comments, followers, likes]
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -149,12 +166,14 @@ class UserNotificationController extends BaseController {
 	 */
 	public async getNotificationsByUserId(
 		options: APIHandlerOptions<{
+			query: NotificationTypeFilterRequestDto;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
 				options.user.id,
+				options.query.type,
 			),
 			status: HTTPCode.OK,
 		};
