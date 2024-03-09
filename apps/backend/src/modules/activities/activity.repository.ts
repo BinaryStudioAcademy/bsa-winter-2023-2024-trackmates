@@ -5,6 +5,8 @@ import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
 import { type CommentModel } from "~/modules/comments/comments.js";
+import { GroupEntity } from "~/modules/groups/groups.js";
+import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
@@ -109,6 +111,24 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						createdAt: activity.user.createdAt,
 						email: activity.user.email,
 						firstName: activity.user.userDetails.firstName,
+						groups: activity.user.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: activity.user.id,
 						lastName: activity.user.userDetails.lastName,
 						nickname: activity.user.userDetails.nickname,
@@ -156,6 +176,24 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					createdAt: activity.user.createdAt,
 					email: activity.user.email,
 					firstName: activity.user.userDetails.firstName,
+					groups: activity.user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: activity.user.id,
 					lastName: activity.user.userDetails.lastName,
 					nickname: activity.user.userDetails.nickname,
@@ -227,6 +265,24 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						createdAt: updatedActivity.user.createdAt,
 						email: updatedActivity.user.email,
 						firstName: updatedActivity.user.userDetails.firstName,
+						groups: updatedActivity.user.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: updatedActivity.user.id,
 						lastName: updatedActivity.user.userDetails.lastName,
 						nickname: updatedActivity.user.userDetails.nickname,

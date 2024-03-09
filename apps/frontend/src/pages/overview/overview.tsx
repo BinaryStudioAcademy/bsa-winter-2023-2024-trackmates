@@ -60,7 +60,7 @@ const Overview: React.FC = () => {
 				userId: user.id,
 			}),
 		);
-	}, [dispatch, user, page]);
+	}, [dispatch, user, page, totalCount]);
 
 	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
 

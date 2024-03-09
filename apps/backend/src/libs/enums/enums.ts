@@ -6,6 +6,8 @@ export {
 	ContentType,
 	ExceptionMessage,
 	HTTPCode,
+	PermissionKey,
+	PermissionMode,
 	ServerErrorType,
 	SortOrder,
 } from "@trackmates/shared";
