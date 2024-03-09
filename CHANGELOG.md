@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.56.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.55.0...v1.56.0) (2024-03-09)
+
+
+### Features
+
+* **frontend/shared:** pronouns on feed page tm-344 ([#418](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/418)) ([ba297ac](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ba297ac590c6934b9d7494c6bf9d65a38a944f50))
+
 ## [1.55.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.54.0...v1.55.0) (2024-03-09)
 
 
