@@ -269,7 +269,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
-			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
+			.orderBy(`${DatabaseTableName.USERS}.createdAt`, SortOrder.DESC)
 			.page(page, count)
 			.castTo<Page<UserModel>>();
 
