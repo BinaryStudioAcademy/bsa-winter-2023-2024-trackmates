@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.41.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.40.0...frontend-v1.41.0) (2024-03-09)
+
+
+### Features
+
+* **frontend/shared:** Update the design of the "Chats" page tm-388 ([#407](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/407)) ([a496650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a496650062fb28bd376d6d93b7f9f95c90c6297f))
+
 ## [1.40.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.39.1...frontend-v1.40.0) (2024-03-09)
 
 
