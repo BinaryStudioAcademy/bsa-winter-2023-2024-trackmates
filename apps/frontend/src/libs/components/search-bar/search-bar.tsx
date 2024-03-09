@@ -13,7 +13,7 @@ import { actions as userNotificationActions } from "~/modules/user-notifications
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Input } from "../input/input.js";
-import { SearchPagePathToDefaultValue } from "./libs/maps/maps.js";
+import { searchPagePathToDefaultValue } from "./libs/maps/maps.js";
 import { type SearchPagePath } from "./libs/types/types.js";
 import styles from "./styles.module.css";
 
@@ -33,7 +33,7 @@ const SearchBar: React.FC<Properties> = ({
 	const { pathname } = useLocation();
 
 	const { control, errors, handleSubmit } = useAppForm({
-		defaultValues: SearchPagePathToDefaultValue[pathname as SearchPagePath],
+		defaultValues: searchPagePathToDefaultValue[pathname as SearchPagePath],
 		mode: "onChange",
 	});
 
@@ -45,11 +45,11 @@ const SearchBar: React.FC<Properties> = ({
 	);
 
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
-		void handleSubmit((data) => {
+		void handleSubmit((payload) => {
 			switch (pathname) {
 				case AppRoute.NOTIFICATIONS: {
 					void dispatch(
-						userNotificationActions.getUserNotifications(data.search),
+						userNotificationActions.getUserNotifications(payload.search),
 					);
 					break;
 				}
@@ -59,7 +59,7 @@ const SearchBar: React.FC<Properties> = ({
 						userCourseActions.loadMyCourses({
 							count: PaginationValue.DEFAULT_COUNT,
 							page: PaginationValue.DEFAULT_PAGE,
-							search: data.search,
+							search: payload.search,
 							userId: user.id,
 						}),
 					);

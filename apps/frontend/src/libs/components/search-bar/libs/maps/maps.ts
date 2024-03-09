@@ -1,1 +1,1 @@
-export { SearchPagePathToDefaultValue } from "./search-page-path-to-default-value.map.js";
+export { searchPagePathToDefaultValue } from "./search-page-path-to-default-value.map.js";
