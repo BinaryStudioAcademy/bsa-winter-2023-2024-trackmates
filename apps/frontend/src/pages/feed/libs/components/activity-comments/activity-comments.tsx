@@ -1,13 +1,15 @@
 import { Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
-	useAppSelector,
 	useCallback,
 	useEffect,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as activityActions } from "~/modules/activities/activities.js";
-import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
+import {
+	type CommentCreateRequestDto,
+	type CommentWithRelationsResponseDto,
+} from "~/modules/comments/comments.js";
 
 import { ActivityCommentForm } from "../activity-comment-form/activity-comment-form.js";
 import { CommentCard } from "../comment-card/comment-card.js";
@@ -19,31 +21,39 @@ type Properties = {
 
 const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { comments, isLoadingComments, isLoadingCreateComment } =
-		useAppSelector((state) => {
-			return {
-				comments: state.activities.activityComments,
-				isLoadingComments:
-					state.activities.getActivityCommentsDataStatus === DataStatus.PENDING,
-				isLoadingCreateComment:
-					state.activities.createCommentDataStatus === DataStatus.PENDING,
-			};
-		});
+	const [comments, setComments] = useState<CommentWithRelationsResponseDto[]>(
+		[],
+	);
+	const [isLoadingComments, setIsLoadingComments] = useState<boolean>(false);
+	const [isLoadingCreateComment, setIsLoadingCreateComment] =
+		useState<boolean>(false);
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
+			setIsLoadingCreateComment(true);
 			void dispatch(
 				activityActions.createComment({
 					activityId,
 					text: payload.text,
 				}),
-			);
+			)
+				.unwrap()
+				.then((comment) => {
+					setComments([comment, ...comments]);
+					setIsLoadingCreateComment(false);
+				});
 		},
-		[activityId, dispatch],
+		[activityId, comments, dispatch],
 	);
 
 	useEffect(() => {
-		void dispatch(activityActions.getAllCommentsToActivity(activityId));
+		setIsLoadingComments(true);
+		void dispatch(activityActions.getAllCommentsToActivity(activityId))
+			.unwrap()
+			.then((response) => {
+				setComments(response.items);
+				setIsLoadingComments(false);
+			});
 	}, [activityId, dispatch]);
 
 	return (
