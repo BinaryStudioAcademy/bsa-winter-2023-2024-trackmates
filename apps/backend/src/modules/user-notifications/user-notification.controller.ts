@@ -154,14 +154,14 @@ class UserNotificationController extends BaseController {
 	 */
 	public async getNotificationsByUserId(
 		options: APIHandlerOptions<{
-			query?: { search?: string };
+			query: { search?: string };
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
 				options.user.id,
-				options.query?.search ?? "",
+				options.query.search ?? "",
 			),
 			status: HTTPCode.OK,
 		};
