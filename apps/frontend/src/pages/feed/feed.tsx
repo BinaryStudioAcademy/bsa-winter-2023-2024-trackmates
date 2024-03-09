@@ -26,7 +26,7 @@ const Feed: React.FC = () => {
 
 	return (
 		<div className={styles["wrapper"]}>
-			<h2>Friends Activity Feed</h2>
+			<h2 className={styles["title"]}>Friends Activity Feed</h2>
 			{isLoading ? (
 				<Loader color="orange" size="large" />
 			) : (
