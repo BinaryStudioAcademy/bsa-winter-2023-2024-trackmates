@@ -18,10 +18,20 @@ const notificationsSocket = ({
 		SocketNamespace.NOTIFICATIONS,
 	);
 
-	return ({ dispatch }) => {
-		notificationsSocketInstance.on(SocketEvent.NEW_NOTIFICATION, () => {
-			void dispatch(userNotificationsActions.getUserNotifications());
-			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
+	return ({ dispatch, getState }) => {
+		notificationsSocketInstance.on(SocketEvent.NEW_NOTIFICATION, async () => {
+			await dispatch(userNotificationsActions.getUserNotifications());
+			await dispatch(
+				userNotificationsActions.checkHasUserUnreadNotifications(),
+			);
+
+			const { userNotifications } = getState();
+
+			if (!userNotifications.hasUnreadNotifications) {
+				return;
+			}
+
+			dispatch(userNotificationsActions.sendUnreadNotifications());
 		});
 
 		return (next) => {

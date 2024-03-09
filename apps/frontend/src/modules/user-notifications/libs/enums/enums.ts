@@ -1,1 +1,5 @@
-export { UserNotificationsApiPath } from "@trackmates/shared";
+export {
+	NotificationStatus,
+	NotificationType,
+	UserNotificationsApiPath,
+} from "@trackmates/shared";

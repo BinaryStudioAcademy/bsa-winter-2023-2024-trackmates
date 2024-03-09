@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
+import { pwaNotification } from "~/libs/modules/pwa-notification/pwa-notification.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { NotificationStatus } from "../libs/enums/enums.js";
+import { notificationTypeToTitle } from "../libs/maps/maps.js";
 import { type NotificationResponseDto } from "../libs/types/types.js";
 import {
 	checkHasUserUnreadNotifications,
@@ -61,7 +64,21 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "user-notifications",
-	reducers: {},
+	reducers: {
+		sendUnreadNotifications(state): void {
+			for (const notification of state.notifications) {
+				if (notification.status === NotificationStatus.UNREAD) {
+					pwaNotification.sendNotification(
+						notificationTypeToTitle[notification.type],
+						{
+							body: notification.message,
+							icon: notification.userAvatarUrl ?? "",
+						},
+					);
+				}
+			}
+		},
+	},
 });
 
 export { actions, name, reducer };
