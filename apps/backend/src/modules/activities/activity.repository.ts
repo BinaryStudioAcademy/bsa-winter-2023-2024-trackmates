@@ -92,7 +92,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.withGraphJoined(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
@@ -111,7 +111,24 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						createdAt: activity.user.createdAt,
 						email: activity.user.email,
 						firstName: activity.user.userDetails.firstName,
-						groups: [],
+						groups: activity.user.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: activity.user.id,
 						lastName: activity.user.userDetails.lastName,
 						nickname: activity.user.userDetails.nickname,
@@ -140,7 +157,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			)
 			.orWhere(`${DatabaseTableName.ACTIVITIES}.userId`, userId)
 			.withGraphJoined(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy("updatedAt", SortOrder.DESC)
 			.castTo<(ActivityModel & ActivityCounts)[]>()
@@ -160,7 +177,24 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					createdAt: activity.user.createdAt,
 					email: activity.user.email,
 					firstName: activity.user.userDetails.firstName,
-					groups: [],
+					groups: activity.user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: activity.user.id,
 					lastName: activity.user.userDetails.lastName,
 					nickname: activity.user.userDetails.nickname,
