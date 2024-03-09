@@ -1,10 +1,12 @@
 import { Loader } from "~/libs/components/components.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useCallback,
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions as activityActions } from "~/modules/activities/activities.js";
 import {
 	type CommentCreateRequestDto,
@@ -24,13 +26,16 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const [comments, setComments] = useState<CommentWithRelationsResponseDto[]>(
 		[],
 	);
-	const [isLoadingComments, setIsLoadingComments] = useState<boolean>(false);
-	const [isLoadingCreateComment, setIsLoadingCreateComment] =
-		useState<boolean>(false);
+	const [loadCommentsDataStatus, setLoadCommentsDataStatus] = useState<
+		ValueOf<typeof DataStatus>
+	>(DataStatus.IDLE);
+	const [createCommentDataStatus, setCreateCommentDataStatus] = useState<
+		ValueOf<typeof DataStatus>
+	>(DataStatus.IDLE);
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
-			setIsLoadingCreateComment(true);
+			setCreateCommentDataStatus(DataStatus.PENDING);
 			void dispatch(
 				activityActions.createComment({
 					activityId,
@@ -40,21 +45,24 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				.unwrap()
 				.then((comment) => {
 					setComments([comment, ...comments]);
-					setIsLoadingCreateComment(false);
+					setCreateCommentDataStatus(DataStatus.FULFILLED);
 				});
 		},
 		[activityId, comments, dispatch],
 	);
 
 	useEffect(() => {
-		setIsLoadingComments(true);
+		setLoadCommentsDataStatus(DataStatus.PENDING);
 		void dispatch(activityActions.getAllCommentsToActivity(activityId))
 			.unwrap()
 			.then((response) => {
 				setComments(response.items);
-				setIsLoadingComments(false);
+				setLoadCommentsDataStatus(DataStatus.FULFILLED);
 			});
 	}, [activityId, dispatch]);
+
+	const isLoadingComments = loadCommentsDataStatus === DataStatus.PENDING;
+	const isCreatingComment = createCommentDataStatus === DataStatus.PENDING;
 
 	return (
 		<div className={styles["container"]}>
@@ -68,7 +76,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				</div>
 			)}
 			<ActivityCommentForm
-				isLoading={isLoadingCreateComment}
+				isLoading={isCreatingComment}
 				onSubmit={handleCreateComment}
 			/>
 		</div>
