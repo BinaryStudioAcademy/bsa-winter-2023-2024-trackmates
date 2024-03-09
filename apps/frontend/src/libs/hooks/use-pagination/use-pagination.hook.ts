@@ -39,6 +39,7 @@ const usePagination: UsePagination = ({
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 
 	useEffect(() => {
+		const isValidPage = pagesCount >= pageFromQuery;
 		const isInvalidPage =
 			pagesCount !== PaginationValue.PAGE_NOT_EXISTS ||
 			queryParameters.size > QuerySection.SIZE;
@@ -53,7 +54,7 @@ const usePagination: UsePagination = ({
 			return;
 		}
 
-		if (pagesCount >= pageFromQuery) {
+		if (isValidPage) {
 			updatedSearchParameters.set(queryName, String(page));
 			setSearchParameters(updatedSearchParameters);
 		} else if (isInvalidPage) {
