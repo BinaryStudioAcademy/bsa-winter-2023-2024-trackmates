@@ -9,7 +9,10 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type NotificationService } from "~/modules/notifications/notifications.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { UserNotificationsApiPath } from "./libs/enums/enums.js";
+import {
+	NotificationFilter,
+	UserNotificationsApiPath,
+} from "./libs/enums/enums.js";
 import {
 	type NotificationFilterRequestDto,
 	type ReadNotificationsRequestDto,
@@ -176,8 +179,8 @@ class UserNotificationController extends BaseController {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
 				options.user.id,
-				options.query.type,
-				options.query.search,
+				options.query.type ?? NotificationFilter.ALL,
+				options.query.search ?? "",
 			),
 			status: HTTPCode.OK,
 		};
