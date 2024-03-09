@@ -151,8 +151,11 @@ export {
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {
+	NotificationFilter,
+	type NotificationTypeFilterRequestDto,
 	type ReadNotificationsRequestDto,
 	UserNotificationsApiPath,
+	notificationTypeQueryParameterValidationSchema,
 	readNotificationsRequestValidationSchema,
 } from "./modules/user-notifications/user-notifications.js";
 export {
