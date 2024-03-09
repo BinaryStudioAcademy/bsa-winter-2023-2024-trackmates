@@ -213,8 +213,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				void builder
 					.where((builder) => {
 						void builder
-							.whereILike("firstUser:userDetails.firstName", `%${search}%`)
-							.orWhereILike("firstUser:userDetails.lastName", `%${search}%`)
+							.whereILike("firstUser:userDetails.lastName", `%${search}%`)
 							.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
 								"firstUser:userDetails.firstName",
 								"firstUser:userDetails.lastName",
@@ -224,8 +223,7 @@ class ChatRepository implements Repository<ChatEntity> {
 					.andWhere({ secondUserId: userId })
 					.orWhere((builder) => {
 						void builder
-							.whereILike("secondUser:userDetails.firstName", `%${search}%`)
-							.orWhereILike("secondUser:userDetails.lastName", `%${search}%`)
+							.whereILike("secondUser:userDetails.lastName", `%${search}%`)
 							.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
 								"secondUser:userDetails.firstName",
 								"secondUser:userDetails.lastName",
