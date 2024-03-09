@@ -40,13 +40,15 @@ const Pagination: React.FC<Properties> = ({
 		>
 			<ul className={styles["content"]}>
 				<PaginationItem
+					iconName="navFirst"
 					isDisabled={isFirstPage}
-					label="<<"
+					label="First"
 					onPageChange={handlePageChange(ONE_ITEM_COUNT)}
 				/>
 				<PaginationItem
+					iconName="navPrev"
 					isDisabled={isFirstPage}
-					label="<"
+					label="Prev"
 					onPageChange={handlePageChange(currentPage - ONE_ITEM_COUNT)}
 				/>
 				{pages.map((page) => (
@@ -58,13 +60,15 @@ const Pagination: React.FC<Properties> = ({
 					/>
 				))}
 				<PaginationItem
+					iconName="navNext"
 					isDisabled={isLastPage}
-					label=">"
+					label="Next"
 					onPageChange={handlePageChange(currentPage + ONE_ITEM_COUNT)}
 				/>
 				<PaginationItem
+					iconName="navLast"
 					isDisabled={isLastPage}
-					label=">>"
+					label="Last"
 					onPageChange={handlePageChange(pagesCount)}
 				/>
 			</ul>
