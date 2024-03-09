@@ -1,9 +1,12 @@
 import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
+import { type HTTPApiOptions } from "~/libs/modules/api/libs/types/types.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
+import { type NotificationFilter } from "./libs/enums/enums.js";
 import {
 	type AllNotificationsResponseDto,
 	type NotificationResponseDto,
@@ -37,16 +40,26 @@ class UserNotificationsApi extends BaseHTTPApi {
 		return await response.json<boolean>();
 	}
 
-	public async getUserNotifications(): Promise<{
+	public async getUserNotifications(
+		type: ValueOf<typeof NotificationFilter> | null,
+	): Promise<{
 		items: NotificationResponseDto[];
 	}> {
+		const options: HTTPApiOptions = {
+			contentType: ContentType.JSON,
+			hasAuth: true,
+			method: "GET",
+		};
+
+		if (type) {
+			options.query = {
+				type,
+			};
+		}
+
 		const response = await this.load(
 			this.getFullEndpoint(UserNotificationsApiPath.ROOT, {}),
-			{
-				contentType: ContentType.JSON,
-				hasAuth: true,
-				method: "GET",
-			},
+			options,
 		);
 
 		return await response.json<{ items: NotificationResponseDto[] }>();

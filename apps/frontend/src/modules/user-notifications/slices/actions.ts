@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
 
+import { type NotificationFilter } from "../libs/enums/enums.js";
 import {
 	type AllNotificationsResponseDto,
 	type ReadNotificationsRequestDto,
@@ -10,12 +11,12 @@ import { name as sliceName } from "./user-notifications.slice.js";
 
 const getUserNotifications = createAsyncThunk<
 	AllNotificationsResponseDto,
-	undefined,
+	ValueOf<typeof NotificationFilter> | null,
 	AsyncThunkConfig
->(`${sliceName}/get-user-notifications`, (_, { extra }) => {
+>(`${sliceName}/get-user-notifications`, (type, { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.getUserNotifications();
+	return userNotificationsApi.getUserNotifications(type);
 });
 
 const checkHasUserUnreadNotifications = createAsyncThunk<
