@@ -139,12 +139,21 @@ class NotificationRepository implements Repository<NotificationEntity> {
 
 	public async findAllByReceiverUserId(
 		receiverUserId: number,
+		search: string,
 		type: ValueOf<typeof filterQueryParameterToNotificationType>,
 	): Promise<NotificationEntity[]> {
 		const userNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId })
 			.andWhere((builder) => {
+				void builder
+					.whereILike("user:userDetails.firstName", `%${search}%`)
+					.orWhereILike("user:userDetails.lastName", `%${search}%`)
+					.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+						"user:userDetails.firstName",
+						"user:userDetails.lastName",
+						`%${search}%`,
+					]);
 				if (type) {
 					void builder.where({ type });
 				}

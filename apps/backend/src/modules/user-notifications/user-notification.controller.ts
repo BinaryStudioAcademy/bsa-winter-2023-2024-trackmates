@@ -142,6 +142,10 @@ class UserNotificationController extends BaseController {
 	 *        - User notifications
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: search
+	 *          in: query
+	 *          type: string
 	 *      description: Returns all user notifications
 	 *      parameters:
 	 *        - name: type
@@ -173,6 +177,7 @@ class UserNotificationController extends BaseController {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
 				options.user.id,
+				options.query.search ?? "",
 				options.query.type,
 			),
 			status: HTTPCode.OK,

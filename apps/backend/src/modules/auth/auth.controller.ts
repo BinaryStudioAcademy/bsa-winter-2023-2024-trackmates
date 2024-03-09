@@ -34,6 +34,11 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *            format: email
  *          firstName:
  *            type: string
+ *          groups:
+ *            type: array
+ *            items:
+ *              type: object
+ *              $ref: "#/components/schemas/Group"
  *          id:
  *            type: number
  *            minimum: 1
@@ -42,6 +47,9 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *          nickname:
  *            type: string
  *            nullable: true
+ *          sex:
+ *            type: string
+ *            enum: [male, female, prefer-not-to-say]
  *          updatedAt:
  *            type: string
  */

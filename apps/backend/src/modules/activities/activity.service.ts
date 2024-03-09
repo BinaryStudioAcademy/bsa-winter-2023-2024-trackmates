@@ -1,4 +1,8 @@
 import { type Service, type ValueOf } from "~/libs/types/types.js";
+import {
+	ActivityLikeEntity,
+	type ActivityLikeRepository,
+} from "~/modules/activity-likes/activity-likes.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
@@ -10,14 +14,47 @@ import {
 } from "./libs/types/types.js";
 
 type Constructor = {
+	activityLikeRepository: ActivityLikeRepository;
 	activityRepository: ActivityRepository;
 };
 
 class ActivityService implements Service {
+	private activityLikeRepository: ActivityLikeRepository;
+
 	private activityRepository: ActivityRepository;
 
-	public constructor({ activityRepository }: Constructor) {
+	public constructor({
+		activityLikeRepository,
+		activityRepository,
+	}: Constructor) {
 		this.activityRepository = activityRepository;
+		this.activityLikeRepository = activityLikeRepository;
+	}
+
+	public async changeLike(
+		activityId: number,
+		userId: number,
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>> | null> {
+		const like = await this.activityLikeRepository.findByUserIdPostId(
+			activityId,
+			userId,
+		);
+
+		const likeObject = like?.toObject();
+
+		likeObject?.id
+			? await this.activityLikeRepository.delete(likeObject.id)
+			: await this.activityLikeRepository.create(
+					ActivityLikeEntity.initializeNew({ activityId, userId }),
+				);
+
+		const targetActivity = await this.activityRepository.find(activityId);
+
+		return targetActivity
+			? (targetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
+					ValueOf<typeof ActivityType>
+				>)
+			: null;
 	}
 
 	public async create<T extends ValueOf<typeof ActivityType>>(activity: {
@@ -78,7 +115,7 @@ class ActivityService implements Service {
 		const activity = await this.activityRepository.find(id);
 
 		return activity
-			? (activity.toObject() as ActivityResponseDto<
+			? (activity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
 					ValueOf<typeof ActivityType>
 				>)
 			: null;
@@ -87,7 +124,7 @@ class ActivityService implements Service {
 	public async findAll(userId: number): Promise<ActivityGetAllResponseDto> {
 		const friendsActivities = await this.activityRepository.findAll(userId);
 		const items = friendsActivities.map((entity) => {
-			return entity.toObject() as ActivityResponseDto<
+			return entity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
 				ValueOf<typeof ActivityType>
 			>;
 		});

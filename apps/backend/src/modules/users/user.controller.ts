@@ -40,6 +40,14 @@ class UserController extends BaseController {
 		});
 
 		this.addRoute({
+			handler: () => {
+				return this.findAll();
+			},
+			method: "GET",
+			path: UsersApiPath.ROOT,
+		});
+
+		this.addRoute({
 			handler: (options) => {
 				return this.findById(
 					options as APIHandlerOptions<{
@@ -53,6 +61,36 @@ class UserController extends BaseController {
 				params: userIdParametersValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /users:
+	 *    get:
+	 *      tags:
+	 *        - Users
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find all users
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/User"
+	 */
+	private async findAll(): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userService.findAll(),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
@@ -122,6 +160,9 @@ class UserController extends BaseController {
 	 *                  type: string
 	 *                nickname:
 	 *                  type: string
+	 *                sex:
+	 *                  type: string
+	 *                  enum: [male, female, prefer-not-to-say]
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation

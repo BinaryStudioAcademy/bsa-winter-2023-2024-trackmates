@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.25.0...shared-v1.26.0) (2024-03-09)
+
+
+### Features
+
+* **frontend/shared:** pronouns on feed page tm-344 ([#418](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/418)) ([ba297ac](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ba297ac590c6934b9d7494c6bf9d65a38a944f50))
+
+## [1.25.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.24.0...shared-v1.25.0) (2024-03-09)
+
+
+### Features
+
+* **frontend/shared:** Update the design of the "Chats" page tm-388 ([#407](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/407)) ([a496650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a496650062fb28bd376d6d93b7f9f95c90c6297f))
+
+## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.23.0...shared-v1.24.0) (2024-03-09)
+
+
+### Features
+
+* **backend/shared:** UAM (User Access Management) - Groups tm-230 ([#364](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/364)) ([aeea39e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/aeea39ee89b63af8f34381001d26217109682d22))
+
+## [1.23.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.22.0...shared-v1.23.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** friends pagination tm-309 ([#401](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/401)) ([071602f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/071602f48dc1cc92d5abaca4ecac1f34017e60f5))
+
+## [1.22.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.21.0...shared-v1.22.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** add real time notifications tm-260 ([#404](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/404)) ([7c33ec5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7c33ec51a2a2d0d9f656432c54e2ce04c9dd044c))
+
+## [1.21.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.20.0...shared-v1.21.0) (2024-03-08)
+
+
+### Features
+
+* **backend/frontend/shared:** add sex property to the user tm-343 ([#379](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/379)) ([41fd5ad](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/41fd5ad815b434622d8c98eb685a4a9c68460bc6))
+
+## [1.20.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.19.0...shared-v1.20.0) (2024-03-07)
+
+
+### Features
+
+* **backend/frontend/shared:** add likes to feed tm-159 ([#378](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/378)) ([b3e7ad5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b3e7ad5a080fea31c2a8d90700437cf9feba8e10))
+
+## [1.19.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.18.0...shared-v1.19.0) (2024-03-07)
+
+
+### Features
+
+* **frontend/backend/shared:** friends activity feed comment tm-308 ([#387](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/387)) ([2aff1ca](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2aff1ca6b2a7b0e1640ee9b736322b647516d965))
+
 ## [1.18.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.17.0...shared-v1.18.0) (2024-03-07)
 
 

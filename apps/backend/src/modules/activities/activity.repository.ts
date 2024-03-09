@@ -1,17 +1,39 @@
+import { type QueryBuilder } from "objection";
+
 import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
+import { type ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
+import { type CommentModel } from "~/modules/comments/comments.js";
+import { GroupEntity } from "~/modules/groups/groups.js";
+import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
+import { EMPTY_COUNT } from "./libs/constants/constants.js";
 import { type ActivityType, RelationName } from "./libs/enums/enums.js";
+import { type ActivityCounts } from "./libs/types/types.js";
 
 class ActivityRepository implements Repository<ActivityEntity> {
 	private activityModel: typeof ActivityModel;
 
 	public constructor(activityModel: typeof ActivityModel) {
 		this.activityModel = activityModel;
+	}
+
+	private getCommentsCountQuery(): QueryBuilder<CommentModel> {
+		return this.activityModel
+			.relatedQuery<CommentModel>(RelationName.COMMENTS)
+			.count()
+			.as("commentCount");
+	}
+
+	private getLikesCountQuery(): QueryBuilder<ActivityLikeModel> {
+		return this.activityModel
+			.relatedQuery<ActivityLikeModel>(RelationName.LIKES)
+			.count()
+			.as("likesCount");
 	}
 
 	public async create(activity: ActivityEntity): Promise<ActivityEntity> {
@@ -24,7 +46,9 @@ class ActivityRepository implements Repository<ActivityEntity> {
 
 		return ActivityEntity.initialize({
 			actionId: activityModel.actionId,
+			commentCount: EMPTY_COUNT,
 			id: activityModel.id,
+			likesCount: EMPTY_COUNT,
 			payload: activityModel.payload,
 			type: activityModel.type,
 			updatedAt: activityModel.updatedAt,
@@ -65,16 +89,20 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		const activity = await this.activityModel
 			.query()
 			.findById(id)
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
-			.castTo<ActivityModel | undefined>()
+			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
 
 		return activity
 			? ActivityEntity.initialize({
 					actionId: activity.actionId,
+					commentCount: activity.commentCount,
 					id: activity.id,
+					likesCount: activity.likesCount,
 					payload: activity.payload,
 					type: activity.type,
 					updatedAt: activity.updatedAt,
@@ -83,11 +111,30 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						createdAt: activity.user.createdAt,
 						email: activity.user.email,
 						firstName: activity.user.userDetails.firstName,
+						groups: activity.user.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: activity.user.id,
 						lastName: activity.user.userDetails.lastName,
 						nickname: activity.user.userDetails.nickname,
 						passwordHash: "",
 						passwordSalt: "",
+						sex: activity.user.userDetails.sex,
 						updatedAt: activity.user.updatedAt,
 					}),
 					userId: activity.userId,
@@ -98,6 +145,8 @@ class ActivityRepository implements Repository<ActivityEntity> {
 	public async findAll(userId: number): Promise<ActivityEntity[]> {
 		const activities = await this.activityModel
 			.query()
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.whereIn(
 				`${DatabaseTableName.ACTIVITIES}.userId`,
 				this.activityModel
@@ -110,13 +159,15 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
 			.orderBy("updatedAt", SortOrder.DESC)
-			.castTo<ActivityModel[]>()
+			.castTo<(ActivityModel & ActivityCounts)[]>()
 			.execute();
 
 		return activities.map((activity) => {
 			return ActivityEntity.initialize({
 				actionId: activity.actionId,
+				commentCount: activity.commentCount,
 				id: activity.id,
+				likesCount: activity.likesCount,
 				payload: activity.payload,
 				type: activity.type,
 				updatedAt: activity.updatedAt,
@@ -125,11 +176,30 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					createdAt: activity.user.createdAt,
 					email: activity.user.email,
 					firstName: activity.user.userDetails.firstName,
+					groups: activity.user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: activity.user.id,
 					lastName: activity.user.userDetails.lastName,
 					nickname: activity.user.userDetails.nickname,
 					passwordHash: "",
 					passwordSalt: "",
+					sex: activity.user.userDetails.sex,
 					updatedAt: activity.user.updatedAt,
 				}),
 				userId: activity.userId,
@@ -155,7 +225,9 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		return activity
 			? ActivityEntity.initialize({
 					actionId: activity.actionId,
+					commentCount: null,
 					id: activity.id,
+					likesCount: null,
 					payload: activity.payload,
 					type: activity.type,
 					updatedAt: activity.updatedAt,
@@ -173,14 +245,18 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.query()
 			.findById(id)
 			.patch(activity.toNewObject())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
+			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.returning("*")
-			.castTo<ActivityModel | undefined>()
+			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
 
 		return updatedActivity
 			? ActivityEntity.initialize({
 					actionId: updatedActivity.actionId,
+					commentCount: updatedActivity.commentCount,
 					id: updatedActivity.id,
+					likesCount: updatedActivity.likesCount,
 					payload: updatedActivity.payload,
 					type: updatedActivity.type,
 					updatedAt: updatedActivity.updatedAt,
@@ -189,11 +265,30 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						createdAt: updatedActivity.user.createdAt,
 						email: updatedActivity.user.email,
 						firstName: updatedActivity.user.userDetails.firstName,
+						groups: updatedActivity.user.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
 						id: updatedActivity.user.id,
 						lastName: updatedActivity.user.userDetails.lastName,
 						nickname: updatedActivity.user.userDetails.nickname,
 						passwordHash: "",
 						passwordSalt: "",
+						sex: updatedActivity.user.userDetails.sex,
 						updatedAt: updatedActivity.user.updatedAt,
 					}),
 					userId: updatedActivity.userId,

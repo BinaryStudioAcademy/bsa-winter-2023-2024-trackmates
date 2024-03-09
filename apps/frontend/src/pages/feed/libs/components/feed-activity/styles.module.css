@@ -39,18 +39,74 @@
 	object-position: center;
 }
 
+.toolbar {
+	display: flex;
+	gap: 40px;
+	align-items: center;
+	justify-content: end;
+	width: 100%;
+	padding: 20px 45px;
+	border-top: 1px solid var(--color-text-100);
+}
+
+.tool-container {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.tool-count {
+	font-size: var(--font-size-200);
+	color: var(--color-text-100);
+}
+
+.tool-button {
+	column-gap: 10px;
+	min-height: unset;
+	padding: 0;
+	color: var(--color-text-200);
+	border: unset;
+	fill: currentcolor;
+}
+
+.tool-button:hover {
+	padding: 0;
+	color: var(--main-orange);
+	background-color: var(--main-white);
+	border: unset;
+	fill: currentcolor;
+}
+
+.comments-container {
+	padding: 20px 12px;
+}
+
 @media screen and (--medium-screen) {
 	.card-content {
-		grid-template-columns: 80px 1fr;
+		grid-template-columns: 95px 1fr;
 	}
 
 	.card-info {
 		font-size: var(--font-size-300);
 	}
+
+	.tool-button {
+		column-gap: 0;
+		font-size: 0;
+	}
 }
 
 @media screen and (--small-screen) {
 	.card-content {
-		grid-template-columns: 1fr;
+		grid-template-columns: 80px 1fr;
+		padding: 8px;
+	}
+
+	.card-info {
+		font-size: var(--font-size-200);
+	}
+
+	.tool-count {
+		font-size: var(--font-size-100);
 	}
 }

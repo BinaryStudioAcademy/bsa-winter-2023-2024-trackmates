@@ -1,4 +1,9 @@
-import { Button, Loader } from "~/libs/components/components.js";
+import {
+	Button,
+	EmptyPagePlaceholder,
+	Loader,
+} from "~/libs/components/components.js";
+import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -54,6 +59,8 @@ const Notifications: React.FC = () => {
 		void dispatch(actions.getUserNotifications(notificationType));
 	}, [dispatch, notificationType, navigate, possibleTypeValues]);
 
+	const hasNotifications = notifications.length > EMPTY_ARRAY_LENGTH;
+
 	return (
 		<div className={styles["page"]}>
 			<div className={styles["content"]}>
@@ -86,7 +93,13 @@ const Notifications: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<NotificationList notifications={notifications} />
+					<>
+						{hasNotifications ? (
+							<NotificationList notifications={notifications} />
+						) : (
+							<EmptyPagePlaceholder title="You don't have any notifications yet" />
+						)}
+					</>
 				)}
 			</div>
 			<div className={styles["background"]} />

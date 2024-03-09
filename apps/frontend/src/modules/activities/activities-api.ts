@@ -2,9 +2,14 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import { type ValueOf } from "~/libs/types/types.js";
+import { type ActivityLikeRequestDto } from "~/modules/activity-likes/activity-likes.js";
 
-import { ActivitiesApiPath } from "./libs/enums/enums.js";
-import { type ActivityGetAllResponseDto } from "./libs/types/types.js";
+import { ActivitiesApiPath, type ActivityType } from "./libs/enums/enums.js";
+import {
+	type ActivityGetAllResponseDto,
+	type ActivityResponseDto,
+} from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -28,6 +33,24 @@ class ActivitiesApi extends BaseHTTPApi {
 		);
 
 		return await response.json<ActivityGetAllResponseDto>();
+	}
+
+	public async likeActivity(
+		payload: ActivityLikeRequestDto,
+	): Promise<ActivityResponseDto<ValueOf<typeof ActivityType>>> {
+		const response = await this.load(
+			this.getFullEndpoint(ActivitiesApiPath.LIKE, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "PATCH",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<
+			ActivityResponseDto<ValueOf<typeof ActivityType>>
+		>();
 	}
 }
 

@@ -1,6 +1,8 @@
 export {
 	EMPTY_ARRAY_LENGTH,
+	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
+	PREVIOUS_INDEX_OFFSET,
 } from "./libs/constants/constants.js";
 export {
 	APIPath,
@@ -15,6 +17,10 @@ export {
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
+	checkIsDatePrecedesAnotherByOneDay,
+	checkIsThisYear,
+	checkIsToday,
+	checkIsYesterday,
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
@@ -48,6 +54,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	ActivitiesApiPath,
+	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
 	type ActivityGetAllResponseDto,
@@ -58,6 +65,10 @@ export {
 	activityCreateFinishSectionValidationSchema,
 	activityDeleteFinishSectionValidationSchema,
 } from "./modules/activities/activities.js";
+export {
+	type ActivityLikeRequestDto,
+	activityLikeChangeValidationSchema,
+} from "./modules/activity-likes/activity-likes.js";
 export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
@@ -82,6 +93,19 @@ export {
 	chatCreateValidationSchema,
 	chatIdParameterValidationSchema,
 } from "./modules/chats/chats.js";
+export {
+	type CommentCreateRequestDto,
+	CommentError,
+	type CommentGetAllRequestDto,
+	type CommentGetAllResponseDto,
+	type CommentUpdateRequestDto,
+	type CommentWithRelationsResponseDto,
+	CommentsApiPath,
+	commentCreateBodyValidationSchema,
+	commentGetAllQueryValidationSchema,
+	commentIdParameterValidationSchema,
+	commentTextValidationSchema,
+} from "./modules/comments/comments.js";
 export {
 	type CourseSectionAddRequestDto,
 	type CourseSectionDto,
@@ -119,8 +143,17 @@ export {
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,
+	friendGetAllQueryValidationSchema,
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
+export {
+	GroupError,
+	GroupErrorMessage,
+	type GroupRequestDto,
+	type GroupResponseDto,
+	GroupsApiPath,
+	groupIdParameter,
+} from "./modules/groups/groups.js";
 export {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
@@ -130,6 +163,16 @@ export {
 	NotificationType,
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
+export {
+	PermissionError,
+	PermissionErrorMessage,
+	PermissionKey,
+	PermissionMode,
+	type PermissionRequestDto,
+	type PermissionResponseDto,
+	PermissionsApiPath,
+	permissionIdParameter,
+} from "./modules/permissions/permissions.js";
 export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
@@ -160,10 +203,12 @@ export {
 } from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,
+	type UserDetailsResponseDto,
 	UserError,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,
+	UserSex,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
@@ -171,6 +216,7 @@ export {
 	UsersApiPath,
 	userIdParametersValidationSchema,
 	userProfileValidationSchema,
+	userSexToPronoun,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
