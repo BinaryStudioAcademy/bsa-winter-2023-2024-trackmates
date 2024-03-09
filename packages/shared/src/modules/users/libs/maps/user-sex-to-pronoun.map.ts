@@ -1,6 +1,6 @@
 import { UserSex } from "../enums/enums.js";
 
-const UserSexToPronoun = {
+const userSexToPronoun = {
 	[UserSex.FEMALE]: {
 		OBJECTIVE: "her",
 		SUBJECTIVE: "she",
@@ -15,4 +15,4 @@ const UserSexToPronoun = {
 	},
 } as const;
 
-export { UserSexToPronoun };
+export { userSexToPronoun };

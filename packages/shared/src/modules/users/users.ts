@@ -1,6 +1,6 @@
 export { UserSex, UsersApiPath } from "./libs/enums/enums.js";
 export { UserError } from "./libs/exceptions/exceptions.js";
-export { UserSexToPronoun } from "./libs/maps/maps.js";
+export { userSexToPronoun } from "./libs/maps/maps.js";
 export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,

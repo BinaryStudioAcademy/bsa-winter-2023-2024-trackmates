@@ -1,1 +1,1 @@
-export { UserSexToPronoun } from "./user-sex-to-pronoun.map.js";
+export { userSexToPronoun } from "./user-sex-to-pronoun.map.js";

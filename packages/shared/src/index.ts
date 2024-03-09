@@ -181,7 +181,6 @@ export {
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,
 	UserSex,
-	UserSexToPronoun,
 	type UserSignInRequestDto,
 	type UserSignInResponseDto,
 	type UserSignUpRequestDto,
@@ -189,6 +188,7 @@ export {
 	UsersApiPath,
 	userIdParametersValidationSchema,
 	userProfileValidationSchema,
+	userSexToPronoun,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";

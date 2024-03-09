@@ -3,7 +3,7 @@ import {
 	type ActivityResponseDto,
 	ActivityType,
 } from "~/modules/activities/activities.js";
-import { UserSex, UserSexToPronoun } from "~/modules/users/users.js";
+import { UserSex, userSexToPronoun } from "~/modules/users/users.js";
 
 const getActivityTitle = (
 	activity: ActivityResponseDto<ValueOf<typeof ActivityType>>,
@@ -12,7 +12,7 @@ const getActivityTitle = (
 	const { title } = activity.payload;
 
 	const { sex } = activity.user;
-	const pronoun = UserSexToPronoun[sex ?? UserSex.PREFER_NOT_TO_SAY].OBJECTIVE;
+	const pronoun = userSexToPronoun[sex ?? UserSex.PREFER_NOT_TO_SAY].OBJECTIVE;
 
 	switch (activity.type) {
 		case ActivityType.FINISH_COURSE: {

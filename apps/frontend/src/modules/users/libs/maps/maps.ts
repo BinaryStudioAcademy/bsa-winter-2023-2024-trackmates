@@ -1,1 +1,1 @@
-export { UserSexToPronoun } from "@trackmates/shared";
+export { userSexToPronoun } from "@trackmates/shared";
