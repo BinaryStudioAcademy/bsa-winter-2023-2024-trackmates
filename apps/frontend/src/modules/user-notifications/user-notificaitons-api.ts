@@ -52,11 +52,14 @@ class UserNotificationsApi extends BaseHTTPApi {
 			method: "GET",
 		};
 
+		options.query = {};
+
 		if (type) {
-			options.query = {
-				search,
-				type,
-			};
+			options.query["type"] = type;
+		}
+
+		if (search) {
+			options.query["search"] = search;
 		}
 
 		const response = await this.load(
