@@ -141,6 +141,14 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	GroupError,
+	GroupErrorMessage,
+	type GroupRequestDto,
+	type GroupResponseDto,
+	GroupsApiPath,
+	groupIdParameter,
+} from "./modules/groups/groups.js";
+export {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
 	NotificationError,
@@ -149,6 +157,16 @@ export {
 	NotificationType,
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
+export {
+	PermissionError,
+	PermissionErrorMessage,
+	PermissionKey,
+	PermissionMode,
+	type PermissionRequestDto,
+	type PermissionResponseDto,
+	PermissionsApiPath,
+	permissionIdParameter,
+} from "./modules/permissions/permissions.js";
 export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
