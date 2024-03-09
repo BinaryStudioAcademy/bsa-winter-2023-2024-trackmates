@@ -18,13 +18,13 @@ type State = {
 	likeDataStatus: ValueOf<typeof DataStatus>;
 };
 
+const ZERO_INDEX = 0;
+
 const initialState: State = {
 	activities: [],
 	dataStatus: DataStatus.IDLE,
 	likeDataStatus: DataStatus.IDLE,
 };
-
-const ZERO_INDEX = 0;
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
