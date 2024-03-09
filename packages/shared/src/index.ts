@@ -71,10 +71,12 @@ export {
 	type ChatMessageUpdateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
+	type ReadChatMessagesRequestDto,
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
 	chatMessageValidationSchema,
+	readChatMessagesRequestValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,

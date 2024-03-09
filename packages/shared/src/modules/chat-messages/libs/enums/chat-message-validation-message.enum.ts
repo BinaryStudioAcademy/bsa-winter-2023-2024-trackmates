@@ -1,6 +1,7 @@
 import { ChatMessageValidationRule } from "./chat-message-validation-rule.enum.js";
 
 const ChatMessageValidationMessage = {
+	ARRAY_MINIMUM_SIZE: "Array should be not empty.",
 	CHAT_ID_MINIMUM_VALUE: `Minimum chatId value – ${ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE}`,
 	MESSAGE_ID_MINIMUM_VALUE: `Minimum messageId value – ${ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE}`,
 	TEXT_MAXIMUM_LENGTH: `Maximum text length – ${ChatMessageValidationRule.TEXT_MAXIMUM_LENGTH}`,
