@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.52.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.51.0...v1.52.0) (2024-03-09)
+
+
+### Features
+
+* **frontend:** add empty page placeholders tm-398 ([#423](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/423)) ([59e96c5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/59e96c504d771ac6bbda585c0b25c1f528b974f6))
+
 ## [1.51.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.50.1...v1.51.0) (2024-03-09)
 
 
