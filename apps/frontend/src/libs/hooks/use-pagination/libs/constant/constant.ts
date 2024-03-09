@@ -1,3 +1,0 @@
-const QUERY_SECTION_MAX_SIZE = 1;
-
-export { QUERY_SECTION_MAX_SIZE };

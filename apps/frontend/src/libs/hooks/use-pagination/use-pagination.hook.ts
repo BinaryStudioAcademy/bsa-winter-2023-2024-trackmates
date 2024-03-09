@@ -1,7 +1,6 @@
 import { PaginationValue } from "~/libs/enums/enums.js";
 import { useEffect, useSearchParams, useState } from "~/libs/hooks/hooks.js";
 
-import { QUERY_SECTION_MAX_SIZE } from "./libs/constant/constant.js";
 import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
@@ -23,7 +22,6 @@ const usePagination: UsePagination = ({
 	const queryName = "page";
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
-	const queryParameters = new URLSearchParams(location.search);
 	const validPage =
 		pageFromQuery > PaginationValue.PAGE_NOT_EXISTS
 			? pageFromQuery
@@ -40,9 +38,7 @@ const usePagination: UsePagination = ({
 
 	useEffect(() => {
 		const isValidPage = pagesCount >= pageFromQuery;
-		const isInvalidPage =
-			pagesCount !== PaginationValue.PAGE_NOT_EXISTS ||
-			queryParameters.size > QUERY_SECTION_MAX_SIZE;
+		const isInvalidPage = pagesCount !== PaginationValue.PAGE_NOT_EXISTS;
 		const updatedSearchParameters = new URLSearchParams(
 			searchParameters.toString(),
 		);
