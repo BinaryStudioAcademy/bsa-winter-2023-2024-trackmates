@@ -7,10 +7,7 @@ import {
 	useCallback,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
-import {
-	type CourseSearchRequestDto,
-	SEARCH_COURSES_DELAY_MS,
-} from "~/modules/courses/courses.js";
+import { SEARCH_COURSES_DELAY_MS } from "~/modules/courses/courses.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
 import { actions as userNotificationActions } from "~/modules/user-notifications/user-notifications.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
@@ -35,22 +32,6 @@ const SearchBar: React.FC<Properties> = ({
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 
-	const SearchHandler = {
-		[AppRoute.NOTIFICATIONS]: ({ search }: { search: string }): void => {
-			void dispatch(userNotificationActions.getUserNotifications(search));
-		},
-		[AppRoute.ROOT]: (filterFormData: CourseSearchRequestDto): void => {
-			void dispatch(
-				userCourseActions.loadMyCourses({
-					count: PaginationValue.DEFAULT_COUNT,
-					page: PaginationValue.DEFAULT_PAGE,
-					search: filterFormData.search,
-					userId: user.id,
-				}),
-			);
-		},
-	} as const;
-
 	const { control, errors, handleSubmit } = useAppForm({
 		defaultValues: SearchPagePathToDefaultValue[pathname as SearchPagePath],
 		mode: "onChange",
@@ -64,7 +45,28 @@ const SearchBar: React.FC<Properties> = ({
 	);
 
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
-		void handleSubmit(SearchHandler[pathname as SearchPagePath])(event_);
+		void handleSubmit((data) => {
+			switch (pathname) {
+				case AppRoute.NOTIFICATIONS: {
+					void dispatch(
+						userNotificationActions.getUserNotifications(data.search),
+					);
+					break;
+				}
+
+				case AppRoute.ROOT: {
+					void dispatch(
+						userCourseActions.loadMyCourses({
+							count: PaginationValue.DEFAULT_COUNT,
+							page: PaginationValue.DEFAULT_PAGE,
+							search: data.search,
+							userId: user.id,
+						}),
+					);
+					break;
+				}
+			}
+		})(event_);
 	};
 
 	const handleDebouncedSearchCourses = initDebounce(
