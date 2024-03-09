@@ -4,6 +4,7 @@ import {
 	getFormattedDate,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
+import { useEffect, useInView } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
@@ -11,15 +12,25 @@ import styles from "./styles.module.css";
 type Properties = {
 	isCurrentUserSender: boolean;
 	message: ChatMessageItemResponseDto;
+	onRead: (notificationId: number) => void;
 };
 
 const ChatMessage: React.FC<Properties> = ({
 	isCurrentUserSender,
 	message,
+	onRead,
 }: Properties) => {
-	const { createdAt, senderUser, text } = message;
+	const { createdAt, id, senderUser, text } = message;
 
-	const contsinerClassNmaes = getValidClassNames(
+	const { inView, ref } = useInView();
+
+	useEffect(() => {
+		if (inView) {
+			onRead(id);
+		}
+	}, [inView, onRead, id]);
+
+	const containerClassNames = getValidClassNames(
 		styles["container"],
 		styles[isCurrentUserSender ? "right" : "left"],
 	);
@@ -34,7 +45,7 @@ const ChatMessage: React.FC<Properties> = ({
 			: getFormattedDate(createdAt, FormatDateType.DD_MM_YYYY);
 
 	return (
-		<li className={contsinerClassNmaes}>
+		<li className={containerClassNames} ref={ref}>
 			<div className={styles["sender-container"]}>
 				<span className={styles["sender-name"]}>{sender}</span>
 				<span className={styles["date"]}>{date}</span>
