@@ -3,7 +3,7 @@ import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
 import { type ChatMessageModel } from "./chat-message.model.js";
-import { RelationName } from "./libs/enums/enums.js";
+import { MessageStatus, RelationName } from "./libs/enums/enums.js";
 
 class ChatMessageRepository implements Repository<ChatMessageEntity> {
 	private chatMessageModel: typeof ChatMessageModel;
@@ -128,6 +128,44 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				status: messageByUserId.status,
 				text: messageByUserId.text,
 				updatedAt: messageByUserId.updatedAt,
+			});
+		});
+	}
+
+	public async setReadChatMessages(
+		chatMessageIds: number[],
+	): Promise<ChatMessageEntity[]> {
+		const updatedChatMessages = await this.chatMessageModel
+			.query()
+			.whereIn("id", chatMessageIds)
+			.update({ status: MessageStatus.READ })
+			.withGraphFetched(
+				`${RelationName.SENDER_USER}.${RelationName.USER_DETAILS}`,
+			)
+			.returning("*")
+			.execute();
+
+		return updatedChatMessages.map((chatMessage) => {
+			return ChatMessageEntity.initialize({
+				chatId: chatMessage.chatId,
+				createdAt: chatMessage.createdAt,
+				id: chatMessage.id,
+				senderUser: UserEntity.initialize({
+					avatarUrl: chatMessage.senderUser.userDetails.avatarFile?.url ?? null,
+					createdAt: chatMessage.senderUser.createdAt,
+					email: chatMessage.senderUser.email,
+					firstName: chatMessage.senderUser.userDetails.firstName,
+					id: chatMessage.senderUser.id,
+					lastName: chatMessage.senderUser.userDetails.lastName,
+					nickname: chatMessage.senderUser.userDetails.nickname,
+					passwordHash: chatMessage.senderUser.passwordHash,
+					passwordSalt: chatMessage.senderUser.passwordSalt,
+					sex: chatMessage.senderUser.userDetails.sex,
+					updatedAt: chatMessage.senderUser.updatedAt,
+				}),
+				status: chatMessage.status,
+				text: chatMessage.text,
+				updatedAt: chatMessage.updatedAt,
 			});
 		});
 	}
