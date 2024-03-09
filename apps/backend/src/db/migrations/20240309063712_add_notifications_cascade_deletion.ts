@@ -1,7 +1,7 @@
 import { type Knex } from "knex";
 
 const TableName = {
-	CHAT_MESSAGES: "notifications",
+	NOTIFICATIONS: "notifications",
 	USERS: "users",
 } as const;
 
@@ -13,7 +13,7 @@ const ColumnName = {
 const DELETE_STRATEGY = "CASCADE";
 
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TableName.CHAT_MESSAGES, (table) => {
+	await knex.schema.alterTable(TableName.NOTIFICATIONS, (table) => {
 		table.dropForeign(ColumnName.USER_ID);
 
 		table
@@ -24,7 +24,7 @@ async function up(knex: Knex): Promise<void> {
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TableName.CHAT_MESSAGES, (table) => {
+	await knex.schema.alterTable(TableName.NOTIFICATIONS, (table) => {
 		table.dropForeign(ColumnName.USER_ID);
 
 		table
