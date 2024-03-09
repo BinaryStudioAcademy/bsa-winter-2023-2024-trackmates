@@ -58,12 +58,14 @@ const Overview: React.FC = () => {
 		<div className={styles["container"]}>
 			<WelcomeHeader onAddCourseClick={handleModalOpen} user={user} />
 			<div className={styles["courses-container"]}>
-				<h2 className={styles["courses-title"]}>Courses</h2>
-				{isLoading ? (
-					<Loader color="orange" size="large" />
-				) : (
-					<Courses courses={courses} userId={user.id} />
-				)}
+				<div className={styles["courses-container-content"]}>
+					<h2 className={styles["courses-title"]}>Courses</h2>
+					{isLoading ? (
+						<Loader color="orange" size="large" />
+					) : (
+						<Courses courses={courses} userId={user.id} />
+					)}
+				</div>
 				<Pagination
 					currentPage={page}
 					onPageChange={handlePageChange}

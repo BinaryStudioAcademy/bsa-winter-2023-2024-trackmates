@@ -1,12 +1,14 @@
 .item {
-	padding: 8px 12px;
-	margin-left: -1px;
-	font-weight: 500;
-	color: var(--color-menu);
+	width: 24px;
+	height: 24px;
+	margin: 0 2px;
+	font-size: var(--font-size-100);
+	font-weight: 700;
+	color: #8e8e8e;
 	cursor: pointer;
-	background-color: transparent;
-	border: 1px solid var(--color-menu);
-	transition: 0.1s ease-out;
+	background-color: #efefef;
+	border: 0;
+	border-radius: 12px;
 }
 
 .item:disabled {
@@ -14,25 +16,9 @@
 	opacity: 0.5;
 }
 
-.item-container:first-child .item {
-	margin-left: 0;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-}
-
-.item-container:last-child .item {
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-}
-
-.item:hover:not(:disabled) {
-	color: var(--main-white);
-	background-color: var(--color-button);
-}
-
 .item.active,
 .item.active:hover {
 	color: var(--main-white);
 	cursor: default;
-	background-color: var(--color-menu);
+	background-color: var(--main-orange);
 }

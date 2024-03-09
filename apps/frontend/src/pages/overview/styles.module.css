@@ -1,16 +1,28 @@
 @import url("~/assets/css/media.css");
 
 .container {
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
 	padding: 15px 40px;
 	background-color: var(--color-background);
 }
 
 .courses-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
 	max-width: 1500px;
-	padding: 27px 0 90px;
+	padding: 27px 0 20px;
 	margin: auto;
 	color: var(--color-text-300);
+}
+
+.courses-container-content {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 50px;
 }
 
 .courses-title {
