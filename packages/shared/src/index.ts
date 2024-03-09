@@ -1,6 +1,8 @@
 export {
 	EMPTY_ARRAY_LENGTH,
+	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
+	PREVIOUS_INDEX_OFFSET,
 } from "./libs/constants/constants.js";
 export {
 	APIPath,
@@ -15,6 +17,10 @@ export {
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
+	checkIsDatePrecedesAnotherByOneDay,
+	checkIsThisYear,
+	checkIsToday,
+	checkIsYesterday,
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
@@ -207,6 +213,7 @@ export {
 	UsersApiPath,
 	userIdParametersValidationSchema,
 	userProfileValidationSchema,
+	userSexToPronoun,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
