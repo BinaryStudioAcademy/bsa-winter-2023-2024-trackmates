@@ -83,16 +83,30 @@
 
 @media screen and (--medium-screen) {
 	.card-content {
-		grid-template-columns: 80px 1fr;
+		grid-template-columns: 95px 1fr;
 	}
 
 	.card-info {
 		font-size: var(--font-size-300);
 	}
+
+	.tool-button {
+		column-gap: 0;
+		font-size: 0;
+	}
 }
 
 @media screen and (--small-screen) {
 	.card-content {
-		grid-template-columns: 1fr;
+		grid-template-columns: 80px 1fr;
+		padding: 8px;
+	}
+
+	.card-info {
+		font-size: var(--font-size-200);
+	}
+
+	.tool-count {
+		font-size: var(--font-size-100);
 	}
 }

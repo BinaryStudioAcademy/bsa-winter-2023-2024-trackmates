@@ -66,8 +66,8 @@ class EdxService implements VendorService {
 	private mapToCourse(item: EdxCourseResponseDto): Course {
 		const course = this.mapItem(item, edxCourseToCourse);
 
-		const media = item["media"];
-		const courseImage = media["course_image"];
+		const { media } = item;
+		const { course_image: courseImage } = media;
 
 		course.image = `${this.baseUrl}${courseImage["uri"]}`;
 		course.url = "https://www.edx.org/";

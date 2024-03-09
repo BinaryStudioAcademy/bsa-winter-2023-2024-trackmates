@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.28.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.27.0...backend-v1.28.0) (2024-03-09)
+
+
+### Features
+
+* **backend/shared:** UAM (User Access Management) - Groups tm-230 ([#364](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/364)) ([aeea39e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/aeea39ee89b63af8f34381001d26217109682d22))
+
 ## [1.27.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.26.0...backend-v1.27.0) (2024-03-08)
 
 

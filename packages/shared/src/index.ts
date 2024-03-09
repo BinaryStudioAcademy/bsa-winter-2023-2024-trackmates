@@ -1,6 +1,8 @@
 export {
 	EMPTY_ARRAY_LENGTH,
+	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
+	PREVIOUS_INDEX_OFFSET,
 } from "./libs/constants/constants.js";
 export {
 	APIPath,
@@ -15,6 +17,10 @@ export {
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
+	checkIsDatePrecedesAnotherByOneDay,
+	checkIsThisYear,
+	checkIsToday,
+	checkIsYesterday,
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
@@ -141,6 +147,14 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	GroupError,
+	GroupErrorMessage,
+	type GroupRequestDto,
+	type GroupResponseDto,
+	GroupsApiPath,
+	groupIdParameter,
+} from "./modules/groups/groups.js";
+export {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
 	NotificationError,
@@ -149,6 +163,16 @@ export {
 	NotificationType,
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
+export {
+	PermissionError,
+	PermissionErrorMessage,
+	PermissionKey,
+	PermissionMode,
+	type PermissionRequestDto,
+	type PermissionResponseDto,
+	PermissionsApiPath,
+	permissionIdParameter,
+} from "./modules/permissions/permissions.js";
 export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
