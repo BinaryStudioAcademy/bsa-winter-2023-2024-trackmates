@@ -13,13 +13,14 @@ const prepareMessageItems = (
 	for (const [index, message] of messages.entries()) {
 		const previousMessage = messages[index - PREVIOUS_INDEX_OFFSET];
 
-		if (
+		const isDatePrecedingByOneDay =
 			previousMessage &&
 			checkIsDatePrecedesAnotherByOneDay(
 				message.createdAt,
 				previousMessage.createdAt,
-			)
-		) {
+			);
+
+		if (isDatePrecedingByOneDay) {
 			items.push({
 				type: MessageItemOption.DATE,
 				value: previousMessage.createdAt,
