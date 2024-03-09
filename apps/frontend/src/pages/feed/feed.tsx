@@ -1,4 +1,4 @@
-import { Loader } from "~/libs/components/components.js";
+import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
@@ -34,9 +34,7 @@ const Feed: React.FC = () => {
 					{hasActivities ? (
 						<FeedActivityList activities={activities} />
 					) : (
-						<p className={styles["empty-page-placeholder"]}>
-							There are no activities yet
-						</p>
+						<EmptyPagePlaceholder title="There are no activities yet" />
 					)}
 				</>
 			)}

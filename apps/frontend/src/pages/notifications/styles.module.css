@@ -23,10 +23,3 @@
 	background-position: center center;
 	background-size: 60% auto;
 }
-
-.empty-page-placeholder {
-	padding-block: 20px;
-	font-size: var(--font-size-300);
-	font-weight: 600;
-	color: var(--color-text-100);
-}

@@ -1,4 +1,9 @@
-import { Courses, Loader, Pagination } from "~/libs/components/components.js";
+import {
+	Courses,
+	EmptyPagePlaceholder,
+	Loader,
+	Pagination,
+} from "~/libs/components/components.js";
 import {
 	EMPTY_ARRAY_LENGTH,
 	PAGINATION_PAGES_CUT_COUNT,
@@ -79,9 +84,7 @@ const Overview: React.FC = () => {
 								/>
 							</>
 						) : (
-							<p className={styles["empty-page-placeholder"]}>
-								You haven&apos;t added any courses yet
-							</p>
+							<EmptyPagePlaceholder title="You haven't added any courses yet" />
 						)}
 					</>
 				)}

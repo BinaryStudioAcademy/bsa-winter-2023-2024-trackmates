@@ -1,4 +1,4 @@
-import { Loader } from "~/libs/components/components.js";
+import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
@@ -43,9 +43,7 @@ const Notifications: React.FC = () => {
 						{hasNotifications ? (
 							<NotificationList notifications={notifications} />
 						) : (
-							<p className={styles["empty-page-placeholder"]}>
-								You don&apos;t have any notifications yet
-							</p>
+							<EmptyPagePlaceholder title="You don't have any notifications yet" />
 						)}
 					</>
 				)}

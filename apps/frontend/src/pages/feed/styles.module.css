@@ -1,20 +1,4 @@
-@import url("~/assets/css/media.css");
-
 .wrapper {
 	width: 100%;
 	padding: 16px 24px;
-}
-
-.empty-page-placeholder {
-	padding-block: 20px;
-	font-size: var(--font-size-400);
-	font-weight: 600;
-	color: var(--color-text-100);
-	text-align: center;
-}
-
-@media screen and (--small-screen) {
-	.empty-page-placeholder {
-		font-size: var(--font-size-300);
-	}
 }
