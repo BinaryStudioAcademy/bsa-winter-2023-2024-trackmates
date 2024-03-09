@@ -7,13 +7,16 @@ import styles from "./styles.module.css";
 const EmptyChat: React.FC = () => {
 	return (
 		<div className={styles["container"]}>
-			<p className={styles["subtitle"]}>
-				Go to chat or{" "}
-				<Link className={styles["link"]} to={AppRoute.FRIENDS}>
-					create new one.
-				</Link>
-			</p>
-			<Image alt="chat image" className={styles["image"]} src={chatImage} />
+			<div className={styles["navigation"]} />
+			<div className={styles["content-container"]}>
+				<p className={styles["subtitle"]}>
+					Go to chat or{" "}
+					<Link className={styles["link"]} to={AppRoute.FRIENDS}>
+						create new one.
+					</Link>
+				</p>
+				<Image alt="chat image" className={styles["image"]} src={chatImage} />
+			</div>
 		</div>
 	);
 };
