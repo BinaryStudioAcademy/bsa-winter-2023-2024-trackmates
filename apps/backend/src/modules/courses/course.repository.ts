@@ -35,7 +35,36 @@ class CourseRepository implements Repository<CourseEntity> {
 		this.userModel = userModel;
 	}
 
-	private async createCourseWithRelation(
+	public async create(course: CourseEntity): Promise<CourseEntity> {
+		const courseModel = await this.courseModel
+			.query()
+			.insert(course.toNewObject())
+			.returning("*")
+			.withGraphFetched("vendor")
+			.execute();
+
+		return CourseEntity.initialize({
+			createdAt: courseModel.createdAt,
+			description: courseModel.description,
+			id: courseModel.id,
+			image: courseModel.image,
+			title: courseModel.title,
+			updatedAt: courseModel.updatedAt,
+			url: courseModel.url,
+			vendor: VendorEntity.initialize({
+				createdAt: courseModel.vendor.createdAt,
+				id: courseModel.vendor.id,
+				key: courseModel.vendor.key,
+				name: courseModel.vendor.name,
+				updatedAt: courseModel.vendor.updatedAt,
+				url: courseModel.vendor.url,
+			}),
+			vendorCourseId: courseModel.vendorCourseId,
+			vendorId: courseModel.vendorId,
+		});
+	}
+
+	public async createCourseWithRelation(
 		courseEntity: CourseEntity,
 		userId: number,
 	): Promise<CourseEntity> {
@@ -69,7 +98,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		});
 	}
 
-	private async createRelationWithUser(
+	public async createRelationWithUser(
 		courseEntity: CourseEntity,
 		userId: number,
 	): Promise<void> {
@@ -94,54 +123,6 @@ class CourseRepository implements Repository<CourseEntity> {
 			.relate(course.id)
 			.returning("*")
 			.execute();
-	}
-
-	public async addCourseToUser(
-		entity: CourseEntity,
-		userId: number,
-	): Promise<CourseEntity> {
-		const course = entity.toNewObject();
-		const existingCourse = await this.findByVendorCourseId(
-			course.vendorCourseId,
-		);
-
-		if (!existingCourse) {
-			return await this.createCourseWithRelation(entity, userId);
-		}
-
-		await this.createRelationWithUser(existingCourse, userId);
-
-		return existingCourse;
-	}
-
-	public async create(course: CourseEntity): Promise<CourseEntity> {
-		const courseModel = await this.courseModel
-			.query()
-			.insert(course.toNewObject())
-			.returning("*")
-			.withGraphFetched("vendor")
-			.castTo<CourseModel>()
-			.execute();
-
-		return CourseEntity.initialize({
-			createdAt: courseModel.createdAt,
-			description: courseModel.description,
-			id: courseModel.id,
-			image: courseModel.image,
-			title: courseModel.title,
-			updatedAt: courseModel.updatedAt,
-			url: courseModel.url,
-			vendor: VendorEntity.initialize({
-				createdAt: courseModel.vendor.createdAt,
-				id: courseModel.vendor.id,
-				key: courseModel.vendor.key,
-				name: courseModel.vendor.name,
-				updatedAt: courseModel.vendor.updatedAt,
-				url: courseModel.vendor.url,
-			}),
-			vendorCourseId: courseModel.vendorCourseId,
-			vendorId: courseModel.vendorId,
-		});
 	}
 
 	public async delete(id: number): Promise<boolean> {
@@ -237,6 +218,7 @@ class CourseRepository implements Repository<CourseEntity> {
 
 		const progressData = await this.getProgressData(
 			results.map((course) => course.id),
+			userId,
 		);
 
 		return {
@@ -341,6 +323,7 @@ class CourseRepository implements Repository<CourseEntity> {
 
 	public async getProgressData(
 		courseIds: number[],
+		userId: number,
 	): Promise<ProgressDataItem[]> {
 		return await CourseSectionModel.query()
 			.select(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
@@ -353,11 +336,18 @@ class CourseRepository implements Repository<CourseEntity> {
 							) as progress
 				`),
 			)
-			.leftJoin(
-				DatabaseTableName.SECTION_STATUSES,
-				`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
-				`${DatabaseTableName.COURSE_SECTIONS}.id`,
-			)
+			.leftJoin(DatabaseTableName.SECTION_STATUSES, (joinClause) => {
+				joinClause
+					.on(
+						`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
+						`${DatabaseTableName.COURSE_SECTIONS}.id`,
+					)
+					.andOnVal(
+						`${DatabaseTableName.SECTION_STATUSES}.userId`,
+						"=",
+						userId,
+					);
+			})
 			.whereIn(`${DatabaseTableName.COURSE_SECTIONS}.course_id`, courseIds)
 			.groupBy(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
 			.castTo<ProgressDataItem[]>();
