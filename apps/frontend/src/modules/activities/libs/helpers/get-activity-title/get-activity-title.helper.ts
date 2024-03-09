@@ -11,8 +11,8 @@ const getActivityTitle = (
 	const userFullName = `${activity.user.firstName} ${activity.user.lastName}`;
 	const { title } = activity.payload;
 
-	const sex = activity.user.sex ?? UserSex.PREFER_NOT_TO_SAY;
-	const pronoun = UserSexToPronoun[sex].OBJECTIVE;
+	const { sex } = activity.user;
+	const pronoun = UserSexToPronoun[sex ?? UserSex.PREFER_NOT_TO_SAY].OBJECTIVE;
 
 	switch (activity.type) {
 		case ActivityType.FINISH_COURSE: {
