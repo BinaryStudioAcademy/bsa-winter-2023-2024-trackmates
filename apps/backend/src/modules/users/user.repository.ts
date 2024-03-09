@@ -1,5 +1,7 @@
 import { RelationName } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
+import { GroupEntity } from "~/modules/groups/group.entity.js";
+import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -49,6 +51,7 @@ class UserRepository implements Repository<UserEntity> {
 			createdAt: user.createdAt,
 			email: user.email,
 			firstName: userDetails.firstName,
+			groups: [],
 			id: user.id,
 			lastName: userDetails.lastName,
 			nickname: null,
@@ -68,7 +71,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(userId)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -78,6 +81,24 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -93,7 +114,7 @@ class UserRepository implements Repository<UserEntity> {
 		const users = await this.userModel
 			.query()
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -103,6 +124,24 @@ class UserRepository implements Repository<UserEntity> {
 				createdAt: user.createdAt,
 				email: user.email,
 				firstName: user.userDetails.firstName,
+				groups: user.groups.map((group) => {
+					return GroupEntity.initialize({
+						createdAt: group.createdAt,
+						id: group.id,
+						key: group.key,
+						name: group.name,
+						permissions: group.permissions.map((permission) => {
+							return PermissionEntity.initialize({
+								createdAt: permission.createdAt,
+								id: permission.id,
+								key: permission.key,
+								name: permission.name,
+								updatedAt: permission.updatedAt,
+							});
+						}),
+						updatedAt: group.updatedAt,
+					});
+				}),
 				id: user.id,
 				lastName: user.userDetails.lastName,
 				nickname: user.userDetails.nickname,
@@ -119,7 +158,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(id)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -129,6 +168,24 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -145,7 +202,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findOne({ email })
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -155,6 +212,24 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -179,7 +254,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findOne({ nickname })
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -189,6 +264,24 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
@@ -219,8 +312,9 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(userId)
 			.withGraphJoined(
-				`${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
+			.withGraphJoined(`${RelationName.GROUPS}.userId}`)
 			.execute();
 
 		return user
@@ -229,6 +323,24 @@ class UserRepository implements Repository<UserEntity> {
 					createdAt: user.createdAt,
 					email: user.email,
 					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
 					id: user.id,
 					lastName: user.userDetails.lastName,
 					nickname: user.userDetails.nickname,
