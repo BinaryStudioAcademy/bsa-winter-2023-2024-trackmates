@@ -214,13 +214,23 @@ class ChatRepository implements Repository<ChatEntity> {
 					.where((builder) => {
 						void builder
 							.whereILike("firstUser:userDetails.firstName", `%${search}%`)
-							.orWhereILike("firstUser:userDetails.lastName", `%${search}%`);
+							.orWhereILike("firstUser:userDetails.lastName", `%${search}%`)
+							.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+								"firstUser:userDetails.firstName",
+								"firstUser:userDetails.lastName",
+								`%${search}%`,
+							]);
 					})
 					.andWhere({ secondUserId: userId })
 					.orWhere((builder) => {
 						void builder
 							.whereILike("secondUser:userDetails.firstName", `%${search}%`)
-							.orWhereILike("secondUser:userDetails.lastName", `%${search}%`);
+							.orWhereILike("secondUser:userDetails.lastName", `%${search}%`)
+							.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+								"secondUser:userDetails.firstName",
+								"secondUser:userDetails.lastName",
+								`%${search}%`,
+							]);
 					})
 					.andWhere({ firstUserId: userId });
 			})
