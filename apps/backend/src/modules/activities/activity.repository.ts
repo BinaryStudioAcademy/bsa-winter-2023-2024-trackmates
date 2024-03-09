@@ -111,24 +111,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						createdAt: activity.user.createdAt,
 						email: activity.user.email,
 						firstName: activity.user.userDetails.firstName,
-						groups: activity.user.groups.map((group) => {
-							return GroupEntity.initialize({
-								createdAt: group.createdAt,
-								id: group.id,
-								key: group.key,
-								name: group.name,
-								permissions: group.permissions.map((permission) => {
-									return PermissionEntity.initialize({
-										createdAt: permission.createdAt,
-										id: permission.id,
-										key: permission.key,
-										name: permission.name,
-										updatedAt: permission.updatedAt,
-									});
-								}),
-								updatedAt: group.updatedAt,
-							});
-						}),
+						groups: [],
 						id: activity.user.id,
 						lastName: activity.user.userDetails.lastName,
 						nickname: activity.user.userDetails.nickname,
@@ -155,6 +138,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					.select("followingId")
 					.where({ followerId: userId }),
 			)
+			.orWhere(`${DatabaseTableName.ACTIVITIES}.userId`, userId)
 			.withGraphJoined(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)
@@ -176,24 +160,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					createdAt: activity.user.createdAt,
 					email: activity.user.email,
 					firstName: activity.user.userDetails.firstName,
-					groups: activity.user.groups.map((group) => {
-						return GroupEntity.initialize({
-							createdAt: group.createdAt,
-							id: group.id,
-							key: group.key,
-							name: group.name,
-							permissions: group.permissions.map((permission) => {
-								return PermissionEntity.initialize({
-									createdAt: permission.createdAt,
-									id: permission.id,
-									key: permission.key,
-									name: permission.name,
-									updatedAt: permission.updatedAt,
-								});
-							}),
-							updatedAt: group.updatedAt,
-						});
-					}),
+					groups: [],
 					id: activity.user.id,
 					lastName: activity.user.userDetails.lastName,
 					nickname: activity.user.userDetails.nickname,
