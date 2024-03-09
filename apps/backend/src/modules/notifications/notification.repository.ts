@@ -146,14 +146,16 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.query()
 			.where({ receiverUserId })
 			.andWhere((builder) => {
-				void builder
-					.whereILike("user:userDetails.firstName", `%${search}%`)
-					.orWhereILike("user:userDetails.lastName", `%${search}%`)
-					.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
-						"user:userDetails.firstName",
-						"user:userDetails.lastName",
-						`%${search}%`,
-					]);
+				if (search) {
+					void builder
+						.whereILike("user:userDetails.firstName", `%${search}%`)
+						.orWhereILike("user:userDetails.lastName", `%${search}%`)
+						.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+							"user:userDetails.firstName",
+							"user:userDetails.lastName",
+							`%${search}%`,
+						]);
+				}
 
 				if (type) {
 					void builder.where({ type });
