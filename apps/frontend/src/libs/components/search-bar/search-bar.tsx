@@ -14,7 +14,6 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Input } from "../input/input.js";
 import { searchPagePathToDefaultValue } from "./libs/maps/maps.js";
-import { type SearchPagePath } from "./libs/types/types.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -33,7 +32,10 @@ const SearchBar: React.FC<Properties> = ({
 	const { pathname } = useLocation();
 
 	const { control, errors, handleSubmit } = useAppForm({
-		defaultValues: searchPagePathToDefaultValue[pathname as SearchPagePath],
+		defaultValues:
+			searchPagePathToDefaultValue[
+				pathname as keyof typeof searchPagePathToDefaultValue
+			],
 		mode: "onChange",
 	});
 
