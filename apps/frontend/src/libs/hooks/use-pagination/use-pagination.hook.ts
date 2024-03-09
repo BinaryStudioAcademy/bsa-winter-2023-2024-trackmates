@@ -49,7 +49,7 @@ const usePagination: UsePagination = ({
 
 		if (path !== location.pathname) {
 			setPath(location.pathname);
-			setPage(PaginationValue.DEFAULT_COUNT);
+			setPage(PaginationValue.DEFAULT_PAGE);
 
 			return;
 		}
@@ -58,10 +58,10 @@ const usePagination: UsePagination = ({
 			updatedSearchParameters.set(queryName, String(page));
 			setSearchParameters(updatedSearchParameters);
 		} else if (isInvalidPage) {
-			setPage(PaginationValue.DEFAULT_COUNT);
+			setPage(PaginationValue.DEFAULT_PAGE);
 			updatedSearchParameters.set(
 				queryName,
-				String(PaginationValue.DEFAULT_COUNT),
+				String(PaginationValue.DEFAULT_PAGE),
 			);
 			setSearchParameters(updatedSearchParameters);
 		}
