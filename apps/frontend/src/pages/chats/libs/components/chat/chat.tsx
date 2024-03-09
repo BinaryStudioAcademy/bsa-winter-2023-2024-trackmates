@@ -56,9 +56,9 @@ const Chat: React.FC<Properties> = ({
 							width="48"
 						/>
 					</div>
-					<span
-						className={styles["full-name"]}
-					>{`${receiver.firstName} ${receiver.lastName}`}</span>
+					<span className={styles["full-name"]}>
+						{receiver.firstName} {receiver.lastName}
+					</span>
 				</div>
 			</div>
 			<ul className={styles["chat-container"]}>
