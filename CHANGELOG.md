@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.55.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.54.0...v1.55.0) (2024-03-09)
+
+
+### Features
+
+* **backend:** Implement cascade user deletion tm-402 ([#427](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/427)) ([fbc4aa1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fbc4aa19bb811fc96c9cb6e4db4daf51cb609db5))
+
 ## [1.54.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.53.0...v1.54.0) (2024-03-09)
 
 
