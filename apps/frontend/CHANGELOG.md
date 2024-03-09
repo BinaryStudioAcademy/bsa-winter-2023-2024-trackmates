@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.42.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.41.0...frontend-v1.42.0) (2024-03-09)
+
+
+### Features
+
+* **backend/frontend:** Add the "Search" field to the header on the "Notifications" page tm-293 ([#424](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/424)) ([7f208d6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7f208d6bbb3c0f8b59f2c12b003cf7b008bcbf1f))
+* **frontend:** friends activity mobile tm-160 ([#439](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/439)) ([c199f5c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c199f5c3101406fa0b83e7f7f2ffc1ecc0f4321c))
+
 ## [1.41.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.40.0...frontend-v1.41.0) (2024-03-09)
 
 

@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.54.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.53.0...v1.54.0) (2024-03-09)
+
+
+### Features
+
+* **backend/frontend:** Add the "Search" field to the header on the "Notifications" page tm-293 ([#424](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/424)) ([7f208d6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7f208d6bbb3c0f8b59f2c12b003cf7b008bcbf1f))
+* **frontend:** friends activity mobile tm-160 ([#439](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/439)) ([c199f5c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c199f5c3101406fa0b83e7f7f2ffc1ecc0f4321c))
+
+
+### Bug Fixes
+
+* **backend:** fix bug with course progress tm-415 ([#433](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/433)) ([afc8398](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/afc83983dba27fa582f54c1db99faa71392c6df7))
+* **backend:** fix sorting on Friends page tm-309 ([#435](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/435)) ([f3b5ee5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f3b5ee52f79675527f633d874e820fc1fdf49643))
+* **backend:** The chat search functionality doesn't allow to search the user by full name tm-425 ([#432](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/432)) ([6538b3a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6538b3ac00980042f12db7fdb79418c7983a2a18))
+
 ## [1.53.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.52.0...v1.53.0) (2024-03-09)
 
 
