@@ -1,4 +1,12 @@
+@import url("~/assets/css/media.css");
+
 .wrapper {
 	width: 100%;
 	padding: 16px 24px;
+}
+
+@media screen and (--small-screen) {
+	.title {
+		font-size: var(--font-size-300);
+	}
 }

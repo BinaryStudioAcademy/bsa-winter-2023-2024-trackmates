@@ -142,15 +142,23 @@ class CourseService {
 		vendorId: number;
 	}): Promise<CourseDto> {
 		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
+		const existingCourse =
+			await this.courseRepository.findByVendorCourseId(vendorCourseId);
 
-		const addedCourse = await this.courseRepository.addCourseToUser(
-			vendorCourse,
-			userId,
-		);
+		if (!existingCourse) {
+			const createdCourse =
+				await this.courseRepository.createCourseWithRelation(
+					vendorCourse,
+					userId,
+				);
+			await this.addSectionsToCourse(createdCourse);
 
-		await this.addSectionsToCourse(addedCourse);
+			return createdCourse.toObject();
+		}
 
-		return addedCourse.toObject();
+		await this.courseRepository.createRelationWithUser(existingCourse, userId);
+
+		return existingCourse.toObject();
 	}
 
 	public async create({
