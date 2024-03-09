@@ -52,7 +52,7 @@ const Overview: React.FC = () => {
 				userId: user.id,
 			}),
 		);
-	}, [dispatch, user, page]);
+	}, [dispatch, user, page, totalCount]);
 
 	return (
 		<div className={styles["container"]}>
