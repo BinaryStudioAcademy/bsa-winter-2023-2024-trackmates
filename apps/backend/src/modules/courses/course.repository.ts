@@ -41,7 +41,6 @@ class CourseRepository implements Repository<CourseEntity> {
 			.insert(course.toNewObject())
 			.returning("*")
 			.withGraphFetched("vendor")
-			.castTo<CourseModel>()
 			.execute();
 
 		return CourseEntity.initialize({
@@ -337,11 +336,17 @@ class CourseRepository implements Repository<CourseEntity> {
 							) as progress
 				`),
 			)
-			.leftJoin(DatabaseTableName.SECTION_STATUSES, (JoinClause) => {
-				JoinClause.on(
-					`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
-					`${DatabaseTableName.COURSE_SECTIONS}.id`,
-				).andOnVal(`${DatabaseTableName.SECTION_STATUSES}.userId`, "=", userId);
+			.leftJoin(DatabaseTableName.SECTION_STATUSES, (joinClause) => {
+				joinClause
+					.on(
+						`${DatabaseTableName.SECTION_STATUSES}.course_section_id`,
+						`${DatabaseTableName.COURSE_SECTIONS}.id`,
+					)
+					.andOnVal(
+						`${DatabaseTableName.SECTION_STATUSES}.userId`,
+						"=",
+						userId,
+					);
 			})
 			.whereIn(`${DatabaseTableName.COURSE_SECTIONS}.course_id`, courseIds)
 			.groupBy(`${DatabaseTableName.COURSE_SECTIONS}.course_id`)
