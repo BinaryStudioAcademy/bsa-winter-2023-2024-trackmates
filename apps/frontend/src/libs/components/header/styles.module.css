@@ -44,10 +44,12 @@
 	align-items: center;
 }
 
-.notifications-container {
+.notifications-container,
+.chats-container {
 	position: relative;
 }
 
+.chats-count,
 .notifications-count {
 	position: absolute;
 	top: 0;
@@ -60,8 +62,16 @@
 	text-align: center;
 	content: "";
 	background-color: var(--main-orange);
-	border-radius: 50%;
 	outline: 3px solid var(--main-white);
+}
+
+.notifications-count {
+	border-radius: 50%;
+}
+
+.chats-count {
+	width: 12px;
+	border-radius: 40%;
 }
 
 .icon-button {
