@@ -35,6 +35,14 @@ import {
 	reducer as friendsReducer,
 } from "~/modules/friends/friends.js";
 import {
+	groupsApi,
+	reducer as groupsReducer,
+} from "~/modules/groups/groups.js";
+import {
+	permissionsApi,
+	reducer as permissionsReducer,
+} from "~/modules/permissions/permissions.js";
+import {
 	sectionStatusApi,
 	reducer as sectionStatusesReducer,
 } from "~/modules/section-statuses/section-statuses.js";
@@ -64,6 +72,8 @@ type RootReducer = {
 	course: ReturnType<typeof courseSectionsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
+	groups: ReturnType<typeof groupsReducer>;
+	permissions: ReturnType<typeof permissionsReducer>;
 	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	userNotifications: ReturnType<typeof userNotificationsReducer>;
@@ -81,7 +91,9 @@ type ExtraArguments = {
 	courseSectionsApi: typeof courseSectionsApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
+	groupsApi: typeof groupsApi;
 	notification: typeof notification;
+	permissionsApi: typeof permissionsApi;
 	sectionStatusApi: typeof sectionStatusApi;
 	socket: typeof socket;
 	storage: typeof storage;
@@ -119,6 +131,8 @@ class Store {
 				course: courseSectionsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,
+				groups: groupsReducer,
+				permissions: permissionsReducer,
 				sectionStatuses: sectionStatusesReducer,
 				userCourses: userCoursesReducer,
 				userNotifications: userNotificationsReducer,
@@ -139,7 +153,9 @@ class Store {
 			courseSectionsApi,
 			filesApi,
 			friendsApi,
+			groupsApi,
 			notification,
+			permissionsApi,
 			sectionStatusApi,
 			socket,
 			storage,

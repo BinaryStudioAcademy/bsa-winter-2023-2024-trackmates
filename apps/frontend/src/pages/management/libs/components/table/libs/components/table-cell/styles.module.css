@@ -1,0 +1,15 @@
+.content {
+	display: flex;
+}
+
+.content.centered {
+	justify-content: center;
+}
+
+.narrow-column {
+	width: 70px;
+}
+
+.table-data-cell {
+	padding: 15px 10px;
+}
