@@ -1,7 +1,4 @@
-import {
-	NotificationFilter,
-	NotificationType,
-} from "~/modules/notifications/libs/enums/enums.js";
+import { NotificationFilter, NotificationType } from "../enums/enums.js";
 
 const filterQueryParameterToNotificationType = {
 	[NotificationFilter.ALL]: "",

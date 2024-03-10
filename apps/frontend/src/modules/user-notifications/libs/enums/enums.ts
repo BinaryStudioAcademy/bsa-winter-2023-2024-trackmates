@@ -1,4 +1,1 @@
-export {
-	NotificationFilter,
-	UserNotificationsApiPath,
-} from "@trackmates/shared";
+export { UserNotificationsApiPath } from "@trackmates/shared";

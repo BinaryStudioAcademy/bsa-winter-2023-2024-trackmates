@@ -4,7 +4,12 @@ import {
 	Loader,
 } from "~/libs/components/components.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import {
+	AppRoute,
+	AppTitle,
+	DataStatus,
+	NotificationFilter,
+} from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -19,7 +24,6 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/user-notifications/user-notifications.js";
 
 import { NotificationList } from "./libs/components/notification-list/notification-list.js";
-import { NotificationFilter } from "./libs/enums/enums.js";
 import styles from "./styles.module.css";
 
 const Notifications: React.FC = () => {

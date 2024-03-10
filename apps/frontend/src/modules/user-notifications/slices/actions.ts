@@ -1,8 +1,8 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
+import { type NotificationFilter } from "~/libs/enums/enums.js";
 import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
 
-import { type NotificationFilter } from "../libs/enums/enums.js";
 import {
 	type AllNotificationsResponseDto,
 	type ReadNotificationsRequestDto,
