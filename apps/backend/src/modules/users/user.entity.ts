@@ -1,4 +1,8 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
+import {
+	type GroupEntity,
+	type GroupResponseDto,
+} from "~/modules/groups/groups.js";
 
 import { type UserSex } from "./libs/enums/enums.js";
 
@@ -10,6 +14,8 @@ class UserEntity implements Entity {
 	private email: string;
 
 	private firstName: string;
+
+	private groups: GroupEntity[];
 
 	private id: null | number;
 
@@ -30,6 +36,7 @@ class UserEntity implements Entity {
 		createdAt,
 		email,
 		firstName,
+		groups,
 		id,
 		lastName,
 		nickname,
@@ -42,6 +49,7 @@ class UserEntity implements Entity {
 		createdAt: string;
 		email: string;
 		firstName: string;
+		groups: GroupEntity[];
 		id: null | number;
 		lastName: string;
 		nickname: null | string;
@@ -61,6 +69,7 @@ class UserEntity implements Entity {
 		this.passwordSalt = passwordSalt;
 		this.sex = sex;
 		this.updatedAt = updatedAt;
+		this.groups = groups;
 	}
 
 	public static initialize({
@@ -68,6 +77,7 @@ class UserEntity implements Entity {
 		createdAt,
 		email,
 		firstName,
+		groups,
 		id,
 		lastName,
 		nickname,
@@ -80,6 +90,7 @@ class UserEntity implements Entity {
 		createdAt: string;
 		email: string;
 		firstName: string;
+		groups: GroupEntity[];
 		id: number;
 		lastName: string;
 		nickname: null | string;
@@ -93,6 +104,7 @@ class UserEntity implements Entity {
 			createdAt,
 			email,
 			firstName,
+			groups,
 			id,
 			lastName,
 			nickname,
@@ -121,6 +133,7 @@ class UserEntity implements Entity {
 			createdAt: "",
 			email,
 			firstName,
+			groups: [],
 			id: null,
 			lastName,
 			nickname: null,
@@ -136,6 +149,7 @@ class UserEntity implements Entity {
 		createdAt: string;
 		email: string;
 		firstName: string;
+		groups: GroupResponseDto[];
 		lastName: string;
 		nickname: null | string;
 		passwordHash: string;
@@ -148,6 +162,7 @@ class UserEntity implements Entity {
 			createdAt: this.createdAt,
 			email: this.email,
 			firstName: this.firstName,
+			groups: [],
 			lastName: this.lastName,
 			nickname: this.nickname,
 			passwordHash: this.passwordHash,
@@ -162,6 +177,7 @@ class UserEntity implements Entity {
 		createdAt: string;
 		email: string;
 		firstName: string;
+		groups: GroupResponseDto[];
 		id: number;
 		lastName: string;
 		nickname: null | string;
@@ -173,6 +189,9 @@ class UserEntity implements Entity {
 			createdAt: this.createdAt,
 			email: this.email,
 			firstName: this.firstName,
+			groups: this.groups.map((group) => {
+				return group.toObject();
+			}),
 			id: this.id as number,
 			lastName: this.lastName,
 			nickname: this.nickname,
