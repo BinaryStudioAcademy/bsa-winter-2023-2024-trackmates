@@ -1,4 +1,5 @@
-import { APIPath } from "~/libs/enums/enums.js";
+import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
+import { checkUserPermissions } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -23,6 +24,24 @@ class UserController extends BaseController {
 		super(logger, APIPath.USERS);
 
 		this.userService = userService;
+
+		this.addRoute({
+			handler: (options) =>
+				this.delete(
+					options as APIHandlerOptions<{
+						params: { id: string };
+					}>,
+				),
+			method: "DELETE",
+			path: UsersApiPath.$ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_USERS],
+				PermissionMode.ALL_OF,
+			),
+			validation: {
+				params: userIdParametersValidationSchema,
+			},
+		});
 
 		this.addRoute({
 			handler: (options) =>
@@ -61,6 +80,41 @@ class UserController extends BaseController {
 				params: userIdParametersValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /users:
+	 *    delete:
+	 *      tags:
+	 *        - Users
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Delete user
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
+	private async delete({
+		params: { id },
+	}: APIHandlerOptions<{
+		params: {
+			id: string;
+		};
+	}>): Promise<APIHandlerResponse> {
+		const success = await this.userService.delete(Number(id));
+
+		return {
+			payload: { success },
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**

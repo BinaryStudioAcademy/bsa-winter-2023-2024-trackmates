@@ -11,7 +11,7 @@ import {
 	PermissionMode,
 } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { PermissionError } from "~/modules/permissions/permissions.js";
+import { PermissionError } from "~/modules/permissions/libs/exceptions/exceptions.js";
 
 const checkUserPermissions =
 	(
