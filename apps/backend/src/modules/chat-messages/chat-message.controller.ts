@@ -149,10 +149,7 @@ class ChatMessageController extends BaseController {
 		this.addRoute({
 			handler: (options) => {
 				return this.setReadChatMessages(
-					options as APIHandlerOptions<{
-						body: ReadChatMessagesRequestDto;
-						user: UserAuthResponseDto;
-					}>,
+					options as APIHandlerOptions<{ body: ReadChatMessagesRequestDto }>,
 				);
 			},
 			method: "PATCH",
@@ -417,18 +414,15 @@ class ChatMessageController extends BaseController {
 	 *                      type: object
 	 *                      $ref: "#/components/schemas/ChatMessage"
 	 */
-	public async setReadChatMessages({
-		body,
-		user,
-	}: APIHandlerOptions<{
-		body: ReadChatMessagesRequestDto;
-		user: UserAuthResponseDto;
-	}>): Promise<APIHandlerResponse> {
+	public async setReadChatMessages(
+		options: APIHandlerOptions<{
+			body: ReadChatMessagesRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatMessageService.setReadChatMessages({
-				chatMessageIds: body.chatMessageIds,
-				userId: user.id,
-			}),
+			payload: await this.chatMessageService.setReadChatMessages(
+				options.body.chatMessageIds,
+			),
 			status: HTTPCode.OK,
 		};
 	}

@@ -7,6 +7,7 @@ import {
 import { useEffect, useInView } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
+import { MessageStatus } from "../../enums/enums.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -24,11 +25,13 @@ const ChatMessage: React.FC<Properties> = ({
 
 	const { inView, ref } = useInView();
 
+	const isRead = message.status === MessageStatus.READ;
+
 	useEffect(() => {
-		if (inView) {
+		if (!isRead && !isCurrentUserSender && inView) {
 			onRead(id);
 		}
-	}, [inView, onRead, id]);
+	}, [inView, isCurrentUserSender, isRead, onRead, id]);
 
 	const containerClassNames = getValidClassNames(
 		styles["container"],

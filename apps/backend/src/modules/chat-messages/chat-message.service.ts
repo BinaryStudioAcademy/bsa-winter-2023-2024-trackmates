@@ -121,18 +121,11 @@ class ChatMessageService implements Service {
 		};
 	}
 
-	public async setReadChatMessages({
-		chatMessageIds,
-		userId,
-	}: {
-		chatMessageIds: number[];
-		userId: number;
-	}): Promise<{ items: ChatMessageItemResponseDto[] }> {
+	public async setReadChatMessages(
+		chatMessageIds: number[],
+	): Promise<{ items: ChatMessageItemResponseDto[] }> {
 		const readChatMessages =
-			await this.chatMessageRepository.setReadChatMessages(
-				chatMessageIds,
-				userId,
-			);
+			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
 
 		return {
 			items: readChatMessages.map((chatMessage) => {

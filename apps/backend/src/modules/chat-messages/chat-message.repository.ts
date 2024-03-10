@@ -190,12 +190,10 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 
 	public async setReadChatMessages(
 		chatMessageIds: number[],
-		userId: number,
 	): Promise<ChatMessageEntity[]> {
 		const updatedChatMessages = await this.chatMessageModel
 			.query()
 			.whereIn("id", chatMessageIds)
-			.andWhereNot({ senderUserId: userId })
 			.update({ status: MessageStatus.READ })
 			.withGraphFetched(
 				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
