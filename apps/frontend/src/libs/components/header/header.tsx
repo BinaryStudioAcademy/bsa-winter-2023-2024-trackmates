@@ -48,9 +48,9 @@ const Header: React.FC = () => {
 
 	const hasUnreadChats = unreadChatsCount > EMPTY_ARRAY_LENGTH;
 
-	const unreadNotificationsCount = notifications.filter(
-		(notification) => notification.status === "unread",
-	).length;
+	const unreadNotificationsCount = notifications.filter((notification) => {
+		return notification.status === "unread";
+	}).length;
 
 	const unreadNotificationsDisplay = getUnreadDisplayValue(
 		unreadNotificationsCount,
