@@ -168,7 +168,6 @@ const Friends: React.FC = () => {
 			) : (
 				handleScreenRender(pathname)
 			)}
-			{/* {handleScreenRender(pathname)} */}
 		</div>
 	);
 };
