@@ -32,6 +32,7 @@ const App: React.FC = () => {
 		if (user) {
 			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
 			void dispatch(userNotificationsActions.getUserNotifications());
+			void dispatch(chatActions.getAllChats({ search: "" }));
 		}
 	}, [dispatch, user]);
 
