@@ -12,7 +12,7 @@ import styles from "./styles.module.css";
 type Properties = {
 	isCurrentUserSender: boolean;
 	message: ChatMessageItemResponseDto;
-	onRead: (notificationId: number) => void;
+	onRead: (messageId: number) => void;
 };
 
 const ChatMessage: React.FC<Properties> = ({
