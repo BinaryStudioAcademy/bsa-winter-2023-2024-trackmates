@@ -29,9 +29,7 @@ import styles from "./styles.module.css";
 const Notifications: React.FC = () => {
 	const navigate = useNavigate();
 	const [queryParameters] = useSearchParams();
-	const notificationType = queryParameters.get("type") as ValueOf<
-		typeof NotificationFilter
-	> | null;
+	const notificationType = queryParameters.get("type");
 
 	const possibleTypeValues = useMemo(() => {
 		return Object.values(NotificationFilter);
@@ -52,7 +50,10 @@ const Notifications: React.FC = () => {
 
 	useEffect(() => {
 		const hasValidValue =
-			!notificationType || possibleTypeValues.includes(notificationType);
+			!notificationType ||
+			possibleTypeValues.includes(
+				notificationType as ValueOf<typeof NotificationFilter>,
+			);
 
 		if (!hasValidValue) {
 			navigate(AppRoute.NOTIFICATIONS, { replace: true });
@@ -61,7 +62,10 @@ const Notifications: React.FC = () => {
 		}
 
 		void dispatch(
-			actions.getUserNotifications({ search: "", type: notificationType }),
+			actions.getUserNotifications({
+				search: "",
+				type: notificationType as ValueOf<typeof NotificationFilter> | null,
+			}),
 		);
 	}, [dispatch, notificationType, navigate, possibleTypeValues]);
 
