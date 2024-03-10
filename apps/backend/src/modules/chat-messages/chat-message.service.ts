@@ -135,7 +135,9 @@ class ChatMessageService implements Service {
 			);
 
 		return {
-			items: readChatMessages.map((chatMessage) => chatMessage.toObject()),
+			items: readChatMessages.map((chatMessage) => {
+				return chatMessage.toObject();
+			}),
 		};
 	}
 
