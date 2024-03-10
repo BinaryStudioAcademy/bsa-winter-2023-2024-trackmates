@@ -11,6 +11,7 @@ import EditIcon from "~/assets/icons/edit.svg?react";
 import EyeIcon from "~/assets/icons/eye.svg?react";
 import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
 import HomeIcon from "~/assets/icons/home.svg?react";
+import LikeIcon from "~/assets/icons/like.svg?react";
 import LockIcon from "~/assets/icons/lock.svg?react";
 import LogOutIcon from "~/assets/icons/log-out.svg?react";
 import MessageIcon from "~/assets/icons/message.svg?react";
@@ -38,6 +39,7 @@ const iconNameToSvg: Record<
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
 	home: HomeIcon,
+	like: LikeIcon,
 	lock: LockIcon,
 	logOut: LogOutIcon,
 	message: MessageIcon,

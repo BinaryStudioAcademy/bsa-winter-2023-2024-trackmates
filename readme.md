@@ -43,6 +43,7 @@ erDiagram
     varchar first_name
     varchar last_name
     varchar nickname
+    enum sex
     int avatar_file_id FK
    }
 
@@ -135,7 +136,6 @@ erDiagram
     enum status
     enum type
    }
-
    activities {
     int id PK
     dateTime created_at
@@ -144,6 +144,14 @@ erDiagram
     int action_id
     int user_id FK
     text payload
+   }
+
+   activity_likes {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int activity_id FK
+    int user_id FK
    }
 
   comments {
@@ -177,6 +185,9 @@ erDiagram
    section_statuses }|--|| course_sections : course_section_id
    section_statuses }|--|| users : user_id
    activities }|--|| users : user_id
+
+   users ||--|{ activity_likes : user_id
+   activities ||--|{ activity_likes : activity_id
 
    comments }|--|| activities : activity_id
    comments }|--|| users : user_id

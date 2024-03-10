@@ -7,5 +7,6 @@ export {
 } from "./libs/types/types.js";
 export {
 	addFriend as addFriendValidationSchema,
+	friendGetAllQuery as friendGetAllQueryValidationSchema,
 	friendIdParameters as friendIdParameterValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

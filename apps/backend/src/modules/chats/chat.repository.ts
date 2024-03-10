@@ -60,6 +60,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				nickname: createdChat.firstUser.userDetails.nickname,
 				passwordHash: createdChat.firstUser.passwordHash,
 				passwordSalt: createdChat.firstUser.passwordSalt,
+				sex: createdChat.firstUser.userDetails.sex,
 				updatedAt: createdChat.firstUser.updatedAt,
 			}),
 			id: createdChat.id,
@@ -92,6 +93,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				nickname: createdChat.secondUser.userDetails.nickname,
 				passwordHash: createdChat.secondUser.passwordHash,
 				passwordSalt: createdChat.secondUser.passwordSalt,
+				sex: createdChat.secondUser.userDetails.sex,
 				updatedAt: createdChat.secondUser.updatedAt,
 			}),
 			updatedAt: createdChat.updatedAt,
@@ -147,6 +149,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatById.firstUser.userDetails.nickname,
 						passwordHash: chatById.firstUser.passwordHash,
 						passwordSalt: chatById.firstUser.passwordSalt,
+						sex: chatById.firstUser.userDetails.sex,
 						updatedAt: chatById.firstUser.updatedAt,
 					}),
 					id: chatById.id,
@@ -178,6 +181,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatById.secondUser.userDetails.nickname,
 						passwordHash: chatById.secondUser.passwordHash,
 						passwordSalt: chatById.secondUser.passwordSalt,
+						sex: chatById.secondUser.userDetails.sex,
 						updatedAt: chatById.secondUser.updatedAt,
 					}),
 					updatedAt: chatById.updatedAt,
@@ -209,14 +213,22 @@ class ChatRepository implements Repository<ChatEntity> {
 				void builder
 					.where((builder) => {
 						void builder
-							.whereILike("firstUser:userDetails.firstName", `%${search}%`)
-							.orWhereILike("firstUser:userDetails.lastName", `%${search}%`);
+							.whereILike("firstUser:userDetails.lastName", `%${search}%`)
+							.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+								"firstUser:userDetails.firstName",
+								"firstUser:userDetails.lastName",
+								`%${search}%`,
+							]);
 					})
 					.andWhere({ secondUserId: userId })
 					.orWhere((builder) => {
 						void builder
-							.whereILike("secondUser:userDetails.firstName", `%${search}%`)
-							.orWhereILike("secondUser:userDetails.lastName", `%${search}%`);
+							.whereILike("secondUser:userDetails.lastName", `%${search}%`)
+							.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+								"secondUser:userDetails.firstName",
+								"secondUser:userDetails.lastName",
+								`%${search}%`,
+							]);
 					})
 					.andWhere({ firstUserId: userId });
 			})
@@ -263,6 +275,7 @@ class ChatRepository implements Repository<ChatEntity> {
 					nickname: chatByUserId.firstUser.userDetails.nickname,
 					passwordHash: chatByUserId.firstUser.passwordHash,
 					passwordSalt: chatByUserId.firstUser.passwordSalt,
+					sex: chatByUserId.firstUser.userDetails.sex,
 					updatedAt: chatByUserId.firstUser.updatedAt,
 				}),
 				id: chatByUserId.id,
@@ -301,6 +314,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatByUserId.lastMessage.senderUser.userDetails.nickname,
 						passwordHash: chatByUserId.lastMessage.senderUser.passwordHash,
 						passwordSalt: chatByUserId.lastMessage.senderUser.passwordSalt,
+						sex: chatByUserId.lastMessage.senderUser.userDetails.sex,
 						updatedAt: chatByUserId.lastMessage.senderUser.updatedAt,
 					}),
 					status: chatByUserId.lastMessage.status,
@@ -336,6 +350,7 @@ class ChatRepository implements Repository<ChatEntity> {
 					nickname: chatByUserId.secondUser.userDetails.nickname,
 					passwordHash: chatByUserId.secondUser.passwordHash,
 					passwordSalt: chatByUserId.secondUser.passwordSalt,
+					sex: chatByUserId.secondUser.userDetails.sex,
 					updatedAt: chatByUserId.secondUser.updatedAt,
 				}),
 				unreadMessageCount: chatByUserId.unreadMessageCount,
@@ -389,6 +404,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatByMembersIds.firstUser.userDetails.nickname,
 						passwordHash: chatByMembersIds.firstUser.passwordHash,
 						passwordSalt: chatByMembersIds.firstUser.passwordSalt,
+						sex: chatByMembersIds.firstUser.userDetails.sex,
 						updatedAt: chatByMembersIds.firstUser.updatedAt,
 					}),
 					id: chatByMembersIds.id,
@@ -426,6 +442,7 @@ class ChatRepository implements Repository<ChatEntity> {
 								nickname: message.senderUser.userDetails.nickname,
 								passwordHash: message.senderUser.passwordHash,
 								passwordSalt: message.senderUser.passwordSalt,
+								sex: message.senderUser.userDetails.sex,
 								updatedAt: message.senderUser.updatedAt,
 							}),
 							status: message.status,
@@ -462,6 +479,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatByMembersIds.secondUser.userDetails.nickname,
 						passwordHash: chatByMembersIds.secondUser.passwordHash,
 						passwordSalt: chatByMembersIds.secondUser.passwordSalt,
+						sex: chatByMembersIds.secondUser.userDetails.sex,
 						updatedAt: chatByMembersIds.secondUser.updatedAt,
 					}),
 					updatedAt: chatByMembersIds.updatedAt,
@@ -512,6 +530,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatById.firstUser.userDetails.nickname,
 						passwordHash: chatById.firstUser.passwordHash,
 						passwordSalt: chatById.firstUser.passwordSalt,
+						sex: chatById.firstUser.userDetails.sex,
 						updatedAt: chatById.firstUser.updatedAt,
 					}),
 					id: chatById.id,
@@ -549,6 +568,7 @@ class ChatRepository implements Repository<ChatEntity> {
 								nickname: message.senderUser.userDetails.nickname,
 								passwordHash: message.senderUser.passwordHash,
 								passwordSalt: message.senderUser.passwordSalt,
+								sex: message.senderUser.userDetails.sex,
 								updatedAt: message.senderUser.updatedAt,
 							}),
 							status: message.status,
@@ -584,6 +604,7 @@ class ChatRepository implements Repository<ChatEntity> {
 						nickname: chatById.secondUser.userDetails.nickname,
 						passwordHash: chatById.secondUser.passwordHash,
 						passwordSalt: chatById.secondUser.passwordSalt,
+						sex: chatById.secondUser.userDetails.sex,
 						updatedAt: chatById.secondUser.updatedAt,
 					}),
 					updatedAt: chatById.updatedAt,
@@ -629,6 +650,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				nickname: updatedChat.firstUser.userDetails.nickname,
 				passwordHash: updatedChat.firstUser.passwordHash,
 				passwordSalt: updatedChat.firstUser.passwordSalt,
+				sex: updatedChat.firstUser.userDetails.sex,
 				updatedAt: updatedChat.firstUser.updatedAt,
 			}),
 			id: updatedChat.id,
@@ -660,6 +682,7 @@ class ChatRepository implements Repository<ChatEntity> {
 				nickname: updatedChat.secondUser.userDetails.nickname,
 				passwordHash: updatedChat.secondUser.passwordHash,
 				passwordSalt: updatedChat.secondUser.passwordSalt,
+				sex: updatedChat.secondUser.userDetails.sex,
 				updatedAt: updatedChat.secondUser.updatedAt,
 			}),
 			updatedAt: updatedChat.updatedAt,

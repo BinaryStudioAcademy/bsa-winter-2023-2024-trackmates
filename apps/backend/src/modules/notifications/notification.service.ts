@@ -1,5 +1,10 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
+import {
+	SocketEvent,
+	SocketNamespace,
+	type SocketService,
+} from "~/libs/modules/socket/socket.js";
 import { type Service } from "~/libs/types/types.js";
 
 import { NotificationStatus } from "./libs/enums/enums.js";
@@ -16,8 +21,14 @@ import { type NotificationRepository } from "./notification.repository.js";
 class NotificationService implements Service {
 	private notificationRepository: NotificationRepository;
 
-	public constructor(notificationRepository: NotificationRepository) {
+	private socketService: SocketService;
+
+	public constructor(
+		notificationRepository: NotificationRepository,
+		socketService: SocketService,
+	) {
 		this.notificationRepository = notificationRepository;
+		this.socketService = socketService;
 	}
 
 	public async checkHasUserUnreadNotifications(
@@ -33,7 +44,7 @@ class NotificationService implements Service {
 	): Promise<NotificationResponseDto> {
 		const { receiverUserId, type, userId } = payload;
 
-		const notification = await this.notificationRepository.create(
+		const createdNotification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
 				receiverUserId,
 				status: NotificationStatus.UNREAD,
@@ -42,7 +53,16 @@ class NotificationService implements Service {
 			}),
 		);
 
-		return notification.toObject();
+		const notification = createdNotification.toObject();
+
+		this.socketService.emitMessage({
+			event: SocketEvent.NEW_NOTIFICATION,
+			payload: notification,
+			receiversIds: [String(notification.userId), String(receiverUserId)],
+			targetNamespace: SocketNamespace.NOTIFICATIONS,
+		});
+
+		return notification;
 	}
 
 	public async delete(notificationId: number): Promise<boolean> {
@@ -81,9 +101,13 @@ class NotificationService implements Service {
 
 	public async findAllByReceiverUserId(
 		receiverUserId: number,
+		search: string,
 	): Promise<AllNotificationsResponseDto> {
 		const userNotifications =
-			await this.notificationRepository.findAllByReceiverUserId(receiverUserId);
+			await this.notificationRepository.findAllByReceiverUserId(
+				receiverUserId,
+				search,
+			);
 
 		return {
 			items: userNotifications.map((notification) => notification.toObject()),

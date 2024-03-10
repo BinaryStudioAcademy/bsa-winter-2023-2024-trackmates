@@ -5,6 +5,7 @@ import {
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
 import { CommentModel } from "~/modules/comments/comments.js";
 import { UserModel } from "~/modules/users/users.js";
 
@@ -19,6 +20,14 @@ class ActivityModel extends AbstractModel {
 					to: `${DatabaseTableName.COMMENTS}.activityId`,
 				},
 				modelClass: CommentModel,
+				relation: Model.HasManyRelation,
+			},
+			likes: {
+				join: {
+					from: `${DatabaseTableName.ACTIVITIES}.id`,
+					to: `${DatabaseTableName.ACTIVITY_LIKES}.activityId`,
+				},
+				modelClass: ActivityLikeModel,
 				relation: Model.HasManyRelation,
 			},
 			user: {

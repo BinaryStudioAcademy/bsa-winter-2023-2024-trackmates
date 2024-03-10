@@ -330,6 +330,7 @@ class GroupRepository implements Repository<GroupEntity> {
 					nickname: user.userDetails.nickname,
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
 					updatedAt: user.updatedAt,
 				})
 			: null;
