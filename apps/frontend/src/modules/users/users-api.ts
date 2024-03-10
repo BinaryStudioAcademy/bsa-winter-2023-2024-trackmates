@@ -20,6 +20,19 @@ class UserApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USERS, storage });
 	}
 
+	public async getAll(): Promise<{ items: UserAuthResponseDto[] }> {
+		const response = await this.load(
+			this.getFullEndpoint(UsersApiPath.ROOT, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<{ items: UserAuthResponseDto[] }>();
+	}
+
 	public async getById(id: number): Promise<UserAuthResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UsersApiPath.$ID, {

@@ -17,6 +17,7 @@ import { Chats } from "./pages/chats/chats.js";
 import { CourseDescription } from "./pages/course-description/course-description.js";
 import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
+import { Management } from "./pages/management/management.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Notifications } from "./pages/notifications/notifications.js";
 import { Overview } from "./pages/overview/overview.js";
@@ -82,6 +83,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <ProtectedRoute component={<User />} />,
 								path: AppRoute.USERS_$ID,
+							},
+							{
+								element: <ProtectedRoute component={<Management />} />,
+								path: AppRoute.MANAGEMENT_USERS,
+							},
+							{
+								element: <ProtectedRoute component={<Management />} />,
+								path: AppRoute.MANAGEMENT_GROUPS,
 							},
 						],
 						element: <App />,

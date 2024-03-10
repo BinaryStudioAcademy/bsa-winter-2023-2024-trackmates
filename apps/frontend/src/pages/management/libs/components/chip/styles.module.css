@@ -1,0 +1,25 @@
+@import url("~/assets/css/media.css");
+
+.chip {
+	display: flex;
+	column-gap: 5px;
+	align-items: center;
+	padding: 5px 15px;
+	background-color: rgb(3 119 104 / 15%);
+	border-radius: 15px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	margin: 0 auto;
+	color: var(--color-text-200);
+	background-color: transparent;
+	border: unset;
+	fill: currentcolor;
+}
+
+.icon-button:hover {
+	color: var(--main-orange);
+	background-color: transparent;
+}

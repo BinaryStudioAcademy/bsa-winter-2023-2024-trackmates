@@ -18,6 +18,11 @@ const MENU_ITEMS: MenuItem[] = [
 		icon: "pie",
 		label: "Friends",
 	},
+	{
+		href: AppRoute.MANAGEMENT_USERS,
+		icon: "lock",
+		label: "Management",
+	},
 ];
 
 export { MENU_ITEMS };
