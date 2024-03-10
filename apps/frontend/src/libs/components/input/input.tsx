@@ -22,6 +22,7 @@ type Properties<T extends FieldValues> = {
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
+	rows?: number;
 	type?: "email" | "password" | "text";
 };
 
@@ -35,6 +36,7 @@ const Input = <T extends FieldValues>({
 	label,
 	name,
 	placeholder = "",
+	rows,
 	type = "text",
 }: Properties<T>): JSX.Element => {
 	const { field } = useFormController({ control, name });
@@ -47,9 +49,11 @@ const Input = <T extends FieldValues>({
 	const error = errors[name]?.message;
 	const hasError = Boolean(error);
 
+	const isTextArea = Boolean(rows);
+
 	const inputClasses = getValidClassNames(
 		className,
-		styles["input"],
+		isTextArea ? styles["textarea"] : styles["input"],
 		styles[color],
 		hasError && styles["error-input"],
 		hasIcon && styles["input-with-icon"],
@@ -63,12 +67,21 @@ const Input = <T extends FieldValues>({
 		<label className={styles["container"]}>
 			<span className={labelClasses}>{label}</span>
 			{icon}
-			<input
-				className={inputClasses}
-				{...field}
-				placeholder={placeholder}
-				type={type}
-			/>
+			{isTextArea ? (
+				<textarea
+					className={inputClasses}
+					{...field}
+					placeholder={placeholder}
+					rows={rows}
+				/>
+			) : (
+				<input
+					className={inputClasses}
+					{...field}
+					placeholder={placeholder}
+					type={type}
+				/>
+			)}
 			{hasError && <span className={styles["error"]}>{error as string}</span>}
 		</label>
 	);

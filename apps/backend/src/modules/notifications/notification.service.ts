@@ -101,9 +101,13 @@ class NotificationService implements Service {
 
 	public async findAllByReceiverUserId(
 		receiverUserId: number,
+		search: string,
 	): Promise<AllNotificationsResponseDto> {
 		const userNotifications =
-			await this.notificationRepository.findAllByReceiverUserId(receiverUserId);
+			await this.notificationRepository.findAllByReceiverUserId(
+				receiverUserId,
+				search,
+			);
 
 		return {
 			items: userNotifications.map((notification) => notification.toObject()),
