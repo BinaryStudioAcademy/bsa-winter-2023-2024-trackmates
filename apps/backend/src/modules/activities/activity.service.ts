@@ -8,6 +8,7 @@ import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
 import { type ActivityType } from "./libs/enums/enums.js";
 import {
+	type ActivityFinishCourseResponseDto,
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
@@ -91,6 +92,22 @@ class ActivityService implements Service {
 
 	public async delete(id: number): Promise<boolean> {
 		return await this.activityRepository.delete(id);
+	}
+
+	public async deleteByCourseId<T extends ValueOf<typeof ActivityType>>({
+		payload,
+		type,
+		userId,
+	}: {
+		payload: ActivityFinishCourseResponseDto;
+		type: T;
+		userId: number;
+	}): Promise<boolean> {
+		return await this.activityRepository.deleteByCourseId({
+			payload,
+			type,
+			userId,
+		});
 	}
 
 	public async deleteByKeyFields<T extends ValueOf<typeof ActivityType>>({

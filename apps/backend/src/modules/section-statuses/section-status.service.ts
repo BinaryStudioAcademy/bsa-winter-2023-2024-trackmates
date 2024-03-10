@@ -7,7 +7,9 @@ import {
 	ActivityType,
 } from "~/modules/activities/activities.js";
 import { type CourseSectionRepository } from "~/modules/course-sections/course-sections.js";
+import { type CourseRepository } from "~/modules/courses/course.repository.js";
 
+import { FINISH_COURSE_PROGRESS } from "./libs/constant/constant.js";
 import { SectionStatus } from "./libs/enums/enums.js";
 import { SectionStatusError } from "./libs/exceptions/exceptions.js";
 import {
@@ -22,21 +24,25 @@ import { type SectionStatusRepository } from "./section-status.repository.js";
 
 type Constructor = {
 	activityService: ActivityService;
+	courseRepository: CourseRepository;
 	courseSectionRepository: CourseSectionRepository;
 	sectionStatusRepository: SectionStatusRepository;
 };
 
 class SectionStatusService implements Service {
 	private activityService: ActivityService;
+	private courseRepository: CourseRepository;
 	private courseSectionRepository: CourseSectionRepository;
 	private sectionStatusRepository: SectionStatusRepository;
 
 	public constructor({
 		activityService,
+		courseRepository,
 		courseSectionRepository,
 		sectionStatusRepository,
 	}: Constructor) {
 		this.activityService = activityService;
+		this.courseRepository = courseRepository;
 		this.courseSectionRepository = courseSectionRepository;
 		this.sectionStatusRepository = sectionStatusRepository;
 	}
@@ -95,6 +101,7 @@ class SectionStatusService implements Service {
 		);
 
 		await this.createActivity(sectionStatus);
+		await this.updateFinishCourse(sectionStatus);
 
 		return sectionStatus.toObject();
 	}
@@ -204,7 +211,73 @@ class SectionStatusService implements Service {
 			? await this.createActivity(updatedStatusEntity)
 			: await this.deleteActivity(id, userId);
 
+		await this.updateFinishCourse(sectionStatus);
+
 		return updatedStatus;
+	}
+
+	public async updateFinishCourse(
+		sectionStatus: SectionStatusEntity,
+	): Promise<void> {
+		const { courseSectionId, id: actionId, userId } = sectionStatus.toObject();
+
+		const courseSection =
+			await this.courseSectionRepository.find(courseSectionId);
+
+		if (!courseSection) {
+			throw new SectionStatusError({
+				message: ExceptionMessage.COURSE_SECTION_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const { course, courseId, id } = courseSection.toObject();
+
+		if (!course) {
+			throw new SectionStatusError({
+				message: ExceptionMessage.COURSE_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const courseProgress = await this.courseRepository.getProgressData(
+			[courseId],
+			sectionStatus.userId,
+		);
+
+		const [progressData] = courseProgress;
+
+		if (!progressData) {
+			throw new SectionStatusError({
+				message: ExceptionMessage.PROGRESS_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		await (progressData.progress === FINISH_COURSE_PROGRESS
+			? this.activityService.create<typeof ActivityType.FINISH_COURSE>({
+					actionId,
+					payload: {
+						courseId: course.id,
+						id,
+						image: course.image,
+						title: course.title,
+						vendorId: course.vendorId,
+					},
+					type: ActivityType.FINISH_COURSE,
+					userId,
+				})
+			: this.activityService.deleteByCourseId({
+					payload: {
+						courseId: course.id,
+						id,
+						image: course.image,
+						title: course.title,
+						vendorId: course.vendorId,
+					},
+					type: ActivityType.FINISH_COURSE,
+					userId,
+				}));
 	}
 }
 

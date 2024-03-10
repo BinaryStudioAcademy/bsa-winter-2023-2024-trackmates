@@ -1,4 +1,5 @@
 type ActivityFinishCourseResponseDto = {
+	courseId: number;
 	id: number;
 	image: string;
 	title: string;
