@@ -44,34 +44,24 @@
 	align-items: center;
 }
 
-.notifications-container,
-.chats-container {
+.icon-container {
 	position: relative;
 }
 
-.chats-count,
-.notifications-count {
+.counter {
 	position: absolute;
 	top: 0;
 	right: 0;
-	width: 10px;
-	height: 10px;
+	width: 12px;
+	height: 11px;
 	font-size: 7px;
 	font-weight: 700;
 	color: var(--main-white);
 	text-align: center;
 	content: "";
 	background-color: var(--main-orange);
-	outline: 3px solid var(--main-white);
-}
-
-.notifications-count {
 	border-radius: 50%;
-}
-
-.chats-count {
-	width: 12px;
-	border-radius: 40%;
+	outline: 3px solid var(--main-white);
 }
 
 .icon-button {
