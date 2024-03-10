@@ -254,7 +254,9 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		await (progressData.progress === FINISH_COURSE_PROGRESS
+		const isCourseFinished = progressData.progress === FINISH_COURSE_PROGRESS;
+
+		await (isCourseFinished
 			? this.activityService.create<typeof ActivityType.FINISH_COURSE>({
 					actionId,
 					payload: {
