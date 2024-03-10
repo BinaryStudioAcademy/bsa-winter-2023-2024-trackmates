@@ -1,8 +1,9 @@
-import { getById, updateProfile } from "./actions.js";
+import { getAll, getById, updateProfile } from "./actions.js";
 import { actions } from "./users.slice.js";
 
 const allActions = {
 	...actions,
+	getAll,
 	getById,
 	updateProfile,
 };
