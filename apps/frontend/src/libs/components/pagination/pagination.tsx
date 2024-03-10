@@ -40,12 +40,14 @@ const Pagination: React.FC<Properties> = ({
 		>
 			<ul className={styles["content"]}>
 				<PaginationItem
+					hasVisuallyHiddenLabel
 					iconName="navFirst"
 					isDisabled={isFirstPage}
 					label="First"
 					onPageChange={handlePageChange(ONE_ITEM_COUNT)}
 				/>
 				<PaginationItem
+					hasVisuallyHiddenLabel
 					iconName="navPrev"
 					isDisabled={isFirstPage}
 					label="Prev"
@@ -60,12 +62,14 @@ const Pagination: React.FC<Properties> = ({
 					/>
 				))}
 				<PaginationItem
+					hasVisuallyHiddenLabel
 					iconName="navNext"
 					isDisabled={isLastPage}
 					label="Next"
 					onPageChange={handlePageChange(currentPage + ONE_ITEM_COUNT)}
 				/>
 				<PaginationItem
+					hasVisuallyHiddenLabel
 					iconName="navLast"
 					isDisabled={isLastPage}
 					label="Last"

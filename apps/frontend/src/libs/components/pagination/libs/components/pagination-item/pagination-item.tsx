@@ -5,6 +5,7 @@ import { type IconName } from "~/libs/types/types.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	hasVisuallyHiddenLabel?: boolean;
 	iconName?: IconName;
 	isActive?: boolean | undefined;
 	isDisabled?: boolean | undefined;
@@ -13,6 +14,7 @@ type Properties = {
 };
 
 const PaginationItem: React.FC<Properties> = ({
+	hasVisuallyHiddenLabel = false,
 	iconName,
 	isActive,
 	isDisabled,
@@ -24,7 +26,9 @@ const PaginationItem: React.FC<Properties> = ({
 		[styles["disabled"] as string]: isDisabled,
 	});
 
-	const content = iconName ? <Icon name={iconName} /> : label;
+	const labelStyle = getValidClassNames(
+		hasVisuallyHiddenLabel && "visually-hidden",
+	);
 
 	return (
 		<li className={styles["item-container"]}>
@@ -33,7 +37,8 @@ const PaginationItem: React.FC<Properties> = ({
 				disabled={isDisabled}
 				onClick={onPageChange}
 			>
-				{content}
+				{iconName && <Icon name={iconName} />}
+				<span className={labelStyle}>{label}</span>
 			</button>
 		</li>
 	);
