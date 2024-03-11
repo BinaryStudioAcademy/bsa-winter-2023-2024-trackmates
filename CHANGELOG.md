@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.59.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.58.0...v1.59.0) (2024-03-11)
+
+
+### Features
+
+* **frontend/shared:** add pagination with query tm-307 ([#397](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/397)) ([18620d9](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/18620d9fb05f030748025c69291f7566cb4b6343))
+
 ## [1.58.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.57.0...v1.58.0) (2024-03-11)
 
 
