@@ -20,9 +20,9 @@ const pushNotificationService = new PushNotificationService({
 	pushNotification,
 	pushSubscriptionService,
 });
-const pushNotificationsController = new PushNotificationController(
+const pushNotificationController = new PushNotificationController(
 	logger,
 	pushNotificationService,
 );
 
-export { pushNotificationsController };
+export { pushNotificationController };
