@@ -21,7 +21,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { comments, isLoadingComments } = useAppSelector((state) => {
 		return {
-			comments: state.activities.commentsByActivity[activityId],
+			comments: state.activities.commentsByActivity[activityId] ?? [],
 			isLoadingComments:
 				state.activities.commentsDataStatuses[activityId] ===
 				DataStatus.PENDING,
@@ -50,7 +50,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				<Loader color="orange" size="large" />
 			) : (
 				<div className={styles["comments-container"]}>
-					{comments?.map((comment) => (
+					{comments.map((comment) => (
 						<CommentCard comment={comment} key={comment.id} />
 					))}
 				</div>
