@@ -9,3 +9,4 @@ export { useCallback, useEffect, useMemo, useRef, useState } from "react";
 export { useController as useFormController } from "react-hook-form";
 export { useInView } from "react-intersection-observer";
 export { useLocation, useNavigate, useParams } from "react-router-dom";
+export { useSearchParams } from "react-router-dom";
