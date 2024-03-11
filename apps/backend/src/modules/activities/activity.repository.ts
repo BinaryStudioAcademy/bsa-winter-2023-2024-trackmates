@@ -92,7 +92,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.withGraphJoined(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
@@ -155,8 +155,9 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					.select("followingId")
 					.where({ followerId: userId }),
 			)
+			.orWhere(`${DatabaseTableName.ACTIVITIES}.userId`, userId)
 			.withGraphJoined(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy("updatedAt", SortOrder.DESC)
 			.castTo<(ActivityModel & ActivityCounts)[]>()
