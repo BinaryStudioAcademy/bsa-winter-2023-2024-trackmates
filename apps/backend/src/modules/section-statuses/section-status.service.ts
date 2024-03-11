@@ -256,8 +256,8 @@ class SectionStatusService implements Service {
 
 		const isCourseFinished = progressData.progress === FINISHED_COURSE_PROGRESS;
 
-		isCourseFinished &&
-			(await this.activityService.create<typeof ActivityType.FINISH_COURSE>({
+		if (isCourseFinished) {
+			await this.activityService.create<typeof ActivityType.FINISH_COURSE>({
 				actionId: course.id,
 				payload: {
 					id,
@@ -267,14 +267,16 @@ class SectionStatusService implements Service {
 				},
 				type: ActivityType.FINISH_COURSE,
 				userId,
-			}));
+			});
 
-		!isCourseFinished &&
-			(await this.activityService.deleteByKeyFields({
-				actionId: course.id,
-				type: ActivityType.FINISH_COURSE,
-				userId,
-			}));
+			return;
+		}
+
+		await this.activityService.deleteByKeyFields({
+			actionId: course.id,
+			type: ActivityType.FINISH_COURSE,
+			userId,
+		});
 	}
 }
 
