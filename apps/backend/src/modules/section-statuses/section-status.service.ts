@@ -9,7 +9,7 @@ import {
 import { type CourseSectionRepository } from "~/modules/course-sections/course-sections.js";
 import { type CourseRepository } from "~/modules/courses/courses.js";
 
-import { FINISH_COURSE_PROGRESS } from "./libs/constant/constant.js";
+import { FINISHED_COURSE_PROGRESS } from "./libs/constant/constant.js";
 import { SectionStatus } from "./libs/enums/enums.js";
 import { SectionStatusError } from "./libs/exceptions/exceptions.js";
 import {
@@ -254,7 +254,7 @@ class SectionStatusService implements Service {
 			});
 		}
 
-		const isCourseFinished = progressData.progress === FINISH_COURSE_PROGRESS;
+		const isCourseFinished = progressData.progress === FINISHED_COURSE_PROGRESS;
 
 		isCourseFinished &&
 			(await this.activityService.create<typeof ActivityType.FINISH_COURSE>({
