@@ -16,9 +16,10 @@ class PushSubscriptionRepository implements Repository<PushSubscriptionEntity> {
 			pushSubscription.toNewObject();
 
 		const existingPushSubscription = await this.findByAuthKey(authKey);
+		const hasExistingPushSubscription = Boolean(existingPushSubscription);
 
-		if (existingPushSubscription) {
-			return existingPushSubscription;
+		if (hasExistingPushSubscription) {
+			return existingPushSubscription as PushSubscriptionEntity;
 		}
 
 		const createdPushSubscription = await this.pushSubscriptionModel
