@@ -2,16 +2,12 @@ import { Loader } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
+	useAppSelector,
 	useCallback,
 	useEffect,
-	useState,
 } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
 import { actions as activityActions } from "~/modules/activities/activities.js";
-import {
-	type CommentCreateRequestDto,
-	type CommentWithRelationsResponseDto,
-} from "~/modules/comments/comments.js";
+import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 
 import { ActivityCommentForm } from "../activity-comment-form/activity-comment-form.js";
 import { CommentCard } from "../comment-card/comment-card.js";
@@ -23,46 +19,30 @@ type Properties = {
 
 const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
-	const [comments, setComments] = useState<CommentWithRelationsResponseDto[]>(
-		[],
-	);
-	const [loadCommentsDataStatus, setLoadCommentsDataStatus] = useState<
-		ValueOf<typeof DataStatus>
-	>(DataStatus.IDLE);
-	const [createCommentDataStatus, setCreateCommentDataStatus] = useState<
-		ValueOf<typeof DataStatus>
-	>(DataStatus.IDLE);
+	const { comments, isLoadingComments } = useAppSelector((state) => {
+		return {
+			comments: state.activities.commentsByActivity[activityId],
+			isLoadingComments:
+				state.activities.commentsDataStatuses[activityId] ===
+				DataStatus.PENDING,
+		};
+	});
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
-			setCreateCommentDataStatus(DataStatus.PENDING);
 			void dispatch(
 				activityActions.createComment({
 					activityId,
 					text: payload.text,
 				}),
-			)
-				.unwrap()
-				.then((comment) => {
-					setComments([comment, ...comments]);
-					setCreateCommentDataStatus(DataStatus.FULFILLED);
-				});
+			);
 		},
-		[activityId, comments, dispatch],
+		[activityId, dispatch],
 	);
 
 	useEffect(() => {
-		setLoadCommentsDataStatus(DataStatus.PENDING);
-		void dispatch(activityActions.getAllCommentsToActivity(activityId))
-			.unwrap()
-			.then((response) => {
-				setComments(response.items);
-				setLoadCommentsDataStatus(DataStatus.FULFILLED);
-			});
+		void dispatch(activityActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
-
-	const isLoadingComments = loadCommentsDataStatus === DataStatus.PENDING;
-	const isCreatingComment = createCommentDataStatus === DataStatus.PENDING;
 
 	return (
 		<div className={styles["container"]}>
@@ -70,13 +50,13 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				<Loader color="orange" size="large" />
 			) : (
 				<div className={styles["comments-container"]}>
-					{comments.map((comment) => (
+					{comments?.map((comment) => (
 						<CommentCard comment={comment} key={comment.id} />
 					))}
 				</div>
 			)}
 			<ActivityCommentForm
-				isLoading={isCreatingComment}
+				isLoading={isLoadingComments}
 				onSubmit={handleCreateComment}
 			/>
 		</div>

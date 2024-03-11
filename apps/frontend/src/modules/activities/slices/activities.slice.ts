@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { type CommentWithRelationsResponseDto } from "~/modules/comments/comments.js";
 
 import { type ActivityType } from "../libs/enums/enums.js";
 import { type ActivityResponseDto } from "../libs/types/types.js";
@@ -14,14 +15,16 @@ import {
 
 type State = {
 	activities: ActivityResponseDto<ValueOf<typeof ActivityType>>[];
+	commentsByActivity: Record<number, CommentWithRelationsResponseDto[]>;
+	commentsDataStatuses: Record<number, ValueOf<typeof DataStatus>>;
 	dataStatus: ValueOf<typeof DataStatus>;
 	likeDataStatus: ValueOf<typeof DataStatus>;
 };
 
-const ZERO_INDEX = 0;
-
 const initialState: State = {
 	activities: [],
+	commentsByActivity: {},
+	commentsDataStatuses: {},
 	dataStatus: DataStatus.IDLE,
 	likeDataStatus: DataStatus.IDLE,
 };
@@ -52,20 +55,47 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getAllCommentsToActivity.fulfilled, (state, action) => {
-			const activityId = action.payload.items[ZERO_INDEX]?.activityId;
+			const activityId = action.meta.arg;
 
 			state.activities = state.activities.map((activity) => {
 				return activity.id === activityId
 					? { ...activity, commentCount: action.payload.items.length }
 					: activity;
 			});
+
+			state.commentsByActivity[activityId] = action.payload.items;
+			state.commentsDataStatuses[activityId] = DataStatus.FULFILLED;
+		});
+		builder.addCase(getAllCommentsToActivity.pending, (state, action) => {
+			const activityId = action.meta.arg;
+			state.commentsDataStatuses[activityId] = DataStatus.PENDING;
+		});
+		builder.addCase(getAllCommentsToActivity.rejected, (state, action) => {
+			const activityId = action.meta.arg;
+			state.commentsDataStatuses[activityId] = DataStatus.REJECTED;
 		});
 		builder.addCase(createComment.fulfilled, (state, action) => {
+			const { activityId } = action.payload;
 			state.activities = state.activities.map((activity) => {
-				return activity.id === action.payload.activityId
+				return activity.id === activityId
 					? { ...activity, commentCount: ++activity.commentCount }
 					: activity;
 			});
+
+			const previousComments = state.commentsByActivity[activityId] ?? [];
+			state.commentsByActivity[activityId] = [
+				action.payload,
+				...previousComments,
+			];
+			state.commentsDataStatuses[activityId] = DataStatus.FULFILLED;
+		});
+		builder.addCase(createComment.pending, (state, action) => {
+			const { activityId } = action.meta.arg;
+			state.commentsDataStatuses[activityId] = DataStatus.PENDING;
+		});
+		builder.addCase(createComment.rejected, (state, action) => {
+			const { activityId } = action.meta.arg;
+			state.commentsDataStatuses[activityId] = DataStatus.REJECTED;
 		});
 	},
 	initialState,
