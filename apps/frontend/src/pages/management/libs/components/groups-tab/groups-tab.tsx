@@ -7,10 +7,8 @@ import {
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import {
-	type GroupRequestDto,
-	actions as groupsActions,
-} from "~/modules/groups/groups.js";
+import { type GroupRequestDto } from "~/modules/groups/groups.js";
+import { actions as groupsActions } from "~/modules/groups/groups.js";
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
 import { Chip } from "../chip/chip.js";
@@ -24,7 +22,7 @@ import styles from "./styles.module.css";
 const GroupsTab: React.FC = () => {
 	const { groups } = useAppSelector((state) => {
 		return {
-			groups: state.groups.groups,
+			groups: state.management.groups,
 		};
 	});
 

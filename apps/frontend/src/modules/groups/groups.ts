@@ -11,5 +11,8 @@ const groupsApi = new GroupsApi({
 });
 
 export { groupsApi };
-export { type GroupRequestDto } from "./libs/types/types.js";
-export { actions, reducer } from "./slices/groups.js";
+export {
+	type GroupRequestDto,
+	type GroupResponseDto,
+} from "./libs/types/types.js";
+export { actions } from "./slices/groups.js";

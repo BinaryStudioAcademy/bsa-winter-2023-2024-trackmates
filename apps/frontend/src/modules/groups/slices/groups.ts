@@ -6,10 +6,8 @@ import {
 	updateGroupPermissions,
 	updateUserGroups,
 } from "./actions.js";
-import { actions } from "./groups.slice.js";
 
 const allActions = {
-	...actions,
 	createGroup,
 	deleteGroup,
 	editGroup,
@@ -19,4 +17,3 @@ const allActions = {
 };
 
 export { allActions as actions };
-export { reducer } from "./groups.slice.js";

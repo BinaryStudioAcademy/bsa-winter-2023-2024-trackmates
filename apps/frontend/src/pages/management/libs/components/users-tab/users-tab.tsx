@@ -16,7 +16,7 @@ import styles from "./styles.module.css";
 const UsersTab: React.FC = () => {
 	const { users } = useAppSelector((state) => {
 		return {
-			users: state.users.users,
+			users: state.management.users,
 		};
 	});
 
