@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.27.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.26.0...shared-v1.27.0) (2024-03-11)
+
+
+### Features
+
+* **frontend/shared:** add pagination with query tm-307 ([#397](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/397)) ([18620d9](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/18620d9fb05f030748025c69291f7566cb4b6343))
+
+## [1.26.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.25.0...shared-v1.26.0) (2024-03-09)
+
+
+### Features
+
+* **frontend/shared:** pronouns on feed page tm-344 ([#418](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/418)) ([ba297ac](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ba297ac590c6934b9d7494c6bf9d65a38a944f50))
+
+## [1.25.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.24.0...shared-v1.25.0) (2024-03-09)
+
+
+### Features
+
+* **frontend/shared:** Update the design of the "Chats" page tm-388 ([#407](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/407)) ([a496650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a496650062fb28bd376d6d93b7f9f95c90c6297f))
+
 ## [1.24.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.23.0...shared-v1.24.0) (2024-03-09)
 
 

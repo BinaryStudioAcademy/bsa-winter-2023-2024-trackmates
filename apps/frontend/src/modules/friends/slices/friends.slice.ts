@@ -15,6 +15,7 @@ import {
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
+	followDataStatus: ValueOf<typeof DataStatus>;
 	followers: UserAuthResponseDto[];
 	followersTotalCount: number;
 	followings: UserAuthResponseDto[];
@@ -26,6 +27,7 @@ type State = {
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
+	followDataStatus: DataStatus.IDLE,
 	followers: [],
 	followersTotalCount: 0,
 	followings: [],
@@ -73,23 +75,23 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(follow.fulfilled, (state) => {
-			state.dataStatus = DataStatus.FULFILLED;
+			state.followDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(follow.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
+			state.followDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(follow.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
+			state.followDataStatus = DataStatus.REJECTED;
 		});
 
 		builder.addCase(unfollow.fulfilled, (state) => {
-			state.dataStatus = DataStatus.FULFILLED;
+			state.followDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(unfollow.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
+			state.followDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(unfollow.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
+			state.followDataStatus = DataStatus.REJECTED;
 		});
 
 		builder.addCase(getIsFollowing.fulfilled, (state, action) => {

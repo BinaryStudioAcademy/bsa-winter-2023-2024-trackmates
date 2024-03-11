@@ -213,6 +213,7 @@ export {
 	UsersApiPath,
 	userIdParametersValidationSchema,
 	userProfileValidationSchema,
+	userSexToPronoun,
 	userSignInValidationSchema,
 	userSignUpValidationSchema,
 } from "./modules/users/users.js";
