@@ -1,4 +1,4 @@
-import { NotificationType } from "../enums/enums.js";
+import { NotificationType } from "~/modules/user-notifications/user-notifications.js";
 
 const notificationTypeToTitle = {
 	[NotificationType.NEW_FOLLOWER]: "New follower",

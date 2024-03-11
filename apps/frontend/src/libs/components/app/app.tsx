@@ -6,7 +6,6 @@ import {
 	useEffect,
 	useNavigate,
 } from "~/libs/hooks/hooks.js";
-import { pwaNotification } from "~/libs/modules/pwa-notification/pwa-notification.js";
 import { actions as appActions } from "~/libs/slices/app/app.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as chatActions } from "~/modules/chats/chats.js";
@@ -53,10 +52,6 @@ const App: React.FC = () => {
 			};
 		}
 	}, [dispatch, user]);
-
-	useEffect(() => {
-		void pwaNotification.initialize();
-	}, []);
 
 	if (
 		authDataStatus === DataStatus.IDLE ||

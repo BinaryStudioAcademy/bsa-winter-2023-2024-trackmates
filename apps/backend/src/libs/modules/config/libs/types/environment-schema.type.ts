@@ -31,6 +31,10 @@ type EnvironmentSchema = {
 		API_KEY: string;
 		MODEL: string;
 	};
+	PUSH_NOTIFICATIONS: {
+		PRIVATE_KEY: string;
+		PUBLIC_KEY: string;
+	};
 	UDEMY: {
 		CLIENT_ID: string;
 		CLIENT_SECRET: string;

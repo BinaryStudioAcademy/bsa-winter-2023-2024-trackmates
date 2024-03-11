@@ -11,6 +11,7 @@ const APIPath = {
 	GROUPS: "/groups",
 	NOTIFICATIONS: "/notifications",
 	PERMISSIONS: "/permissions",
+	PUSH_NOTIFICATIONS: "/push-notifications",
 	SECTION_STATUSES: "/section-statuses",
 	USER_COURSES: "/user-courses",
 	USER_NOTIFICATIONS: "/user-notifications",

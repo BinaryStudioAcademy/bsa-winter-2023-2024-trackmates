@@ -144,6 +144,20 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			PUSH_NOTIFICATIONS: {
+				PRIVATE_KEY: {
+					default: null,
+					doc: "VAPID private key",
+					env: "PUSH_NOTIFICATIONS_PRIVATE_KEY",
+					format: String,
+				},
+				PUBLIC_KEY: {
+					default: null,
+					doc: "VAPID public key",
+					env: "PUSH_NOTIFICATIONS_PUBLIC_KEY",
+					format: String,
+				},
+			},
 			UDEMY: {
 				CLIENT_ID: {
 					default: null,

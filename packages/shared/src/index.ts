@@ -174,6 +174,17 @@ export {
 	permissionIdParameter,
 } from "./modules/permissions/permissions.js";
 export {
+	type PushNotificationRequestDto,
+	PushNotificationsApiPath,
+} from "./modules/push-notifications/push-notifications.js";
+export {
+	PushSubscriptionError,
+	PushSubscriptionErrorMessage,
+	type PushSubscriptionRequestDto,
+	type PushSubscriptionResponseDto,
+	createSubscriptionValidationSchema,
+} from "./modules/push-subscriptions/push-subscriptions.js";
+export {
 	SectionStatus,
 	type SectionStatusAddRequestDto,
 	SectionStatusError,

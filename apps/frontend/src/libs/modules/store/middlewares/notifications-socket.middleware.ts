@@ -9,6 +9,8 @@ import { type ExtraArguments } from "~/libs/modules/store/store.js";
 import { type AppDispatch, type RootState } from "~/libs/types/types.js";
 import { actions as userNotificationsActions } from "~/modules/user-notifications/user-notifications.js";
 
+import { sendNotifications } from "../libs/helpers/helpers.js";
+
 const notificationsSocket = ({
 	extra: { socket },
 }: {
@@ -31,7 +33,7 @@ const notificationsSocket = ({
 				return;
 			}
 
-			dispatch(userNotificationsActions.sendUnreadNotifications());
+			sendNotifications(userNotifications.notifications);
 		});
 
 		return (next) => {

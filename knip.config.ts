@@ -2,6 +2,7 @@ import { type KnipConfig } from "knip";
 
 const config: KnipConfig = {
 	ignore: ["**/sw.js/**"],
+	ignoreDependencies: ["workbox-precaching"],
 	prettier: ["./prettier.config.ts"],
 	stylelint: ["./stylelint.config.js"],
 	workspaces: {

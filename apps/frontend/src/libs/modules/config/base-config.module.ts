@@ -23,6 +23,11 @@ class BaseConfig implements Config {
 					typeof AppEnvironment
 				>,
 			},
+			PUSH_NOTIFICATIONS: {
+				PUBLIC_KEY: import.meta.env[
+					"VITE_PUSH_NOTIFICATIONS_PUBLIC_KEY"
+				] as string,
+			},
 		};
 	}
 }

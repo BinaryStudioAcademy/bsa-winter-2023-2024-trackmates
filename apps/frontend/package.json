@@ -41,6 +41,7 @@
 		"react-intersection-observer": "9.8.1",
 		"vite": "5.0.12",
 		"vite-plugin-pwa": "0.18.1",
-		"vite-plugin-svgr": "4.2.0"
+		"vite-plugin-svgr": "4.2.0",
+		"workbox-precaching": "7.0.0"
 	}
 }

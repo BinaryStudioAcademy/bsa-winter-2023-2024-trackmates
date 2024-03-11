@@ -14,6 +14,7 @@ const DatabaseTableName = {
 	MIGRATIONS: "migrations",
 	NOTIFICATIONS: "notifications",
 	PERMISSIONS: "permissions",
+	PUSH_SUBSCRIPTIONS: "push_subscriptions",
 	SECTION_STATUSES: "section_statuses",
 	USER_DETAILS: "user_details",
 	USERS: "users",

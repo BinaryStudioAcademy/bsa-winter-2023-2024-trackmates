@@ -11,5 +11,6 @@ const userNotificationsApi = new UserNotificationsApi({
 });
 
 export { userNotificationsApi };
+export { NotificationStatus, NotificationType } from "./libs/enums/enums.js";
 export { type NotificationResponseDto } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/user-notifications.js";
