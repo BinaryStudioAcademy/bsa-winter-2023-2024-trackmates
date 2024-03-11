@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.57.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.56.1...v1.57.0) (2024-03-11)
+
+
+### Features
+
+* **backend:** add users own activity tm-420 ([#431](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/431)) ([7f829fd](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7f829fdb6230ab44d7e5e3576164f4981c75c97f))
+
 ## [1.56.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.56.0...v1.56.1) (2024-03-10)
 
 
