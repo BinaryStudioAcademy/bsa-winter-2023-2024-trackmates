@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.45.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.45.1...frontend-v1.45.2) (2024-03-11)
+
+
+### Bug Fixes
+
+* **frontend:** add disabling button in each section tm-374 ([#462](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/462)) ([8749e42](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8749e42909aaaf1d0e8b8122d9301e42a834df25))
+
 ## [1.45.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.45.0...frontend-v1.45.1) (2024-03-11)
 
 
