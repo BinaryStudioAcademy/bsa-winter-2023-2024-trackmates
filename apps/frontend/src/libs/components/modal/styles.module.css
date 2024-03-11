@@ -12,6 +12,10 @@
 	border: none;
 }
 
+.centered {
+	align-items: center;
+}
+
 .content {
 	position: relative;
 	width: 100%;

@@ -3,7 +3,9 @@ import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
+	useCallback,
 	useEffect,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import {
 	type GroupRequestDto,
@@ -12,6 +14,7 @@ import {
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
 import { Chip } from "../chip/chip.js";
+import { EditModal } from "../edit-modal/edit-modal.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
 import { Table } from "../table/table.js";
 import { GroupsTableHeader } from "./libs/enums/enums.js";
@@ -33,10 +36,16 @@ const GroupsTab: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
+	const [isModalOpen, setModalOpen] = useState<boolean>(false);
+
 	useEffect(() => {
 		void dispatch(groupsActions.getAllGroups());
 		void dispatch(permissionsActions.getAllPermissions());
 	}, [dispatch]);
+
+	const handleToggleModal = useCallback(() => {
+		setModalOpen(!isModalOpen);
+	}, [isModalOpen, setModalOpen]);
 
 	const tableHeaders = [
 		GroupsTableHeader.ID,
@@ -62,6 +71,7 @@ const GroupsTab: React.FC = () => {
 					hasVisuallyHiddenLabel
 					iconName="edit"
 					label={GroupsTableHeader.EDIT}
+					onClick={handleToggleModal}
 				/>
 			),
 			id: group.id,
@@ -119,6 +129,11 @@ const GroupsTab: React.FC = () => {
 					);
 				})}
 			</Table>
+			{isModalOpen && (
+				<EditModal onClose={handleToggleModal}>
+					<></>
+				</EditModal>
+			)}
 		</div>
 	);
 };
