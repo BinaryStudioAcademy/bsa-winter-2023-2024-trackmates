@@ -1,3 +1,1 @@
-const FINISH_COURSE_PROGRESS = 100;
-
-export { FINISH_COURSE_PROGRESS };
+export { FINISH_COURSE_PROGRESS } from "./course-progress.js";
