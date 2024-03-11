@@ -13,8 +13,8 @@ class PushNotification {
 
 	public sendNotification(
 		subscription: webPush.PushSubscription,
-		payload?: Buffer | null | string | undefined,
-		options?: undefined | webPush.RequestOptions,
+		payload?: Buffer | null | string,
+		options?: webPush.RequestOptions,
 	): Promise<webPush.SendResult> {
 		return webPush.sendNotification(subscription, payload, options);
 	}
