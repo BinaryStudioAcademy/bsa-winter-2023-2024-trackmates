@@ -4,7 +4,7 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../libs/types/types.js";
-import { getAll, getById, remove } from "./actions.js";
+import { getById, remove } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
@@ -22,17 +22,6 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(getAll.fulfilled, (state, action) => {
-			state.users = action.payload.items;
-			state.dataStatus = DataStatus.FULFILLED;
-		});
-		builder.addCase(getAll.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(getAll.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
-		});
-
 		builder.addCase(getById.fulfilled, (state, action) => {
 			state.profileUser = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;

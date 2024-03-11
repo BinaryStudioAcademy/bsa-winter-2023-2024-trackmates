@@ -1,0 +1,16 @@
+.edit-modal {
+	width: 400px;
+	height: 500px;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 50px 20px;
+}
+
+.button {
+	width: 200px;
+	border-color: var(--color-menu);
+}

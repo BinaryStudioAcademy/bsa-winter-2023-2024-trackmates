@@ -10,16 +10,18 @@ import { Portal } from "../portal/portal.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	centered?: boolean;
 	children: React.ReactNode;
-	// className?: string | undefined;
+	className?: string | undefined;
 	isOpen: boolean;
 	onClose: () => void;
 	size?: "large" | "small";
 };
 
 const Modal: React.FC<Properties> = ({
+	centered = false,
 	children,
-	// className,
+	className,
 	isOpen,
 	onClose,
 	size = "large",
@@ -34,13 +36,17 @@ const Modal: React.FC<Properties> = ({
 		onEscPress: onClose,
 	});
 
-	const modalStyles = getValidClassNames(styles["modal"], styles[size]);
+	const modalStyles = getValidClassNames(
+		styles["modal"],
+		styles[size],
+		centered && styles["centered"],
+	);
 
 	return (
 		<Portal>
 			<dialog aria-modal className={modalStyles} open={isOpen}>
 				<div
-					className={styles["content"]}
+					className={getValidClassNames(styles["content"], className)}
 					ref={contentReference}
 					role="button"
 					tabIndex={0}

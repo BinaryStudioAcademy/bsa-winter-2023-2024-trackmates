@@ -21,7 +21,7 @@ const UsersTab: React.FC = () => {
 	const { userToDataStatus, users } = useAppSelector((state) => {
 		return {
 			userToDataStatus: state.users.userToDataStatus,
-			users: state.users.users,
+			users: state.management.users,
 		};
 	});
 

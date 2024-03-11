@@ -1,29 +1,14 @@
 import { Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useEffect, useLocation } from "~/libs/hooks/hooks.js";
-import { actions } from "~/modules/permissions/permissions.js";
+import { useLocation } from "~/libs/hooks/hooks.js";
 
 import { GroupsTab, UsersTab } from "./libs/components/components.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const Management: React.FC = () => {
-	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
-
-	useEffect(() => {
-		switch (pathname) {
-			case AppRoute.MANAGEMENT_USERS: {
-				break;
-			}
-
-			case AppRoute.MANAGEMENT_GROUPS: {
-				void dispatch(actions.getAllPermissions());
-				break;
-			}
-		}
-	}, [dispatch, pathname]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
