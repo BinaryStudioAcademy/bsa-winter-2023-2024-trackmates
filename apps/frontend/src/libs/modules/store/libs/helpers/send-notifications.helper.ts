@@ -1,4 +1,4 @@
-import { pwaNotification } from "~/libs/modules/pwa-notification/pwa-notification.js";
+import { pushNotification } from "~/libs/modules/push-notification/push-notification.js";
 import {
 	type NotificationResponseDto,
 	NotificationStatus,
@@ -9,7 +9,7 @@ import { notificationTypeToTitle } from "../maps/maps.js";
 const sendNotifications = (notifications: NotificationResponseDto[]): void => {
 	for (const notification of notifications) {
 		if (notification.status === NotificationStatus.UNREAD) {
-			void pwaNotification.sendNotification({
+			void pushNotification.sendNotification({
 				message: notificationTypeToTitle[notification.type],
 				options: {
 					body: notification.message,

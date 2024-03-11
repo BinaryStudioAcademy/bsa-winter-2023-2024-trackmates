@@ -1,14 +1,14 @@
 import { GRANTED_PERMISSION } from "./libs/constants/constants.js";
-import { type PWANotificationApi } from "./pwa-notification-api.js";
+import { type PushNotificationApi } from "./push-notification-api.js";
 
-class PWANotification {
+class PushNotification {
 	private isGranted: boolean = false;
 
 	private isInitialized: boolean = false;
 
 	private publicKey: string;
 
-	private pwaApi!: PWANotificationApi;
+	private pushNotificationApi!: PushNotificationApi;
 
 	private subscription!: PushSubscription;
 
@@ -16,13 +16,13 @@ class PWANotification {
 
 	public constructor({
 		publicKey,
-		pwaApi,
+		pushNotificationApi,
 	}: {
 		publicKey: string;
-		pwaApi: PWANotificationApi;
+		pushNotificationApi: PushNotificationApi;
 	}) {
 		this.publicKey = publicKey;
-		this.pwaApi = pwaApi;
+		this.pushNotificationApi = pushNotificationApi;
 	}
 
 	private checkIsSupported(): boolean {
@@ -50,7 +50,7 @@ class PWANotification {
 				userVisibleOnly: true,
 			});
 
-			await this.pwaApi.subscribe(this.subscription);
+			await this.pushNotificationApi.subscribe(this.subscription);
 		}
 	}
 
@@ -66,8 +66,8 @@ class PWANotification {
 			return;
 		}
 
-		await this.pwaApi.sendNotification(notification);
+		await this.pushNotificationApi.sendNotification(notification);
 	}
 }
 
-export { PWANotification };
+export { PushNotification };

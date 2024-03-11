@@ -12,7 +12,7 @@ type Constructor = {
 	storage: Storage;
 };
 
-class PWANotificationApi extends BaseHTTPApi {
+class PushNotificationApi extends BaseHTTPApi {
 	public constructor({ baseUrl, http, storage }: Constructor) {
 		super({ baseUrl, http, path: APIPath.PUSH_NOTIFICATIONS, storage });
 	}
@@ -44,4 +44,4 @@ class PWANotificationApi extends BaseHTTPApi {
 	}
 }
 
-export { PWANotificationApi };
+export { PushNotificationApi };
