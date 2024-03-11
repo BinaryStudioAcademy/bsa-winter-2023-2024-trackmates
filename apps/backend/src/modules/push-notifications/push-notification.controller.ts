@@ -1,5 +1,3 @@
-import { WebPushError } from "web-push";
-
 import { APIPath, HTTPCode } from "~/libs/enums/enums.js";
 import {
 	type APIHandlerOptions,
@@ -15,6 +13,7 @@ import {
 } from "../push-subscriptions/push-subscriptions.js";
 import { PushNotificationsApiPath } from "./libs/enums/enums.js";
 import {
+	checkIsInvalidSubscription,
 	transformDtoToSubscription,
 	transformSubscriptionToDto,
 } from "./libs/helpers/helpers.js";
@@ -135,10 +134,7 @@ class PushNotificationController extends BaseController {
 						JSON.stringify(body),
 					);
 				} catch (error) {
-					if (
-						error instanceof WebPushError &&
-						error.statusCode === HTTPCode.GONE
-					) {
+					if (checkIsInvalidSubscription(error)) {
 						await this.pushSubscriptionService.delete(subscription.id);
 					}
 				}
