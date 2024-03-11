@@ -1,12 +1,16 @@
 import { Button } from "~/libs/components/components.js";
+import { DataStatus } from "~/libs/enums/data-status.enum.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
+import { remove } from "~/modules/users/slices/actions.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
 import { Chip } from "../chip/chip.js";
+import { DeleteButton } from "../delete-button/delete-button.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
 import { Table } from "../table/table.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
@@ -14,13 +18,21 @@ import { usersHeaderToColumnName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
-	const { users } = useAppSelector((state) => {
+	const { userToDataStatus, users } = useAppSelector((state) => {
 		return {
+			userToDataStatus: state.users.userToDataStatus,
 			users: state.users.users,
 		};
 	});
 
 	const dispatch = useAppDispatch();
+
+	const handleDeleteUser = useCallback(
+		(userId: number) => {
+			void dispatch(remove(userId));
+		},
+		[dispatch],
+	);
 
 	useEffect(() => {
 		void dispatch(usersActions.getAll());
@@ -39,11 +51,11 @@ const UsersTab: React.FC = () => {
 	const tableData = users.map((user) => {
 		return {
 			delete: (
-				<Button
-					className={styles["icon-button"]}
-					hasVisuallyHiddenLabel
-					iconName="delete"
+				<DeleteButton
+					isLoading={userToDataStatus[user.id] == DataStatus.PENDING}
 					label={UsersTableHeader.DELETE}
+					onClick={handleDeleteUser}
+					userId={user.id}
 				/>
 			),
 			edit: (

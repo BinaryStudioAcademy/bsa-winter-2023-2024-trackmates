@@ -3,6 +3,7 @@ const NotificationMessage = {
 	FRIEND_FOLLOW_SUCCESS: "Followed successfully.",
 	FRIEND_UNFOLLOW_SUCCESS: "Unfollowed successfully.",
 	PROFILE_CHANGES_SAVED: "Changes are saved.",
+	USER_DELETED: "User was deleted.",
 } as const;
 
 export { NotificationMessage };

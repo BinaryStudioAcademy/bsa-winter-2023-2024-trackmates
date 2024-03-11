@@ -48,6 +48,18 @@ class UserApi extends BaseHTTPApi {
 		return await response.json<UserAuthResponseDto>();
 	}
 
+	public async remove(id: number): Promise<{ success: boolean }> {
+		const response = await this.load(
+			this.getFullEndpoint(UsersApiPath.$ID, { id: String(id) }),
+			{
+				hasAuth: true,
+				method: "DELETE",
+			},
+		);
+
+		return await response.json<{ success: boolean }>();
+	}
+
 	public async update(
 		id: number,
 		payload: UserProfileRequestDto,

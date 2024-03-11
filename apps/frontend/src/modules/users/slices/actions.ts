@@ -7,6 +7,18 @@ import { type UserProfileRequestDto } from "~/modules/users/users.js";
 
 import { name as sliceName } from "./users.slice.js";
 
+const remove = createAsyncThunk<number, number, AsyncThunkConfig>(
+	`${sliceName}/remove`,
+	async (id, { extra }) => {
+		const { notification, userApi } = extra;
+
+		await userApi.remove(id);
+		notification.success(NotificationMessage.USER_DELETED);
+
+		return id;
+	},
+);
+
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
 	{ id: number; profilePayload: UserProfileRequestDto },
@@ -40,4 +52,4 @@ const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
 	},
 );
 
-export { getAll, getById, updateProfile };
+export { getAll, getById, remove, updateProfile };

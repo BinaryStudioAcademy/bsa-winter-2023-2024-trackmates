@@ -3,17 +3,3 @@
 	flex-direction: column;
 	row-gap: 40px;
 }
-
-.icon-button {
-	min-height: unset;
-	padding: 0;
-	margin: 0 auto;
-	color: var(--color-text-200);
-	border: unset;
-	fill: currentcolor;
-}
-
-.icon-button:hover {
-	color: var(--main-orange);
-	background-color: var(--main-white);
-}

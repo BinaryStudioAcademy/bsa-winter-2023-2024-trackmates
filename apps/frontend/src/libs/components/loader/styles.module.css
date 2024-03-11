@@ -2,9 +2,14 @@
 	display: flex;
 }
 
-.small {
+.medium {
 	justify-content: space-between;
 	width: 50px;
+}
+
+.small {
+	justify-content: space-between;
+	width: 25px;
 }
 
 .large {
@@ -20,9 +25,14 @@
 	animation: jumping 0.6s ease-in-out infinite;
 }
 
-.small .dot {
+.medium .dot {
 	width: 10px;
 	height: 10px;
+}
+
+.small .dot {
+	width: 6px;
+	height: 6px;
 }
 
 .large .dot {
