@@ -52,6 +52,8 @@
 .message-container {
 	display: inline-block;
 	align-items: end;
+	align-self: start;
+	min-width: 8ch;
 	max-width: 100%;
 	padding: 10px 16px;
 	color: var(--color-menu);
@@ -60,7 +62,8 @@
 }
 
 .right .message-container {
-	text-align: start;
+	align-self: end;
+	text-align: left;
 	background-color: rgb(3 119 104 / 15%);
 }
 
