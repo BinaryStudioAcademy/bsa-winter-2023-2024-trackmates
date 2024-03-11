@@ -1,1 +1,1 @@
-export { ChatMessagesApiPath, MessageStatus } from "@trackmates/shared";
+export { ChatMessagesApiPath } from "@trackmates/shared";

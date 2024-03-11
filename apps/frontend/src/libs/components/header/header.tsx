@@ -6,17 +6,16 @@ import {
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
+	calculateUnreadChatsCount,
 	checkIfPathMatchingPattern,
 	getUnreadDisplayValue,
+	getUnreadNotificationsCount,
 } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { SearchBar } from "../search-bar/search-bar.js";
-import {
-	EMPTY_UNREAD_COUNT,
-	MAXIMUM_DISPLAY_UNREAD_COUNT,
-} from "./libs/constants.js";
+import { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
@@ -37,9 +36,7 @@ const Header: React.FC = () => {
 		return checkIfPathMatchingPattern(pathname, template);
 	});
 
-	const unreadChatsCount = chats.reduce((total, chat) => {
-		return total + Number(chat.unreadMessageCount);
-	}, EMPTY_UNREAD_COUNT);
+	const unreadChatsCount = calculateUnreadChatsCount(chats);
 
 	const unreadChatsDisplay = getUnreadDisplayValue(
 		unreadChatsCount,
@@ -48,9 +45,7 @@ const Header: React.FC = () => {
 
 	const hasUnreadChats = unreadChatsCount > EMPTY_ARRAY_LENGTH;
 
-	const unreadNotificationsCount = notifications.filter((notification) => {
-		return notification.status === "unread";
-	}).length;
+	const unreadNotificationsCount = getUnreadNotificationsCount(notifications);
 
 	const unreadNotificationsDisplay = getUnreadDisplayValue(
 		unreadNotificationsCount,

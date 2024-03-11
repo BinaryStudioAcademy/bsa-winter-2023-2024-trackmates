@@ -1,14 +1,15 @@
-import { DateValue, FormatDateType } from "~/libs/enums/enums.js";
+import {
+	DateValue,
+	FormatDateType,
+	MessageStatus,
+} from "~/libs/enums/enums.js";
 import {
 	getDifferenceInHours,
 	getFormattedDate,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
 import { useEffect, useInView } from "~/libs/hooks/hooks.js";
-import {
-	type ChatMessageItemResponseDto,
-	MessageStatus,
-} from "~/modules/chat-messages/chat-messages.js";
+import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
 

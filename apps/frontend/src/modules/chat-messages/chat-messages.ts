@@ -10,7 +10,6 @@ const chatMessagesApi = new ChatMessagesApi({
 	storage,
 });
 
-export { MessageStatus } from "./libs/enums/enums.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,

@@ -8,6 +8,8 @@ export {
 	DateValue,
 	ExceptionMessage,
 	FormatDateType,
+	MessageStatus,
+	NotificationStatus,
 	PaginationValue,
 	ServerErrorType,
 } from "@trackmates/shared";
