@@ -42,10 +42,13 @@ class UserNotificationsApi extends BaseHTTPApi {
 		return await response.json<boolean>();
 	}
 
-	public async getUserNotifications(
-		search: string | undefined = "",
-		type: ValueOf<typeof NotificationFilter> | null,
-	): Promise<{
+	public async getUserNotifications({
+		search = "",
+		type,
+	}: {
+		search: string | undefined;
+		type: ValueOf<typeof NotificationFilter> | null;
+	}): Promise<{
 		items: NotificationResponseDto[];
 	}> {
 		const response = await this.load(

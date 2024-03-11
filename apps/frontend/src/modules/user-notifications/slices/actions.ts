@@ -19,7 +19,7 @@ const getUserNotifications = createAsyncThunk<
 >(`${sliceName}/get-user-notifications`, ({ search, type }, { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.getUserNotifications(search, type);
+	return userNotificationsApi.getUserNotifications({ search, type });
 });
 
 const checkHasUserUnreadNotifications = createAsyncThunk<
