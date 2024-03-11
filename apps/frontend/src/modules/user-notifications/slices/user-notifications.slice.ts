@@ -5,21 +5,21 @@ import { type ValueOf } from "~/libs/types/types.js";
 
 import { type NotificationResponseDto } from "../libs/types/types.js";
 import {
-	checkHasUserUnreadNotifications,
+	getUnreadNotificationCounter,
 	getUserNotifications,
 	setReadNotifications,
 } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	hasUnreadNotifications: boolean;
 	notifications: NotificationResponseDto[];
+	unreadNotificationCount: number;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	hasUnreadNotifications: false,
 	notifications: [],
+	unreadNotificationCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -49,13 +49,11 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(setReadNotifications.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
-		builder.addCase(
-			checkHasUserUnreadNotifications.fulfilled,
-			(state, action) => {
-				state.hasUnreadNotifications = action.payload;
-			},
-		);
-		builder.addCase(checkHasUserUnreadNotifications.rejected, (state) => {
+		builder.addCase(getUnreadNotificationCounter.fulfilled, (state, action) => {
+			state.unreadNotificationCount = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getUnreadNotificationCounter.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 	},

@@ -21,7 +21,7 @@ const notificationsSocket = ({
 	return ({ dispatch }) => {
 		notificationsSocketInstance.on(SocketEvent.NEW_NOTIFICATION, () => {
 			void dispatch(userNotificationsActions.getUserNotifications());
-			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
+			void dispatch(userNotificationsActions.getUnreadNotificationCounter());
 		});
 
 		return (next) => {

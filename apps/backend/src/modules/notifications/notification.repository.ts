@@ -1,4 +1,3 @@
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { RelationName, SortOrder } from "~/libs/enums/enums.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/users.js";
@@ -26,17 +25,6 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		};
 
 		return notificationTypeToMessage[type];
-	}
-
-	public async checkHasUserUnreadNotifications(
-		userId: number,
-	): Promise<boolean> {
-		const unreadNotifications = await this.notificationModel
-			.query()
-			.where({ receiverUserId: userId })
-			.andWhere({ status: NotificationStatus.UNREAD });
-
-		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
 	}
 
 	public async create(
@@ -173,6 +161,15 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userLastName: notification.user.userDetails.lastName,
 			});
 		});
+	}
+
+	public async getUnreadNotificationCounter(userId: number): Promise<number> {
+		const unreadNotifications = await this.notificationModel
+			.query()
+			.where({ receiverUserId: userId })
+			.andWhere({ status: NotificationStatus.UNREAD });
+
+		return unreadNotifications.length;
 	}
 
 	public async setReadNotifications(

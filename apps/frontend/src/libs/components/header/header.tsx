@@ -9,7 +9,6 @@ import {
 	calculateUnreadChatsCount,
 	checkIfPathMatchingPattern,
 	getUnreadDisplayValue,
-	getUnreadNotificationsCount,
 } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
@@ -19,12 +18,11 @@ import { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { chats, hasUnreadNotifications, notifications, user } = useAppSelector(
+	const { chats, unreadNotificationCount, user } = useAppSelector(
 		({ auth, chats, userNotifications }) => {
 			return {
 				chats: chats.chats,
-				hasUnreadNotifications: userNotifications.hasUnreadNotifications,
-				notifications: userNotifications.notifications,
+				unreadNotificationCount: userNotifications.unreadNotificationCount,
 				user: auth.user as UserAuthResponseDto,
 			};
 		},
@@ -43,14 +41,13 @@ const Header: React.FC = () => {
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
 
-	const hasUnreadChats = unreadChatsCount > EMPTY_ARRAY_LENGTH;
-
-	const unreadNotificationsCount = getUnreadNotificationsCount(notifications);
-
 	const unreadNotificationsDisplay = getUnreadDisplayValue(
-		unreadNotificationsCount,
+		unreadNotificationCount,
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
+
+	const hasUnreadChats = unreadChatsCount > EMPTY_ARRAY_LENGTH;
+	const hasUnreadNotifications = unreadNotificationCount > EMPTY_ARRAY_LENGTH;
 
 	return (
 		<header className={styles["header"]}>

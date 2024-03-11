@@ -30,8 +30,7 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		if (user) {
-			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
-			void dispatch(userNotificationsActions.getUserNotifications());
+			void dispatch(userNotificationsActions.getUnreadNotificationCounter());
 			void dispatch(chatActions.getAllChats({ search: "" }));
 		}
 	}, [dispatch, user]);
