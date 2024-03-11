@@ -612,6 +612,22 @@ class ChatRepository implements Repository<ChatEntity> {
 			: null;
 	}
 
+	public async getUnreadChats(userId: number): Promise<ChatModel[]> {
+		return await this.chatModel
+			.query()
+			.withGraphJoined(RelationName.MESSAGES)
+			.where((builder) => {
+				void builder
+					.where({ firstUserId: userId })
+					.orWhere({ secondUserId: userId });
+			})
+			.andWhere((builder) => {
+				void builder
+					.where({ status: MessageStatus.UNREAD })
+					.andWhereNot({ senderUserId: userId });
+			});
+	}
+
 	public async update(id: number, chatEntity: ChatEntity): Promise<ChatEntity> {
 		const { firstUserId, secondUserId } = chatEntity.toNewObject();
 

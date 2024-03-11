@@ -1,4 +1,5 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
+import { calculateUnreadMessageCount } from "~/libs/helpers/helpers.js";
 import { type Service } from "~/libs/types/types.js";
 import { type UserRepository } from "~/modules/users/users.js";
 
@@ -132,6 +133,12 @@ class ChatService implements Service {
 		}
 
 		return chatById.toObjectWithMessages(userId);
+	}
+
+	public async getUnreadMessageCounter(userId: number): Promise<number> {
+		const unreadChats = await this.chatRepository.getUnreadChats(userId);
+
+		return calculateUnreadMessageCount(unreadChats);
 	}
 
 	public async update(
