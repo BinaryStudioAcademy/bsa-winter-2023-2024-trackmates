@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.45.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.45.0...frontend-v1.45.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* **frontend:** Comments from the newly opened comment section are displayed in the previously opened comment sections tm-417 ([#430](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/430)) ([964b915](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/964b915af4d4d5109343d5f07dd31814bb18f96a))
+
 ## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.44.0...frontend-v1.45.0) (2024-03-11)
 
 
