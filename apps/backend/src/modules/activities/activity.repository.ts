@@ -13,10 +13,7 @@ import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityModel } from "./activity.model.js";
 import { EMPTY_COUNT } from "./libs/constants/constants.js";
 import { type ActivityType, RelationName } from "./libs/enums/enums.js";
-import {
-	type ActivityCounts,
-	type ActivityFinishCourseResponseDto,
-} from "./libs/types/types.js";
+import { type ActivityCounts } from "./libs/types/types.js";
 
 class ActivityRepository implements Repository<ActivityEntity> {
 	private activityModel: typeof ActivityModel;
@@ -64,25 +61,6 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		const deletedItemsCount = await this.activityModel
 			.query()
 			.findById(id)
-			.delete()
-			.execute();
-
-		return Boolean(deletedItemsCount);
-	}
-
-	public async deleteByCourseId({
-		payload,
-		type,
-		userId,
-	}: {
-		payload: ActivityFinishCourseResponseDto;
-		type: ValueOf<typeof ActivityType>;
-		userId: number;
-	}): Promise<boolean> {
-		const deletedItemsCount = await this.activityModel
-			.query()
-			.where({ type, userId })
-			.whereRaw("payload->>'courseId' = ?", [payload.courseId])
 			.delete()
 			.execute();
 

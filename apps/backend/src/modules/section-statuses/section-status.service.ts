@@ -219,7 +219,7 @@ class SectionStatusService implements Service {
 	public async updateFinishCourse(
 		sectionStatus: SectionStatusEntity,
 	): Promise<void> {
-		const { courseSectionId, id: actionId, userId } = sectionStatus.toObject();
+		const { courseSectionId, userId } = sectionStatus.toObject();
 
 		const courseSection =
 			await this.courseSectionRepository.find(courseSectionId);
@@ -258,9 +258,8 @@ class SectionStatusService implements Service {
 
 		await (isCourseFinished
 			? this.activityService.create<typeof ActivityType.FINISH_COURSE>({
-					actionId,
+					actionId: course.id,
 					payload: {
-						courseId: course.id,
 						id,
 						image: course.image,
 						title: course.title,
@@ -269,14 +268,8 @@ class SectionStatusService implements Service {
 					type: ActivityType.FINISH_COURSE,
 					userId,
 				})
-			: this.activityService.deleteByCourseId({
-					payload: {
-						courseId: course.id,
-						id,
-						image: course.image,
-						title: course.title,
-						vendorId: course.vendorId,
-					},
+			: this.activityService.deleteByKeyFields({
+					actionId: course.id,
 					type: ActivityType.FINISH_COURSE,
 					userId,
 				}));
