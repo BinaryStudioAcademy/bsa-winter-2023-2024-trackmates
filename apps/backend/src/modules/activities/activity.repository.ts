@@ -249,6 +249,9 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.returning("*")
+			.withGraphJoined(
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+			)
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
 
