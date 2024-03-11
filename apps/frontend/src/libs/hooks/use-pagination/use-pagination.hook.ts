@@ -6,6 +6,7 @@ import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
 type UsePagination = (options: {
 	pageSize: number;
 	pagesCutCount: number;
+	queryName?: string;
 	totalCount: number;
 }) => {
 	handlePageChange: (page: number) => void;
@@ -17,9 +18,9 @@ type UsePagination = (options: {
 const usePagination: UsePagination = ({
 	pageSize,
 	pagesCutCount,
+	queryName = "page",
 	totalCount,
 }) => {
-	const queryName = "page";
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
 	const validPage =
