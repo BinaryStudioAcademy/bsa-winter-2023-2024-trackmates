@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.31.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.31.0...backend-v1.31.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* **backend:** fixes after testing tm-158 ([#463](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/463)) ([5c71835](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5c718359eff76d9354da7681c69543e063f3e003))
+
 ## [1.31.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.30.0...backend-v1.31.0) (2024-03-11)
 
 
