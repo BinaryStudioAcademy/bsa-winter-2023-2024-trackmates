@@ -31,7 +31,7 @@ const App: React.FC = () => {
 	useEffect(() => {
 		if (user) {
 			void dispatch(userNotificationsActions.getUnreadNotificationCounter());
-			void dispatch(chatActions.getAllChats({ search: "" }));
+			void dispatch(chatActions.getUnreadMessageCounter());
 		}
 	}, [dispatch, user]);
 

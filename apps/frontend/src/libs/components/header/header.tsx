@@ -6,7 +6,6 @@ import {
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import {
-	calculateUnreadChatsCount,
 	checkIfPathMatchingPattern,
 	getUnreadDisplayValue,
 } from "~/libs/helpers/helpers.js";
@@ -18,10 +17,10 @@ import { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { chats, unreadNotificationCount, user } = useAppSelector(
+	const { unreadMessageCount, unreadNotificationCount, user } = useAppSelector(
 		({ auth, chats, userNotifications }) => {
 			return {
-				chats: chats.chats,
+				unreadMessageCount: chats.unreadMessageCount,
 				unreadNotificationCount: userNotifications.unreadNotificationCount,
 				user: auth.user as UserAuthResponseDto,
 			};
@@ -34,10 +33,8 @@ const Header: React.FC = () => {
 		return checkIfPathMatchingPattern(pathname, template);
 	});
 
-	const unreadChatsCount = calculateUnreadChatsCount(chats);
-
-	const unreadChatsDisplay = getUnreadDisplayValue(
-		unreadChatsCount,
+	const unreadMessagesDisplay = getUnreadDisplayValue(
+		unreadMessageCount,
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
 
@@ -46,7 +43,7 @@ const Header: React.FC = () => {
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
 
-	const hasUnreadChats = unreadChatsCount > EMPTY_ARRAY_LENGTH;
+	const hasUnreadMessages = unreadMessageCount > EMPTY_ARRAY_LENGTH;
 	const hasUnreadNotifications = unreadNotificationCount > EMPTY_ARRAY_LENGTH;
 
 	return (
@@ -67,8 +64,8 @@ const Header: React.FC = () => {
 							iconName="chats"
 							label="To chats"
 						/>
-						{hasUnreadChats && (
-							<span className={styles["counter"]}>{unreadChatsDisplay}</span>
+						{hasUnreadMessages && (
+							<span className={styles["counter"]}>{unreadMessagesDisplay}</span>
 						)}
 					</div>
 					<div className={styles["icon-container"]}>

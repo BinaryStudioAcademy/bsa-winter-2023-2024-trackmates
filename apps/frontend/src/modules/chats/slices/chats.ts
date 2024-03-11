@@ -3,6 +3,7 @@ import {
 	createChat,
 	getAllChats,
 	getChat,
+	getUnreadMessageCounter,
 	joinRoom,
 	leaveRoom,
 } from "./actions.js";
@@ -14,6 +15,7 @@ const allAction = {
 	createChat,
 	getAllChats,
 	getChat,
+	getUnreadMessageCounter,
 	joinRoom,
 	leaveRoom,
 };
