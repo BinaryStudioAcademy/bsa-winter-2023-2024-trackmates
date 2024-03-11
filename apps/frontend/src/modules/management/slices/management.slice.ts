@@ -10,6 +10,7 @@ import {
 	type PermissionResponseDto,
 	actions as permissionsActions,
 } from "~/modules/permissions/permissions.js";
+import { remove } from "~/modules/users/slices/actions.js";
 import {
 	type UserAuthResponseDto,
 	actions as usersActions,
@@ -20,6 +21,7 @@ type State = {
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
+	userToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
 	users: UserAuthResponseDto[];
 	usersDataStatus: ValueOf<typeof DataStatus>;
 };
@@ -29,6 +31,7 @@ const initialState: State = {
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
 	permissionsDataStatus: DataStatus.IDLE,
+	userToDataStatus: {},
 	users: [],
 	usersDataStatus: DataStatus.IDLE,
 };
@@ -67,6 +70,17 @@ const { reducer } = createSlice({
 		});
 		builder.addCase(usersActions.getAll.rejected, (state) => {
 			state.usersDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(remove.fulfilled, (state, { payload: userId }) => {
+			state.users = state.users.filter(({ id }) => id !== userId);
+			state.userToDataStatus[userId] = DataStatus.FULFILLED;
+		});
+		builder.addCase(remove.pending, (state, { meta: { arg: userId } }) => {
+			state.userToDataStatus[userId] = DataStatus.PENDING;
+		});
+		builder.addCase(remove.rejected, (state, { meta: { arg: userId } }) => {
+			state.userToDataStatus[userId] = DataStatus.REJECTED;
 		});
 	},
 	initialState,

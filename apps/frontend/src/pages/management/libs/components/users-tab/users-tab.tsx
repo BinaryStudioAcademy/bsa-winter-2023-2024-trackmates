@@ -20,7 +20,7 @@ import styles from "./styles.module.css";
 const UsersTab: React.FC = () => {
 	const { userToDataStatus, users } = useAppSelector((state) => {
 		return {
-			userToDataStatus: state.users.userToDataStatus,
+			userToDataStatus: state.management.userToDataStatus,
 			users: state.management.users,
 		};
 	});
