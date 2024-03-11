@@ -1,6 +1,9 @@
 @import url("~/assets/css/media.css");
 
 .wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 	width: 100%;
 	padding: 16px 24px;
 }
