@@ -61,7 +61,7 @@ class ActivityService implements Service {
 
 			await this.notificationService.create({
 				receiverUserId: targetActivity?.userId as number,
-				type: NotificationType.NEW_FOLLOWER,
+				type: NotificationType.NEW_LIKE,
 				userId,
 			});
 		}
