@@ -17,7 +17,7 @@ const readChatMessagesRequest = z.object<ReadChatMessagesRequestValidation>({
 			}),
 		)
 		.min(ChatMessageValidationRule.MESSAGES_IDS_ARRAY_MINIMUM_LENGTH, {
-			message: ChatMessageValidationMessage.ARRAY_MINIMUM_SIZE,
+			message: ChatMessageValidationMessage.MESSAGES_IDS_ARRAY_MINIMUM_LENGTH,
 		}),
 });
 
