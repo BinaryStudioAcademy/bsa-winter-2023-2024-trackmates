@@ -15,8 +15,10 @@
 .content {
 	position: relative;
 	width: 100%;
-	max-width: 1150px;
-	height: 100%;
+
+	/* max-width: 1150px; */
+
+	/* height: 100%; */
 	overflow: auto;
 	color: var(--color-text-300);
 	background: var(--main-white);
@@ -33,6 +35,19 @@
 	color: inherit;
 	background: transparent;
 	border: none;
+}
+
+.large .content {
+	max-width: 1150px;
+	height: 100%;
+}
+
+.small .content {
+	top: 30%;
+	width: 30%;
+	min-width: 450px;
+	height: 30%;
+	min-height: 200px;
 }
 
 @media screen and (width <= 865px) {

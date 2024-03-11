@@ -55,7 +55,7 @@ const UsersTab: React.FC = () => {
 					isLoading={userToDataStatus[user.id] == DataStatus.PENDING}
 					label={UsersTableHeader.DELETE}
 					onClick={handleDeleteUser}
-					userId={user.id}
+					user={user}
 				/>
 			),
 			edit: (

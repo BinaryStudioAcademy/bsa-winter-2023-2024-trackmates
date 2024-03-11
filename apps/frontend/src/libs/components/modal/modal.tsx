@@ -11,14 +11,18 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
+	// className?: string | undefined;
 	isOpen: boolean;
 	onClose: () => void;
+	size?: "large" | "small";
 };
 
 const Modal: React.FC<Properties> = ({
 	children,
+	// className,
 	isOpen,
 	onClose,
+	size = "large",
 }: Properties) => {
 	const contentReference = useRef<HTMLDivElement | null>(null);
 	useHandleClickOutside({
@@ -30,13 +34,11 @@ const Modal: React.FC<Properties> = ({
 		onEscPress: onClose,
 	});
 
+	const modalStyles = getValidClassNames(styles["modal"], styles[size]);
+
 	return (
 		<Portal>
-			<dialog
-				aria-modal
-				className={getValidClassNames(styles["modal"])}
-				open={isOpen}
-			>
+			<dialog aria-modal className={modalStyles} open={isOpen}>
 				<div
 					className={styles["content"]}
 					ref={contentReference}
