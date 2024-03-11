@@ -34,6 +34,7 @@ type EnvironmentSchema = {
 	PUSH_NOTIFICATIONS: {
 		PRIVATE_KEY: string;
 		PUBLIC_KEY: string;
+		SUBJECT: string;
 	};
 	UDEMY: {
 		CLIENT_ID: string;

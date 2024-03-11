@@ -9,7 +9,6 @@ const ColumnName = {
 	EXPIRATION_TIME: "expiration_time",
 	ID: "id",
 	P256DH_KEY: "p256dh_key",
-	TEXT: "text",
 	UPDATED_AT: "updated_at",
 } as const;
 

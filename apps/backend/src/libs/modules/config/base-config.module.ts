@@ -157,6 +157,12 @@ class BaseConfig implements Config {
 					env: "PUSH_NOTIFICATIONS_PUBLIC_KEY",
 					format: String,
 				},
+				SUBJECT: {
+					default: "mailto:your@email.com",
+					doc: "'mailto' email or URL",
+					env: "PUSH_NOTIFICATIONS_SUBJECT",
+					format: String,
+				},
 			},
 			UDEMY: {
 				CLIENT_ID: {

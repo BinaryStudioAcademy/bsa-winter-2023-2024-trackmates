@@ -3,11 +3,12 @@ import webPush from "web-push";
 type Constructor = {
 	privateKey: string;
 	publicKey: string;
+	subject: string;
 };
 
 class PushNotification {
-	public constructor({ privateKey, publicKey }: Constructor) {
-		webPush.setVapidDetails("mailto:your@email.com", publicKey, privateKey);
+	public constructor({ privateKey, publicKey, subject }: Constructor) {
+		webPush.setVapidDetails(subject, publicKey, privateKey);
 	}
 
 	public sendNotification(
