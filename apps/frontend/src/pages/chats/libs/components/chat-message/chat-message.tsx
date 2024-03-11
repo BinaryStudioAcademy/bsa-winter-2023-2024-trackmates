@@ -5,9 +5,11 @@ import {
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
 import { useEffect, useInView } from "~/libs/hooks/hooks.js";
-import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
+import {
+	type ChatMessageItemResponseDto,
+	MessageStatus,
+} from "~/modules/chat-messages/chat-messages.js";
 
-import { MessageStatus } from "../../enums/enums.js";
 import styles from "./styles.module.css";
 
 type Properties = {
