@@ -163,6 +163,16 @@ erDiagram
     int activity_id FK
   }
 
+  push_subscriptions {
+   int id PK
+   dateTime created_at
+   dateTime update_at
+   varchar auth_key
+   varchar p256dh_key
+   varchar endpoint
+   int expiration_time
+  }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
