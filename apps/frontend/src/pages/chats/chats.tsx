@@ -1,5 +1,4 @@
-import { Button } from "~/libs/components/components.js";
-import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -62,17 +61,6 @@ const Chats: React.FC = () => {
 
 	return (
 		<div className={styles["container"]}>
-			<div className={styles["back-container"]}>
-				<Button
-					className={styles["back-button"]}
-					hasVisuallyHiddenLabel
-					href={AppRoute.FRIENDS}
-					iconName="back"
-					label="Back to friends"
-					size="small"
-				/>
-				<span className={styles["subtitle"]}>Back to friends</span>
-			</div>
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
 				<ChatSidebar chats={chats} />

@@ -10,12 +10,12 @@ import { name as sliceName } from "./user-notifications.slice.js";
 
 const getUserNotifications = createAsyncThunk<
 	AllNotificationsResponseDto,
-	undefined,
+	string | undefined,
 	AsyncThunkConfig
->(`${sliceName}/get-user-notifications`, (_, { extra }) => {
+>(`${sliceName}/get-user-notifications`, (search = "", { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.getUserNotifications();
+	return userNotificationsApi.getUserNotifications(search);
 });
 
 const checkHasUserUnreadNotifications = createAsyncThunk<

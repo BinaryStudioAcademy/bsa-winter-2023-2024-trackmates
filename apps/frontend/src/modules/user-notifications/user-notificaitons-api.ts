@@ -37,7 +37,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 		return await response.json<boolean>();
 	}
 
-	public async getUserNotifications(): Promise<{
+	public async getUserNotifications(search: string): Promise<{
 		items: NotificationResponseDto[];
 	}> {
 		const response = await this.load(
@@ -46,6 +46,9 @@ class UserNotificationsApi extends BaseHTTPApi {
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
+				query: {
+					search,
+				},
 			},
 		);
 

@@ -4,6 +4,8 @@ export { Checkbox } from "./checkbox/checkbox.js";
 export { CircularProgress } from "./circular-progress/circular-progress.js";
 export { Content } from "./content/content.js";
 export { Courses } from "./courses/courses.js";
+export { EmptyPagePlaceholder } from "./empty-page-placeholder/empty-page-placeholder.js";
+export { Icon } from "./icon/icon.js";
 export { Image } from "./image/image.js";
 export { Input } from "./input/input.js";
 export { Link } from "./link/link.js";
