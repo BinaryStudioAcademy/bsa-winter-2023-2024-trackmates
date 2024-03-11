@@ -8,3 +8,4 @@ const pushNotification = new PushNotification({
 });
 
 export { pushNotification };
+export { type PushNotification } from "./push-notification.module.js";

@@ -5,20 +5,12 @@ import {
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
-import { pushNotification } from "~/libs/modules/push-notification/push-notification.js";
 
-import {
-	type PushSubscription,
-	type PushSubscriptionService,
-} from "../push-subscriptions/push-subscriptions.js";
+import { type PushSubscription } from "../push-subscriptions/push-subscriptions.js";
 import { PushNotificationsApiPath } from "./libs/enums/enums.js";
-import {
-	checkIsInvalidSubscription,
-	transformDtoToSubscription,
-	transformSubscriptionToDto,
-} from "./libs/helpers/helpers.js";
 import { type PushNotificationRequestDto } from "./libs/types/types.js";
 import { createSubscriptionValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import { type PushNotificationService } from "./push-notification.service.js";
 
 /**
  * @swagger
@@ -41,14 +33,14 @@ import { createSubscriptionValidationSchema } from "./libs/validation-schemas/va
  *           nullable: true
  */
 class PushNotificationController extends BaseController {
-	private pushSubscriptionService: PushSubscriptionService;
+	private pushNotificationService: PushNotificationService;
 
 	public constructor(
 		logger: Logger,
-		pushSubscriptionService: PushSubscriptionService,
+		pushNotificationService: PushNotificationService,
 	) {
 		super(logger, APIPath.PUSH_NOTIFICATIONS);
-		this.pushSubscriptionService = pushSubscriptionService;
+		this.pushNotificationService = pushNotificationService;
 
 		this.addRoute({
 			handler: (options) => {
@@ -116,30 +108,12 @@ class PushNotificationController extends BaseController {
 	 *                   type: boolean
 	 *                   description: Indicates if the notification was sent successfully
 	 */
-	private async sendNotification(
-		options: APIHandlerOptions<{
-			body: PushNotificationRequestDto;
-		}>,
-	): Promise<APIHandlerResponse> {
-		const { body } = options;
-
-		const { items: subscriptions } =
-			await this.pushSubscriptionService.findAll();
-
-		await Promise.all(
-			subscriptions.map(async (subscription) => {
-				try {
-					await pushNotification.sendNotification(
-						transformDtoToSubscription(subscription),
-						JSON.stringify(body),
-					);
-				} catch (error) {
-					if (checkIsInvalidSubscription(error)) {
-						await this.pushSubscriptionService.delete(subscription.id);
-					}
-				}
-			}),
-		);
+	private async sendNotification({
+		body,
+	}: APIHandlerOptions<{
+		body: PushNotificationRequestDto;
+	}>): Promise<APIHandlerResponse> {
+		await this.pushNotificationService.sendNotificationsToSubscribers(body);
 
 		return {
 			payload: true,
@@ -185,17 +159,13 @@ class PushNotificationController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/PushSubscription"
 	 */
-	private async subscribe(
-		options: APIHandlerOptions<{
-			body: PushSubscription;
-		}>,
-	): Promise<APIHandlerResponse> {
-		const { body } = options;
-
+	private async subscribe({
+		body,
+	}: APIHandlerOptions<{
+		body: PushSubscription;
+	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.pushSubscriptionService.create({
-				...transformSubscriptionToDto(body),
-			}),
+			payload: await this.pushNotificationService.createSubscription(body),
 			status: HTTPCode.CREATED,
 		};
 	}
