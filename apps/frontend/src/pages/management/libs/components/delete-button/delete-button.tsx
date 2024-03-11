@@ -1,8 +1,10 @@
 import { useCallback, useState } from "react";
 
-import { Button, Loader, Modal } from "~/libs/components/components.js";
+import { Button, Loader } from "~/libs/components/components.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
+import { ManagementDialogueMessages } from "../../enums/enums.js";
+import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -22,8 +24,16 @@ const DeleteButton: React.FC<Properties> = ({
 
 	const handleClick = useCallback(() => {
 		setIsModalOpen(true);
-		onClick(user.id); // TODO
-	}, [onClick, user.id]);
+	}, [setIsModalOpen]);
+
+	const handleDelete = useCallback(() => {
+		onClick(user.id);
+		setIsModalOpen(false);
+	}, [onClick, setIsModalOpen, user.id]);
+
+	const handleCancel = useCallback(() => {
+		setIsModalOpen(false);
+	}, [setIsModalOpen]);
 
 	const handleModalClose = useCallback(() => {
 		setIsModalOpen(false);
@@ -43,30 +53,14 @@ const DeleteButton: React.FC<Properties> = ({
 				/>
 			)}
 			{isModalOpen && (
-				<Modal isOpen={isModalOpen} onClose={handleModalClose} size="small">
-					<div className={styles["modal-content"]}>
-						<div className={styles["modal-content-question"]}>
-							User
-							<span className={styles["modal-content-question-user"]}>
-								{" "}
-								{user.firstName} {user.lastName} ({user.email}){" "}
-							</span>
-							will be deleted. Are you shure, that you want to delete user?
-						</div>
-						<div className={styles["modal-content-buttons"]}>
-							<Button
-								className={styles["modal-content-buttons-delete"]}
-								label="Delete"
-								style="primary"
-							/>
-							<Button
-								className={styles["modal-content-buttons-cancel"]}
-								label="Cancel"
-								style="primary"
-							/>
-						</div>
-					</div>
-				</Modal>
+				<ConfirmationModal
+					content={ManagementDialogueMessages.DO_YOU_WANT_DELETE_USER}
+					isOpen={isModalOpen}
+					onCancel={handleCancel}
+					onClose={handleModalClose}
+					onConfirm={handleDelete}
+					title={`Deleting user "${user.firstName} ${user.lastName}"`}
+				/>
 			)}
 		</>
 	);
