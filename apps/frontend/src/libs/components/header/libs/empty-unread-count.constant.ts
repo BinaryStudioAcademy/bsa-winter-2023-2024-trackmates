@@ -1,0 +1,3 @@
+const EMPTY_UNREAD_COUNT = 0;
+
+export { EMPTY_UNREAD_COUNT };
