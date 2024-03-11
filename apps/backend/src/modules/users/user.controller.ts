@@ -13,8 +13,12 @@ import {
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
-import { UsersApiPath } from "./libs/enums/enums.js";
-import { type UserGetByIdRequestDto } from "./libs/types/types.js";
+import { UserErrorMessage, UsersApiPath } from "./libs/enums/enums.js";
+import { UserError } from "./libs/exceptions/exceptions.js";
+import {
+	type UserAuthResponseDto,
+	type UserGetByIdRequestDto,
+} from "./libs/types/types.js";
 import { userIdParametersValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 class UserController extends BaseController {
@@ -30,6 +34,7 @@ class UserController extends BaseController {
 				this.delete(
 					options as APIHandlerOptions<{
 						params: { id: string };
+						user: UserAuthResponseDto;
 					}>,
 				),
 			method: "DELETE",
@@ -104,12 +109,23 @@ class UserController extends BaseController {
 	 */
 	private async delete({
 		params: { id },
+		user,
 	}: APIHandlerOptions<{
 		params: {
 			id: string;
 		};
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.userService.delete(Number(id));
+		const userId = Number(id);
+
+		if (user.id === userId) {
+			throw new UserError({
+				message: UserErrorMessage.FORBIDDEN_DELETING_YOURSELF,
+				status: HTTPCode.FORBIDDEN,
+			});
+		}
+
+		const success = await this.userService.delete(userId);
 
 		return {
 			payload: { success },
