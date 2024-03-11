@@ -24,12 +24,13 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/user-notifications/user-notifications.js";
 
 import { NotificationList } from "./libs/components/notification-list/notification-list.js";
+import { QUERY_PARAMETER_NAME } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const Notifications: React.FC = () => {
 	const navigate = useNavigate();
 	const [queryParameters] = useSearchParams();
-	const notificationType = queryParameters.get("type");
+	const notificationType = queryParameters.get(QUERY_PARAMETER_NAME);
 
 	const possibleTypeValues = useMemo(() => {
 		return Object.values(NotificationFilter);
@@ -78,9 +79,13 @@ const Notifications: React.FC = () => {
 					<h2 className={styles["title"]}>Notification</h2>
 					<div className={styles["filters"]}>
 						{possibleTypeValues.map((filter) => {
+							const queryString = new URLSearchParams({
+								[QUERY_PARAMETER_NAME]: filter,
+							}).toString();
+
 							const currentLink =
 								AppRoute.NOTIFICATIONS +
-								(filter === NotificationFilter.ALL ? "" : `?type=${filter}`);
+								(filter === NotificationFilter.ALL ? "" : `?${queryString}`);
 
 							const isActive =
 								notificationType === filter ||
