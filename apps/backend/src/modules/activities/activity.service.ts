@@ -59,11 +59,13 @@ class ActivityService implements Service {
 				ActivityLikeEntity.initializeNew({ activityId, userId }),
 			);
 
-			await this.notificationService.create({
-				receiverUserId: targetActivity?.userId as number,
-				type: NotificationType.NEW_LIKE,
-				userId,
-			});
+			if (userId !== targetActivity?.userId) {
+				await this.notificationService.create({
+					receiverUserId: targetActivity?.userId as number,
+					type: NotificationType.NEW_LIKE,
+					userId,
+				});
+			}
 		}
 
 		const updatedTargetActivity =
