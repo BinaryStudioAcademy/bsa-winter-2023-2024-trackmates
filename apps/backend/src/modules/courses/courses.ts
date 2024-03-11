@@ -29,6 +29,7 @@ const courseController = new CourseController(logger, courseService);
 
 export { courseController, courseRepository, courseService };
 export { CourseModel } from "./course.model.js";
+export { type CourseRepository } from "./course.repository.js";
 export { type CourseService } from "./course.service.js";
 export {
 	type CourseDto,

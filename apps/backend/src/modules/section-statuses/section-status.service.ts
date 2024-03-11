@@ -7,7 +7,7 @@ import {
 	ActivityType,
 } from "~/modules/activities/activities.js";
 import { type CourseSectionRepository } from "~/modules/course-sections/course-sections.js";
-import { type CourseRepository } from "~/modules/courses/course.repository.js";
+import { type CourseRepository } from "~/modules/courses/courses.js";
 
 import { FINISH_COURSE_PROGRESS } from "./libs/constant/constant.js";
 import { SectionStatus } from "./libs/enums/enums.js";
