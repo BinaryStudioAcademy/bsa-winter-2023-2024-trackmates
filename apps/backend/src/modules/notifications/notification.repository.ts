@@ -23,6 +23,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			string
 		> = {
 			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName} started following you.`,
+			[NotificationType.NEW_LIKE]: `{${user.userDetails.firstName} ${user.userDetails.lastName} liked your activity.}`,
 		};
 
 		return notificationTypeToMessage[type];
