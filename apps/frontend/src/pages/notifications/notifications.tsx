@@ -3,7 +3,7 @@ import {
 	EmptyPagePlaceholder,
 	Loader,
 } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import {
 	AppRoute,
 	AppTitle,
@@ -51,7 +51,7 @@ const Notifications: React.FC = () => {
 
 	useEffect(() => {
 		const hasValidValue =
-			!notificationType ||
+			notificationType === null ||
 			possibleTypeValues.includes(
 				notificationType as ValueOf<typeof NotificationFilter>,
 			);
@@ -70,7 +70,7 @@ const Notifications: React.FC = () => {
 		);
 	}, [dispatch, notificationType, navigate, possibleTypeValues]);
 
-	const hasNotifications = notifications.length > EMPTY_ARRAY_LENGTH;
+	const hasNotifications = notifications.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["page"]}>

@@ -2,11 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { type CourseDto } from "~/modules/courses/courses.js";
 
 import { type UserCourseResponseDto } from "../libs/types/types.js";
-import { add, loadMyCourses, loadUserCourses } from "./actions.js";
+import {
+	add,
+	loadCommonCourses,
+	loadMyCourses,
+	loadUserCourses,
+} from "./actions.js";
 
 type State = {
+	commonCourses: CourseDto[];
+	commonDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];
 	totalMyCoursesCount: number;
@@ -15,6 +23,8 @@ type State = {
 };
 
 const initialState: State = {
+	commonCourses: [],
+	commonDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
 	totalMyCoursesCount: 0,
@@ -55,6 +65,16 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(loadUserCourses.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
+		});
+		builder.addCase(loadCommonCourses.fulfilled, (state, action) => {
+			state.commonCourses = action.payload;
+			state.commonDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(loadCommonCourses.pending, (state) => {
+			state.commonDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(loadCommonCourses.rejected, (state) => {
+			state.commonDataStatus = DataStatus.REJECTED;
 		});
 	},
 	initialState,
