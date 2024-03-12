@@ -23,8 +23,7 @@ const usePagination: UsePagination = ({
 }) => {
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
-	const isPageInteger =
-		Number.isInteger(pageFromQuery);
+	const isPageInteger = Number.isInteger(pageFromQuery);
 	const isPageValid =
 		isPageInteger && pageFromQuery > PaginationValue.PAGE_NOT_EXISTS;
 	const validPage = isPageValid ? pageFromQuery : PaginationValue.DEFAULT_PAGE;
