@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { PaginationValue } from "~/libs/enums/enums.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import {
 	type AsyncThunkConfig,
@@ -40,17 +39,12 @@ const loadMyCourses = createAsyncThunk<
 
 const loadUserCourses = createAsyncThunk<
 	PaginationResponseDto<UserCourseResponseDto>,
-	number,
+	CourseGetAllByUserRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/load-user-courses`, (userId, { extra }) => {
+>(`${sliceName}/load-user-courses`, (loadUserCoursesPayload, { extra }) => {
 	const { userCourseApi } = extra;
 
-	return userCourseApi.getAllByUserId({
-		count: PaginationValue.DEFAULT_COUNT,
-		page: PaginationValue.DEFAULT_PAGE,
-		search: "",
-		userId,
-	});
+	return userCourseApi.getAllByUserId(loadUserCoursesPayload);
 });
 
 const loadCommonCourses = createAsyncThunk<
