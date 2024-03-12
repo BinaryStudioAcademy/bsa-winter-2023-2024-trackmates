@@ -57,6 +57,21 @@ class UserCourseController extends BaseController {
 				query: userCourseGetAllQueryValidationSchema,
 			},
 		});
+		this.addRoute({
+			handler: (options) => {
+				return this.findCommon(
+					options as APIHandlerOptions<{
+						params: { userId: string };
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: UserCoursesApiPath.$USER_ID_COMMON,
+			validation: {
+				params: userIdParameterValidationSchema,
+			},
+		});
 	}
 
 	/**
@@ -167,6 +182,53 @@ class UserCourseController extends BaseController {
 		return {
 			payload: { items, total },
 			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /user-courses/{userId}/common:
+	 *   get:
+	 *     tags:
+	 *       - User courses
+	 *     description: Return all common courses
+	 *     security:
+	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: userId
+	 *         in: path
+	 *         description: The user to compare ID
+	 *         required: true
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: object
+	 *               properties:
+	 *                 courses:
+	 *                   type: array
+	 *                   items:
+	 *                     type: object
+	 *                     $ref: '#/components/schemas/Course'
+	 */
+	private async findCommon({
+		params: { userId },
+		user,
+	}: APIHandlerOptions<{
+		params: { userId: string };
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userCourseService.findCommonCourses({
+				currentUserId: user.id,
+				userId: Number(userId),
+			}),
+			status: HTTPCode.CREATED,
 		};
 	}
 }
