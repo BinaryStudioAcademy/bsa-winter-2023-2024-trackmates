@@ -1,0 +1,107 @@
+@import url("~/assets/css/media.css");
+
+.container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 16px;
+	font-family: Inter, Arial, sans-serif;
+	background-color: var(--main-white);
+	border-radius: 14px;
+}
+
+.charts {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(70px, 1fr));
+	gap: 16px;
+}
+
+.charts-col {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+}
+
+.title,
+.chart-title {
+	overflow: hidden;
+	font-weight: 500;
+	color: var(--color-text-300);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.title {
+	margin: 0;
+	font-size: var(--font-size-400);
+}
+
+.chart-title {
+	flex-shrink: 0;
+	max-width: 100%;
+	font-size: var(--font-size-300);
+	text-align: center;
+}
+
+.tags {
+	display: flex;
+	gap: 20px;
+}
+
+.tag {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.tag-name {
+	font-size: var(--font-size-150);
+	font-weight: 500;
+	color: var(--color-text-300);
+}
+
+.tag-circle {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+}
+
+.tag-completed {
+	background-color: var(--main-orange);
+}
+
+.tag-in-process {
+	background-color: #dedede;
+}
+
+@media screen and (--medium-screen) {
+	.container {
+		gap: 14px;
+	}
+
+	.title {
+		font-size: var(--font-size-300);
+	}
+
+	.chart-title {
+		font-size: var(--font-size-200);
+	}
+}
+
+@media screen and (--small-screen) {
+	.title {
+		font-size: var(--font-size-200);
+	}
+
+	.chart-title {
+		font-size: var(--font-size-150);
+	}
+
+	.tag-name {
+		font-size: var(--font-size-100);
+	}
+}

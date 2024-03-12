@@ -1,0 +1,71 @@
+@import url("~/assets/css/media.css");
+
+.comparison-page {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 16px 40px;
+}
+
+.back-button {
+	width: 24px;
+	aspect-ratio: 1;
+	color: var(--color-text-400);
+	background-color: #e0e0e0;
+}
+
+.title {
+	margin: 0;
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	color: var(--color-text-300);
+	white-space: wrap;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.preview-container {
+	display: flex;
+	gap: 16px;
+}
+
+.preview-image {
+	flex: 1 0 60%;
+	min-width: 0;
+	border-radius: 14px;
+}
+
+@media screen and (--large-screen) {
+	.comparison-page {
+		padding-inline: 30px;
+	}
+}
+
+@media screen and (--medium-screen) {
+	.comparison-page {
+		padding-inline: 30px;
+	}
+
+	.preview-container {
+		flex-direction: column;
+	}
+
+	.preview-image {
+		max-width: 100%;
+	}
+}
+
+@media screen and (--small-screen) {
+	.comparison-page {
+		padding: 27px 20px 10px;
+	}
+
+	.title {
+		font-size: var(--font-size-300);
+	}
+}

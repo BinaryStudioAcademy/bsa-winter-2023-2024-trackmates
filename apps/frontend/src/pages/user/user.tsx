@@ -6,7 +6,10 @@ import {
 	Loader,
 	Navigate,
 } from "~/libs/components/components.js";
-import { BACK_NAVIGATION_STEP } from "~/libs/constants/constants.js";
+import {
+	BACK_NAVIGATION_STEP,
+	EMPTY_ARRAY_LENGTH,
+} from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -30,6 +33,7 @@ const User: React.FC = () => {
 	const { id } = useParams();
 	const userId = Number(id);
 	const {
+		commonCourses,
 		courses,
 		currentUserId,
 		isCoursesLoading,
@@ -38,6 +42,7 @@ const User: React.FC = () => {
 		profileUser,
 	} = useAppSelector((state) => {
 		return {
+			commonCourses: state.userCourses.commonCourses,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
@@ -72,10 +77,12 @@ const User: React.FC = () => {
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
 		void dispatch(userCoursesActions.loadUserCourses(userId));
+		void dispatch(userCoursesActions.loadCommonCourses(userId));
 		void dispatch(friendsActions.getIsFollowing(userId));
 	}, [dispatch, userId]);
 
 	const hasUser = Boolean(profileUser);
+	const hasCommonCourses = commonCourses.length > EMPTY_ARRAY_LENGTH;
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.FRIENDS} />;
@@ -129,6 +136,12 @@ const User: React.FC = () => {
 					<Loader color="orange" size="large" />
 				) : (
 					<Courses courses={courses} userId={userId} />
+				)}
+				{hasCommonCourses && (
+					<>
+						<h2 className={styles["courses-title"]}>Common courses</h2>
+						<Courses courses={commonCourses} userId={userId} />
+					</>
 				)}
 			</div>
 		</div>
