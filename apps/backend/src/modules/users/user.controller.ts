@@ -30,13 +30,14 @@ class UserController extends BaseController {
 		this.userService = userService;
 
 		this.addRoute({
-			handler: (options) =>
-				this.delete(
+			handler: (options) => {
+				return this.delete(
 					options as APIHandlerOptions<{
 						params: { id: string };
 						user: UserAuthResponseDto;
 					}>,
-				),
+				);
+			},
 			method: "DELETE",
 			path: UsersApiPath.$ID,
 			preHandler: checkUserPermissions(
