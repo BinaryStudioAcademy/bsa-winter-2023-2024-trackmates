@@ -30,3 +30,14 @@
 		flex-basis: 100%;
 	}
 }
+
+@media screen and (width <= 320px) {
+	.form {
+		flex-basis: auto;
+		width: 100%;
+	}
+
+	.search {
+		width: 100%;
+	}
+}

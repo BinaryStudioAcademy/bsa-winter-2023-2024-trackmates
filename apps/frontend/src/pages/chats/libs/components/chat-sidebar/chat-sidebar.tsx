@@ -24,7 +24,7 @@ const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
 					{hasChats &&
 						chats.map((item) => {
 							return (
-								<li key={item.id}>
+								<li className={styles["chats-item"]} key={item.id}>
 									<ChatLink chat={item} />
 								</li>
 							);

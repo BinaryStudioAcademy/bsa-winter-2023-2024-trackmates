@@ -66,13 +66,14 @@ const Chats: React.FC = () => {
 				<ChatSidebar chats={chats} />
 				{id && currentChat ? (
 					<Chat
+						className={styles["current-chat"]}
 						isMessageLoading={isMessageLoading}
 						messages={currentChat.messages}
 						onSubmit={onSubmit}
 						receiver={currentChat.interlocutor}
 					/>
 				) : (
-					<EmptyChat />
+					<EmptyChat className={styles["empty-chat"]} />
 				)}
 			</div>
 		</div>
