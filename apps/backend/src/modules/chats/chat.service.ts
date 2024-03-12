@@ -134,8 +134,8 @@ class ChatService implements Service {
 		return chatById.toObjectWithMessages(userId);
 	}
 
-	public async getUnreadMessageCounter(userId: number): Promise<number> {
-		return await this.chatRepository.getUnreadMessageCounter(userId);
+	public async getUnreadMessageCount(userId: number): Promise<number> {
+		return await this.chatRepository.getUnreadMessageCount(userId);
 	}
 
 	public async update(

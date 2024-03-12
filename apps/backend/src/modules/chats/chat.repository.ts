@@ -613,7 +613,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			: null;
 	}
 
-	public async getUnreadMessageCounter(userId: number): Promise<number> {
+	public async getUnreadMessageCount(userId: number): Promise<number> {
 		const unreadChats = await this.chatModel
 			.query()
 			.withGraphJoined(RelationName.MESSAGES)

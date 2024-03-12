@@ -110,7 +110,7 @@ class ChatController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.getUnreadMessageCounter(
+				return this.getUnreadMessageCount(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
@@ -325,13 +325,13 @@ class ChatController extends BaseController {
 	 *              schema:
 	 *                type: number
 	 */
-	public async getUnreadMessageCounter(
+	public async getUnreadMessageCount(
 		options: APIHandlerOptions<{
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatService.getUnreadMessageCounter(options.user.id),
+			payload: await this.chatService.getUnreadMessageCount(options.user.id),
 			status: HTTPCode.OK,
 		};
 	}

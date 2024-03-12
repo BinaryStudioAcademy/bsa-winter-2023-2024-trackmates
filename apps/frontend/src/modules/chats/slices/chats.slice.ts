@@ -12,7 +12,7 @@ import {
 	createChat,
 	getAllChats,
 	getChat,
-	getUnreadMessageCounter,
+	getUnreadMessageCount,
 	updateChats,
 } from "./actions.js";
 
@@ -65,11 +65,11 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(getUnreadMessageCounter.fulfilled, (state, action) => {
+		builder.addCase(getUnreadMessageCount.fulfilled, (state, action) => {
 			state.unreadMessageCount = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getUnreadMessageCounter.rejected, (state) => {
+		builder.addCase(getUnreadMessageCount.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 

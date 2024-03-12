@@ -172,7 +172,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		});
 	}
 
-	public async getUnreadNotificationCounter(userId: number): Promise<number> {
+	public async getUnreadNotificationCount(userId: number): Promise<number> {
 		const unreadNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId: userId })

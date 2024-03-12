@@ -22,14 +22,14 @@ const getUserNotifications = createAsyncThunk<
 	return userNotificationsApi.getUserNotifications({ search, type });
 });
 
-const getUnreadNotificationCounter = createAsyncThunk<
+const getUnreadNotificationCount = createAsyncThunk<
 	number,
 	undefined,
 	AsyncThunkConfig
 >(`${sliceName}/get-unread-notification-counter`, (_, { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.getUnreadNotificationCounter();
+	return userNotificationsApi.getUnreadNotificationCount();
 });
 
 const setReadNotifications = createAsyncThunk<
@@ -44,7 +44,7 @@ const setReadNotifications = createAsyncThunk<
 		const readNotifications =
 			await userNotificationsApi.setReadNotifications(payload);
 
-		void dispatch(getUnreadNotificationCounter());
+		void dispatch(getUnreadNotificationCount());
 
 		return readNotifications;
 	},
@@ -63,7 +63,7 @@ const leaveRoom = createAction(`${sliceName}/leave-room`, (userId: string) => {
 });
 
 export {
-	getUnreadNotificationCounter,
+	getUnreadNotificationCount,
 	getUserNotifications,
 	joinRoom,
 	leaveRoom,

@@ -5,7 +5,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 
 import { type NotificationResponseDto } from "../libs/types/types.js";
 import {
-	getUnreadNotificationCounter,
+	getUnreadNotificationCount,
 	getUserNotifications,
 	setReadNotifications,
 } from "./actions.js";
@@ -49,11 +49,11 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(setReadNotifications.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
-		builder.addCase(getUnreadNotificationCounter.fulfilled, (state, action) => {
+		builder.addCase(getUnreadNotificationCount.fulfilled, (state, action) => {
 			state.unreadNotificationCount = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getUnreadNotificationCounter.rejected, (state) => {
+		builder.addCase(getUnreadNotificationCount.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 	},

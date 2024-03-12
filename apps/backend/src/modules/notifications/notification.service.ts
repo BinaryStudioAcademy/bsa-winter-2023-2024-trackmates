@@ -115,10 +115,8 @@ class NotificationService implements Service {
 		};
 	}
 
-	public async getUnreadNotificationCounter(userId: number): Promise<number> {
-		return await this.notificationRepository.getUnreadNotificationCounter(
-			userId,
-		);
+	public async getUnreadNotificationCount(userId: number): Promise<number> {
+		return await this.notificationRepository.getUnreadNotificationCount(userId);
 	}
 
 	public async setReadNotifications(

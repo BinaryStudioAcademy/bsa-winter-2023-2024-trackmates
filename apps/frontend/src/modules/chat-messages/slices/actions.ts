@@ -36,7 +36,7 @@ const setReadChatMessages = createAsyncThunk<
 		const readNotifications =
 			await chatMessagesApi.setReadChatMessages(messagePayload);
 
-		void dispatch(chatsActions.getUnreadMessageCounter());
+		void dispatch(chatsActions.getUnreadMessageCount());
 
 		return readNotifications;
 	},

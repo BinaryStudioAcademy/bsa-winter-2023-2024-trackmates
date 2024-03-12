@@ -30,8 +30,8 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		if (user) {
-			void dispatch(userNotificationsActions.getUnreadNotificationCounter());
-			void dispatch(chatActions.getUnreadMessageCounter());
+			void dispatch(userNotificationsActions.getUnreadNotificationCount());
+			void dispatch(chatActions.getUnreadMessageCount());
 		}
 	}, [dispatch, user]);
 
