@@ -10,6 +10,7 @@ type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];
 	totalMyCoursesCount: number;
+	totalUserCoursesCount: number;
 	userCourses: UserCourseResponseDto[];
 };
 
@@ -17,6 +18,7 @@ const initialState: State = {
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
 	totalMyCoursesCount: 0,
+	totalUserCoursesCount: 0,
 	userCourses: [],
 };
 
@@ -45,6 +47,7 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(loadUserCourses.fulfilled, (state, action) => {
 			state.userCourses = action.payload.items;
+			state.totalUserCoursesCount = action.payload.total;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadUserCourses.pending, (state) => {

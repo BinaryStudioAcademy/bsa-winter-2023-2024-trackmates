@@ -20,7 +20,7 @@ const activityController = new ActivityController(
 	sectionStatusService,
 );
 
-export { activityController };
+export { activityController, activityService };
 export { ActivityEntity } from "./activity.entity.js";
 export { ActivityModel } from "./activity.model.js";
 export { type ActivityService } from "./activity.service.js";
