@@ -1,4 +1,3 @@
-import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -48,10 +47,6 @@ const Chats: React.FC = () => {
 
 	const onSubmit = useCallback(
 		(payload: typeof DEFAULT_MESSAGE_PAYLOAD): void => {
-			if (payload.message.trim().length === EMPTY_LENGTH) {
-				return;
-			}
-
 			if (id) {
 				const messagePayload: ChatMessageCreateRequestDto = {
 					chatId: Number(id),
