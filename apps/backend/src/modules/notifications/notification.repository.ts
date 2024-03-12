@@ -22,6 +22,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			ValueOf<typeof NotificationType>,
 			string
 		> = {
+			[NotificationType.NEW_COMMENT]: `${user.userDetails.firstName} ${user.userDetails.lastName} left a comment.`,
 			[NotificationType.NEW_FOLLOWER]: `${user.userDetails.firstName} ${user.userDetails.lastName} started following you.`,
 		};
 
