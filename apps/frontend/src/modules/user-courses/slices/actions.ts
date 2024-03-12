@@ -6,6 +6,7 @@ import {
 	type AsyncThunkConfig,
 	type PaginationResponseDto,
 } from "~/libs/types/types.js";
+import { type CourseDto } from "~/modules/courses/courses.js";
 
 import {
 	type AddCourseRequestDto,
@@ -52,4 +53,16 @@ const loadUserCourses = createAsyncThunk<
 	});
 });
 
-export { add, loadMyCourses, loadUserCourses };
+const loadCommonCourses = createAsyncThunk<
+	CourseDto[],
+	number,
+	AsyncThunkConfig
+>(`${sliceName}/load-common-courses`, async (userId, { extra }) => {
+	const { userCourseApi } = extra;
+
+	const { items } = await userCourseApi.getCommonWithUser(userId);
+
+	return items;
+});
+
+export { add, loadCommonCourses, loadMyCourses, loadUserCourses };
