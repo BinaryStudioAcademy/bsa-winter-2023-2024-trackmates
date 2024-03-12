@@ -12,6 +12,7 @@ import {
 } from "~/modules/section-statuses/section-statuses.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
+import { getStatusBySectionId } from "../../helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -35,18 +36,6 @@ const SectionComparison: React.FC<Properties> = ({
 	);
 
 	const friendName = friend ? friend.nickname ?? friend.firstName : "Friend";
-
-	const handleGetStatusBySectionId = useCallback(
-		(
-			sectionId: number,
-			statuses: SectionStatusResponseDto[],
-		): SectionStatusResponseDto | null => {
-			return (
-				statuses.find((status) => status.courseSectionId === sectionId) ?? null
-			);
-		},
-		[],
-	);
 
 	const handleToggle = useCallback(
 		(sectionId: number, sectionStatus: SectionStatusResponseDto | null) =>
@@ -84,11 +73,11 @@ const SectionComparison: React.FC<Properties> = ({
 			</div>
 			<div className={styles["content"]}>
 				{courseSections.map((section) => {
-					const userStatus = handleGetStatusBySectionId(
+					const userStatus = getStatusBySectionId(
 						section.id as number,
 						sectionStatuses,
 					);
-					const friendStatus = handleGetStatusBySectionId(
+					const friendStatus = getStatusBySectionId(
 						section.id as number,
 						sectionToCompareStatuses,
 					);

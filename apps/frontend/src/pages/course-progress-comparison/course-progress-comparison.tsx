@@ -1,7 +1,6 @@
 import { Button, Image, Loader } from "~/libs/components/components.js";
 import { BACK_NAVIGATION_STEP } from "~/libs/constants/constants.js";
 import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
-import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -13,17 +12,17 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
+import { actions as sectionStatusActions } from "~/modules/section-statuses/section-statuses.js";
 import {
-	SectionStatus,
-	actions as sectionStatusActions,
-} from "~/modules/section-statuses/section-statuses.js";
-import { actions as userActions } from "~/modules/users/users.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
+	type UserAuthResponseDto,
+	actions as userActions,
+} from "~/modules/users/users.js";
 
 import {
 	ProgressChart,
 	SectionComparison,
 } from "./libs/components/components.js";
+import { getUserProgress } from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 const CourseProgressComparison: React.FC = () => {
@@ -55,18 +54,10 @@ const CourseProgressComparison: React.FC = () => {
 	useAppTitle(AppTitle.COMPARE_PROGRESS);
 
 	const sectionsCount = courseSections.length;
-	const userCompletedSectionsCount = sectionStatuses.filter(
-		({ status }) => status === SectionStatus.COMPLETED,
-	).length;
-	const friendCompletedSectionsCount = sectionToCompareStatuses.filter(
-		({ status }) => status === SectionStatus.COMPLETED,
-	).length;
-
-	const userProgress = Math.round(
-		getPercentage({ part: userCompletedSectionsCount, total: sectionsCount }),
-	);
-	const friendProgress = Math.round(
-		getPercentage({ part: friendCompletedSectionsCount, total: sectionsCount }),
+	const userProgress = getUserProgress(sectionsCount, sectionStatuses);
+	const friendProgress = getUserProgress(
+		sectionsCount,
+		sectionToCompareStatuses,
 	);
 
 	const handleGoBack = useCallback(() => {
