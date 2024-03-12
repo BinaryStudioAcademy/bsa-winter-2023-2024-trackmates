@@ -13,11 +13,11 @@
 
 .select {
 	position: relative;
+	height: 37px;
 	max-height: 37px;
-	padding: 11px 12px;
+	padding: 0 12px;
 	font-family: inherit;
 	font-weight: 500;
-	line-height: 1.1;
 	color: var(--color-text-200);
 	appearance: none;
 	cursor: pointer;

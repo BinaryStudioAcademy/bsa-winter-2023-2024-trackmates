@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.61.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.61.0...v1.61.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* **frontend:** make default line height of select tm-343 ([#477](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/477)) ([4c37742](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4c37742ac79d12bd3004dddba8c0bd8207757ac7))
+* **frontend:** redirect to overview instead of friends tm-469 ([#475](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/475)) ([cf3b1c6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cf3b1c6d6d6586a194f68da3da9cf3f554d45cd7))
+
+## [1.61.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.60.0...v1.61.0) (2024-03-12)
+
+
+### Features
+
+* **backend/frontend/shared:** filter notifications by type tm-288 ([#448](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/448)) ([def07b4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/def07b4d89bfdf9b1821214f8b4d8366b020b4e7))
+
 ## [1.60.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.59.2...v1.60.0) (2024-03-12)
 
 
