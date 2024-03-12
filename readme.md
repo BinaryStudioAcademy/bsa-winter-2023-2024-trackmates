@@ -152,6 +152,7 @@ erDiagram
     dateTime updated_at
     int activity_id FK
     int user_id FK
+    int notification_id FK
    }
 
   comments {
