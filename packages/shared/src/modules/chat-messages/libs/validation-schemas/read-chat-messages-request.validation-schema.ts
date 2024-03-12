@@ -12,13 +12,17 @@ type ReadChatMessagesRequestValidation = {
 const readChatMessagesRequest = z.object<ReadChatMessagesRequestValidation>({
 	chatMessageIds: z
 		.array(
-			z.number().min(ChatMessageValidationRule.MESSAGE_ID_MINIMUM_VALUE, {
-				message: ChatMessageValidationMessage.MESSAGE_ID_MINIMUM_VALUE,
-			}),
+			z
+				.number()
+				.min(
+					ChatMessageValidationRule.MESSAGE_ID_MINIMUM_VALUE,
+					ChatMessageValidationMessage.MESSAGE_ID_MINIMUM_VALUE,
+				),
 		)
-		.min(ChatMessageValidationRule.MESSAGES_IDS_ARRAY_MINIMUM_LENGTH, {
-			message: ChatMessageValidationMessage.MESSAGES_IDS_ARRAY_MINIMUM_LENGTH,
-		}),
+		.min(
+			ChatMessageValidationRule.MESSAGES_IDS_ARRAY_MINIMUM_LENGTH,
+			ChatMessageValidationMessage.MESSAGES_IDS_ARRAY_MINIMUM_LENGTH,
+		),
 });
 
 export { readChatMessagesRequest };
