@@ -104,7 +104,7 @@ const User: React.FC = () => {
 	}, [dispatch, userId, page]);
 
 	const hasUser = Boolean(profileUser);
-	const hasCommonCourses = commonCourses.length > EMPTY_ARRAY_LENGTH;
+	const hasCommonCourses = commonCourses.length > EMPTY_LENGTH;
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
