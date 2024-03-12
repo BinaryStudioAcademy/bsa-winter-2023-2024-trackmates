@@ -194,9 +194,12 @@ export {
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {
+	NotificationFilter,
+	type NotificationFilterRequestDto,
 	type ReadNotificationsRequestDto,
 	UserNotificationsApiPath,
 	readNotificationsRequestValidationSchema,
+	userNotificationQueryParametersValidationSchema,
 } from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,

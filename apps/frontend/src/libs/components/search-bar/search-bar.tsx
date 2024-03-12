@@ -13,6 +13,7 @@ import { actions as userNotificationActions } from "~/modules/user-notifications
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Input } from "../input/input.js";
+import { NotificationFilter } from "./libs/enums/enums.js";
 import { searchPagePathToDefaultValue } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
@@ -51,7 +52,10 @@ const SearchBar: React.FC<Properties> = ({
 			switch (pathname) {
 				case AppRoute.NOTIFICATIONS: {
 					void dispatch(
-						userNotificationActions.getUserNotifications(payload.search),
+						userNotificationActions.getUserNotifications({
+							search: payload.search,
+							type: NotificationFilter.ALL,
+						}),
 					);
 					break;
 				}
