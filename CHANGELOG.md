@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.60.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.59.2...v1.60.0) (2024-03-12)
+
+
+### Features
+
+* **backend/shared:** display the activities after completing the course on the activities page tm-422 ([#461](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/461)) ([5b3f3c7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5b3f3c728d534cfeba97a3c4efb6243cb9e88497))
+
 ## [1.59.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.59.1...v1.59.2) (2024-03-11)
 
 
