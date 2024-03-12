@@ -11,7 +11,6 @@ import { UserEntity } from "~/modules/users/users.js";
 import { ChatEntity } from "./chat.entity.js";
 import { ChatModel } from "./chat.model.js";
 import { RelationName } from "./libs/enums/enums.js";
-import { calculateUnreadMessageCount } from "./libs/helpers/helpers.js";
 
 class ChatRepository implements Repository<ChatEntity> {
 	private chatModel: typeof ChatModel;
@@ -614,25 +613,31 @@ class ChatRepository implements Repository<ChatEntity> {
 	}
 
 	public async getUnreadMessageCount(userId: number): Promise<number> {
-		const unreadChats = await this.chatModel
+		const unreadMessages = await this.chatModel
 			.query()
-			.withGraphJoined(RelationName.MESSAGES)
-			.where((builder) => {
-				void builder
-					.where({ firstUserId: userId })
-					.orWhere({ secondUserId: userId });
-			})
-			.andWhere((builder) => {
-				void builder
-					.where({ status: MessageStatus.UNREAD })
-					.andWhereNot({ senderUserId: userId });
-			});
+			.sum("unreadMessageCount")
+			.from(
+				this.chatModel
+					.query()
+					.select(
+						this.chatModel
+							.relatedQuery<ChatMessageModel>(RelationName.MESSAGES)
+							.count()
+							.where({ status: MessageStatus.UNREAD })
+							.andWhereNot({ senderUserId: userId })
+							.castTo<number>()
+							.as("unreadMessageCount"),
+					)
+					.andWhere((builder) => {
+						void builder
+							.where({ secondUserId: userId })
+							.orWhere({ firstUserId: userId });
+					}),
+			)
+			.first()
+			.castTo<{ sum: number }>();
 
-		return calculateUnreadMessageCount(
-			unreadChats.map((chat) => {
-				return chat.messages.length;
-			}),
-		);
+		return unreadMessages.sum;
 	}
 
 	public async update(id: number, chatEntity: ChatEntity): Promise<ChatEntity> {
