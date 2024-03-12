@@ -51,7 +51,7 @@ const Notifications: React.FC = () => {
 
 	useEffect(() => {
 		const hasValidValue =
-			!notificationType ||
+			notificationType === null ||
 			possibleTypeValues.includes(
 				notificationType as ValueOf<typeof NotificationFilter>,
 			);
