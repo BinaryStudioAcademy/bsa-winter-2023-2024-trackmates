@@ -11,6 +11,7 @@ import { UserEntity } from "~/modules/users/users.js";
 import { ChatEntity } from "./chat.entity.js";
 import { ChatModel } from "./chat.model.js";
 import { RelationName } from "./libs/enums/enums.js";
+import { calculateUnreadMessageCount } from "./libs/helpers/helpers.js";
 
 class ChatRepository implements Repository<ChatEntity> {
 	private chatModel: typeof ChatModel;
@@ -612,8 +613,8 @@ class ChatRepository implements Repository<ChatEntity> {
 			: null;
 	}
 
-	public async getUnreadChats(userId: number): Promise<ChatModel[]> {
-		return await this.chatModel
+	public async getUnreadMessageCounter(userId: number): Promise<number> {
+		const unreadChats = await this.chatModel
 			.query()
 			.withGraphJoined(RelationName.MESSAGES)
 			.where((builder) => {
@@ -626,6 +627,12 @@ class ChatRepository implements Repository<ChatEntity> {
 					.where({ status: MessageStatus.UNREAD })
 					.andWhereNot({ senderUserId: userId });
 			});
+
+		return calculateUnreadMessageCount(
+			unreadChats.map((chat) => {
+				return chat.messages.length;
+			}),
+		);
 	}
 
 	public async update(id: number, chatEntity: ChatEntity): Promise<ChatEntity> {

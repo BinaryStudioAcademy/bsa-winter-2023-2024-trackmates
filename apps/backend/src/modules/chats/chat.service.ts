@@ -5,7 +5,6 @@ import { type UserRepository } from "~/modules/users/users.js";
 import { ChatEntity } from "./chat.entity.js";
 import { type ChatRepository } from "./chat.repository.js";
 import { ChatError } from "./libs/exceptions/exceptions.js";
-import { calculateUnreadMessageCount } from "./libs/helpers/helpers.js";
 import {
 	type ChatCreateRequestDto,
 	type ChatGetAllItemResponseDto,
@@ -136,9 +135,7 @@ class ChatService implements Service {
 	}
 
 	public async getUnreadMessageCounter(userId: number): Promise<number> {
-		const unreadChats = await this.chatRepository.getUnreadChats(userId);
-
-		return calculateUnreadMessageCount(unreadChats);
+		return await this.chatRepository.getUnreadMessageCounter(userId);
 	}
 
 	public async update(
