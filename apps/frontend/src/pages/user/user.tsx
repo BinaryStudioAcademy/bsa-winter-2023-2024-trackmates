@@ -10,7 +10,7 @@ import {
 } from "~/libs/components/components.js";
 import {
 	BACK_NAVIGATION_STEP,
-	EMPTY_ARRAY_LENGTH,
+	EMPTY_LENGTH,
 	PAGINATION_PAGES_CUT_COUNT,
 } from "~/libs/constants/constants.js";
 import { AppRoute, DataStatus, PaginationValue } from "~/libs/enums/enums.js";
@@ -114,7 +114,7 @@ const User: React.FC = () => {
 		return <Loader color="orange" size="large" />;
 	}
 
-	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
+	const hasCourses = courses.length > EMPTY_LENGTH;
 
 	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
 
