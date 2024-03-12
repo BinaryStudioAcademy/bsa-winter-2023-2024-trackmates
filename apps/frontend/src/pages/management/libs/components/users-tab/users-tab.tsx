@@ -1,12 +1,11 @@
 import { Button } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/data-status.enum.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
-import { remove } from "~/modules/users/slices/actions.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
 import { Chip } from "../chip/chip.js";
@@ -29,7 +28,7 @@ const UsersTab: React.FC = () => {
 
 	const handleDeleteUser = useCallback(
 		(userId: number) => {
-			void dispatch(remove(userId));
+			void dispatch(usersActions.remove(userId));
 		},
 		[dispatch],
 	);
@@ -52,7 +51,7 @@ const UsersTab: React.FC = () => {
 		return {
 			delete: (
 				<DeleteButton
-					isLoading={userToDataStatus[user.id] == DataStatus.PENDING}
+					isLoading={userToDataStatus[user.id] === DataStatus.PENDING}
 					label={UsersTableHeader.DELETE}
 					onClick={handleDeleteUser}
 					user={user}

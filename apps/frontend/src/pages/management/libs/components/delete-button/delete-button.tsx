@@ -1,7 +1,6 @@
-import { useCallback, useState } from "react";
-
 import { Button, Loader } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { ManagementDialogueMessages } from "../../enums/enums.js";
@@ -25,20 +24,16 @@ const DeleteButton: React.FC<Properties> = ({
 }: Properties) => {
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-	const handleClick = useCallback(() => {
-		setIsModalOpen(true);
-	}, [setIsModalOpen]);
-
 	const handleDelete = useCallback(() => {
 		onClick(user.id);
 		setIsModalOpen(false);
 	}, [onClick, setIsModalOpen, user.id]);
 
-	const handleCancel = useCallback(() => {
-		setIsModalOpen(false);
+	const openModal = useCallback(() => {
+		setIsModalOpen(true);
 	}, [setIsModalOpen]);
 
-	const handleModalClose = useCallback(() => {
+	const closeModal = useCallback(() => {
 		setIsModalOpen(false);
 	}, [setIsModalOpen]);
 
@@ -60,15 +55,15 @@ const DeleteButton: React.FC<Properties> = ({
 					iconName="delete"
 					isDisabled={isDisabled}
 					label={label}
-					onClick={handleClick}
+					onClick={openModal}
 				/>
 			)}
 			{isModalOpen && (
 				<ConfirmationModal
 					content={modalContent}
 					isOpen={isModalOpen}
-					onCancel={handleCancel}
-					onClose={handleModalClose}
+					onCancel={closeModal}
+					onClose={closeModal}
 					onConfirm={handleDelete}
 				/>
 			)}

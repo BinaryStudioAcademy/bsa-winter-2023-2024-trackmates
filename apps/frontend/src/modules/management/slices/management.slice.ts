@@ -10,7 +10,6 @@ import {
 	type PermissionResponseDto,
 	actions as permissionsActions,
 } from "~/modules/permissions/permissions.js";
-import { remove } from "~/modules/users/slices/actions.js";
 import {
 	type UserAuthResponseDto,
 	actions as usersActions,
@@ -72,16 +71,25 @@ const { reducer } = createSlice({
 			state.usersDataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(remove.fulfilled, (state, { payload: userId }) => {
-			state.users = state.users.filter(({ id }) => id !== userId);
-			state.userToDataStatus[userId] = DataStatus.FULFILLED;
-		});
-		builder.addCase(remove.pending, (state, { meta: { arg: userId } }) => {
-			state.userToDataStatus[userId] = DataStatus.PENDING;
-		});
-		builder.addCase(remove.rejected, (state, { meta: { arg: userId } }) => {
-			state.userToDataStatus[userId] = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			usersActions.remove.fulfilled,
+			(state, { payload: userId }) => {
+				state.users = state.users.filter(({ id }) => id !== userId);
+				state.userToDataStatus[userId] = DataStatus.FULFILLED;
+			},
+		);
+		builder.addCase(
+			usersActions.remove.pending,
+			(state, { meta: { arg: userId } }) => {
+				state.userToDataStatus[userId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			usersActions.remove.rejected,
+			(state, { meta: { arg: userId } }) => {
+				state.userToDataStatus[userId] = DataStatus.REJECTED;
+			},
+		);
 	},
 	initialState,
 	name: "management",

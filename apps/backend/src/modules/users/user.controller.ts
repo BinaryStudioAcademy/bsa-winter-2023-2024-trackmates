@@ -122,7 +122,7 @@ class UserController extends BaseController {
 		if (user.id === userId) {
 			throw new UserError({
 				message: UserErrorMessage.FORBIDDEN_DELETING_YOURSELF,
-				status: HTTPCode.FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
