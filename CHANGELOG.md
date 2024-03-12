@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.62.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.62.0...v1.62.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* **frontend:** fix the log out button is shown in two rows tm-480 ([#491](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/491)) ([12d3751](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/12d37513cc3eb462c308325b71383fe0623d32c4))
+
 ## [1.62.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.61.1...v1.62.0) (2024-03-12)
 
 
