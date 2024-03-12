@@ -4,7 +4,6 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
-	EmptyLength,
 	ExceptionMessage,
 	HTTPCode,
 	PermissionKey,

@@ -1,5 +1,6 @@
 import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
-import { AppTitle, DataStatus, EmptyLength } from "~/libs/enums/enums.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
+import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -24,7 +25,7 @@ const Feed: React.FC = () => {
 	}, [dispatch]);
 
 	const isLoading = dataStatus === DataStatus.PENDING;
-	const hasActivities = activities.length > EmptyLength.ARRAY;
+	const hasActivities = activities.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["wrapper"]}>

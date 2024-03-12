@@ -1,5 +1,6 @@
 import { Link } from "~/libs/components/components.js";
-import { AppRoute, EmptyLength } from "~/libs/enums/enums.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { type ChatGetAllItemResponseDto } from "~/modules/chats/chats.js";
 
 import { ChatLink } from "../chat-link/chat-link.js";
@@ -11,7 +12,7 @@ type Properties = {
 };
 
 const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
-	const hasChats = chats.length > EmptyLength.ARRAY;
+	const hasChats = chats.length > EMPTY_LENGTH;
 
 	return (
 		<>

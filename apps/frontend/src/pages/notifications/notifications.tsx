@@ -3,11 +3,11 @@ import {
 	EmptyPagePlaceholder,
 	Loader,
 } from "~/libs/components/components.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import {
 	AppRoute,
 	AppTitle,
 	DataStatus,
-	EmptyLength,
 	NotificationFilter,
 } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
@@ -70,7 +70,7 @@ const Notifications: React.FC = () => {
 		);
 	}, [dispatch, notificationType, navigate, possibleTypeValues]);
 
-	const hasNotifications = notifications.length > EmptyLength.ARRAY;
+	const hasNotifications = notifications.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["page"]}>

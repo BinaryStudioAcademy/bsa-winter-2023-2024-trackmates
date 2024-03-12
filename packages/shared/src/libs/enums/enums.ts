@@ -2,7 +2,6 @@ export { APIPath } from "./api-path.enum.js";
 export { AppEnvironment } from "./app-environment.enum.js";
 export { ContentType } from "./content-type.enum.js";
 export { DateValue } from "./date-value.enum.js";
-export { EmptyLength } from "./empty-length.enum.js";
 export { ExceptionMessage } from "./exception-message.enum.js";
 export { FormatDateType } from "./format-date-type.enums.js";
 export { PaginationValidationMessage } from "./pagination-validation-message.enum.js";
