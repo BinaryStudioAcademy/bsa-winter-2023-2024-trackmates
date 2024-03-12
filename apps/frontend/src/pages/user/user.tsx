@@ -2,18 +2,25 @@ import defaultAvatar from "~/assets/img/default-avatar.png";
 import {
 	Button,
 	Courses,
+	EmptyPagePlaceholder,
 	Image,
 	Loader,
 	Navigate,
+	Pagination,
 } from "~/libs/components/components.js";
-import { BACK_NAVIGATION_STEP } from "~/libs/constants/constants.js";
-import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
+import {
+	BACK_NAVIGATION_STEP,
+	EMPTY_ARRAY_LENGTH,
+	PAGINATION_PAGES_CUT_COUNT,
+} from "~/libs/constants/constants.js";
+import { AppRoute, DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useEffect,
 	useNavigate,
+	usePagination,
 	useParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
@@ -36,6 +43,7 @@ const User: React.FC = () => {
 		isFollowing,
 		isUserNotFound,
 		profileUser,
+		totalCount,
 	} = useAppSelector((state) => {
 		return {
 			courses: state.userCourses.userCourses,
@@ -44,7 +52,14 @@ const User: React.FC = () => {
 			isFollowing: state.friends.isFollowing,
 			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
 			profileUser: state.users.profileUser,
+			totalCount: state.userCourses.totalUserCoursesCount,
 		};
+	});
+
+	const { handlePageChange, page, pages, pagesCount } = usePagination({
+		pageSize: PaginationValue.DEFAULT_COUNT,
+		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		totalCount,
 	});
 
 	const navigate = useNavigate();
@@ -71,9 +86,19 @@ const User: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
-		void dispatch(userCoursesActions.loadUserCourses(userId));
 		void dispatch(friendsActions.getIsFollowing(userId));
 	}, [dispatch, userId]);
+
+	useEffect(() => {
+		void dispatch(
+			userCoursesActions.loadUserCourses({
+				count: PaginationValue.DEFAULT_COUNT,
+				page,
+				search: "",
+				userId,
+			}),
+		);
+	}, [dispatch, userId, page]);
 
 	const hasUser = Boolean(profileUser);
 
@@ -84,6 +109,10 @@ const User: React.FC = () => {
 	if (!hasUser) {
 		return <Loader color="orange" size="large" />;
 	}
+
+	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
+
+	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
 
 	return (
 		<div className={styles["container"]}>
@@ -108,10 +137,7 @@ const User: React.FC = () => {
 				</div>
 
 				<div className={styles["user-wrapper"]}>
-					<p className={styles["fullName"]}>
-						{(profileUser as UserAuthResponseDto).firstName}{" "}
-						{(profileUser as UserAuthResponseDto).lastName}
-					</p>
+					<p className={styles["fullName"]}>{fullName}</p>
 					<Button
 						className={styles["follow-button"]}
 						iconName={isFollowing ? "cross" : "add"}
@@ -128,7 +154,23 @@ const User: React.FC = () => {
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} userId={userId} />
+					<>
+						{hasCourses ? (
+							<div className={styles["courses-container-content"]}>
+								<Courses courses={courses} userId={userId} />
+								<Pagination
+									currentPage={page}
+									onPageChange={handlePageChange}
+									pages={pages}
+									pagesCount={pagesCount}
+								/>
+							</div>
+						) : (
+							<EmptyPagePlaceholder
+								title={`${fullName} hasn't added any courses yet`}
+							/>
+						)}
+					</>
 				)}
 			</div>
 		</div>

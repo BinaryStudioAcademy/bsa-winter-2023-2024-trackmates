@@ -111,6 +111,7 @@ const Profile: React.FC = () => {
 								src={user.avatarUrl ?? defaultAvatar}
 							/>
 							<Button
+								className={styles["button"]}
 								label="Change photo"
 								onClick={handleOpenFileInput}
 								size="small"

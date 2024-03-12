@@ -86,7 +86,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					iconName="chats"
 					label="Start chat"
 					onClick={handleCreateChat}
-					style="primary"
+					style="secondary"
 				/>
 			</div>
 		</article>
