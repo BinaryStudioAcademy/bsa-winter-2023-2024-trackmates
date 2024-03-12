@@ -1,3 +1,1 @@
-const MAXIMUM_DISPLAY_UNREAD_COUNT = 9;
-
-export { MAXIMUM_DISPLAY_UNREAD_COUNT };
+export { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./maximum-display-unread-count.constant.js";
