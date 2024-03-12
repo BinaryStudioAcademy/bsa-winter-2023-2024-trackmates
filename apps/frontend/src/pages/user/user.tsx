@@ -78,7 +78,7 @@ const User: React.FC = () => {
 	const hasUser = Boolean(profileUser);
 
 	if (isUserNotFound || currentUserId === userId) {
-		return <Navigate to={AppRoute.FRIENDS} />;
+		return <Navigate to={AppRoute.ROOT} />;
 	}
 
 	if (!hasUser) {
