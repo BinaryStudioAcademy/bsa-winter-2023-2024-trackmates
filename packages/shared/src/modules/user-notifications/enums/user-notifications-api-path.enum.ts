@@ -1,7 +1,7 @@
 const UserNotificationsApiPath = {
-	GET_UNREAD_NOTIFICATION_COUNTER: "/get-unread-notification-counter",
 	READ_NOTIFICATIONS: "/read-notifications",
 	ROOT: "/",
+	UNREAD_COUNT: "/unread-count",
 } as const;
 
 export { UserNotificationsApiPath };

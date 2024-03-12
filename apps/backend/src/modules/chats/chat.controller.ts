@@ -117,7 +117,7 @@ class ChatController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: ChatsApiPath.GET_UNREAD_MESSAGE_COUNTER,
+			path: ChatsApiPath.UNREAD_COUNT,
 		});
 	}
 
@@ -310,7 +310,7 @@ class ChatController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /chats/get-unread-message-counter:
+	 * /chats/unread-count:
 	 *    get:
 	 *      tags:
 	 *        - Chats

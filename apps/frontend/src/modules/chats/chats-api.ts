@@ -67,7 +67,7 @@ class ChatsApi extends BaseHTTPApi {
 
 	public async getUnreadMessageCounter(): Promise<number> {
 		const response = await this.load(
-			this.getFullEndpoint(ChatsApiPath.GET_UNREAD_MESSAGE_COUNTER, {}),
+			this.getFullEndpoint(ChatsApiPath.UNREAD_COUNT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,

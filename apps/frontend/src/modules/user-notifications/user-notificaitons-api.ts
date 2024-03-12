@@ -23,10 +23,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 
 	public async getUnreadNotificationCounter(): Promise<number> {
 		const response = await this.load(
-			this.getFullEndpoint(
-				UserNotificationsApiPath.GET_UNREAD_NOTIFICATION_COUNTER,
-				{},
-			),
+			this.getFullEndpoint(UserNotificationsApiPath.UNREAD_COUNT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,

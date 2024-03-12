@@ -78,7 +78,7 @@ class UserNotificationController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: UserNotificationsApiPath.GET_UNREAD_NOTIFICATION_COUNTER,
+			path: UserNotificationsApiPath.UNREAD_COUNT,
 		});
 
 		this.addRoute({
@@ -139,7 +139,7 @@ class UserNotificationController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /user-notifications/get-unread-notification-counter:
+	 * /user-notifications/unread-count:
 	 *    get:
 	 *      tags:
 	 *        - User notifications
