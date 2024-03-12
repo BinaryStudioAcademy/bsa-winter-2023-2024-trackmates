@@ -69,7 +69,11 @@ const Chats: React.FC = () => {
 		<div className={pageStyles}>
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
-				<ChatSidebar chats={chats} className={styles["chat-list"]} />
+				<ChatSidebar
+					chats={chats}
+					className={styles["chat-list"]}
+					isReduceAble={Boolean(id)}
+				/>
 				{id && currentChat ? (
 					<Chat
 						className={styles["current-chat"]}

@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	display: grid;
 	grid-template-columns: 48px auto;
@@ -65,4 +67,10 @@
 
 .current {
 	background-color: var(--color-background);
+}
+
+@media screen and (--medium-screen) {
+	.reduce-able .text-container {
+		display: none;
+	}
 }

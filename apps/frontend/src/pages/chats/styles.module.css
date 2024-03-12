@@ -38,8 +38,10 @@
 
 	.chat-container {
 		grid-template-columns: 1fr;
+	}
 
-		/* grid-template-columns: 60px 1fr; */
+	.chat-page .chat-container {
+		grid-template-columns: 70px 1fr;
 		border-radius: 0;
 	}
 
@@ -50,19 +52,14 @@
 	.chats-page .current-chat {
 		display: none;
 	}
-
-	.chat-page .chat-list {
-		display: none;
-	}
 }
 
-/* @media screen and (--small-screen) {
-
-	.chat-container {
+@media screen and (--small-screen) {
+	.chat-page .chat-container {
 		grid-template-columns: 1fr;
 	}
 
 	.chat-page .chat-list {
 		display: none;
 	}
-} */
+}
