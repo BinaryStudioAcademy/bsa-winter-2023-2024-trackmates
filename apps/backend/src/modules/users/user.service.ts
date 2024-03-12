@@ -5,6 +5,7 @@ import { type Service } from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
+import { UserErrorMessage } from "./libs/enums/enums.js";
 import { UserError } from "./libs/exceptions/exceptions.js";
 import {
 	type UserAuthResponseDto,
@@ -55,6 +56,20 @@ class UserService implements Service {
 		}
 
 		return await this.userRepository.delete(userId);
+	}
+
+	public async deleteUserByAdmin(
+		admin: UserAuthResponseDto,
+		userId: number,
+	): Promise<boolean> {
+		if (admin.id === userId) {
+			throw new UserError({
+				message: UserErrorMessage.FORBIDDEN_DELETING_YOURSELF,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return await this.delete(userId);
 	}
 
 	public find(): Promise<UserEntity | null> {

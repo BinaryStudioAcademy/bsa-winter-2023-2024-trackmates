@@ -13,8 +13,7 @@ import {
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
-import { UserErrorMessage, UsersApiPath } from "./libs/enums/enums.js";
-import { UserError } from "./libs/exceptions/exceptions.js";
+import { UsersApiPath } from "./libs/enums/enums.js";
 import {
 	type UserAuthResponseDto,
 	type UserGetByIdRequestDto,
@@ -119,14 +118,7 @@ class UserController extends BaseController {
 	}>): Promise<APIHandlerResponse> {
 		const userId = Number(id);
 
-		if (user.id === userId) {
-			throw new UserError({
-				message: UserErrorMessage.FORBIDDEN_DELETING_YOURSELF,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
-		const success = await this.userService.delete(userId);
+		const success = await this.userService.deleteUserByAdmin(user, userId);
 
 		return {
 			payload: { success },

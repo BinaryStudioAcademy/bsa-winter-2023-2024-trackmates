@@ -29,11 +29,11 @@ const DeleteButton: React.FC<Properties> = ({
 		setIsModalOpen(false);
 	}, [onClick, setIsModalOpen, user.id]);
 
-	const openModal = useCallback(() => {
+	const handleOpenModal = useCallback(() => {
 		setIsModalOpen(true);
 	}, [setIsModalOpen]);
 
-	const closeModal = useCallback(() => {
+	const handleCloseModal = useCallback(() => {
 		setIsModalOpen(false);
 	}, [setIsModalOpen]);
 
@@ -55,15 +55,15 @@ const DeleteButton: React.FC<Properties> = ({
 					iconName="delete"
 					isDisabled={isDisabled}
 					label={label}
-					onClick={openModal}
+					onClick={handleOpenModal}
 				/>
 			)}
 			{isModalOpen && (
 				<ConfirmationModal
 					content={modalContent}
 					isOpen={isModalOpen}
-					onCancel={closeModal}
-					onClose={closeModal}
+					onCancel={handleCloseModal}
+					onClose={handleCloseModal}
 					onConfirm={handleDelete}
 				/>
 			)}
