@@ -39,6 +39,8 @@ const DeleteButton: React.FC<Properties> = ({
 		setIsModalOpen(false);
 	}, [setIsModalOpen]);
 
+	const modalContent = `${ManagementDialogueMessages.DO_YOU_WANT_DELETE_USER} ${user.firstName} ${user.lastName}?`;
+
 	return (
 		<>
 			{isLoading ? (
@@ -54,12 +56,11 @@ const DeleteButton: React.FC<Properties> = ({
 			)}
 			{isModalOpen && (
 				<ConfirmationModal
-					content={ManagementDialogueMessages.DO_YOU_WANT_DELETE_USER}
+					content={modalContent}
 					isOpen={isModalOpen}
 					onCancel={handleCancel}
 					onClose={handleModalClose}
 					onConfirm={handleDelete}
-					title={`Deleting user "${user.firstName} ${user.lastName}"`}
 				/>
 			)}
 		</>

@@ -8,7 +8,6 @@ type Properties = {
 	onCancel: () => void;
 	onClose: () => void;
 	onConfirm: () => void;
-	title: string;
 };
 
 const ConfirmationModal: React.FC<Properties> = ({
@@ -17,25 +16,23 @@ const ConfirmationModal: React.FC<Properties> = ({
 	onCancel,
 	onClose,
 	onConfirm,
-	title,
 }: Properties) => {
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="small">
-			<div className={styles["modal-content"]}>
-				<div className={styles["modal-content-title"]}>{title}</div>
-				<div className={styles["modal-content-content"]}>{content}</div>
-				<div className={styles["modal-content-buttons"]}>
+			<div className={styles["confirm-modal"]}>
+				<div className={styles["confirm-modal-content"]}>{content}</div>
+				<div className={styles["confirm-modal-footer"]}>
 					<Button
-						className={styles["modal-content-buttons-delete"]}
-						label="Confirm"
-						onClick={onConfirm}
-						size="small"
-						style="primary"
-					/>
-					<Button
-						className={styles["modal-content-buttons-cancel"]}
+						className={styles["confirm-modal-buttons-cancel"]}
 						label="Cancel"
 						onClick={onCancel}
+						size="small"
+						style="secondary"
+					/>
+					<Button
+						className={styles["confirm-modal-buttons-delete"]}
+						label="Confirm"
+						onClick={onConfirm}
 						size="small"
 						style="primary"
 					/>

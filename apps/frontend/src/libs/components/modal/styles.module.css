@@ -45,9 +45,9 @@
 .small .content {
 	top: 30%;
 	width: 30%;
-	min-width: 450px;
+	min-width: 500px;
 	height: 30%;
-	min-height: 200px;
+	min-height: 222px;
 }
 
 @media screen and (width <= 865px) {
