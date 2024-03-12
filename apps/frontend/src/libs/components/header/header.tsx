@@ -5,15 +5,13 @@ import {
 	PAGES_WITH_SEARCH_BAR,
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import {
-	checkIfPathMatchingPattern,
-	getUnreadDisplayValue,
-} from "~/libs/helpers/helpers.js";
+import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { SearchBar } from "../search-bar/search-bar.js";
-import { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./libs/constants.js";
+import { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./libs/constants/constants.js";
+import { getUnreadDisplayValue } from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
