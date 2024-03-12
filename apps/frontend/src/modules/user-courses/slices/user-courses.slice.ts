@@ -14,6 +14,7 @@ import {
 
 type State = {
 	commonCourses: CourseDto[];
+	commonDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];
 	totalMyCoursesCount: number;
@@ -22,6 +23,7 @@ type State = {
 
 const initialState: State = {
 	commonCourses: [],
+	commonDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
 	totalMyCoursesCount: 0,
@@ -63,13 +65,13 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(loadCommonCourses.fulfilled, (state, action) => {
 			state.commonCourses = action.payload;
-			state.dataStatus = DataStatus.FULFILLED;
+			state.commonDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadCommonCourses.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
+			state.commonDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(loadCommonCourses.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
+			state.commonDataStatus = DataStatus.REJECTED;
 		});
 	},
 	initialState,
