@@ -5,10 +5,14 @@ import {
 	SocketNamespace,
 	type SocketService,
 } from "~/libs/modules/socket/socket.js";
-import { type Service } from "~/libs/types/types.js";
+import { type Service, type ValueOf } from "~/libs/types/types.js";
 
-import { NotificationStatus } from "./libs/enums/enums.js";
+import {
+	type NotificationFilter,
+	NotificationStatus,
+} from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
+import { filterQueryParameterToNotificationType } from "./libs/maps/maps.js";
 import {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
@@ -101,12 +105,17 @@ class NotificationService implements Service {
 
 	public async findAllByReceiverUserId(
 		receiverUserId: number,
+		notificationFilter: ValueOf<typeof NotificationFilter>,
 		search: string,
 	): Promise<AllNotificationsResponseDto> {
+		const notificationType =
+			filterQueryParameterToNotificationType[notificationFilter];
+
 		const userNotifications =
 			await this.notificationRepository.findAllByReceiverUserId(
 				receiverUserId,
 				search,
+				notificationType,
 			);
 
 		return {

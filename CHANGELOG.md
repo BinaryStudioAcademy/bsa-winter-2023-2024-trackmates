@@ -1,5 +1,55 @@
 # Changelog
 
+## [1.61.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.60.0...v1.61.0) (2024-03-12)
+
+
+### Features
+
+* **backend/frontend/shared:** filter notifications by type tm-288 ([#448](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/448)) ([def07b4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/def07b4d89bfdf9b1821214f8b4d8366b020b4e7))
+
+## [1.60.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.59.2...v1.60.0) (2024-03-12)
+
+
+### Features
+
+* **backend/shared:** display the activities after completing the course on the activities page tm-422 ([#461](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/461)) ([5b3f3c7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5b3f3c728d534cfeba97a3c4efb6243cb9e88497))
+
+## [1.59.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.59.1...v1.59.2) (2024-03-11)
+
+
+### Bug Fixes
+
+* **backend:** fixes after testing tm-158 ([#463](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/463)) ([5c71835](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5c718359eff76d9354da7681c69543e063f3e003))
+* **frontend:** add disabling button in each section tm-374 ([#462](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/462)) ([8749e42](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8749e42909aaaf1d0e8b8122d9301e42a834df25))
+
+## [1.59.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.59.0...v1.59.1) (2024-03-11)
+
+
+### Bug Fixes
+
+* **frontend:** Comments from the newly opened comment section are displayed in the previously opened comment sections tm-417 ([#430](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/430)) ([964b915](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/964b915af4d4d5109343d5f07dd31814bb18f96a))
+
+## [1.59.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.58.0...v1.59.0) (2024-03-11)
+
+
+### Features
+
+* **frontend/shared:** add pagination with query tm-307 ([#397](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/397)) ([18620d9](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/18620d9fb05f030748025c69291f7566cb4b6343))
+
+## [1.58.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.57.0...v1.58.0) (2024-03-11)
+
+
+### Features
+
+* **frontend:** update pagination design tm-400 ([#436](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/436)) ([0831b6e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0831b6e7ba15630e0705f66b145204e8392befe7))
+
+## [1.57.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.56.1...v1.57.0) (2024-03-11)
+
+
+### Features
+
+* **backend:** add users own activity tm-420 ([#431](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/431)) ([7f829fd](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7f829fdb6230ab44d7e5e3576164f4981c75c97f))
+
 ## [1.56.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.56.0...v1.56.1) (2024-03-10)
 
 
