@@ -52,7 +52,7 @@
 	transition: 0.1s color ease;
 }
 
-@media screen and (width <= 320px) {
+@media screen and (--medium-screen) {
 	.container {
 		background-color: var(--color-background);
 	}

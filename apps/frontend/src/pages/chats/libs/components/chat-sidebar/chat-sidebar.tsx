@@ -1,6 +1,7 @@
 import { Link } from "~/libs/components/components.js";
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/app-route.enum.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ChatGetAllItemResponseDto } from "~/modules/chats/chats.js";
 
 import { ChatLink } from "../chat-link/chat-link.js";
@@ -9,14 +10,20 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	chats: ChatGetAllItemResponseDto[];
+	className?: string | undefined;
 };
 
-const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
+const ChatSidebar: React.FC<Properties> = ({
+	chats,
+	className,
+}: Properties) => {
 	const hasChats = chats.length > EMPTY_ARRAY_LENGTH;
+
+	const chatsStyles = getValidClassNames(styles["container"], className);
 
 	return (
 		<>
-			<div className={styles["container"]}>
+			<div className={chatsStyles}>
 				<div className={styles["search-container"]}>
 					<ChatSearchBar />
 				</div>

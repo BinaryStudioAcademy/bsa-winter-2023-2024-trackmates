@@ -27,7 +27,7 @@
 	border-radius: 16px;
 }
 
-@media screen and (width <= 320px) {
+@media screen and (--medium-screen) {
 	.container {
 		margin: 15px 0 0;
 	}
@@ -38,14 +38,31 @@
 
 	.chat-container {
 		grid-template-columns: 1fr;
-		border-radius: 0;
-	}
 
-	.current-chat {
-		display: none;
+		/* grid-template-columns: 60px 1fr; */
+		border-radius: 0;
 	}
 
 	.empty-chat {
 		display: none;
 	}
+
+	.chats-page .current-chat {
+		display: none;
+	}
+
+	.chat-page .chat-list {
+		display: none;
+	}
 }
+
+/* @media screen and (--small-screen) {
+
+	.chat-container {
+		grid-template-columns: 1fr;
+	}
+
+	.chat-page .chat-list {
+		display: none;
+	}
+} */

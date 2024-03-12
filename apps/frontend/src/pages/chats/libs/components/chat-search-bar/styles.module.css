@@ -31,7 +31,7 @@
 	}
 }
 
-@media screen and (width <= 320px) {
+@media screen and (--medium-screen) {
 	.form {
 		flex-basis: auto;
 		width: 100%;
