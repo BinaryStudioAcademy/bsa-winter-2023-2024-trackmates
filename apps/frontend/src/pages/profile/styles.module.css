@@ -89,6 +89,12 @@
 	transform: translateY(-50%);
 }
 
+@media screen and (--large-screen) {
+	.profile-character {
+		left: 11%;
+	}
+}
+
 @media screen and (--medium-screen) {
 	.container {
 		padding-right: 24px;
