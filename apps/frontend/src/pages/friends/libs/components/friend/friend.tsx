@@ -44,6 +44,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			.unwrap()
 			.then(() => {
 				setIsFollowing(true);
+				dispatch(actions.removeLocallyUnfollowedFriendId(friend.id));
 			});
 	}, [dispatch, friend.id]);
 
@@ -52,6 +53,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			.unwrap()
 			.then(() => {
 				setIsFollowing(false);
+				dispatch(actions.addLocallyUnfollowedFriendId(friend.id));
 			});
 	}, [dispatch, friend.id]);
 
