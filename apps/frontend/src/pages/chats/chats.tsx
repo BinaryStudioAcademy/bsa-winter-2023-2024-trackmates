@@ -1,5 +1,4 @@
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { AppTitle, DataStatus, EmptyLength } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -48,7 +47,7 @@ const Chats: React.FC = () => {
 
 	const onSubmit = useCallback(
 		(payload: typeof DEFAULT_MESSAGE_PAYLOAD): void => {
-			if (payload.message.trim().length === EMPTY_ARRAY_LENGTH) {
+			if (payload.message.trim().length === EmptyLength.STRING) {
 				return;
 			}
 

@@ -1,4 +1,4 @@
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import { EmptyLength } from "~/libs/enums/enums.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -51,7 +51,7 @@ const NotificationList: React.FC<Properties> = ({
 	);
 
 	useEffect(() => {
-		if (readNotificationIds.size > EMPTY_ARRAY_LENGTH) {
+		if (readNotificationIds.size > EmptyLength.ARRAY) {
 			handleReadNotificationsDebounced();
 
 			return () => {

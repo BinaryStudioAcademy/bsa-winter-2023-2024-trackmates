@@ -4,11 +4,12 @@ import {
 	Loader,
 	Pagination,
 } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
 import {
-	EMPTY_ARRAY_LENGTH,
-	PAGINATION_PAGES_CUT_COUNT,
-} from "~/libs/constants/constants.js";
-import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+	DataStatus,
+	EmptyLength,
+	PaginationValue,
+} from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -62,7 +63,7 @@ const Overview: React.FC = () => {
 		);
 	}, [dispatch, user, page, totalCount]);
 
-	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
+	const hasCourses = courses.length > EmptyLength.ARRAY;
 
 	return (
 		<div className={styles["container"]}>

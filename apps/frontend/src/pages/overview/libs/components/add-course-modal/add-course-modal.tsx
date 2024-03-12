@@ -1,6 +1,5 @@
 import { Courses, Input, Loader, Modal } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { DataStatus, EmptyLength } from "~/libs/enums/enums.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -102,7 +101,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		};
 	}, [handleDebouncedSearchCourses]);
 
-	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
+	const hasCourses = courses.length > EmptyLength.ARRAY;
 
 	const handleClose = useCallback((): void => {
 		dispatch(courseActions.clearCourses());

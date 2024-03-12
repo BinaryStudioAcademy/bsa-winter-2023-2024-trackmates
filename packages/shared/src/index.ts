@@ -1,5 +1,4 @@
 export {
-	EMPTY_ARRAY_LENGTH,
 	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
 	PREVIOUS_INDEX_OFFSET,
@@ -9,6 +8,7 @@ export {
 	AppEnvironment,
 	ContentType,
 	DateValue,
+	EmptyLength,
 	ExceptionMessage,
 	FormatDateType,
 	PaginationValue,

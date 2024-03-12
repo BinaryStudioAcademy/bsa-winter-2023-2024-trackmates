@@ -1,12 +1,11 @@
 import { type Page } from "objection";
 
-import { SortOrder } from "~/libs/enums/enums.js";
+import { EmptyLength, SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import {
 	type PaginationResponseDto,
 	type Repository,
 } from "~/libs/types/types.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
@@ -213,7 +212,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", currentUserId)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", otherUserId);
 
-		return userFollowings.length > EMPTY_ARRAY_LENGTH;
+		return userFollowings.length > EmptyLength.ARRAY;
 	}
 
 	public async getIsSubscribedByRequestId(

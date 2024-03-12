@@ -1,6 +1,5 @@
 import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { AppTitle, DataStatus, EmptyLength } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -30,7 +29,7 @@ const Notifications: React.FC = () => {
 		void dispatch(actions.getUserNotifications());
 	}, [dispatch]);
 
-	const hasNotifications = notifications.length > EMPTY_ARRAY_LENGTH;
+	const hasNotifications = notifications.length > EmptyLength.ARRAY;
 
 	return (
 		<div className={styles["page"]}>

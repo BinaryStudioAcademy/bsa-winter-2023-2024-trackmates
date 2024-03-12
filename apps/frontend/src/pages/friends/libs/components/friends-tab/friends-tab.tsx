@@ -2,7 +2,7 @@ import {
 	EmptyPagePlaceholder,
 	Pagination,
 } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import { EmptyLength } from "~/libs/enums/enums.js";
 import { type usePagination } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -21,7 +21,7 @@ const FriendsTab: React.FC<Properties> = ({
 	pagination,
 }: Properties) => {
 	const { handlePageChange, page, pages, pagesCount } = pagination;
-	const hasPages = items.length > EMPTY_ARRAY_LENGTH;
+	const hasPages = items.length > EmptyLength.ARRAY;
 
 	if (!hasPages) {
 		return <EmptyPagePlaceholder title={emptyPlaceholder} />;
