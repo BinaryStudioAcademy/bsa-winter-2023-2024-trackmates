@@ -79,6 +79,12 @@ const Friends: React.FC = () => {
 						page: potentialFriendsPagination.page,
 					}),
 				);
+				void dispatch(
+					actions.getFollowings({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: followingsPagination.page,
+					}),
+				);
 				break;
 			}
 
@@ -87,6 +93,12 @@ const Friends: React.FC = () => {
 					actions.getFollowers({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: followersPagination.page,
+					}),
+				);
+				void dispatch(
+					actions.getFollowings({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: followingsPagination.page,
 					}),
 				);
 				break;
