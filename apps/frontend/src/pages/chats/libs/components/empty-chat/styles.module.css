@@ -1,9 +1,14 @@
 .container {
 	display: flex;
 	flex-direction: column;
+}
+
+.content-container {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 100%;
 	overflow: hidden;
 }
 
@@ -25,4 +30,9 @@
 	color: var(--color-button);
 	text-decoration: none;
 	transition: 0.1s color ease;
+}
+
+.navigation {
+	height: 69px;
+	background-color: var(--color-menu);
 }

@@ -1,7 +1,7 @@
 {
 	"name": "@trackmates/backend",
 	"type": "module",
-	"version": "1.22.0",
+	"version": "1.30.0",
 	"engines": {
 		"node": "18.x.x",
 		"npm": ">=9.x.x"
@@ -10,7 +10,7 @@
 		"lint:type": "npx tsc --noEmit",
 		"lint:js": "npx eslint . --max-warnings=0",
 		"lint": "concurrently \"npm:lint:*\"",
-		"start:dev": "tsx src/index.ts",
+		"start:dev": "tsx watch src/index.ts",
 		"migrate:dev": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:latest",
 		"migrate:dev:make": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:make -x ts",
 		"migrate:dev:down": "node --loader ts-paths-esm-loader ../../node_modules/knex/bin/cli.js migrate:down",

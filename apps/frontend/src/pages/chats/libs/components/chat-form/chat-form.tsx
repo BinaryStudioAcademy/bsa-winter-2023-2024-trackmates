@@ -32,12 +32,13 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			onSubmit={handleFormSubmit}
 		>
 			<Input
-				className={styles["input"]}
+				className={styles["textarea"]}
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
 				label="Send a message"
 				name="message"
+				rows={1}
 			/>
 			<Button
 				className={styles["icon"]}

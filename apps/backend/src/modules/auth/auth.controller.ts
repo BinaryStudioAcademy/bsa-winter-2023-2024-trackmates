@@ -34,6 +34,11 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *            format: email
  *          firstName:
  *            type: string
+ *          groups:
+ *            type: array
+ *            items:
+ *              type: object
+ *              $ref: "#/components/schemas/Group"
  *          id:
  *            type: number
  *            minimum: 1

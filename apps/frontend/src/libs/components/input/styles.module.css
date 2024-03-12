@@ -13,6 +13,10 @@
 
 .input {
 	max-height: 37px;
+}
+
+.input,
+.textarea {
 	padding: 12px;
 	font-family: inherit;
 	font-weight: 500;
@@ -22,10 +26,18 @@
 	outline: none;
 }
 
-.input::placeholder {
+.input::placeholder,
+.textarea::placeholder {
 	font-weight: 400;
 	color: var(--color-menu);
 	opacity: 0.6;
+}
+
+.textarea {
+	box-sizing: content-box;
+	overflow: hidden;
+	line-height: 20px;
+	resize: none;
 }
 
 .dark {

@@ -44,9 +44,11 @@ const App: React.FC = () => {
 	useEffect(() => {
 		if (user) {
 			void dispatch(chatActions.joinRoom(String(user.id)));
+			void dispatch(userNotificationsActions.joinRoom(String(user.id)));
 
 			return () => {
 				void dispatch(chatActions.leaveRoom(String(user.id)));
+				void dispatch(userNotificationsActions.leaveRoom(String(user.id)));
 			};
 		}
 	}, [dispatch, user]);

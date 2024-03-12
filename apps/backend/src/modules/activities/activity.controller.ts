@@ -6,6 +6,10 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import {
+	type ActivityLikeRequestDto,
+	activityLikeChangeValidationSchema,
+} from "~/modules/activity-likes/activity-likes.js";
 import { type SectionStatusService } from "~/modules/section-statuses/section-statuses.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
@@ -105,6 +109,62 @@ class ActivityController extends BaseController {
 				params: activityActionIdParameterValidationSchema,
 			},
 		});
+		this.addRoute({
+			handler: (options) => {
+				return this.changeReaction(
+					options as APIHandlerOptions<{
+						body: ActivityLikeRequestDto;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "PATCH",
+			path: ActivitiesApiPath.LIKE,
+			validation: {
+				body: activityLikeChangeValidationSchema,
+			},
+		});
+	}
+
+	/**
+	 * @swagger
+	 * /activities/like:
+	 *    patch:
+	 *      description: Set like reaction for a specific activity
+	 *      tags:
+	 *        - Activities
+	 *      security:
+	 *        - bearerAuth: []
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                activityId:
+	 *                  type: number
+	 *                  minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Activity"
+	 */
+	private async changeReaction({
+		body,
+		user,
+	}: APIHandlerOptions<{
+		body: ActivityLikeRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.activityService.changeLike(body.activityId, user.id),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
