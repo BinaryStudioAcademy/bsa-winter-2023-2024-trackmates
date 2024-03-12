@@ -8,36 +8,34 @@ const NotificationType = {
 	NEW_LIKE: "new-like",
 } as const;
 
+const NOTIFICATION_TYPE_LIST = Object.values(NotificationType)
+	.map((type) => {
+		return `'${type}'`;
+	})
+	.join(", ");
+
 const COLUMN_NAME = "type";
 
 const CHECK_NAME = "notifications_type_check";
 
 async function up(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TABLE_NAME, (table) => {
-		table.dropChecks(CHECK_NAME);
-	});
+	await knex.schema.raw(
+		`ALTER TABLE ${TABLE_NAME} DROP CONSTRAINT IF EXISTS ${CHECK_NAME}`,
+	);
 
-	await knex.schema.alterTable(TABLE_NAME, (table) => {
-		table
-			.string(COLUMN_NAME)
-			.checkIn(Object.values(NotificationType), CHECK_NAME)
-			.notNullable()
-			.alter();
-	});
+	await knex.schema.raw(
+		`ALTER TABLE ${TABLE_NAME} ADD CONSTRAINT ${CHECK_NAME} CHECK (${COLUMN_NAME} = ANY (ARRAY[${NOTIFICATION_TYPE_LIST}]))`,
+	);
 }
 
 async function down(knex: Knex): Promise<void> {
-	await knex.schema.alterTable(TABLE_NAME, (table) => {
-		table.dropChecks(CHECK_NAME);
-	});
+	await knex.schema.raw(
+		`ALTER TABLE ${TABLE_NAME} DROP CONSTRAINT IF EXISTS ${CHECK_NAME}`,
+	);
 
-	await knex.schema.alterTable(TABLE_NAME, (table) => {
-		table
-			.string(COLUMN_NAME)
-			.checkIn([NotificationType.NEW_FOLLOWER], CHECK_NAME)
-			.notNullable()
-			.alter();
-	});
+	await knex.schema.raw(
+		`ALTER TABLE ${TABLE_NAME} ADD CONSTRAINT ${CHECK_NAME} CHECK (${COLUMN_NAME} = '${NotificationType.NEW_FOLLOWER}')`,
+	);
 }
 
 export { down, up };
