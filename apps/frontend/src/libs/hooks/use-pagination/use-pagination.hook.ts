@@ -24,7 +24,7 @@ const usePagination: UsePagination = ({
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
 	const isPageInteger =
-		typeof pageFromQuery !== "bigint" && Number.isInteger(pageFromQuery);
+		Number.isInteger(pageFromQuery);
 	const isPageValid =
 		isPageInteger && pageFromQuery > PaginationValue.PAGE_NOT_EXISTS;
 	const validPage = isPageValid ? pageFromQuery : PaginationValue.DEFAULT_PAGE;
