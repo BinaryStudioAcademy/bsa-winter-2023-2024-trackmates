@@ -37,6 +37,7 @@ const User: React.FC = () => {
 	const { id } = useParams();
 	const userId = Number(id);
 	const {
+		commonCourses,
 		courses,
 		currentUserId,
 		isCoursesLoading,
@@ -46,6 +47,7 @@ const User: React.FC = () => {
 		totalCount,
 	} = useAppSelector((state) => {
 		return {
+			commonCourses: state.userCourses.commonCourses,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
@@ -86,6 +88,7 @@ const User: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
+		void dispatch(userCoursesActions.loadCommonCourses(userId));
 		void dispatch(friendsActions.getIsFollowing(userId));
 	}, [dispatch, userId]);
 
@@ -101,6 +104,7 @@ const User: React.FC = () => {
 	}, [dispatch, userId, page]);
 
 	const hasUser = Boolean(profileUser);
+	const hasCommonCourses = commonCourses.length > EMPTY_ARRAY_LENGTH;
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
@@ -170,6 +174,12 @@ const User: React.FC = () => {
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}
+					</>
+				)}
+				{hasCommonCourses && (
+					<>
+						<h2 className={styles["courses-title"]}>Common courses</h2>
+						<Courses courses={commonCourses} userId={userId} />
 					</>
 				)}
 			</div>
