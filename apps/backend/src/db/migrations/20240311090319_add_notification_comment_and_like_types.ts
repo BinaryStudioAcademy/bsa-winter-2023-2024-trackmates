@@ -8,7 +8,7 @@ const NotificationType = {
 	NEW_LIKE: "new-like",
 } as const;
 
-const NOTIFICATION_TYPE_LIST = Object.values(NotificationType)
+const NOTIFICATION_TYPES = Object.values(NotificationType)
 	.map((type) => {
 		return `'${type}'`;
 	})
@@ -24,7 +24,7 @@ async function up(knex: Knex): Promise<void> {
 	);
 
 	await knex.schema.raw(
-		`ALTER TABLE ${TABLE_NAME} ADD CONSTRAINT ${CHECK_NAME} CHECK (${COLUMN_NAME} = ANY (ARRAY[${NOTIFICATION_TYPE_LIST}]))`,
+		`ALTER TABLE ${TABLE_NAME} ADD CONSTRAINT ${CHECK_NAME} CHECK (${COLUMN_NAME} = ANY (ARRAY[${NOTIFICATION_TYPES}]))`,
 	);
 }
 
