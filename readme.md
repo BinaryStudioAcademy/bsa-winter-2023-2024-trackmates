@@ -195,6 +195,8 @@ erDiagram
 
    users ||--|{ notifications : receiver_user_id
    users ||--|{ notifications : user_id
+
+   notifications ||--|{ activity_likes : notification_id
 ```
 
 ## 5. Architecture
