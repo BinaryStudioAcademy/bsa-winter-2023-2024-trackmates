@@ -9,7 +9,6 @@ const NotificationType = {
 } as const;
 
 const NOTIFICATION_TYPES = Object.values(NotificationType)
-
 	.map((type) => {
 		return `'${type}'`;
 	})
