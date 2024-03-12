@@ -26,7 +26,7 @@ const getUnreadNotificationCount = createAsyncThunk<
 	number,
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/get-unread-notification-counter`, (_, { extra }) => {
+>(`${sliceName}/get-unread-notification-count`, (_, { extra }) => {
 	const { userNotificationsApi } = extra;
 
 	return userNotificationsApi.getUnreadNotificationCount();

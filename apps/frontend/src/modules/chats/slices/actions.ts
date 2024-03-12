@@ -127,7 +127,7 @@ const getUnreadMessageCount = createAsyncThunk<
 	number,
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/get-unread-message-counter`, (_, { extra }) => {
+>(`${sliceName}/get-unread-message-count`, (_, { extra }) => {
 	const { chatsApi } = extra;
 
 	return chatsApi.getUnreadMessageCount();
