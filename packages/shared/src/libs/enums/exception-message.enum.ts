@@ -1,4 +1,5 @@
 const ExceptionMessage = {
+	ACTIVITY_NOT_FOUND: "Activity not found.",
 	CHAT_NOT_FOUND: "Chat not found.",
 	COMMENT_NOT_FOUND: "Comment not found.",
 	COURSE_NOT_FOUND: "Course not found.",
