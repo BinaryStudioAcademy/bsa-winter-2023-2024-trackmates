@@ -38,11 +38,11 @@
 
 	.chat-container {
 		grid-template-columns: 1fr;
+		border-radius: 0;
 	}
 
 	.chat-page .chat-container {
 		grid-template-columns: 70px 1fr;
-		border-radius: 0;
 	}
 
 	.empty-chat {
