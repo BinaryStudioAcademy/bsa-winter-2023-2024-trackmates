@@ -1,1 +1,4 @@
-export { readNotificationsRequestValidationSchema } from "@trackmates/shared";
+export {
+	readNotificationsRequestValidationSchema,
+	userNotificationQueryParametersValidationSchema,
+} from "@trackmates/shared";

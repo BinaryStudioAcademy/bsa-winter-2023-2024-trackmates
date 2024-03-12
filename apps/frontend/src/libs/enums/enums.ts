@@ -9,6 +9,7 @@ export {
 	ExceptionMessage,
 	FormatDateType,
 	MessageStatus,
+	NotificationFilter,
 	NotificationStatus,
 	PaginationValue,
 	ServerErrorType,

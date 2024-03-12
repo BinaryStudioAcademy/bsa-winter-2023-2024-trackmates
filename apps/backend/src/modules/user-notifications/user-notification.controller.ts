@@ -9,9 +9,18 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type NotificationService } from "~/modules/notifications/notifications.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { UserNotificationsApiPath } from "./libs/enums/enums.js";
-import { type ReadNotificationsRequestDto } from "./libs/types/types.js";
-import { readNotificationsRequestValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	NotificationFilter,
+	UserNotificationsApiPath,
+} from "./libs/enums/enums.js";
+import {
+	type NotificationFilterRequestDto,
+	type ReadNotificationsRequestDto,
+} from "./libs/types/types.js";
+import {
+	readNotificationsRequestValidationSchema,
+	userNotificationQueryParametersValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -60,13 +69,16 @@ class UserNotificationController extends BaseController {
 			handler: (options) => {
 				return this.getNotificationsByUserId(
 					options as APIHandlerOptions<{
-						query: { search: string };
+						query: NotificationFilterRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
 			path: UserNotificationsApiPath.ROOT,
+			validation: {
+				query: userNotificationQueryParametersValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -107,6 +119,12 @@ class UserNotificationController extends BaseController {
 	 *        - name: search
 	 *          in: query
 	 *          type: string
+	 *        - name: type
+	 *          in: query
+	 *          description: The type of notification
+	 *          schema:
+	 *            type: string
+	 *            enum: [all, comments, followers, likes]
 	 *      description: Returns all user notifications
 	 *      responses:
 	 *        200:
@@ -124,13 +142,14 @@ class UserNotificationController extends BaseController {
 	 */
 	public async getNotificationsByUserId(
 		options: APIHandlerOptions<{
-			query: { search?: string };
+			query: NotificationFilterRequestDto;
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.findAllByReceiverUserId(
 				options.user.id,
+				options.query.type ?? NotificationFilter.ALL,
 				options.query.search ?? "",
 			),
 			status: HTTPCode.OK,
