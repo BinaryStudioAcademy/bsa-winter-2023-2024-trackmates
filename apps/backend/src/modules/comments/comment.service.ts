@@ -60,11 +60,13 @@ class CommentService implements Service {
 			}),
 		);
 
-		void this.notificationService.create({
-			receiverUserId: activity.user.id,
-			type: NotificationType.NEW_COMMENT,
-			userId: payload.userId,
-		});
+		if (activity.user.id !== payload.userId) {
+			void this.notificationService.create({
+				receiverUserId: activity.user.id,
+				type: NotificationType.NEW_COMMENT,
+				userId: payload.userId,
+			});
+		}
 
 		return comment.toObjectWithRelations();
 	}
