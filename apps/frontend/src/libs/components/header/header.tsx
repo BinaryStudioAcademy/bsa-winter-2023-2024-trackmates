@@ -1,7 +1,7 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Link } from "~/libs/components/components.js";
 import {
-	EMPTY_ARRAY_LENGTH,
+	EMPTY_LENGTH,
 	PAGES_WITH_SEARCH_BAR,
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
@@ -41,8 +41,8 @@ const Header: React.FC = () => {
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
 
-	const hasUnreadMessages = unreadMessageCount > EMPTY_ARRAY_LENGTH;
-	const hasUnreadNotifications = unreadNotificationCount > EMPTY_ARRAY_LENGTH;
+	const hasUnreadMessages = unreadMessageCount > EMPTY_LENGTH;
+	const hasUnreadNotifications = unreadNotificationCount > EMPTY_LENGTH;
 
 	return (
 		<header className={styles["header"]}>

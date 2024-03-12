@@ -1,9 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Loader } from "~/libs/components/components.js";
-import {
-	EMPTY_ARRAY_LENGTH,
-	LAST_ARRAY_ITEM,
-} from "~/libs/constants/constants.js";
+import { EMPTY_LENGTH, LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
@@ -74,7 +71,7 @@ const Chat: React.FC<Properties> = ({
 	);
 
 	useEffect(() => {
-		if (readChatMessageIds.size > EMPTY_ARRAY_LENGTH) {
+		if (readChatMessageIds.size > EMPTY_LENGTH) {
 			handleReadChatMessagesDebounced();
 
 			return () => {

@@ -15,6 +15,7 @@ import { Auth } from "~/pages/auth/auth.jsx";
 
 import { Chats } from "./pages/chats/chats.js";
 import { CourseDescription } from "./pages/course-description/course-description.js";
+import { CourseProgressComparison } from "./pages/course-progress-comparison/course-progress-comparison.js";
 import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
 import { NotFound } from "./pages/not-found/not-found.js";
@@ -78,6 +79,12 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							{
 								element: <ProtectedRoute component={<CourseDescription />} />,
 								path: AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
+							},
+							{
+								element: (
+									<ProtectedRoute component={<CourseProgressComparison />} />
+								),
+								path: AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE,
 							},
 							{
 								element: <ProtectedRoute component={<User />} />,
