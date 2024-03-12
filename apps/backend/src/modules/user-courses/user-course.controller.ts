@@ -228,7 +228,7 @@ class UserCourseController extends BaseController {
 				currentUserId: user.id,
 				userId: Number(userId),
 			}),
-			status: HTTPCode.CREATED,
+			status: HTTPCode.OK,
 		};
 	}
 }
