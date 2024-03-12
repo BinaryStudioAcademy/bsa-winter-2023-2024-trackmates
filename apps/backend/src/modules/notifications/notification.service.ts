@@ -79,6 +79,15 @@ class NotificationService implements Service {
 			});
 		}
 
+		const notificationObject = notification.toObject();
+
+		this.socketService.emitMessage({
+			event: SocketEvent.NEW_NOTIFICATION,
+			payload: notification,
+			receiversIds: [String(notificationObject.receiverUserId)],
+			targetNamespace: SocketNamespace.NOTIFICATIONS,
+		});
+
 		return await this.notificationRepository.delete(notificationId);
 	}
 

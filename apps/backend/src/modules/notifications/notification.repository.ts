@@ -1,5 +1,6 @@
 import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
 import { RelationName, SortOrder } from "~/libs/enums/enums.js";
+import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/users.js";
 
@@ -37,6 +38,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		const unreadNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId: userId })
+			.andWhereNot(`${DatabaseTableName.NOTIFICATIONS}.userId`, userId)
 			.andWhere({ status: NotificationStatus.UNREAD });
 
 		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
@@ -145,6 +147,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		const userNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId })
+			.andWhereNot(`${DatabaseTableName.NOTIFICATIONS}.userId`, receiverUserId)
 			.andWhere((builder) => {
 				if (type) {
 					void builder.andWhere({ type });
