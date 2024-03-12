@@ -7,6 +7,7 @@ import { type usePagination } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { FriendList } from "../components.js";
+import styles from "./styles.module.css";
 
 type Properties = {
 	emptyPlaceholder: string;
@@ -27,7 +28,7 @@ const FriendsTab: React.FC<Properties> = ({
 	}
 
 	return (
-		<>
+		<div className={styles["friends-tab"]}>
 			<FriendList friends={items} />
 			<Pagination
 				currentPage={page}
@@ -35,7 +36,7 @@ const FriendsTab: React.FC<Properties> = ({
 				pages={pages}
 				pagesCount={pagesCount}
 			/>
-		</>
+		</div>
 	);
 };
 

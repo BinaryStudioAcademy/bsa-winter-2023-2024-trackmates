@@ -19,16 +19,14 @@ type Properties = {
 
 const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { comments, isLoadingComments, isLoadingCreateComment } =
-		useAppSelector((state) => {
-			return {
-				comments: state.activities.activityComments,
-				isLoadingComments:
-					state.activities.getActivityCommentsDataStatus === DataStatus.PENDING,
-				isLoadingCreateComment:
-					state.activities.createCommentDataStatus === DataStatus.PENDING,
-			};
-		});
+	const { comments, isLoadingComments } = useAppSelector((state) => {
+		return {
+			comments: state.activities.commentsByActivity[activityId] ?? [],
+			isLoadingComments:
+				state.activities.commentsDataStatuses[activityId] ===
+				DataStatus.PENDING,
+		};
+	});
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
@@ -58,7 +56,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				</div>
 			)}
 			<ActivityCommentForm
-				isLoading={isLoadingCreateComment}
+				isLoading={isLoadingComments}
 				onSubmit={handleCreateComment}
 			/>
 		</div>

@@ -74,7 +74,7 @@ const Overview: React.FC = () => {
 				) : (
 					<>
 						{hasCourses ? (
-							<>
+							<div className={styles["courses-container-content"]}>
 								<Courses courses={courses} userId={user.id} />
 								<Pagination
 									currentPage={page}
@@ -82,7 +82,7 @@ const Overview: React.FC = () => {
 									pages={pages}
 									pagesCount={pagesCount}
 								/>
-							</>
+							</div>
 						) : (
 							<EmptyPagePlaceholder title="You haven't added any courses yet" />
 						)}
