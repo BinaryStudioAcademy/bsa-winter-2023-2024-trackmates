@@ -1,5 +1,3 @@
-import { Fragment } from "react";
-
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image, Link } from "~/libs/components/components.js";
 import { APIPath, type AppRoute } from "~/libs/enums/enums.js";
@@ -12,7 +10,6 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
 import { NotificationStatus } from "../../enums/enums.js";
-import { splitOnWord } from "../../helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -36,8 +33,6 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const date = getTimeDistanceFormatDate(notification.createdAt);
 
-	const fullName = `${notification.userFirstName} ${notification.userLastName}`;
-
 	return (
 		<li
 			className={getValidClassNames(
@@ -59,17 +54,7 @@ const NotificationListItem: React.FC<Properties> = ({
 			</Link>
 			<div className={styles["text-content"]}>
 				<div className={styles["notification-title"]}>
-					{splitOnWord(notification.message, fullName).map(
-						(messagePart, index) => {
-							return messagePart.toLowerCase() === fullName.toLowerCase() ? (
-								<span className={styles["full-name"]} key={index}>
-									{messagePart}
-								</span>
-							) : (
-								<Fragment key={index}>{messagePart}</Fragment>
-							);
-						},
-					)}
+					{notification.message}
 				</div>
 				<span className={styles["notification-date"]}>{date}</span>
 			</div>
