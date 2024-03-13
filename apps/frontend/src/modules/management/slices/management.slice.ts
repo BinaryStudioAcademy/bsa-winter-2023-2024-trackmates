@@ -16,6 +16,8 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
+	currentGroup: GroupResponseDto | null;
+	currentUser: UserAuthResponseDto | null;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
@@ -25,6 +27,8 @@ type State = {
 };
 
 const initialState: State = {
+	currentGroup: null,
+	currentUser: null,
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
@@ -33,7 +37,7 @@ const initialState: State = {
 	usersDataStatus: DataStatus.IDLE,
 };
 
-const { reducer } = createSlice({
+const { actions, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(
 			permissionsActions.getAllPermissions.fulfilled,
@@ -48,8 +52,9 @@ const { reducer } = createSlice({
 		builder.addCase(permissionsActions.getAllPermissions.rejected, (state) => {
 			state.permissionsDataStatus = DataStatus.REJECTED;
 		});
+
 		builder.addCase(groupsActions.getAllGroups.fulfilled, (state, action) => {
-			state.groups = action.payload.items;
+			state.groups = action.payload;
 			state.groupsDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(groupsActions.getAllGroups.pending, (state) => {
@@ -58,8 +63,59 @@ const { reducer } = createSlice({
 		builder.addCase(groupsActions.getAllGroups.rejected, (state) => {
 			state.groupsDataStatus = DataStatus.REJECTED;
 		});
+
+		builder.addCase(groupsActions.createGroup.fulfilled, (state, action) => {
+			state.groups = action.payload;
+			state.groupsDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(groupsActions.createGroup.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.createGroup.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(
+			groupsActions.updateGroupPermissions.fulfilled,
+			(state, action) => {
+				state.currentGroup = action.payload.updatedCurrentGroup;
+				state.groups = action.payload.updatedGroups;
+			},
+		);
+		builder.addCase(groupsActions.updateGroupPermissions.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.updateGroupPermissions.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(
+			groupsActions.updateUserGroups.fulfilled,
+			(state, action) => {
+				state.currentUser = action.payload.updatedCurrentUser;
+				state.users = action.payload.updatedUsers;
+			},
+		);
+		builder.addCase(groupsActions.updateUserGroups.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.updateUserGroups.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(groupsActions.deleteGroup.fulfilled, (state, action) => {
+			state.groups = action.payload;
+			state.groupsDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(groupsActions.deleteGroup.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.deleteGroup.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
 		builder.addCase(usersActions.getAll.fulfilled, (state, action) => {
-			state.users = action.payload.items;
+			state.users = action.payload;
 			state.usersDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(usersActions.getAll.pending, (state) => {
@@ -71,7 +127,14 @@ const { reducer } = createSlice({
 	},
 	initialState,
 	name: "management",
-	reducers: {},
+	reducers: {
+		setCurrentGroup(state, action) {
+			state.currentGroup = action.payload as GroupResponseDto;
+		},
+		setCurrentUser(state, action) {
+			state.currentUser = action.payload as UserAuthResponseDto;
+		},
+	},
 });
 
-export { reducer };
+export { actions, reducer };
