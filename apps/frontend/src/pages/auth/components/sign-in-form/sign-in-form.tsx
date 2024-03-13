@@ -40,7 +40,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	useAppTitle(AppTitle.SIGN_IN);
 
 	return (
-		<form className={styles["form"]} noValidate onSubmit={handleFormSubmit}>
+		<form className={styles["form"]} onSubmit={handleFormSubmit}>
 			<div>
 				<h2 className={styles["title"]}>Log In</h2>
 				<p className={styles["subtitle"]}>
@@ -57,7 +57,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				label="Email"
 				name="email"
 				placeholder="email@example.com"
-				type="email"
+				type="text"
 			/>
 			<div className={styles["password-input"]}>
 				<Input

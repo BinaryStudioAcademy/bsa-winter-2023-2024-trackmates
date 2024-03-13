@@ -40,7 +40,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	useAppTitle(AppTitle.SIGN_UP);
 
 	return (
-		<form className={styles["form"]} noValidate onSubmit={handleFormSubmit}>
+		<form className={styles["form"]} onSubmit={handleFormSubmit}>
 			<div>
 				<h2 className={styles["title"]}>Create an account</h2>
 				<p className={styles["subtitle"]}>
@@ -76,7 +76,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				label="Email"
 				name="email"
 				placeholder="email@example.com"
-				type="email"
+				type="text"
 			/>
 			<div className={styles["password-input"]}>
 				<Input
