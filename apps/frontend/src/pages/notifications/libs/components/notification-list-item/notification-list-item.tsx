@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image, Link } from "~/libs/components/components.js";
 import { APIPath, type AppRoute } from "~/libs/enums/enums.js";
@@ -33,6 +35,8 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const date = getTimeDistanceFormatDate(notification.createdAt);
 
+	const fullName = `${notification.userFirstName} ${notification.userLastName}`;
+
 	return (
 		<li
 			className={getValidClassNames(
@@ -52,11 +56,21 @@ const NotificationListItem: React.FC<Properties> = ({
 					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
 			</Link>
-			<div>
+			<div className={styles["text-content"]}>
 				<div className={styles["notification-title"]}>
-					<span>{notification.message}</span>
+					{notification.message
+						.split(new RegExp(`(${fullName})`, "gi"))
+						.map((part, index) =>
+							part.toLowerCase() === fullName.toLowerCase() ? (
+								<span className={styles["full-name"]} key={index}>
+									{part}
+								</span>
+							) : (
+								<Fragment key={index}>{part}</Fragment>
+							),
+						)}
 				</div>
-				<span className={styles["notification-subtitle"]}>{date}</span>
+				<span className={styles["notification-date"]}>{date}</span>
 			</div>
 		</li>
 	);

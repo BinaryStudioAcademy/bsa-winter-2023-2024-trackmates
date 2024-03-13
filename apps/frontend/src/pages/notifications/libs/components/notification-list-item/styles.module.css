@@ -1,11 +1,11 @@
 .notification {
 	position: relative;
 	display: flex;
-	gap: 10px;
+	gap: 24px;
 	align-items: center;
-	padding: 15px 20px;
+	padding: 10px 20px 10px 12px;
 	color: var(--color-text-200);
-	background-color: var(--main-white);
+	background-color: var(--color-background);
 	border-radius: 12px;
 }
 
@@ -21,10 +21,10 @@
 }
 
 .notification-source-user-avatar {
-	width: 50px;
-	height: 50px;
+	width: 54px;
+	height: 54px;
 	overflow: hidden;
-	border-radius: 50%;
+	border-radius: 10px;
 }
 
 .notification-title {
@@ -32,10 +32,26 @@
 	flex-wrap: wrap;
 	column-gap: 5px;
 	margin: 0;
-	font-size: var(--font-size-300);
+	font-size: var(--font-size-200);
 }
 
-.notification-subtitle {
-	margin: 0;
-	font-size: var(--font-size-200);
+.notification-date {
+	margin-left: auto;
+	font-size: var(--font-size-50);
+}
+
+.notification-title,
+.notification-date {
+	line-height: 1;
+}
+
+.full-name {
+	font-weight: 700;
+	color: var(--color-text-300);
+}
+
+.text-content {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
 }
