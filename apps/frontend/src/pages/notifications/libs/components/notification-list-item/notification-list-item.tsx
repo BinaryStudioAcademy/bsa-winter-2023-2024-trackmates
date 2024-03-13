@@ -12,6 +12,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
 import { NotificationStatus } from "../../enums/enums.js";
+import { splitOnWord } from "../../helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -58,17 +59,17 @@ const NotificationListItem: React.FC<Properties> = ({
 			</Link>
 			<div className={styles["text-content"]}>
 				<div className={styles["notification-title"]}>
-					{notification.message
-						.split(new RegExp(`(${fullName})`, "gi"))
-						.map((part, index) =>
-							part.toLowerCase() === fullName.toLowerCase() ? (
+					{splitOnWord(notification.message, fullName).map(
+						(messagePart, index) => {
+							return messagePart.toLowerCase() === fullName.toLowerCase() ? (
 								<span className={styles["full-name"]} key={index}>
-									{part}
+									{messagePart}
 								</span>
 							) : (
-								<Fragment key={index}>{part}</Fragment>
-							),
-						)}
+								<Fragment key={index}>{messagePart}</Fragment>
+							);
+						},
+					)}
 				</div>
 				<span className={styles["notification-date"]}>{date}</span>
 			</div>
