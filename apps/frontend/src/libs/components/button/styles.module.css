@@ -9,6 +9,7 @@
 	text-decoration: none;
 	cursor: pointer;
 	border: 1px solid;
+	transition: 0.3s ease;
 }
 
 .regular {

@@ -21,6 +21,7 @@
 	background-color: var(--main-white);
 	border: 1px solid transparent;
 	border-radius: 12px;
+	transition: 0.3s ease;
 }
 
 .card:hover {
