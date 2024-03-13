@@ -52,25 +52,6 @@ class GroupsApi extends BaseHTTPApi {
 		return await response.json<boolean>();
 	}
 
-	public async editGroup(
-		groupId: number,
-		payload: GroupRequestDto,
-	): Promise<GroupResponseDto> {
-		const response = await this.load(
-			this.getFullEndpoint(GroupsApiPath.$GROUP_ID, {
-				groupId: String(groupId),
-			}),
-			{
-				contentType: ContentType.JSON,
-				hasAuth: true,
-				method: "PATCH",
-				payload: JSON.stringify(payload),
-			},
-		);
-
-		return await response.json<GroupResponseDto>();
-	}
-
 	public async getAllGroups(): Promise<AllGroupsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.ROOT, {}),

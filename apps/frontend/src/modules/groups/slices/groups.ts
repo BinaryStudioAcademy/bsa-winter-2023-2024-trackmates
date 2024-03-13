@@ -1,7 +1,6 @@
 import {
 	createGroup,
 	deleteGroup,
-	editGroup,
 	getAllGroups,
 	updateGroupPermissions,
 	updateUserGroups,
@@ -10,7 +9,6 @@ import {
 const allActions = {
 	createGroup,
 	deleteGroup,
-	editGroup,
 	getAllGroups,
 	updateGroupPermissions,
 	updateUserGroups,

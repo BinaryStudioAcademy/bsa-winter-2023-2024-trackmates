@@ -45,16 +45,6 @@ const deleteGroup = createAsyncThunk<
 	return groups;
 });
 
-const editGroup = createAsyncThunk<
-	GroupResponseDto,
-	{ editPayload: GroupRequestDto; groupId: number },
-	AsyncThunkConfig
->(`${sliceName}/edit-group`, ({ editPayload, groupId }, { extra }) => {
-	const { groupsApi } = extra;
-
-	return groupsApi.editGroup(groupId, editPayload);
-});
-
 const getAllGroups = createAsyncThunk<
 	GroupResponseDto[],
 	undefined,
@@ -68,10 +58,7 @@ const getAllGroups = createAsyncThunk<
 });
 
 const updateGroupPermissions = createAsyncThunk<
-	{
-		updatedCurrentGroup: GroupResponseDto | null;
-		updatedGroups: GroupResponseDto[];
-	},
+	GroupResponseDto[],
 	{ groupId: number; permissionId: number },
 	AsyncThunkConfig
 >(
@@ -79,7 +66,7 @@ const updateGroupPermissions = createAsyncThunk<
 	async ({ groupId, permissionId }, { extra, getState }) => {
 		const { groupsApi } = extra;
 		const {
-			management: { currentGroup, groups },
+			management: { groups },
 		} = getState();
 
 		const permissionList = await groupsApi.updateGroupPermissions(
@@ -87,14 +74,7 @@ const updateGroupPermissions = createAsyncThunk<
 			permissionId,
 		);
 
-		const updatedCurrentGroup = currentGroup
-			? {
-					...currentGroup,
-					permissions: permissionList.items,
-				}
-			: null;
-
-		const updatedGroups = groups.map((group) => {
+		return groups.map((group) => {
 			return group.id === groupId
 				? {
 						...group,
@@ -102,19 +82,11 @@ const updateGroupPermissions = createAsyncThunk<
 					}
 				: group;
 		});
-
-		return {
-			updatedCurrentGroup,
-			updatedGroups,
-		};
 	},
 );
 
 const updateUserGroups = createAsyncThunk<
-	{
-		updatedCurrentUser: UserAuthResponseDto | null;
-		updatedUsers: UserAuthResponseDto[];
-	},
+	UserAuthResponseDto[],
 	{ groupId: number; userId: number },
 	AsyncThunkConfig
 >(
@@ -122,19 +94,12 @@ const updateUserGroups = createAsyncThunk<
 	async ({ groupId, userId }, { extra, getState }) => {
 		const { groupsApi } = extra;
 		const {
-			management: { currentUser, users },
+			management: { users },
 		} = getState();
 
 		const groupsList = await groupsApi.updateUserGroups(groupId, userId);
 
-		const updatedCurrentUser = currentUser
-			? {
-					...currentUser,
-					groups: groupsList.items,
-				}
-			: null;
-
-		const updatedUsers = users.map((user) => {
+		return users.map((user) => {
 			return user.id === userId
 				? {
 						...user,
@@ -142,18 +107,12 @@ const updateUserGroups = createAsyncThunk<
 					}
 				: user;
 		});
-
-		return {
-			updatedCurrentUser,
-			updatedUsers,
-		};
 	},
 );
 
 export {
 	createGroup,
 	deleteGroup,
-	editGroup,
 	getAllGroups,
 	updateGroupPermissions,
 	updateUserGroups,

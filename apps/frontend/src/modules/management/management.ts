@@ -1,1 +1,1 @@
-export { actions, reducer } from "./slices/management.js";
+export { reducer } from "./slices/management.js";

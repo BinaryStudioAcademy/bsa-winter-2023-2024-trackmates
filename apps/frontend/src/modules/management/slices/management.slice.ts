@@ -16,8 +16,6 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
-	currentGroup: GroupResponseDto | null;
-	currentUser: UserAuthResponseDto | null;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
@@ -27,8 +25,6 @@ type State = {
 };
 
 const initialState: State = {
-	currentGroup: null,
-	currentUser: null,
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
@@ -37,7 +33,7 @@ const initialState: State = {
 	usersDataStatus: DataStatus.IDLE,
 };
 
-const { actions, reducer } = createSlice({
+const { reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(
 			permissionsActions.getAllPermissions.fulfilled,
@@ -78,8 +74,7 @@ const { actions, reducer } = createSlice({
 		builder.addCase(
 			groupsActions.updateGroupPermissions.fulfilled,
 			(state, action) => {
-				state.currentGroup = action.payload.updatedCurrentGroup;
-				state.groups = action.payload.updatedGroups;
+				state.groups = action.payload;
 			},
 		);
 		builder.addCase(groupsActions.updateGroupPermissions.pending, (state) => {
@@ -92,8 +87,7 @@ const { actions, reducer } = createSlice({
 		builder.addCase(
 			groupsActions.updateUserGroups.fulfilled,
 			(state, action) => {
-				state.currentUser = action.payload.updatedCurrentUser;
-				state.users = action.payload.updatedUsers;
+				state.users = action.payload;
 			},
 		);
 		builder.addCase(groupsActions.updateUserGroups.pending, (state) => {
@@ -127,14 +121,7 @@ const { actions, reducer } = createSlice({
 	},
 	initialState,
 	name: "management",
-	reducers: {
-		setCurrentGroup(state, action) {
-			state.currentGroup = action.payload as GroupResponseDto;
-		},
-		setCurrentUser(state, action) {
-			state.currentUser = action.payload as UserAuthResponseDto;
-		},
-	},
+	reducers: {},
 });
 
-export { actions, reducer };
+export { reducer };
