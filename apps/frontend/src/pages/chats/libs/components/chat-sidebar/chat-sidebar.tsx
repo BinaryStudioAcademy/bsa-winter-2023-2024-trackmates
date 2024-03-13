@@ -1,6 +1,7 @@
 import { Link } from "~/libs/components/components.js";
 import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ChatGetAllItemResponseDto } from "~/modules/chats/chats.js";
 
 import { ChatLink } from "../chat-link/chat-link.js";
@@ -9,14 +10,26 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	chats: ChatGetAllItemResponseDto[];
+	className?: string | undefined;
+	isReducible: boolean;
 };
 
-const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
+const ChatSidebar: React.FC<Properties> = ({
+	chats,
+	className,
+	isReducible,
+}: Properties) => {
 	const hasChats = chats.length > EMPTY_LENGTH;
+
+	const chatsStyles = getValidClassNames(
+		styles["container"],
+		className,
+		isReducible && styles["reducible"],
+	);
 
 	return (
 		<>
-			<div className={styles["container"]}>
+			<div className={chatsStyles}>
 				<div className={styles["search-container"]}>
 					<ChatSearchBar />
 				</div>
@@ -24,8 +37,8 @@ const ChatSidebar: React.FC<Properties> = ({ chats }: Properties) => {
 					{hasChats &&
 						chats.map((item) => {
 							return (
-								<li key={item.id}>
-									<ChatLink chat={item} />
+								<li className={styles["chats-item"]} key={item.id}>
+									<ChatLink chat={item} isReducible={isReducible} />
 								</li>
 							);
 						})}

@@ -1,5 +1,48 @@
 # Changelog
 
+## [1.50.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.50.0...frontend-v1.50.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **frontend:** Email field on the Auth page has "text" type tm-481 ([#507](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/507)) ([fc80d6c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fc80d6cf8385b3146634b322a979aef01bc50ec9))
+* **frontend:** leave chat tm-514 ([#518](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/518)) ([6a3540a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6a3540a0882b1e35df44ff419e9a27469e6078f9))
+* **frontend:** make change photo btn take one row tm-511 ([#517](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/517)) ([004b8e1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/004b8e1f457255697f8f2efa4652ef873398c733))
+
+## [1.50.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.49.0...frontend-v1.50.0) (2024-03-13)
+
+
+### Features
+
+* **frontend:** Update the design of the "Notifications" page tm-447 ([#504](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/504)) ([932675e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/932675e2f8682e30667e12cc0faa598bac2a3dc3))
+
+
+### Bug Fixes
+
+* **frontend:** Hide previous state of the data from the store on all pages tm-506 ([#510](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/510)) ([f28b4c7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f28b4c737ba2ad7ba1a66fef21eff75b1b8a20a2))
+* **frontend:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#515](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/515)) ([df2c33e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/df2c33e3b7f3aa72933f0590b1be7253c7237506))
+
+## [1.49.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.48.0...frontend-v1.49.0) (2024-03-13)
+
+
+### Features
+
+* **backend:** add like notification tm-445 ([#466](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/466)) ([be97ce5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/be97ce503197c7252cb26275dc6e64d1f4775424))
+
+
+### Bug Fixes
+
+* **frontend:** fix position of loader and add loader to the button tm-488 ([#509](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/509)) ([7567eba](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7567eba9b784636e91cfe5184ef5b95cf60830e5))
+
+## [1.48.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.47.2...frontend-v1.48.0) (2024-03-13)
+
+
+### Features
+
+* **backend/frontend/shared:** implement counters for unread notifications and chats tm-395 ([#455](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/455)) ([8e787ea](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e787ea8e5e6401011d367a47a5ce0338068320f))
+* **frontend:** add transitions during changing the state of the element  tm-492 ([#497](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/497)) ([de8917f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/de8917f539c5c965fbc4d315e6dc8753ff902a69))
+* **frontend:** chats mobile responsiveness tm-476 ([#496](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/496)) ([10b8273](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/10b8273019f31d7dfb47703593e8427e8b6c60fb))
+
 ## [1.47.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.47.1...frontend-v1.47.2) (2024-03-13)
 
 

@@ -1,4 +1,5 @@
 import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -59,20 +60,30 @@ const Chats: React.FC = () => {
 		[dispatch, id],
 	);
 
+	const pageStyles = getValidClassNames(
+		styles["container"],
+		styles[id ? "chat-page" : "chats-page"],
+	);
+
 	return (
-		<div className={styles["container"]}>
+		<div className={pageStyles}>
 			<h2 className={styles["title"]}>Chats</h2>
 			<div className={styles["chat-container"]}>
-				<ChatSidebar chats={chats} />
+				<ChatSidebar
+					chats={chats}
+					className={styles["chat-list"]}
+					isReducible={Boolean(id)}
+				/>
 				{id && currentChat ? (
 					<Chat
+						className={styles["current-chat"]}
 						isMessageLoading={isMessageLoading}
 						messages={currentChat.messages}
 						onSubmit={onSubmit}
 						receiver={currentChat.interlocutor}
 					/>
 				) : (
-					<EmptyChat />
+					<EmptyChat className={styles["empty-chat"]} />
 				)}
 			</div>
 		</div>

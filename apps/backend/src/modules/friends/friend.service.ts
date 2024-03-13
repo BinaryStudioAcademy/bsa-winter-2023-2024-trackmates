@@ -55,6 +55,7 @@ class FriendService {
 		});
 
 		await this.notificationService.create({
+			actionId: null,
 			receiverUserId: followingUserId,
 			type: NotificationType.NEW_FOLLOWER,
 			userId: followerUserId,
