@@ -1,6 +1,11 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Service } from "~/libs/types/types.js";
+import { type ActivityService } from "~/modules/activities/activities.js";
+import {
+	type NotificationService,
+	NotificationType,
+} from "~/modules/notifications/notifications.js";
 
 import { CommentEntity } from "./comment.entity.js";
 import { type CommentRepository } from "./comment.repository.js";
@@ -13,19 +18,40 @@ import {
 } from "./libs/types/types.js";
 
 type Constructor = {
+	activityService: ActivityService;
 	commentRepository: CommentRepository;
+	notificationService: NotificationService;
 };
 
 class CommentService implements Service {
+	private activityService: ActivityService;
+
 	private commentRepository: CommentRepository;
 
-	public constructor({ commentRepository }: Constructor) {
+	private notificationService: NotificationService;
+
+	public constructor({
+		activityService,
+		commentRepository,
+		notificationService,
+	}: Constructor) {
+		this.activityService = activityService;
 		this.commentRepository = commentRepository;
+		this.notificationService = notificationService;
 	}
 
 	public async create(
 		payload: CommentCreateRequestDto & { userId: number },
 	): Promise<CommentWithRelationsResponseDto> {
+		const activity = await this.activityService.find(payload.activityId);
+
+		if (!activity) {
+			throw new CommentError({
+				message: ExceptionMessage.ACTIVITY_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
 		const comment = await this.commentRepository.create(
 			CommentEntity.initializeNew({
 				activityId: payload.activityId,
@@ -33,6 +59,14 @@ class CommentService implements Service {
 				userId: payload.userId,
 			}),
 		);
+
+		if (activity.user.id !== payload.userId) {
+			void this.notificationService.create({
+				receiverUserId: activity.user.id,
+				type: NotificationType.NEW_COMMENT,
+				userId: payload.userId,
+			});
+		}
 
 		return comment.toObjectWithRelations();
 	}

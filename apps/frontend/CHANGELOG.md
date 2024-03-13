@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.47.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.47.1...frontend-v1.47.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* **frontend:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#483](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/483)) ([cb4f9c6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cb4f9c670030013bf4e6f007328b09c7dc656dee))
+
+## [1.47.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.47.0...frontend-v1.47.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* **frontend:** fix the log out button is shown in two rows tm-480 ([#491](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/491)) ([12d3751](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/12d37513cc3eb462c308325b71383fe0623d32c4))
+
+## [1.47.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.46.1...frontend-v1.47.0) (2024-03-12)
+
+
+### Features
+
+* **frontend/backend/shared:** compare progress with a friend tm-197 ([#486](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/486)) ([8932910](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/89329108846f2b8d4bcf49ee591b30f503ef7675))
+* **frontend:** add pagination for friend profile page tm-471 ([#484](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/484)) ([e50acb7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e50acb7c5f3d7905d7eccd13f1f29978263823ca))
+* **frontend:** make chat button on friend page outline tm-468 ([#487](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/487)) ([869680a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/869680a71934b5f015e741e8f706e1dac4cec7d5))
+* **frontend:** My profile - mobile responsiveness tm-452 ([#482](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/482)) ([a8f9a8d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a8f9a8dbcc6ebe4c8a5ff2e3ca2133b3141417f5))
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** Update the design of the "Chats" page tm-388 ([#467](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/467)) ([f3188e8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f3188e842f41cd615399e4aa157ff6ae872f0fc6))
+* **frontend:** feat add pagination with query tm-307 ([#464](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/464)) ([17d174b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/17d174bd0942ea458b32fd935fec03d45904aaf5))
+* **frontend:** filter notifications by type tm-288 ([#490](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/490)) ([8fe8231](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8fe823147a6d3cea376af7829bd1613af85c3540))
+
+## [1.46.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.46.0...frontend-v1.46.1) (2024-03-12)
+
+
+### Bug Fixes
+
+* **frontend:** make default line height of select tm-343 ([#477](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/477)) ([4c37742](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4c37742ac79d12bd3004dddba8c0bd8207757ac7))
+* **frontend:** redirect to overview instead of friends tm-469 ([#475](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/475)) ([cf3b1c6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cf3b1c6d6d6586a194f68da3da9cf3f554d45cd7))
+
 ## [1.46.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.45.2...frontend-v1.46.0) (2024-03-12)
 
 

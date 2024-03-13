@@ -1,11 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { PaginationValue } from "~/libs/enums/enums.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import {
 	type AsyncThunkConfig,
 	type PaginationResponseDto,
 } from "~/libs/types/types.js";
+import { type CourseDto } from "~/modules/courses/courses.js";
 
 import {
 	type AddCourseRequestDto,
@@ -39,17 +39,24 @@ const loadMyCourses = createAsyncThunk<
 
 const loadUserCourses = createAsyncThunk<
 	PaginationResponseDto<UserCourseResponseDto>,
-	number,
+	CourseGetAllByUserRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/load-user-courses`, (userId, { extra }) => {
+>(`${sliceName}/load-user-courses`, (loadUserCoursesPayload, { extra }) => {
 	const { userCourseApi } = extra;
 
-	return userCourseApi.getAllByUserId({
-		count: PaginationValue.DEFAULT_COUNT,
-		page: PaginationValue.DEFAULT_PAGE,
-		search: "",
-		userId,
-	});
+	return userCourseApi.getAllByUserId(loadUserCoursesPayload);
 });
 
-export { add, loadMyCourses, loadUserCourses };
+const loadCommonCourses = createAsyncThunk<
+	CourseDto[],
+	number,
+	AsyncThunkConfig
+>(`${sliceName}/load-common-courses`, async (userId, { extra }) => {
+	const { userCourseApi } = extra;
+
+	const { items } = await userCourseApi.getCommonWithUser(userId);
+
+	return items;
+});
+
+export { add, loadCommonCourses, loadMyCourses, loadUserCourses };

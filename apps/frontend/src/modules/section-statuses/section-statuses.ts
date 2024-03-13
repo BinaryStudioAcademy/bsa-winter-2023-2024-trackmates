@@ -12,4 +12,5 @@ const sectionStatusApi = new SectionStatusApi({
 
 export { sectionStatusApi };
 export { SectionStatus } from "./libs/enums/enums.js";
+export { type SectionStatusResponseDto } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/section-statuses.js";

@@ -4,16 +4,18 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type SectionStatusResponseDto } from "../libs/types/types.js";
-import { create, getAll, updateStatus } from "./actions.js";
+import { create, getAll, getAllToCompare, updateStatus } from "./actions.js";
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
 	sectionStatuses: SectionStatusResponseDto[];
+	sectionToCompareStatuses: SectionStatusResponseDto[];
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
 	sectionStatuses: [],
+	sectionToCompareStatuses: [],
 };
 
 const { actions, name, reducer } = createSlice({
@@ -26,6 +28,16 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(getAll.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+		builder.addCase(getAllToCompare.fulfilled, (state, action) => {
+			state.sectionToCompareStatuses = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getAllToCompare.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(getAllToCompare.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(create.fulfilled, (state, action) => {

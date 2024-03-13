@@ -1,6 +1,6 @@
 import { Link } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/app-route.enum.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
+import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type ChatGetAllItemResponseDto } from "~/modules/chats/chats.js";
 
@@ -19,7 +19,7 @@ const ChatSidebar: React.FC<Properties> = ({
 	className,
 	isReduceAble,
 }: Properties) => {
-	const hasChats = chats.length > EMPTY_ARRAY_LENGTH;
+	const hasChats = chats.length > EMPTY_LENGTH;
 
 	const chatsStyles = getValidClassNames(
 		styles["container"],

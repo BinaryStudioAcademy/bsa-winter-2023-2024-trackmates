@@ -111,6 +111,7 @@
 
 	.open .log-out-btn :last-child {
 		display: block;
+		white-space: nowrap;
 	}
 
 	.title-container {
