@@ -164,7 +164,7 @@ class UserNotificationController extends BaseController {
 	 *        - User notifications
 	 *      security:
 	 *        - bearerAuth: []
-	 *      description: Get a count of unread notifications
+	 *      description: Get a count of all user's unread notifications
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
