@@ -15,6 +15,7 @@ type Properties = {
 	className?: string | undefined;
 	isOpen: boolean;
 	onClose: () => void;
+	size?: "large" | "small";
 };
 
 const Modal: React.FC<Properties> = ({
@@ -23,6 +24,7 @@ const Modal: React.FC<Properties> = ({
 	className,
 	isOpen,
 	onClose,
+	size = "large",
 }: Properties) => {
 	const contentReference = useRef<HTMLDivElement | null>(null);
 	useHandleClickOutside({
@@ -34,16 +36,15 @@ const Modal: React.FC<Properties> = ({
 		onEscPress: onClose,
 	});
 
+	const modalStyles = getValidClassNames(
+		styles["modal"],
+		styles[size],
+		centered && styles["centered"],
+	);
+
 	return (
 		<Portal>
-			<dialog
-				aria-modal
-				className={getValidClassNames(
-					styles["modal"],
-					centered && styles["centered"],
-				)}
-				open={isOpen}
-			>
+			<dialog aria-modal className={modalStyles} open={isOpen}>
 				<div
 					className={getValidClassNames(styles["content"], className)}
 					ref={contentReference}

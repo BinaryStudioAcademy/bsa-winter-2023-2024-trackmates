@@ -1,4 +1,4 @@
-import { Modal } from "~/libs/components/components.js";
+import { Button, Modal } from "~/libs/components/components.js";
 
 import styles from "./styles.module.css";
 
@@ -14,10 +14,23 @@ const EditModal: React.FC<Properties> = ({
 	title,
 }: Properties) => {
 	return (
-		<Modal centered className={styles["edit-modal"]} isOpen onClose={onClose}>
-			<div className={styles["content"]}>
-				<h3>{title}</h3>
-				{children}
+		<Modal
+			centered
+			className={styles["edit-modal"]}
+			isOpen
+			onClose={onClose}
+			size="small"
+		>
+			<span className={styles["title"]}>{title}</span>
+			<div className={styles["content"]}>{children}</div>
+			<div className={styles["modal-footer"]}>
+				<Button
+					className={styles["button"]}
+					label="OK"
+					onClick={onClose}
+					size="small"
+					style="primary"
+				/>
 			</div>
 		</Modal>
 	);
