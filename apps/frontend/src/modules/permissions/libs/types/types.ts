@@ -1,1 +1,4 @@
-export { type PermissionResponseDto } from "@trackmates/shared";
+export {
+	type AllPermissionsResponseDto,
+	type PermissionResponseDto,
+} from "@trackmates/shared";
