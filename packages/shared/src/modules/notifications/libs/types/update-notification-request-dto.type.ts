@@ -5,6 +5,7 @@ import {
 } from "../enums/enums.js";
 
 type UpdateNotificationRequestDto = {
+	actionId: null | number;
 	receiverUserId: number;
 	status: ValueOf<typeof NotificationStatus>;
 	type: ValueOf<typeof NotificationType>;

@@ -1,7 +1,8 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
-import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
+import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppForm,
+	useAppSelector,
 	useAppTitle,
 	useCallback,
 	useState,
@@ -24,6 +25,10 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		validationSchema: userSignUpValidationSchema,
 	});
 
+	const authDataStatus = useAppSelector(({ auth }) => {
+		return auth.dataStatus;
+	});
+
 	const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
 
 	const handleFormSubmit = useCallback(
@@ -38,6 +43,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	}, [isPasswordVisible]);
 
 	useAppTitle(AppTitle.SIGN_UP);
+
+	const isLoading = authDataStatus === DataStatus.PENDING;
 
 	return (
 		<form className={styles["form"]} onSubmit={handleFormSubmit}>
@@ -101,6 +108,8 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			</div>
 			<Button
 				className={styles["button"]}
+				isDisabled={isLoading}
+				isLoading={isLoading}
 				label="Create an account"
 				type="submit"
 			/>

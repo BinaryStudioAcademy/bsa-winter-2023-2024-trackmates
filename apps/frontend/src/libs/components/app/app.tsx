@@ -1,5 +1,4 @@
 import { RouterOutlet } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -11,18 +10,15 @@ import { actions as authActions } from "~/modules/auth/auth.js";
 import { actions as chatActions } from "~/modules/chats/chats.js";
 import { actions as userNotificationsActions } from "~/modules/user-notifications/user-notifications.js";
 
-import { Loader } from "../loader/loader.js";
-
 const App: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const { authDataStatus, redirectTo, user } = useAppSelector(
-		({ app, auth }) => ({
-			authDataStatus: auth.dataStatus,
+	const { redirectTo, user } = useAppSelector(({ app, auth }) => {
+		return {
 			redirectTo: app.redirectTo,
 			user: auth.user,
-		}),
-	);
+		};
+	});
 
 	useEffect(() => {
 		void dispatch(authActions.getAuthenticatedUser());
@@ -53,13 +49,6 @@ const App: React.FC = () => {
 			};
 		}
 	}, [dispatch, user]);
-
-	if (
-		authDataStatus === DataStatus.IDLE ||
-		authDataStatus === DataStatus.PENDING
-	) {
-		return <Loader color="orange" size="large" />;
-	}
 
 	return (
 		<>

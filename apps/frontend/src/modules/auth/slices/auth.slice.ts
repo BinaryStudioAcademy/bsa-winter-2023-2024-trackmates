@@ -9,12 +9,16 @@ import { actions as usersActions } from "~/modules/users/users.js";
 import { getAuthenticatedUser, logOut, signIn, signUp } from "./actions.js";
 
 type State = {
+	avatarUploadDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
+	updateUserDataStatus: ValueOf<typeof DataStatus>;
 	user: UserAuthResponseDto | null;
 };
 
 const initialState: State = {
+	avatarUploadDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
+	updateUserDataStatus: DataStatus.IDLE,
 	user: null,
 };
 
@@ -59,25 +63,25 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(usersActions.updateProfile.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
+			state.updateUserDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(usersActions.updateProfile.fulfilled, (state, action) => {
-			state.dataStatus = DataStatus.FULFILLED;
+			state.updateUserDataStatus = DataStatus.FULFILLED;
 			state.user = {
 				...state.user,
 				...action.payload,
 			};
 		});
 		builder.addCase(usersActions.updateProfile.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
+			state.updateUserDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(filesActions.updateUserAvatar.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
+			state.avatarUploadDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(
 			filesActions.updateUserAvatar.fulfilled,
 			(state, action) => {
-				state.dataStatus = DataStatus.FULFILLED;
+				state.avatarUploadDataStatus = DataStatus.FULFILLED;
 
 				if (state.user) {
 					state.user = {
@@ -88,7 +92,7 @@ const { actions, name, reducer } = createSlice({
 			},
 		);
 		builder.addCase(filesActions.updateUserAvatar.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
+			state.avatarUploadDataStatus = DataStatus.REJECTED;
 		});
 	},
 	initialState,
