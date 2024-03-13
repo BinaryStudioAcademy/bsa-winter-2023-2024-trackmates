@@ -1,7 +1,7 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
 import { type UserEntity } from "~/modules/users/users.js";
 
-import { MessageStatus } from "./libs/enums/enums.js";
+import { type MessageStatus } from "./libs/enums/enums.js";
 import { type ChatMessageItemResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
@@ -78,10 +78,12 @@ class ChatMessageEntity implements Entity {
 	public static initializeNew({
 		chatId,
 		senderUser,
+		status,
 		text,
 	}: {
 		chatId: number;
 		senderUser: UserEntity;
+		status: ValueOf<typeof MessageStatus>;
 		text: string;
 	}): ChatMessageEntity {
 		return new ChatMessageEntity({
@@ -89,7 +91,7 @@ class ChatMessageEntity implements Entity {
 			createdAt: "",
 			id: null,
 			senderUser,
-			status: MessageStatus.UNREAD,
+			status,
 			text,
 			updatedAt: "",
 		});
@@ -98,6 +100,7 @@ class ChatMessageEntity implements Entity {
 	public toNewObject(): {
 		chatId: number;
 		senderUserId: number;
+		status: ValueOf<typeof MessageStatus>;
 		text: string;
 	} {
 		const { id: senderUserId } = this.senderUser.toObject();
@@ -105,6 +108,7 @@ class ChatMessageEntity implements Entity {
 		return {
 			chatId: this.chatId,
 			senderUserId,
+			status: this.status,
 			text: this.text,
 		};
 	}

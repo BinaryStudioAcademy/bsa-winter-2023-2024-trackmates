@@ -60,15 +60,18 @@ class CommentService implements Service {
 			}),
 		);
 
+		const commentObject = comment.toObjectWithRelations();
+
 		if (activity.user.id !== payload.userId) {
 			void this.notificationService.create({
+				actionId: commentObject.id,
 				receiverUserId: activity.user.id,
 				type: NotificationType.NEW_COMMENT,
 				userId: payload.userId,
 			});
 		}
 
-		return comment.toObjectWithRelations();
+		return commentObject;
 	}
 
 	public async delete(id: number): Promise<boolean> {

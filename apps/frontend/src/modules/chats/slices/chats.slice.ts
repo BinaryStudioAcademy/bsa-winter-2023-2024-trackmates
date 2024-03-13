@@ -12,6 +12,7 @@ import {
 	createChat,
 	getAllChats,
 	getChat,
+	getUnreadMessagesCount,
 	updateChats,
 } from "./actions.js";
 
@@ -19,12 +20,14 @@ type State = {
 	chats: ChatGetAllItemResponseDto[];
 	currentChat: ChatItemResponseDto | null;
 	dataStatus: ValueOf<typeof DataStatus>;
+	unreadMessagesCount: number;
 };
 
 const initialState: State = {
 	chats: [],
 	currentChat: null,
 	dataStatus: DataStatus.IDLE,
+	unreadMessagesCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -59,6 +62,14 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(getChat.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(getUnreadMessagesCount.fulfilled, (state, action) => {
+			state.unreadMessagesCount = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getUnreadMessagesCount.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 

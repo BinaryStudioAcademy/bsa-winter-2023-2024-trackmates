@@ -26,6 +26,7 @@ class NotificationModel extends AbstractModel {
 		};
 	};
 
+	public actionId!: null | number;
 	public receiverUserId!: number;
 	public status!: ValueOf<typeof NotificationStatus>;
 	public type!: ValueOf<typeof NotificationType>;
