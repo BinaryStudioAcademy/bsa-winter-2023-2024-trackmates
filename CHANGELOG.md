@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.64.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.63.0...v1.64.0) (2024-03-13)
+
+
+### Features
+
+* **backend:** add like notification tm-445 ([#466](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/466)) ([be97ce5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/be97ce503197c7252cb26275dc6e64d1f4775424))
+
+
+### Bug Fixes
+
+* **frontend:** fix position of loader and add loader to the button tm-488 ([#509](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/509)) ([7567eba](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7567eba9b784636e91cfe5184ef5b95cf60830e5))
+
 ## [1.63.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.62.2...v1.63.0) (2024-03-13)
 
 
