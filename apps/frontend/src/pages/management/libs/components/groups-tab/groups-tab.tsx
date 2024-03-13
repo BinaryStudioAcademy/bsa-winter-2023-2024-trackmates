@@ -13,10 +13,11 @@ import {
 	groupNameFieldValidationSchema,
 	actions as groupsActions,
 } from "~/modules/groups/groups.js";
-import { actions as managementActions } from "~/modules/management/management.js";
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
+import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { Chip } from "../chip/chip.js";
+import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
@@ -27,9 +28,8 @@ import styles from "./styles.module.css";
 
 const GroupsTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { currentGroup, groups, permissions } = useAppSelector((state) => {
+	const { groups, permissions } = useAppSelector((state) => {
 		return {
-			currentGroup: state.management.currentGroup,
 			groups: state.management.groups,
 			permissions: state.management.permissions,
 		};
@@ -42,7 +42,12 @@ const GroupsTab: React.FC = () => {
 		validationSchema: groupNameFieldValidationSchema,
 	});
 
-	const [isModalOpen, setModalOpen] = useState<boolean>(false);
+	const [currentGroup, setCurrentGroup] = useState<GroupResponseDto | null>(
+		null,
+	);
+	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+	const [isConfirmationModalOpen, setConfirmationModalOpen] =
+		useState<boolean>(false);
 
 	useEffect(() => {
 		void dispatch(groupsActions.getAllGroups());
@@ -65,29 +70,29 @@ const GroupsTab: React.FC = () => {
 		[handleSubmit, handleCreateGroup],
 	);
 
-	const handleDeleteGroup = useCallback(
-		(groupId: number) => {
-			return () => {
-				void dispatch(groupsActions.deleteGroup(groupId));
-			};
-		},
-		[dispatch],
-	);
+	const handleOpenEditModal = useCallback((group: GroupResponseDto) => {
+		return () => {
+			setCurrentGroup(group);
+			setEditModalOpen(true);
+		};
+	}, []);
 
-	const handleOpenModal = useCallback(
-		(group: GroupResponseDto) => {
-			return () => {
-				setModalOpen(true);
-				void dispatch(managementActions.setCurrentGroup(group));
-			};
-		},
-		[dispatch],
-	);
+	const handleCloseEditModal = useCallback(() => {
+		setEditModalOpen(false);
+		setCurrentGroup(null);
+	}, []);
 
-	const handleCloseModal = useCallback(() => {
-		setModalOpen(false);
-		void dispatch(managementActions.setCurrentGroup(null));
-	}, [dispatch]);
+	const handleOpenConfirmationModal = useCallback((group: GroupResponseDto) => {
+		return () => {
+			setCurrentGroup(group);
+			setConfirmationModalOpen(true);
+		};
+	}, []);
+
+	const handleCloseConfirmationModal = useCallback(() => {
+		setConfirmationModalOpen(false);
+		setCurrentGroup(null);
+	}, []);
 
 	const handleChangeGroupPermissions = useCallback(
 		(groupId: number, permissionId: number) => {
@@ -103,6 +108,16 @@ const GroupsTab: React.FC = () => {
 			handleChangeGroupPermissions(currentGroup?.id as number, permissionId);
 		},
 		[currentGroup, handleChangeGroupPermissions],
+	);
+
+	const handleDeleteGroup = useCallback(
+		(groupId: number) => {
+			return () => {
+				void dispatch(groupsActions.deleteGroup(groupId));
+				handleCloseConfirmationModal();
+			};
+		},
+		[dispatch, handleCloseConfirmationModal],
 	);
 
 	const tableHeaders = [
@@ -121,14 +136,14 @@ const GroupsTab: React.FC = () => {
 						hasVisuallyHiddenLabel
 						iconName="edit"
 						label={GroupsTableHeader.BUTTONS}
-						onClick={handleOpenModal(group)}
+						onClick={handleOpenEditModal(group)}
 					/>
 					<Button
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
 						label={GroupsTableHeader.BUTTONS}
-						onClick={handleDeleteGroup(group.id)}
+						onClick={handleOpenConfirmationModal(group)}
 					/>
 				</div>
 			),
@@ -192,10 +207,10 @@ const GroupsTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
-			{isModalOpen && (
+			{isEditModalOpen && (
 				<EditModal
-					onClose={handleCloseModal}
-					title={`Edit "${currentGroup?.name}" group permissions`}
+					onClose={handleCloseEditModal}
+					title={`Edit permissions of the "${currentGroup?.name}" group:`}
 				>
 					<ul className={styles["modal-list"]}>
 						{permissions.map((permission) => {
@@ -219,6 +234,14 @@ const GroupsTab: React.FC = () => {
 						})}
 					</ul>
 				</EditModal>
+			)}
+			{isConfirmationModalOpen && (
+				<ConfirmationModal
+					onCancel={handleCloseConfirmationModal}
+					onClose={handleCloseConfirmationModal}
+					onConfirm={handleDeleteGroup(currentGroup?.id as number)}
+					title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
+				/>
 			)}
 		</>
 	);

@@ -7,7 +7,6 @@ import {
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as groupsActions } from "~/modules/groups/groups.js";
-import { actions as managementActions } from "~/modules/management/management.js";
 import {
 	type UserAuthResponseDto,
 	actions as usersActions,
@@ -24,35 +23,34 @@ import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { currentUser, groups, users } = useAppSelector((state) => {
+	const { groups, users } = useAppSelector((state) => {
 		return {
-			currentUser: state.management.currentUser,
 			groups: state.management.groups,
 			users: state.management.users,
 		};
 	});
 
-	const [isModalOpen, setModalOpen] = useState<boolean>(false);
+	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
+		null,
+	);
+	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		void dispatch(usersActions.getAll());
 		void dispatch(groupsActions.getAllGroups());
 	}, [dispatch]);
 
-	const handleOpenModal = useCallback(
-		(user: UserAuthResponseDto) => {
-			return () => {
-				setModalOpen(true);
-				void dispatch(managementActions.setCurrentUser(user));
-			};
-		},
-		[dispatch],
-	);
+	const handleOpenEditModal = useCallback((user: UserAuthResponseDto) => {
+		return () => {
+			setCurrentUser(user);
+			setEditModalOpen(true);
+		};
+	}, []);
 
-	const handleCloseModal = useCallback(() => {
-		setModalOpen(false);
-		void dispatch(managementActions.setCurrentUser(null));
-	}, [dispatch]);
+	const handleCloseEditModal = useCallback(() => {
+		setEditModalOpen(false);
+		setCurrentUser(null);
+	}, []);
 
 	const handleChangeUserGroups = useCallback(
 		(groupId: number, userId: number) => {
@@ -86,7 +84,7 @@ const UsersTab: React.FC = () => {
 						hasVisuallyHiddenLabel
 						iconName="edit"
 						label={UsersTableHeader.BUTTONS}
-						onClick={handleOpenModal(user)}
+						onClick={handleOpenEditModal(user)}
 					/>
 					<Button
 						className={styles["icon-button"]}
@@ -138,10 +136,10 @@ const UsersTab: React.FC = () => {
 					})}
 				</Table>
 			</div>
-			{isModalOpen && (
+			{isEditModalOpen && (
 				<EditModal
-					onClose={handleCloseModal}
-					title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups`}
+					onClose={handleCloseEditModal}
+					title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
 				>
 					<ul className={styles["modal-list"]}>
 						{groups.map((group) => {
