@@ -1,13 +1,11 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
 import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
 import {
-	useAppDispatch,
 	useAppForm,
 	useAppTitle,
 	useCallback,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 import {
 	type UserSignInRequestDto,
 	userSignInValidationSchema,
@@ -25,16 +23,14 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
 		validationSchema: userSignInValidationSchema,
 	});
-	const dispatch = useAppDispatch();
 
 	const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
-			dispatch(userCoursesActions.reset());
 			void handleSubmit(onSubmit)(event_);
 		},
-		[handleSubmit, onSubmit, dispatch],
+		[handleSubmit, onSubmit],
 	);
 
 	const handleChangePasswordVisibility = useCallback(() => {
