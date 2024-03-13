@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.36.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.35.0...backend-v1.36.0) (2024-03-13)
+
+
+### Features
+
+* **backend:** add like notification tm-445 ([#466](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/466)) ([be97ce5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/be97ce503197c7252cb26275dc6e64d1f4775424))
+
 ## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.34.1...backend-v1.35.0) (2024-03-13)
 
 

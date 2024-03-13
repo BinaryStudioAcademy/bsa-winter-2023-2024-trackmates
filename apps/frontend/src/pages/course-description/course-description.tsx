@@ -1,8 +1,9 @@
-import { Button } from "~/libs/components/components.js";
+import { Button, Loader } from "~/libs/components/components.js";
 import {
 	BACK_NAVIGATION_STEP,
 	EMPTY_LENGTH,
 } from "~/libs/constants/constants.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -25,10 +26,11 @@ import {
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {
-	const { course, courseSections, sectionStatuses } = useAppSelector(
+	const { course, courseSections, isLoading, sectionStatuses } = useAppSelector(
 		({ course, courses, sectionStatuses }) => ({
 			course: courses.currentCourse,
 			courseSections: course.courseSections,
+			isLoading: course.dataStatus === DataStatus.PENDING,
 			sectionStatuses: sectionStatuses.sectionStatuses,
 		}),
 	);
@@ -52,7 +54,8 @@ const CourseDescription: React.FC = () => {
 
 	const handleClick = useCallback(() => {
 		navigate(BACK_NAVIGATION_STEP);
-	}, [navigate]);
+		dispatch(courseActions.clearCurrentCourse());
+	}, [navigate, dispatch]);
 
 	useAppTitle();
 
@@ -65,13 +68,11 @@ const CourseDescription: React.FC = () => {
 		}
 	}, [dispatch, courseId]);
 
-	if (!course) {
-		return null;
-	}
-
 	const hasCourseSections = courseSections.length > EMPTY_LENGTH;
 
-	return (
+	return isLoading || !course ? (
+		<Loader color="orange" size="large" />
+	) : (
 		<>
 			<Button
 				className={styles["back-button"]}
