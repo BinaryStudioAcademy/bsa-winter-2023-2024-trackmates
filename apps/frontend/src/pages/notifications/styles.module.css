@@ -50,14 +50,6 @@
 	font-weight: 600;
 }
 
-.background {
-	flex: 1;
-	background-image: url("~/assets/img/notification-character.svg");
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: 60% auto;
-}
-
 .header {
 	display: flex;
 	column-gap: 50px;
