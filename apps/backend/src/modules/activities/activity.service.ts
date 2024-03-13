@@ -55,21 +55,28 @@ class ActivityService implements Service {
 		if (likeObject?.id) {
 			await this.activityLikeRepository.delete(likeObject.id);
 
-			await this.notificationService.delete(likeObject.notificationId);
+			await this.notificationService.deleteByActionId(
+				likeObject.id,
+				NotificationType.NEW_LIKE,
+			);
 		} else {
-			const notification = await this.notificationService.create({
-				receiverUserId: targetActivity?.userId as number,
-				type: NotificationType.NEW_LIKE,
-				userId,
-			});
-
-			await this.activityLikeRepository.create(
+			const like = await this.activityLikeRepository.create(
 				ActivityLikeEntity.initializeNew({
 					activityId,
-					notificationId: notification.id,
 					userId,
 				}),
 			);
+
+			if (userId !== targetActivity?.userId) {
+				const likeObject = like.toObject();
+
+				await this.notificationService.create({
+					actionId: likeObject.id,
+					receiverUserId: targetActivity?.userId as number,
+					type: NotificationType.NEW_LIKE,
+					userId,
+				});
+			}
 		}
 
 		const updatedTargetActivity =

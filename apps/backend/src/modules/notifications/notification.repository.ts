@@ -1,6 +1,5 @@
 import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { RelationName, SortOrder } from "~/libs/enums/enums.js";
-import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/users.js";
 
@@ -38,7 +37,6 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		const unreadNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId: userId })
-			.andWhereNot(`${DatabaseTableName.NOTIFICATIONS}.userId`, userId)
 			.andWhere({ status: NotificationStatus.UNREAD });
 
 		return unreadNotifications.length > EMPTY_LENGTH;
@@ -47,11 +45,11 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	public async create(
 		payload: NotificationEntity,
 	): Promise<NotificationEntity> {
-		const { receiverUserId, type, userId } = payload.toNewObject();
+		const { actionId, receiverUserId, type, userId } = payload.toNewObject();
 
 		const createdNotification = await this.notificationModel
 			.query()
-			.insert({ receiverUserId, type, userId })
+			.insert({ actionId, receiverUserId, type, userId })
 			.returning("*")
 			.withGraphFetched(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
@@ -59,6 +57,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.execute();
 
 		return NotificationEntity.initialize({
+			actionId: createdNotification.actionId,
 			createdAt: createdNotification.createdAt,
 			id: createdNotification.id,
 			message: this.getMessageByType(
@@ -86,6 +85,19 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		return Boolean(deletedRowsCount);
 	}
 
+	public async deleteByActionId(
+		actionId: number,
+		type: ValueOf<typeof NotificationType>,
+	): Promise<boolean> {
+		const deletedItemsCount = await this.notificationModel
+			.query()
+			.where({ actionId, type })
+			.delete()
+			.execute();
+
+		return Boolean(deletedItemsCount);
+	}
+
 	public async find(
 		notificationId: number,
 	): Promise<NotificationEntity | null> {
@@ -99,6 +111,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 
 		return notification
 			? NotificationEntity.initialize({
+					actionId: notification.actionId,
 					createdAt: notification.createdAt,
 					id: notification.id,
 					message: this.getMessageByType(notification.type, notification.user),
@@ -124,6 +137,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 
 		return notifications.map((notification) => {
 			return NotificationEntity.initialize({
+				actionId: notification.actionId,
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: this.getMessageByType(notification.type, notification.user),
@@ -147,7 +161,6 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		const userNotifications = await this.notificationModel
 			.query()
 			.where({ receiverUserId })
-			.andWhereNot(`${DatabaseTableName.NOTIFICATIONS}.userId`, receiverUserId)
 			.andWhere((builder) => {
 				if (type) {
 					void builder.andWhere({ type });
@@ -172,6 +185,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 
 		return userNotifications.map((notification) => {
 			return NotificationEntity.initialize({
+				actionId: notification.actionId,
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: this.getMessageByType(notification.type, notification.user),
@@ -185,6 +199,36 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userLastName: notification.user.userDetails.lastName,
 			});
 		});
+	}
+
+	public async findByActionId(
+		actionId: number,
+		type: ValueOf<typeof NotificationType>,
+	): Promise<NotificationEntity | null> {
+		const notification = await this.notificationModel
+			.query()
+			.where({ actionId, type })
+			.withGraphFetched(
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
+			.first();
+
+		return notification
+			? NotificationEntity.initialize({
+					actionId: notification.actionId,
+					createdAt: notification.createdAt,
+					id: notification.id,
+					message: this.getMessageByType(notification.type, notification.user),
+					receiverUserId: notification.receiverUserId,
+					status: notification.status,
+					type: notification.type,
+					updatedAt: notification.updatedAt,
+					userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+					userFirstName: notification.user.userDetails.firstName,
+					userId: notification.userId,
+					userLastName: notification.user.userDetails.lastName,
+				})
+			: null;
 	}
 
 	public async setReadNotifications(
@@ -202,6 +246,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 
 		return updatedNotifications.map((notification) => {
 			return NotificationEntity.initialize({
+				actionId: notification.actionId,
 				createdAt: notification.createdAt,
 				id: notification.id,
 				message: this.getMessageByType(notification.type, notification.user),
@@ -231,6 +276,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.execute();
 
 		return NotificationEntity.initialize({
+			actionId: updatedNotification.actionId,
 			createdAt: updatedNotification.createdAt,
 			id: updatedNotification.id,
 			message: this.getMessageByType(

@@ -133,6 +133,7 @@ erDiagram
     dateTime updated_at
     int receiver_user_id FK
     int user_id FK
+    int action_id
     enum status
     enum type
    }
@@ -152,7 +153,6 @@ erDiagram
     dateTime updated_at
     int activity_id FK
     int user_id FK
-    int notification_id FK
    }
 
   comments {
@@ -195,8 +195,6 @@ erDiagram
 
    users ||--|{ notifications : receiver_user_id
    users ||--|{ notifications : user_id
-
-   notifications ||--|{ activity_likes : notification_id
 ```
 
 ## 5. Architecture

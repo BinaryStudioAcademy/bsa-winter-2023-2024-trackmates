@@ -7,8 +7,6 @@ class ActivityLikeEntity implements Entity {
 
 	private id: null | number;
 
-	private notificationId: number;
-
 	private updatedAt: string;
 
 	private userId: number;
@@ -17,21 +15,18 @@ class ActivityLikeEntity implements Entity {
 		activityId,
 		createdAt,
 		id,
-		notificationId,
 		updatedAt,
 		userId,
 	}: {
 		activityId: number;
 		createdAt: string;
 		id: null | number;
-		notificationId: number;
 		updatedAt: string;
 		userId: number;
 	}) {
 		this.createdAt = createdAt;
 		this.activityId = activityId;
 		this.id = id;
-		this.notificationId = notificationId;
 		this.updatedAt = updatedAt;
 		this.userId = userId;
 	}
@@ -40,14 +35,12 @@ class ActivityLikeEntity implements Entity {
 		activityId,
 		createdAt,
 		id,
-		notificationId,
 		updatedAt,
 		userId,
 	}: {
 		activityId: number;
 		createdAt: string;
 		id: null | number;
-		notificationId: number;
 		updatedAt: string;
 		userId: number;
 	}): ActivityLikeEntity {
@@ -55,7 +48,6 @@ class ActivityLikeEntity implements Entity {
 			activityId,
 			createdAt,
 			id,
-			notificationId,
 			updatedAt,
 			userId,
 		});
@@ -63,18 +55,15 @@ class ActivityLikeEntity implements Entity {
 
 	public static initializeNew({
 		activityId,
-		notificationId,
 		userId,
 	}: {
 		activityId: number;
-		notificationId: number;
 		userId: number;
 	}): ActivityLikeEntity {
 		return new ActivityLikeEntity({
 			activityId,
 			createdAt: "",
 			id: null,
-			notificationId,
 			updatedAt: "",
 			userId,
 		});
@@ -82,12 +71,10 @@ class ActivityLikeEntity implements Entity {
 
 	public toNewObject(): {
 		activityId: number;
-		notificationId: number;
 		userId: number;
 	} {
 		return {
 			activityId: this.activityId,
-			notificationId: this.notificationId,
 			userId: this.userId,
 		};
 	}
@@ -95,13 +82,11 @@ class ActivityLikeEntity implements Entity {
 	public toObject(): {
 		activityId: number;
 		id: number;
-		notificationId: number;
 		userId: number;
 	} {
 		return {
 			activityId: this.activityId,
 			id: this.id as number,
-			notificationId: this.notificationId,
 			userId: this.userId,
 		};
 	}

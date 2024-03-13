@@ -13,13 +13,12 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 	public async create(
 		activityLike: ActivityLikeEntity,
 	): Promise<ActivityLikeEntity> {
-		const { activityId, notificationId, userId } = activityLike.toNewObject();
+		const { activityId, userId } = activityLike.toNewObject();
 
 		const activityLikeModel = await this.activityLikeModel
 			.query()
 			.insert({
 				activityId,
-				notificationId,
 				userId,
 			})
 			.returning("*")
@@ -29,7 +28,6 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 			activityId: activityLikeModel.activityId,
 			createdAt: activityLikeModel.createdAt,
 			id: activityLikeModel.id,
-			notificationId: activityLikeModel.notificationId,
 			updatedAt: activityLikeModel.updatedAt,
 			userId: activityLikeModel.userId,
 		});
@@ -55,7 +53,6 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 					activityId: activityLike.activityId,
 					createdAt: activityLike.createdAt,
 					id: activityLike.id,
-					notificationId: activityLike.notificationId,
 					updatedAt: activityLike.updatedAt,
 					userId: activityLike.userId,
 				})
@@ -70,7 +67,6 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 				activityId: activityLike.activityId,
 				createdAt: activityLike.createdAt,
 				id: activityLike.id,
-				notificationId: activityLike.notificationId,
 				updatedAt: activityLike.updatedAt,
 				userId: activityLike.userId,
 			});
@@ -92,7 +88,6 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 					activityId: activityLike.activityId,
 					createdAt: activityLike.createdAt,
 					id: activityLike.id,
-					notificationId: activityLike.notificationId,
 					updatedAt: activityLike.updatedAt,
 					userId: activityLike.userId,
 				})
@@ -114,7 +109,6 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 			activityId: activityLikeModel.activityId,
 			createdAt: activityLikeModel.createdAt,
 			id: activityLikeModel.id,
-			notificationId: activityLike.notificationId,
 			updatedAt: activityLikeModel.updatedAt,
 			userId: activityLikeModel.userId,
 		});

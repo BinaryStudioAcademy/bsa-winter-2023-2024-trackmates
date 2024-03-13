@@ -10,6 +10,7 @@ import { type Service, type ValueOf } from "~/libs/types/types.js";
 import {
 	type NotificationFilter,
 	NotificationStatus,
+	type NotificationType,
 } from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
 import { filterQueryParameterToNotificationType } from "./libs/maps/maps.js";
@@ -46,10 +47,11 @@ class NotificationService implements Service {
 	public async create(
 		payload: CreateNotificationRequestDto,
 	): Promise<NotificationResponseDto> {
-		const { receiverUserId, type, userId } = payload;
+		const { actionId, receiverUserId, type, userId } = payload;
 
 		const createdNotification = await this.notificationRepository.create(
 			NotificationEntity.initializeNew({
+				actionId,
 				receiverUserId,
 				status: NotificationStatus.UNREAD,
 				type,
@@ -79,6 +81,22 @@ class NotificationService implements Service {
 			});
 		}
 
+		return await this.notificationRepository.delete(notificationId);
+	}
+
+	public async deleteByActionId(
+		actionId: number,
+		type: ValueOf<typeof NotificationType>,
+	): Promise<boolean> {
+		const notification = await this.notificationRepository.findByActionId(
+			actionId,
+			type,
+		);
+
+		if (!notification) {
+			return false;
+		}
+
 		const notificationObject = notification.toObject();
 
 		this.socketService.emitMessage({
@@ -88,7 +106,7 @@ class NotificationService implements Service {
 			targetNamespace: SocketNamespace.NOTIFICATIONS,
 		});
 
-		return await this.notificationRepository.delete(notificationId);
+		return await this.notificationRepository.deleteByActionId(actionId, type);
 	}
 
 	public async find(notificationId: number): Promise<NotificationResponseDto> {
@@ -156,11 +174,12 @@ class NotificationService implements Service {
 			});
 		}
 
-		const { receiverUserId, status, type, userId } = payload;
+		const { actionId, receiverUserId, status, type, userId } = payload;
 
 		const updatedNotification = await this.notificationRepository.update(
 			notificationId,
 			NotificationEntity.initializeNew({
+				actionId,
 				receiverUserId,
 				status,
 				type,

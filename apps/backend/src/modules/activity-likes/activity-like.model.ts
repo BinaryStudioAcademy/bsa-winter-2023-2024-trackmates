@@ -18,14 +18,6 @@ class ActivityLikeModel extends AbstractModel {
 				modelClass: ActivityModel,
 				relation: Model.BelongsToOneRelation,
 			},
-			notification: {
-				join: {
-					from: `${DatabaseTableName.ACTIVITY_LIKES}.notificationId`,
-					to: `${DatabaseTableName.NOTIFICATIONS}.id`,
-				},
-				modelClass: ActivityModel,
-				relation: Model.BelongsToOneRelation,
-			},
 			user: {
 				join: {
 					from: `${DatabaseTableName.ACTIVITY_LIKES}.userId`,
@@ -38,8 +30,6 @@ class ActivityLikeModel extends AbstractModel {
 	};
 
 	public activityId!: number;
-
-	public notificationId!: number;
 
 	public userId!: number;
 
