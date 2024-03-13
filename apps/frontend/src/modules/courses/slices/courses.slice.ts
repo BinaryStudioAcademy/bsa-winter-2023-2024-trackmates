@@ -80,6 +80,9 @@ const { actions, name, reducer } = createSlice({
 			state.searchedCourses = [];
 			state.addedVendorCourseDataStatuses = {};
 		},
+		clearCurrentCourse(state) {
+			state.currentCourse = null;
+		},
 	},
 });
 
