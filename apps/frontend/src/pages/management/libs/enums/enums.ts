@@ -1,1 +1,1 @@
-export { ManagementDialogueMessages } from "./management-dialogue-messages.js";
+export { ManagementDialogueMessage } from "./management-dialogue-message.js";

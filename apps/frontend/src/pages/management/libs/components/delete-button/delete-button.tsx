@@ -3,7 +3,7 @@ import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { ManagementDialogueMessages } from "../../enums/enums.js";
+import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import styles from "./styles.module.css";
 
@@ -37,7 +37,7 @@ const DeleteButton: React.FC<Properties> = ({
 		setIsModalOpen(false);
 	}, [setIsModalOpen]);
 
-	const modalContent = `${ManagementDialogueMessages.DO_YOU_WANT_DELETE_USER} ${user.firstName} ${user.lastName}?`;
+	const modalTitle = `${ManagementDialogueMessage.DO_YOU_WANT_DELETE_USER} ${user.firstName} ${user.lastName}?`;
 
 	const buttonStyles = getValidClassNames(
 		styles["icon-button"],
@@ -60,11 +60,11 @@ const DeleteButton: React.FC<Properties> = ({
 			)}
 			{isModalOpen && (
 				<ConfirmationModal
-					content={modalContent}
 					isOpen={isModalOpen}
 					onCancel={handleCloseModal}
 					onClose={handleCloseModal}
 					onConfirm={handleDelete}
+					title={modalTitle}
 				/>
 			)}
 		</>
