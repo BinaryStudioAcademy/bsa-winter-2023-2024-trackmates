@@ -94,7 +94,10 @@ class NotificationService implements Service {
 		);
 
 		if (!notification) {
-			return false;
+			throw new NotificationError({
+				message: ExceptionMessage.NOTIFICATION_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
 		}
 
 		const notificationObject = notification.toObject();

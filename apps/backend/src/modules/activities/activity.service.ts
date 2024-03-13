@@ -55,10 +55,12 @@ class ActivityService implements Service {
 		if (likeObject?.id) {
 			await this.activityLikeRepository.delete(likeObject.id);
 
-			await this.notificationService.deleteByActionId(
-				likeObject.id,
-				NotificationType.NEW_LIKE,
-			);
+			if (userId !== targetActivity?.userId) {
+				await this.notificationService.deleteByActionId(
+					likeObject.id,
+					NotificationType.NEW_LIKE,
+				);
+			}
 		} else {
 			const like = await this.activityLikeRepository.create(
 				ActivityLikeEntity.initializeNew({
