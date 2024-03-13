@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.62.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.62.1...v1.62.2) (2024-03-13)
+
+
+### Bug Fixes
+
+* **backend:** change method distinct on gropBy tm-454 ([#494](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/494)) ([8657e9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8657e9b6c65ff22705d4686bca8805936a4f0cb0))
+* **frontend:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#483](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/483)) ([cb4f9c6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cb4f9c670030013bf4e6f007328b09c7dc656dee))
+
 ## [1.62.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.62.0...v1.62.1) (2024-03-12)
 
 
