@@ -70,7 +70,7 @@
 }
 
 @media screen and (--medium-screen) {
-	.reduce-able .text-container {
+	.reducible .text-container {
 		display: none;
 	}
 }

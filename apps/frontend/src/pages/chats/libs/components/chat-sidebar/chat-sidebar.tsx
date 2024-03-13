@@ -11,20 +11,20 @@ import styles from "./styles.module.css";
 type Properties = {
 	chats: ChatGetAllItemResponseDto[];
 	className?: string | undefined;
-	isReduceAble: boolean;
+	isReducible: boolean;
 };
 
 const ChatSidebar: React.FC<Properties> = ({
 	chats,
 	className,
-	isReduceAble,
+	isReducible,
 }: Properties) => {
 	const hasChats = chats.length > EMPTY_LENGTH;
 
 	const chatsStyles = getValidClassNames(
 		styles["container"],
 		className,
-		isReduceAble && styles["reduce-able"],
+		isReducible && styles["reducible"],
 	);
 
 	return (
@@ -38,7 +38,7 @@ const ChatSidebar: React.FC<Properties> = ({
 						chats.map((item) => {
 							return (
 								<li className={styles["chats-item"]} key={item.id}>
-									<ChatLink chat={item} isReduceAble={isReduceAble} />
+									<ChatLink chat={item} isReducible={isReducible} />
 								</li>
 							);
 						})}

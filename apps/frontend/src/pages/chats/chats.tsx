@@ -72,7 +72,7 @@ const Chats: React.FC = () => {
 				<ChatSidebar
 					chats={chats}
 					className={styles["chat-list"]}
-					isReduceAble={Boolean(id)}
+					isReducible={Boolean(id)}
 				/>
 				{id && currentChat ? (
 					<Chat
