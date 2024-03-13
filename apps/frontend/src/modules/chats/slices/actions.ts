@@ -123,14 +123,14 @@ const addMessageToCurrentChat = createAsyncThunk<
 	};
 });
 
-const getUnreadMessageCount = createAsyncThunk<
+const getUnreadMessagesCount = createAsyncThunk<
 	number,
 	undefined,
 	AsyncThunkConfig
 >(`${sliceName}/get-unread-message-count`, (_, { extra }) => {
 	const { chatsApi } = extra;
 
-	return chatsApi.getUnreadMessageCount();
+	return chatsApi.getUnreadMessagesCount();
 });
 
 const joinRoom = createAction(`${sliceName}/join-room`, (userId: string) => {
@@ -150,7 +150,7 @@ export {
 	createChat,
 	getAllChats,
 	getChat,
-	getUnreadMessageCount,
+	getUnreadMessagesCount,
 	joinRoom,
 	leaveRoom,
 	updateChats,

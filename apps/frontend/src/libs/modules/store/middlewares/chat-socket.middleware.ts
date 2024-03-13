@@ -22,7 +22,7 @@ const chatSocket = ({
 			SocketEvent.CHAT_ADD_NEW_MESSAGE,
 			(message: ChatMessageItemResponseDto) => {
 				void dispatch(chatsActions.addMessageToCurrentChat(message));
-				void dispatch(chatsActions.getUnreadMessageCount());
+				void dispatch(chatsActions.getUnreadMessagesCount());
 			},
 		);
 

@@ -612,7 +612,7 @@ class ChatRepository implements Repository<ChatEntity> {
 			: null;
 	}
 
-	public async getUnreadMessageCount(userId: number): Promise<number> {
+	public async getUnreadMessagesCount(userId: number): Promise<number> {
 		const unreadMessages = await this.chatModel
 			.query()
 			.sum("unreadMessageCount")

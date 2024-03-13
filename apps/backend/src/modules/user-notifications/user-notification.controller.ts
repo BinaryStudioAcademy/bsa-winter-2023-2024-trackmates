@@ -83,7 +83,7 @@ class UserNotificationController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.getUnreadNotificationCount(
+				return this.getUnreadNotificationsCount(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
@@ -173,13 +173,13 @@ class UserNotificationController extends BaseController {
 	 *              schema:
 	 *                type: number
 	 */
-	public async getUnreadNotificationCount(
+	public async getUnreadNotificationsCount(
 		options: APIHandlerOptions<{
 			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.notificationService.getUnreadNotificationCount(
+			payload: await this.notificationService.getUnreadNotificationsCount(
 				options.user.id,
 			),
 			status: HTTPCode.OK,
