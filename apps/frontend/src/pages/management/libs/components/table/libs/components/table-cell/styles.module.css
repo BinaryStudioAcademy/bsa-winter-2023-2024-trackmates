@@ -1,5 +1,7 @@
 .content {
 	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
 }
 
 .content.centered {
@@ -7,9 +9,14 @@
 }
 
 .narrow-column {
-	width: 70px;
+	width: 120px;
 }
 
 .table-data-cell {
-	padding: 15px 10px;
+	padding: 15px;
+	border-right: 1px solid rgb(174 180 187 / 30%);
+}
+
+.table-data-cell:last-child {
+	border-right: unset;
 }
