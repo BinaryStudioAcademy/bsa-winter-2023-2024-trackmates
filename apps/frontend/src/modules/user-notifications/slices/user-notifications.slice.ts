@@ -13,13 +13,13 @@ import {
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
 	notifications: NotificationResponseDto[];
-	unreadNotificationCount: number;
+	unreadNotificationsCount: number;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
 	notifications: [],
-	unreadNotificationCount: 0,
+	unreadNotificationsCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -50,7 +50,7 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getUnreadNotificationsCount.fulfilled, (state, action) => {
-			state.unreadNotificationCount = action.payload;
+			state.unreadNotificationsCount = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getUnreadNotificationsCount.rejected, (state) => {

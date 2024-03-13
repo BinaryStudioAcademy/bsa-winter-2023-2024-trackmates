@@ -20,14 +20,14 @@ type State = {
 	chats: ChatGetAllItemResponseDto[];
 	currentChat: ChatItemResponseDto | null;
 	dataStatus: ValueOf<typeof DataStatus>;
-	unreadMessageCount: number;
+	unreadMessagesCount: number;
 };
 
 const initialState: State = {
 	chats: [],
 	currentChat: null,
 	dataStatus: DataStatus.IDLE,
-	unreadMessageCount: 0,
+	unreadMessagesCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -66,7 +66,7 @@ const { actions, name, reducer } = createSlice({
 		});
 
 		builder.addCase(getUnreadMessagesCount.fulfilled, (state, action) => {
-			state.unreadMessageCount = action.payload;
+			state.unreadMessagesCount = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getUnreadMessagesCount.rejected, (state) => {

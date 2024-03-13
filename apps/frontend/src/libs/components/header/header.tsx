@@ -15,15 +15,14 @@ import { getUnreadDisplayValue } from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { unreadMessageCount, unreadNotificationCount, user } = useAppSelector(
-		({ auth, chats, userNotifications }) => {
+	const { unreadMessagesCount, unreadNotificationsCount, user } =
+		useAppSelector(({ auth, chats, userNotifications }) => {
 			return {
-				unreadMessageCount: chats.unreadMessageCount,
-				unreadNotificationCount: userNotifications.unreadNotificationCount,
+				unreadMessagesCount: chats.unreadMessagesCount,
+				unreadNotificationsCount: userNotifications.unreadNotificationsCount,
 				user: auth.user as UserAuthResponseDto,
 			};
-		},
-	);
+		});
 
 	const { pathname } = useLocation();
 
@@ -32,17 +31,17 @@ const Header: React.FC = () => {
 	});
 
 	const unreadMessagesDisplay = getUnreadDisplayValue(
-		unreadMessageCount,
+		unreadMessagesCount,
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
 
 	const unreadNotificationsDisplay = getUnreadDisplayValue(
-		unreadNotificationCount,
+		unreadNotificationsCount,
 		MAXIMUM_DISPLAY_UNREAD_COUNT,
 	);
 
-	const hasUnreadMessages = unreadMessageCount > EMPTY_LENGTH;
-	const hasUnreadNotifications = unreadNotificationCount > EMPTY_LENGTH;
+	const hasUnreadMessages = unreadMessagesCount > EMPTY_LENGTH;
+	const hasUnreadNotifications = unreadNotificationsCount > EMPTY_LENGTH;
 
 	return (
 		<header className={styles["header"]}>
