@@ -1,9 +1,15 @@
-import { add, loadMyCourses, loadUserCourses } from "./actions.js";
+import {
+	add,
+	loadCommonCourses,
+	loadMyCourses,
+	loadUserCourses,
+} from "./actions.js";
 import { actions } from "./user-courses.slice.js";
 
 const allActions = {
 	...actions,
 	add,
+	loadCommonCourses,
 	loadMyCourses,
 	loadUserCourses,
 };

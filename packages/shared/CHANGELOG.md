@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.32.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.31.0...shared-v1.32.0) (2024-03-13)
+
+
+### Features
+
+* **backend:** add like notification tm-445 ([#466](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/466)) ([be97ce5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/be97ce503197c7252cb26275dc6e64d1f4775424))
+
+## [1.31.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.30.0...shared-v1.31.0) (2024-03-13)
+
+
+### Features
+
+* **backend/frontend/shared:** implement counters for unread notifications and chats tm-395 ([#455](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/455)) ([8e787ea](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e787ea8e5e6401011d367a47a5ce0338068320f))
+
+## [1.30.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.29.0...shared-v1.30.0) (2024-03-12)
+
+
+### Features
+
+* **backend/shared:** add comments notifications tm-446 ([#478](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/478)) ([2f7ef96](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2f7ef968bf1ce12c62c2c64d005cb46f0ba383a8))
+* **frontend/backend/shared:** compare progress with a friend tm-197 ([#486](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/486)) ([8932910](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/89329108846f2b8d4bcf49ee591b30f503ef7675))
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** Update the design of the "Chats" page tm-388 ([#467](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/467)) ([f3188e8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f3188e842f41cd615399e4aa157ff6ae872f0fc6))
+
 ## [1.29.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.28.0...shared-v1.29.0) (2024-03-12)
 
 

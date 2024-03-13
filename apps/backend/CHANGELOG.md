@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.36.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.35.0...backend-v1.36.0) (2024-03-13)
+
+
+### Features
+
+* **backend:** add like notification tm-445 ([#466](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/466)) ([be97ce5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/be97ce503197c7252cb26275dc6e64d1f4775424))
+
+## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.34.1...backend-v1.35.0) (2024-03-13)
+
+
+### Features
+
+* **backend/frontend/shared:** implement counters for unread notifications and chats tm-395 ([#455](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/455)) ([8e787ea](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e787ea8e5e6401011d367a47a5ce0338068320f))
+
+## [1.34.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.34.0...backend-v1.34.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **backend:** change method distinct on gropBy tm-454 ([#494](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/494)) ([8657e9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8657e9b6c65ff22705d4686bca8805936a4f0cb0))
+
+## [1.34.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.33.0...backend-v1.34.0) (2024-03-12)
+
+
+### Features
+
+* **backend/shared:** add comments notifications tm-446 ([#478](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/478)) ([2f7ef96](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2f7ef968bf1ce12c62c2c64d005cb46f0ba383a8))
+* **frontend/backend/shared:** compare progress with a friend tm-197 ([#486](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/486)) ([8932910](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/89329108846f2b8d4bcf49ee591b30f503ef7675))
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** Update the design of the "Chats" page tm-388 ([#467](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/467)) ([f3188e8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f3188e842f41cd615399e4aa157ff6ae872f0fc6))
+
 ## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.32.0...backend-v1.33.0) (2024-03-12)
 
 

@@ -1,4 +1,4 @@
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useCallback } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
@@ -10,6 +10,7 @@ import {
 import { Button } from "../button/button.js";
 import { Link } from "../link/link.js";
 import { CourseCard } from "./libs/component/component.js";
+import { checkIsUserCourse } from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -24,11 +25,15 @@ const Course: React.FC<Properties> = ({
 	userId,
 }: Properties) => {
 	const { id, url, vendor, vendorCourseId } = course;
-	const addedVendorCourseIds = useAppSelector(({ courses }) => {
-		return courses.addedVendorCourseIds;
+	const addedVendorCourseDataStatuses = useAppSelector(({ courses }) => {
+		return courses.addedVendorCourseDataStatuses;
 	});
 
-	const isButtonDisabled = addedVendorCourseIds.includes(vendorCourseId);
+	const isLoading =
+		addedVendorCourseDataStatuses[vendorCourseId] === DataStatus.PENDING;
+	const isDisabled =
+		isLoading ||
+		addedVendorCourseDataStatuses[vendorCourseId] === DataStatus.FULFILLED;
 
 	const courseDescriptionRouteById = configureString(
 		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
@@ -37,8 +42,17 @@ const Course: React.FC<Properties> = ({
 			userId: String(userId),
 		},
 	) as typeof AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID;
+	const courseComparisonRoute = configureString(
+		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE,
+		{
+			courseId: String(id),
+			userId: String(userId),
+		},
+	) as typeof AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE;
 
 	const hasAddCourse = !!onAddCourse;
+	const hasProgress = checkIsUserCourse(course);
+	const hasCompare = !hasProgress && !hasAddCourse;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -49,12 +63,12 @@ const Course: React.FC<Properties> = ({
 
 	return (
 		<article className={styles["container"]}>
-			{hasAddCourse ? (
-				<CourseCard course={course} />
-			) : (
+			{hasProgress ? (
 				<Link className={styles["link"]} to={courseDescriptionRouteById}>
 					<CourseCard course={course} />
 				</Link>
+			) : (
+				<CourseCard course={course} />
 			)}
 			{hasAddCourse && (
 				<div className={styles["actions"]}>
@@ -69,9 +83,20 @@ const Course: React.FC<Properties> = ({
 					<Button
 						className={styles["course-add-button"]}
 						iconName="plusOutlined"
-						isDisabled={isButtonDisabled}
+						isDisabled={isDisabled}
+						isLoading={isLoading}
 						label="Add"
 						onClick={handleAddCourse}
+						size="small"
+					/>
+				</div>
+			)}
+			{hasCompare && (
+				<div className={styles["actions"]}>
+					<Button
+						className={styles["compare-progress-button"]}
+						href={courseComparisonRoute}
+						label="Compare progress"
 						size="small"
 					/>
 				</div>

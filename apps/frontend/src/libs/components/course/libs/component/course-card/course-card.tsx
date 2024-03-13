@@ -1,4 +1,4 @@
-import { Image } from "~/libs/components/components.js";
+import { Image } from "~/libs/components/image/image.jsx";
 import { LinearProgress } from "~/libs/components/linear-progress/linear-progress.jsx";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.js";

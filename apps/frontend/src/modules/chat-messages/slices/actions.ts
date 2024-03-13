@@ -6,6 +6,7 @@ import { actions as chatsActions } from "~/modules/chats/chats.js";
 import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ReadChatMessagesRequestDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./chat-messages.slice.js";
 
@@ -23,4 +24,22 @@ const sendMessage = createAsyncThunk<
 	return newMessage;
 });
 
-export { sendMessage };
+const setReadChatMessages = createAsyncThunk<
+	{ items: ChatMessageItemResponseDto[] },
+	ReadChatMessagesRequestDto,
+	AsyncThunkConfig
+>(
+	`${sliceName}/set-read-chat-messages`,
+	async (messagePayload, { dispatch, extra }) => {
+		const { chatMessagesApi } = extra;
+
+		const readNotifications =
+			await chatMessagesApi.setReadChatMessages(messagePayload);
+
+		void dispatch(chatsActions.getUnreadMessagesCount());
+
+		return readNotifications;
+	},
+);
+
+export { sendMessage, setReadChatMessages };

@@ -10,7 +10,7 @@
 	padding: 19px;
 	overflow: hidden;
 	background-color: var(--color-menu);
-	transition: 0.3s;
+	transition: 0.3s ease;
 }
 
 .menu {
@@ -47,6 +47,7 @@
 	border-color: transparent;
 	border-radius: 52px;
 	opacity: 0.6;
+	transition: 0.3s ease;
 }
 
 .menu-item:hover {
@@ -93,7 +94,7 @@
 @media screen and (--large-screen) {
 	.menu-item {
 		width: 100%;
-		transition: 0.3s;
+		transition: 0.3s ease;
 	}
 
 	.close .link-title {
@@ -111,6 +112,7 @@
 
 	.open .log-out-btn :last-child {
 		display: block;
+		white-space: nowrap;
 	}
 
 	.title-container {

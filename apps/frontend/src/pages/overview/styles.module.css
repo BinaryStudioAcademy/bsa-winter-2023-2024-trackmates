@@ -9,19 +9,18 @@
 }
 
 .courses-container {
-	display: flex;
-	flex-direction: column;
+	display: grid;
 	flex-grow: 1;
-	max-width: 1500px;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
 	padding: 27px 0 0;
-	margin: auto;
+	margin: 0 auto;
 	color: var(--color-text-300);
 }
 
 .courses-container-content {
 	display: flex;
 	flex-direction: column;
-	flex-grow: 1;
 	gap: 40px;
 	justify-content: space-between;
 }
