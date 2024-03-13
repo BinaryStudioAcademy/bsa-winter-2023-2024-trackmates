@@ -10,6 +10,7 @@
 	background-color: #efefef;
 	border: 0;
 	border-radius: 15px;
+	transition: 0.3s ease;
 }
 
 .item:disabled {
