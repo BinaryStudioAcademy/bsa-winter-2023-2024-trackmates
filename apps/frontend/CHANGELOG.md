@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.50.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.49.0...frontend-v1.50.0) (2024-03-13)
+
+
+### Features
+
+* **frontend:** Update the design of the "Notifications" page tm-447 ([#504](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/504)) ([932675e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/932675e2f8682e30667e12cc0faa598bac2a3dc3))
+
+
+### Bug Fixes
+
+* **frontend:** Hide previous state of the data from the store on all pages tm-506 ([#510](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/510)) ([f28b4c7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f28b4c737ba2ad7ba1a66fef21eff75b1b8a20a2))
+* **frontend:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#515](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/515)) ([df2c33e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/df2c33e3b7f3aa72933f0590b1be7253c7237506))
+
 ## [1.49.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.48.0...frontend-v1.49.0) (2024-03-13)
 
 
