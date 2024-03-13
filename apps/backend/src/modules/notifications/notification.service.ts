@@ -36,14 +36,6 @@ class NotificationService implements Service {
 		this.socketService = socketService;
 	}
 
-	public async checkHasUserUnreadNotifications(
-		userId: number,
-	): Promise<boolean> {
-		return await this.notificationRepository.checkHasUserUnreadNotifications(
-			userId,
-		);
-	}
-
 	public async create(
 		payload: CreateNotificationRequestDto,
 	): Promise<NotificationResponseDto> {
@@ -151,6 +143,12 @@ class NotificationService implements Service {
 		return {
 			items: userNotifications.map((notification) => notification.toObject()),
 		};
+	}
+
+	public async getUnreadNotificationsCount(userId: number): Promise<number> {
+		return await this.notificationRepository.getUnreadNotificationsCount(
+			userId,
+		);
 	}
 
 	public async setReadNotifications(

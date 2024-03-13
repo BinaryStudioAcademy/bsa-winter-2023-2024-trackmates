@@ -107,6 +107,18 @@ class ChatController extends BaseController {
 				params: chatIdParameterValidationSchema,
 			},
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.getUnreadMessagesCount(
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: ChatsApiPath.UNREAD_COUNT,
+		});
 	}
 
 	/**
@@ -292,6 +304,34 @@ class ChatController extends BaseController {
 				id: params.chatId,
 				userId: user.id,
 			}),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /chats/unread-count:
+	 *    get:
+	 *      tags:
+	 *        - Chats
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Get a count of all user's unread messages
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: number
+	 */
+	public async getUnreadMessagesCount(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatService.getUnreadMessagesCount(options.user.id),
 			status: HTTPCode.OK,
 		};
 	}

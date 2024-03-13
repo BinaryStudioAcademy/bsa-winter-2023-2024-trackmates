@@ -17,11 +17,13 @@ import { ChatMessagesApiPath } from "./libs/enums/enums.js";
 import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageUpdateRequestDto,
+	type ReadChatMessagesRequestDto,
 } from "./libs/types/types.js";
 import {
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
+	readChatMessagesRequestValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -141,6 +143,19 @@ class ChatMessageController extends BaseController {
 			path: ChatMessagesApiPath.$MESSAGE_ID,
 			validation: {
 				params: chatMessageIdParameterValidationSchema,
+			},
+		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.setReadChatMessages(
+					options as APIHandlerOptions<{ body: ReadChatMessagesRequestDto }>,
+				);
+			},
+			method: "PATCH",
+			path: ChatMessagesApiPath.READ_CHAT_MESSAGES,
+			validation: {
+				body: readChatMessagesRequestValidationSchema,
 			},
 		});
 	}
@@ -360,6 +375,54 @@ class ChatMessageController extends BaseController {
 				updateMessageData: body,
 				userId: user.id,
 			}),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /chat-messages/read-chat-messages:
+	 *    patch:
+	 *      tags:
+	 *        - Chat messages
+	 *      description: Read chat messages
+	 *      security:
+	 *        - bearerAuth: []
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                chatMessageIds:
+	 *                  type: array
+	 *                  items:
+	 *                    type: number
+	 *                    minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/ChatMessage"
+	 */
+	public async setReadChatMessages(
+		options: APIHandlerOptions<{
+			body: ReadChatMessagesRequestDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.chatMessageService.setReadChatMessages(
+				options.body.chatMessageIds,
+			),
 			status: HTTPCode.OK,
 		};
 	}

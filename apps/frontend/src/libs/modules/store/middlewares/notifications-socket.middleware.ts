@@ -27,7 +27,7 @@ const notificationsSocket = ({
 					type: NotificationFilter.ALL,
 				}),
 			);
-			void dispatch(userNotificationsActions.checkHasUserUnreadNotifications());
+			void dispatch(userNotificationsActions.getUnreadNotificationsCount());
 		});
 
 		return (next) => {

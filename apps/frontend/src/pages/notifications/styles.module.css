@@ -45,7 +45,7 @@
 	text-transform: capitalize;
 	background-color: var(--color-background);
 	border: none;
-	transition: 0.3s;
+	transition: 0.3s ease;
 }
 
 .filter-item::after {
@@ -57,7 +57,7 @@
 	background-color: var(--main-orange);
 	border-radius: 5px;
 	opacity: 0;
-	transition: 0.3s;
+	transition: 0.3s ease;
 }
 
 .filter-item:hover,
