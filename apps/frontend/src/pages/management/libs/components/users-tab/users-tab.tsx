@@ -1,4 +1,4 @@
-import { Button } from "~/libs/components/components.js";
+import { Button, Loader } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -13,8 +13,9 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { Chip } from "../chip/chip.js";
-import { DeleteButton } from "../delete-button/delete-button.js";
+import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
@@ -37,13 +38,6 @@ const UsersTab: React.FC = () => {
 		null,
 	);
 	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
-
-	const handleDeleteUser = useCallback(
-		(userId: number) => {
-			void dispatch(usersActions.remove(userId));
-		},
-		[dispatch],
-	);
 
 	useEffect(() => {
 		void dispatch(usersActions.getAll());
@@ -76,6 +70,22 @@ const UsersTab: React.FC = () => {
 		[currentUser, handleChangeUserGroups],
 	);
 
+	const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+	const handleOpenDeleteModal = useCallback((user: UserAuthResponseDto) => {
+		return () => {
+			setCurrentUser(user);
+			setDeleteModalOpen(true);
+		};
+	}, []);
+	const handleCloseDeleteModal = useCallback(() => {
+		setDeleteModalOpen(false);
+		setCurrentUser(null);
+	}, []);
+	const handleDeleteUser = useCallback(() => {
+		void dispatch(usersActions.remove(currentUser?.id as number));
+		handleCloseDeleteModal();
+	}, [currentUser, dispatch, handleCloseDeleteModal]);
+
 	const tableHeaders = [
 		UsersTableHeader.ID,
 		UsersTableHeader.EMAIL,
@@ -86,6 +96,8 @@ const UsersTab: React.FC = () => {
 	];
 
 	const tableData = users.map((user) => {
+		const isDeleting = userToDataStatus[user.id] === DataStatus.PENDING;
+
 		return {
 			buttons: (
 				<div className={styles["column-buttons"]}>
@@ -96,19 +108,17 @@ const UsersTab: React.FC = () => {
 						label={UsersTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(user)}
 					/>
-					<DeleteButton
-						isLoading={userToDataStatus[user.id] === DataStatus.PENDING}
-						label="delete"
-						onClick={handleDeleteUser}
-						user={user}
-					/>
-					{/* <Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="delete"
-						label={UsersTableHeader.BUTTONS}
-						onClick={handleDeleteUser(user.id)}
-					/> */}
+					{isDeleting ? (
+						<Loader color="orange" size="small" />
+					) : (
+						<Button
+							className={styles["icon-button"]}
+							hasVisuallyHiddenLabel
+							iconName="delete"
+							label={UsersTableHeader.BUTTONS}
+							onClick={handleOpenDeleteModal(user)}
+						/>
+					)}
 				</div>
 			),
 			email: user.email,
@@ -180,6 +190,14 @@ const UsersTab: React.FC = () => {
 						})}
 					</ul>
 				</EditModal>
+			)}
+			{isDeleteModalOpen && (
+				<ConfirmationModal
+					onCancel={handleCloseDeleteModal}
+					onClose={handleCloseDeleteModal}
+					onConfirm={handleDeleteUser}
+					title={`${ManagementDialogueMessage.DELETE_USER} ${currentUser?.firstName} ${currentUser?.lastName}?`}
+				/>
 			)}
 		</div>
 	);
