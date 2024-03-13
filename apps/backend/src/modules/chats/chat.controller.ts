@@ -316,7 +316,7 @@ class ChatController extends BaseController {
 	 *        - Chats
 	 *      security:
 	 *        - bearerAuth: []
-	 *      description: Get a count of unread messages
+	 *      description: Get a count of all user's unread messages
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
