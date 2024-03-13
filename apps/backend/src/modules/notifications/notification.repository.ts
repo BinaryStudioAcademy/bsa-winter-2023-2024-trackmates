@@ -1,4 +1,4 @@
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { RelationName, SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { type Repository, type ValueOf } from "~/libs/types/types.js";
@@ -41,7 +41,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.andWhereNot(`${DatabaseTableName.NOTIFICATIONS}.userId`, userId)
 			.andWhere({ status: NotificationStatus.UNREAD });
 
-		return unreadNotifications.length > EMPTY_ARRAY_LENGTH;
+		return unreadNotifications.length > EMPTY_LENGTH;
 	}
 
 	public async create(

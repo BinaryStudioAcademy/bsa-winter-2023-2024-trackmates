@@ -79,6 +79,7 @@ const Friends: React.FC = () => {
 						page: potentialFriendsPagination.page,
 					}),
 				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 
@@ -89,6 +90,7 @@ const Friends: React.FC = () => {
 						page: followersPagination.page,
 					}),
 				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 
@@ -99,6 +101,7 @@ const Friends: React.FC = () => {
 						page: followingsPagination.page,
 					}),
 				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 		}

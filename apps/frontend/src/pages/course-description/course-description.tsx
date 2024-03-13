@@ -1,7 +1,7 @@
 import { Button } from "~/libs/components/components.js";
 import {
 	BACK_NAVIGATION_STEP,
-	EMPTY_ARRAY_LENGTH,
+	EMPTY_LENGTH,
 } from "~/libs/constants/constants.js";
 import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
@@ -69,7 +69,7 @@ const CourseDescription: React.FC = () => {
 		return null;
 	}
 
-	const hasCourseSections = courseSections.length > EMPTY_ARRAY_LENGTH;
+	const hasCourseSections = courseSections.length > EMPTY_LENGTH;
 
 	return (
 		<>

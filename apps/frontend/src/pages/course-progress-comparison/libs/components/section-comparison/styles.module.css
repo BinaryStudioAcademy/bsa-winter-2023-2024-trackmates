@@ -1,0 +1,65 @@
+@import url("~/assets/css/media.css");
+
+.container {
+	min-width: 100%;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 400px;
+	overflow-y: auto;
+}
+
+.head,
+.section {
+	display: grid;
+	grid-template-columns:
+		minmax(100px, 3fr)
+		minmax(50px, 1fr)
+		minmax(50px, 1fr);
+	min-width: 100%;
+	padding: 20px 26px;
+	font-weight: 500;
+	color: var(--color-text-300);
+	text-align: center;
+}
+
+.head {
+	font-size: var(--font-size-400);
+}
+
+.section {
+	font-size: var(--font-size-300);
+	background-color: var(--main-white);
+	border-radius: 10px;
+}
+
+.row-item {
+	overflow: hidden;
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.row-item:first-child {
+	text-align: left;
+}
+
+@media screen and (--medium-screen) {
+	.head {
+		font-size: var(--font-size-300);
+	}
+}
+
+@media screen and (--small-screen) {
+	.head,
+	.section {
+		font-size: var(--font-size-200);
+	}
+
+	.head {
+		padding-bottom: 14px;
+	}
+}

@@ -23,6 +23,19 @@ const getAll = createAsyncThunk<
 	return items;
 });
 
+const getAllToCompare = createAsyncThunk<
+	SectionStatusResponseDto[],
+	SectionStatusGetAllRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/get-all-to-compare`, async (requestPayload, { extra }) => {
+	const { sectionStatusApi } = extra;
+
+	const { items } =
+		await sectionStatusApi.getAllByCourseIdAndUserId(requestPayload);
+
+	return items;
+});
+
 const create = createAsyncThunk<
 	SectionStatusResponseDto,
 	SectionStatusAddRequestDto,
@@ -43,4 +56,4 @@ const updateStatus = createAsyncThunk<
 	return await sectionStatusApi.updateStatus(sectionStatusId, payload);
 });
 
-export { create, getAll, updateStatus };
+export { create, getAll, getAllToCompare, updateStatus };

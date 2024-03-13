@@ -18,13 +18,10 @@ const getFormattedChatDate = (dateString: string): string => {
 	}
 
 	if (checkIsThisYear(date)) {
-		return getFormattedDate(dateString, FormatDateType.MMMM_DO).toLowerCase();
+		return getFormattedDate(dateString, FormatDateType.MMMM_DO);
 	}
 
-	return getFormattedDate(
-		dateString,
-		FormatDateType.MMMM_DO_YYYY,
-	).toLowerCase();
+	return getFormattedDate(dateString, FormatDateType.MMMM_DO_YYYY);
 };
 
 export { getFormattedChatDate };

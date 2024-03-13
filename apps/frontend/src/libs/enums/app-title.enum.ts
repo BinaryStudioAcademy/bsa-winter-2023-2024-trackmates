@@ -1,6 +1,7 @@
 const AppTitle = {
 	ACTIVITIES: "Activities",
 	CHATS: "Chats",
+	COMPARE_PROGRESS: "Compare Progress",
 	FRIENDS: "Friends",
 	NOTIFICATIONS: "Notifications",
 	PROFILE: "My Profile",

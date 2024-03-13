@@ -51,6 +51,7 @@
 	border-color: var(--color-button);
 }
 
-.course-add-button {
+.course-add-button,
+.compare-progress-button {
 	flex-grow: 1;
 }

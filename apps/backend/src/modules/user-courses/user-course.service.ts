@@ -57,6 +57,23 @@ class UserCourseService {
 			userId,
 		});
 	}
+
+	public async findCommonCourses({
+		currentUserId,
+		userId,
+	}: {
+		currentUserId: number;
+		userId: number;
+	}): Promise<{ items: CourseDto[] }> {
+		const courses = await this.courseRepository.findCommonCourses(
+			userId,
+			currentUserId,
+		);
+
+		return {
+			items: courses.map((course) => course.toObject()),
+		};
+	}
 }
 
 export { UserCourseService };
