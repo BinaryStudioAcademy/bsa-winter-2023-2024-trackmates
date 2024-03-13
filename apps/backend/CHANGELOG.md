@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.34.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.34.0...backend-v1.34.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **backend:** change method distinct on gropBy tm-454 ([#494](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/494)) ([8657e9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8657e9b6c65ff22705d4686bca8805936a4f0cb0))
+
 ## [1.34.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.33.0...backend-v1.34.0) (2024-03-12)
 
 
