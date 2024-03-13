@@ -5,6 +5,7 @@ import { type UserEntity, type UserRepository } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
 import { type ChatMessageRepository } from "./chat-message.repository.js";
+import { MessageStatus } from "./libs/enums/enums.js";
 import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
@@ -66,6 +67,7 @@ class ChatMessageService implements Service {
 			ChatMessageEntity.initializeNew({
 				chatId,
 				senderUser,
+				status: MessageStatus.UNREAD,
 				text: messageData.text,
 			}),
 		);
@@ -119,6 +121,19 @@ class ChatMessageService implements Service {
 		};
 	}
 
+	public async setReadChatMessages(
+		chatMessageIds: number[],
+	): Promise<{ items: ChatMessageItemResponseDto[] }> {
+		const readChatMessages =
+			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
+
+		return {
+			items: readChatMessages.map((chatMessage) => {
+				return chatMessage.toObject();
+			}),
+		};
+	}
+
 	public async update(
 		id: number,
 		{
@@ -144,6 +159,7 @@ class ChatMessageService implements Service {
 			ChatMessageEntity.initializeNew({
 				chatId: messageById.chatId,
 				senderUser: senderUser as UserEntity,
+				status: updateMessageData.status,
 				text: updateMessageData.text,
 			}),
 		);
