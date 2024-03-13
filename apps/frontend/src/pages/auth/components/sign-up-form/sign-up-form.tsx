@@ -73,6 +73,7 @@ const SignUpForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				color="dark"
 				control={control}
 				errors={errors}
+				inputMode="email"
 				label="Email"
 				name="email"
 				placeholder="email@example.com"
