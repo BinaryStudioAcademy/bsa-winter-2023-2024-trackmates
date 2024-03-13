@@ -1,16 +1,13 @@
 .edit-modal {
-	width: 400px;
-	height: 500px;
+	width: max-content;
+	min-width: 300px;
+	height: max-content;
+	min-height: 300px;
 }
 
 .content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 50px 20px;
-}
-
-.button {
-	width: 200px;
-	border-color: var(--color-menu);
+	padding: 30px 20px;
 }
