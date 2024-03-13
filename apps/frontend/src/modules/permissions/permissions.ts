@@ -10,6 +10,9 @@ const permissionsApi = new PermissionsApi({
 	storage,
 });
 
-export { type PermissionResponseDto } from "./libs/types/types.js";
+export {
+	type AllPermissionsResponseDto,
+	type PermissionResponseDto,
+} from "./libs/types/types.js";
 export { permissionsApi };
 export { actions } from "./slices/permissions.js";

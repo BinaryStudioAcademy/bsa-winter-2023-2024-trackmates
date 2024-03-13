@@ -3,7 +3,6 @@ import { Button, Modal } from "~/libs/components/components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	isOpen: boolean;
 	onCancel: () => void;
 	onClose: () => void;
 	onConfirm: () => void;
@@ -11,26 +10,23 @@ type Properties = {
 };
 
 const ConfirmationModal: React.FC<Properties> = ({
-	isOpen,
 	onCancel,
 	onClose,
 	onConfirm,
 	title,
 }: Properties) => {
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="small">
+		<Modal centered isOpen onClose={onClose} size="small">
 			<div className={styles["confirm-modal"]}>
-				<span className={styles["confirm-modal-content"]}>{title}</span>
-				<div className={styles["confirm-modal-footer"]}>
+				<span className={styles["title"]}>{title}</span>
+				<div className={styles["modal-footer"]}>
 					<Button
-						className={styles["confirm-modal-buttons-cancel"]}
 						label="Cancel"
 						onClick={onCancel}
 						size="small"
 						style="secondary"
 					/>
 					<Button
-						className={styles["confirm-modal-buttons-delete"]}
 						label="Confirm"
 						onClick={onConfirm}
 						size="small"

@@ -25,6 +25,19 @@
 	border-radius: 16px;
 }
 
+.large .content {
+	max-width: 1150px;
+	height: 100%;
+}
+
+.small .content {
+	width: min-content;
+	min-width: 500px;
+	max-width: max-content;
+	height: min-content;
+	max-height: max-content;
+}
+
 .close-btn {
 	position: absolute;
 	top: 8px;
@@ -35,19 +48,6 @@
 	color: inherit;
 	background: transparent;
 	border: none;
-}
-
-.large .content {
-	max-width: 1150px;
-	height: 100%;
-}
-
-.small .content {
-	top: 30%;
-	width: 30%;
-	min-width: 500px;
-	height: 30%;
-	min-height: 222px;
 }
 
 @media screen and (width <= 865px) {

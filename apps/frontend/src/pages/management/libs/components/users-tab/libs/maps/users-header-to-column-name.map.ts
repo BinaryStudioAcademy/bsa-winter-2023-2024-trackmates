@@ -1,8 +1,7 @@
 import { UsersTableHeader } from "../enums/enums.js";
 
 const usersHeaderToColumnName = {
-	[UsersTableHeader.DELETE]: "delete",
-	[UsersTableHeader.EDIT]: "edit",
+	[UsersTableHeader.BUTTONS]: "buttons",
 	[UsersTableHeader.EMAIL]: "email",
 	[UsersTableHeader.FIRST_NAME]: "firstName",
 	[UsersTableHeader.GROUPS]: "groups",

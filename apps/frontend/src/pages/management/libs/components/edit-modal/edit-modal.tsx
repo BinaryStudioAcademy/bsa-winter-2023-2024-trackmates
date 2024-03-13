@@ -5,14 +5,32 @@ import styles from "./styles.module.css";
 type Properties = {
 	children: React.ReactNode;
 	onClose: () => void;
+	title?: string | undefined;
 };
 
-const EditModal: React.FC<Properties> = ({ children, onClose }: Properties) => {
+const EditModal: React.FC<Properties> = ({
+	children,
+	onClose,
+	title,
+}: Properties) => {
 	return (
-		<Modal centered className={styles["edit-modal"]} isOpen onClose={onClose}>
-			<div className={styles["content"]}>
-				<form>{children}</form>
-				<Button className={styles["button"]} label="Save" size="small" />
+		<Modal
+			centered
+			className={styles["edit-modal"]}
+			isOpen
+			onClose={onClose}
+			size="small"
+		>
+			<span className={styles["title"]}>{title}</span>
+			<div className={styles["content"]}>{children}</div>
+			<div className={styles["modal-footer"]}>
+				<Button
+					className={styles["button"]}
+					label="OK"
+					onClick={onClose}
+					size="small"
+					style="primary"
+				/>
 			</div>
 		</Modal>
 	);

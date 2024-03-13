@@ -6,6 +6,7 @@ const AppRoute = {
 	FRIENDS: "/friends",
 	FRIENDS_FOLLOWERS: "/friends/followers",
 	FRIENDS_FOLLOWINGS: "/friends/followings",
+	MANAGEMENT: "/management",
 	MANAGEMENT_GROUPS: "/management/groups",
 	MANAGEMENT_USERS: "/management/users",
 	NOTIFICATIONS: "/notifications",

@@ -1,13 +1,21 @@
 .container {
 	flex-grow: 1;
-	padding: 15px 40px;
+	padding: 16px 40px;
+	color: var(--color-text-300);
 	background-color: var(--color-background);
+}
+
+.title {
+	margin: 17px 0;
+	font-size: var(--font-size-400);
+	font-weight: 600;
 }
 
 .link-list {
 	display: flex;
 	width: min-content;
 	padding: 0;
+	margin-bottom: 26px;
 	list-style: none;
 	background-color: var(--main-white);
 	border-radius: 38px;

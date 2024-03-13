@@ -9,5 +9,7 @@ export {
 	ExceptionMessage,
 	FormatDateType,
 	PaginationValue,
+	PermissionKey,
+	PermissionMode,
 	ServerErrorType,
 } from "@trackmates/shared";

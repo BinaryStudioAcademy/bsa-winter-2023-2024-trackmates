@@ -50,8 +50,9 @@ const { reducer } = createSlice({
 		builder.addCase(permissionsActions.getAllPermissions.rejected, (state) => {
 			state.permissionsDataStatus = DataStatus.REJECTED;
 		});
+
 		builder.addCase(groupsActions.getAllGroups.fulfilled, (state, action) => {
-			state.groups = action.payload.items;
+			state.groups = action.payload;
 			state.groupsDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(groupsActions.getAllGroups.pending, (state) => {
@@ -60,8 +61,57 @@ const { reducer } = createSlice({
 		builder.addCase(groupsActions.getAllGroups.rejected, (state) => {
 			state.groupsDataStatus = DataStatus.REJECTED;
 		});
+
+		builder.addCase(groupsActions.createGroup.fulfilled, (state, action) => {
+			state.groups = action.payload;
+			state.groupsDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(groupsActions.createGroup.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.createGroup.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(
+			groupsActions.updateGroupPermissions.fulfilled,
+			(state, action) => {
+				state.groups = action.payload;
+			},
+		);
+		builder.addCase(groupsActions.updateGroupPermissions.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.updateGroupPermissions.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(
+			groupsActions.updateUserGroups.fulfilled,
+			(state, action) => {
+				state.users = action.payload;
+			},
+		);
+		builder.addCase(groupsActions.updateUserGroups.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.updateUserGroups.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(groupsActions.deleteGroup.fulfilled, (state, action) => {
+			state.groups = action.payload;
+			state.groupsDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(groupsActions.deleteGroup.pending, (state) => {
+			state.groupsDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(groupsActions.deleteGroup.rejected, (state) => {
+			state.groupsDataStatus = DataStatus.REJECTED;
+		});
+
 		builder.addCase(usersActions.getAll.fulfilled, (state, action) => {
-			state.users = action.payload.items;
+			state.users = action.payload;
 			state.usersDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(usersActions.getAll.pending, (state) => {

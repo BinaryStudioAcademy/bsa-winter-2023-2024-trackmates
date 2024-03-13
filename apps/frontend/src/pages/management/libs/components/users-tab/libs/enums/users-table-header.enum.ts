@@ -1,6 +1,5 @@
 const UsersTableHeader = {
-	DELETE: "Delete",
-	EDIT: "Edit",
+	BUTTONS: "",
 	EMAIL: "Email",
 	FIRST_NAME: "First name",
 	GROUPS: "Groups",

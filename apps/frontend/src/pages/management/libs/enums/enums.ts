@@ -1,1 +1,1 @@
-export { ManagementDialogueMessage } from "./management-dialogue-message.js";
+export { ManagementDialogueMessage } from "./management-dialogue-message.enum.js";

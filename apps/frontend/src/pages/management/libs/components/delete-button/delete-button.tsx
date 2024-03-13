@@ -37,7 +37,7 @@ const DeleteButton: React.FC<Properties> = ({
 		setIsModalOpen(false);
 	}, [setIsModalOpen]);
 
-	const modalTitle = `${ManagementDialogueMessage.DO_YOU_WANT_DELETE_USER} ${user.firstName} ${user.lastName}?`;
+	const modalTitle = `${ManagementDialogueMessage.DELETE_USER} ${user.firstName} ${user.lastName}?`;
 
 	const buttonStyles = getValidClassNames(
 		styles["icon-button"],
@@ -60,7 +60,7 @@ const DeleteButton: React.FC<Properties> = ({
 			)}
 			{isModalOpen && (
 				<ConfirmationModal
-					isOpen={isModalOpen}
+					// isOpen={isModalOpen}
 					onCancel={handleCloseModal}
 					onClose={handleCloseModal}
 					onConfirm={handleDelete}

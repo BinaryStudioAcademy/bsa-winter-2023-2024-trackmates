@@ -15,4 +15,5 @@ export {
 	type GroupRequestDto,
 	type GroupResponseDto,
 } from "./libs/types/types.js";
+export { groupNameFieldValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 export { actions } from "./slices/groups.js";
