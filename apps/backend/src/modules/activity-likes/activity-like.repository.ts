@@ -17,10 +17,7 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 
 		const activityLikeModel = await this.activityLikeModel
 			.query()
-			.insert({
-				activityId,
-				userId,
-			})
+			.insert({ activityId, userId })
 			.returning("*")
 			.execute();
 
