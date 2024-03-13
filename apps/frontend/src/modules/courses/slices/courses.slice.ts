@@ -77,6 +77,9 @@ const { actions, name, reducer } = createSlice({
 			state.searchedCourses = [];
 			state.addedVendorCourseIds = [];
 		},
+		clearCurrentCourse(state) {
+			state.currentCourse = null;
+		},
 	},
 });
 
