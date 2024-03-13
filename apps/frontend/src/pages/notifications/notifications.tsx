@@ -74,19 +74,19 @@ const Notifications: React.FC = () => {
 
 	return (
 		<div className={styles["page"]}>
-			<div className={styles["content"]}>
-				<div className={styles["header"]}>
-					<h2 className={styles["title"]}>Notification</h2>
+			<div className={styles["header"]}>
+				<h2 className={styles["title"]}>Notifications</h2>
+			</div>
+			<div className={styles["notifications-container"]}>
+				<div className={styles["notifications"]}>
 					<div className={styles["filters"]}>
 						{possibleTypeValues.map((filter) => {
 							const queryString = new URLSearchParams({
 								[QueryParameterName.TYPE]: filter,
 							}).toString();
-
 							const currentLink =
 								AppRoute.NOTIFICATIONS +
 								(filter === NotificationFilter.ALL ? "" : `?${queryString}`);
-
 							const isActive =
 								notificationType === filter ||
 								(!notificationType && filter === NotificationFilter.ALL);
@@ -104,20 +104,23 @@ const Notifications: React.FC = () => {
 							);
 						})}
 					</div>
+					<div className={styles["divider"]} />
+					{isLoading ? (
+						<Loader color="orange" size="large" />
+					) : (
+						<>
+							{hasNotifications ? (
+								<NotificationList notifications={notifications} />
+							) : (
+								<EmptyPagePlaceholder title="You don't have any notifications yet" />
+							)}
+						</>
+					)}
 				</div>
-				{isLoading ? (
-					<Loader color="orange" size="large" />
-				) : (
-					<>
-						{hasNotifications ? (
-							<NotificationList notifications={notifications} />
-						) : (
-							<EmptyPagePlaceholder title="You don't have any notifications yet" />
-						)}
-					</>
-				)}
+
+				<div className={styles["left-image"]} />
+				<div className={styles["right-image"]} />
 			</div>
-			<div className={styles["background"]} />
 		</div>
 	);
 };
