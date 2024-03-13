@@ -15,7 +15,12 @@ import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type GroupService } from "./group.service.js";
 import { GroupsApiPath } from "./libs/enums/enums.js";
 import { type GroupRequestDto } from "./libs/types/types.js";
-import { groupIdParameter } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	groupIdAndPermissionIdParametersValidationSchema,
+	groupIdAndUserIdParametersValidationSchema,
+	groupIdParameterValidationSchema,
+	groupRequestBodyValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -58,6 +63,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				body: groupRequestBodyValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -75,7 +83,7 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -94,7 +102,7 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -109,8 +117,8 @@ class GroupController extends BaseController {
 			method: "GET",
 			path: GroupsApiPath.ROOT,
 			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
+				[PermissionKey.MANAGE_UAM, PermissionKey.MANAGE_USERS],
+				PermissionMode.ONE_OF,
 			),
 		});
 
@@ -129,7 +137,7 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -149,7 +157,8 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				body: groupRequestBodyValidationSchema,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -167,6 +176,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdAndPermissionIdParametersValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -183,6 +195,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdAndUserIdParametersValidationSchema,
+			},
 		});
 	}
 
