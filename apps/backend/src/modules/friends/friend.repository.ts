@@ -265,7 +265,13 @@ class FriendRepository implements Repository<UserEntity> {
 					.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
 					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
 			)
-			.distinct()
+			.groupBy(
+				`${DatabaseTableName.USERS}.id`,
+				"userDetails.id",
+				"userDetails:avatar_file.id",
+				"groups.id",
+				"groups:permissions.id",
+			)
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
