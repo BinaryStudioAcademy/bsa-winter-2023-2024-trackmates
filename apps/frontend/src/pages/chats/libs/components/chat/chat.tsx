@@ -2,7 +2,7 @@ import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Loader } from "~/libs/components/components.js";
 import { EMPTY_LENGTH, LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { initDebounce } from "~/libs/helpers/helpers.js";
+import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useCallback,
@@ -28,6 +28,7 @@ import { ChatMessage } from "../chat-message/chat-message.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	className?: string | undefined;
 	isMessageLoading: boolean;
 	messages: ChatMessageItemResponseDto[];
 	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
@@ -35,6 +36,7 @@ type Properties = {
 };
 
 const Chat: React.FC<Properties> = ({
+	className,
 	isMessageLoading,
 	messages,
 	onSubmit,
@@ -84,8 +86,10 @@ const Chat: React.FC<Properties> = ({
 		navigate(AppRoute.CHATS);
 	}, [navigate]);
 
+	const chatsStyles = getValidClassNames(styles["container"], className);
+
 	return (
-		<div className={styles["container"]}>
+		<div className={chatsStyles}>
 			<div className={styles["nav-container"]}>
 				<Button
 					className={styles["back-button"]}

@@ -1,7 +1,7 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input, Select } from "~/libs/components/components.js";
-import { AppTitle } from "~/libs/enums/enums.js";
+import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -25,9 +25,15 @@ import { userSexToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
-	const user = useAppSelector(({ auth }) => {
-		return auth.user as UserAuthResponseDto;
-	});
+	const { avatarUploadDataStatus, updateUserDataStatus, user } = useAppSelector(
+		({ auth }) => {
+			return {
+				avatarUploadDataStatus: auth.avatarUploadDataStatus,
+				updateUserDataStatus: auth.updateUserDataStatus,
+				user: auth.user as UserAuthResponseDto,
+			};
+		},
+	);
 	const fileInputReference = useRef<HTMLInputElement | null>(null);
 	const dispatch = useAppDispatch();
 
@@ -97,6 +103,9 @@ const Profile: React.FC = () => {
 		});
 	}, []);
 
+	const isFileUploadLoading = avatarUploadDataStatus === DataStatus.PENDING;
+	const isUpdateUserLoading = updateUserDataStatus === DataStatus.PENDING;
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -112,6 +121,8 @@ const Profile: React.FC = () => {
 							/>
 							<Button
 								className={styles["button"]}
+								isDisabled={isFileUploadLoading}
+								isLoading={isFileUploadLoading}
 								label="Change photo"
 								onClick={handleOpenFileInput}
 								size="small"
@@ -180,6 +191,8 @@ const Profile: React.FC = () => {
 						/>
 						<Button
 							className={styles["button"]}
+							isDisabled={isUpdateUserLoading}
+							isLoading={isUpdateUserLoading}
 							label="Update"
 							size="small"
 							type="submit"

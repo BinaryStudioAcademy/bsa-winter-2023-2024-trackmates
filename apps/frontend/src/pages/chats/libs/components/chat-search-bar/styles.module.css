@@ -30,3 +30,20 @@
 		flex-basis: 100%;
 	}
 }
+
+@media screen and (--medium-screen) {
+	.form {
+		flex-basis: auto;
+		width: 100%;
+	}
+
+	.search {
+		width: 100%;
+	}
+
+	.form:has(.search:focus) {
+		min-width: calc(100vw - 180px);
+		padding: 10px 0;
+		background-color: var(--color-menu);
+	}
+}
