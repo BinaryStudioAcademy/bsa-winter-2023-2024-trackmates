@@ -2,9 +2,11 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import { type AllPermissionsResponseDto } from "~/modules/permissions/permissions.js";
 
 import { GroupsApiPath } from "./libs/enums/enums.js";
 import {
+	type AllGroupsResponseDto,
 	type GroupRequestDto,
 	type GroupResponseDto,
 } from "./libs/types/types.js";
@@ -42,7 +44,6 @@ class GroupsApi extends BaseHTTPApi {
 				groupId: String(groupId),
 			}),
 			{
-				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "DELETE",
 			},
@@ -70,7 +71,7 @@ class GroupsApi extends BaseHTTPApi {
 		return await response.json<GroupResponseDto>();
 	}
 
-	public async getAllGroups(): Promise<{ items: GroupResponseDto[] }> {
+	public async getAllGroups(): Promise<AllGroupsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.ROOT, {}),
 			{
@@ -80,45 +81,43 @@ class GroupsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<{ items: GroupResponseDto[] }>();
+		return await response.json<AllGroupsResponseDto>();
 	}
 
 	public async updateGroupPermissions(
 		groupId: number,
 		permissionId: number,
-	): Promise<{ items: GroupResponseDto[] }> {
+	): Promise<AllPermissionsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.$GROUP_ID_PERMISSIONS_$PERMISSION_ID, {
 				groupId: String(groupId),
 				permissionId: String(permissionId),
 			}),
 			{
-				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "PUT",
 			},
 		);
 
-		return await response.json<{ items: GroupResponseDto[] }>();
+		return await response.json<AllPermissionsResponseDto>();
 	}
 
 	public async updateUserGroups(
 		groupId: number,
 		userId: number,
-	): Promise<{ items: GroupResponseDto[] }> {
+	): Promise<AllGroupsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.$GROUP_ID_USERS_$USER_ID, {
 				groupId: String(groupId),
 				userId: String(userId),
 			}),
 			{
-				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "PUT",
 			},
 		);
 
-		return await response.json<{ items: GroupResponseDto[] }>();
+		return await response.json<AllGroupsResponseDto>();
 	}
 }
 
