@@ -24,11 +24,11 @@ const ChatMessage: React.FC<Properties> = ({
 	message,
 	onRead,
 }: Properties) => {
-	const { createdAt, id, senderUser, text } = message;
+	const { createdAt, id, senderUser, status, text } = message;
 
 	const { inView, ref } = useInView();
 
-	const isRead = message.status === MessageStatus.READ;
+	const isRead = status === MessageStatus.READ;
 
 	useEffect(() => {
 		if (!isRead && !isCurrentUserSender && inView) {
