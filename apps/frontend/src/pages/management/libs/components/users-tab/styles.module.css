@@ -2,6 +2,18 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 40px;
+	width: 100%;
+}
+
+.table-container {
+	display: flex;
+	width: 100%;
+}
+
+.column-buttons {
+	display: flex;
+	flex-direction: row;
+	column-gap: 30px;
 }
 
 .icon-button {
@@ -16,4 +28,16 @@
 .icon-button:hover {
 	color: var(--main-orange);
 	background-color: var(--main-white);
+}
+
+.modal-list {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	padding: 0;
+}
+
+.modal-item {
+	display: flex;
+	column-gap: 10px;
 }
