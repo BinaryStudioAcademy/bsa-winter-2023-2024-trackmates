@@ -19,6 +19,7 @@ type Properties<T extends FieldValues> = {
 	errors: FieldErrors<T>;
 	hasVisuallyHiddenLabel?: boolean;
 	iconName?: IconName;
+	inputMode?: "email" | "text";
 	label: string;
 	name: FieldPath<T>;
 	placeholder?: string;
@@ -33,6 +34,7 @@ const Input = <T extends FieldValues>({
 	errors,
 	hasVisuallyHiddenLabel,
 	iconName,
+	inputMode = "text",
 	label,
 	name,
 	placeholder = "",
@@ -78,6 +80,7 @@ const Input = <T extends FieldValues>({
 				<input
 					className={inputClasses}
 					{...field}
+					inputMode={inputMode}
 					placeholder={placeholder}
 					type={type}
 				/>
