@@ -6,6 +6,7 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 import { UsersApiPath } from "./libs/enums/enums.js";
 import {
 	type UserAuthResponseDto,
+	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 } from "./libs/types/types.js";
 
@@ -20,7 +21,7 @@ class UserApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USERS, storage });
 	}
 
-	public async getAll(): Promise<{ items: UserAuthResponseDto[] }> {
+	public async getAll(): Promise<UserGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UsersApiPath.ROOT, {}),
 			{
@@ -30,7 +31,7 @@ class UserApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<{ items: UserAuthResponseDto[] }>();
+		return await response.json<UserGetAllResponseDto>();
 	}
 
 	public async getById(id: number): Promise<UserAuthResponseDto> {
