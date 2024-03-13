@@ -615,7 +615,7 @@ class ChatRepository implements Repository<ChatEntity> {
 	public async getUnreadMessagesCount(userId: number): Promise<number> {
 		const unreadMessages = await this.chatModel
 			.query()
-			.sum("unreadMessageCount")
+			.sum("unreadMessagesCount")
 			.from(
 				this.chatModel
 					.query()
@@ -626,7 +626,7 @@ class ChatRepository implements Repository<ChatEntity> {
 							.where({ status: MessageStatus.UNREAD })
 							.andWhereNot({ senderUserId: userId })
 							.castTo<number>()
-							.as("unreadMessageCount"),
+							.as("unreadMessagesCount"),
 					)
 					.andWhere((builder) => {
 						void builder
