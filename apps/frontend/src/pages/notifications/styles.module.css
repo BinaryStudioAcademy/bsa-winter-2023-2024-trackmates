@@ -33,7 +33,7 @@
 	flex-shrink: 0;
 	height: 1px;
 	margin: 30px 0;
-	background-color: rgb(174 180 187 / 15%);
+	background-color: rgba(174 180 187 / 15%);
 }
 
 .content {
