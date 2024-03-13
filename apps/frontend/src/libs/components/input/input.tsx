@@ -34,7 +34,7 @@ const Input = <T extends FieldValues>({
 	errors,
 	hasVisuallyHiddenLabel,
 	iconName,
-	inputMode,
+	inputMode = "text",
 	label,
 	name,
 	placeholder = "",
