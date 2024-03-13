@@ -2,7 +2,7 @@ import { HTTPCode } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/types.js";
 
 import {
-	type PermissionResponseDto,
+	type AllPermissionsResponseDto,
 	type PermissionService,
 } from "../permissions/permissions.js";
 import { type UserService } from "../users/users.js";
@@ -11,6 +11,7 @@ import { type GroupRepository } from "./group.repository.js";
 import { GroupErrorMessage } from "./libs/enums/enums.js";
 import { GroupError } from "./libs/exceptions/exceptions.js";
 import {
+	type AllGroupsResponseDto,
 	type GroupRequestDto,
 	type GroupResponseDto,
 } from "./libs/types/types.js";
@@ -81,7 +82,7 @@ class GroupService implements Service {
 		return groupById.toObject();
 	}
 
-	public async findAll(): Promise<{ items: GroupResponseDto[] }> {
+	public async findAll(): Promise<AllGroupsResponseDto> {
 		const groups = await this.groupRepository.findAll();
 
 		return {
@@ -93,7 +94,7 @@ class GroupService implements Service {
 
 	public async findAllPermissionsInGroup(
 		groupId: number,
-	): Promise<{ items: PermissionResponseDto[] }> {
+	): Promise<AllPermissionsResponseDto> {
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
@@ -115,7 +116,7 @@ class GroupService implements Service {
 
 	public async findAllUserGroups(
 		userId: number,
-	): Promise<{ items: GroupResponseDto[] }> {
+	): Promise<AllGroupsResponseDto> {
 		void (await this.userService.findById(userId));
 		const userGroups = await this.groupRepository.findAllUserGroups(userId);
 
@@ -180,7 +181,7 @@ class GroupService implements Service {
 	public async updateGroupPermissions(
 		groupId: number,
 		permissionId: number,
-	): Promise<PermissionResponseDto[]> {
+	): Promise<AllPermissionsResponseDto> {
 		void (await this.permissionService.find(permissionId));
 		const groupById = await this.groupRepository.find(groupId);
 
@@ -203,15 +204,17 @@ class GroupService implements Service {
 				)
 			: await this.groupRepository.addPermissionToGroup(groupId, permissionId);
 
-		return permissionsInGroup.map((permission) => {
-			return permission.toObject();
-		});
+		return {
+			items: permissionsInGroup.map((permission) => {
+				return permission.toObject();
+			}),
+		};
 	}
 
 	public async updateUserGroups(
 		groupId: number,
 		userId: number,
-	): Promise<GroupResponseDto[]> {
+	): Promise<AllGroupsResponseDto> {
 		void (await this.userService.findById(userId));
 		const groupById = await this.groupRepository.find(groupId);
 
@@ -231,9 +234,11 @@ class GroupService implements Service {
 			? await this.groupRepository.removeUserFromGroup(groupId, userId)
 			: await this.groupRepository.addUserToGroup(groupId, userId);
 
-		return userGroups.map((group) => {
-			return group.toObject();
-		});
+		return {
+			items: userGroups.map((group) => {
+				return group.toObject();
+			}),
+		};
 	}
 }
 

@@ -149,12 +149,17 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	type AllGroupsResponseDto,
 	GroupError,
 	GroupErrorMessage,
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
-	groupIdParameter,
+	groupIdAndPermissionIdParametersValidationSchema,
+	groupIdAndUserIdParametersValidationSchema,
+	groupIdParameterValidationSchema,
+	groupNameFieldValidationSchema,
+	groupRequestBodyValidationSchema,
 } from "./modules/groups/groups.js";
 export {
 	type AllNotificationsResponseDto,
@@ -166,6 +171,7 @@ export {
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
 export {
+	type AllPermissionsResponseDto,
 	PermissionError,
 	PermissionErrorMessage,
 	PermissionKey,

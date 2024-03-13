@@ -1,0 +1,37 @@
+.edit-modal {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	width: max-content;
+	min-width: 300px;
+	height: max-content;
+	min-height: 300px;
+}
+
+.title {
+	padding: 50px 50px 20px;
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	text-align: center;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0 50px 20px;
+}
+
+.modal-footer {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+	height: 60px;
+	padding: 14px;
+	background-color: var(--color-menu);
+}
+
+.button {
+	width: 80px;
+}

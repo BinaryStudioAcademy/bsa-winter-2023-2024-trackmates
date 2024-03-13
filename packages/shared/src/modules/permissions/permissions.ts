@@ -6,6 +6,7 @@ export {
 } from "./libs/enums/enums.js";
 export { PermissionError } from "./libs/exceptions/exceptions.js";
 export {
+	type AllPermissionsResponseDto,
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 } from "./libs/types/types.js";

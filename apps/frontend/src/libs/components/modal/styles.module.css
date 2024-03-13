@@ -12,15 +12,30 @@
 	border: none;
 }
 
+.centered {
+	align-items: center;
+}
+
 .content {
 	position: relative;
 	width: 100%;
-	max-width: 1150px;
-	height: 100%;
 	overflow: auto;
 	color: var(--color-text-300);
 	background: var(--main-white);
 	border-radius: 16px;
+}
+
+.large .content {
+	max-width: 1150px;
+	height: 100%;
+}
+
+.small .content {
+	width: min-content;
+	min-width: 500px;
+	max-width: max-content;
+	height: min-content;
+	max-height: max-content;
 }
 
 .close-btn {
