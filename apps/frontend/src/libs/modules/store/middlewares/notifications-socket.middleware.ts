@@ -20,7 +20,7 @@ const notificationsSocket = ({
 	);
 
 	return ({ dispatch }) => {
-		notificationsSocketInstance.on(SocketEvent.NEW_NOTIFICATION, () => {
+		notificationsSocketInstance.on(SocketEvent.UPDATE_NOTIFICATION, () => {
 			void dispatch(
 				userNotificationsActions.getUserNotifications({
 					search: "",

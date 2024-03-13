@@ -62,7 +62,7 @@ class NotificationService implements Service {
 		const notification = createdNotification.toObject();
 
 		this.socketService.emitMessage({
-			event: SocketEvent.NEW_NOTIFICATION,
+			event: SocketEvent.UPDATE_NOTIFICATION,
 			payload: notification,
 			receiversIds: [String(notification.userId), String(receiverUserId)],
 			targetNamespace: SocketNamespace.NOTIFICATIONS,
@@ -103,7 +103,7 @@ class NotificationService implements Service {
 		const notificationObject = notification.toObject();
 
 		this.socketService.emitMessage({
-			event: SocketEvent.NEW_NOTIFICATION,
+			event: SocketEvent.UPDATE_NOTIFICATION,
 			payload: notification,
 			receiversIds: [String(notificationObject.receiverUserId)],
 			targetNamespace: SocketNamespace.NOTIFICATIONS,
