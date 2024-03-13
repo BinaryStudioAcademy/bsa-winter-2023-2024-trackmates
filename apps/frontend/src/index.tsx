@@ -9,7 +9,7 @@ import {
 	RouterProvider,
 	StoreProvider,
 } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
@@ -85,11 +85,45 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.USERS_$ID,
 							},
 							{
-								element: <ProtectedRoute component={<Management />} />,
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ONE_OF,
+											permissions: [
+												PermissionKey.MANAGE_UAM,
+												PermissionKey.MANAGE_USERS,
+											],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ONE_OF,
+											permissions: [
+												PermissionKey.MANAGE_UAM,
+												PermissionKey.MANAGE_USERS,
+											],
+										}}
+									/>
+								),
 								path: AppRoute.MANAGEMENT_USERS,
 							},
 							{
-								element: <ProtectedRoute component={<Management />} />,
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ALL_OF,
+											permissions: [PermissionKey.MANAGE_UAM],
+										}}
+									/>
+								),
 								path: AppRoute.MANAGEMENT_GROUPS,
 							},
 						],
