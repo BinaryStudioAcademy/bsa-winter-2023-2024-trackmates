@@ -4,7 +4,6 @@ import {
 	isAction,
 } from "@reduxjs/toolkit";
 
-import { NotificationFilter } from "~/libs/enums/enums.js";
 import { SocketEvent, SocketNamespace } from "~/libs/modules/socket/socket.js";
 import { type ExtraArguments } from "~/libs/modules/store/store.js";
 import { type AppDispatch, type RootState } from "~/libs/types/types.js";
@@ -19,12 +18,16 @@ const notificationsSocket = ({
 		SocketNamespace.NOTIFICATIONS,
 	);
 
-	return ({ dispatch }) => {
+	return ({ dispatch, getState }) => {
 		notificationsSocketInstance.on(SocketEvent.UPDATE_NOTIFICATION, () => {
+			const {
+				userNotifications: { notificationType },
+			} = getState();
+
 			void dispatch(
 				userNotificationsActions.getUserNotifications({
 					search: "",
-					type: NotificationFilter.ALL,
+					type: notificationType,
 				}),
 			);
 			void dispatch(userNotificationsActions.getUnreadNotificationsCount());
