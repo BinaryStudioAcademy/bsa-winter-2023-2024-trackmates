@@ -95,8 +95,8 @@ const { actions, name, reducer } = createSlice({
 
 			if (state.currentChat) {
 				state.currentChat.messages = state.currentChat.messages.map((value) => {
-					const updatedMessage = action.payload.items.find((notification) => {
-						return notification.id === value.id;
+					const updatedMessage = action.payload.items.find((message) => {
+						return message.id === value.id;
 					});
 
 					return updatedMessage ?? value;
