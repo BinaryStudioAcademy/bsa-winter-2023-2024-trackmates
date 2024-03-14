@@ -57,10 +57,7 @@ const CourseDescription: React.FC = () => {
 
 	const handleClick = useCallback(() => {
 		navigate(BACK_NAVIGATION_STEP);
-		dispatch(courseActions.clearCurrentCourse());
-		dispatch(courseSectionsActions.reset());
-		dispatch(sectionStatusesActions.reset());
-	}, [navigate, dispatch]);
+	}, [navigate]);
 
 	useAppTitle();
 
@@ -71,6 +68,12 @@ const CourseDescription: React.FC = () => {
 				courseSectionsActions.getAllByCourseId({ courseId: Number(courseId) }),
 			);
 		}
+
+		return () => {
+			dispatch(courseActions.clearCurrentCourse());
+			dispatch(courseSectionsActions.reset());
+			dispatch(sectionStatusesActions.reset());
+		};
 	}, [dispatch, courseId]);
 
 	const hasCourseSections = courseSections.length > EMPTY_LENGTH;
