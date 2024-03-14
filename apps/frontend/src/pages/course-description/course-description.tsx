@@ -16,7 +16,10 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
-import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
+import {
+	SectionStatus,
+	actions as sectionStatusesActions,
+} from "~/modules/section-statuses/section-statuses.js";
 
 import {
 	CourseActivities,
@@ -55,6 +58,8 @@ const CourseDescription: React.FC = () => {
 	const handleClick = useCallback(() => {
 		navigate(BACK_NAVIGATION_STEP);
 		dispatch(courseActions.clearCurrentCourse());
+		dispatch(courseSectionsActions.reset());
+		dispatch(sectionStatusesActions.reset());
 	}, [navigate, dispatch]);
 
 	useAppTitle();
