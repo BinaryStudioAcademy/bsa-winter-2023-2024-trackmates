@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.65.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.65.0...v1.65.1) (2024-03-13)
+
+
+### Bug Fixes
+
+* **frontend:** Email field on the Auth page has "text" type tm-481 ([#507](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/507)) ([fc80d6c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fc80d6cf8385b3146634b322a979aef01bc50ec9))
+* **frontend:** leave chat tm-514 ([#518](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/518)) ([6a3540a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6a3540a0882b1e35df44ff419e9a27469e6078f9))
+* **frontend:** make change photo btn take one row tm-511 ([#517](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/517)) ([004b8e1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/004b8e1f457255697f8f2efa4652ef873398c733))
+
 ## [1.65.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.64.0...v1.65.0) (2024-03-13)
 
 
