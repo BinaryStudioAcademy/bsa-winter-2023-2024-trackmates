@@ -15,12 +15,14 @@ const createGroup = createAsyncThunk<
 	GroupRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/create-group`, async (createPayload, { extra, getState }) => {
-	const { groupsApi } = extra;
+	const { groupsApi, notification } = extra;
 	const {
 		management: { groups },
 	} = getState();
 
 	const createdGroup = await groupsApi.createGroup(createPayload);
+
+	notification.success(NotificationMessage.GROUP_CREATED);
 
 	return [...groups, createdGroup];
 });
