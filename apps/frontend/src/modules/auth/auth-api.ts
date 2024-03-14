@@ -45,7 +45,8 @@ class AuthApi extends BaseHTTPApi {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.SEND_UPDATE_PASSWORD_LINK, {}),
 			{
-				hasAuth: true,
+				contentType: ContentType.JSON,
+				hasAuth: false,
 				method: "POST",
 				payload: JSON.stringify(payload),
 			},
@@ -92,7 +93,8 @@ class AuthApi extends BaseHTTPApi {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.UPDATE_PASSWORD, {}),
 			{
-				hasAuth: true,
+				contentType: ContentType.JSON,
+				hasAuth: false,
 				method: "POST",
 				payload: JSON.stringify(payload),
 			},

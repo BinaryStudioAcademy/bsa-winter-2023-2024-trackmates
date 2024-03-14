@@ -16,6 +16,14 @@ import {
 
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
+import {
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+} from "./libs/types/types.js";
+import {
+	authForgotPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /***
  * @swagger
@@ -74,6 +82,37 @@ class AuthController extends BaseController {
 				body: userSignUpValidationSchema,
 			},
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.sendUpdatePasswordLink(
+					options as APIHandlerOptions<{
+						body: AuthForgotPasswordRequestDto;
+					}>,
+				);
+			},
+			method: "POST",
+			path: AuthApiPath.SEND_UPDATE_PASSWORD_LINK,
+			validation: {
+				body: authForgotPasswordValidationSchema,
+			},
+		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.updatePassword(
+					options as APIHandlerOptions<{
+						body: AuthUpdatePasswordRequestDto;
+					}>,
+				);
+			},
+			method: "POST",
+			path: AuthApiPath.UPDATE_PASSWORD,
+			validation: {
+				body: authUpdatePasswordValidationSchema,
+			},
+		});
+
 		this.addRoute({
 			handler: (options) =>
 				this.getAuthenticatedUser(
@@ -124,6 +163,19 @@ class AuthController extends BaseController {
 
 		return {
 			payload: user ?? null,
+			status: HTTPCode.OK,
+		};
+	}
+
+	private async sendUpdatePasswordLink({
+		body: { email },
+	}: APIHandlerOptions<{
+		body: AuthForgotPasswordRequestDto;
+	}>): Promise<APIHandlerResponse> {
+		const success = await this.authService.sendUpdatePasswordLink(email);
+
+		return {
+			payload: { success },
 			status: HTTPCode.OK,
 		};
 	}
@@ -215,6 +267,19 @@ class AuthController extends BaseController {
 		return {
 			payload: await this.authService.signUp(options.body),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	private async updatePassword({
+		body: { password, token },
+	}: APIHandlerOptions<{
+		body: AuthUpdatePasswordRequestDto;
+	}>): Promise<APIHandlerResponse> {
+		const success = await this.authService.updatePassword(password, token);
+
+		return {
+			payload: { success },
+			status: HTTPCode.OK,
 		};
 	}
 }

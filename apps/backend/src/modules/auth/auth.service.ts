@@ -59,6 +59,10 @@ class AuthService {
 		return user;
 	}
 
+	public async sendUpdatePasswordLink(email: string): Promise<boolean> {
+		return await Promise.resolve(Boolean(email)); //TODO
+	}
+
 	public async signIn(
 		userRequestDto: UserSignInRequestDto,
 	): Promise<UserSignInResponseDto> {
@@ -91,6 +95,13 @@ class AuthService {
 			token: await this.token.create({ userId: newUser.id }),
 			user: newUser,
 		};
+	}
+
+	public async updatePassword(
+		password: string,
+		token: string,
+	): Promise<boolean> {
+		return await Promise.resolve(Boolean(password) || Boolean(token)); //TODO
 	}
 }
 
