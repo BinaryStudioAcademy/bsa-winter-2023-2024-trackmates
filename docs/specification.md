@@ -1,4 +1,4 @@
-# BSWA 2023-2024 – [TrackMates](http://trackmates.net) – Specification
+# BSWA 2023-2024 – [TrackMates](https://trackmates.net) – Specification
 
 ## 1. Introduction
 
