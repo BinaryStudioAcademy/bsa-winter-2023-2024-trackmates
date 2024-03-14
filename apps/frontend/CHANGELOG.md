@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.51.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.50.1...frontend-v1.51.0) (2024-03-14)
+
+
+### Features
+
+* **frontend:** add friend profile mobile responsiveness tm-453 ([#524](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/524)) ([ec5a709](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ec5a709e9a44e14bce44b7fc0c5b22874d2af795))
+* **frontend:** add responsiveness for notification page tm-508 ([#520](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/520)) ([4aa25d2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4aa25d272524c11e616b401194408976c790d8d9))
+
+
+### Bug Fixes
+
+* **frontend:** fix position of loader and add loader to the button tm-488 ([#525](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/525)) ([b891e9f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b891e9f01296191753c6ff6fccfe20076c024604))
+
 ## [1.50.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.50.0...frontend-v1.50.1) (2024-03-13)
 
 
