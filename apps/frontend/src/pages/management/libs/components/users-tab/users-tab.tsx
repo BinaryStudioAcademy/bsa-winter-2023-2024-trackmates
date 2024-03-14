@@ -1,4 +1,4 @@
-import { Button, Loader } from "~/libs/components/components.js";
+import { Button } from "~/libs/components/components.js";
 import {
 	DataStatus,
 	PermissionKey,
@@ -130,19 +130,17 @@ const UsersTab: React.FC = () => {
 						onClick={handleOpenEditModal(user)}
 						style="icon"
 					/>
-					{isDeleting ? (
-						<Loader color="orange" size="small" />
-					) : (
-						<Button
-							className={styles["icon-button"]}
-							hasVisuallyHiddenLabel
-							iconName="delete"
-							isDisabled={!hasPermissionToDelete || isTheSameUser}
-							label={UsersTableHeader.BUTTONS}
-							onClick={handleOpenDeleteModal(user)}
-							style="icon"
-						/>
-					)}
+					<Button
+						className={styles["icon-button"]}
+						hasVisuallyHiddenLabel
+						iconName="delete"
+						isDisabled={!hasPermissionToDelete || isTheSameUser}
+						isLoading={isDeleting}
+						label={UsersTableHeader.BUTTONS}
+						loaderColor="orange"
+						onClick={handleOpenDeleteModal(user)}
+						style="icon"
+					/>
 				</div>
 			),
 			email: `${user.email} ${authUser.id === user.id ? "(you)" : ""}`,
