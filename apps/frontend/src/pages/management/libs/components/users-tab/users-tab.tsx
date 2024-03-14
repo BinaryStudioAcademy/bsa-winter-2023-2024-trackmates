@@ -70,15 +70,15 @@ const UsersTab: React.FC = () => {
 		[currentUser, handleChangeUserGroups],
 	);
 
-	const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 	const handleOpenDeleteModal = useCallback((user: UserAuthResponseDto) => {
 		return () => {
 			setCurrentUser(user);
-			setDeleteModalOpen(true);
+			setIsDeleteModalOpen(true);
 		};
 	}, []);
 	const handleCloseDeleteModal = useCallback(() => {
-		setDeleteModalOpen(false);
+		setIsDeleteModalOpen(false);
 		setCurrentUser(null);
 	}, []);
 	const handleDeleteUser = useCallback(() => {
