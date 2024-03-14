@@ -63,10 +63,33 @@
 	opacity: 1;
 }
 
+.icon {
+	min-height: unset;
+	padding: 0;
+	margin: 0 auto;
+	color: var(--color-text-200);
+	background-color: transparent;
+	border: unset;
+	fill: currentcolor;
+	transition: 0.3s;
+}
+
+.icon:hover {
+	color: var(--main-orange);
+}
+
+.button.disabled.icon,
+.button.disabled.icon:hover,
+.button.disabled.icon:focus {
+	color: var(--color-text-100);
+	background-color: transparent;
+}
+
 .button.disabled,
 .button.disabled:hover,
 .button.disabled:focus {
 	color: var(--main-white);
+	cursor: default;
 	background-color: var(--color-text-100);
 	border-color: var(--color-text-100);
 }
