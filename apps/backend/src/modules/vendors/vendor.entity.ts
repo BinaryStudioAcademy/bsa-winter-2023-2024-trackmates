@@ -1,11 +1,13 @@
-import { type Entity } from "~/libs/types/types.js";
+import { type Entity, type ValueOf } from "~/libs/types/types.js";
+
+import { type VendorKey } from "./libs/enums/enums.js";
 
 class VendorEntity implements Entity {
 	private createdAt: string;
 
 	private id: null | number;
 
-	public key: string;
+	public key: ValueOf<typeof VendorKey>;
 
 	public name: string;
 
@@ -23,7 +25,7 @@ class VendorEntity implements Entity {
 	}: {
 		createdAt: string;
 		id: null | number;
-		key: string;
+		key: ValueOf<typeof VendorKey>;
 		name: string;
 		updatedAt: string;
 		url: string;
@@ -46,7 +48,7 @@ class VendorEntity implements Entity {
 	}: {
 		createdAt: string;
 		id: null | number;
-		key: string;
+		key: ValueOf<typeof VendorKey>;
 		name: string;
 		updatedAt: string;
 		url: string;
@@ -66,7 +68,7 @@ class VendorEntity implements Entity {
 		name,
 		url,
 	}: {
-		key: string;
+		key: ValueOf<typeof VendorKey>;
 		name: string;
 		url: string;
 	}): VendorEntity {
@@ -81,7 +83,7 @@ class VendorEntity implements Entity {
 	}
 
 	public toNewObject(): {
-		key: string;
+		key: ValueOf<typeof VendorKey>;
 		name: string;
 		url: string;
 	} {
@@ -94,7 +96,7 @@ class VendorEntity implements Entity {
 
 	public toObject(): {
 		id: number;
-		key: string;
+		key: ValueOf<typeof VendorKey>;
 		name: string;
 		url: string;
 	} {

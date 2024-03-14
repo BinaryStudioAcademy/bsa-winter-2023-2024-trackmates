@@ -34,7 +34,10 @@ const Modal: React.FC<Properties> = ({
 		<Portal>
 			<dialog
 				aria-modal
-				className={getValidClassNames(styles["modal"])}
+				className={getValidClassNames(
+					styles["modal"],
+					isOpen && styles["active"],
+				)}
 				open={isOpen}
 			>
 				<div

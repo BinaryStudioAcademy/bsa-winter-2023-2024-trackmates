@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.34.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.34.0...shared-v1.34.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#538](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/538)) ([d254906](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d2549065be9bb9eaa3fadb6e0546557a25a8ab3b))
+
+## [1.34.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.33.0...shared-v1.34.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/backend/shared:** Make "Udemy" the default vendor on the "Add Course" pop-up window tm-522 ([#531](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/531)) ([42b5f46](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/42b5f46d63cc2cfe01beb063a6d555195a88ffc4))
+
 ## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.32.0...shared-v1.33.0) (2024-03-14)
 
 

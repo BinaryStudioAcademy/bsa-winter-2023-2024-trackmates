@@ -96,7 +96,10 @@ const Overview: React.FC = () => {
 					</>
 				)}
 			</div>
-			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
+			<AddCourseModal
+				isOpen={isAddCourseModalOpen}
+				onClose={handleModalClose}
+			/>
 		</div>
 	);
 };
