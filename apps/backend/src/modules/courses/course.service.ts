@@ -203,10 +203,12 @@ class CourseService {
 		return entity.toObject();
 	}
 
-	public async findAll(): Promise<CourseDto[]> {
+	public async findAll(): Promise<CoursesResponseDto> {
 		const entities = await this.courseRepository.findAll();
 
-		return entities.map((entity) => entity.toObject());
+		const courses = entities.map((entity) => entity.toObject());
+
+		return { courses };
 	}
 
 	public async findAllByVendor(

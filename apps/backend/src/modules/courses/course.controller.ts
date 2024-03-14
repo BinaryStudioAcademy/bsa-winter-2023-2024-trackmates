@@ -1,4 +1,5 @@
-import { APIPath } from "~/libs/enums/enums.js";
+import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
+import { checkUserPermissions } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -132,6 +133,17 @@ class CourseController extends BaseController {
 				params: courseIdParameterValidationSchema,
 			},
 		});
+		this.addRoute({
+			handler: () => {
+				return this.findAll();
+			},
+			method: "GET",
+			path: CoursesApiPath.ALL,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_COURSES],
+				PermissionMode.ALL_OF,
+			),
+		});
 	}
 
 	/**
@@ -250,6 +262,36 @@ class CourseController extends BaseController {
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.courseService.find(Number(courseId)),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/all:
+	 *    get:
+	 *      tags:
+	 *        - Courses
+	 *      description: Return all courses from database
+	 *      security:
+	 *        - bearerAuth: []
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Course"
+	 */
+	private async findAll(): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.findAll(),
 			status: HTTPCode.OK,
 		};
 	}
