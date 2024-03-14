@@ -16,7 +16,7 @@ const ExceptionMessage = {
 	NOTIFICATION_NOT_FOUND: "Notification not found.",
 	PROGRESS_NOT_FOUND: "Progress not found.",
 	SECTION_STATUS_NOT_FOUND: "Section status not found.",
-	SOMETHING_WENT_WRONG: "Something went wrong.",
+	SOMETHING_WENT_WRONG: "Something went wrong...",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",
 	UNKNOWN_ERROR: "Unknown error occurred.",
