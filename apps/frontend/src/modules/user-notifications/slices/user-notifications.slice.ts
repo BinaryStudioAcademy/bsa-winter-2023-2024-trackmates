@@ -1,14 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus } from "~/libs/enums/enums.js";
+import { DataStatus, NotificationStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { type NotificationResponseDto } from "../libs/types/types.js";
+import {
+	type NotificationResponseDto,
+	type ReadNotificationsResponseDto,
+} from "../libs/types/types.js";
 import {
 	getUnreadNotificationsCount,
 	getUserNotifications,
 	setReadNotifications,
 } from "./actions.js";
+
+const ONE_ITEM_COUNT = 1;
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
@@ -44,6 +49,9 @@ const { actions, name, reducer } = createSlice({
 
 				return updatedNotification ?? value;
 			});
+			state.unreadNotificationsCount = Number(
+				action.payload.unreadNotificationsCount,
+			);
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(setReadNotifications.rejected, (state) => {
@@ -59,7 +67,40 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "user-notifications",
-	reducers: {},
+	reducers: {
+		deleteNotification(state, action: PayloadAction<NotificationResponseDto>) {
+			state.notifications = state.notifications.filter((notification) => {
+				return notification.id != action.payload.id;
+			});
+
+			if (action.payload.status === NotificationStatus.UNREAD) {
+				state.unreadNotificationsCount =
+					state.unreadNotificationsCount - ONE_ITEM_COUNT;
+			}
+		},
+		newNotification(state, action: PayloadAction<NotificationResponseDto>) {
+			state.notifications = [action.payload, ...state.notifications];
+			state.unreadNotificationsCount =
+				state.unreadNotificationsCount + ONE_ITEM_COUNT;
+		},
+		updateReadNotifications(
+			state,
+			action: PayloadAction<ReadNotificationsResponseDto>,
+		) {
+			state.notifications = state.notifications.map((value) => {
+				const updatedNotification = action.payload.items.find(
+					(notification) => {
+						return notification.id === value.id;
+					},
+				);
+
+				return updatedNotification ?? value;
+			});
+			state.unreadNotificationsCount = Number(
+				action.payload.unreadNotificationsCount,
+			);
+		},
+	},
 });
 
 export { actions, name, reducer };
