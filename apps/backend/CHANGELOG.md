@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.36.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.36.0...backend-v1.36.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* **backend:** update method to get count of unread messages from db tm-395 ([#521](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/521)) ([f4e4d3b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f4e4d3bc3d75b3829c9ed5bf5e82dca3b7f00d1a))
+
 ## [1.36.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.35.0...backend-v1.36.0) (2024-03-13)
 
 

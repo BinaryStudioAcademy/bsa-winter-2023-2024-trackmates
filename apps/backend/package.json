@@ -1,7 +1,7 @@
 {
 	"name": "@trackmates/backend",
 	"type": "module",
-	"version": "1.36.0",
+	"version": "1.36.1",
 	"engines": {
 		"node": "18.x.x",
 		"npm": ">=9.x.x"
