@@ -113,6 +113,10 @@ const Friends: React.FC = () => {
 		followingsPagination.page,
 	]);
 
+	useEffect(() => {
+		void dispatch(actions.getAllFollowingsIds());
+	}, [dispatch, followingsPagination.page]);
+
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.FRIENDS: {

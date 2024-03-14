@@ -79,7 +79,7 @@
 
 .button {
 	width: 114px;
-	text-wrap: nowrap;
+	white-space: nowrap;
 }
 
 .profile-character {
