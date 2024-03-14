@@ -79,7 +79,11 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "user-courses",
-	reducers: {},
+	reducers: {
+		reset() {
+			return initialState;
+		},
+	},
 });
 
 export { actions, name, reducer };

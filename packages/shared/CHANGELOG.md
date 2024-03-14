@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.34.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.33.0...shared-v1.34.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/backend/shared:** Make "Udemy" the default vendor on the "Add Course" pop-up window tm-522 ([#531](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/531)) ([42b5f46](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/42b5f46d63cc2cfe01beb063a6d555195a88ffc4))
+
+## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.32.0...shared-v1.33.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/shared:** The "Something went wrong..." toast-message should appear instead of an empty error toast-message tm-523 ([#528](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/528)) ([9343569](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9343569710316054f59150467ed0f1b926638a0f))
+
+
+### Bug Fixes
+
+* **shared:** typo message tm-513 ([#529](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/529)) ([6286527](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6286527c1f89c5dd5b9bd0a03e26851afdc123fc))
+
 ## [1.32.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.31.0...shared-v1.32.0) (2024-03-13)
 
 

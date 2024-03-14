@@ -14,6 +14,7 @@ import {
 	type ChatMessageItemResponseDto,
 	actions as chatMessageActions,
 } from "~/modules/chat-messages/chat-messages.js";
+import { actions as chatActions } from "~/modules/chats/chats.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import {
@@ -84,7 +85,8 @@ const Chat: React.FC<Properties> = ({
 
 	const handleClick = useCallback((): void => {
 		navigate(AppRoute.CHATS);
-	}, [navigate]);
+		dispatch(chatActions.leaveChat());
+	}, [navigate, dispatch]);
 
 	const chatsStyles = getValidClassNames(styles["container"], className);
 
