@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/async-thunk-config.type.js";
 import {
 	type GroupRequestDto,
@@ -29,7 +30,7 @@ const deleteGroup = createAsyncThunk<
 	number,
 	AsyncThunkConfig
 >(`${sliceName}/delete-group`, async (groupId, { extra, getState }) => {
-	const { groupsApi } = extra;
+	const { groupsApi, notification } = extra;
 	const {
 		management: { groups },
 	} = getState();
@@ -37,6 +38,8 @@ const deleteGroup = createAsyncThunk<
 	const isDeleted = await groupsApi.deleteGroup(groupId);
 
 	if (isDeleted) {
+		notification.success(NotificationMessage.GROUP_DELETED);
+
 		return groups.filter((group) => {
 			return group.id !== groupId;
 		});
@@ -64,7 +67,7 @@ const updateGroupPermissions = createAsyncThunk<
 >(
 	`${sliceName}/update-groups-permissions`,
 	async ({ groupId, permissionId }, { extra, getState }) => {
-		const { groupsApi } = extra;
+		const { groupsApi, notification } = extra;
 		const {
 			management: { groups },
 		} = getState();
@@ -73,6 +76,8 @@ const updateGroupPermissions = createAsyncThunk<
 			groupId,
 			permissionId,
 		);
+
+		notification.success(NotificationMessage.GROUP_PERMISSIONS_CHANGED);
 
 		return groups.map((group) => {
 			return group.id === groupId
@@ -92,12 +97,14 @@ const updateUserGroups = createAsyncThunk<
 >(
 	`${sliceName}/update-user-groups`,
 	async ({ groupId, userId }, { extra, getState }) => {
-		const { groupsApi } = extra;
+		const { groupsApi, notification } = extra;
 		const {
 			management: { users },
 		} = getState();
 
 		const groupsList = await groupsApi.updateUserGroups(groupId, userId);
+
+		notification.success(NotificationMessage.USER_GROUPS_CHANGED);
 
 		return users.map((user) => {
 			return user.id === userId
