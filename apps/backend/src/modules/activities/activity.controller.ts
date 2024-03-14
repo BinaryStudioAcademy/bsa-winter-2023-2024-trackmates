@@ -224,6 +224,16 @@ class ActivityController extends BaseController {
 	 *          schema:
 	 *            type: integer
 	 *            minimum: 1
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                userId:
+	 *                  type: number
+	 *                  minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -242,11 +252,13 @@ class ActivityController extends BaseController {
 		body: ActivityDeleteRequestDto;
 		params: { actionId: string };
 	}>): Promise<APIHandlerResponse> {
+		const success = await this.sectionStatusService.deleteActivity(
+			Number(actionId),
+			userId,
+		);
+
 		return {
-			payload: await this.sectionStatusService.deleteActivity(
-				Number(actionId),
-				userId,
-			),
+			payload: { success },
 			status: HTTPCode.OK,
 		};
 	}

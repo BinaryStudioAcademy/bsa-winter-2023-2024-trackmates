@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .notification-list {
 	display: flex;
 	flex-direction: column;
@@ -5,7 +7,20 @@
 	align-self: stretch;
 	max-height: 100%;
 	padding: 0;
+	padding: 0 30px;
 	margin: 0;
 	overflow-y: auto;
 	list-style: none;
+}
+
+@media screen and (--medium-screen) {
+	.notification-list {
+		padding: 0;
+	}
+}
+
+@media screen and (--small-screen) {
+	.notification-list {
+		padding: 0 22px;
+	}
 }

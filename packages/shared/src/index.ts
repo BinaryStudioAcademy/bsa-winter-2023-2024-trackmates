@@ -1,5 +1,5 @@
 export {
-	EMPTY_ARRAY_LENGTH,
+	EMPTY_LENGTH,
 	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
 	PREVIOUS_INDEX_OFFSET,
@@ -77,10 +77,12 @@ export {
 	type ChatMessageUpdateRequestDto,
 	ChatMessagesApiPath,
 	MessageStatus,
+	type ReadChatMessagesRequestDto,
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
 	chatMessageValidationSchema,
+	readChatMessagesRequestValidationSchema,
 } from "./modules/chat-messages/chat-messages.js";
 export {
 	type ChatCreateRequestDto,
@@ -200,9 +202,12 @@ export {
 	userIdParameterValidationSchema,
 } from "./modules/user-courses/users-courses.js";
 export {
+	NotificationFilter,
+	type NotificationFilterRequestDto,
 	type ReadNotificationsRequestDto,
 	UserNotificationsApiPath,
 	readNotificationsRequestValidationSchema,
+	userNotificationQueryParametersValidationSchema,
 } from "./modules/user-notifications/user-notifications.js";
 export {
 	type UserAuthResponseDto,
@@ -227,6 +232,7 @@ export {
 export {
 	VendorError,
 	VendorErrorMessage,
+	VendorKey,
 	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,

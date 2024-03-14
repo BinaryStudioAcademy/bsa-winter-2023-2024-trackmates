@@ -1,12 +1,19 @@
 import chatImage from "~/assets/img/chat-character.svg";
 import { Image, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 
 import styles from "./styles.module.css";
 
-const EmptyChat: React.FC = () => {
+type Properties = {
+	className?: string | undefined;
+};
+
+const EmptyChat: React.FC<Properties> = ({ className }: Properties) => {
+	const chatsStyles = getValidClassNames(styles["container"], className);
+
 	return (
-		<div className={styles["container"]}>
+		<div className={chatsStyles}>
 			<div className={styles["navigation"]} />
 			<div className={styles["content-container"]}>
 				<p className={styles["subtitle"]}>

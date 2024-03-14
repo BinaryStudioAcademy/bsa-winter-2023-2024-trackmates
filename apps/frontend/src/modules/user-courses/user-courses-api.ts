@@ -3,6 +3,7 @@ import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
 import { type PaginationResponseDto } from "~/libs/types/types.js";
+import { type CourseDto } from "~/modules/courses/courses.js";
 
 import { UserCoursesApiPath } from "./libs/enums/enums.js";
 import {
@@ -63,6 +64,22 @@ class UserCourseApi extends BaseHTTPApi {
 		);
 
 		return await response.json<PaginationResponseDto<UserCourseResponseDto>>();
+	}
+	public async getCommonWithUser(
+		userId: number,
+	): Promise<{ items: CourseDto[] }> {
+		const response = await this.load(
+			this.getFullEndpoint(UserCoursesApiPath.$USER_ID_COMMON, {
+				userId: String(userId),
+			}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<{ items: CourseDto[] }>();
 	}
 }
 

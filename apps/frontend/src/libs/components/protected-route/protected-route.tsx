@@ -1,5 +1,5 @@
-import { Navigate } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import { Loader, Navigate } from "~/libs/components/components.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { checkIfUserHasPermissions } from "~/libs/helpers/helpers.js";
 import { useAppSelector } from "~/libs/hooks/hooks.js";
 import { type PagePermissions, type ValueOf } from "~/libs/types/types.js";
@@ -19,9 +19,21 @@ const ProtectedRoute: React.FC<Properties> = ({
 	pagePermissions,
 	redirectTo = AppRoute.SIGN_IN,
 }: Properties) => {
-	const { user } = useAppSelector((state) => state.auth);
+	const { authDataStatus, user } = useAppSelector(({ auth }) => {
+		return {
+			authDataStatus: auth.dataStatus,
+			user: auth.user,
+		};
+	});
 
 	const hasUser = Boolean(user);
+
+	if (
+		authDataStatus === DataStatus.PENDING ||
+		authDataStatus === DataStatus.IDLE
+	) {
+		return <Loader color="orange" size="large" />;
+	}
 
 	if (!hasUser) {
 		return <Navigate replace to={redirectTo} />;

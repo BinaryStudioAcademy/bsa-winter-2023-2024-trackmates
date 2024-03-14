@@ -14,6 +14,7 @@ import {
 	type UserAuthResponseDto,
 	actions as authActions,
 } from "~/modules/auth/auth.js";
+import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
@@ -38,7 +39,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	}, []);
 
 	const handleLogOut = useCallback(() => {
-		void dispatch(authActions.logOut());
+		void dispatch(authActions.logOut())
+			.unwrap()
+			.then(() => {
+				dispatch(userCoursesActions.reset());
+			});
 	}, [dispatch]);
 
 	const checkPermissions = useCallback(

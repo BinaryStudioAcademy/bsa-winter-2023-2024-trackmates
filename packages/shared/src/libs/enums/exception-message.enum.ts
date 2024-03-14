@@ -1,4 +1,5 @@
 const ExceptionMessage = {
+	ACTIVITY_NOT_FOUND: "Activity not found.",
 	CHAT_NOT_FOUND: "Chat not found.",
 	COMMENT_NOT_FOUND: "Comment not found.",
 	COURSE_NOT_FOUND: "Course not found.",
@@ -13,7 +14,9 @@ const ExceptionMessage = {
 	NO_FILE_PRESENTED: "No file presented or format is incorrect.",
 	NO_PERMISSION: "No permission.",
 	NOTIFICATION_NOT_FOUND: "Notification not found.",
+	PROGRESS_NOT_FOUND: "Progress not found.",
 	SECTION_STATUS_NOT_FOUND: "Section status not found.",
+	SOMETHING_WENT_WRONG: "Something went wrong...",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",
 	UNKNOWN_ERROR: "Unknown error occurred.",

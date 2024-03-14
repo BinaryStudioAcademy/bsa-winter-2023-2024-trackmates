@@ -1,6 +1,6 @@
 import { UsersTableHeader } from "../enums/enums.js";
 
-const usersHeaderToColumnName = {
+const usersHeaderToPropertyName = {
 	[UsersTableHeader.BUTTONS]: "buttons",
 	[UsersTableHeader.EMAIL]: "email",
 	[UsersTableHeader.FIRST_NAME]: "firstName",
@@ -9,4 +9,4 @@ const usersHeaderToColumnName = {
 	[UsersTableHeader.LAST_NAME]: "lastName",
 } as const;
 
-export { usersHeaderToColumnName };
+export { usersHeaderToPropertyName };

@@ -9,6 +9,7 @@
 	background-color: var(--main-white);
 	border: 1px solid var(--main-white);
 	border-radius: 16px;
+	transition: 0.3s ease;
 }
 
 .container:hover {
@@ -44,6 +45,7 @@
 	background-color: transparent;
 	border: 1px solid var(--main-white);
 	border-radius: 26px;
+	transition: 0.3s ease;
 }
 
 .course-details-link:hover {
@@ -51,6 +53,7 @@
 	border-color: var(--color-button);
 }
 
-.course-add-button {
+.course-add-button,
+.compare-progress-button {
 	flex-grow: 1;
 }

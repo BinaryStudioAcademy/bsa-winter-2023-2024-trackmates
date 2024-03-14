@@ -1,5 +1,10 @@
 import { Button, Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import {
+	DataStatus,
+	PermissionKey,
+	PermissionMode,
+} from "~/libs/enums/enums.js";
+import { checkIfUserHasPermissions } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -18,26 +23,40 @@ import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
-import { TableCell, TableRow } from "../table/libs/components/components.js";
-import { Table } from "../table/table.js";
+import { Table, TableCell, TableRow } from "../table/table.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
-import { usersHeaderToColumnName } from "./libs/maps/maps.js";
+import { usersHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { groups, userToDataStatus, users } = useAppSelector((state) => {
-		return {
-			groups: state.management.groups,
-			userToDataStatus: state.management.userToDataStatus,
-			users: state.management.users,
-		};
-	});
+	const { authUser, groups, userToDataStatus, users } = useAppSelector(
+		(state) => {
+			return {
+				authUser: state.auth.user as UserAuthResponseDto,
+				groups: state.management.groups,
+				userToDataStatus: state.management.userToDataStatus,
+				users: state.management.users,
+			};
+		},
+	);
 
 	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
 		null,
 	);
 	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+
+	const hasPermissionToEdit = checkIfUserHasPermissions(
+		authUser,
+		[PermissionKey.MANAGE_UAM],
+		PermissionMode.ALL_OF,
+	);
+
+	const hasPermissionToDelete = checkIfUserHasPermissions(
+		authUser,
+		[PermissionKey.MANAGE_USERS],
+		PermissionMode.ALL_OF,
+	);
 
 	useEffect(() => {
 		void dispatch(usersActions.getAll());
@@ -97,6 +116,7 @@ const UsersTab: React.FC = () => {
 
 	const tableData = users.map((user) => {
 		const isDeleting = userToDataStatus[user.id] === DataStatus.PENDING;
+		const isTheSameUser = authUser.id === user.id;
 
 		return {
 			buttons: (
@@ -105,8 +125,10 @@ const UsersTab: React.FC = () => {
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
+						isDisabled={!hasPermissionToEdit || isTheSameUser}
 						label={UsersTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(user)}
+						style="icon"
 					/>
 					{isDeleting ? (
 						<Loader color="orange" size="small" />
@@ -115,48 +137,48 @@ const UsersTab: React.FC = () => {
 							className={styles["icon-button"]}
 							hasVisuallyHiddenLabel
 							iconName="delete"
+							isDisabled={!hasPermissionToDelete || isTheSameUser}
 							label={UsersTableHeader.BUTTONS}
 							onClick={handleOpenDeleteModal(user)}
+							style="icon"
 						/>
 					)}
 				</div>
 			),
-			email: user.email,
+			email: `${user.email} ${authUser.id === user.id ? "(you)" : ""}`,
 			firstName: user.firstName,
-			groups: [
-				user.groups.map((group) => {
-					return <Chip key={group.id} label={group.name} />;
-				}),
-			],
+			groups: user.groups.map((group) => {
+				return <Chip key={group.id} label={group.name} />;
+			}),
 			id: user.id,
 			lastName: user.lastName,
 		};
 	});
 
 	return (
-		<div className={styles["container"]}>
+		<>
 			<div className={styles["table-container"]}>
 				<Table headers={tableHeaders}>
 					{tableData.map((data) => {
 						return (
 							<TableRow key={data.id}>
 								<TableCell centered>
-									{data[usersHeaderToColumnName[UsersTableHeader.ID]]}
+									{data[usersHeaderToPropertyName[UsersTableHeader.ID]]}
 								</TableCell>
 								<TableCell>
-									{data[usersHeaderToColumnName[UsersTableHeader.EMAIL]]}
+									{data[usersHeaderToPropertyName[UsersTableHeader.EMAIL]]}
 								</TableCell>
 								<TableCell>
-									{data[usersHeaderToColumnName[UsersTableHeader.FIRST_NAME]]}
+									{data[usersHeaderToPropertyName[UsersTableHeader.FIRST_NAME]]}
 								</TableCell>
 								<TableCell>
-									{data[usersHeaderToColumnName[UsersTableHeader.LAST_NAME]]}
+									{data[usersHeaderToPropertyName[UsersTableHeader.LAST_NAME]]}
 								</TableCell>
-								<TableCell centered>
-									{data[usersHeaderToColumnName[UsersTableHeader.GROUPS]]}
+								<TableCell width="medium">
+									{data[usersHeaderToPropertyName[UsersTableHeader.GROUPS]]}
 								</TableCell>
-								<TableCell centered narrowed>
-									{data[usersHeaderToColumnName[UsersTableHeader.BUTTONS]]}
+								<TableCell centered width="narrow">
+									{data[usersHeaderToPropertyName[UsersTableHeader.BUTTONS]]}
 								</TableCell>
 							</TableRow>
 						);
@@ -199,7 +221,7 @@ const UsersTab: React.FC = () => {
 					title={`${ManagementDialogueMessage.DELETE_USER} ${currentUser?.firstName} ${currentUser?.lastName}?`}
 				/>
 			)}
-		</div>
+		</>
 	);
 };
 

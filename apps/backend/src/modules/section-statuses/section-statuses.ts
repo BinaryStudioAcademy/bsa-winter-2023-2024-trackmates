@@ -4,6 +4,8 @@ import { ActivityRepository } from "~/modules/activities/activity.repository.js"
 import { ActivityService } from "~/modules/activities/activity.service.js";
 import { activityLikeRepository } from "~/modules/activity-likes/activity-likes.js";
 import { courseSectionRepository } from "~/modules/course-sections/course-sections.js";
+import { courseRepository } from "~/modules/courses/courses.js";
+import { notificationService } from "~/modules/notifications/notifications.js";
 
 import { SectionStatusController } from "./section-status.controller.js";
 import { SectionStatusModel } from "./section-status.model.js";
@@ -14,10 +16,12 @@ const activityRepository = new ActivityRepository(ActivityModel);
 const activityService = new ActivityService({
 	activityLikeRepository,
 	activityRepository,
+	notificationService,
 });
 const sectionStatusRepository = new SectionStatusRepository(SectionStatusModel);
 const sectionStatusService = new SectionStatusService({
 	activityService,
+	courseRepository,
 	courseSectionRepository,
 	sectionStatusRepository,
 });

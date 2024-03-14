@@ -21,6 +21,7 @@ type State = {
 	followings: UserAuthResponseDto[];
 	followingsTotalCount: number;
 	isFollowing: boolean;
+	locallyUnfollowedFriendIds: number[];
 	potentialFriends: UserAuthResponseDto[];
 	potentialFriendsTotalCount: number;
 };
@@ -33,6 +34,7 @@ const initialState: State = {
 	followings: [],
 	followingsTotalCount: 0,
 	isFollowing: false,
+	locallyUnfollowedFriendIds: [],
 	potentialFriends: [],
 	potentialFriendsTotalCount: 0,
 };
@@ -108,6 +110,24 @@ const { actions, name, reducer } = createSlice({
 	initialState,
 	name: "friends",
 	reducers: {
+		addLocallyUnfollowedFriendId(state, action: PayloadAction<number>) {
+			const hasId = state.locallyUnfollowedFriendIds.includes(action.payload);
+
+			if (hasId) {
+				return;
+			}
+
+			state.locallyUnfollowedFriendIds.push(action.payload);
+		},
+		clearFollowings(state) {
+			state.followings = state.followings.filter((following) => {
+				return !state.locallyUnfollowedFriendIds.includes(following.id);
+			});
+		},
+		removeLocallyUnfollowedFriendId(state, action: PayloadAction<number>) {
+			state.locallyUnfollowedFriendIds =
+				state.locallyUnfollowedFriendIds.filter((id) => id !== action.payload);
+		},
 		setIsFollowing(state, action: PayloadAction<boolean>) {
 			state.isFollowing = action.payload;
 		},

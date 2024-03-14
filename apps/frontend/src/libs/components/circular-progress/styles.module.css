@@ -1,13 +1,14 @@
 .progress {
 	position: relative;
-	width: 120px;
-	height: 120px;
+	width: 100%;
+	height: 100%;
 }
 
 .progress-bar {
 	width: 100%;
 	height: 100%;
 	transform: rotate(270deg);
+	animation: 0.5s ease 0s forwards progress;
 }
 
 .completed,
@@ -19,9 +20,19 @@
 	filter: drop-shadow(0 0 4px rgb(0 0 0 / 20%));
 	stroke: var(--main-orange);
 	stroke-dasharray: 439.6px;
-	stroke-dashoffset: calc(439.6px - (439.6px * (var(--percentage) / 100)));
 	stroke-linecap: round;
 	stroke-width: 12px;
+	transition: 0.3s ease;
+}
+
+@keyframes progress {
+	from {
+		stroke-dashoffset: 439.6px;
+	}
+
+	to {
+		stroke-dashoffset: calc(439.6px - (439.6px * (var(--percentage) / 100)));
+	}
 }
 
 .in-process {

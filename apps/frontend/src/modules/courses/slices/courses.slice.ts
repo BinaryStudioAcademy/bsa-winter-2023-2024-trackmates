@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
 import { type CourseDto } from "../libs/types/types.js";
 import { getAll, getById, getRecommended } from "./actions.js";
 
 type State = {
+	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
 	currentCourse: CourseDto | null;
 	recommendedCourses: CourseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
@@ -14,6 +16,7 @@ type State = {
 };
 
 const initialState: State = {
+	addedVendorCourseDataStatuses: {},
 	currentCourse: null,
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
@@ -52,6 +55,22 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(getRecommended.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
+		builder.addCase(userCoursesActions.add.pending, (state, action) => {
+			const { vendorCourseId } = action.meta.arg;
+
+			state.addedVendorCourseDataStatuses[vendorCourseId] = DataStatus.PENDING;
+		});
+		builder.addCase(userCoursesActions.add.rejected, (state, action) => {
+			const { vendorCourseId } = action.meta.arg;
+
+			state.addedVendorCourseDataStatuses[vendorCourseId] = DataStatus.REJECTED;
+		});
+		builder.addCase(userCoursesActions.add.fulfilled, (state, action) => {
+			const { vendorCourseId } = action.meta.arg;
+
+			state.addedVendorCourseDataStatuses[vendorCourseId] =
+				DataStatus.FULFILLED;
+		});
 	},
 	initialState,
 	name: "courses",
@@ -59,6 +78,10 @@ const { actions, name, reducer } = createSlice({
 		clearCourses(state) {
 			state.recommendedCourses = [];
 			state.searchedCourses = [];
+			state.addedVendorCourseDataStatuses = {};
+		},
+		clearCurrentCourse(state) {
+			state.currentCourse = null;
 		},
 	},
 });

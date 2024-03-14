@@ -1,9 +1,14 @@
-import { DateValue, FormatDateType } from "~/libs/enums/enums.js";
+import {
+	DateValue,
+	FormatDateType,
+	MessageStatus,
+} from "~/libs/enums/enums.js";
 import {
 	getDifferenceInHours,
 	getFormattedDate,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
+import { useEffect, useInView } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
@@ -11,15 +16,27 @@ import styles from "./styles.module.css";
 type Properties = {
 	isCurrentUserSender: boolean;
 	message: ChatMessageItemResponseDto;
+	onRead: (messageId: number) => void;
 };
 
 const ChatMessage: React.FC<Properties> = ({
 	isCurrentUserSender,
 	message,
+	onRead,
 }: Properties) => {
-	const { createdAt, senderUser, text } = message;
+	const { createdAt, id, senderUser, status, text } = message;
 
-	const contsinerClassNmaes = getValidClassNames(
+	const { inView, ref } = useInView();
+
+	const isRead = status === MessageStatus.READ;
+
+	useEffect(() => {
+		if (!isRead && !isCurrentUserSender && inView) {
+			onRead(id);
+		}
+	}, [inView, isCurrentUserSender, isRead, onRead, id]);
+
+	const containerClassNames = getValidClassNames(
 		styles["container"],
 		styles[isCurrentUserSender ? "right" : "left"],
 	);
@@ -34,7 +51,7 @@ const ChatMessage: React.FC<Properties> = ({
 			: getFormattedDate(createdAt, FormatDateType.DD_MM_YYYY);
 
 	return (
-		<li className={contsinerClassNmaes}>
+		<li className={containerClassNames} ref={ref}>
 			<div className={styles["sender-container"]}>
 				<span className={styles["sender-name"]}>{sender}</span>
 				<span className={styles["date"]}>{date}</span>

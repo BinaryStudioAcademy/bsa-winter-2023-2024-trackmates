@@ -69,6 +69,34 @@ class GroupService implements Service {
 		return await this.groupRepository.delete(id);
 	}
 
+	public async deleteWithUserCheck(
+		groupId: number,
+		currentUserId: number,
+	): Promise<boolean> {
+		const groupById = await this.groupRepository.find(groupId);
+
+		if (!groupById) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const hasGroup = await this.groupRepository.findUserInGroup(
+			groupId,
+			currentUserId,
+		);
+
+		if (hasGroup) {
+			throw new GroupError({
+				message: GroupErrorMessage.DELETE_GROUP_FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return await this.groupRepository.delete(groupId);
+	}
+
 	public async find(id: number): Promise<GroupResponseDto> {
 		const groupById = await this.groupRepository.find(id);
 
@@ -181,6 +209,7 @@ class GroupService implements Service {
 	public async updateGroupPermissions(
 		groupId: number,
 		permissionId: number,
+		currentUserId: number,
 	): Promise<AllPermissionsResponseDto> {
 		void (await this.permissionService.find(permissionId));
 		const groupById = await this.groupRepository.find(groupId);
@@ -189,6 +218,18 @@ class GroupService implements Service {
 			throw new GroupError({
 				message: GroupErrorMessage.GROUP_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const hasGroup = await this.groupRepository.findUserInGroup(
+			groupId,
+			currentUserId,
+		);
+
+		if (hasGroup) {
+			throw new GroupError({
+				message: GroupErrorMessage.CHANGE_PERMISSION_FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
@@ -214,6 +255,7 @@ class GroupService implements Service {
 	public async updateUserGroups(
 		groupId: number,
 		userId: number,
+		currentUserId: number,
 	): Promise<AllGroupsResponseDto> {
 		void (await this.userService.findById(userId));
 		const groupById = await this.groupRepository.find(groupId);
@@ -222,6 +264,13 @@ class GroupService implements Service {
 			throw new GroupError({
 				message: GroupErrorMessage.GROUP_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		if (Number(userId) === currentUserId) {
+			throw new GroupError({
+				message: GroupErrorMessage.CHANGE_GROUP_FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 

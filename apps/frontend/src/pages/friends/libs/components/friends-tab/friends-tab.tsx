@@ -2,11 +2,12 @@ import {
 	EmptyPagePlaceholder,
 	Pagination,
 } from "~/libs/components/components.js";
-import { EMPTY_ARRAY_LENGTH } from "~/libs/constants/constants.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { type usePagination } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { FriendList } from "../components.js";
+import styles from "./styles.module.css";
 
 type Properties = {
 	emptyPlaceholder: string;
@@ -20,14 +21,14 @@ const FriendsTab: React.FC<Properties> = ({
 	pagination,
 }: Properties) => {
 	const { handlePageChange, page, pages, pagesCount } = pagination;
-	const hasPages = items.length > EMPTY_ARRAY_LENGTH;
+	const hasPages = items.length > EMPTY_LENGTH;
 
 	if (!hasPages) {
 		return <EmptyPagePlaceholder title={emptyPlaceholder} />;
 	}
 
 	return (
-		<>
+		<div className={styles["friends-tab"]}>
 			<FriendList friends={items} />
 			<Pagination
 				currentPage={page}
@@ -35,7 +36,7 @@ const FriendsTab: React.FC<Properties> = ({
 				pages={pages}
 				pagesCount={pagesCount}
 			/>
-		</>
+		</div>
 	);
 };
 

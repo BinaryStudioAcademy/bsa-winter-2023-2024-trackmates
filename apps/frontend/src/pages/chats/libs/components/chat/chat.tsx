@@ -1,12 +1,26 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Loader } from "~/libs/components/components.js";
-import { LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
+import { EMPTY_LENGTH, LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { useCallback, useNavigate } from "~/libs/hooks/hooks.js";
-import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
+import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
+import {
+	useAppDispatch,
+	useCallback,
+	useEffect,
+	useNavigate,
+	useState,
+} from "~/libs/hooks/hooks.js";
+import {
+	type ChatMessageItemResponseDto,
+	actions as chatMessageActions,
+} from "~/modules/chat-messages/chat-messages.js";
+import { actions as chatActions } from "~/modules/chats/chats.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { type DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
+import {
+	type DEFAULT_MESSAGE_PAYLOAD,
+	READ_CHAT_MESSAGE_DELAY_MS,
+} from "../../constants/constants.js";
 import { MessageItemOption } from "../../enums/enums.js";
 import { prepareMessageItems } from "../../helpers/helpers.js";
 import { ChatDate } from "../chat-date/chat-date.js";
@@ -15,6 +29,7 @@ import { ChatMessage } from "../chat-message/chat-message.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	className?: string | undefined;
 	isMessageLoading: boolean;
 	messages: ChatMessageItemResponseDto[];
 	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
@@ -22,19 +37,61 @@ type Properties = {
 };
 
 const Chat: React.FC<Properties> = ({
+	className,
 	isMessageLoading,
 	messages,
 	onSubmit,
 	receiver,
 }: Properties) => {
+	const [readChatMessageIds, setChatMessageIds] = useState<Set<number>>(
+		new Set<number>(),
+	);
+	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+
+	const handleRead = useCallback(
+		(chatMessageId: number): void => {
+			setChatMessageIds((previous) => {
+				return new Set<number>(previous.add(chatMessageId));
+			});
+		},
+		[setChatMessageIds],
+	);
+
+	const handleReadChatMessages = (): void => {
+		setChatMessageIds(new Set<number>());
+
+		void dispatch(
+			chatMessageActions.setReadChatMessages({
+				chatMessageIds: [...readChatMessageIds],
+			}),
+		);
+	};
+
+	const handleReadChatMessagesDebounced = initDebounce(
+		handleReadChatMessages,
+		READ_CHAT_MESSAGE_DELAY_MS,
+	);
+
+	useEffect(() => {
+		if (readChatMessageIds.size > EMPTY_LENGTH) {
+			handleReadChatMessagesDebounced();
+
+			return () => {
+				handleReadChatMessagesDebounced.clear();
+			};
+		}
+	}, [readChatMessageIds, handleReadChatMessagesDebounced]);
 
 	const handleClick = useCallback((): void => {
 		navigate(AppRoute.CHATS);
-	}, [navigate]);
+		dispatch(chatActions.leaveChat());
+	}, [navigate, dispatch]);
+
+	const chatsStyles = getValidClassNames(styles["container"], className);
 
 	return (
-		<div className={styles["container"]}>
+		<div className={chatsStyles}>
 			<div className={styles["nav-container"]}>
 				<Button
 					className={styles["back-button"]}
@@ -72,6 +129,7 @@ const Chat: React.FC<Properties> = ({
 							isCurrentUserSender={receiver.id !== message.senderUser.id}
 							key={message.id}
 							message={message}
+							onRead={handleRead}
 						/>
 					);
 				})}

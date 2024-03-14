@@ -5,20 +5,17 @@ import styles from "./styles.module.css";
 type Properties = {
 	centered?: boolean;
 	children: React.ReactNode;
-	narrowed?: boolean;
+	width?: "medium" | "narrow" | "wide";
 };
 
 const TableCell: React.FC<Properties> = ({
 	centered = false,
 	children,
-	narrowed = false,
+	width = "wide",
 }: Properties) => {
 	return (
 		<td
-			className={getValidClassNames(
-				styles["table-data-cell"],
-				narrowed && styles["narrow-column"],
-			)}
+			className={getValidClassNames(styles["table-data-cell"], styles[width])}
 		>
 			<div
 				className={getValidClassNames(

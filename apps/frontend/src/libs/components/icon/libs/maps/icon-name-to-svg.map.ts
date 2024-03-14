@@ -15,6 +15,10 @@ import LikeIcon from "~/assets/icons/like.svg?react";
 import LockIcon from "~/assets/icons/lock.svg?react";
 import LogOutIcon from "~/assets/icons/log-out.svg?react";
 import MessageIcon from "~/assets/icons/message.svg?react";
+import NavFirst from "~/assets/icons/nav-first.svg?react";
+import NavLast from "~/assets/icons/nav-last.svg?react";
+import NavNext from "~/assets/icons/nav-next.svg?react";
+import NavPrev from "~/assets/icons/nav-prev.svg?react";
 import NotificationIcon from "~/assets/icons/notification.svg?react";
 import PieIcon from "~/assets/icons/pie.svg?react";
 import PlusIcon from "~/assets/icons/plus.svg?react";
@@ -43,6 +47,10 @@ const iconNameToSvg: Record<
 	lock: LockIcon,
 	logOut: LogOutIcon,
 	message: MessageIcon,
+	navFirst: NavFirst,
+	navLast: NavLast,
+	navNext: NavNext,
+	navPrev: NavPrev,
 	notification: NotificationIcon,
 	pie: PieIcon,
 	plus: PlusIcon,
