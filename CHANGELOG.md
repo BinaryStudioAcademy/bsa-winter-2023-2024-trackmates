@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.69.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.68.0...v1.69.0) (2024-03-14)
+
+
+### Features
+
+* **frontend:** feat add transitions for modal tm-492 ([#532](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/532)) ([9aff48b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9aff48b4b6f2fce56852121a5bc654903e735dbb))
+* move specification to the GitHub tm-187 ([#526](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/526)) ([e508346](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e5083468a7e61b648882e8d8a86aed6e3a728211))
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#538](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/538)) ([d254906](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d2549065be9bb9eaa3fadb6e0546557a25a8ab3b))
+
 ## [1.68.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.67.0...v1.68.0) (2024-03-14)
 
 

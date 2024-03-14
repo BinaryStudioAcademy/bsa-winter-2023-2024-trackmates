@@ -165,6 +165,17 @@ class FriendController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
+				return this.getAllUserFollowingsIds(
+					options as APIHandlerOptions<{
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
+			path: FriendsApiPath.FOLLOWINGS_IDS,
+		});
+		this.addRoute({
+			handler: (options) => {
 				return this.getPotentialFollowers(
 					options as APIHandlerOptions<{
 						query: PaginationRequestDto;
@@ -412,6 +423,36 @@ class FriendController extends BaseController {
 	private async findAll(): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.friendService.findAll(),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /friends/followings/ids:
+	 *   get:
+	 *     tags:
+	 *       - Friends
+	 *     description: Returns an array of ids that belong to friends that user follows
+	 *     security:
+	 *       - bearerAuth: []
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 type: integer
+	 */
+	private async getAllUserFollowingsIds(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.getUserFollowingsIds(options.user.id),
 			status: HTTPCode.OK,
 		};
 	}

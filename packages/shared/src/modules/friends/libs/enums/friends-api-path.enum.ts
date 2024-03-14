@@ -4,6 +4,7 @@ const FriendsApiPath = {
 	FOLLOW: "/follow",
 	FOLLOWERS: "/followers",
 	FOLLOWINGS: "/followings",
+	FOLLOWINGS_IDS: "/followings/ids",
 	POTENTIAL_FOLLOWINGS: "/potential-followings",
 	ROOT: "/",
 	UNFOLLOW: "/unfollow",

@@ -198,6 +198,10 @@ class FriendService {
 		};
 	}
 
+	public async getUserFollowingsIds(id: number): Promise<number[]> {
+		return await this.friendRepository.getUserFollowingsIds(id);
+	}
+
 	public async update(id: number): Promise<UserAuthResponseDto> {
 		const updatedUser = await this.friendRepository.update(id);
 
