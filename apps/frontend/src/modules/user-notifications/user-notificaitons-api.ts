@@ -1,7 +1,12 @@
-import { APIPath, ContentType } from "~/libs/enums/enums.js";
+import {
+	APIPath,
+	ContentType,
+	NotificationFilter,
+} from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
 import {
@@ -21,12 +26,9 @@ class UserNotificationsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USER_NOTIFICATIONS, storage });
 	}
 
-	public async checkHasUserUnreadNotifications(): Promise<boolean> {
+	public async getUnreadNotificationsCount(): Promise<number> {
 		const response = await this.load(
-			this.getFullEndpoint(
-				UserNotificationsApiPath.CHECK_HAS_USER_UNREAD_NOTIFICATIONS,
-				{},
-			),
+			this.getFullEndpoint(UserNotificationsApiPath.UNREAD_COUNT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -34,10 +36,16 @@ class UserNotificationsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<boolean>();
+		return await response.json<number>();
 	}
 
-	public async getUserNotifications(search: string): Promise<{
+	public async getUserNotifications({
+		search = "",
+		type,
+	}: {
+		search: string | undefined;
+		type: ValueOf<typeof NotificationFilter> | null;
+	}): Promise<{
 		items: NotificationResponseDto[];
 	}> {
 		const response = await this.load(
@@ -48,6 +56,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 				method: "GET",
 				query: {
 					search,
+					type: type ?? NotificationFilter.ALL,
 				},
 			},
 		);

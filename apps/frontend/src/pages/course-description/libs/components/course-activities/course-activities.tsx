@@ -11,7 +11,9 @@ const CourseActivities: React.FC<Properties> = ({ progress }: Properties) => {
 	return (
 		<div className={styles["container"]}>
 			<h3 className={styles["title"]}>Course Activities</h3>
-			<CircularProgress percentage={progress} />
+			<div className={styles["progress-container"]}>
+				<CircularProgress percentage={progress} />
+			</div>
 
 			<div className={styles["tags"]}>
 				<div className={styles["tag"]}>

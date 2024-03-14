@@ -1,25 +1,167 @@
+@import url("~/assets/css/media.css");
+
 .page {
 	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
-	padding: 10px 30px;
+	gap: 22px;
+	max-height: calc(100vh - 98px);
+	padding: 33px 40px 42px;
 	overflow: hidden;
 }
 
+.notifications {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	min-height: 200px;
+	padding: 30px 15px 16px;
+	overflow: hidden;
+	background-color: var(--main-white);
+	border-radius: 20px;
+}
+
+.notifications-container {
+	position: relative;
+	z-index: 0;
+	flex-grow: 1;
+	align-self: center;
+	width: 100%;
+	max-width: 637px;
+	height: calc(100% - 100px);
+}
+
+.divider {
+	flex-shrink: 0;
+	height: 1px;
+	margin: 30px 0;
+	background-color: rgba(174 180 187 / 15%);
+}
+
 .content {
+	display: flex;
 	flex: 1;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
 }
 
 .title {
 	margin: 0;
-	margin-bottom: 10px;
 	font-size: var(--font-size-400);
 	font-weight: 600;
+	color: var(--color-text-300);
 }
 
-.background {
-	flex: 1;
-	background-image: url("~/assets/img/notification-character.svg");
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: 60% auto;
+.header {
+	display: flex;
+	column-gap: 50px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.filters {
+	display: flex;
+	column-gap: 42px;
+	align-self: center;
+	justify-content: space-around;
+	width: 100%;
+	max-width: 350px;
+}
+
+.filter-item {
+	position: relative;
+	min-height: unset;
+	padding: 0;
+	font-size: var(--font-size-200);
+	color: var(--color-text-200);
+	text-transform: capitalize;
+	border: none;
+	transition: 0.3s ease;
+}
+
+.filter-item::after {
+	position: absolute;
+	bottom: 0;
+	width: 105%;
+	height: 2px;
+	content: "";
+	background-color: var(--main-orange);
+	border-radius: 5px;
+	opacity: 0;
+	transition: 0.3s ease;
+}
+
+.filter-item:hover,
+.filter-item.active {
+	color: unset;
+	background-color: var(--main-white);
+}
+
+.filter-item.active::after {
+	opacity: 1;
+}
+
+.left-image,
+.right-image {
+	position: absolute;
+	bottom: 0;
+	z-index: -1;
+	width: 169px;
+	height: 174px;
+}
+
+.left-image {
+	left: -118px;
+	background-image: url("~/assets/img/notification-character-with-red-boot.svg");
+}
+
+.right-image {
+	right: -118px;
+	background-image: url("~/assets/img/notification-character-with-blue-boot.svg");
+}
+
+@media screen and (--large-screen) {
+	.left-image,
+	.right-image {
+		display: none;
+	}
+}
+
+@media screen and (--medium-screen) {
+	.page {
+		padding: 33px 22px 42px;
+	}
+
+	.filters {
+		column-gap: 20px;
+	}
+}
+
+@media screen and (--small-screen) {
+	.header {
+		display: none;
+	}
+
+	.page {
+		max-height: calc(100vh - 84px);
+		padding: 0;
+		margin-top: 16px;
+	}
+
+	.notifications {
+		padding: 15px 0 16px;
+	}
+
+	.divider {
+		margin: 14px 0;
+	}
+
+	.filters {
+		gap: 40px;
+		align-self: stretch;
+		width: 100%;
+		max-width: unset;
+		padding: 0 40px;
+	}
 }

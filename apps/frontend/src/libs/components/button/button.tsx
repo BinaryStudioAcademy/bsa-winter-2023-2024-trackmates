@@ -4,6 +4,7 @@ import { type IconName, type ValueOf } from "~/libs/types/types.js";
 
 import { Icon } from "../icon/icon.js";
 import { Link } from "../link/link.js";
+import { Loader } from "../loader/loader.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -13,6 +14,7 @@ type Properties = {
 	iconClassName?: string | undefined;
 	iconName?: IconName;
 	isDisabled?: boolean;
+	isLoading?: boolean;
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
@@ -27,6 +29,7 @@ const Button: React.FC<Properties> = ({
 	iconClassName,
 	iconName,
 	isDisabled = false,
+	isLoading,
 	label,
 	onClick,
 	size = "regular",
@@ -48,6 +51,11 @@ const Button: React.FC<Properties> = ({
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 
+	const buttonContentStyles = getValidClassNames(
+		styles["content"],
+		isLoading && styles["content-hidden"],
+	);
+
 	return (
 		<>
 			{href ? (
@@ -62,8 +70,17 @@ const Button: React.FC<Properties> = ({
 					onClick={onClick}
 					type={type}
 				>
-					{icon}
-					<span className={labelStyle}>{label}</span>
+					{isLoading && (
+						<Loader
+							className={getValidClassNames(styles["button-loader"])}
+							color="white"
+							size="small"
+						/>
+					)}
+					<div className={buttonContentStyles}>
+						{icon}
+						<span className={labelStyle}>{label}</span>
+					</div>
 				</button>
 			)}
 		</>

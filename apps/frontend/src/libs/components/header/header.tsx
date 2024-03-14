@@ -1,32 +1,47 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Link } from "~/libs/components/components.js";
-import { PAGES_WITH_SEARCH_BAR } from "~/libs/constants/constants.js";
-import { AppRoute } from "~/libs/enums/enums.js";
 import {
-	checkIfPathMatchingPattern,
-	getValidClassNames,
-} from "~/libs/helpers/helpers.js";
+	EMPTY_LENGTH,
+	PAGES_WITH_SEARCH_BAR,
+} from "~/libs/constants/constants.js";
+import { AppRoute } from "~/libs/enums/enums.js";
+import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { SearchBar } from "../search-bar/search-bar.js";
+import { MAXIMUM_DISPLAY_UNREAD_COUNT } from "./libs/constants/constants.js";
+import { getUnreadDisplayValue } from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 const Header: React.FC = () => {
-	const { hasUnreadNotifications, user } = useAppSelector(
-		({ auth, userNotifications }) => {
+	const { unreadMessagesCount, unreadNotificationsCount, user } =
+		useAppSelector(({ auth, chats, userNotifications }) => {
 			return {
-				hasUnreadNotifications: userNotifications.hasUnreadNotifications,
+				unreadMessagesCount: chats.unreadMessagesCount,
+				unreadNotificationsCount: userNotifications.unreadNotificationsCount,
 				user: auth.user as UserAuthResponseDto,
 			};
-		},
-	);
+		});
 
 	const { pathname } = useLocation();
 
 	const isSearchBarShown = PAGES_WITH_SEARCH_BAR.some((template) => {
 		return checkIfPathMatchingPattern(pathname, template);
 	});
+
+	const unreadMessagesDisplay = getUnreadDisplayValue(
+		unreadMessagesCount,
+		MAXIMUM_DISPLAY_UNREAD_COUNT,
+	);
+
+	const unreadNotificationsDisplay = getUnreadDisplayValue(
+		unreadNotificationsCount,
+		MAXIMUM_DISPLAY_UNREAD_COUNT,
+	);
+
+	const hasUnreadMessages = unreadMessagesCount > EMPTY_LENGTH;
+	const hasUnreadNotifications = unreadNotificationsCount > EMPTY_LENGTH;
 
 	return (
 		<header className={styles["header"]}>
@@ -38,23 +53,32 @@ const Header: React.FC = () => {
 					/>
 				)}
 				<nav className={styles["navigation"]}>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						href={AppRoute.CHATS}
-						iconName="chats"
-						label="To chats"
-					/>
-					<Button
-						className={getValidClassNames(
-							styles["icon-button"],
-							hasUnreadNotifications && styles["unread"],
+					<div className={styles["icon-container"]}>
+						<Button
+							className={styles["icon-button"]}
+							hasVisuallyHiddenLabel
+							href={AppRoute.CHATS}
+							iconName="chats"
+							label="To chats"
+						/>
+						{hasUnreadMessages && (
+							<span className={styles["counter"]}>{unreadMessagesDisplay}</span>
 						)}
-						hasVisuallyHiddenLabel
-						href={AppRoute.NOTIFICATIONS}
-						iconName="notification"
-						label="Notifications"
-					/>
+					</div>
+					<div className={styles["icon-container"]}>
+						<Button
+							className={styles["icon-button"]}
+							hasVisuallyHiddenLabel
+							href={AppRoute.NOTIFICATIONS}
+							iconName="notification"
+							label="Notifications"
+						/>{" "}
+						{hasUnreadNotifications && (
+							<span className={styles["counter"]}>
+								{unreadNotificationsDisplay}
+							</span>
+						)}
+					</div>
 					<Link to={AppRoute.PROFILE}>
 						<Image
 							alt="user-avatar"

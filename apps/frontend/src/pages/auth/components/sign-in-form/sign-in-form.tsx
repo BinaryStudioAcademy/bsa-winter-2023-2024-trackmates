@@ -1,7 +1,8 @@
 import { Button, Input, Link } from "~/libs/components/components.js";
-import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
+import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppForm,
+	useAppSelector,
 	useAppTitle,
 	useCallback,
 	useState,
@@ -24,6 +25,10 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		validationSchema: userSignInValidationSchema,
 	});
 
+	const authDataStatus = useAppSelector(({ auth }) => {
+		return auth.dataStatus;
+	});
+
 	const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
 
 	const handleFormSubmit = useCallback(
@@ -38,6 +43,8 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	}, [isPasswordVisible]);
 
 	useAppTitle(AppTitle.SIGN_IN);
+
+	const isLoading = authDataStatus === DataStatus.PENDING;
 
 	return (
 		<form className={styles["form"]} onSubmit={handleFormSubmit}>
@@ -54,6 +61,7 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				color="dark"
 				control={control}
 				errors={errors}
+				inputMode="email"
 				label="Email"
 				name="email"
 				placeholder="email@example.com"
@@ -79,7 +87,13 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 					style="secondary"
 				/>
 			</div>
-			<Button className={styles["button"]} label="Log In" type="submit" />
+			<Button
+				className={styles["button"]}
+				isDisabled={isLoading}
+				isLoading={isLoading}
+				label="Log In"
+				type="submit"
+			/>
 		</form>
 	);
 };

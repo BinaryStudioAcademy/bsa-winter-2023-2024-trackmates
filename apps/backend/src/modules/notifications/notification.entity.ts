@@ -6,6 +6,8 @@ import {
 } from "./libs/enums/enums.js";
 
 class NotificationEntity implements Entity {
+	private actionId: null | number;
+
 	private createdAt: string;
 
 	private id: null | number;
@@ -29,6 +31,7 @@ class NotificationEntity implements Entity {
 	private userLastName: null | string;
 
 	private constructor({
+		actionId,
 		createdAt,
 		id,
 		message,
@@ -41,6 +44,7 @@ class NotificationEntity implements Entity {
 		userId,
 		userLastName,
 	}: {
+		actionId: null | number;
 		createdAt: string;
 		id: null | number;
 		message: string;
@@ -53,6 +57,7 @@ class NotificationEntity implements Entity {
 		userId: number;
 		userLastName: null | string;
 	}) {
+		this.actionId = actionId;
 		this.createdAt = createdAt;
 		this.id = id;
 		this.message = message;
@@ -67,6 +72,7 @@ class NotificationEntity implements Entity {
 	}
 
 	public static initialize({
+		actionId,
 		createdAt,
 		id,
 		message,
@@ -79,6 +85,7 @@ class NotificationEntity implements Entity {
 		userId,
 		userLastName,
 	}: {
+		actionId: null | number;
 		createdAt: string;
 		id: null | number;
 		message: string;
@@ -92,6 +99,7 @@ class NotificationEntity implements Entity {
 		userLastName: string;
 	}): NotificationEntity {
 		return new NotificationEntity({
+			actionId,
 			createdAt,
 			id,
 			message,
@@ -107,17 +115,20 @@ class NotificationEntity implements Entity {
 	}
 
 	public static initializeNew({
+		actionId,
 		receiverUserId,
 		status,
 		type,
 		userId,
 	}: {
+		actionId: null | number;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
 		type: ValueOf<typeof NotificationType>;
 		userId: number;
 	}): NotificationEntity {
 		return new NotificationEntity({
+			actionId,
 			createdAt: "",
 			id: null,
 			message: "",
@@ -133,6 +144,7 @@ class NotificationEntity implements Entity {
 	}
 
 	public toNewObject(): {
+		actionId: null | number;
 		message: string;
 		receiverUserId: number;
 		status: ValueOf<typeof NotificationStatus>;
@@ -140,6 +152,7 @@ class NotificationEntity implements Entity {
 		userId: number;
 	} {
 		return {
+			actionId: this.actionId,
 			message: this.message,
 			receiverUserId: this.receiverUserId,
 			status: this.status,
@@ -149,6 +162,7 @@ class NotificationEntity implements Entity {
 	}
 
 	public toObject(): {
+		actionId: null | number;
 		createdAt: string;
 		id: number;
 		message: string;
@@ -162,6 +176,7 @@ class NotificationEntity implements Entity {
 		userLastName: string;
 	} {
 		return {
+			actionId: this.actionId,
 			createdAt: this.createdAt,
 			id: this.id as number,
 			message: this.message,

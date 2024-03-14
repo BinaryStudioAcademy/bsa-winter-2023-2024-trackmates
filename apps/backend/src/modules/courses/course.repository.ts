@@ -321,6 +321,55 @@ class CourseRepository implements Repository<CourseEntity> {
 			: null;
 	}
 
+	public async findCommonCourses(
+		userId: number,
+		currentUserId: number,
+	): Promise<CourseEntity[]> {
+		const user = await this.userModel.query().findById(userId);
+
+		if (!user) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_USER,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const courseModels = await user
+			.$relatedQuery(DatabaseTableName.COURSES)
+			.for(userId)
+			.whereIn(
+				"courses.id",
+				this.userModel
+					.relatedQuery(DatabaseTableName.COURSES)
+					.for(currentUserId)
+					.select("courses.id as course_id"),
+			)
+			.withGraphFetched("vendor")
+			.castTo<CourseModel[]>();
+
+		return courseModels.map((model) =>
+			CourseEntity.initialize({
+				createdAt: model.createdAt,
+				description: model.description,
+				id: model.id,
+				image: model.image,
+				title: model.title,
+				updatedAt: model.updatedAt,
+				url: model.url,
+				vendor: VendorEntity.initialize({
+					createdAt: model.vendor.createdAt,
+					id: model.vendor.id,
+					key: model.vendor.key,
+					name: model.vendor.name,
+					updatedAt: model.vendor.updatedAt,
+					url: model.vendor.url,
+				}),
+				vendorCourseId: model.vendorCourseId,
+				vendorId: model.vendorId,
+			}),
+		);
+	}
+
 	public async getProgressData(
 		courseIds: number[],
 		userId: number,

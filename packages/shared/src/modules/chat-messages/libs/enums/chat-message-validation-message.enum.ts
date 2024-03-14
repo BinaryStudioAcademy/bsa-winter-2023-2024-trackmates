@@ -3,8 +3,9 @@ import { ChatMessageValidationRule } from "./chat-message-validation-rule.enum.j
 const ChatMessageValidationMessage = {
 	CHAT_ID_MINIMUM_VALUE: `Minimum chatId value – ${ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE}`,
 	MESSAGE_ID_MINIMUM_VALUE: `Minimum messageId value – ${ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE}`,
+	MESSAGE_IDS_ARRAY_MINIMUM_LENGTH: "Array of message IDs should be not empty",
 	TEXT_MAXIMUM_LENGTH: `Maximum text length – ${ChatMessageValidationRule.TEXT_MAXIMUM_LENGTH} characters`,
-	TEXT_MINIMUM_LENGTH: `Minimum text length – ${ChatMessageValidationRule.TEXT_MINIMUM_LENGTH} characters`,
+	TEXT_MINIMUM_LENGTH: `Minimum text length – ${ChatMessageValidationRule.TEXT_MINIMUM_LENGTH} character`,
 };
 
 export { ChatMessageValidationMessage };

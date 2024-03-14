@@ -1,10 +1,11 @@
-import { create, getAll, updateStatus } from "./actions.js";
+import { create, getAll, getAllToCompare, updateStatus } from "./actions.js";
 import { actions } from "./section-statuses.slice.js";
 
 const allActions = {
 	...actions,
 	create,
 	getAll,
+	getAllToCompare,
 	updateStatus,
 };
 

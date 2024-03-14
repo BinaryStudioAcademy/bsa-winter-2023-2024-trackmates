@@ -133,6 +133,7 @@ erDiagram
     dateTime updated_at
     int receiver_user_id FK
     int user_id FK
+    int action_id
     enum status
     enum type
    }

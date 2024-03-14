@@ -64,6 +64,19 @@ class ChatsApi extends BaseHTTPApi {
 
 		return await response.json<ChatItemResponseDto>();
 	}
+
+	public async getUnreadMessagesCount(): Promise<number> {
+		const response = await this.load(
+			this.getFullEndpoint(ChatsApiPath.UNREAD_COUNT, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<number>();
+	}
 }
 
 export { ChatsApi };

@@ -1,1 +1,1 @@
-export { NotificationStatus } from "@trackmates/shared";
+export { QueryParameterName } from "./query-parameter-name.enum.js";

@@ -5,7 +5,7 @@ import {
 	Pagination,
 } from "~/libs/components/components.js";
 import {
-	EMPTY_ARRAY_LENGTH,
+	EMPTY_LENGTH,
 	PAGINATION_PAGES_CUT_COUNT,
 } from "~/libs/constants/constants.js";
 import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
@@ -62,7 +62,7 @@ const Overview: React.FC = () => {
 		);
 	}, [dispatch, user, page, totalCount]);
 
-	const hasCourses = courses.length > EMPTY_ARRAY_LENGTH;
+	const hasCourses = courses.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["container"]}>
@@ -74,7 +74,7 @@ const Overview: React.FC = () => {
 				) : (
 					<>
 						{hasCourses ? (
-							<>
+							<div className={styles["courses-container-content"]}>
 								<Courses courses={courses} userId={user.id} />
 								<Pagination
 									currentPage={page}
@@ -82,7 +82,7 @@ const Overview: React.FC = () => {
 									pages={pages}
 									pagesCount={pagesCount}
 								/>
-							</>
+							</div>
 						) : (
 							<EmptyPagePlaceholder title="You haven't added any courses yet" />
 						)}

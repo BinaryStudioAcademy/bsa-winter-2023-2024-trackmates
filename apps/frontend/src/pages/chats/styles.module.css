@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	--border-color: rgba(174 180 187 / 15%);
 
@@ -10,7 +12,7 @@
 }
 
 .title {
-	margin: 0 0 22px;
+	margin: 0 0 10px;
 	font-size: var(--font-size-400);
 	font-weight: 600;
 	color: var(--color-text-300);
@@ -23,4 +25,41 @@
 	overflow: hidden;
 	background-color: var(--main-white);
 	border-radius: 16px;
+}
+
+@media screen and (--medium-screen) {
+	.container {
+		margin: 15px 0 0;
+	}
+
+	.title {
+		display: none;
+	}
+
+	.chat-container {
+		grid-template-columns: 1fr;
+		border-radius: 0;
+	}
+
+	.chat-page .chat-container {
+		grid-template-columns: 70px 1fr;
+	}
+
+	.empty-chat {
+		display: none;
+	}
+
+	.chats-page .current-chat {
+		display: none;
+	}
+}
+
+@media screen and (--small-screen) {
+	.chat-page .chat-container {
+		grid-template-columns: 1fr;
+	}
+
+	.chat-page .chat-list {
+		display: none;
+	}
 }

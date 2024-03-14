@@ -79,6 +79,7 @@ const Friends: React.FC = () => {
 						page: potentialFriendsPagination.page,
 					}),
 				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 
@@ -89,6 +90,7 @@ const Friends: React.FC = () => {
 						page: followersPagination.page,
 					}),
 				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 
@@ -99,6 +101,7 @@ const Friends: React.FC = () => {
 						page: followingsPagination.page,
 					}),
 				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 		}
@@ -109,6 +112,15 @@ const Friends: React.FC = () => {
 		followersPagination.page,
 		followingsPagination.page,
 	]);
+
+	useEffect(() => {
+		void dispatch(
+			actions.getFollowings({
+				count: PaginationValue.DEFAULT_COUNT,
+				page: followingsPagination.page,
+			}),
+		);
+	}, [dispatch, followingsPagination.page]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {

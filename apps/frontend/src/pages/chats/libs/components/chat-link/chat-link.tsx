@@ -14,9 +14,10 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	chat: ChatGetAllItemResponseDto;
+	isReducible: boolean;
 };
 
-const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
+const ChatLink: React.FC<Properties> = ({ chat, isReducible }: Properties) => {
 	const { currentChat } = useAppSelector(({ chats }) => ({
 		currentChat: chats.currentChat,
 	}));
@@ -38,6 +39,7 @@ const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
 			className={getValidClassNames(
 				styles["container"],
 				isCurrentChat && styles["current"],
+				isReducible && styles["reducible"],
 			)}
 			to={chatRouteById}
 		>
