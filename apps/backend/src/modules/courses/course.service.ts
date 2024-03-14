@@ -187,6 +187,15 @@ class CourseService {
 	}
 
 	public async delete(id: number): Promise<boolean> {
+		const courseById = await this.courseRepository.find(id);
+
+		if (!courseById) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
 		return await this.courseRepository.delete(id);
 	}
 

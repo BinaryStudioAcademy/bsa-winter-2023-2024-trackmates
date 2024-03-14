@@ -200,7 +200,7 @@ class CourseController extends BaseController {
 	 *      parameters:
 	 *        - name: id
 	 *          in: path
-	 *          description: The vendor ID
+	 *          description: The course ID
 	 *          required: true
 	 *          schema:
 	 *            type: integer
