@@ -1,4 +1,8 @@
-export { VendorErrorMessage, VendorsApiPath } from "./libs/enums/enums.js";
+export {
+	VendorErrorMessage,
+	VendorKey,
+	VendorsApiPath,
+} from "./libs/enums/enums.js";
 export { VendorError } from "./libs/exceptions/exceptions.js";
 export {
 	type VendorRequestDto,

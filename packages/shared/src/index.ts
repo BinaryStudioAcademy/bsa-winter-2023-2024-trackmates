@@ -225,6 +225,7 @@ export {
 export {
 	VendorError,
 	VendorErrorMessage,
+	VendorKey,
 	type VendorRequestDto,
 	type VendorResponseDto,
 	VendorsApiPath,

@@ -1,6 +1,9 @@
-import { type VendorResponseDto } from "~/modules/vendors/vendors.js";
+import {
+	VendorKey,
+	type VendorResponseDto,
+} from "~/modules/vendors/vendors.js";
 
-import { UDEMY_KEY } from "../constants/constants.js";
+const DEFAULT_VENDOR = VendorKey.UDEMY;
 
 const getDefaultVendors = (
 	vendors: VendorResponseDto[],
@@ -8,7 +11,10 @@ const getDefaultVendors = (
 	[k in string]: boolean;
 } => {
 	return Object.fromEntries(
-		vendors.map((vendor) => [vendor.key, vendor.key === UDEMY_KEY]),
+		vendors.map((vendor) => [vendor.key, vendor.key === DEFAULT_VENDOR]) as [
+			string,
+			boolean,
+		][],
 	);
 };
 
