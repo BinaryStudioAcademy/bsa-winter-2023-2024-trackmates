@@ -62,7 +62,7 @@ const Notifications: React.FC = () => {
 				[QueryParameterName.SEARCH]: searchQuery ?? "",
 			}).toString();
 
-			navigate(AppRoute.NOTIFICATIONS + `?$${queryString}`, { replace: true });
+			navigate(AppRoute.NOTIFICATIONS + `?${queryString}`, { replace: true });
 
 			return;
 		}
@@ -92,6 +92,7 @@ const Notifications: React.FC = () => {
 							}).toString();
 
 							const currentLink = AppRoute.NOTIFICATIONS + `?${queryString}`;
+
 							const isActive =
 								notificationType === filter ||
 								(!notificationType && filter === NotificationFilter.ALL);

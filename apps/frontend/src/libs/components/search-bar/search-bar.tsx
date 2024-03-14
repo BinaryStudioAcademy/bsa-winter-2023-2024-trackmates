@@ -45,7 +45,7 @@ const SearchBar: React.FC<Properties> = ({
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
 		void handleSubmit((payload) => {
 			const currentSearchParameters = new URLSearchParams(
-				setSearchParameters.toString(),
+				searchParameters.toString(),
 			);
 			currentSearchParameters.set(QueryParameterName.SEARCH, payload.search);
 			setSearchParameters(currentSearchParameters);
