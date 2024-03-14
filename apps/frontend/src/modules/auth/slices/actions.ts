@@ -15,19 +15,15 @@ import {
 import { name as sliceName } from "./auth.slice.js";
 
 const forgotPassword = createAsyncThunk<
-	{ success: boolean },
+	boolean,
 	AuthForgotPasswordRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/forgot-password`, async (payload) => {
-	// eslint-disable-next-line no-console
-	console.log("payload", payload);
-	// const { authApi, storage } = extra;
+>(`${sliceName}/forgot-password`, async (payload, { extra }) => {
+	const { authApi } = extra;
 
-	// const { token, user } = await authApi.signIn(loginPayload);
+	const { success } = await authApi.sendUpdatePasswordLink(payload);
 
-	// await storage.set(StorageKey.TOKEN, token);
-
-	return await Promise.resolve({ success: true });
+	return success;
 });
 
 const getAuthenticatedUser = createAsyncThunk<
@@ -48,19 +44,15 @@ const getAuthenticatedUser = createAsyncThunk<
 });
 
 const updatePassword = createAsyncThunk<
-	{ success: boolean },
+	boolean,
 	AuthUpdatePasswordRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/update-password`, async (payload) => {
-	// eslint-disable-next-line no-console
-	console.log("payload", payload);
-	// const { authApi, storage } = extra;
+>(`${sliceName}/update-password`, async (payload, { extra }) => {
+	const { authApi } = extra;
 
-	// const { token, user } = await authApi.signIn(loginPayload);
+	const { success } = await authApi.updatePassword(payload);
 
-	// await storage.set(StorageKey.TOKEN, token);
-
-	return await Promise.resolve({ success: true });
+	return success;
 });
 
 const signIn = createAsyncThunk<

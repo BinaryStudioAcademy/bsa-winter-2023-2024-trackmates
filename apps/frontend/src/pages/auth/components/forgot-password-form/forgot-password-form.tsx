@@ -7,9 +7,7 @@ import {
 	useCallback,
 } from "~/libs/hooks/hooks.js";
 import { type AuthForgotPasswordRequestDto } from "~/modules/auth/auth.js";
-import {
-	userSignInValidationSchema, // todo
-} from "~/modules/users/users.js";
+import { authForgotPasswordValidationSchema } from "~/modules/auth/auth.js";
 
 import { DEFAULT_FORGOT_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
@@ -22,7 +20,7 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	const { control, errors, handleSubmit } =
 		useAppForm<AuthForgotPasswordRequestDto>({
 			defaultValues: DEFAULT_FORGOT_PASSWORD_IN_PAYLOAD,
-			validationSchema: userSignInValidationSchema,
+			validationSchema: authForgotPasswordValidationSchema,
 		});
 
 	const authDataStatus = useAppSelector(({ auth }) => {

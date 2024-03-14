@@ -10,6 +10,10 @@ import {
 	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
+import {
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+} from "./auth.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
 
 type Constructor = {
@@ -33,6 +37,21 @@ class AuthApi extends BaseHTTPApi {
 		);
 
 		return await response.json<UserAuthResponseDto | null>();
+	}
+
+	public async sendUpdatePasswordLink(
+		payload: AuthForgotPasswordRequestDto,
+	): Promise<{ success: boolean }> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.SEND_UPDATE_PASSWORD_LINK, {}),
+			{
+				hasAuth: true,
+				method: "POST",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<{ success: boolean }>();
 	}
 
 	public async signIn(
@@ -65,6 +84,21 @@ class AuthApi extends BaseHTTPApi {
 		);
 
 		return await response.json<UserSignUpResponseDto>();
+	}
+
+	public async updatePassword(
+		payload: AuthUpdatePasswordRequestDto,
+	): Promise<{ success: boolean }> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.UPDATE_PASSWORD, {}),
+			{
+				hasAuth: true,
+				method: "POST",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<{ success: boolean }>();
 	}
 }
 

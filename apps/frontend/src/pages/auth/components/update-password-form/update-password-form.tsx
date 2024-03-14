@@ -8,7 +8,7 @@ import {
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type AuthUpdatePasswordRequestDto } from "~/modules/auth/auth.js";
-import { userSignInValidationSchema } from "~/modules/users/users.js";
+import { authUpdatePasswordValidationSchema } from "~/modules/auth/auth.js";
 
 import { DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
@@ -21,7 +21,7 @@ const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	const { control, errors, handleSubmit } =
 		useAppForm<AuthUpdatePasswordRequestDto>({
 			defaultValues: DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD,
-			validationSchema: userSignInValidationSchema, //todo
+			validationSchema: authUpdatePasswordValidationSchema,
 		});
 
 	const authDataStatus = useAppSelector(({ auth }) => {

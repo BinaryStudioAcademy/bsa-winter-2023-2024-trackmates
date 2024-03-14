@@ -15,5 +15,9 @@ export {
 	type AuthUpdatePasswordRequestDto,
 	type UserAuthResponseDto,
 } from "./libs/types/types.js";
+export {
+	authForgotPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 export { authApi };
 export { actions, reducer } from "./slices/auth.js";

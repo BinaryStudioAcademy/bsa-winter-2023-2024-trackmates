@@ -18,9 +18,12 @@ import {
 	type UserSignUpRequestDto,
 } from "~/modules/users/users.js";
 
-import { SignInForm, SignUpForm } from "./components/components.js";
-import { ForgotPasswordForm } from "./components/forgot-password/forgot-password.js";
-import { UpdatePasswordForm } from "./components/update-password/update-password.js";
+import {
+	ForgotPasswordForm,
+	SignInForm,
+	SignUpForm,
+	UpdatePasswordForm,
+} from "./components/components.js";
 import styles from "./styles.module.css";
 
 const Auth: React.FC = () => {
