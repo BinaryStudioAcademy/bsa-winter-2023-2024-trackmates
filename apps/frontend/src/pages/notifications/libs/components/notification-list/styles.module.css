@@ -5,6 +5,7 @@
 	align-self: stretch;
 	max-height: 100%;
 	padding: 0;
+	padding: 0 30px;
 	margin: 0;
 	overflow-y: auto;
 	list-style: none;

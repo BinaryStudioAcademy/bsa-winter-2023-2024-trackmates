@@ -1,6 +1,10 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Image, Link } from "~/libs/components/components.js";
-import { APIPath, type AppRoute } from "~/libs/enums/enums.js";
+import {
+	APIPath,
+	type AppRoute,
+	NotificationStatus,
+} from "~/libs/enums/enums.js";
 import {
 	getTimeDistanceFormatDate,
 	getValidClassNames,
@@ -9,7 +13,6 @@ import { useEffect, useInView } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
-import { NotificationStatus } from "../../enums/enums.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -52,11 +55,11 @@ const NotificationListItem: React.FC<Properties> = ({
 					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
 			</Link>
-			<div>
+			<div className={styles["text-content"]}>
 				<div className={styles["notification-title"]}>
-					<span>{notification.message}</span>
+					{notification.message}
 				</div>
-				<span className={styles["notification-subtitle"]}>{date}</span>
+				<span className={styles["notification-date"]}>{date}</span>
 			</div>
 		</li>
 	);

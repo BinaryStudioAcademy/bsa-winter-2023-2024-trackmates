@@ -26,12 +26,9 @@ class UserNotificationsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USER_NOTIFICATIONS, storage });
 	}
 
-	public async checkHasUserUnreadNotifications(): Promise<boolean> {
+	public async getUnreadNotificationsCount(): Promise<number> {
 		const response = await this.load(
-			this.getFullEndpoint(
-				UserNotificationsApiPath.CHECK_HAS_USER_UNREAD_NOTIFICATIONS,
-				{},
-			),
+			this.getFullEndpoint(UserNotificationsApiPath.UNREAD_COUNT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -39,7 +36,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<boolean>();
+		return await response.json<number>();
 	}
 
 	public async getUserNotifications({

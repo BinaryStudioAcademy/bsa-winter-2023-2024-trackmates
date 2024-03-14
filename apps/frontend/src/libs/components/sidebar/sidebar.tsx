@@ -3,6 +3,7 @@ import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem } from "~/libs/types/types.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
+import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
@@ -24,7 +25,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	}, []);
 
 	const handleLogOut = useCallback(() => {
-		void dispatch(authActions.logOut());
+		void dispatch(authActions.logOut())
+			.unwrap()
+			.then(() => {
+				dispatch(userCoursesActions.reset());
+			});
 	}, [dispatch]);
 
 	return (
