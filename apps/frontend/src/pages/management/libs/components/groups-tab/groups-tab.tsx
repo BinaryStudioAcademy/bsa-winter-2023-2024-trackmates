@@ -7,6 +7,7 @@ import {
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
 	type GroupRequestDto,
 	type GroupResponseDto,
@@ -20,16 +21,16 @@ import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
-import { TableCell, TableRow } from "../table/libs/components/components.js";
-import { Table } from "../table/table.js";
+import { Table, TableCell, TableRow } from "../table/table.js";
 import { GroupsTableHeader } from "./libs/enums/enums.js";
-import { groupsHeaderToColumnName } from "./libs/maps/maps.js";
+import { groupsHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const GroupsTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { groups, permissions } = useAppSelector((state) => {
+	const { authUser, groups, permissions } = useAppSelector((state) => {
 		return {
+			authUser: state.auth.user as UserAuthResponseDto,
 			groups: state.management.groups,
 			permissions: state.management.permissions,
 		};
@@ -128,32 +129,36 @@ const GroupsTab: React.FC = () => {
 	];
 
 	const tableData = groups.map((group) => {
+		const hasGroup = authUser.groups.some((userGroup) => {
+			return userGroup.id === group.id;
+		});
+
 		return {
 			buttons: (
 				<div className={styles["column-buttons"]}>
 					<Button
-						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
+						isDisabled={hasGroup}
 						label={GroupsTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(group)}
+						style="icon"
 					/>
 					<Button
-						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
+						isDisabled={hasGroup}
 						label={GroupsTableHeader.BUTTONS}
 						onClick={handleOpenConfirmationModal(group)}
+						style="icon"
 					/>
 				</div>
 			),
 			id: group.id,
 			name: group.name,
-			permissions: [
-				group.permissions.map((permission) => {
-					return <Chip key={permission.id} label={permission.name} />;
-				}),
-			],
+			permissions: group.permissions.map((permission) => {
+				return <Chip key={permission.id} label={permission.name} />;
+			}),
 		};
 	});
 
@@ -176,7 +181,7 @@ const GroupsTab: React.FC = () => {
 						className={styles["button"]}
 						label="Create"
 						size="small"
-						style="secondary"
+						style="primary"
 						type="submit"
 					/>
 				</form>
@@ -186,20 +191,26 @@ const GroupsTab: React.FC = () => {
 							return (
 								<TableRow key={data.id}>
 									<TableCell centered>
-										{data[groupsHeaderToColumnName[GroupsTableHeader.ID]]}
+										{data[groupsHeaderToPropertyName[GroupsTableHeader.ID]]}
 									</TableCell>
 									<TableCell>
-										{data[groupsHeaderToColumnName[GroupsTableHeader.NAME]]}
+										{data[groupsHeaderToPropertyName[GroupsTableHeader.NAME]]}
 									</TableCell>
-									<TableCell centered>
+									<TableCell width="medium">
 										{
 											data[
-												groupsHeaderToColumnName[GroupsTableHeader.PERMISSIONS]
+												groupsHeaderToPropertyName[
+													GroupsTableHeader.PERMISSIONS
+												]
 											]
 										}
 									</TableCell>
-									<TableCell centered narrowed>
-										{data[groupsHeaderToColumnName[GroupsTableHeader.BUTTONS]]}
+									<TableCell centered width="narrow">
+										{
+											data[
+												groupsHeaderToPropertyName[GroupsTableHeader.BUTTONS]
+											]
+										}
 									</TableCell>
 								</TableRow>
 							);
