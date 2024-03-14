@@ -6,6 +6,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "../../auth/auth.js";
 import {
 	follow,
+	getAllFollowingsIds,
 	getFollowers,
 	getFollowings,
 	getIsFollowing,
@@ -14,6 +15,7 @@ import {
 } from "./actions.js";
 
 type State = {
+	allFollowingsIds: number[];
 	dataStatus: ValueOf<typeof DataStatus>;
 	followDataStatus: ValueOf<typeof DataStatus>;
 	followers: UserAuthResponseDto[];
@@ -21,12 +23,12 @@ type State = {
 	followings: UserAuthResponseDto[];
 	followingsTotalCount: number;
 	isFollowing: boolean;
-	locallyUnfollowedFriendIds: number[];
 	potentialFriends: UserAuthResponseDto[];
 	potentialFriendsTotalCount: number;
 };
 
 const initialState: State = {
+	allFollowingsIds: [],
 	dataStatus: DataStatus.IDLE,
 	followDataStatus: DataStatus.IDLE,
 	followers: [],
@@ -34,7 +36,6 @@ const initialState: State = {
 	followings: [],
 	followingsTotalCount: 0,
 	isFollowing: false,
-	locallyUnfollowedFriendIds: [],
 	potentialFriends: [],
 	potentialFriendsTotalCount: 0,
 };
@@ -106,27 +107,39 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(getIsFollowing.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
+
+		builder.addCase(getAllFollowingsIds.fulfilled, (state, action) => {
+			state.allFollowingsIds = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getAllFollowingsIds.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(getAllFollowingsIds.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
 	},
 	initialState,
 	name: "friends",
 	reducers: {
-		addLocallyUnfollowedFriendId(state, action: PayloadAction<number>) {
-			const hasId = state.locallyUnfollowedFriendIds.includes(action.payload);
+		addFollowedFriendId(state, action: PayloadAction<number>) {
+			const hasId = state.allFollowingsIds.includes(action.payload);
 
 			if (hasId) {
 				return;
 			}
 
-			state.locallyUnfollowedFriendIds.push(action.payload);
+			state.allFollowingsIds.push(action.payload);
 		},
 		clearFollowings(state) {
 			state.followings = state.followings.filter((following) => {
-				return !state.locallyUnfollowedFriendIds.includes(following.id);
+				return !state.allFollowingsIds.includes(following.id);
 			});
 		},
-		removeLocallyUnfollowedFriendId(state, action: PayloadAction<number>) {
-			state.locallyUnfollowedFriendIds =
-				state.locallyUnfollowedFriendIds.filter((id) => id !== action.payload);
+		removeUnfollowedFriendId(state, action: PayloadAction<number>) {
+			state.allFollowingsIds = state.allFollowingsIds.filter(
+				(id) => id !== action.payload,
+			);
 		},
 		setIsFollowing(state, action: PayloadAction<boolean>) {
 			state.isFollowing = action.payload;
