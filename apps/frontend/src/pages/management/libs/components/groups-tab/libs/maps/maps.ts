@@ -1,1 +1,1 @@
-export { groupsHeaderToColumnName } from "./groups-header-to-column-name.map.js";
+export { groupsHeaderToPropertyName } from "./groups-header-to-property-name.map.js";

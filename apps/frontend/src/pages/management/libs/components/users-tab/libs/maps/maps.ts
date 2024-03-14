@@ -1,1 +1,1 @@
-export { usersHeaderToColumnName } from "./users-header-to-column-name.map.js";
+export { usersHeaderToPropertyName } from "./users-header-to-property-name.map.js";

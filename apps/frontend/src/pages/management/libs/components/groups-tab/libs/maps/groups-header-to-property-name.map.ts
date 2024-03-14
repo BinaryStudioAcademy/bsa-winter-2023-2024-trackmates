@@ -1,10 +1,10 @@
 import { GroupsTableHeader } from "../enums/enums.js";
 
-const groupsHeaderToColumnName = {
+const groupsHeaderToPropertyName = {
 	[GroupsTableHeader.BUTTONS]: "buttons",
 	[GroupsTableHeader.ID]: "id",
 	[GroupsTableHeader.NAME]: "name",
 	[GroupsTableHeader.PERMISSIONS]: "permissions",
 } as const;
 
-export { groupsHeaderToColumnName };
+export { groupsHeaderToPropertyName };

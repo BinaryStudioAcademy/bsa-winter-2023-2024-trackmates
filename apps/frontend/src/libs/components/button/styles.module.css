@@ -77,10 +77,26 @@
 	opacity: 1;
 }
 
+.icon {
+	min-height: unset;
+	padding: 0;
+	margin: 0 auto;
+	color: var(--color-text-200);
+	background-color: transparent;
+	border: unset;
+	fill: currentcolor;
+	transition: 0.3s;
+}
+
+.icon:hover {
+	color: var(--main-orange);
+}
+
 .primary.disabled,
 .primary.disabled:hover,
 .primary.disabled:focus {
 	color: var(--main-white);
+	cursor: default;
 	background-color: var(--color-text-100);
 	border-color: var(--color-text-100);
 }
@@ -89,6 +105,14 @@
 .secondary.disabled:hover,
 .secondary.disabled:focus {
 	border-color: var(--color-text-100);
+}
+
+.icon.disabled,
+.icon.disabled:hover,
+.icon.disabled:focus {
+	color: var(--color-text-100);
+	cursor: default;
+	background-color: transparent;
 }
 
 .content-hidden {

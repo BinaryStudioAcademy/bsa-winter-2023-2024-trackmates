@@ -8,7 +8,11 @@
 	justify-content: center;
 }
 
-.narrow-column {
+.medium {
+	width: 300px;
+}
+
+.narrow {
 	width: 120px;
 }
 

@@ -1,5 +1,4 @@
-.container {
-	flex-grow: 1;
+.wrapper {
 	padding: 16px 40px;
 	color: var(--color-text-300);
 	background-color: var(--color-background);
@@ -43,4 +42,10 @@
 .active {
 	color: var(--main-white);
 	background-color: var(--main-orange);
+}
+
+.disabled {
+	color: var(--color-text-100);
+	pointer-events: none;
+	cursor: default;
 }

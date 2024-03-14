@@ -2,12 +2,10 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 40px;
-	min-width: 100%;
-	overflow: auto;
+	width: 100%;
 }
 
 .table-container {
-	display: flex;
 	max-width: 100%;
 }
 
@@ -33,20 +31,6 @@
 	display: flex;
 	flex-direction: row;
 	column-gap: 30px;
-}
-
-.icon-button {
-	min-height: unset;
-	padding: 0;
-	margin: 0 auto;
-	color: var(--color-text-200);
-	border: unset;
-	fill: currentcolor;
-}
-
-.icon-button:hover {
-	color: var(--main-orange);
-	background-color: var(--main-white);
 }
 
 .modal-list {
