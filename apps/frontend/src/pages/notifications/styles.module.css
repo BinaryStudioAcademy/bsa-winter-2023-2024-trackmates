@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .page {
 	display: flex;
 	flex-direction: column;
@@ -117,4 +119,49 @@
 .right-image {
 	right: -118px;
 	background-image: url("~/assets/img/notification-character-with-blue-boot.svg");
+}
+
+@media screen and (--large-screen) {
+	.left-image,
+	.right-image {
+		display: none;
+	}
+}
+
+@media screen and (--medium-screen) {
+	.page {
+		padding: 33px 22px 42px;
+	}
+
+	.filters {
+		column-gap: 20px;
+	}
+}
+
+@media screen and (--small-screen) {
+	.header {
+		display: none;
+	}
+
+	.page {
+		max-height: calc(100vh - 84px);
+		padding: 0;
+		margin-top: 16px;
+	}
+
+	.notifications {
+		padding: 15px 0 16px;
+	}
+
+	.divider {
+		margin: 14px 0;
+	}
+
+	.filters {
+		gap: 40px;
+		align-self: stretch;
+		width: 100%;
+		max-width: unset;
+		padding: 0 40px;
+	}
 }
