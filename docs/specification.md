@@ -1,4 +1,4 @@
-# BSWA 2023-2024 – [TrackMates](http://development.eu-central-1.elasticbeanstalk.com/) – Specification
+# BSWA 2023-2024 – [TrackMates](http://trackmates.net) – Specification
 
 ## 1. Introduction
 
@@ -8,7 +8,7 @@ The project aims to develop a web and Progressive Web App (PWA) for habit tracki
 
 ### 1.2. Similar applications
 
-- [Way Of Life](https://wayoflifeapp.com/) – Habit Tracker
+- [Way Of Life](https://wayoflifeapp.com) – Habit Tracker
 
 ### 1.3. Key Features
 
