@@ -1,5 +1,5 @@
-import { Button, Input, Link } from "~/libs/components/components.js";
-import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { Button, Input } from "~/libs/components/components.js";
+import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppForm,
 	useAppSelector,
@@ -7,23 +7,22 @@ import {
 	useCallback,
 	useState,
 } from "~/libs/hooks/hooks.js";
-import {
-	type UserSignInRequestDto,
-	userSignInValidationSchema,
-} from "~/modules/users/users.js";
+import { type AuthUpdatePasswordRequestDto } from "~/modules/auth/auth.js";
+import { userSignInValidationSchema } from "~/modules/users/users.js";
 
-import { DEFAULT_SIGN_IN_PAYLOAD } from "./libs/constants.js";
+import { DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	onSubmit: (payload: UserSignInRequestDto) => void;
+	onSubmit: (payload: AuthUpdatePasswordRequestDto) => void;
 };
 
-const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const { control, errors, handleSubmit } = useAppForm<UserSignInRequestDto>({
-		defaultValues: DEFAULT_SIGN_IN_PAYLOAD,
-		validationSchema: userSignInValidationSchema,
-	});
+const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+	const { control, errors, handleSubmit } =
+		useAppForm<AuthUpdatePasswordRequestDto>({
+			defaultValues: DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD,
+			validationSchema: userSignInValidationSchema, //todo
+		});
 
 	const authDataStatus = useAppSelector(({ auth }) => {
 		return auth.dataStatus;
@@ -42,37 +41,15 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		setPasswordVisibility(!isPasswordVisible);
 	}, [isPasswordVisible]);
 
-	useAppTitle(AppTitle.SIGN_IN);
+	useAppTitle(AppTitle.UPDATE_PASSWORD);
 
 	const isLoading = authDataStatus === DataStatus.PENDING;
 
 	return (
 		<form className={styles["form"]} onSubmit={handleFormSubmit}>
 			<div>
-				<h2 className={styles["title"]}>Log In</h2>
-				<p className={styles["subtitle"]}>
-					No account? Go to{" "}
-					<Link className={styles["link"]} to={AppRoute.SIGN_UP}>
-						Create an account
-					</Link>
-				</p>
-				<p className={styles["subtitle"]}>
-					Forgot password? Go to{" "}
-					<Link className={styles["link"]} to={AppRoute.FORGOT_PASSWORD}>
-						Update it
-					</Link>
-				</p>
+				<h2 className={styles["title"]}>Update password</h2>
 			</div>
-			<Input
-				color="dark"
-				control={control}
-				errors={errors}
-				inputMode="email"
-				label="Email"
-				name="email"
-				placeholder="email@example.com"
-				type="text"
-			/>
 			<div className={styles["password-input"]}>
 				<Input
 					className={styles["password"]}
@@ -97,11 +74,11 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				className={styles["button"]}
 				isDisabled={isLoading}
 				isLoading={isLoading}
-				label="Log In"
+				label="Update password"
 				type="submit"
 			/>
 		</form>
 	);
 };
 
-export { SignInForm };
+export { UpdatePasswordForm };

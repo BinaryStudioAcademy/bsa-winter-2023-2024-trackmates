@@ -2,13 +2,33 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
+import {
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+	type UserAuthResponseDto,
+} from "~/modules/auth/auth.js";
 import {
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
 } from "~/modules/users/users.js";
 
 import { name as sliceName } from "./auth.slice.js";
+
+const forgotPassword = createAsyncThunk<
+	{ success: boolean },
+	AuthForgotPasswordRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/forgot-password`, async (payload) => {
+	// eslint-disable-next-line no-console
+	console.log("payload", payload);
+	// const { authApi, storage } = extra;
+
+	// const { token, user } = await authApi.signIn(loginPayload);
+
+	// await storage.set(StorageKey.TOKEN, token);
+
+	return await Promise.resolve({ success: true });
+});
 
 const getAuthenticatedUser = createAsyncThunk<
 	UserAuthResponseDto | null,
@@ -25,6 +45,22 @@ const getAuthenticatedUser = createAsyncThunk<
 	}
 
 	return await authApi.getAuthenticatedUser();
+});
+
+const updatePassword = createAsyncThunk<
+	{ success: boolean },
+	AuthUpdatePasswordRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/update-password`, async (payload) => {
+	// eslint-disable-next-line no-console
+	console.log("payload", payload);
+	// const { authApi, storage } = extra;
+
+	// const { token, user } = await authApi.signIn(loginPayload);
+
+	// await storage.set(StorageKey.TOKEN, token);
+
+	return await Promise.resolve({ success: true });
 });
 
 const signIn = createAsyncThunk<
@@ -66,4 +102,11 @@ const logOut = createAsyncThunk<null, undefined, AsyncThunkConfig>(
 	},
 );
 
-export { getAuthenticatedUser, logOut, signIn, signUp };
+export {
+	forgotPassword,
+	getAuthenticatedUser,
+	logOut,
+	signIn,
+	signUp,
+	updatePassword,
+};

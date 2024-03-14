@@ -69,7 +69,12 @@ export {
 	type ActivityLikeRequestDto,
 	activityLikeChangeValidationSchema,
 } from "./modules/activity-likes/activity-likes.js";
-export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	AuthApiPath,
+	AuthError,
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+} from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
