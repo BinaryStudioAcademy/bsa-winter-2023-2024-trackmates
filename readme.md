@@ -11,6 +11,12 @@ Track your progress for all your courses
 Deployed application:
 [TrackMates](https://trackmates.net/)
 
+Documentation:
+
+- [Specification](./specification.md)
+- [Test Strategy](./test-strategy.md)
+- [Test Plan](./test-plan.md)
+
 ## 2. Domain
 
 The product helps the users to track the progress in all their courses from different vendors in one place, along with additional features like checking friends' progress
