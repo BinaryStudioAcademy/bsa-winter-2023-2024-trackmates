@@ -11,7 +11,7 @@ Track your progress for all your courses
 Deployed application:
 [TrackMates](https://trackmates.net/)
 
-Documentation:
+#### Documentation:
 
 - [Specification](./docs/specification.md)
 - [Test Strategy](./docs/test-strategy.md)
