@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
-import { type AsyncThunkConfig } from "~/libs/types/async-thunk-config.type.js";
+import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
 	type GroupRequestDto,
 	type GroupResponseDto,
@@ -39,15 +39,15 @@ const deleteGroup = createAsyncThunk<
 
 	const isDeleted = await groupsApi.deleteGroup(groupId);
 
-	if (isDeleted) {
-		notification.success(NotificationMessage.GROUP_DELETED);
-
-		return groups.filter((group) => {
-			return group.id !== groupId;
-		});
+	if (!isDeleted) {
+		return groups;
 	}
 
-	return groups;
+	notification.success(NotificationMessage.GROUP_DELETED);
+
+	return groups.filter((group) => {
+		return group.id !== groupId;
+	});
 });
 
 const getAllGroups = createAsyncThunk<

@@ -48,13 +48,14 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 
 	const handleCheckPermissions = useCallback(
 		(pagePermissions: PagePermissions | undefined): boolean => {
-			return pagePermissions
-				? checkIfUserHasPermissions(
-						user,
-						pagePermissions.permissions,
-						pagePermissions.mode,
-					)
-				: true;
+			return (
+				!pagePermissions ||
+				checkIfUserHasPermissions(
+					user,
+					pagePermissions.permissions,
+					pagePermissions.mode,
+				)
+			);
 		},
 		[user],
 	);

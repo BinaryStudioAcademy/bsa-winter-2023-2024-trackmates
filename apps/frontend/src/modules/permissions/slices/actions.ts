@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { type AsyncThunkConfig } from "~/libs/types/async-thunk-config.type.js";
+import { type AsyncThunkConfig } from "~/libs/types/types.js";
 
 import { type AllPermissionsResponseDto } from "./../libs/types/types.js";
 import { name as sliceName } from "./permissions.slice.js";
