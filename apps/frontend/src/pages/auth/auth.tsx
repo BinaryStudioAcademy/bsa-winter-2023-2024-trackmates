@@ -7,6 +7,8 @@ import {
 	useAppSelector,
 	useCallback,
 	useLocation,
+	useMatch,
+	useParams,
 } from "~/libs/hooks/hooks.js";
 import {
 	type AuthForgotPasswordRequestDto,
@@ -31,6 +33,7 @@ const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 	const hasUser = user !== null;
+	const updatePasswordMatch = useMatch(AppRoute.UPDATE_PASSWORD)
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
@@ -55,12 +58,14 @@ const Auth: React.FC = () => {
 
 	const handleUpdatePasswordSubmit = useCallback(
 		(payload: AuthUpdatePasswordRequestDto): void => {
+			console.log("payload", payload);
 			void dispatch(authActions.updatePassword(payload));
 		},
 		[dispatch],
 	);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
+		console.log("screen", screen, AppRoute.UPDATE_PASSWORD)
 		switch (screen) {
 			case AppRoute.SIGN_IN: {
 				return <SignInForm onSubmit={handleSignInSubmit} />;
@@ -74,12 +79,19 @@ const Auth: React.FC = () => {
 				return <ForgotPasswordForm onSubmit={handleForgotPasswordSubmit} />;
 			}
 
-			case AppRoute.UPDATE_PASSWORD: {
-				return <UpdatePasswordForm onSubmit={handleUpdatePasswordSubmit} />;
+			default: {
+				if (updatePasswordMatch && updatePasswordMatch.params.token) {
+					
+					return <UpdatePasswordForm 
+						onSubmit={handleUpdatePasswordSubmit} 
+						token={updatePasswordMatch.params.token} 
+						/>;
+				} else {
+
+					return null;
+				}
 			}
 		}
-
-		return null;
 	};
 
 	if (hasUser) {

@@ -12,7 +12,7 @@ const AppRoute = {
 	ROOT: "/",
 	SIGN_IN: "/sign-in",
 	SIGN_UP: "/sign-up",
-	UPDATE_PASSWORD: "/update-password/some-token",
+	UPDATE_PASSWORD: "/update-password/:token",
 	USERS_$ID: "/users/:id",
 	USERS_$USER_ID_COURSES_$COURSE_ID: "/users/:userId/courses/:courseId",
 	USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE:

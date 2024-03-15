@@ -137,7 +137,9 @@ class AuthService {
 			});
 		}
 
-		return await this.userService.updatePassword(userId, password);
+		const updatedUser = await this.userService.updatePassword(userId, password);
+
+		return updatedUser as UserAuthResponseDto;
 	}
 }
 

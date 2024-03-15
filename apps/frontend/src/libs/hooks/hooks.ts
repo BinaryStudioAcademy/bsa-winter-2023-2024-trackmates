@@ -10,6 +10,7 @@ export { useController as useFormController } from "react-hook-form";
 export { useInView } from "react-intersection-observer";
 export {
 	useLocation,
+	useMatch,
 	useNavigate,
 	useParams,
 	useSearchParams,

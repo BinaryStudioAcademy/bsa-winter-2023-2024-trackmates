@@ -15,13 +15,17 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	onSubmit: (payload: AuthUpdatePasswordRequestDto) => void;
+	token: string;
 };
 
-const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit, token }: Properties) => {
 	const { control, errors, handleSubmit } =
 		useAppForm<AuthUpdatePasswordRequestDto>({
-			defaultValues: DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD,
-			validationSchema: authUpdatePasswordValidationSchema,
+			defaultValues: {
+				...DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD,
+				token,
+			},
+			// validationSchema: authUpdatePasswordValidationSchema,
 		});
 
 	const authDataStatus = useAppSelector(({ auth }) => {
@@ -32,6 +36,7 @@ const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
+			console.log("event_", event_)
 			void handleSubmit(onSubmit)(event_);
 		},
 		[handleSubmit, onSubmit],
@@ -50,6 +55,15 @@ const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			<div>
 				<h2 className={styles["title"]}>Update password</h2>
 			</div>
+			<Input
+				// className={"visually-hidden"}
+				control={control}
+				errors={errors}
+				hasVisuallyHiddenLabel={true}
+				label="Token"
+				name="token"
+				type="text"
+			/>
 			<div className={styles["password-input"]}>
 				<Input
 					className={styles["password"]}

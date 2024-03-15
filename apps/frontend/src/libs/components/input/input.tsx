@@ -24,7 +24,7 @@ type Properties<T extends FieldValues> = {
 	name: FieldPath<T>;
 	placeholder?: string;
 	rows?: number;
-	type?: "email" | "password" | "text";
+	type?: "email" | "password" | "text" | "hidden";
 };
 
 const Input = <T extends FieldValues>({

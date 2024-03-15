@@ -314,7 +314,7 @@ class UserRepository implements Repository<UserEntity> {
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
-			.withGraphJoined(`${RelationName.GROUPS}.userId}`)
+			.withGraphJoined(`${RelationName.GROUPS}.userId`)
 			.execute();
 
 		return user
@@ -360,47 +360,33 @@ class UserRepository implements Repository<UserEntity> {
 		id: number;
 		passwordHash: string;
 		passwordSalt: string;
-	}): Promise<UserEntity> {
+	}): Promise<UserEntity | null> {
 		const user = await this.userModel
 			.query()
-			.patchAndFetchById(id, { passwordHash, passwordSalt })
+			.patch({ id, passwordHash, passwordSalt })
+			.returning("*")
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
-			.withGraphJoined(`${RelationName.GROUPS}.userId}`)
+			//.withGraphJoined(`${RelationName.GROUPS}.userId`)
+			.first()
 			.execute();
 
-		return UserEntity.initialize({
-			avatarUrl: user.userDetails.avatarFile?.url ?? null,
-			createdAt: user.createdAt,
-			email: user.email,
-			firstName: user.userDetails.firstName,
-			groups: user.groups.map((group) => {
-				return GroupEntity.initialize({
-					createdAt: group.createdAt,
-					id: group.id,
-					key: group.key,
-					name: group.name,
-					permissions: group.permissions.map((permission) => {
-						return PermissionEntity.initialize({
-							createdAt: permission.createdAt,
-							id: permission.id,
-							key: permission.key,
-							name: permission.name,
-							updatedAt: permission.updatedAt,
-						});
-					}),
-					updatedAt: group.updatedAt,
-				});
-			}),
-			id: user.id,
-			lastName: user.userDetails.lastName,
-			nickname: user.userDetails.nickname,
-			passwordHash: user.passwordHash,
-			passwordSalt: user.passwordSalt,
-			sex: user.userDetails.sex,
-			updatedAt: user.updatedAt,
-		});
+		return user ? 
+			UserEntity.initialize({
+				avatarUrl: user.userDetails.avatarFile?.url ?? null,
+				createdAt: user.createdAt,
+				email: user.email,
+				firstName: user.userDetails.firstName,
+				groups: [],
+				id: user.id,
+				lastName: user.userDetails.lastName,
+				nickname: user.userDetails.nickname,
+				passwordHash: user.passwordHash,
+				passwordSalt: user.passwordSalt,
+				sex: user.userDetails.sex,
+				updatedAt: user.updatedAt,
+			}) : null;
 	}
 }
 
