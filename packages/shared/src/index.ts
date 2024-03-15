@@ -127,10 +127,12 @@ export {
 	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
+	type CourseUpdateRequestDto,
 	CoursesApiPath,
 	type CoursesResponseDto,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./modules/courses/courses.js";
 export {
 	FileError,
