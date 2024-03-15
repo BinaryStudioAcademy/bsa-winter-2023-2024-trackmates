@@ -6,9 +6,9 @@ const checkIsValidPage = (
 ): boolean => {
 	const isPageInteger = Number.isInteger(pageFromQuery);
 	const isPageDefault = pageFromQuery > PaginationValue.DEFAULT_PAGE;
-	const isPageExist = pagesCount >= pageFromQuery;
+	const isPageExists = pagesCount >= pageFromQuery;
 
-	return isPageExist && isPageDefault && isPageInteger;
+	return isPageExists && isPageDefault && isPageInteger;
 };
 
 export { checkIsValidPage };
