@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
+import { actions as coursesActions } from "~/modules/courses/courses.js";
 import {
 	type GroupResponseDto,
 	actions as groupsActions,
@@ -122,6 +123,39 @@ const { reducer } = createSlice({
 		});
 		builder.addCase(usersActions.getAll.rejected, (state) => {
 			state.usersDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(coursesActions.getAll.fulfilled, (state, action) => {
+			state.courses = action.payload;
+			state.coursesDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(coursesActions.getAll.pending, (state) => {
+			state.coursesDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(coursesActions.getAll.rejected, (state) => {
+			state.coursesDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(coursesActions.deleteById.fulfilled, (state, action) => {
+			state.courses = action.payload;
+			state.coursesDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(coursesActions.deleteById.pending, (state) => {
+			state.coursesDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(coursesActions.deleteById.rejected, (state) => {
+			state.coursesDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(coursesActions.update.fulfilled, (state, action) => {
+			state.courses = action.payload;
+			state.coursesDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(coursesActions.update.pending, (state) => {
+			state.coursesDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(coursesActions.update.rejected, (state) => {
+			state.coursesDataStatus = DataStatus.REJECTED;
 		});
 	},
 	initialState,
