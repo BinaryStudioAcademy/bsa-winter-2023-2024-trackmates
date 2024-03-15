@@ -1,8 +1,13 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus, NotificationStatus } from "~/libs/enums/enums.js";
+import {
+	DataStatus,
+	NotificationFilter,
+	NotificationStatus,
+} from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { notificationFilterToType } from "../libs/maps/maps.js";
 import {
 	type NotificationResponseDto,
 	type ReadNotificationsResponseDto,
@@ -17,12 +22,14 @@ const ONE_ITEM_COUNT = 1;
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
+	notificationType: ValueOf<typeof NotificationFilter>;
 	notifications: NotificationResponseDto[];
 	unreadNotificationsCount: number;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
+	notificationType: NotificationFilter.ALL,
 	notifications: [],
 	unreadNotificationsCount: 0,
 };
@@ -79,9 +86,24 @@ const { actions, name, reducer } = createSlice({
 			}
 		},
 		newNotification(state, action: PayloadAction<NotificationResponseDto>) {
-			state.notifications = [action.payload, ...state.notifications];
+			const needUpdateNotifications =
+				state.notificationType === NotificationFilter.ALL ||
+				notificationFilterToType[state.notificationType] ===
+					action.payload.type;
+
+			if (needUpdateNotifications) {
+				state.notifications = [action.payload, ...state.notifications];
+			}
+
 			state.unreadNotificationsCount =
 				state.unreadNotificationsCount + ONE_ITEM_COUNT;
+		},
+		setNotificationType(
+			state,
+			action: PayloadAction<ValueOf<typeof NotificationFilter>>,
+		) {
+			state.notificationType = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
 		},
 		updateReadNotifications(
 			state,

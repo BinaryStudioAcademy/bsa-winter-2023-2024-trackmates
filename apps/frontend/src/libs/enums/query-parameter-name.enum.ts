@@ -1,4 +1,5 @@
 const QueryParameterName = {
+	SEARCH: "search",
 	TYPE: "type",
 } as const;
 

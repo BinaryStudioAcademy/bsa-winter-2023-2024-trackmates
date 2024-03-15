@@ -1,19 +1,15 @@
-import { AppRoute, PaginationValue } from "~/libs/enums/enums.js";
+import { QueryParameterName } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
-	useAppDispatch,
 	useAppForm,
-	useAppSelector,
 	useCallback,
+	useEffect,
 	useLocation,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import { SEARCH_COURSES_DELAY_MS } from "~/modules/courses/courses.js";
-import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
-import { actions as userNotificationActions } from "~/modules/user-notifications/user-notifications.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { Input } from "../input/input.js";
-import { NotificationFilter } from "./libs/enums/enums.js";
 import { searchPagePathToDefaultValue } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
@@ -26,17 +22,16 @@ const SearchBar: React.FC<Properties> = ({
 	className: classNames,
 	inputClassName: inputClassNames,
 }: Properties) => {
-	const { user } = useAppSelector((state) => ({
-		user: state.auth.user as UserAuthResponseDto,
-	}));
-	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
+	const [searchParameters, setSearchParameters] = useSearchParams();
+	const searchQuery = searchParameters.get(QueryParameterName.SEARCH);
 
-	const { control, errors, handleSubmit } = useAppForm({
-		defaultValues:
-			searchPagePathToDefaultValue[
-				pathname as keyof typeof searchPagePathToDefaultValue
-			],
+	const { control, errors, handleSubmit, reset } = useAppForm({
+		defaultValues: searchQuery
+			? { search: searchQuery }
+			: searchPagePathToDefaultValue[
+					pathname as keyof typeof searchPagePathToDefaultValue
+				],
 		mode: "onChange",
 	});
 
@@ -49,29 +44,11 @@ const SearchBar: React.FC<Properties> = ({
 
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
 		void handleSubmit((payload) => {
-			switch (pathname) {
-				case AppRoute.NOTIFICATIONS: {
-					void dispatch(
-						userNotificationActions.getUserNotifications({
-							search: payload.search,
-							type: NotificationFilter.ALL,
-						}),
-					);
-					break;
-				}
-
-				case AppRoute.ROOT: {
-					void dispatch(
-						userCourseActions.loadMyCourses({
-							count: PaginationValue.DEFAULT_COUNT,
-							page: PaginationValue.DEFAULT_PAGE,
-							search: payload.search,
-							userId: user.id,
-						}),
-					);
-					break;
-				}
-			}
+			const currentSearchParameters = new URLSearchParams(
+				searchParameters.toString(),
+			);
+			currentSearchParameters.set(QueryParameterName.SEARCH, payload.search);
+			setSearchParameters(currentSearchParameters);
 		})(event_);
 	};
 
@@ -79,6 +56,10 @@ const SearchBar: React.FC<Properties> = ({
 		handleFormChange,
 		SEARCH_COURSES_DELAY_MS,
 	);
+
+	useEffect(() => {
+		reset();
+	}, [pathname, reset]);
 
 	return (
 		<form

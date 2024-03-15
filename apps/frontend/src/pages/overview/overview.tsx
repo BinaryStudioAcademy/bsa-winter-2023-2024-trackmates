@@ -8,7 +8,11 @@ import {
 	EMPTY_LENGTH,
 	PAGINATION_PAGES_CUT_COUNT,
 } from "~/libs/constants/constants.js";
-import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+import {
+	DataStatus,
+	PaginationValue,
+	QueryParameterName,
+} from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -16,6 +20,7 @@ import {
 	useCallback,
 	useEffect,
 	usePagination,
+	useSearchParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
@@ -41,6 +46,8 @@ const Overview: React.FC = () => {
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount,
 	});
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const handleModalOpen = useCallback(() => {
 		setIsAddCourseModalOpen(true);
@@ -56,11 +63,11 @@ const Overview: React.FC = () => {
 			userCourseActions.loadMyCourses({
 				count: PaginationValue.DEFAULT_COUNT,
 				page,
-				search: "",
+				search: searchQuery ?? "",
 				userId: user.id,
 			}),
 		);
-	}, [dispatch, user, page, totalCount]);
+	}, [dispatch, user, page, totalCount, searchQuery]);
 
 	const hasCourses = courses.length > EMPTY_LENGTH;
 

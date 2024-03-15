@@ -166,6 +166,7 @@ export {
 	NotificationType,
 	type ReadNotificationsResponseDto,
 	type UpdateNotificationRequestDto,
+	notificationFilterToType,
 } from "./modules/notifications/notifications.js";
 export {
 	PermissionError,

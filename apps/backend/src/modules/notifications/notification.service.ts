@@ -13,7 +13,7 @@ import {
 	type NotificationType,
 } from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
-import { filterQueryParameterToNotificationType } from "./libs/maps/maps.js";
+import { notificationFilterToType } from "./libs/maps/maps.js";
 import {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
@@ -131,8 +131,7 @@ class NotificationService implements Service {
 		notificationFilter: ValueOf<typeof NotificationFilter>,
 		search: string,
 	): Promise<AllNotificationsResponseDto> {
-		const notificationType =
-			filterQueryParameterToNotificationType[notificationFilter];
+		const notificationType = notificationFilterToType[notificationFilter];
 
 		const userNotifications =
 			await this.notificationRepository.findAllByReceiverUserId(
