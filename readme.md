@@ -13,9 +13,9 @@ Deployed application:
 
 Documentation:
 
-- [Specification](./specification.md)
-- [Test Strategy](./test-strategy.md)
-- [Test Plan](./test-plan.md)
+- [Specification](./docs/specification.md)
+- [Test Strategy](./docs/test-strategy.md)
+- [Test Plan](./docs/test-plan.md)
 
 ## 2. Domain
 
