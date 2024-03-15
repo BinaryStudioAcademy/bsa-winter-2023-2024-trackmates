@@ -13,6 +13,7 @@ const courseUpdate = z
 	.object<CourseUpdateValidationSchemaDto>({
 		title: z
 			.string()
+			.trim()
 			.min(
 				CourseValidationRule.TITLE_MINIMUM_LENGTH,
 				CourseValidationMessage.TITLE_MINIMUM_LENGTH,
