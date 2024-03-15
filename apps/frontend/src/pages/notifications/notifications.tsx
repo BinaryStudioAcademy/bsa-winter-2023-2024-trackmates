@@ -51,6 +51,14 @@ const Notifications: React.FC = () => {
 	useAppTitle(AppTitle.NOTIFICATIONS);
 
 	useEffect(() => {
+		void dispatch(
+			actions.setNotificationType(
+				notificationType as ValueOf<typeof NotificationFilter>,
+			),
+		);
+	}, [dispatch, notificationType]);
+
+	useEffect(() => {
 		const hasValidValue =
 			notificationType === null ||
 			possibleTypeValues.includes(
