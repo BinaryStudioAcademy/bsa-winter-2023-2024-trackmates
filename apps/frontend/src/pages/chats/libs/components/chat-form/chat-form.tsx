@@ -1,5 +1,5 @@
 import { Button, Input } from "~/libs/components/components.js";
-import { checkIfMessageIsTooLong } from "~/libs/helpers/helpers.js";
+import { ValidationErrorType } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { chatMessageValidationSchema } from "~/modules/chat-messages/chat-messages.js";
 
@@ -11,10 +11,11 @@ type Properties = {
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const { control, errors, handleSubmit, reset, watch } = useAppForm<
+	const { control, errors, handleSubmit, reset } = useAppForm<
 		typeof DEFAULT_MESSAGE_PAYLOAD
 	>({
 		defaultValues: DEFAULT_MESSAGE_PAYLOAD,
+		mode: "onBlur",
 		validationSchema: chatMessageValidationSchema,
 	});
 
@@ -22,18 +23,13 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
 
-			try {
-				const message = watch("message");
-				chatMessageValidationSchema.parse({ message });
-			} catch (error) {
-				if (checkIfMessageIsTooLong(error)) {
-					return;
-				}
+			if (errors.message?.type === ValidationErrorType.TOO_BIG) {
+				return;
 			}
 
 			reset();
 		},
-		[handleSubmit, onSubmit, reset, watch],
+		[handleSubmit, onSubmit, reset, errors],
 	);
 
 	return (

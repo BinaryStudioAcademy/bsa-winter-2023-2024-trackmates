@@ -4,7 +4,6 @@ export { PAGES_WITH_SEARCH_BAR } from "./pages-with-search-bar.constant.js";
 export { PAGINATION_PAGES_CUT_COUNT } from "./pagination-pages-cut-count.constant.js";
 export {
 	EMPTY_LENGTH,
-	FIRST_ARRAY_ITEM,
 	LAST_ARRAY_ITEM,
 	PREVIOUS_INDEX_OFFSET,
 } from "@trackmates/shared";
