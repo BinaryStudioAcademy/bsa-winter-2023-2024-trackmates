@@ -6,49 +6,38 @@ import {
 	type GroupRequestDto,
 	type GroupResponseDto,
 } from "~/modules/groups/groups.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
+import { type PermissionResponseDto } from "~/modules/permissions/permissions.js";
 
 import { name as sliceName } from "./groups.slice.js";
 
 const createGroup = createAsyncThunk<
-	GroupResponseDto[],
+	GroupResponseDto,
 	GroupRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/create-group`, async (createPayload, { extra, getState }) => {
+>(`${sliceName}/create-group`, async (createPayload, { extra }) => {
 	const { groupsApi, notification } = extra;
-	const {
-		management: { groups },
-	} = getState();
 
 	const createdGroup = await groupsApi.createGroup(createPayload);
 
 	notification.success(NotificationMessage.GROUP_CREATED);
 
-	return [...groups, createdGroup];
+	return createdGroup;
 });
 
-const deleteGroup = createAsyncThunk<
-	GroupResponseDto[],
-	number,
-	AsyncThunkConfig
->(`${sliceName}/delete-group`, async (groupId, { extra, getState }) => {
-	const { groupsApi, notification } = extra;
-	const {
-		management: { groups },
-	} = getState();
+const deleteGroup = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+	`${sliceName}/delete-group`,
+	async (groupId, { extra }) => {
+		const { groupsApi, notification } = extra;
 
-	const isDeleted = await groupsApi.deleteGroup(groupId);
+		const isDeleted = await groupsApi.deleteGroup(groupId);
 
-	if (!isDeleted) {
-		return groups;
-	}
+		if (isDeleted) {
+			notification.success(NotificationMessage.GROUP_DELETED);
+		}
 
-	notification.success(NotificationMessage.GROUP_DELETED);
-
-	return groups.filter((group) => {
-		return group.id !== groupId;
-	});
-});
+		return isDeleted;
+	},
+);
 
 const getAllGroups = createAsyncThunk<
 	GroupResponseDto[],
@@ -63,16 +52,13 @@ const getAllGroups = createAsyncThunk<
 });
 
 const updateGroupPermissions = createAsyncThunk<
-	GroupResponseDto[],
+	PermissionResponseDto[],
 	{ groupId: number; permissionId: number },
 	AsyncThunkConfig
 >(
 	`${sliceName}/update-groups-permissions`,
-	async ({ groupId, permissionId }, { extra, getState }) => {
+	async ({ groupId, permissionId }, { extra }) => {
 		const { groupsApi, notification } = extra;
-		const {
-			management: { groups },
-		} = getState();
 
 		const permissionList = await groupsApi.updateGroupPermissions(
 			groupId,
@@ -81,43 +67,23 @@ const updateGroupPermissions = createAsyncThunk<
 
 		notification.success(NotificationMessage.GROUP_PERMISSIONS_CHANGED);
 
-		return groups.map((group) => {
-			return group.id === groupId
-				? {
-						...group,
-						permissions: permissionList.items,
-					}
-				: group;
-		});
+		return permissionList.items;
 	},
 );
 
 const updateUserGroups = createAsyncThunk<
-	UserAuthResponseDto[],
+	GroupResponseDto[],
 	{ groupId: number; userId: number },
 	AsyncThunkConfig
->(
-	`${sliceName}/update-user-groups`,
-	async ({ groupId, userId }, { extra, getState }) => {
-		const { groupsApi, notification } = extra;
-		const {
-			management: { users },
-		} = getState();
+>(`${sliceName}/update-user-groups`, async ({ groupId, userId }, { extra }) => {
+	const { groupsApi, notification } = extra;
 
-		const groupsList = await groupsApi.updateUserGroups(groupId, userId);
+	const groupsList = await groupsApi.updateUserGroups(groupId, userId);
 
-		notification.success(NotificationMessage.USER_GROUPS_CHANGED);
+	notification.success(NotificationMessage.USER_GROUPS_CHANGED);
 
-		return users.map((user) => {
-			return user.id === userId
-				? {
-						...user,
-						groups: groupsList.items,
-					}
-				: user;
-		});
-	},
-);
+	return groupsList.items;
+});
 
 export {
 	createGroup,

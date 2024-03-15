@@ -61,7 +61,7 @@ const { reducer } = createSlice({
 		});
 
 		builder.addCase(groupsActions.createGroup.fulfilled, (state, action) => {
-			state.groups = action.payload;
+			state.groups = [...state.groups, action.payload];
 			state.groupsDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(groupsActions.createGroup.pending, (state) => {
@@ -73,8 +73,21 @@ const { reducer } = createSlice({
 
 		builder.addCase(
 			groupsActions.updateGroupPermissions.fulfilled,
-			(state, action) => {
-				state.groups = action.payload;
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+					payload,
+				},
+			) => {
+				state.groups = state.groups.map((group) => {
+					return group.id === groupId
+						? { ...group, permissions: payload }
+						: group;
+				});
+				state.groupsDataStatus = DataStatus.FULFILLED;
 			},
 		);
 		builder.addCase(groupsActions.updateGroupPermissions.pending, (state) => {
@@ -86,8 +99,18 @@ const { reducer } = createSlice({
 
 		builder.addCase(
 			groupsActions.updateUserGroups.fulfilled,
-			(state, action) => {
-				state.users = action.payload;
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+					payload,
+				},
+			) => {
+				state.users = state.users.map((user) => {
+					return user.id === userId ? { ...user, groups: payload } : user;
+				});
 			},
 		);
 		builder.addCase(groupsActions.updateUserGroups.pending, (state) => {
@@ -97,10 +120,18 @@ const { reducer } = createSlice({
 			state.groupsDataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(groupsActions.deleteGroup.fulfilled, (state, action) => {
-			state.groups = action.payload;
-			state.groupsDataStatus = DataStatus.FULFILLED;
-		});
+		builder.addCase(
+			groupsActions.deleteGroup.fulfilled,
+			(state, { meta: { arg: groupId }, payload }) => {
+				if (payload) {
+					state.groups = state.groups.filter((group) => {
+						return group.id !== groupId;
+					});
+				}
+
+				state.groupsDataStatus = DataStatus.FULFILLED;
+			},
+		);
 		builder.addCase(groupsActions.deleteGroup.pending, (state) => {
 			state.groupsDataStatus = DataStatus.PENDING;
 		});
