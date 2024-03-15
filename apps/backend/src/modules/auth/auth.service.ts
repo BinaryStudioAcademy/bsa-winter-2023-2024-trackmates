@@ -1,7 +1,9 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
+import { type Mail } from "~/libs/modules/mail/mail.js";
 import { type Token } from "~/libs/modules/token/token.js";
 import {
+	type UserAuthResponseDto,
 	type UserEntity,
 	type UserService,
 	type UserSignInRequestDto,
@@ -14,17 +16,23 @@ import { AuthError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
 	encrypt: Encrypt;
+	mail: Mail;
 	token: Token;
 	userService: UserService;
 };
 
+// TODO
+const RESET_PASSWORD_URL = "http://localhost:3000/update-password/";
+
 class AuthService {
 	private encrypt: Encrypt;
+	private mail: Mail;
 	private token: Token;
 	private userService: UserService;
 
-	public constructor({ encrypt, token, userService }: Constructor) {
+	public constructor({ encrypt, mail, token, userService }: Constructor) {
 		this.encrypt = encrypt;
+		this.mail = mail;
 		this.token = token;
 		this.userService = userService;
 	}
@@ -60,7 +68,24 @@ class AuthService {
 	}
 
 	public async sendUpdatePasswordLink(email: string): Promise<boolean> {
-		return await Promise.resolve(Boolean(email)); //TODO
+		const user = await this.userService.getByEmail(email);
+
+		if (!user) {
+			throw new AuthError({
+				message: ExceptionMessage.USER_NOT_FOUND,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const { id: userId } = user.toObject();
+		const token = await this.token.create({ userId });
+		const link = `${RESET_PASSWORD_URL}${token}`;
+
+		return await this.mail.send({
+			email,
+			subject: "Reset your password",
+			text: `Hello! You can reset your password by link: ${link}`,
+		});
 	}
 
 	public async signIn(
@@ -71,7 +96,7 @@ class AuthService {
 		const { id } = user.toObject();
 
 		return {
-			token: await this.token.create({ userId: id }),
+			token: await this.token.create({ userId: id }), // todo
 			user: user.toObject(),
 		};
 	}
@@ -100,8 +125,19 @@ class AuthService {
 	public async updatePassword(
 		password: string,
 		token: string,
-	): Promise<boolean> {
-		return await Promise.resolve(Boolean(password) || Boolean(token)); //TODO
+	): Promise<UserAuthResponseDto> {
+		const { payload: { userId } } = await this.token.verify(token);
+
+		const user = await this.userService.findById(userId);
+
+		if (!user) {
+			throw new AuthError({
+				message: ExceptionMessage.UNAUTHORIZED,
+				status: HTTPCode.UNAUTHORIZED,
+			});
+		}
+
+		return await this.userService.updatePassword(userId, password);
 	}
 }
 

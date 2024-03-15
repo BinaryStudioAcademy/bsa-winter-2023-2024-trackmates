@@ -27,6 +27,12 @@ type EnvironmentSchema = {
 		EXPIRES_IN: string;
 		SECRET: string;
 	};
+	MAIL: {
+		SERVICE: string;
+		USER_EMAIL: string;
+		USER_NAME: string;
+		USER_PASSWORD: string;
+	};
 	OPENAI: {
 		API_KEY: string;
 		MODEL: string;

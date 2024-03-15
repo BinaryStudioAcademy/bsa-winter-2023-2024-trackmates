@@ -130,6 +130,32 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			MAIL: {
+				SERVICE: {
+					default: null,
+					doc: "Service for sending mails",
+					env: "MAIL_SERVICE",
+					format: String,
+				},
+				USER_EMAIL: {
+					default: null,
+					doc: "Email of sender user",
+					env: "MAIL_USER_EMAIL",
+					format: String,
+				},
+				USER_NAME: {
+					default: null,
+					doc: "Name of sender user",
+					env: "MAIL_USER_NAME",
+					format: String,
+				},
+				USER_PASSWORD: {
+					default: null,
+					doc: "Password of sender user",
+					env: "MAIL_USER_PASSWORD",
+					format: String,
+				},
+			},
 			OPENAI: {
 				API_KEY: {
 					default: null,
