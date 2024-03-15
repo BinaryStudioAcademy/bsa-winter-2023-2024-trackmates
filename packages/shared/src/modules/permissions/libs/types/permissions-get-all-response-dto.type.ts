@@ -1,7 +1,7 @@
 import { type PermissionResponseDto } from "./permission-response-dto.type.js";
 
-type AllPermissionsResponseDto = {
+type PermissionsGetAllResponseDto = {
 	items: PermissionResponseDto[];
 };
 
-export { type AllPermissionsResponseDto };
+export { type PermissionsGetAllResponseDto };

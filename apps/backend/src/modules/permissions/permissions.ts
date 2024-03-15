@@ -15,8 +15,8 @@ const permissionController = new PermissionController(
 export { permissionController, permissionService };
 export { PermissionError } from "./libs/exceptions/exceptions.js";
 export {
-	type AllPermissionsResponseDto,
 	type PermissionResponseDto,
+	type PermissionsGetAllResponseDto,
 } from "./libs/types/types.js";
 export { PermissionEntity } from "./permission.entity.js";
 export { PermissionModel } from "./permission.model.js";

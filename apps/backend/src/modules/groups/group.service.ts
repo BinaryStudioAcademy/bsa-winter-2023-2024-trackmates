@@ -2,8 +2,8 @@ import { HTTPCode, PermissionKey } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/types.js";
 
 import {
-	type AllPermissionsResponseDto,
 	type PermissionService,
+	type PermissionsGetAllResponseDto,
 } from "../permissions/permissions.js";
 import { type UserService } from "../users/users.js";
 import { GroupEntity } from "./group.entity.js";
@@ -11,9 +11,9 @@ import { type GroupRepository } from "./group.repository.js";
 import { GroupErrorMessage } from "./libs/enums/enums.js";
 import { GroupError } from "./libs/exceptions/exceptions.js";
 import {
-	type AllGroupsResponseDto,
 	type GroupRequestDto,
 	type GroupResponseDto,
+	type GroupsGetAllResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -110,7 +110,7 @@ class GroupService implements Service {
 		return groupById.toObject();
 	}
 
-	public async findAll(): Promise<AllGroupsResponseDto> {
+	public async findAll(): Promise<GroupsGetAllResponseDto> {
 		const groups = await this.groupRepository.findAll();
 
 		return {
@@ -122,7 +122,7 @@ class GroupService implements Service {
 
 	public async findAllPermissionsInGroup(
 		groupId: number,
-	): Promise<AllPermissionsResponseDto> {
+	): Promise<PermissionsGetAllResponseDto> {
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
@@ -144,7 +144,7 @@ class GroupService implements Service {
 
 	public async findAllUserGroups(
 		userId: number,
-	): Promise<AllGroupsResponseDto> {
+	): Promise<GroupsGetAllResponseDto> {
 		void (await this.userService.findById(userId));
 		const userGroups = await this.groupRepository.findAllUserGroups(userId);
 
@@ -210,7 +210,7 @@ class GroupService implements Service {
 		groupId: number,
 		permissionId: number,
 		currentUserId: number,
-	): Promise<AllPermissionsResponseDto> {
+	): Promise<PermissionsGetAllResponseDto> {
 		const permissionById = await this.permissionService.find(permissionId);
 		const groupById = await this.groupRepository.find(groupId);
 
@@ -256,7 +256,7 @@ class GroupService implements Service {
 		groupId: number,
 		userId: number,
 		currentUserId: number,
-	): Promise<AllGroupsResponseDto> {
+	): Promise<GroupsGetAllResponseDto> {
 		void (await this.userService.findById(userId));
 		const groupById = await this.groupRepository.find(groupId);
 

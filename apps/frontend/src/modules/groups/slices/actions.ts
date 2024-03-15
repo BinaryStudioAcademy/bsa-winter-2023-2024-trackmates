@@ -2,12 +2,12 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import { type PermissionResponseDto } from "~/modules/permissions/permissions.js";
+
 import {
 	type GroupRequestDto,
 	type GroupResponseDto,
-} from "~/modules/groups/groups.js";
-import { type PermissionResponseDto } from "~/modules/permissions/permissions.js";
-
+} from "../libs/types/types.js";
 import { name as sliceName } from "./groups.slice.js";
 
 const createGroup = createAsyncThunk<
