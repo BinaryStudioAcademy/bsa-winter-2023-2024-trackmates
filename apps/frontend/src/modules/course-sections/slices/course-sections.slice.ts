@@ -31,7 +31,11 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "course-sections",
-	reducers: {},
+	reducers: {
+		reset() {
+			return initialState;
+		},
+	},
 });
 
 export { actions, name, reducer };
