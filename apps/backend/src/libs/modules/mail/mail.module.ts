@@ -22,7 +22,6 @@ class Mail {
 		this.senderEmail = senderEmail;
 		this.senderName = senderName;
 
-		// eslint-disable-next-line  @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 		this.transporter = nodemailer.createTransport({
 			auth: {
 				pass: senderPassword,
@@ -45,7 +44,6 @@ class Mail {
 		text: string;
 	}): Promise<boolean> {
 		const from = `${this.senderName} <${this.senderEmail}>`;
-		// eslint-disable-next-line  @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
 		await this.transporter.sendMail({ from, subject, text, to });
 
 		return true;
