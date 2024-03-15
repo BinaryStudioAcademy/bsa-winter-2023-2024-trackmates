@@ -9,6 +9,7 @@ import {
 	AppTitle,
 	DataStatus,
 	NotificationFilter,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -24,13 +25,13 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/user-notifications/user-notifications.js";
 
 import { NotificationList } from "./libs/components/notification-list/notification-list.js";
-import { QueryParameterName } from "./libs/enums/enums.js";
 import styles from "./styles.module.css";
 
 const Notifications: React.FC = () => {
 	const navigate = useNavigate();
 	const [queryParameters] = useSearchParams();
 	const notificationType = queryParameters.get(QueryParameterName.TYPE);
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const possibleTypeValues = useMemo(() => {
 		return Object.values(NotificationFilter);
@@ -57,18 +58,22 @@ const Notifications: React.FC = () => {
 			);
 
 		if (!hasValidValue) {
-			navigate(AppRoute.NOTIFICATIONS, { replace: true });
+			const queryString = new URLSearchParams({
+				[QueryParameterName.SEARCH]: searchQuery ?? "",
+			}).toString();
+
+			navigate(AppRoute.NOTIFICATIONS + `?${queryString}`, { replace: true });
 
 			return;
 		}
 
 		void dispatch(
 			actions.getUserNotifications({
-				search: "",
+				search: searchQuery ?? "",
 				type: notificationType as ValueOf<typeof NotificationFilter> | null,
 			}),
 		);
-	}, [dispatch, notificationType, navigate, possibleTypeValues]);
+	}, [dispatch, notificationType, navigate, possibleTypeValues, searchQuery]);
 
 	const hasNotifications = notifications.length > EMPTY_LENGTH;
 
@@ -82,11 +87,12 @@ const Notifications: React.FC = () => {
 					<div className={styles["filters"]}>
 						{possibleTypeValues.map((filter) => {
 							const queryString = new URLSearchParams({
+								[QueryParameterName.SEARCH]: searchQuery ?? "",
 								[QueryParameterName.TYPE]: filter,
 							}).toString();
-							const currentLink =
-								AppRoute.NOTIFICATIONS +
-								(filter === NotificationFilter.ALL ? "" : `?${queryString}`);
+
+							const currentLink = AppRoute.NOTIFICATIONS + `?${queryString}`;
+
 							const isActive =
 								notificationType === filter ||
 								(!notificationType && filter === NotificationFilter.ALL);
