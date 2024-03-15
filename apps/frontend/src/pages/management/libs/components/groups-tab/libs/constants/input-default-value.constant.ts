@@ -1,0 +1,3 @@
+const INPUT_DEFAULT_VALUE = "";
+
+export { INPUT_DEFAULT_VALUE };
