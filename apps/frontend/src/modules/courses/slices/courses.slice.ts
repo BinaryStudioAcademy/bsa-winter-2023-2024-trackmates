@@ -5,7 +5,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
 import { type CourseDto } from "../libs/types/types.js";
-import { getAll, getById, getRecommended } from "./actions.js";
+import { getAllByFilter, getById, getRecommended } from "./actions.js";
 
 type State = {
 	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
@@ -25,14 +25,14 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(getAll.fulfilled, (state, action) => {
+		builder.addCase(getAllByFilter.fulfilled, (state, action) => {
 			state.searchedCourses = action.payload.courses;
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getAll.pending, (state) => {
+		builder.addCase(getAllByFilter.pending, (state) => {
 			state.searchDataStatus = DataStatus.PENDING;
 		});
-		builder.addCase(getAll.rejected, (state) => {
+		builder.addCase(getAllByFilter.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getById.fulfilled, (state, action) => {

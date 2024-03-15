@@ -1,9 +1,9 @@
-import { getAll, getById, getRecommended } from "./actions.js";
+import { getAllByFilter, getById, getRecommended } from "./actions.js";
 import { actions } from "./courses.slice.js";
 
 const allActions = {
 	...actions,
-	getAll,
+	getAllByFilter,
 	getById,
 	getRecommended,
 };

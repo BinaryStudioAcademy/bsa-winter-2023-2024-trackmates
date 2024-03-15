@@ -59,7 +59,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 		filterFormData: typeof DEFAULT_SEARCH_COURSE_PAYLOAD,
 	): void => {
 		void dispatch(
-			courseActions.getAll({
+			courseActions.getAllByFilter({
 				search: filterFormData.search,
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),

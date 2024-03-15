@@ -21,7 +21,7 @@ class CourseApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.COURSES, storage });
 	}
 
-	public async getAll(
+	public async getAllByFilter(
 		filter: CourseSearchFilterDto,
 	): Promise<CoursesResponseDto> {
 		const response = await this.load(
