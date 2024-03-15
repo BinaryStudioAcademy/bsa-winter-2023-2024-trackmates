@@ -15,8 +15,8 @@ const EditModal: React.FC<Properties> = ({
 }: Properties) => {
 	return (
 		<Modal
-			centered
 			className={styles["edit-modal"]}
+			isCentered
 			isOpen
 			onClose={onClose}
 			size="small"

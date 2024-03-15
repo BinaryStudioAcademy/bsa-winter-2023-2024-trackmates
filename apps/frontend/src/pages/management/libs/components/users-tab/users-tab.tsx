@@ -131,7 +131,7 @@ const UsersTab: React.FC = () => {
 					{tableData.map((data) => {
 						return (
 							<TableRow key={data.id}>
-								<TableCell centered>
+								<TableCell isCentered>
 									{data[usersHeaderToPropertyName[UsersTableHeader.ID]]}
 								</TableCell>
 								<TableCell>
@@ -146,7 +146,7 @@ const UsersTab: React.FC = () => {
 								<TableCell width="medium">
 									{data[usersHeaderToPropertyName[UsersTableHeader.GROUPS]]}
 								</TableCell>
-								<TableCell centered width="narrow">
+								<TableCell isCentered width="narrow">
 									{data[usersHeaderToPropertyName[UsersTableHeader.BUTTONS]]}
 								</TableCell>
 							</TableRow>
