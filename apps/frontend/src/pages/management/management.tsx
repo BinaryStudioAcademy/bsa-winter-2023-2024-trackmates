@@ -10,6 +10,7 @@ import {
 	useLocation,
 	useMemo,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import { GroupsTab, UsersTab } from "./libs/components/components.js";
@@ -26,11 +27,11 @@ const Management: React.FC = () => {
 	});
 
 	const hasAccessToTabs = useMemo(() => {
-		const map = new Map<number, boolean>();
+		const map = new Map<ValueOf<typeof AppRoute>, boolean>();
 
-		for (const [index, link] of LINKS.entries()) {
+		for (const link of LINKS.values()) {
 			map.set(
-				index,
+				link.to,
 				checkIfUserHasPermissions(
 					user,
 					link.permissions.key,
@@ -66,8 +67,8 @@ const Management: React.FC = () => {
 		<div className={styles["wrapper"]}>
 			<span className={styles["title"]}>Management</span>
 			<ul className={styles["link-list"]}>
-				{LINKS.map((link, index) => {
-					const hasAccess = hasAccessToTabs.get(index);
+				{LINKS.map((link) => {
+					const hasAccess = hasAccessToTabs.get(link.to);
 
 					return (
 						<li
@@ -75,7 +76,7 @@ const Management: React.FC = () => {
 								styles["link-item"],
 								link.to === pathname && styles["active"],
 							)}
-							key={index}
+							key={link.title}
 						>
 							<Link
 								className={getValidClassNames(
