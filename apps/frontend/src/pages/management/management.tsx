@@ -50,7 +50,16 @@ const Management: React.FC = () => {
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.MANAGEMENT: {
-				return <Navigate replace to={AppRoute.MANAGEMENT_USERS} />;
+				return (
+					<Navigate
+						replace
+						to={
+							hasAccessToTabs.get(AppRoute.MANAGEMENT_COURSES)
+								? AppRoute.MANAGEMENT_COURSES
+								: AppRoute.MANAGEMENT_USERS
+						}
+					/>
+				);
 			}
 
 			case AppRoute.MANAGEMENT_COURSES: {
