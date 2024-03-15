@@ -3,12 +3,7 @@ import {
 	checkIfUserHasPermissions,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useAppSelector,
-	useCallback,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
@@ -25,12 +20,10 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	menuItems: MenuItem[];
+	user: UserAuthResponseDto;
 };
 
-const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
-	const user = useAppSelector(({ auth }) => {
-		return auth.user as UserAuthResponseDto;
-	});
+const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
 
