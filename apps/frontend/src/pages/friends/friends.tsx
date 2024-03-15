@@ -41,9 +41,9 @@ const Friends: React.FC = () => {
 		};
 	});
 	const potentialFriendsPagination = usePagination({
-		friendPath: AppRoute.FRIENDS,
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		path: AppRoute.FRIENDS,
 		totalCount: potentialFriendsData.total,
 	});
 
@@ -54,9 +54,9 @@ const Friends: React.FC = () => {
 		};
 	});
 	const followersPagination = usePagination({
-		friendPath: AppRoute.FRIENDS_FOLLOWERS,
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		path: AppRoute.FRIENDS_FOLLOWERS,
 		totalCount: followersData.total,
 	});
 
@@ -67,9 +67,9 @@ const Friends: React.FC = () => {
 		};
 	});
 	const followingsPagination = usePagination({
-		friendPath: AppRoute.FRIENDS_FOLLOWINGS,
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		path: AppRoute.FRIENDS_FOLLOWINGS,
 		totalCount: followingsData.total,
 	});
 

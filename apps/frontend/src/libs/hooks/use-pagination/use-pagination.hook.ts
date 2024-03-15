@@ -8,9 +8,9 @@ import {
 } from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
-	friendPath?: string;
 	pageSize: number;
 	pagesCutCount: number;
+	path?: string;
 	queryName?: string;
 	totalCount: number;
 }) => {
@@ -21,16 +21,17 @@ type UsePagination = (options: {
 };
 
 const usePagination: UsePagination = ({
-	friendPath,
 	pageSize,
 	pagesCutCount,
+	path,
 	queryName = "page",
 	totalCount,
 }) => {
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
 	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
-	const path = friendPath || location.pathname;
+	const currentPath = path || location.pathname;
+
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
 		currentPage: page,
@@ -40,11 +41,11 @@ const usePagination: UsePagination = ({
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 
 	useEffect(() => {
-		const isPathSame = path === location.pathname;
+		const isSamePath = currentPath === location.pathname;
 		const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
 		const isInvalidPage = pagesCount !== PaginationValue.PAGE_NOT_EXISTS;
 
-		if (!isPathSame) {
+		if (!isSamePath) {
 			setPage(PaginationValue.DEFAULT_PAGE);
 
 			return;
