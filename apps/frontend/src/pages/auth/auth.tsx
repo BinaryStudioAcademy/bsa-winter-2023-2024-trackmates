@@ -50,7 +50,7 @@ const Auth: React.FC = () => {
 
 	const handleForgotPasswordSubmit = useCallback(
 		(payload: AuthForgotPasswordRequestDto): void => {
-			void dispatch(authActions.forgotPassword(payload));
+			void dispatch(authActions.sendUpdatePasswordLink(payload));
 		},
 		[dispatch],
 	);

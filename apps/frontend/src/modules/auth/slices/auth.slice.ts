@@ -9,6 +9,7 @@ import { actions as usersActions } from "~/modules/users/users.js";
 import {
 	getAuthenticatedUser,
 	logOut,
+	sendUpdatePasswordLink,
 	signIn,
 	signUp,
 	updatePassword,
@@ -17,6 +18,7 @@ import {
 type State = {
 	avatarUploadDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
+	sendUpdatePasswordLinkStatus: ValueOf<typeof DataStatus>;
 	updateUserDataStatus: ValueOf<typeof DataStatus>;
 	user: UserAuthResponseDto | null;
 };
@@ -24,6 +26,7 @@ type State = {
 const initialState: State = {
 	avatarUploadDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
+	sendUpdatePasswordLinkStatus: DataStatus.IDLE,
 	updateUserDataStatus: DataStatus.IDLE,
 	user: null,
 };
@@ -73,6 +76,18 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(updatePassword.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(sendUpdatePasswordLink.pending, (state) => {
+			state.sendUpdatePasswordLinkStatus = DataStatus.PENDING;
+		});
+		builder.addCase(sendUpdatePasswordLink.fulfilled, (state, action) => {
+			state.sendUpdatePasswordLinkStatus = action.payload
+				? DataStatus.FULFILLED
+				: DataStatus.REJECTED;
+		});
+		builder.addCase(sendUpdatePasswordLink.rejected, (state) => {
+			state.sendUpdatePasswordLinkStatus = DataStatus.REJECTED;
 		});
 
 		builder.addCase(logOut.fulfilled, (state, action) => {

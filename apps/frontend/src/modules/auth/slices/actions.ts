@@ -14,16 +14,14 @@ import {
 
 import { name as sliceName } from "./auth.slice.js";
 
-const forgotPassword = createAsyncThunk<
+const sendUpdatePasswordLink = createAsyncThunk<
 	boolean,
 	AuthForgotPasswordRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/forgot-password`, async (payload, { extra }) => {
 	const { authApi } = extra;
 
-	const { success } = await authApi.sendUpdatePasswordLink(payload);
-
-	return success;
+	return await authApi.sendUpdatePasswordLink(payload);
 });
 
 const getAuthenticatedUser = createAsyncThunk<
@@ -97,9 +95,9 @@ const logOut = createAsyncThunk<null, undefined, AsyncThunkConfig>(
 );
 
 export {
-	forgotPassword,
 	getAuthenticatedUser,
 	logOut,
+	sendUpdatePasswordLink,
 	signIn,
 	signUp,
 	updatePassword,

@@ -23,8 +23,8 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 			validationSchema: authForgotPasswordValidationSchema,
 		});
 
-	const authDataStatus = useAppSelector(({ auth }) => {
-		return auth.dataStatus;
+	const sendUpdatePasswordLinkStatus = useAppSelector(({ auth }) => {
+		return auth.sendUpdatePasswordLinkStatus;
 	});
 
 	const handleFormSubmit = useCallback(
@@ -36,10 +36,18 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	useAppTitle(AppTitle.FORGOT_PASSWORD);
 
-	const isLoading = authDataStatus === DataStatus.PENDING;
+	const isLoading = sendUpdatePasswordLinkStatus === DataStatus.PENDING;
+
+	if (sendUpdatePasswordLinkStatus === DataStatus.FULFILLED) {
+		return (
+			<div className={styles["content"]}>
+				<h3 className={styles["title"]}>Check your email!</h3>
+			</div>
+		);
+	}
 
 	return (
-		<form className={styles["form"]} onSubmit={handleFormSubmit}>
+		<form className={styles["content"]} onSubmit={handleFormSubmit}>
 			<div>
 				<h2 className={styles["title"]}>Get link for update your password</h2>
 				<p className={styles["subtitle"]}>

@@ -42,7 +42,7 @@ class AuthApi extends BaseHTTPApi {
 
 	public async sendUpdatePasswordLink(
 		payload: AuthForgotPasswordRequestDto,
-	): Promise<{ success: boolean }> {
+	): Promise<boolean> {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.SEND_UPDATE_PASSWORD_LINK, {}),
 			{
@@ -52,8 +52,9 @@ class AuthApi extends BaseHTTPApi {
 				payload: JSON.stringify(payload),
 			},
 		);
+		const { success } = await response.json<{ success: boolean }>();
 
-		return await response.json<{ success: boolean }>();
+		return success;
 	}
 
 	public async signIn(
