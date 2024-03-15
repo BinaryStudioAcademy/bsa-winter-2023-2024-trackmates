@@ -55,7 +55,8 @@ class UserService implements Service {
 			});
 		}
 
-		return await this.userRepository.delete(userId);
+		return new Promise((res) => setTimeout(() => res(true), 1000));
+		// return await this.userRepository.delete(userId);
 	}
 
 	public async deleteUserByAdmin(
