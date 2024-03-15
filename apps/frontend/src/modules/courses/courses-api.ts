@@ -26,7 +26,6 @@ class CourseApi extends BaseHTTPApi {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.$COURSE_ID, { courseId }),
 			{
-				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "DELETE",
 			},

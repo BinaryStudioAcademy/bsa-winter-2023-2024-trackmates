@@ -54,7 +54,7 @@ const getAll = createAsyncThunk<CourseDto[], undefined, AsyncThunkConfig>(
 const deleteById = createAsyncThunk<CourseDto[], number, AsyncThunkConfig>(
 	`${sliceName}/delete-by-id`,
 	async (id, { extra, getState }) => {
-		const { courseApi } = extra;
+		const { courseApi, notification } = extra;
 		const {
 			management: { courses },
 		} = getState();
@@ -64,6 +64,8 @@ const deleteById = createAsyncThunk<CourseDto[], number, AsyncThunkConfig>(
 		if (!success) {
 			return courses;
 		}
+
+		notification.success(NotificationMessage.COURSE_DELETED);
 
 		return courses.filter((course) => {
 			return course.id !== id;

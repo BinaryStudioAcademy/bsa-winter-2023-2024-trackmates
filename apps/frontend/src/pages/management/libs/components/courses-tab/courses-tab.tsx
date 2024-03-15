@@ -2,6 +2,7 @@ import { Button } from "~/libs/components/components.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
 import { actions as coursesActions } from "~/modules/courses/courses.js";
@@ -25,6 +26,15 @@ const CoursesTab: React.FC = () => {
 		void dispatch(coursesActions.getAll());
 	}, [dispatch]);
 
+	const handleCourseDelete = useCallback(
+		(courseId: number) => {
+			return () => {
+				void dispatch(coursesActions.deleteById(courseId));
+			};
+		},
+		[dispatch],
+	);
+
 	const tableData = courses.map((course) => {
 		return {
 			buttons: (
@@ -40,6 +50,7 @@ const CoursesTab: React.FC = () => {
 						hasVisuallyHiddenLabel
 						iconName="delete"
 						label={CoursesTableHeader.BUTTONS}
+						onClick={handleCourseDelete(course.id as number)}
 					/>
 				</div>
 			),
