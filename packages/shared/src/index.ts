@@ -14,7 +14,6 @@ export {
 	PaginationValue,
 	ServerErrorType,
 	SortOrder,
-	ValidationErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {

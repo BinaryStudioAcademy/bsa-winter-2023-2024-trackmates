@@ -1,5 +1,4 @@
 import { Button, Input } from "~/libs/components/components.js";
-import { ValidationErrorType } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 import { commentTextValidationSchema } from "~/modules/comments/comments.js";
@@ -16,9 +15,9 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	isLoading,
 	onSubmit,
 }: Properties) => {
-	const { control, errors, handleSubmit, reset } = useAppForm({
+	const { control, errors, handleSubmit, reset, trigger } = useAppForm({
 		defaultValues: DEFAULT_COMMENT_PAYLOAD,
-		mode: "onChange",
+		mode: "onSubmit",
 		validationSchema: commentTextValidationSchema,
 	});
 
@@ -26,13 +25,13 @@ const ActivityCommentForm: React.FC<Properties> = ({
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
 
-			if (errors.text?.type === ValidationErrorType.TOO_BIG) {
-				return;
-			}
-
-			reset();
+			void trigger("text").then((isValid) => {
+				if (isValid) {
+					reset();
+				}
+			});
 		},
-		[reset, handleSubmit, onSubmit, errors],
+		[reset, handleSubmit, onSubmit, trigger],
 	);
 
 	return (

@@ -1,5 +1,4 @@
 import { Button, Input } from "~/libs/components/components.js";
-import { ValidationErrorType } from "~/libs/enums/enums.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { chatMessageValidationSchema } from "~/modules/chat-messages/chat-messages.js";
 
@@ -11,11 +10,11 @@ type Properties = {
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const { control, errors, handleSubmit, reset } = useAppForm<
+	const { control, errors, handleSubmit, reset, trigger } = useAppForm<
 		typeof DEFAULT_MESSAGE_PAYLOAD
 	>({
 		defaultValues: DEFAULT_MESSAGE_PAYLOAD,
-		mode: "onBlur",
+		mode: "onSubmit",
 		validationSchema: chatMessageValidationSchema,
 	});
 
@@ -23,13 +22,13 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
 
-			if (errors.message?.type === ValidationErrorType.TOO_BIG) {
-				return;
-			}
-
-			reset();
+			void trigger("message").then((isValid) => {
+				if (isValid) {
+					reset();
+				}
+			});
 		},
-		[handleSubmit, onSubmit, reset, errors],
+		[handleSubmit, onSubmit, reset, trigger],
 	);
 
 	return (
