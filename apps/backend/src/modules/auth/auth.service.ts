@@ -82,6 +82,26 @@ class AuthService {
 		return user;
 	}
 
+	private async verifyResetPasswordToken(
+		token: string,
+	): Promise<UserAuthResponseDto> {
+		const {
+			payload: { updatedAt, userId },
+		} = await this.resetPasswordToken.verify(token);
+
+		const user = await this.userService.findById(userId);
+		const userUpdatedAt = JSON.parse(JSON.stringify(user?.updatedAt)) as string;
+
+		if (!user || updatedAt != userUpdatedAt) {
+			throw new AuthError({
+				message: ExceptionMessage.UNAUTHORIZED,
+				status: HTTPCode.UNAUTHORIZED,
+			});
+		}
+
+		return user;
+	}
+
 	public async sendUpdatePasswordLink(email: string): Promise<boolean> {
 		const user = await this.userService.getByEmail(email);
 
@@ -141,22 +161,13 @@ class AuthService {
 		password: string,
 		token: string,
 	): Promise<AuthUpdatePasswordResponseDto> {
-		const {
-			payload: { userId },
-		} = await this.resetPasswordToken.verify(token);
+		const user = await this.verifyResetPasswordToken(token);
+		const updatedUser = await this.userService.updatePassword(
+			user.id,
+			password,
+		);
 
-		const user = await this.userService.findById(userId);
-
-		if (!user) {
-			throw new AuthError({
-				message: ExceptionMessage.UNAUTHORIZED,
-				status: HTTPCode.UNAUTHORIZED,
-			});
-		}
-
-		const updatedUser = await this.userService.updatePassword(userId, password);
-
-		const newToken = await this.token.create({ userId });
+		const newToken = await this.token.create({ userId: user.id });
 
 		return {
 			token: newToken,
