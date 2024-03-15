@@ -7,7 +7,7 @@ import {
 } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { NotificationConstants } from "../libs/constants/constants.js";
+import { ONE_ITEM_COUNT } from "../libs/constants/constants.js";
 import { notificationFilterToType } from "../libs/maps/maps.js";
 import {
 	type NotificationResponseDto,
@@ -81,7 +81,7 @@ const { actions, name, reducer } = createSlice({
 
 			if (action.payload.status === NotificationStatus.UNREAD) {
 				state.unreadNotificationsCount =
-					state.unreadNotificationsCount - NotificationConstants.ONE_ITEM_COUNT;
+					state.unreadNotificationsCount - ONE_ITEM_COUNT;
 			}
 		},
 		newNotification(state, action: PayloadAction<NotificationResponseDto>) {
@@ -95,7 +95,7 @@ const { actions, name, reducer } = createSlice({
 			}
 
 			state.unreadNotificationsCount =
-				state.unreadNotificationsCount + NotificationConstants.ONE_ITEM_COUNT;
+				state.unreadNotificationsCount + ONE_ITEM_COUNT;
 		},
 		setNotificationType(
 			state,
