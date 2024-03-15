@@ -13,6 +13,7 @@ import {
 } from "~/modules/users/users.js";
 
 import { AuthError } from "./libs/exceptions/exceptions.js";
+import { type AuthUpdatePasswordResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	encrypt: Encrypt;
@@ -96,7 +97,7 @@ class AuthService {
 		const { id } = user.toObject();
 
 		return {
-			token: await this.token.create({ userId: id }), // todo
+			token: await this.token.create({ userId: id }),
 			user: user.toObject(),
 		};
 	}
@@ -125,8 +126,10 @@ class AuthService {
 	public async updatePassword(
 		password: string,
 		token: string,
-	): Promise<UserAuthResponseDto> {
-		const { payload: { userId } } = await this.token.verify(token);
+	): Promise<AuthUpdatePasswordResponseDto> {
+		const {
+			payload: { userId },
+		} = await this.token.verify(token);
 
 		const user = await this.userService.findById(userId);
 
@@ -139,7 +142,12 @@ class AuthService {
 
 		const updatedUser = await this.userService.updatePassword(userId, password);
 
-		return updatedUser as UserAuthResponseDto;
+		const newToken = await this.token.create({ userId });
+
+		return {
+			token: newToken,
+			user: updatedUser as UserAuthResponseDto,
+		};
 	}
 }
 

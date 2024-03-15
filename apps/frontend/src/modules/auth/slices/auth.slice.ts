@@ -6,7 +6,13 @@ import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
-import { getAuthenticatedUser, logOut, signIn, signUp } from "./actions.js";
+import {
+	getAuthenticatedUser,
+	logOut,
+	signIn,
+	signUp,
+	updatePassword,
+} from "./actions.js";
 
 type State = {
 	avatarUploadDataStatus: ValueOf<typeof DataStatus>;
@@ -55,6 +61,17 @@ const { actions, name, reducer } = createSlice({
 			state.user = action.payload;
 		});
 		builder.addCase(signIn.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(updatePassword.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(updatePassword.fulfilled, (state, action) => {
+			state.dataStatus = DataStatus.FULFILLED;
+			state.user = action.payload;
+		});
+		builder.addCase(updatePassword.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
 		});
 

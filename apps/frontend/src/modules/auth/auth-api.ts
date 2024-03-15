@@ -15,6 +15,7 @@ import {
 	type AuthUpdatePasswordRequestDto,
 } from "./auth.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
+import { type AuthUpdatePasswordResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -89,7 +90,7 @@ class AuthApi extends BaseHTTPApi {
 
 	public async updatePassword(
 		payload: AuthUpdatePasswordRequestDto,
-	): Promise<{ success: boolean }> {
+	): Promise<AuthUpdatePasswordResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.UPDATE_PASSWORD, {}),
 			{
@@ -100,7 +101,7 @@ class AuthApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<{ success: boolean }>();
+		return await response.json<AuthUpdatePasswordResponseDto>();
 	}
 }
 

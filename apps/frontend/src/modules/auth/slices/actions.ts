@@ -44,15 +44,17 @@ const getAuthenticatedUser = createAsyncThunk<
 });
 
 const updatePassword = createAsyncThunk<
-	boolean,
+	UserAuthResponseDto,
 	AuthUpdatePasswordRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/update-password`, async (payload, { extra }) => {
-	const { authApi } = extra;
+	const { authApi, storage } = extra;
 
-	const { success } = await authApi.updatePassword(payload);
+	const { token, user } = await authApi.updatePassword(payload);
 
-	return success;
+	await storage.set(StorageKey.TOKEN, token);
+
+	return user;
 });
 
 const signIn = createAsyncThunk<

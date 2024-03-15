@@ -18,14 +18,17 @@ type Properties = {
 	token: string;
 };
 
-const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit, token }: Properties) => {
+const UpdatePasswordForm: React.FC<Properties> = ({
+	onSubmit,
+	token,
+}: Properties) => {
 	const { control, errors, handleSubmit } =
 		useAppForm<AuthUpdatePasswordRequestDto>({
 			defaultValues: {
 				...DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD,
 				token,
 			},
-			// validationSchema: authUpdatePasswordValidationSchema,
+			validationSchema: authUpdatePasswordValidationSchema,
 		});
 
 	const authDataStatus = useAppSelector(({ auth }) => {
@@ -36,7 +39,6 @@ const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit, token }: Propertie
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
-			console.log("event_", event_)
 			void handleSubmit(onSubmit)(event_);
 		},
 		[handleSubmit, onSubmit],
@@ -56,10 +58,10 @@ const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit, token }: Propertie
 				<h2 className={styles["title"]}>Update password</h2>
 			</div>
 			<Input
-				// className={"visually-hidden"}
+				className="visually-hidden"
 				control={control}
 				errors={errors}
-				hasVisuallyHiddenLabel={true}
+				hasVisuallyHiddenLabel
 				label="Token"
 				name="token"
 				type="text"

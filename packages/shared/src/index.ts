@@ -74,6 +74,7 @@ export {
 	AuthError,
 	type AuthForgotPasswordRequestDto,
 	type AuthUpdatePasswordRequestDto,
+	type AuthUpdatePasswordResponseDto,
 	authForgotPasswordValidationSchema,
 	authUpdatePasswordValidationSchema,
 } from "./modules/auth/auth.js";

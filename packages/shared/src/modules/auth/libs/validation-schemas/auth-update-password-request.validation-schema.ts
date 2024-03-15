@@ -7,6 +7,7 @@ import {
 
 type AuthUpdatePasswordRequestValidationDto = {
 	password: z.ZodString;
+	token: z.ZodString;
 };
 
 const authUpdatePassword = z
@@ -23,6 +24,7 @@ const authUpdatePassword = z
 			.max(UserValidationRule.PASSWORD_MAXIMUM_LENGTH, {
 				message: UserValidationMessage.PASSWORD_MAXIMUM_LENGTH,
 			}),
+		token: z.string(),
 	})
 	.required();
 

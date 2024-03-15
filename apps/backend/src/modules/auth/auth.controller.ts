@@ -275,10 +275,8 @@ class AuthController extends BaseController {
 	}: APIHandlerOptions<{
 		body: AuthUpdatePasswordRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.authService.updatePassword(password, token);
-
 		return {
-			payload: { success },
+			payload: await this.authService.updatePassword(password, token),
 			status: HTTPCode.OK,
 		};
 	}
