@@ -89,7 +89,7 @@ class GroupService implements Service {
 
 		if (hasGroup) {
 			throw new GroupError({
-				message: GroupErrorMessage.DELETE_GROUP_FORBIDDEN,
+				message: GroupErrorMessage.GROUP_DELETION_FORBIDDEN,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
@@ -228,7 +228,7 @@ class GroupService implements Service {
 
 		if (hasGroup) {
 			throw new GroupError({
-				message: GroupErrorMessage.CHANGE_PERMISSION_FORBIDDEN,
+				message: GroupErrorMessage.PERMISSION_CHANGE_FORBIDDEN,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
@@ -269,7 +269,7 @@ class GroupService implements Service {
 
 		if (Number(userId) === currentUserId) {
 			throw new GroupError({
-				message: GroupErrorMessage.CHANGE_GROUP_FORBIDDEN,
+				message: GroupErrorMessage.GROUP_CHANGE_FORBIDDEN,
 				status: HTTPCode.BAD_REQUEST,
 			});
 		}
