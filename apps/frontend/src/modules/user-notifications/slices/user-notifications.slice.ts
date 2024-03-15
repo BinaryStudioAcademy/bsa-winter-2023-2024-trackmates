@@ -1,6 +1,6 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus, type NotificationFilter } from "~/libs/enums/enums.js";
+import { DataStatus, NotificationFilter } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type NotificationResponseDto } from "../libs/types/types.js";
@@ -12,14 +12,14 @@ import {
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
-	notificationType: ValueOf<typeof NotificationFilter> | null;
+	notificationType: ValueOf<typeof NotificationFilter>;
 	notifications: NotificationResponseDto[];
 	unreadNotificationsCount: number;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
-	notificationType: null,
+	notificationType: NotificationFilter.ALL,
 	notifications: [],
 	unreadNotificationsCount: 0,
 };
