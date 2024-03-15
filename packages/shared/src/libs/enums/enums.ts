@@ -9,3 +9,4 @@ export { PaginationValidationRule } from "./pagination-validation-rule.enum.js";
 export { PaginationValue } from "./pagination-value.enum.js";
 export { ServerErrorType } from "./server-error-type.enum.js";
 export { SortOrder } from "./sort-order.enum.js";
+export { ValidationErrorType } from "./validation-error-type.enum.js";

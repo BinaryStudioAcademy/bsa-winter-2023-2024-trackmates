@@ -1,4 +1,5 @@
 import { Button, Input } from "~/libs/components/components.js";
+import { checkIfMessageIsTooLong } from "~/libs/helpers/helpers.js";
 import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 import { commentTextValidationSchema } from "~/modules/comments/comments.js";
@@ -15,7 +16,7 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	isLoading,
 	onSubmit,
 }: Properties) => {
-	const { control, errors, handleSubmit, reset } = useAppForm({
+	const { control, errors, handleSubmit, reset, watch } = useAppForm({
 		defaultValues: DEFAULT_COMMENT_PAYLOAD,
 		validationSchema: commentTextValidationSchema,
 	});
@@ -23,9 +24,19 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	const handleCreateComment = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
+
+			try {
+				const text = watch("text");
+				commentTextValidationSchema.parse({ text });
+			} catch (error) {
+				if (checkIfMessageIsTooLong(error)) {
+					return;
+				}
+			}
+
 			reset();
 		},
-		[reset, handleSubmit, onSubmit],
+		[reset, handleSubmit, onSubmit, watch],
 	);
 
 	return (

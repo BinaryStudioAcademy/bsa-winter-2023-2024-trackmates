@@ -1,5 +1,6 @@
 export {
 	EMPTY_LENGTH,
+	FIRST_ARRAY_ITEM,
 	LAST_ARRAY_ITEM,
 	MAX_FILE_SIZE_IN_MB,
 	PREVIOUS_INDEX_OFFSET,
@@ -14,6 +15,7 @@ export {
 	PaginationValue,
 	ServerErrorType,
 	SortOrder,
+	ValidationErrorType,
 } from "./libs/enums/enums.js";
 export { ValidationError } from "./libs/exceptions/exceptions.js";
 export {
