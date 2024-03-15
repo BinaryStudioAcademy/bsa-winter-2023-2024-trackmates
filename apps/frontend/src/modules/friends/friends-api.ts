@@ -42,6 +42,18 @@ class FriendsApi extends BaseHTTPApi {
 		return await response.json<FriendFollowResponseDto>();
 	}
 
+	public async getAllFollowingsIds(): Promise<number[]> {
+		const response = await this.load(
+			this.getFullEndpoint(FriendsApiPath.FOLLOWINGS_IDS, {}),
+			{
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<number[]>();
+	}
+
 	public async getAllPotentialFriends(
 		query: PaginationRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {

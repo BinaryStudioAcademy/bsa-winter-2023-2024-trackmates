@@ -1,5 +1,44 @@
 # Changelog
 
+## [1.54.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.53.0...frontend-v1.54.0) (2024-03-14)
+
+
+### Features
+
+* **frontend:** feat add transitions for modal tm-492 ([#532](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/532)) ([9aff48b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9aff48b4b6f2fce56852121a5bc654903e735dbb))
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#538](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/538)) ([d254906](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d2549065be9bb9eaa3fadb6e0546557a25a8ab3b))
+
+## [1.53.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.52.0...frontend-v1.53.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/backend/shared:** Make "Udemy" the default vendor on the "Add Course" pop-up window tm-522 ([#531](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/531)) ([42b5f46](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/42b5f46d63cc2cfe01beb063a6d555195a88ffc4))
+
+## [1.52.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.51.0...frontend-v1.52.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/shared:** The "Something went wrong..." toast-message should appear instead of an empty error toast-message tm-523 ([#528](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/528)) ([9343569](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9343569710316054f59150467ed0f1b926638a0f))
+
+## [1.51.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.50.1...frontend-v1.51.0) (2024-03-14)
+
+
+### Features
+
+* **frontend:** add friend profile mobile responsiveness tm-453 ([#524](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/524)) ([ec5a709](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ec5a709e9a44e14bce44b7fc0c5b22874d2af795))
+* **frontend:** add responsiveness for notification page tm-508 ([#520](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/520)) ([4aa25d2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/4aa25d272524c11e616b401194408976c790d8d9))
+
+
+### Bug Fixes
+
+* **frontend:** fix position of loader and add loader to the button tm-488 ([#525](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/525)) ([b891e9f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b891e9f01296191753c6ff6fccfe20076c024604))
+
 ## [1.50.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.50.0...frontend-v1.50.1) (2024-03-13)
 
 

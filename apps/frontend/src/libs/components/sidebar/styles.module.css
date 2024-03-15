@@ -106,11 +106,11 @@
 		color: var(--main-white);
 	}
 
-	.log-out-btn > :last-child {
+	.log-out-btn :not(:first-child) {
 		display: none;
 	}
 
-	.open .log-out-btn :last-child {
+	.open .log-out-btn :not(:first-child) {
 		display: block;
 		white-space: nowrap;
 	}

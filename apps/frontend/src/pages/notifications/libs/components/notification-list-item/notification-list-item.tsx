@@ -45,6 +45,7 @@ const NotificationListItem: React.FC<Properties> = ({
 			ref={ref}
 		>
 			<Link
+				className={styles["avatar-container"]}
 				to={
 					`${APIPath.USERS}/${notification.userId}` as ValueOf<typeof AppRoute>
 				}
