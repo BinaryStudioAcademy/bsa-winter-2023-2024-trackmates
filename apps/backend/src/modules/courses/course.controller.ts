@@ -14,10 +14,12 @@ import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
 	type CourseSearchRequestDto,
+	type CourseUpdateRequestDto,
 } from "./libs/types/types.js";
 import {
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -77,6 +79,10 @@ class CourseController extends BaseController {
 			},
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_COURSES],
+				PermissionMode.ALL_OF,
+			),
 			validation: {
 				params: courseIdParameterValidationSchema,
 			},
@@ -143,6 +149,26 @@ class CourseController extends BaseController {
 				[PermissionKey.MANAGE_COURSES],
 				PermissionMode.ALL_OF,
 			),
+		});
+		this.addRoute({
+			handler: (options) => {
+				return this.updateByAdmin(
+					options as APIHandlerOptions<{
+						body: CourseUpdateRequestDto;
+						params: { courseId: string };
+					}>,
+				);
+			},
+			method: "PATCH",
+			path: CoursesApiPath.$COURSE_ID,
+			preHandler: checkUserPermissions(
+				[PermissionKey.MANAGE_COURSES],
+				PermissionMode.ALL_OF,
+			),
+			validation: {
+				body: courseUpdateValidationSchema,
+				params: courseIdParameterValidationSchema,
+			},
 		});
 	}
 
@@ -429,6 +455,55 @@ class CourseController extends BaseController {
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.courseService.update(Number(courseId)),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/{id}:
+	 *    patch:
+	 *      tags:
+	 *        - Courses
+	 *      description: Update course title
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The course ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                title:
+	 *                  type: string
+	 *                  minLength: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
+	private async updateByAdmin({
+		body,
+		params: { courseId },
+	}: APIHandlerOptions<{
+		body: CourseUpdateRequestDto;
+		params: { courseId: string };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.updateByAdmin(Number(courseId), body),
 			status: HTTPCode.OK,
 		};
 	}

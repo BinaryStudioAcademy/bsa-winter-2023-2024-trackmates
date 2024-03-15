@@ -14,7 +14,11 @@ import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
-import { type CourseDto, type CoursesResponseDto } from "./libs/types/types.js";
+import {
+	type CourseDto,
+	type CourseUpdateRequestDto,
+	type CoursesResponseDto,
+} from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
@@ -289,6 +293,43 @@ class CourseService {
 		const course = await this.courseRepository.update(id, vendorCourse);
 
 		return course ? course.toObject() : null;
+	}
+
+	public async updateByAdmin(
+		id: number,
+		payload: CourseUpdateRequestDto,
+	): Promise<CourseDto> {
+		const courseById = await this.courseRepository.find(id);
+
+		if (!courseById) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const existingCourse = courseById.toObject();
+
+		const updatedCourse = await this.courseRepository.update(
+			id,
+			CourseEntity.initializeNew({
+				description: existingCourse.description,
+				image: existingCourse.image,
+				title: payload.title,
+				url: existingCourse.url,
+				vendorCourseId: existingCourse.vendorCourseId,
+				vendorId: existingCourse.vendorId,
+			}),
+		);
+
+		if (!updatedCourse) {
+			throw new CourseError({
+				message: CourseErrorMessage.COURSE_UPDATE_FAILED,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return updatedCourse.toObject();
 	}
 }
 
