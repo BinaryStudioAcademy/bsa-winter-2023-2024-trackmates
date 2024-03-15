@@ -34,11 +34,12 @@ const setReadChatMessages = createAsyncThunk<
 	async (messagePayload, { dispatch, extra }) => {
 		const { chatMessagesApi } = extra;
 
-		const response = await chatMessagesApi.setReadChatMessages(messagePayload);
+		const updatedMessages =
+			await chatMessagesApi.setReadChatMessages(messagePayload);
 
-		void dispatch(chatsActions.updateReadChatMessages(response));
+		void dispatch(chatsActions.updateReadChatMessages(updatedMessages));
 
-		return response;
+		return updatedMessages;
 	},
 );
 
