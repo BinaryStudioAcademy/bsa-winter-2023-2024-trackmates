@@ -1,4 +1,4 @@
-import { HTTPCode } from "~/libs/enums/enums.js";
+import { HTTPCode, PermissionKey } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/types.js";
 
 import {
@@ -211,7 +211,7 @@ class GroupService implements Service {
 		permissionId: number,
 		currentUserId: number,
 	): Promise<AllPermissionsResponseDto> {
-		void (await this.permissionService.find(permissionId));
+		const permissionById = await this.permissionService.find(permissionId);
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
@@ -226,7 +226,7 @@ class GroupService implements Service {
 			currentUserId,
 		);
 
-		if (hasGroup) {
+		if (hasGroup && permissionById.key === PermissionKey.MANAGE_UAM) {
 			throw new GroupError({
 				message: GroupErrorMessage.PERMISSION_CHANGE_FORBIDDEN,
 				status: HTTPCode.BAD_REQUEST,

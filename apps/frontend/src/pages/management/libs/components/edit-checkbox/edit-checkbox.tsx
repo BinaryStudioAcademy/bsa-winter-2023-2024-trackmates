@@ -3,6 +3,7 @@ import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
 
 type Properties = {
 	isChecked: boolean;
+	isDisabled?: boolean;
 	itemId: number;
 	name: string;
 	onToggle: (itemId: number) => void;
@@ -10,6 +11,7 @@ type Properties = {
 
 const EditCheckbox: React.FC<Properties> = ({
 	isChecked,
+	isDisabled = false,
 	itemId,
 	name,
 	onToggle,
@@ -36,6 +38,7 @@ const EditCheckbox: React.FC<Properties> = ({
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
+				isDisabled={isDisabled}
 				label="Toggle to edit"
 				name={name}
 			/>

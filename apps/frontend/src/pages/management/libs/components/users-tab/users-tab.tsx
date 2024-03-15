@@ -87,6 +87,8 @@ const UsersTab: React.FC = () => {
 			return group.permissions.length > EMPTY_LENGTH;
 		});
 
+		const isSameUser = user.id === authUser.id;
+
 		return {
 			buttons: (
 				<div className={styles["column-buttons"]}>
@@ -94,10 +96,9 @@ const UsersTab: React.FC = () => {
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
-						isDisabled={!hasPermissionToEdit || isAdmin}
+						isDisabled={!hasPermissionToEdit || isSameUser}
 						label={UsersTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(user)}
-						style="icon"
 					/>
 					<Button
 						className={styles["icon-button"]}
@@ -105,7 +106,6 @@ const UsersTab: React.FC = () => {
 						iconName="delete"
 						isDisabled={!hasPermissionToDelete || isAdmin}
 						label={UsersTableHeader.BUTTONS}
-						style="icon"
 					/>
 				</div>
 			),
@@ -126,7 +126,7 @@ const UsersTab: React.FC = () => {
 					{tableData.map((data) => {
 						return (
 							<TableRow key={data.id}>
-								<TableCell isCentered>
+								<TableCell isCentered width="narrow">
 									{data[usersHeaderToPropertyName[UsersTableHeader.ID]]}
 								</TableCell>
 								<TableCell>

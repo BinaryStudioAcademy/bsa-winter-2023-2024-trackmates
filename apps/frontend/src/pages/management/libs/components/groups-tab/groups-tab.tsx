@@ -1,4 +1,5 @@
 import { Button, Input } from "~/libs/components/components.js";
+import { PermissionKey } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -41,6 +42,7 @@ const GroupsTab: React.FC = () => {
 	});
 	const { control, errors, handleSubmit, reset } = useAppForm<GroupRequestDto>({
 		defaultValues: {
+			key: INPUT_DEFAULT_VALUE,
 			name: INPUT_DEFAULT_VALUE,
 		},
 		validationSchema: groupNameFieldValidationSchema,
@@ -133,20 +135,19 @@ const GroupsTab: React.FC = () => {
 			buttons: (
 				<div className={styles["column-buttons"]}>
 					<Button
+						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
-						isDisabled={hasGroup}
 						label={GroupsTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(group)}
-						style="icon"
 					/>
 					<Button
+						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
 						isDisabled={hasGroup}
 						label={GroupsTableHeader.BUTTONS}
 						onClick={handleOpenConfirmationModal(group)}
-						style="icon"
 					/>
 				</div>
 			),
@@ -186,13 +187,13 @@ const GroupsTab: React.FC = () => {
 						{tableData.map((data) => {
 							return (
 								<TableRow key={data.id}>
-									<TableCell isCentered>
+									<TableCell isCentered width="narrow">
 										{data[groupsHeaderToPropertyName[GroupsTableHeader.ID]]}
 									</TableCell>
-									<TableCell>
+									<TableCell width="medium">
 										{data[groupsHeaderToPropertyName[GroupsTableHeader.NAME]]}
 									</TableCell>
-									<TableCell width="medium">
+									<TableCell>
 										{
 											data[
 												groupsHeaderToPropertyName[
@@ -227,10 +228,17 @@ const GroupsTab: React.FC = () => {
 								}),
 							);
 
+							const isDisabled =
+								permission.key === PermissionKey.MANAGE_UAM &&
+								authUser.groups.some((group) => {
+									return group.id === currentGroup?.id;
+								});
+
 							return (
 								<li className={styles["modal-item"]} key={permission.id}>
 									<EditCheckbox
 										isChecked={isChecked}
+										isDisabled={isDisabled}
 										itemId={permission.id}
 										key={permission.id}
 										name={permission.name}
