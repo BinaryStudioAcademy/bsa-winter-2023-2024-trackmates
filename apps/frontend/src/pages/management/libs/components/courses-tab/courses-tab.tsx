@@ -4,9 +4,15 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useState,
 } from "~/libs/hooks/hooks.js";
-import { actions as coursesActions } from "~/modules/courses/courses.js";
+import {
+	type CourseDto,
+	actions as coursesActions,
+} from "~/modules/courses/courses.js";
 
+import { ManagementDialogueMessage } from "../../enums/enums.js";
+import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
 import { Table } from "../table/table.js";
 import { CoursesTableHeader } from "./libs/enums/enums.js";
@@ -22,6 +28,11 @@ const CoursesTab: React.FC = () => {
 		};
 	});
 
+	const [currentCourse, setCurrentCourse] = useState<CourseDto | null>(null);
+
+	const [isConfirmationModalOpen, setConfirmationModalOpen] =
+		useState<boolean>(false);
+
 	useEffect(() => {
 		void dispatch(coursesActions.getAll());
 	}, [dispatch]);
@@ -34,6 +45,18 @@ const CoursesTab: React.FC = () => {
 		},
 		[dispatch],
 	);
+
+	const handleOpenConfirmationModal = useCallback((course: CourseDto) => {
+		return () => {
+			setCurrentCourse(course);
+			setConfirmationModalOpen(true);
+		};
+	}, []);
+
+	const handleCloseConfirmationModal = useCallback(() => {
+		setConfirmationModalOpen(false);
+		setCurrentCourse(null);
+	}, []);
 
 	const tableData = courses.map((course) => {
 		return {
@@ -50,7 +73,7 @@ const CoursesTab: React.FC = () => {
 						hasVisuallyHiddenLabel
 						iconName="delete"
 						label={CoursesTableHeader.BUTTONS}
-						onClick={handleCourseDelete(course.id as number)}
+						onClick={handleOpenConfirmationModal(course)}
 					/>
 				</div>
 			),
@@ -108,6 +131,14 @@ const CoursesTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
+			{isConfirmationModalOpen && (
+				<ConfirmationModal
+					onCancel={handleCloseConfirmationModal}
+					onClose={handleCloseConfirmationModal}
+					onConfirm={handleCourseDelete(currentCourse?.id as number)}
+					title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentCourse?.title}"?`}
+				/>
+			)}
 		</>
 	);
 };
