@@ -190,7 +190,7 @@ const GroupsTab: React.FC = () => {
 						{tableData.map((data) => {
 							return (
 								<TableRow key={data.id}>
-									<TableCell centered>
+									<TableCell isCentered>
 										{data[groupsHeaderToPropertyName[GroupsTableHeader.ID]]}
 									</TableCell>
 									<TableCell>
@@ -205,7 +205,7 @@ const GroupsTab: React.FC = () => {
 											]
 										}
 									</TableCell>
-									<TableCell centered width="narrow">
+									<TableCell isCentered width="narrow">
 										{
 											data[
 												groupsHeaderToPropertyName[GroupsTableHeader.BUTTONS]

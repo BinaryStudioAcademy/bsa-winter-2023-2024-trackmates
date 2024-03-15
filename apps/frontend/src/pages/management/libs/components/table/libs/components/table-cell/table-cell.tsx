@@ -3,14 +3,16 @@ import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	centered?: boolean;
 	children: React.ReactNode;
+	hasLongText?: boolean;
+	isCentered?: boolean;
 	width?: "medium" | "narrow" | "wide";
 };
 
 const TableCell: React.FC<Properties> = ({
-	centered = false,
 	children,
+	hasLongText = false,
+	isCentered = false,
 	width = "wide",
 }: Properties) => {
 	return (
@@ -20,7 +22,8 @@ const TableCell: React.FC<Properties> = ({
 			<div
 				className={getValidClassNames(
 					styles["content"],
-					centered && styles["centered"],
+					isCentered && styles["centered"],
+					hasLongText && styles["long-text"],
 				)}
 			>
 				{children}

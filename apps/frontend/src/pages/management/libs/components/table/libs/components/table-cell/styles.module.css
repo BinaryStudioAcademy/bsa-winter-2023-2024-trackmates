@@ -8,6 +8,13 @@
 	justify-content: center;
 }
 
+.long-text {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
 .medium {
 	width: 300px;
 }
