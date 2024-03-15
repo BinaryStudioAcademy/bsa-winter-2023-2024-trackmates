@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus } from "~/libs/enums/enums.js";
+import { DataStatus, NotificationFilter } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { type NotificationResponseDto } from "../libs/types/types.js";
@@ -12,12 +12,14 @@ import {
 
 type State = {
 	dataStatus: ValueOf<typeof DataStatus>;
+	notificationType: ValueOf<typeof NotificationFilter>;
 	notifications: NotificationResponseDto[];
 	unreadNotificationsCount: number;
 };
 
 const initialState: State = {
 	dataStatus: DataStatus.IDLE,
+	notificationType: NotificationFilter.ALL,
 	notifications: [],
 	unreadNotificationsCount: 0,
 };
@@ -59,7 +61,15 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "user-notifications",
-	reducers: {},
+	reducers: {
+		setNotificationType(
+			state,
+			action: PayloadAction<ValueOf<typeof NotificationFilter>>,
+		) {
+			state.notificationType = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
+		},
+	},
 });
 
 export { actions, name, reducer };

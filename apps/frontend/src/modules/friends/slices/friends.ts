@@ -1,5 +1,6 @@
 import {
 	follow,
+	getAllFollowingsIds,
 	getFollowers,
 	getFollowings,
 	getIsFollowing,
@@ -11,6 +12,7 @@ import { actions } from "./friends.slice.js";
 const allActions = {
 	...actions,
 	follow,
+	getAllFollowingsIds,
 	getFollowers,
 	getFollowings,
 	getIsFollowing,

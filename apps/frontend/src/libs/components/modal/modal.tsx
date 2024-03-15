@@ -37,6 +37,7 @@ const Modal: React.FC<Properties> = ({
 	const modalStyles = getValidClassNames(
 		styles["modal"],
 		isCentered && styles["centered"],
+		isOpen && styles["active"],
 	);
 
 	return (

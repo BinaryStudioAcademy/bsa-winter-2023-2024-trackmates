@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.37.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.37.0...backend-v1.37.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#538](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/538)) ([d254906](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d2549065be9bb9eaa3fadb6e0546557a25a8ab3b))
+
 ## [1.37.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.36.1...backend-v1.37.0) (2024-03-14)
 
 

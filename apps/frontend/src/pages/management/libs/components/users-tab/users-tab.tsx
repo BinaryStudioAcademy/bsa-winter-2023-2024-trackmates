@@ -149,35 +149,34 @@ const UsersTab: React.FC = () => {
 					})}
 				</Table>
 			</div>
-			{isEditModalOpen && (
-				<EditModal
-					onClose={handleCloseEditModal}
-					title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
-				>
-					<ul className={styles["modal-list"]}>
-						{groups.map((group) => {
-							const isChecked = Boolean(
-								currentUser?.groups.some((userGroup) => {
-									return userGroup.id === group.id;
-								}),
-							);
+			<EditModal
+				isOpen={isEditModalOpen}
+				onClose={handleCloseEditModal}
+				title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
+			>
+				<ul className={styles["modal-list"]}>
+					{groups.map((group) => {
+						const isChecked = Boolean(
+							currentUser?.groups.some((userGroup) => {
+								return userGroup.id === group.id;
+							}),
+						);
 
-							return (
-								<li className={styles["modal-item"]} key={group.id}>
-									<EditCheckbox
-										isChecked={isChecked}
-										itemId={group.id}
-										key={group.id}
-										name={group.name}
-										onToggle={handleToggleCheckbox}
-									/>
-									{group.name}
-								</li>
-							);
-						})}
-					</ul>
-				</EditModal>
-			)}
+						return (
+							<li className={styles["modal-item"]} key={group.id}>
+								<EditCheckbox
+									isChecked={isChecked}
+									itemId={group.id}
+									key={group.id}
+									name={group.name}
+									onToggle={handleToggleCheckbox}
+								/>
+								{group.name}
+							</li>
+						);
+					})}
+				</ul>
+			</EditModal>
 		</>
 	);
 };

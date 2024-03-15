@@ -4,17 +4,24 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
+	isOpen: boolean;
 	onClose: () => void;
 	title?: string | undefined;
 };
 
 const EditModal: React.FC<Properties> = ({
 	children,
+	isOpen,
 	onClose,
 	title,
 }: Properties) => {
 	return (
-		<Modal className={styles["edit-modal"]} isCentered isOpen onClose={onClose}>
+		<Modal
+			className={styles["edit-modal"]}
+			isCentered
+			isOpen={isOpen}
+			onClose={onClose}
+		>
 			<div className={styles["content"]}>
 				<span className={styles["title"]}>{title}</span>
 				<div className={styles["checkbox-list"]}>{children}</div>

@@ -215,50 +215,48 @@ const GroupsTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
-			{isEditModalOpen && (
-				<EditModal
-					onClose={handleCloseEditModal}
-					title={`Edit permissions of the "${currentGroup?.name}" group:`}
-				>
-					<ul className={styles["modal-list"]}>
-						{permissions.map((permission) => {
-							const isChecked = Boolean(
-								currentGroup?.permissions.some((permissionInGroup) => {
-									return permissionInGroup.id === permission.id;
-								}),
-							);
+			<EditModal
+				isOpen={isEditModalOpen}
+				onClose={handleCloseEditModal}
+				title={`Edit permissions of the "${currentGroup?.name}" group:`}
+			>
+				<ul className={styles["modal-list"]}>
+					{permissions.map((permission) => {
+						const isChecked = Boolean(
+							currentGroup?.permissions.some((permissionInGroup) => {
+								return permissionInGroup.id === permission.id;
+							}),
+						);
 
-							const isDisabled =
-								permission.key === PermissionKey.MANAGE_UAM &&
-								authUser.groups.some((group) => {
-									return group.id === currentGroup?.id;
-								});
+						const isDisabled =
+							permission.key === PermissionKey.MANAGE_UAM &&
+							authUser.groups.some((group) => {
+								return group.id === currentGroup?.id;
+							});
 
-							return (
-								<li className={styles["modal-item"]} key={permission.id}>
-									<EditCheckbox
-										isChecked={isChecked}
-										isDisabled={isDisabled}
-										itemId={permission.id}
-										key={permission.id}
-										name={permission.name}
-										onToggle={handleToggleCheckbox}
-									/>
-									{permission.name}
-								</li>
-							);
-						})}
-					</ul>
-				</EditModal>
-			)}
-			{isConfirmationModalOpen && (
-				<ConfirmationModal
-					onCancel={handleCloseConfirmationModal}
-					onClose={handleCloseConfirmationModal}
-					onConfirm={handleDeleteGroup(currentGroup?.id as number)}
-					title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
-				/>
-			)}
+						return (
+							<li className={styles["modal-item"]} key={permission.id}>
+								<EditCheckbox
+									isChecked={isChecked}
+									isDisabled={isDisabled}
+									itemId={permission.id}
+									key={permission.id}
+									name={permission.name}
+									onToggle={handleToggleCheckbox}
+								/>
+								{permission.name}
+							</li>
+						);
+					})}
+				</ul>
+			</EditModal>
+			<ConfirmationModal
+				isOpen={isConfirmationModalOpen}
+				onCancel={handleCloseConfirmationModal}
+				onClose={handleCloseConfirmationModal}
+				onConfirm={handleDeleteGroup(currentGroup?.id as number)}
+				title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
+			/>
 		</>
 	);
 };
