@@ -1,7 +1,11 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { type Mail } from "~/libs/modules/mail/mail.js";
-import { type Token } from "~/libs/modules/token/token.js";
+import {
+	type ResetPasswordTokenPayload,
+	type Token,
+	type TokenPayload,
+} from "~/libs/modules/token/token.js";
 import {
 	type UserAuthResponseDto,
 	type UserEntity,
@@ -19,7 +23,8 @@ type Constructor = {
 	encrypt: Encrypt;
 	mail: Mail;
 	resetPasswordBaseLink: string;
-	token: Token;
+	resetPasswordToken: Token<ResetPasswordTokenPayload>;
+	token: Token<TokenPayload>;
 	userService: UserService;
 };
 
@@ -27,19 +32,22 @@ class AuthService {
 	private encrypt: Encrypt;
 	private mail: Mail;
 	private resetPasswordBaseLink: string;
-	private token: Token;
+	private resetPasswordToken: Token<ResetPasswordTokenPayload>;
+	private token: Token<TokenPayload>;
 	private userService: UserService;
 
 	public constructor({
 		encrypt,
 		mail,
 		resetPasswordBaseLink,
+		resetPasswordToken,
 		token,
 		userService,
 	}: Constructor) {
 		this.encrypt = encrypt;
 		this.mail = mail;
 		this.resetPasswordBaseLink = resetPasswordBaseLink;
+		this.resetPasswordToken = resetPasswordToken;
 		this.token = token;
 		this.userService = userService;
 	}
@@ -84,8 +92,8 @@ class AuthService {
 			});
 		}
 
-		const { id: userId } = user.toObject();
-		const token = await this.token.create({ userId });
+		const { id: userId, updatedAt } = user.toObject();
+		const token = await this.resetPasswordToken.create({ updatedAt, userId });
 		const link = `${this.resetPasswordBaseLink}${token}`;
 
 		return await this.mail.send({
@@ -135,7 +143,7 @@ class AuthService {
 	): Promise<AuthUpdatePasswordResponseDto> {
 		const {
 			payload: { userId },
-		} = await this.token.verify(token);
+		} = await this.resetPasswordToken.verify(token);
 
 		const user = await this.userService.findById(userId);
 

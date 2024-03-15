@@ -44,6 +44,7 @@ export { type Storage } from "./libs/modules/storage/storage.js";
 export {
 	type PaginationRequestDto,
 	type PaginationResponseDto,
+	type ResetPasswordTokenPayload,
 	type ServerCommonErrorResponse,
 	type ServerErrorDetail,
 	type ServerErrorResponse,
