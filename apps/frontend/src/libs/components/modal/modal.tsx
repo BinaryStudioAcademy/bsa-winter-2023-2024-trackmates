@@ -15,7 +15,6 @@ type Properties = {
 	isCentered?: boolean;
 	isOpen: boolean;
 	onClose: () => void;
-	size?: "large" | "small";
 };
 
 const Modal: React.FC<Properties> = ({
@@ -24,7 +23,6 @@ const Modal: React.FC<Properties> = ({
 	isCentered = false,
 	isOpen,
 	onClose,
-	size = "large",
 }: Properties) => {
 	const contentReference = useRef<HTMLDivElement | null>(null);
 	useHandleClickOutside({
@@ -38,7 +36,6 @@ const Modal: React.FC<Properties> = ({
 
 	const modalStyles = getValidClassNames(
 		styles["modal"],
-		styles[size],
 		isCentered && styles["centered"],
 	);
 

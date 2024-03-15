@@ -16,7 +16,7 @@ const ConfirmationModal: React.FC<Properties> = ({
 	title,
 }: Properties) => {
 	return (
-		<Modal isCentered isOpen onClose={onClose} size="small">
+		<Modal isCentered isOpen onClose={onClose}>
 			<div className={styles["confirm-modal"]}>
 				<span className={styles["title"]}>{title}</span>
 				<div className={styles["modal-footer"]}>

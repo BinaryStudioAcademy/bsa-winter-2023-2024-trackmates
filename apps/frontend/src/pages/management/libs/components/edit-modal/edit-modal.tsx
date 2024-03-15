@@ -14,23 +14,19 @@ const EditModal: React.FC<Properties> = ({
 	title,
 }: Properties) => {
 	return (
-		<Modal
-			className={styles["edit-modal"]}
-			isCentered
-			isOpen
-			onClose={onClose}
-			size="small"
-		>
-			<span className={styles["title"]}>{title}</span>
-			<div className={styles["content"]}>{children}</div>
-			<div className={styles["modal-footer"]}>
-				<Button
-					className={styles["button"]}
-					label="OK"
-					onClick={onClose}
-					size="small"
-					style="primary"
-				/>
+		<Modal className={styles["edit-modal"]} isCentered isOpen onClose={onClose}>
+			<div className={styles["content"]}>
+				<span className={styles["title"]}>{title}</span>
+				<div className={styles["checkbox-list"]}>{children}</div>
+				<div className={styles["modal-footer"]}>
+					<Button
+						className={styles["button"]}
+						label="OK"
+						onClick={onClose}
+						size="small"
+						style="primary"
+					/>
+				</div>
 			</div>
 		</Modal>
 	);
