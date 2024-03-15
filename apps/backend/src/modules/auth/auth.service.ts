@@ -18,22 +18,28 @@ import { type AuthUpdatePasswordResponseDto } from "./libs/types/types.js";
 type Constructor = {
 	encrypt: Encrypt;
 	mail: Mail;
+	resetPasswordBaseLink: string;
 	token: Token;
 	userService: UserService;
 };
 
-// TODO
-const RESET_PASSWORD_URL = "http://localhost:3000/update-password/";
-
 class AuthService {
 	private encrypt: Encrypt;
 	private mail: Mail;
+	private resetPasswordBaseLink: string;
 	private token: Token;
 	private userService: UserService;
 
-	public constructor({ encrypt, mail, token, userService }: Constructor) {
+	public constructor({
+		encrypt,
+		mail,
+		resetPasswordBaseLink,
+		token,
+		userService,
+	}: Constructor) {
 		this.encrypt = encrypt;
 		this.mail = mail;
+		this.resetPasswordBaseLink = resetPasswordBaseLink;
 		this.token = token;
 		this.userService = userService;
 	}
@@ -80,7 +86,7 @@ class AuthService {
 
 		const { id: userId } = user.toObject();
 		const token = await this.token.create({ userId });
-		const link = `${RESET_PASSWORD_URL}${token}`;
+		const link = `${this.resetPasswordBaseLink}${token}`;
 
 		return await this.mail.send({
 			email,

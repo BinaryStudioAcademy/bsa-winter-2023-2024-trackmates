@@ -110,6 +110,14 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			FORGOT_PASSWORD: {
+				RESET_PASSWORD_BASE_LINK: {
+					default: null,
+					doc: "Reset password base link",
+					env: "RESET_PASSWORD_BASE_LINK",
+					format: String,
+				},
+			},
 			JWT: {
 				ALGORITHM: {
 					default: null,
