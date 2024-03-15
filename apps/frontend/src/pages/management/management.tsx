@@ -13,7 +13,11 @@ import {
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
-import { GroupsTab, UsersTab } from "./libs/components/components.js";
+import {
+	CoursesTab,
+	GroupsTab,
+	UsersTab,
+} from "./libs/components/components.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
@@ -47,6 +51,10 @@ const Management: React.FC = () => {
 		switch (screen) {
 			case AppRoute.MANAGEMENT: {
 				return <Navigate replace to={AppRoute.MANAGEMENT_USERS} />;
+			}
+
+			case AppRoute.MANAGEMENT_COURSES: {
+				return <CoursesTab />;
 			}
 
 			case AppRoute.MANAGEMENT_USERS: {

@@ -111,6 +111,18 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 									<ProtectedRoute
 										component={<Management />}
 										pagePermissions={{
+											mode: PermissionMode.ALL_OF,
+											permissions: [PermissionKey.MANAGE_COURSES],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT_COURSES,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
 											mode: PermissionMode.ONE_OF,
 											permissions: [
 												PermissionKey.MANAGE_UAM,
