@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { type CourseDto } from "~/modules/courses/courses.js";
 import {
 	type GroupResponseDto,
 	actions as groupsActions,
@@ -16,6 +17,8 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
+	courses: CourseDto[];
+	coursesDataStatus: ValueOf<typeof DataStatus>;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
@@ -25,6 +28,8 @@ type State = {
 };
 
 const initialState: State = {
+	courses: [],
+	coursesDataStatus: DataStatus.IDLE,
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
