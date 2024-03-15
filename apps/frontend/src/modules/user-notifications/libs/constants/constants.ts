@@ -1,1 +1,1 @@
-export { ONE_ITEM_COUNT } from "./one-item-count.constant.js";
+export { NEW_NOTIFICATION_COUNT } from "./new-notification-count.constant.js";
