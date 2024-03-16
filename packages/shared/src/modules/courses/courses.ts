@@ -7,7 +7,6 @@ export {
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
-	type CoursesResponseDto,
 	type CoursesSearchResponseDto,
 } from "./libs/types/types.js";
 export {

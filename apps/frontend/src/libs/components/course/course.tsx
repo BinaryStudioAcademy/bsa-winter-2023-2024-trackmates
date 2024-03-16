@@ -1,7 +1,10 @@
 import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useCallback } from "~/libs/hooks/hooks.js";
-import { type CourseDto } from "~/modules/courses/courses.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+} from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
 	type UserCourseResponseDto,
@@ -10,11 +13,14 @@ import {
 import { Button } from "../button/button.js";
 import { Link } from "../link/link.js";
 import { CourseCard } from "./libs/component/component.js";
-import { checkIsUserCourse } from "./libs/helpers/helpers.js";
+import {
+	checkIsSearchedCourse,
+	checkIsUserCourse,
+} from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | UserCourseResponseDto;
+	course: CourseDto | CourseSearchResponseDto | UserCourseResponseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
 	userId?: number | undefined;
 };
@@ -31,9 +37,11 @@ const Course: React.FC<Properties> = ({
 
 	const isLoading =
 		addedVendorCourseDataStatuses[vendorCourseId] === DataStatus.PENDING;
-	const isDisabled =
-		isLoading ||
-		addedVendorCourseDataStatuses[vendorCourseId] === DataStatus.FULFILLED;
+
+	const isUserHasCourse = checkIsSearchedCourse(course)
+		? course.isUserHasCourse
+		: true;
+	const isDisabled = isLoading || isUserHasCourse;
 
 	const courseDescriptionRouteById = configureString(
 		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,

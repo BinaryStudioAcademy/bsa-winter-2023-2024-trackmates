@@ -130,7 +130,6 @@ export {
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
 	CoursesApiPath,
-	type CoursesResponseDto,
 	type CoursesSearchResponseDto,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,

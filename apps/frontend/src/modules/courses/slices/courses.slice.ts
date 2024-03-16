@@ -4,15 +4,18 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
-import { type CourseDto } from "../libs/types/types.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+} from "../libs/types/types.js";
 import { getAll, getById, getRecommended } from "./actions.js";
 
 type State = {
 	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
 	currentCourse: CourseDto | null;
-	recommendedCourses: CourseDto[];
+	recommendedCourses: CourseSearchResponseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
-	searchedCourses: CourseDto[];
+	searchedCourses: CourseSearchResponseDto[];
 };
 
 const initialState: State = {
@@ -67,6 +70,12 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(userCoursesActions.add.fulfilled, (state, action) => {
 			const { vendorCourseId } = action.meta.arg;
+
+			state.searchedCourses = state.searchedCourses.map((course) => {
+				return course.vendorCourseId === vendorCourseId
+					? { ...course, isUserHasCourse: true }
+					: course;
+			});
 
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;

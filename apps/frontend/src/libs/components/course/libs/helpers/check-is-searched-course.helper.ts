@@ -4,10 +4,10 @@ import {
 } from "~/modules/courses/courses.js";
 import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.js";
 
-const checkIsUserCourse = (
+const checkIsSearchedCourse = (
 	dto: CourseDto | CourseSearchResponseDto | UserCourseResponseDto,
-): dto is UserCourseResponseDto => {
-	return "progress" in dto;
+): dto is CourseSearchResponseDto => {
+	return "isUserHasCourse" in dto;
 };
 
-export { checkIsUserCourse };
+export { checkIsSearchedCourse };
