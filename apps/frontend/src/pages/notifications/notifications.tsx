@@ -85,7 +85,8 @@ const Notifications: React.FC = () => {
 
 	const hasNotifications = notifications.length > EMPTY_LENGTH;
 
-	const isNotificationFilterAll = notificationType === NotificationFilter.ALL;
+	const isNotificationFilterAll =
+		notificationType === null || notificationType === NotificationFilter.ALL;
 
 	return (
 		<div className={styles["page"]}>
