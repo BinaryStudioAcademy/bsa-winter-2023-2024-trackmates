@@ -10,7 +10,6 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
-	type GroupRequestDto,
 	type GroupResponseDto,
 	groupNameFieldValidationSchema,
 	actions as groupsActions,
@@ -40,13 +39,12 @@ const GroupsTab: React.FC = () => {
 			permissions: state.management.permissions,
 		};
 	});
-	const { control, errors, handleSubmit, reset } = useAppForm<GroupRequestDto>({
-		defaultValues: {
-			key: INPUT_DEFAULT_VALUE,
-			name: INPUT_DEFAULT_VALUE,
+	const { control, errors, handleSubmit, reset } = useAppForm<{ name: string }>(
+		{
+			defaultValues: INPUT_DEFAULT_VALUE,
+			validationSchema: groupNameFieldValidationSchema,
 		},
-		validationSchema: groupNameFieldValidationSchema,
-	});
+	);
 
 	const [currentGroup, setCurrentGroup] = useState<GroupResponseDto | null>(
 		null,
@@ -61,9 +59,9 @@ const GroupsTab: React.FC = () => {
 	}, [dispatch]);
 
 	const handleCreateGroup = useCallback(
-		(group: GroupRequestDto) => {
-			const key = group.name.trim().replace(" ", "-").toLowerCase();
-			void dispatch(groupsActions.createGroup({ key, name: group.name }));
+		({ name }: { name: string }) => {
+			const key = name.trim().replace(" ", "-").toLowerCase();
+			void dispatch(groupsActions.createGroup({ key, name }));
 			reset();
 		},
 		[dispatch, reset],
