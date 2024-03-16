@@ -106,7 +106,7 @@ class AuthController extends BaseController {
 					}>,
 				);
 			},
-			method: "POST",
+			method: "PATCH",
 			path: AuthApiPath.UPDATE_PASSWORD,
 			validation: {
 				body: authUpdatePasswordValidationSchema,
@@ -301,7 +301,7 @@ class AuthController extends BaseController {
 	/**
 	 * @swagger
 	 * /auth/update-password:
-	 *    post:
+	 *    patch:
 	 *      tags:
 	 *        - Authentication
 	 *      description: Verifies token and updates password

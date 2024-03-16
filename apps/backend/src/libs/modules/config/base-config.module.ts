@@ -131,22 +131,22 @@ class BaseConfig implements Config {
 				},
 			},
 			MAIL: {
-				LOGGER: {
+				IS_LOGGED: {
 					default: false,
 					doc: "If set to true then logs to console",
-					env: "MAIL_LOGGER",
+					env: "MAIL_IS_LOGGED",
 					format: Boolean,
 				},
-				REQUIRE_TLS: {
+				IS_REQUIRE_TLS: {
 					default: false,
 					doc: "Forces the client to use STARTTLS",
-					env: "MAIL_REQUIRE_TLS",
+					env: "MAIL_IS_REQUIRE_TLS",
 					format: Boolean,
 				},
-				SECURE: {
+				IS_SECURE: {
 					default: true,
 					doc: "Defines if the connection should use SSL",
-					env: "MAIL_SECURE",
+					env: "MAIL_IS_SECURE",
 					format: Boolean,
 				},
 				SERVICE: {

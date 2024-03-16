@@ -35,7 +35,7 @@ const UpdatePasswordForm: React.FC<Properties> = ({
 		return auth.dataStatus;
 	});
 
-	const [isPasswordVisible, setPasswordVisibility] = useState<boolean>(false);
+	const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
@@ -45,7 +45,7 @@ const UpdatePasswordForm: React.FC<Properties> = ({
 	);
 
 	const handleChangePasswordVisibility = useCallback(() => {
-		setPasswordVisibility(!isPasswordVisible);
+		setIsPasswordVisible(!isPasswordVisible);
 	}, [isPasswordVisible]);
 
 	useAppTitle(AppTitle.UPDATE_PASSWORD);

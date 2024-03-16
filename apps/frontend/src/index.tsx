@@ -79,7 +79,7 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 							},
 							{
 								element: <Auth />,
-								path: AppRoute.UPDATE_PASSWORD,
+								path: AppRoute.UPDATE_PASSWORD_$TOKEN,
 							},
 							{
 								element: <ProtectedRoute component={<Profile />} />,

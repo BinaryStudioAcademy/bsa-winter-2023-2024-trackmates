@@ -1,9 +1,9 @@
 import nodemailer, { type Transporter } from "nodemailer";
 
 type Constructor = {
-	logger: boolean;
-	requireTLS: boolean;
-	secure: boolean;
+	isLogged: boolean;
+	isRequireTLS: boolean;
+	isSecure: boolean;
 	senderEmail: string;
 	senderName: string;
 	senderPassword: string;
@@ -17,9 +17,9 @@ class Mail {
 	private transporter: Transporter;
 
 	public constructor({
-		logger,
-		requireTLS,
-		secure,
+		isLogged,
+		isRequireTLS,
+		isSecure,
 		senderEmail,
 		senderName,
 		senderPassword,
@@ -33,9 +33,9 @@ class Mail {
 				pass: senderPassword,
 				user: senderEmail,
 			},
-			logger,
-			requireTLS,
-			secure,
+			logger: isLogged,
+			requireTLS: isRequireTLS,
+			secure: isSecure,
 			service,
 		});
 	}

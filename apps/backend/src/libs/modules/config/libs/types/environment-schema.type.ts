@@ -28,9 +28,9 @@ type EnvironmentSchema = {
 		SECRET: string;
 	};
 	MAIL: {
-		LOGGER: boolean;
-		REQUIRE_TLS: boolean;
-		SECURE: boolean;
+		IS_LOGGED: boolean;
+		IS_REQUIRE_TLS: boolean;
+		IS_SECURE: boolean;
 		SERVICE: string;
 		USER_EMAIL: string;
 		USER_NAME: string;

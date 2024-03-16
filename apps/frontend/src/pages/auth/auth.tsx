@@ -32,7 +32,7 @@ const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 	const hasUser = user !== null;
-	const updatePasswordMatch = useMatch(AppRoute.UPDATE_PASSWORD);
+	const updatePasswordMatch = useMatch(AppRoute.UPDATE_PASSWORD_$TOKEN);
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
