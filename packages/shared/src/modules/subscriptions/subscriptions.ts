@@ -1,4 +1,3 @@
-export { SUBSCRIPTION_PRICE } from "./libs/constants/constants.js";
 export { SubscriptionApiPath, SubscriptionPlan } from "./libs/enums/enums.js";
 export { SubscriptionError } from "./libs/exceptions/exceptions.js";
 export {

@@ -201,7 +201,6 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
-	SUBSCRIPTION_PRICE,
 	SubscriptionApiPath,
 	SubscriptionError,
 	type SubscriptionPaymentIntentCancelRequestDto,
