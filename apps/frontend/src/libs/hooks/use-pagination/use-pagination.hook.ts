@@ -10,7 +10,6 @@ import {
 type UsePagination = (options: {
 	pageSize: number;
 	pagesCutCount: number;
-	path?: string;
 	queryName?: string;
 	totalCount: number;
 }) => {
@@ -23,14 +22,12 @@ type UsePagination = (options: {
 const usePagination: UsePagination = ({
 	pageSize,
 	pagesCutCount,
-	path,
 	queryName = "page",
 	totalCount,
 }) => {
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
 	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
-	const currentPath = path || location.pathname;
 
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
@@ -41,15 +38,8 @@ const usePagination: UsePagination = ({
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 
 	useEffect(() => {
-		const isSamePath = currentPath === location.pathname;
 		const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
 		const isInvalidPage = pagesCount !== PaginationValue.PAGE_NOT_EXISTS;
-
-		if (!isSamePath) {
-			setPage(PaginationValue.DEFAULT_PAGE);
-
-			return;
-		}
 
 		if (isValidPage) {
 			setPage(pageFromQuery);
