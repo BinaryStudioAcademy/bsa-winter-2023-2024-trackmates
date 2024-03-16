@@ -60,6 +60,8 @@ const deleteById = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 
 		if (success) {
 			notification.success(NotificationMessage.COURSE_DELETED);
+		} else {
+			notification.error(NotificationMessage.COURSE_DELETION_FAILED);
 		}
 
 		return success;

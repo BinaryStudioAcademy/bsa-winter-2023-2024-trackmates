@@ -1,6 +1,7 @@
 const NotificationMessage = {
 	COURSE_ADDED: "Course successfully added to your account.",
 	COURSE_DELETED: "Course deleted successfully.",
+	COURSE_DELETION_FAILED: "Course deletion failed.",
 	COURSE_UPDATED: "Course updated successfully.",
 	FRIEND_FOLLOW_SUCCESS: "Followed successfully.",
 	FRIEND_UNFOLLOW_SUCCESS: "Unfollowed successfully.",
