@@ -68,12 +68,12 @@ const deleteById = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 
 const update = createAsyncThunk<
 	CourseDto,
-	{ id: string; payload: CourseUpdateRequestDto },
+	{ id: number; payload: CourseUpdateRequestDto },
 	AsyncThunkConfig
 >(`${sliceName}/update`, async ({ id, payload }, { extra }) => {
 	const { courseApi, notification } = extra;
 
-	const updatedCourse = await courseApi.update(id, payload);
+	const updatedCourse = await courseApi.update(String(id), payload);
 
 	notification.success(NotificationMessage.COURSE_UPDATED);
 

@@ -1,4 +1,5 @@
-import { Button } from "~/libs/components/components.js";
+import { Button, Loader } from "~/libs/components/components.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -17,6 +18,7 @@ import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
 import { Table } from "../table/table.js";
 import { EditCourseModal } from "./libs/components/components.js";
+import { COURSES_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { CoursesTableHeader } from "./libs/enums/enums.js";
 import { coursesHeaderToColumnName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -24,11 +26,16 @@ import styles from "./styles.module.css";
 const CoursesTab: React.FC = () => {
 	const dispatch = useAppDispatch();
 
-	const { courses } = useAppSelector((state) => {
-		return {
-			courses: state.management.courses,
-		};
-	});
+	const { courseToDataStatus, courses, isCoursesLoading } = useAppSelector(
+		(state) => {
+			return {
+				courseToDataStatus: state.management.courseToDataStatus,
+				courses: state.management.courses,
+				isCoursesLoading:
+					state.management.coursesDataStatus === DataStatus.PENDING,
+			};
+		},
+	);
 
 	const [currentCourse, setCurrentCourse] = useState<CourseDto | null>(null);
 
@@ -79,7 +86,7 @@ const CoursesTab: React.FC = () => {
 		(payload: CourseUpdateRequestDto) => {
 			void dispatch(
 				coursesActions.update({
-					id: String(currentCourse?.id),
+					id: currentCourse?.id as number,
 					payload,
 				}),
 			);
@@ -96,14 +103,24 @@ const CoursesTab: React.FC = () => {
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
+						isLoading={
+							courseToDataStatus[course.id as number]?.updateDataStatus ===
+							DataStatus.PENDING
+						}
 						label={CoursesTableHeader.BUTTONS}
+						loaderColor="orange"
 						onClick={handleOpenEditModal(course)}
 					/>
 					<Button
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
+						isLoading={
+							courseToDataStatus[course.id as number]?.deleteDataStatus ===
+							DataStatus.PENDING
+						}
 						label={CoursesTableHeader.BUTTONS}
+						loaderColor="orange"
 						onClick={handleOpenConfirmationModal(course)}
 					/>
 				</div>
@@ -115,51 +132,55 @@ const CoursesTab: React.FC = () => {
 		};
 	});
 
-	const tableHeaders = [
-		CoursesTableHeader.ID,
-		CoursesTableHeader.TITLE,
-		CoursesTableHeader.VENDOR,
-		CoursesTableHeader.DESCRIPTION,
-		CoursesTableHeader.BUTTONS,
-	];
-
 	return (
 		<>
 			<div className={styles["container"]}>
 				<div className={styles["table-container"]}>
-					<Table headers={tableHeaders}>
-						{tableData.map((data) => {
-							return (
-								<TableRow key={data.id}>
-									<TableCell isCentered>
-										{data[coursesHeaderToColumnName[CoursesTableHeader.ID]]}
-									</TableCell>
-									<TableCell>
-										{data[coursesHeaderToColumnName[CoursesTableHeader.TITLE]]}
-									</TableCell>
-									<TableCell isCentered>
-										{data[coursesHeaderToColumnName[CoursesTableHeader.VENDOR]]}
-									</TableCell>
-									<TableCell hasLongText width="narrow">
-										{
-											data[
-												coursesHeaderToColumnName[
-													CoursesTableHeader.DESCRIPTION
+					{isCoursesLoading ? (
+						<Loader color="orange" size="large" />
+					) : (
+						<Table headers={COURSES_TABLE_HEADERS}>
+							{tableData.map((data) => {
+								return (
+									<TableRow key={data.id}>
+										<TableCell isCentered>
+											{data[coursesHeaderToColumnName[CoursesTableHeader.ID]]}
+										</TableCell>
+										<TableCell>
+											{
+												data[
+													coursesHeaderToColumnName[CoursesTableHeader.TITLE]
 												]
-											]
-										}
-									</TableCell>
-									<TableCell isCentered width="narrow">
-										{
-											data[
-												coursesHeaderToColumnName[CoursesTableHeader.BUTTONS]
-											]
-										}
-									</TableCell>
-								</TableRow>
-							);
-						})}
-					</Table>
+											}
+										</TableCell>
+										<TableCell isCentered>
+											{
+												data[
+													coursesHeaderToColumnName[CoursesTableHeader.VENDOR]
+												]
+											}
+										</TableCell>
+										<TableCell hasLongText width="narrow">
+											{
+												data[
+													coursesHeaderToColumnName[
+														CoursesTableHeader.DESCRIPTION
+													]
+												]
+											}
+										</TableCell>
+										<TableCell isCentered width="narrow">
+											{
+												data[
+													coursesHeaderToColumnName[CoursesTableHeader.BUTTONS]
+												]
+											}
+										</TableCell>
+									</TableRow>
+								);
+							})}
+						</Table>
+					)}
 				</div>
 			</div>
 			<EditCourseModal
