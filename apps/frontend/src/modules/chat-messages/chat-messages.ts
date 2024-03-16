@@ -13,6 +13,7 @@ const chatMessagesApi = new ChatMessagesApi({
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ReadChatMessagesResponseDto,
 } from "./libs/types/types.js";
 export { chatMessageValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 export { chatMessagesApi };
