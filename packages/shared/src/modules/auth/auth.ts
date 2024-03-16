@@ -6,6 +6,6 @@ export {
 	type AuthUpdatePasswordResponseDto,
 } from "./libs/types/types.js";
 export {
-	authForgotPassword as authForgotPasswordValidationSchema,
+	authSendUpdatePasswordLink as authSendUpdatePasswordLinkValidationSchema,
 	authUpdatePassword as authUpdatePasswordValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

@@ -76,7 +76,7 @@ export {
 	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type AuthUpdatePasswordResponseDto,
-	authForgotPasswordValidationSchema,
+	authSendUpdatePasswordLinkValidationSchema,
 	authUpdatePasswordValidationSchema,
 } from "./modules/auth/auth.js";
 export {

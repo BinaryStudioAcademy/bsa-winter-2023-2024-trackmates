@@ -21,7 +21,7 @@ import {
 	type AuthUpdatePasswordRequestDto,
 } from "./libs/types/types.js";
 import {
-	authForgotPasswordValidationSchema,
+	authSendUpdatePasswordLinkValidationSchema,
 	authUpdatePasswordValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
@@ -94,7 +94,7 @@ class AuthController extends BaseController {
 			method: "POST",
 			path: AuthApiPath.SEND_UPDATE_PASSWORD_LINK,
 			validation: {
-				body: authForgotPasswordValidationSchema,
+				body: authSendUpdatePasswordLinkValidationSchema,
 			},
 		});
 
