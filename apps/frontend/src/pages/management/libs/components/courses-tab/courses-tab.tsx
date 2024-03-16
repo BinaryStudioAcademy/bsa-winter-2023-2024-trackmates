@@ -8,6 +8,7 @@ import {
 } from "~/libs/hooks/hooks.js";
 import {
 	type CourseDto,
+	type CourseUpdateRequestDto,
 	actions as coursesActions,
 } from "~/modules/courses/courses.js";
 
@@ -15,6 +16,7 @@ import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { TableCell, TableRow } from "../table/libs/components/components.js";
 import { Table } from "../table/table.js";
+import { EditCourseModal } from "./libs/components/components.js";
 import { CoursesTableHeader } from "./libs/enums/enums.js";
 import { coursesHeaderToColumnName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -33,18 +35,11 @@ const CoursesTab: React.FC = () => {
 	const [isConfirmationModalOpen, setConfirmationModalOpen] =
 		useState<boolean>(false);
 
+	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+
 	useEffect(() => {
 		void dispatch(coursesActions.getAll());
 	}, [dispatch]);
-
-	const handleCourseDelete = useCallback(
-		(courseId: number) => {
-			return () => {
-				void dispatch(coursesActions.deleteById(courseId));
-			};
-		},
-		[dispatch],
-	);
 
 	const handleOpenConfirmationModal = useCallback((course: CourseDto) => {
 		return () => {
@@ -58,6 +53,41 @@ const CoursesTab: React.FC = () => {
 		setCurrentCourse(null);
 	}, []);
 
+	const handleCourseDelete = useCallback(
+		(courseId: number) => {
+			return () => {
+				void dispatch(coursesActions.deleteById(courseId));
+				handleCloseConfirmationModal();
+			};
+		},
+		[dispatch, handleCloseConfirmationModal],
+	);
+
+	const handleOpenEditModal = useCallback((course: CourseDto) => {
+		return () => {
+			setCurrentCourse(course);
+			setEditModalOpen(true);
+		};
+	}, []);
+
+	const handleCloseEditModal = useCallback(() => {
+		setCurrentCourse(null);
+		setEditModalOpen(false);
+	}, []);
+
+	const handleConfirmUpdate = useCallback(
+		(payload: CourseUpdateRequestDto) => {
+			void dispatch(
+				coursesActions.update({
+					id: String(currentCourse?.id),
+					payload,
+				}),
+			);
+			handleCloseEditModal();
+		},
+		[currentCourse, dispatch, handleCloseEditModal],
+	);
+
 	const tableData = courses.map((course) => {
 		return {
 			buttons: (
@@ -67,6 +97,7 @@ const CoursesTab: React.FC = () => {
 						hasVisuallyHiddenLabel
 						iconName="edit"
 						label={CoursesTableHeader.BUTTONS}
+						onClick={handleOpenEditModal(course)}
 					/>
 					<Button
 						className={styles["icon-button"]}
@@ -131,12 +162,19 @@ const CoursesTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
+			{isEditModalOpen && (
+				<EditCourseModal
+					course={currentCourse as CourseDto}
+					onClose={handleCloseEditModal}
+					onConfirm={handleConfirmUpdate}
+				/>
+			)}
 			{isConfirmationModalOpen && (
 				<ConfirmationModal
 					onCancel={handleCloseConfirmationModal}
 					onClose={handleCloseConfirmationModal}
 					onConfirm={handleCourseDelete(currentCourse?.id as number)}
-					title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentCourse?.title}"?`}
+					title={`${ManagementDialogueMessage.DELETE_COURSE} "${currentCourse?.title}"?`}
 				/>
 			)}
 		</>
