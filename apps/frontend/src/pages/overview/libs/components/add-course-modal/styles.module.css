@@ -1,8 +1,10 @@
+@import url("~/assets/css/media.css");
+
 .add-course-modal {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	height: 100%;
+	width: min(1150px, calc(100vw - 28px));
+	height: calc(100vh - 28px);
 	background-color: var(--color-background);
 }
 
@@ -67,4 +69,11 @@
 
 .recommended-courses {
 	margin-top: 32px;
+}
+
+@media screen and (width <= 865px) {
+	.add-course-modal {
+		width: 100vw;
+		height: 100dvh;
+	}
 }

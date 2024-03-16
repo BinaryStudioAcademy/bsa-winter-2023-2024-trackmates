@@ -24,11 +24,12 @@
 	opacity: 1;
 }
 
+.centered {
+	align-items: center;
+}
+
 .content {
 	position: relative;
-	width: 100%;
-	max-width: 1150px;
-	height: 100%;
 	overflow: auto;
 	color: var(--color-text-300);
 	background: var(--main-white);

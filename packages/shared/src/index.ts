@@ -154,7 +154,12 @@ export {
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
-	groupIdParameter,
+	type GroupsGetAllResponseDto,
+	groupIdAndPermissionIdParametersValidationSchema,
+	groupIdAndUserIdParametersValidationSchema,
+	groupIdParameterValidationSchema,
+	groupNameFieldValidationSchema,
+	groupRequestBodyValidationSchema,
 } from "./modules/groups/groups.js";
 export {
 	type AllNotificationsResponseDto,
@@ -173,6 +178,7 @@ export {
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 	PermissionsApiPath,
+	type PermissionsGetAllResponseDto,
 	permissionIdParameter,
 } from "./modules/permissions/permissions.js";
 export {
