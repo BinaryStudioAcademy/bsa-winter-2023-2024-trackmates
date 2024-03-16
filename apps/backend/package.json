@@ -48,6 +48,7 @@
 	"devDependencies": {
 		"@types/bcrypt": "5.0.2",
 		"@types/convict": "6.1.6",
+		"@types/nodemailer": "6.4.14",
 		"@types/swagger-jsdoc": "6.0.4",
 		"ts-paths-esm-loader": "1.4.3",
 		"tsx": "4.7.0"
