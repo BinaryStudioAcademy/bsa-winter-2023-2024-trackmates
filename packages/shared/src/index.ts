@@ -78,6 +78,7 @@ export {
 	ChatMessagesApiPath,
 	MessageStatus,
 	type ReadChatMessagesRequestDto,
+	type ReadChatMessagesResponseDto,
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
@@ -154,7 +155,12 @@ export {
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
-	groupIdParameter,
+	type GroupsGetAllResponseDto,
+	groupIdAndPermissionIdParametersValidationSchema,
+	groupIdAndUserIdParametersValidationSchema,
+	groupIdParameterValidationSchema,
+	groupNameFieldValidationSchema,
+	groupRequestBodyValidationSchema,
 } from "./modules/groups/groups.js";
 export {
 	type AllNotificationsResponseDto,
@@ -163,7 +169,9 @@ export {
 	type NotificationResponseDto,
 	NotificationStatus,
 	NotificationType,
+	type ReadNotificationsResponseDto,
 	type UpdateNotificationRequestDto,
+	notificationFilterToType,
 } from "./modules/notifications/notifications.js";
 export {
 	PermissionError,
@@ -173,6 +181,7 @@ export {
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 	PermissionsApiPath,
+	type PermissionsGetAllResponseDto,
 	permissionIdParameter,
 } from "./modules/permissions/permissions.js";
 export {

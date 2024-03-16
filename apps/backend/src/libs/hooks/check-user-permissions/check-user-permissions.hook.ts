@@ -15,7 +15,7 @@ import { PermissionError } from "~/modules/permissions/permissions.js";
 
 const checkUserPermissions =
 	(
-		permissionsOnPage: ValueOf<typeof PermissionKey>[],
+		permissionsOnRoute: ValueOf<typeof PermissionKey>[],
 		mode: ValueOf<typeof PermissionMode>,
 	) =>
 	(
@@ -41,10 +41,10 @@ const checkUserPermissions =
 
 		const hasAllPermissions =
 			mode === PermissionMode.ONE_OF
-				? permissionsOnPage.some((permission) => {
+				? permissionsOnRoute.some((permission) => {
 						return userPermissionsKeys.includes(permission);
 					})
-				: permissionsOnPage.every((permission) => {
+				: permissionsOnRoute.every((permission) => {
 						return userPermissionsKeys.includes(permission);
 					});
 

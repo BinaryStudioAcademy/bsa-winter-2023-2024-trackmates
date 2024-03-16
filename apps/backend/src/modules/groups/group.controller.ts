@@ -11,11 +11,17 @@ import {
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type GroupService } from "./group.service.js";
 import { GroupsApiPath } from "./libs/enums/enums.js";
 import { type GroupRequestDto } from "./libs/types/types.js";
-import { groupIdParameter } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	groupIdAndPermissionIdParametersValidationSchema,
+	groupIdAndUserIdParametersValidationSchema,
+	groupIdParameterValidationSchema,
+	groupRequestBodyValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -58,6 +64,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				body: groupRequestBodyValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -65,6 +74,7 @@ class GroupController extends BaseController {
 				return this.delete(
 					options as APIHandlerOptions<{
 						params: Record<"groupId", number>;
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -75,7 +85,7 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -94,7 +104,7 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -109,8 +119,8 @@ class GroupController extends BaseController {
 			method: "GET",
 			path: GroupsApiPath.ROOT,
 			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
+				[PermissionKey.MANAGE_UAM, PermissionKey.MANAGE_USERS],
+				PermissionMode.ONE_OF,
 			),
 		});
 
@@ -129,7 +139,7 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -149,7 +159,8 @@ class GroupController extends BaseController {
 				PermissionMode.ALL_OF,
 			),
 			validation: {
-				params: groupIdParameter,
+				body: groupRequestBodyValidationSchema,
+				params: groupIdParameterValidationSchema,
 			},
 		});
 
@@ -158,6 +169,7 @@ class GroupController extends BaseController {
 				return this.updateGroupPermissions(
 					options as APIHandlerOptions<{
 						params: { groupId: number; permissionId: number };
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -167,6 +179,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdAndPermissionIdParametersValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -174,6 +189,7 @@ class GroupController extends BaseController {
 				return this.updateUserGroups(
 					options as APIHandlerOptions<{
 						params: { groupId: number; userId: number };
+						user: UserAuthResponseDto;
 					}>,
 				);
 			},
@@ -183,6 +199,9 @@ class GroupController extends BaseController {
 				[PermissionKey.MANAGE_UAM],
 				PermissionMode.ALL_OF,
 			),
+			validation: {
+				params: groupIdAndUserIdParametersValidationSchema,
+			},
 		});
 	}
 
@@ -253,11 +272,16 @@ class GroupController extends BaseController {
 	 */
 	private async delete({
 		params,
+		user,
 	}: APIHandlerOptions<{
 		params: Record<"groupId", number>;
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.groupService.delete(params.groupId),
+			payload: await this.groupService.deleteWithUserCheck(
+				params.groupId,
+				user.id,
+			),
 			status: HTTPCode.OK,
 		};
 	}
@@ -474,13 +498,16 @@ class GroupController extends BaseController {
 	 */
 	private async updateGroupPermissions({
 		params,
+		user,
 	}: APIHandlerOptions<{
 		params: { groupId: number; permissionId: number };
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.groupService.updateGroupPermissions(
 				params.groupId,
 				params.permissionId,
+				user.id,
 			),
 			status: HTTPCode.OK,
 		};
@@ -523,13 +550,16 @@ class GroupController extends BaseController {
 	 */
 	private async updateUserGroups({
 		params,
+		user,
 	}: APIHandlerOptions<{
 		params: { groupId: number; userId: number };
+		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.groupService.updateUserGroups(
 				params.groupId,
 				params.userId,
+				user.id,
 			),
 			status: HTTPCode.OK,
 		};

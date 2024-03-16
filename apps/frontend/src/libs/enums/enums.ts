@@ -14,5 +14,7 @@ export {
 	NotificationStatus,
 	NotificationType,
 	PaginationValue,
+	PermissionKey,
+	PermissionMode,
 	ServerErrorType,
 } from "@trackmates/shared";
