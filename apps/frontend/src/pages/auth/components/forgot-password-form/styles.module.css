@@ -11,6 +11,13 @@
 	color: var(--main-white);
 }
 
+.info {
+	font-size: var(--font-size-500);
+	font-weight: 600;
+	line-height: 48px;
+	text-align: center;
+}
+
 .title {
 	margin: 0;
 	font-size: var(--font-size-600);

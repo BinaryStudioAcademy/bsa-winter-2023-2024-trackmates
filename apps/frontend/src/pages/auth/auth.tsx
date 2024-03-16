@@ -75,16 +75,14 @@ const Auth: React.FC = () => {
 			case AppRoute.FORGOT_PASSWORD: {
 				return <ForgotPasswordForm onSubmit={handleForgotPasswordSubmit} />;
 			}
-
-			default: {
-				return updatePasswordMatch && updatePasswordMatch.params.token ? (
-					<UpdatePasswordForm
-						onSubmit={handleUpdatePasswordSubmit}
-						token={updatePasswordMatch.params.token}
-					/>
-				) : null;
-			}
 		}
+
+		return updatePasswordMatch && updatePasswordMatch.params.token ? (
+			<UpdatePasswordForm
+				onSubmit={handleUpdatePasswordSubmit}
+				token={updatePasswordMatch.params.token}
+			/>
+		) : null;
 	};
 
 	if (hasUser) {

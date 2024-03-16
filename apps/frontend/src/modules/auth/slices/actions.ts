@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
@@ -46,9 +47,11 @@ const updatePassword = createAsyncThunk<
 	AuthUpdatePasswordRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/update-password`, async (payload, { extra }) => {
-	const { authApi, storage } = extra;
+	const { authApi, notification, storage } = extra;
 
 	const { token, user } = await authApi.updatePassword(payload);
+
+	notification.success(NotificationMessage.PASSWORD_WAS_UPDATED);
 
 	await storage.set(StorageKey.TOKEN, token);
 

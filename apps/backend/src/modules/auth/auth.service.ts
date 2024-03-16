@@ -119,7 +119,7 @@ class AuthService {
 		return await this.mail.send({
 			email,
 			subject: "Reset your password",
-			text: `Hello! You can update your password by link: ${link}`,
+			text: `Hello! You can update your password for TrackMates using the following link: ${link}`,
 		});
 	}
 

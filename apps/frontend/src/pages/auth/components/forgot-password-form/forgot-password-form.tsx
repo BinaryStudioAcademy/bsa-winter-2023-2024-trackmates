@@ -43,7 +43,9 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	if (sendUpdatePasswordLinkStatus === DataStatus.FULFILLED) {
 		return (
 			<div className={styles["content"]}>
-				<h3 className={styles["title"]}>Check your email!</h3>
+				<h3 className={styles["info"]}>
+					Link for updating password was sended to your email.
+				</h3>
 			</div>
 		);
 	}
