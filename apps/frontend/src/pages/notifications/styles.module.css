@@ -6,7 +6,7 @@
 	flex-grow: 1;
 	gap: 22px;
 	max-height: calc(100vh - 98px);
-	padding: 33px 40px 42px;
+	padding: 33px 40px 25px;
 	overflow: hidden;
 }
 
@@ -15,7 +15,7 @@
 	flex-direction: column;
 	height: 100%;
 	min-height: 200px;
-	padding: 30px 15px 16px;
+	padding: 17px 15px 15px;
 	overflow: hidden;
 	background-color: var(--main-white);
 	border-radius: 20px;
@@ -34,7 +34,7 @@
 .divider {
 	flex-shrink: 0;
 	height: 1px;
-	margin: 30px 0;
+	margin: 15px 0;
 	background-color: rgba(174 180 187 / 15%);
 }
 

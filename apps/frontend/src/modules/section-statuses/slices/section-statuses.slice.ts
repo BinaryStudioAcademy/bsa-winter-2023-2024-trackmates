@@ -66,7 +66,11 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "section-statuses",
-	reducers: {},
+	reducers: {
+		reset() {
+			return initialState;
+		},
+	},
 });
 
 export { actions, name, reducer };

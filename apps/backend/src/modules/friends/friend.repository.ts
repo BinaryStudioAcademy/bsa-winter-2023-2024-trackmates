@@ -443,6 +443,21 @@ class FriendRepository implements Repository<UserEntity> {
 		};
 	}
 
+	public async getUserFollowingsIds(id: number): Promise<number[]> {
+		const followingsIdsResult = await this.userModel
+			.query()
+			.leftJoin(
+				DatabaseTableName.FRIENDS,
+				`${DatabaseTableName.USERS}.id`,
+				"=",
+				`${DatabaseTableName.FRIENDS}.following_id`,
+			)
+			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
+			.select(`${DatabaseTableName.FRIENDS}.following_id as id`);
+
+		return followingsIdsResult.map((row) => row.id);
+	}
+
 	public async update(id: number): Promise<UserEntity> {
 		const updatedSubscription = await this.userModel
 			.query()

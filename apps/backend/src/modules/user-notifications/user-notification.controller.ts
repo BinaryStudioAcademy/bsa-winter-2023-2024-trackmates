@@ -96,7 +96,10 @@ class UserNotificationController extends BaseController {
 		this.addRoute({
 			handler: (options) => {
 				return this.setReadNotifications(
-					options as APIHandlerOptions<{ body: ReadNotificationsRequestDto }>,
+					options as APIHandlerOptions<{
+						body: ReadNotificationsRequestDto;
+						user: UserAuthResponseDto;
+					}>,
 				);
 			},
 			method: "PATCH",
@@ -224,11 +227,13 @@ class UserNotificationController extends BaseController {
 	public async setReadNotifications(
 		options: APIHandlerOptions<{
 			body: ReadNotificationsRequestDto;
+			user: UserAuthResponseDto;
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.notificationService.setReadNotifications(
 				options.body.notificationIds,
+				options.user.id,
 			),
 			status: HTTPCode.OK,
 		};

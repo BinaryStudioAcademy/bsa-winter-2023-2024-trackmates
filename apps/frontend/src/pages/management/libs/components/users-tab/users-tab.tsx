@@ -24,6 +24,7 @@ import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
+import { USERS_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
 import { usersHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -44,7 +45,7 @@ const UsersTab: React.FC = () => {
 	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
 		null,
 	);
-	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
 	const hasPermissionToEdit = checkIfUserHasPermissions(
 		authUser,
@@ -66,12 +67,12 @@ const UsersTab: React.FC = () => {
 	const handleOpenEditModal = useCallback((user: UserAuthResponseDto) => {
 		return () => {
 			setCurrentUser(user);
-			setEditModalOpen(true);
+			setIsEditModalOpen(true);
 		};
 	}, []);
 
 	const handleCloseEditModal = useCallback(() => {
-		setEditModalOpen(false);
+		setIsEditModalOpen(false);
 		setCurrentUser(null);
 	}, []);
 
@@ -105,18 +106,10 @@ const UsersTab: React.FC = () => {
 		handleCloseDeleteModal();
 	}, [currentUser, dispatch, handleCloseDeleteModal]);
 
-	const tableHeaders = [
-		UsersTableHeader.ID,
-		UsersTableHeader.EMAIL,
-		UsersTableHeader.FIRST_NAME,
-		UsersTableHeader.LAST_NAME,
-		UsersTableHeader.GROUPS,
-		UsersTableHeader.BUTTONS,
-	];
-
 	const tableData = users.map((user) => {
+		const isSameUser = user.id === authUser.id;
+
 		const isDeleting = userToDataStatus[user.id] === DataStatus.PENDING;
-		const isTheSameUser = authUser.id === user.id;
 
 		return {
 			buttons: (
@@ -125,16 +118,15 @@ const UsersTab: React.FC = () => {
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
-						isDisabled={!hasPermissionToEdit || isTheSameUser}
+						isDisabled={!hasPermissionToEdit || isSameUser}
 						label={UsersTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(user)}
-						style="icon"
 					/>
 					<Button
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
-						isDisabled={!hasPermissionToDelete || isTheSameUser}
+						isDisabled={!hasPermissionToDelete || isSameUser}
 						isLoading={isDeleting}
 						label={UsersTableHeader.BUTTONS}
 						loaderColor="orange"
@@ -156,11 +148,11 @@ const UsersTab: React.FC = () => {
 	return (
 		<>
 			<div className={styles["table-container"]}>
-				<Table headers={tableHeaders}>
+				<Table headers={USERS_TABLE_HEADERS}>
 					{tableData.map((data) => {
 						return (
 							<TableRow key={data.id}>
-								<TableCell centered>
+								<TableCell isCentered width="narrow">
 									{data[usersHeaderToPropertyName[UsersTableHeader.ID]]}
 								</TableCell>
 								<TableCell>
@@ -175,7 +167,7 @@ const UsersTab: React.FC = () => {
 								<TableCell width="medium">
 									{data[usersHeaderToPropertyName[UsersTableHeader.GROUPS]]}
 								</TableCell>
-								<TableCell centered width="narrow">
+								<TableCell isCentered width="narrow">
 									{data[usersHeaderToPropertyName[UsersTableHeader.BUTTONS]]}
 								</TableCell>
 							</TableRow>
@@ -183,42 +175,41 @@ const UsersTab: React.FC = () => {
 					})}
 				</Table>
 			</div>
-			{isEditModalOpen && (
-				<EditModal
-					onClose={handleCloseEditModal}
-					title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
-				>
-					<ul className={styles["modal-list"]}>
-						{groups.map((group) => {
-							const isChecked =
-								currentUser?.groups.some((userGroup) => {
-									return userGroup.id === group.id;
-								}) ?? false;
+			<EditModal
+				isOpen={isEditModalOpen}
+				onClose={handleCloseEditModal}
+				title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
+			>
+				<ul className={styles["modal-list"]}>
+					{groups.map((group) => {
+						const isChecked = Boolean(
+							currentUser?.groups.some((userGroup) => {
+								return userGroup.id === group.id;
+							}),
+						);
 
-							return (
-								<li className={styles["modal-item"]} key={group.id}>
-									<EditCheckbox
-										isChecked={isChecked}
-										itemId={group.id}
-										key={group.id}
-										name={group.name}
-										onToggle={handleToggleCheckbox}
-									/>
-									{group.name}
-								</li>
-							);
-						})}
-					</ul>
-				</EditModal>
-			)}
-			{isDeleteModalOpen && (
-				<ConfirmationModal
-					onCancel={handleCloseDeleteModal}
-					onClose={handleCloseDeleteModal}
-					onConfirm={handleDeleteUser}
-					title={`${ManagementDialogueMessage.DELETE_USER} ${currentUser?.firstName} ${currentUser?.lastName}?`}
-				/>
-			)}
+						return (
+							<li className={styles["modal-item"]} key={group.id}>
+								<EditCheckbox
+									isChecked={isChecked}
+									itemId={group.id}
+									key={group.id}
+									name={group.name}
+									onToggle={handleToggleCheckbox}
+								/>
+								{group.name}
+							</li>
+						);
+					})}
+				</ul>
+			</EditModal>
+			<ConfirmationModal
+				isOpen={isDeleteModalOpen}
+				onCancel={handleCloseDeleteModal}
+				onClose={handleCloseDeleteModal}
+				onConfirm={handleDeleteUser}
+				title={`${ManagementDialogueMessage.DELETE_USER} ${currentUser?.firstName} ${currentUser?.lastName}?`}
+			/>
 		</>
 	);
 };

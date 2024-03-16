@@ -54,7 +54,9 @@ const ProtectedRoute: React.FC<Properties> = ({
 		}
 	}
 
-	return <AuthWrapper>{component}</AuthWrapper>;
+	return (
+		<AuthWrapper user={user as UserAuthResponseDto}>{component}</AuthWrapper>
+	);
 };
 
 export { ProtectedRoute };

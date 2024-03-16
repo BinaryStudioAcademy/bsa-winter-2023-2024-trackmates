@@ -1,4 +1,4 @@
 export {
-	type AllPermissionsResponseDto,
 	type PermissionResponseDto,
+	type PermissionsGetAllResponseDto,
 } from "@trackmates/shared";

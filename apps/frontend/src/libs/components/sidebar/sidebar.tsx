@@ -3,12 +3,7 @@ import {
 	checkIfUserHasPermissions,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useAppSelector,
-	useCallback,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
@@ -25,12 +20,10 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	menuItems: MenuItem[];
+	user: UserAuthResponseDto;
 };
 
-const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
-	const user = useAppSelector(({ auth }) => {
-		return auth.user as UserAuthResponseDto;
-	});
+const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -46,15 +39,16 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 			});
 	}, [dispatch]);
 
-	const checkPermissions = useCallback(
+	const handleCheckPermissions = useCallback(
 		(pagePermissions: PagePermissions | undefined): boolean => {
-			return pagePermissions
-				? checkIfUserHasPermissions(
-						user,
-						pagePermissions.permissions,
-						pagePermissions.mode,
-					)
-				: true;
+			return (
+				!pagePermissions ||
+				checkIfUserHasPermissions(
+					user,
+					pagePermissions.permissions,
+					pagePermissions.mode,
+				)
+			);
 		},
 		[user],
 	);
@@ -82,9 +76,9 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 					<Image alt="website logo" className={styles["logo"]} src={logo} />
 				</Link>
 				<nav className={styles["menu"]}>
-					{menuItems.map(
-						({ href, icon, label, pagePermissions }) =>
-							checkPermissions(pagePermissions) && (
+					{menuItems.map(({ href, icon, label, pagePermissions }) => {
+						return (
+							handleCheckPermissions(pagePermissions) && (
 								<Link
 									activeClassName={styles["active"]}
 									className={getValidClassNames(
@@ -97,8 +91,9 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 									<Icon name={icon} />
 									<span className={styles["link-title"]}>{label}</span>
 								</Link>
-							),
-					)}
+							)
+						);
+					})}
 				</nav>
 				<Button
 					className={styles["log-out-btn"]}

@@ -1,4 +1,5 @@
 import { Button, Input } from "~/libs/components/components.js";
+import { PermissionKey } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -9,7 +10,6 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
-	type GroupRequestDto,
 	type GroupResponseDto,
 	groupNameFieldValidationSchema,
 	actions as groupsActions,
@@ -22,6 +22,10 @@ import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
+import {
+	GROUPS_TABLE_HEADERS,
+	INPUT_DEFAULT_VALUE,
+} from "./libs/constants/constants.js";
 import { GroupsTableHeader } from "./libs/enums/enums.js";
 import { groupsHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -35,19 +39,18 @@ const GroupsTab: React.FC = () => {
 			permissions: state.management.permissions,
 		};
 	});
-	const { control, errors, handleSubmit, reset } = useAppForm<GroupRequestDto>({
-		defaultValues: {
-			key: "",
-			name: "",
+	const { control, errors, handleSubmit, reset } = useAppForm<{ name: string }>(
+		{
+			defaultValues: INPUT_DEFAULT_VALUE,
+			validationSchema: groupNameFieldValidationSchema,
 		},
-		validationSchema: groupNameFieldValidationSchema,
-	});
+	);
 
 	const [currentGroup, setCurrentGroup] = useState<GroupResponseDto | null>(
 		null,
 	);
-	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
-	const [isConfirmationModalOpen, setConfirmationModalOpen] =
+	const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+	const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
 		useState<boolean>(false);
 
 	useEffect(() => {
@@ -56,9 +59,9 @@ const GroupsTab: React.FC = () => {
 	}, [dispatch]);
 
 	const handleCreateGroup = useCallback(
-		(group: GroupRequestDto) => {
-			const key = group.name.trim().replace(" ", "-").toLowerCase();
-			void dispatch(groupsActions.createGroup({ key, name: group.name }));
+		({ name }: { name: string }) => {
+			const key = name.trim().replace(" ", "-").toLowerCase();
+			void dispatch(groupsActions.createGroup({ key, name }));
 			reset();
 		},
 		[dispatch, reset],
@@ -74,24 +77,24 @@ const GroupsTab: React.FC = () => {
 	const handleOpenEditModal = useCallback((group: GroupResponseDto) => {
 		return () => {
 			setCurrentGroup(group);
-			setEditModalOpen(true);
+			setIsEditModalOpen(true);
 		};
 	}, []);
 
 	const handleCloseEditModal = useCallback(() => {
-		setEditModalOpen(false);
+		setIsEditModalOpen(false);
 		setCurrentGroup(null);
 	}, []);
 
 	const handleOpenConfirmationModal = useCallback((group: GroupResponseDto) => {
 		return () => {
 			setCurrentGroup(group);
-			setConfirmationModalOpen(true);
+			setIsConfirmationModalOpen(true);
 		};
 	}, []);
 
 	const handleCloseConfirmationModal = useCallback(() => {
-		setConfirmationModalOpen(false);
+		setIsConfirmationModalOpen(false);
 		setCurrentGroup(null);
 	}, []);
 
@@ -121,13 +124,6 @@ const GroupsTab: React.FC = () => {
 		[dispatch, handleCloseConfirmationModal],
 	);
 
-	const tableHeaders = [
-		GroupsTableHeader.ID,
-		GroupsTableHeader.NAME,
-		GroupsTableHeader.PERMISSIONS,
-		GroupsTableHeader.BUTTONS,
-	];
-
 	const tableData = groups.map((group) => {
 		const hasGroup = authUser.groups.some((userGroup) => {
 			return userGroup.id === group.id;
@@ -137,20 +133,19 @@ const GroupsTab: React.FC = () => {
 			buttons: (
 				<div className={styles["column-buttons"]}>
 					<Button
+						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
-						isDisabled={hasGroup}
 						label={GroupsTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(group)}
-						style="icon"
 					/>
 					<Button
+						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
 						isDisabled={hasGroup}
 						label={GroupsTableHeader.BUTTONS}
 						onClick={handleOpenConfirmationModal(group)}
-						style="icon"
 					/>
 				</div>
 			),
@@ -186,17 +181,17 @@ const GroupsTab: React.FC = () => {
 					/>
 				</form>
 				<div className={styles["table-container"]}>
-					<Table headers={tableHeaders}>
+					<Table headers={GROUPS_TABLE_HEADERS}>
 						{tableData.map((data) => {
 							return (
 								<TableRow key={data.id}>
-									<TableCell centered>
+									<TableCell isCentered width="narrow">
 										{data[groupsHeaderToPropertyName[GroupsTableHeader.ID]]}
 									</TableCell>
-									<TableCell>
+									<TableCell width="medium">
 										{data[groupsHeaderToPropertyName[GroupsTableHeader.NAME]]}
 									</TableCell>
-									<TableCell width="medium">
+									<TableCell>
 										{
 											data[
 												groupsHeaderToPropertyName[
@@ -205,7 +200,7 @@ const GroupsTab: React.FC = () => {
 											]
 										}
 									</TableCell>
-									<TableCell centered width="narrow">
+									<TableCell isCentered width="narrow">
 										{
 											data[
 												groupsHeaderToPropertyName[GroupsTableHeader.BUTTONS]
@@ -218,42 +213,48 @@ const GroupsTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
-			{isEditModalOpen && (
-				<EditModal
-					onClose={handleCloseEditModal}
-					title={`Edit permissions of the "${currentGroup?.name}" group:`}
-				>
-					<ul className={styles["modal-list"]}>
-						{permissions.map((permission) => {
-							const isChecked =
-								currentGroup?.permissions.some((permissionInGroup) => {
-									return permissionInGroup.id === permission.id;
-								}) ?? false;
+			<EditModal
+				isOpen={isEditModalOpen}
+				onClose={handleCloseEditModal}
+				title={`Edit permissions of the "${currentGroup?.name}" group:`}
+			>
+				<ul className={styles["modal-list"]}>
+					{permissions.map((permission) => {
+						const isChecked = Boolean(
+							currentGroup?.permissions.some((permissionInGroup) => {
+								return permissionInGroup.id === permission.id;
+							}),
+						);
 
-							return (
-								<li className={styles["modal-item"]} key={permission.id}>
-									<EditCheckbox
-										isChecked={isChecked}
-										itemId={permission.id}
-										key={permission.id}
-										name={permission.name}
-										onToggle={handleToggleCheckbox}
-									/>
-									{permission.name}
-								</li>
-							);
-						})}
-					</ul>
-				</EditModal>
-			)}
-			{isConfirmationModalOpen && (
-				<ConfirmationModal
-					onCancel={handleCloseConfirmationModal}
-					onClose={handleCloseConfirmationModal}
-					onConfirm={handleDeleteGroup(currentGroup?.id as number)}
-					title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
-				/>
-			)}
+						const isDisabled =
+							permission.key === PermissionKey.MANAGE_UAM &&
+							authUser.groups.some((group) => {
+								return group.id === currentGroup?.id;
+							});
+
+						return (
+							<li className={styles["modal-item"]} key={permission.id}>
+								<EditCheckbox
+									isChecked={isChecked}
+									isDisabled={isDisabled}
+									itemId={permission.id}
+									key={permission.id}
+									name={permission.name}
+									onToggle={handleToggleCheckbox}
+								/>
+								{permission.name}
+							</li>
+						);
+					})}
+				</ul>
+			</EditModal>
+			<ConfirmationModal
+				isOpen={isConfirmationModalOpen}
+				onCancel={handleCloseConfirmationModal}
+				onClose={handleCloseConfirmationModal}
+				onConfirm={handleDeleteGroup(currentGroup?.id as number)}
+				title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
+			/>
 		</>
 	);
 };
