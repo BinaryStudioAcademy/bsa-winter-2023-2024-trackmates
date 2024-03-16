@@ -167,6 +167,34 @@ class AuthController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /auth/send-update-password-link:
+	 *    post:
+	 *      tags:
+	 *        - Authentication
+	 *      description: Sends link for update password on specified email
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                email:
+	 *                  type: string
+	 *                  format: email
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  success:
+	 *                    type: boolean
+	 */
 	private async sendUpdatePasswordLink({
 		body: { email },
 	}: APIHandlerOptions<{
@@ -270,6 +298,38 @@ class AuthController extends BaseController {
 		};
 	}
 
+	/**
+	 * @swagger
+	 * /auth/update-password:
+	 *    post:
+	 *      tags:
+	 *        - Authentication
+	 *      description: Verifies token and updates password
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                token:
+	 *                  type: string
+	 *                password:
+	 *                  type: string
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  token:
+	 *                    type: string
+	 *                  user:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
 	private async updatePassword({
 		body: { password, token },
 	}: APIHandlerOptions<{
