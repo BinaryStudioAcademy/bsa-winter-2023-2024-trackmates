@@ -191,11 +191,11 @@
 		position: fixed;
 		bottom: 0;
 		left: 0;
-		flex-direction: row;
+		flex-direction: row-reverse;
 		gap: 0;
 		height: fit-content;
-		padding-top: 13px;
-		padding-bottom: 30px;
+		padding-top: 20px;
+		padding-bottom: 21px;
 	}
 
 	.sidebar.close {
@@ -210,9 +210,10 @@
 
 	.menu {
 		display: flex;
-		flex: 2;
 		flex-flow: nowrap;
+		flex-grow: 3;
 		justify-content: space-around;
+		width: unset;
 	}
 
 	.active {
@@ -234,6 +235,10 @@
 		visibility: hidden;
 	}
 
+	.link-title {
+		line-height: unset;
+	}
+
 	.close .link-title {
 		display: block;
 	}
@@ -244,10 +249,22 @@
 
 	.log-out-btn {
 		display: flex;
-		flex: 1;
 		flex-direction: column;
-		gap: 9px;
-		padding: 9px 0;
+		flex-grow: 1;
 		border: 0;
+	}
+
+	.log-out-btn :not(:first-child) {
+		display: block;
+		white-space: nowrap;
+	}
+
+	.menu-item,
+	.log-out-btn {
+		padding: 0;
+	}
+
+	.sidebar.close .menu-item {
+		overflow: unset;
 	}
 }

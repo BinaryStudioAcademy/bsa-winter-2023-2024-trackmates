@@ -41,9 +41,3 @@
 		font-size: var(--font-size-300);
 	}
 }
-
-@media (display-mode: standalone) and (--small-screen) {
-	.container {
-		margin-bottom: 67px;
-	}
-}
