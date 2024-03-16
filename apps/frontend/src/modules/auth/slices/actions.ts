@@ -18,7 +18,7 @@ const sendUpdatePasswordLink = createAsyncThunk<
 	boolean,
 	AuthSendUpdatePasswordLinkRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/forgot-password`, async (payload, { extra }) => {
+>(`${sliceName}/send-update-password-link`, async (payload, { extra }) => {
 	const { authApi } = extra;
 
 	return await authApi.sendUpdatePasswordLink(payload);

@@ -11,7 +11,7 @@ import {
 	authSendUpdatePasswordLinkValidationSchema,
 } from "~/modules/auth/auth.js";
 
-import { DEFAULT_FORGOT_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
+import { DEFAULT_AUTH_SEND_UPDATE_PASSWORD_LINK_IN_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -21,7 +21,7 @@ type Properties = {
 const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	const { control, errors, handleSubmit } =
 		useAppForm<AuthSendUpdatePasswordLinkRequestDto>({
-			defaultValues: DEFAULT_FORGOT_PASSWORD_IN_PAYLOAD,
+			defaultValues: DEFAULT_AUTH_SEND_UPDATE_PASSWORD_LINK_IN_PAYLOAD,
 			validationSchema: authSendUpdatePasswordLinkValidationSchema,
 		});
 
