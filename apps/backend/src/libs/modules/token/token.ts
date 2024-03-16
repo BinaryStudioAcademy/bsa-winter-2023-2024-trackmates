@@ -2,8 +2,8 @@ import { config } from "~/libs/modules/config/config.js";
 
 import { BaseToken } from "./base-token.module.js";
 import {
-	type ResetPasswordTokenPayload,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 } from "./libs/types/types.js";
 
 const token = new BaseToken<TokenPayload>({
@@ -12,7 +12,7 @@ const token = new BaseToken<TokenPayload>({
 	secret: Buffer.from(config.ENV.JWT.SECRET, "utf8"),
 });
 
-const updatePasswordToken = new BaseToken<ResetPasswordTokenPayload>({
+const updatePasswordToken = new BaseToken<UpdatePasswordTokenPayload>({
 	algorithm: config.ENV.UPDATE_PASSWORD.JWT.ALGORITHM,
 	expiresIn: config.ENV.UPDATE_PASSWORD.JWT.EXPIRES_IN,
 	secret: Buffer.from(config.ENV.UPDATE_PASSWORD.JWT.SECRET, "utf8"),
@@ -20,7 +20,7 @@ const updatePasswordToken = new BaseToken<ResetPasswordTokenPayload>({
 
 export { token, updatePasswordToken };
 export {
-	type ResetPasswordTokenPayload,
 	type Token,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 } from "./libs/types/types.js";

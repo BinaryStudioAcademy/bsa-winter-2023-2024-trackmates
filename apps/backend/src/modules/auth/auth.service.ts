@@ -2,9 +2,9 @@ import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { type Mail } from "~/libs/modules/mail/mail.js";
 import {
-	type ResetPasswordTokenPayload,
 	type Token,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 } from "~/libs/modules/token/token.js";
 import {
 	type UserAuthResponseDto,
@@ -24,7 +24,7 @@ type Constructor = {
 	mail: Mail;
 	token: Token<TokenPayload>;
 	updatePasswordBaseLink: string;
-	updatePasswordToken: Token<ResetPasswordTokenPayload>;
+	updatePasswordToken: Token<UpdatePasswordTokenPayload>;
 	userService: UserService;
 };
 
@@ -33,7 +33,7 @@ class AuthService {
 	private mail: Mail;
 	private token: Token<TokenPayload>;
 	private updatePasswordBaseLink: string;
-	private updatePasswordToken: Token<ResetPasswordTokenPayload>;
+	private updatePasswordToken: Token<UpdatePasswordTokenPayload>;
 	private userService: UserService;
 
 	public constructor({
@@ -82,7 +82,7 @@ class AuthService {
 		return user;
 	}
 
-	private async verifyResetPasswordToken(
+	private async verifyUpdatePasswordToken(
 		token: string,
 	): Promise<UserAuthResponseDto> {
 		const {
@@ -161,7 +161,7 @@ class AuthService {
 		password: string,
 		token: string,
 	): Promise<AuthUpdatePasswordResponseDto> {
-		const user = await this.verifyResetPasswordToken(token);
+		const user = await this.verifyUpdatePasswordToken(token);
 		const updatedUser = await this.userService.updatePassword(
 			user.id,
 			password,
