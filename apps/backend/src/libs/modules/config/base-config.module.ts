@@ -188,34 +188,6 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
-			RESET_PASSWORD: {
-				BASE_LINK: {
-					default: null,
-					doc: "Reset password base link",
-					env: "RESET_PASSWORD_BASE_LINK",
-					format: String,
-				},
-				JWT: {
-					ALGORITHM: {
-						default: null,
-						doc: "Algorithm for token generation",
-						env: "RESET_PASSWORD_TOKEN_ALGORITHM",
-						format: String,
-					},
-					EXPIRES_IN: {
-						default: null,
-						doc: "Token expiration time",
-						env: "RESET_PASSWORD_TOKEN_EXPIRES_IN",
-						format: String,
-					},
-					SECRET: {
-						default: null,
-						doc: "Secret key for token generation",
-						env: "RESET_PASSWORD_SECRET_KEY",
-						format: String,
-					},
-				},
-			},
 			UDEMY: {
 				CLIENT_ID: {
 					default: null,
@@ -234,6 +206,34 @@ class BaseConfig implements Config {
 					doc: "API url",
 					env: "UDEMY_URL",
 					format: String,
+				},
+			},
+			UPDATE_PASSWORD: {
+				BASE_LINK: {
+					default: null,
+					doc: "Reset password base link",
+					env: "UPDATE_PASSWORD_BASE_LINK",
+					format: String,
+				},
+				JWT: {
+					ALGORITHM: {
+						default: null,
+						doc: "Algorithm for token generation",
+						env: "UPDATE_PASSWORD_TOKEN_ALGORITHM",
+						format: String,
+					},
+					EXPIRES_IN: {
+						default: null,
+						doc: "Token expiration time",
+						env: "UPDATE_PASSWORD_TOKEN_EXPIRES_IN",
+						format: String,
+					},
+					SECRET: {
+						default: null,
+						doc: "Secret key for token generation",
+						env: "UPDATE_PASSWORD_SECRET_KEY",
+						format: String,
+					},
 				},
 			},
 		});

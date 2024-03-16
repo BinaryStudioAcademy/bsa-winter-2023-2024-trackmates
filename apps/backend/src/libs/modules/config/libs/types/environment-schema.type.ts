@@ -40,18 +40,18 @@ type EnvironmentSchema = {
 		API_KEY: string;
 		MODEL: string;
 	};
-	RESET_PASSWORD: {
+	UDEMY: {
+		CLIENT_ID: string;
+		CLIENT_SECRET: string;
+		URL: string;
+	};
+	UPDATE_PASSWORD: {
 		BASE_LINK: string;
 		JWT: {
 			ALGORITHM: string;
 			EXPIRES_IN: string;
 			SECRET: string;
 		};
-	};
-	UDEMY: {
-		CLIENT_ID: string;
-		CLIENT_SECRET: string;
-		URL: string;
 	};
 };
 

@@ -12,13 +12,13 @@ const token = new BaseToken<TokenPayload>({
 	secret: Buffer.from(config.ENV.JWT.SECRET, "utf8"),
 });
 
-const resetPasswordToken = new BaseToken<ResetPasswordTokenPayload>({
-	algorithm: config.ENV.RESET_PASSWORD.JWT.ALGORITHM,
-	expiresIn: config.ENV.RESET_PASSWORD.JWT.EXPIRES_IN,
-	secret: Buffer.from(config.ENV.RESET_PASSWORD.JWT.SECRET, "utf8"),
+const updatePasswordToken = new BaseToken<ResetPasswordTokenPayload>({
+	algorithm: config.ENV.UPDATE_PASSWORD.JWT.ALGORITHM,
+	expiresIn: config.ENV.UPDATE_PASSWORD.JWT.EXPIRES_IN,
+	secret: Buffer.from(config.ENV.UPDATE_PASSWORD.JWT.SECRET, "utf8"),
 });
 
-export { resetPasswordToken, token };
+export { token, updatePasswordToken };
 export {
 	type ResetPasswordTokenPayload,
 	type Token,

@@ -22,33 +22,33 @@ import { type AuthUpdatePasswordResponseDto } from "./libs/types/types.js";
 type Constructor = {
 	encrypt: Encrypt;
 	mail: Mail;
-	resetPasswordBaseLink: string;
-	resetPasswordToken: Token<ResetPasswordTokenPayload>;
 	token: Token<TokenPayload>;
+	updatePasswordBaseLink: string;
+	updatePasswordToken: Token<ResetPasswordTokenPayload>;
 	userService: UserService;
 };
 
 class AuthService {
 	private encrypt: Encrypt;
 	private mail: Mail;
-	private resetPasswordBaseLink: string;
-	private resetPasswordToken: Token<ResetPasswordTokenPayload>;
 	private token: Token<TokenPayload>;
+	private updatePasswordBaseLink: string;
+	private updatePasswordToken: Token<ResetPasswordTokenPayload>;
 	private userService: UserService;
 
 	public constructor({
 		encrypt,
 		mail,
-		resetPasswordBaseLink,
-		resetPasswordToken,
 		token,
+		updatePasswordBaseLink,
+		updatePasswordToken,
 		userService,
 	}: Constructor) {
 		this.encrypt = encrypt;
 		this.mail = mail;
-		this.resetPasswordBaseLink = resetPasswordBaseLink;
-		this.resetPasswordToken = resetPasswordToken;
 		this.token = token;
+		this.updatePasswordBaseLink = updatePasswordBaseLink;
+		this.updatePasswordToken = updatePasswordToken;
 		this.userService = userService;
 	}
 
@@ -87,7 +87,7 @@ class AuthService {
 	): Promise<UserAuthResponseDto> {
 		const {
 			payload: { updatedAt, userId },
-		} = await this.resetPasswordToken.verify(token);
+		} = await this.updatePasswordToken.verify(token);
 
 		const user = await this.userService.findById(userId);
 		const userUpdatedAt = JSON.parse(JSON.stringify(user?.updatedAt)) as string;
@@ -113,8 +113,8 @@ class AuthService {
 		}
 
 		const { id: userId, updatedAt } = user.toObject();
-		const token = await this.resetPasswordToken.create({ updatedAt, userId });
-		const link = `${this.resetPasswordBaseLink}${token}`;
+		const token = await this.updatePasswordToken.create({ updatedAt, userId });
+		const link = `${this.updatePasswordBaseLink}${token}`;
 
 		return await this.mail.send({
 			email,
