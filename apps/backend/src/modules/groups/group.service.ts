@@ -1,9 +1,9 @@
-import { HTTPCode } from "~/libs/enums/enums.js";
+import { HTTPCode, PermissionKey } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/types.js";
 
 import {
-	type PermissionResponseDto,
 	type PermissionService,
+	type PermissionsGetAllResponseDto,
 } from "../permissions/permissions.js";
 import { type UserService } from "../users/users.js";
 import { GroupEntity } from "./group.entity.js";
@@ -13,6 +13,7 @@ import { GroupError } from "./libs/exceptions/exceptions.js";
 import {
 	type GroupRequestDto,
 	type GroupResponseDto,
+	type GroupsGetAllResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -68,6 +69,34 @@ class GroupService implements Service {
 		return await this.groupRepository.delete(id);
 	}
 
+	public async deleteWithUserCheck(
+		groupId: number,
+		currentUserId: number,
+	): Promise<boolean> {
+		const groupById = await this.groupRepository.find(groupId);
+
+		if (!groupById) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_NOT_FOUND,
+				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const hasGroup = await this.groupRepository.findUserInGroup(
+			groupId,
+			currentUserId,
+		);
+
+		if (hasGroup) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_DELETION_FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return await this.groupRepository.delete(groupId);
+	}
+
 	public async find(id: number): Promise<GroupResponseDto> {
 		const groupById = await this.groupRepository.find(id);
 
@@ -81,7 +110,7 @@ class GroupService implements Service {
 		return groupById.toObject();
 	}
 
-	public async findAll(): Promise<{ items: GroupResponseDto[] }> {
+	public async findAll(): Promise<GroupsGetAllResponseDto> {
 		const groups = await this.groupRepository.findAll();
 
 		return {
@@ -93,7 +122,7 @@ class GroupService implements Service {
 
 	public async findAllPermissionsInGroup(
 		groupId: number,
-	): Promise<{ items: PermissionResponseDto[] }> {
+	): Promise<PermissionsGetAllResponseDto> {
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
@@ -115,7 +144,7 @@ class GroupService implements Service {
 
 	public async findAllUserGroups(
 		userId: number,
-	): Promise<{ items: GroupResponseDto[] }> {
+	): Promise<GroupsGetAllResponseDto> {
 		void (await this.userService.findById(userId));
 		const userGroups = await this.groupRepository.findAllUserGroups(userId);
 
@@ -180,14 +209,27 @@ class GroupService implements Service {
 	public async updateGroupPermissions(
 		groupId: number,
 		permissionId: number,
-	): Promise<PermissionResponseDto[]> {
-		void (await this.permissionService.find(permissionId));
+		currentUserId: number,
+	): Promise<PermissionsGetAllResponseDto> {
+		const permissionById = await this.permissionService.find(permissionId);
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
 			throw new GroupError({
 				message: GroupErrorMessage.GROUP_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		const hasGroup = await this.groupRepository.findUserInGroup(
+			groupId,
+			currentUserId,
+		);
+
+		if (hasGroup && permissionById.key === PermissionKey.MANAGE_UAM) {
+			throw new GroupError({
+				message: GroupErrorMessage.PERMISSION_CHANGE_FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
@@ -203,15 +245,18 @@ class GroupService implements Service {
 				)
 			: await this.groupRepository.addPermissionToGroup(groupId, permissionId);
 
-		return permissionsInGroup.map((permission) => {
-			return permission.toObject();
-		});
+		return {
+			items: permissionsInGroup.map((permission) => {
+				return permission.toObject();
+			}),
+		};
 	}
 
 	public async updateUserGroups(
 		groupId: number,
 		userId: number,
-	): Promise<GroupResponseDto[]> {
+		currentUserId: number,
+	): Promise<GroupsGetAllResponseDto> {
 		void (await this.userService.findById(userId));
 		const groupById = await this.groupRepository.find(groupId);
 
@@ -219,6 +264,13 @@ class GroupService implements Service {
 			throw new GroupError({
 				message: GroupErrorMessage.GROUP_NOT_FOUND,
 				status: HTTPCode.NOT_FOUND,
+			});
+		}
+
+		if (Number(userId) === currentUserId) {
+			throw new GroupError({
+				message: GroupErrorMessage.GROUP_CHANGE_FORBIDDEN,
+				status: HTTPCode.BAD_REQUEST,
 			});
 		}
 
@@ -231,9 +283,11 @@ class GroupService implements Service {
 			? await this.groupRepository.removeUserFromGroup(groupId, userId)
 			: await this.groupRepository.addUserToGroup(groupId, userId);
 
-		return userGroups.map((group) => {
-			return group.toObject();
-		});
+		return {
+			items: userGroups.map((group) => {
+				return group.toObject();
+			}),
+		};
 	}
 }
 

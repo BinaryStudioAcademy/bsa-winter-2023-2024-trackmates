@@ -80,6 +80,7 @@
 .primary.disabled:hover,
 .primary.disabled:focus {
 	color: var(--main-white);
+	cursor: default;
 	background-color: var(--color-text-100);
 	border-color: var(--color-text-100);
 }
