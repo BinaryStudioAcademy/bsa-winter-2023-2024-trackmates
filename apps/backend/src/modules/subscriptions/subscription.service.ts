@@ -7,7 +7,11 @@ import { userService } from "~/modules/users/users.js";
 
 import { SubscriptionPlan } from "./libs/enums/enums.js";
 import { SubscriptionError } from "./libs/exceptions/exceptions.js";
-import { type SubscriptionResponseDto } from "./libs/types/types.js";
+import {
+	type SubscriptionPaymentIntentCreateRequestDto,
+	type SubscriptionPaymentIntentCreateResponseDto,
+	type SubscriptionResponseDto,
+} from "./libs/types/types.js";
 import { SubscriptionEntity } from "./subscription.entity.js";
 import { type SubscriptionRepository } from "./subscription.repository.js";
 
@@ -42,9 +46,7 @@ class SubscriptionService implements Service {
 
 	public async createPaymentIntent({
 		price,
-	}: {
-		price: number;
-	}): Promise<{ clientSecret: string; id: string }> {
+	}: SubscriptionPaymentIntentCreateRequestDto): Promise<SubscriptionPaymentIntentCreateResponseDto> {
 		const { clientSecret, id } = await this.stripe.createPaymentIntent({
 			price,
 		});
