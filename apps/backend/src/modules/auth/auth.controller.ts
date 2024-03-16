@@ -17,7 +17,7 @@ import {
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
 import {
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 } from "./libs/types/types.js";
 import {
@@ -87,7 +87,7 @@ class AuthController extends BaseController {
 			handler: (options) => {
 				return this.sendUpdatePasswordLink(
 					options as APIHandlerOptions<{
-						body: AuthForgotPasswordRequestDto;
+						body: AuthSendUpdatePasswordLinkRequestDto;
 					}>,
 				);
 			},
@@ -170,7 +170,7 @@ class AuthController extends BaseController {
 	private async sendUpdatePasswordLink({
 		body: { email },
 	}: APIHandlerOptions<{
-		body: AuthForgotPasswordRequestDto;
+		body: AuthSendUpdatePasswordLinkRequestDto;
 	}>): Promise<APIHandlerResponse> {
 		const success = await this.authService.sendUpdatePasswordLink(email);
 

@@ -1,5 +1,5 @@
 export {
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type AuthUpdatePasswordResponseDto,
 	type UserAuthResponseDto,

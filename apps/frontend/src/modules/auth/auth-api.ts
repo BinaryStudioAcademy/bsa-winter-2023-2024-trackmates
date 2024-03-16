@@ -11,7 +11,7 @@ import {
 } from "~/modules/users/users.js";
 
 import {
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 } from "./auth.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
@@ -41,7 +41,7 @@ class AuthApi extends BaseHTTPApi {
 	}
 
 	public async sendUpdatePasswordLink(
-		payload: AuthForgotPasswordRequestDto,
+		payload: AuthSendUpdatePasswordLinkRequestDto,
 	): Promise<boolean> {
 		const response = await this.load(
 			this.getFullEndpoint(AuthApiPath.SEND_UPDATE_PASSWORD_LINK, {}),

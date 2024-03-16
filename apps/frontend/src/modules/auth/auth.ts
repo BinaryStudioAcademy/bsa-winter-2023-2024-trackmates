@@ -11,7 +11,7 @@ const authApi = new AuthApi({
 });
 
 export {
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type UserAuthResponseDto,
 } from "./libs/types/types.js";

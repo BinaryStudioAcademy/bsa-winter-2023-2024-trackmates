@@ -3,7 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type UserAuthResponseDto,
 } from "~/modules/auth/auth.js";
@@ -16,7 +16,7 @@ import { name as sliceName } from "./auth.slice.js";
 
 const sendUpdatePasswordLink = createAsyncThunk<
 	boolean,
-	AuthForgotPasswordRequestDto,
+	AuthSendUpdatePasswordLinkRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/forgot-password`, async (payload, { extra }) => {
 	const { authApi } = extra;

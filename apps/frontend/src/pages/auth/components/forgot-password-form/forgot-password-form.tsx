@@ -6,19 +6,19 @@ import {
 	useAppTitle,
 	useCallback,
 } from "~/libs/hooks/hooks.js";
-import { type AuthForgotPasswordRequestDto } from "~/modules/auth/auth.js";
+import { type AuthSendUpdatePasswordLinkRequestDto } from "~/modules/auth/auth.js";
 import { authForgotPasswordValidationSchema } from "~/modules/auth/auth.js";
 
 import { DEFAULT_FORGOT_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	onSubmit: (payload: AuthForgotPasswordRequestDto) => void;
+	onSubmit: (payload: AuthSendUpdatePasswordLinkRequestDto) => void;
 };
 
 const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	const { control, errors, handleSubmit } =
-		useAppForm<AuthForgotPasswordRequestDto>({
+		useAppForm<AuthSendUpdatePasswordLinkRequestDto>({
 			defaultValues: DEFAULT_FORGOT_PASSWORD_IN_PAYLOAD,
 			validationSchema: authForgotPasswordValidationSchema,
 		});

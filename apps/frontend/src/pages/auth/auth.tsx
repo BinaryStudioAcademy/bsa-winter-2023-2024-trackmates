@@ -10,7 +10,7 @@ import {
 	useMatch,
 } from "~/libs/hooks/hooks.js";
 import {
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	actions as authActions,
 } from "~/modules/auth/auth.js";
@@ -49,7 +49,7 @@ const Auth: React.FC = () => {
 	);
 
 	const handleForgotPasswordSubmit = useCallback(
-		(payload: AuthForgotPasswordRequestDto): void => {
+		(payload: AuthSendUpdatePasswordLinkRequestDto): void => {
 			void dispatch(authActions.sendUpdatePasswordLink(payload));
 		},
 		[dispatch],

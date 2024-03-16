@@ -145,7 +145,7 @@ class BaseConfig implements Config {
 				},
 				SECURE: {
 					default: true,
-					doc: "Defines if the connection",
+					doc: "Defines if the connection should use SSL",
 					env: "MAIL_SECURE",
 					format: Boolean,
 				},

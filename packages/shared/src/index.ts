@@ -73,7 +73,7 @@ export {
 export {
 	AuthApiPath,
 	AuthError,
-	type AuthForgotPasswordRequestDto,
+	type AuthSendUpdatePasswordLinkRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type AuthUpdatePasswordResponseDto,
 	authForgotPasswordValidationSchema,
