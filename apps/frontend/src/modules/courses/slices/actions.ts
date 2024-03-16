@@ -51,45 +51,33 @@ const getAll = createAsyncThunk<CourseDto[], undefined, AsyncThunkConfig>(
 	},
 );
 
-const deleteById = createAsyncThunk<CourseDto[], number, AsyncThunkConfig>(
+const deleteById = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 	`${sliceName}/delete-by-id`,
-	async (id, { extra, getState }) => {
+	async (id, { extra }) => {
 		const { courseApi, notification } = extra;
-		const {
-			management: { courses },
-		} = getState();
 
 		const { success } = await courseApi.deleteById(String(id));
 
-		if (!success) {
-			return courses;
+		if (success) {
+			notification.success(NotificationMessage.COURSE_DELETED);
 		}
 
-		notification.success(NotificationMessage.COURSE_DELETED);
-
-		return courses.filter((course) => {
-			return course.id !== id;
-		});
+		return success;
 	},
 );
 
 const update = createAsyncThunk<
-	CourseDto[],
+	CourseDto,
 	{ id: string; payload: CourseUpdateRequestDto },
 	AsyncThunkConfig
->(`${sliceName}/update`, async ({ id, payload }, { extra, getState }) => {
+>(`${sliceName}/update`, async ({ id, payload }, { extra }) => {
 	const { courseApi, notification } = extra;
-	const {
-		management: { courses },
-	} = getState();
 
 	const updatedCourse = await courseApi.update(id, payload);
 
 	notification.success(NotificationMessage.COURSE_UPDATED);
 
-	return courses.map((course) => {
-		return course.id === updatedCourse.id ? updatedCourse : course;
-	});
+	return updatedCourse;
 });
 
 export { deleteById, getAll, getAllByFilter, getById, getRecommended, update };
