@@ -28,6 +28,7 @@
 		"@fastify/static": "6.12.0",
 		"@fastify/swagger": "8.14.0",
 		"@fastify/swagger-ui": "2.1.0",
+		"@trackmates/shared": "*",
 		"bcrypt": "5.1.1",
 		"convict": "6.2.4",
 		"dotenv": "16.4.1",
@@ -40,8 +41,8 @@
 		"pg": "8.11.3",
 		"pino": "8.17.2",
 		"pino-pretty": "10.3.1",
-		"@trackmates/shared": "*",
 		"socket.io": "4.7.4",
+		"stripe": "14.20.0",
 		"swagger-jsdoc": "6.2.8"
 	},
 	"devDependencies": {
