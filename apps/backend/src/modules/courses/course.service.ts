@@ -14,7 +14,11 @@ import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
 import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
-import { type CourseDto, type CoursesResponseDto } from "./libs/types/types.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+	type CoursesSearchResponseDto,
+} from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
@@ -55,23 +59,6 @@ class CourseService {
 		}
 
 		return sections;
-	}
-
-	private async filterCourses(
-		courses: CourseDto[],
-		userId: number,
-	): Promise<CourseDto[]> {
-		const userCourses = await this.courseRepository.findByUserId({
-			search: "",
-			userId,
-		});
-		const userCoursesIds = new Set(
-			userCourses.map((course) => course.toNewObject().vendorCourseId),
-		);
-
-		return courses.filter(({ vendorCourseId }) => {
-			return !userCoursesIds.has(vendorCourseId.toString());
-		});
 	}
 
 	private async getVendorApiById(vendorId: number): Promise<VendorApi> {
@@ -129,6 +116,26 @@ class CourseService {
 				courseId: id,
 				title: section.title,
 			});
+		});
+	}
+
+	private async mapCoursesToCoursesWithOwnership(
+		courses: CourseDto[],
+		userId: number,
+	): Promise<CourseSearchResponseDto[]> {
+		const userCourses = await this.courseRepository.findByUserId({
+			search: "",
+			userId,
+		});
+		const userCoursesIds = new Set(
+			userCourses.map((course) => course.toNewObject().vendorCourseId),
+		);
+
+		return courses.map((course) => {
+			return {
+				...course,
+				isUserHasCourse: userCoursesIds.has(course.vendorCourseId.toString()),
+			};
 		});
 	}
 
@@ -223,7 +230,7 @@ class CourseService {
 		search: string;
 		userId: number;
 		vendorsKey: string | undefined;
-	}): Promise<CoursesResponseDto> {
+	}): Promise<CoursesSearchResponseDto> {
 		const { search, userId, vendorsKey } = parameters;
 		const vendors = vendorsKey
 			? await this.vendorService.findAllByKeys(vendorsKey.split(","))
@@ -234,18 +241,21 @@ class CourseService {
 				return this.findAllByVendor(search, vendor);
 			}),
 		);
-		let courses = vendorsCourses.flat();
+		const courses = vendorsCourses.flat();
 
-		courses = await this.filterCourses(courses, userId);
+		const coursesWithOwnership = await this.mapCoursesToCoursesWithOwnership(
+			courses,
+			userId,
+		);
 
-		return { courses };
+		return { courses: coursesWithOwnership };
 	}
 
 	public async getRecommendedCoursesByAI(parameters: {
 		search: string;
 		userId: number;
 		vendorsKey: string | undefined;
-	}): Promise<CoursesResponseDto> {
+	}): Promise<CoursesSearchResponseDto> {
 		const { courses } = await this.findAllByVendors(parameters);
 
 		const prompt =
@@ -257,10 +267,10 @@ class CourseService {
 		const sortedCourses = courses.map((_, index) => {
 			const courseIndex = sortedIndexes[index] as number;
 
-			return courses[courseIndex] as CourseDto;
+			return courses[courseIndex] as CourseSearchResponseDto;
 		});
 
-		return { courses: sortedCourses.filter(Boolean) };
+		return { courses: sortedCourses };
 	}
 
 	public async update(id: number): Promise<CourseDto | null> {

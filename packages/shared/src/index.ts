@@ -128,8 +128,10 @@ export {
 	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
 	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
 	CoursesApiPath,
 	type CoursesResponseDto,
+	type CoursesSearchResponseDto,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
 } from "./modules/courses/courses.js";
