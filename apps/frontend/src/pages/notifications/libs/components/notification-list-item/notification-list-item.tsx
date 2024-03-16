@@ -41,11 +41,11 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const iconName = notificationTypeToIconName[notification.type];
 
-	const isComment = iconName === "follower";
+	const isFollower = iconName === "follower";
 
 	const iconClassName = getValidClassNames(
 		styles["icon"],
-		isComment && styles["icon-follower"],
+		isFollower && styles["icon-follower"],
 	);
 
 	return (
