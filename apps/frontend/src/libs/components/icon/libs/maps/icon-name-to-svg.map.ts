@@ -8,6 +8,7 @@ import CommentIcon from "~/assets/icons/comment.svg?react";
 import CrossIcon from "~/assets/icons/cross.svg?react";
 import EyeIcon from "~/assets/icons/eye.svg?react";
 import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
+import FollowerIcon from "~/assets/icons/follower.svg?react";
 import HomeIcon from "~/assets/icons/home.svg?react";
 import LikeIcon from "~/assets/icons/like.svg?react";
 import LogOutIcon from "~/assets/icons/log-out.svg?react";
@@ -37,6 +38,7 @@ const iconNameToSvg: Record<
 	cross: CrossIcon,
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,
+	follower: FollowerIcon,
 	home: HomeIcon,
 	like: LikeIcon,
 	logOut: LogOutIcon,

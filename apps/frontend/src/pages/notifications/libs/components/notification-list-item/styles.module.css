@@ -30,7 +30,30 @@
 }
 
 .avatar-container {
+	position: relative;
 	flex-shrink: 0;
+}
+
+.icon-container {
+	position: absolute;
+	right: -3px;
+	bottom: -3px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 20px;
+	height: 20px;
+	color: var(--main-white);
+	background-image: linear-gradient(#febe30, var(--main-orange));
+	border-radius: 50%;
+}
+
+.icon {
+	width: 12px;
+}
+
+.icon-follower {
+	width: 13px;
 }
 
 .notification-title {

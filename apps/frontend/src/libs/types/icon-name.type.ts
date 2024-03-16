@@ -9,6 +9,7 @@ type IconName =
 	| "cross"
 	| "eye"
 	| "eyeOff"
+	| "follower"
 	| "home"
 	| "like"
 	| "logOut"
