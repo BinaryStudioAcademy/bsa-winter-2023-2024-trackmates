@@ -3,9 +3,7 @@
 	flex-direction: column;
 	flex-grow: 1;
 	justify-content: space-between;
-	width: max-content;
-	min-width: 300px;
-	height: max-content;
+	max-width: 500px;
 	min-height: 300px;
 }
 

@@ -2,13 +2,13 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
-import { type AllPermissionsResponseDto } from "~/modules/permissions/permissions.js";
+import { type PermissionsGetAllResponseDto } from "~/modules/permissions/permissions.js";
 
 import { GroupsApiPath } from "./libs/enums/enums.js";
 import {
-	type AllGroupsResponseDto,
 	type GroupRequestDto,
 	type GroupResponseDto,
+	type GroupsGetAllResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -52,7 +52,7 @@ class GroupsApi extends BaseHTTPApi {
 		return await response.json<boolean>();
 	}
 
-	public async getAllGroups(): Promise<AllGroupsResponseDto> {
+	public async getAllGroups(): Promise<GroupsGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.ROOT, {}),
 			{
@@ -62,13 +62,13 @@ class GroupsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<AllGroupsResponseDto>();
+		return await response.json<GroupsGetAllResponseDto>();
 	}
 
 	public async updateGroupPermissions(
 		groupId: number,
 		permissionId: number,
-	): Promise<AllPermissionsResponseDto> {
+	): Promise<PermissionsGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.$GROUP_ID_PERMISSIONS_$PERMISSION_ID, {
 				groupId: String(groupId),
@@ -80,13 +80,13 @@ class GroupsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<AllPermissionsResponseDto>();
+		return await response.json<PermissionsGetAllResponseDto>();
 	}
 
 	public async updateUserGroups(
 		groupId: number,
 		userId: number,
-	): Promise<AllGroupsResponseDto> {
+	): Promise<GroupsGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.$GROUP_ID_USERS_$USER_ID, {
 				groupId: String(groupId),
@@ -98,7 +98,7 @@ class GroupsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<AllGroupsResponseDto>();
+		return await response.json<GroupsGetAllResponseDto>();
 	}
 }
 

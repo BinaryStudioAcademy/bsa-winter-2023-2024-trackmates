@@ -4,9 +4,9 @@ import { type Service } from "~/libs/types/types.js";
 import { PermissionErrorMessage } from "./libs/enums/enums.js";
 import { PermissionError } from "./libs/exceptions/exceptions.js";
 import {
-	type AllPermissionsResponseDto,
 	type PermissionRequestDto,
 	type PermissionResponseDto,
+	type PermissionsGetAllResponseDto,
 } from "./libs/types/types.js";
 import { PermissionEntity } from "./permission.entity.js";
 import { type PermissionRepository } from "./permission.repository.js";
@@ -65,7 +65,7 @@ class PermissionService implements Service {
 		return permissionById.toObject();
 	}
 
-	public async findAll(): Promise<AllPermissionsResponseDto> {
+	public async findAll(): Promise<PermissionsGetAllResponseDto> {
 		const permissions = await this.permissionRepository.findAll();
 
 		return {

@@ -1,4 +1,5 @@
 import { Button } from "~/libs/components/components.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
 import { checkIfUserHasPermissions } from "~/libs/helpers/helpers.js";
 import {
@@ -18,6 +19,7 @@ import { Chip } from "../chip/chip.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
+import { USERS_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
 import { usersHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -35,7 +37,7 @@ const UsersTab: React.FC = () => {
 	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
 		null,
 	);
-	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
 	const hasPermissionToEdit = checkIfUserHasPermissions(
 		authUser,
@@ -57,12 +59,12 @@ const UsersTab: React.FC = () => {
 	const handleOpenEditModal = useCallback((user: UserAuthResponseDto) => {
 		return () => {
 			setCurrentUser(user);
-			setEditModalOpen(true);
+			setIsEditModalOpen(true);
 		};
 	}, []);
 
 	const handleCloseEditModal = useCallback(() => {
-		setEditModalOpen(false);
+		setIsEditModalOpen(false);
 		setCurrentUser(null);
 	}, []);
 
@@ -80,17 +82,12 @@ const UsersTab: React.FC = () => {
 		[currentUser, handleChangeUserGroups],
 	);
 
-	const tableHeaders = [
-		UsersTableHeader.ID,
-		UsersTableHeader.EMAIL,
-		UsersTableHeader.FIRST_NAME,
-		UsersTableHeader.LAST_NAME,
-		UsersTableHeader.GROUPS,
-		UsersTableHeader.BUTTONS,
-	];
-
 	const tableData = users.map((user) => {
-		const isTheSameUser = authUser.id === user.id;
+		const isAdmin = user.groups.some((group) => {
+			return group.permissions.length > EMPTY_LENGTH;
+		});
+
+		const isSameUser = user.id === authUser.id;
 
 		return {
 			buttons: (
@@ -99,18 +96,16 @@ const UsersTab: React.FC = () => {
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
-						isDisabled={!hasPermissionToEdit || isTheSameUser}
+						isDisabled={!hasPermissionToEdit || isSameUser}
 						label={UsersTableHeader.BUTTONS}
 						onClick={handleOpenEditModal(user)}
-						style="icon"
 					/>
 					<Button
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="delete"
-						isDisabled={!hasPermissionToDelete || isTheSameUser}
+						isDisabled={!hasPermissionToDelete || isAdmin}
 						label={UsersTableHeader.BUTTONS}
-						style="icon"
 					/>
 				</div>
 			),
@@ -127,11 +122,11 @@ const UsersTab: React.FC = () => {
 	return (
 		<>
 			<div className={styles["table-container"]}>
-				<Table headers={tableHeaders}>
+				<Table headers={USERS_TABLE_HEADERS}>
 					{tableData.map((data) => {
 						return (
 							<TableRow key={data.id}>
-								<TableCell isCentered>
+								<TableCell isCentered width="narrow">
 									{data[usersHeaderToPropertyName[UsersTableHeader.ID]]}
 								</TableCell>
 								<TableCell>
@@ -154,34 +149,34 @@ const UsersTab: React.FC = () => {
 					})}
 				</Table>
 			</div>
-			{isEditModalOpen && (
-				<EditModal
-					onClose={handleCloseEditModal}
-					title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
-				>
-					<ul className={styles["modal-list"]}>
-						{groups.map((group) => {
-							const isChecked =
-								currentUser?.groups.some((userGroup) => {
-									return userGroup.id === group.id;
-								}) ?? false;
+			<EditModal
+				isOpen={isEditModalOpen}
+				onClose={handleCloseEditModal}
+				title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
+			>
+				<ul className={styles["modal-list"]}>
+					{groups.map((group) => {
+						const isChecked = Boolean(
+							currentUser?.groups.some((userGroup) => {
+								return userGroup.id === group.id;
+							}),
+						);
 
-							return (
-								<li className={styles["modal-item"]} key={group.id}>
-									<EditCheckbox
-										isChecked={isChecked}
-										itemId={group.id}
-										key={group.id}
-										name={group.name}
-										onToggle={handleToggleCheckbox}
-									/>
-									{group.name}
-								</li>
-							);
-						})}
-					</ul>
-				</EditModal>
-			)}
+						return (
+							<li className={styles["modal-item"]} key={group.id}>
+								<EditCheckbox
+									isChecked={isChecked}
+									itemId={group.id}
+									key={group.id}
+									name={group.name}
+									onToggle={handleToggleCheckbox}
+								/>
+								{group.name}
+							</li>
+						);
+					})}
+				</ul>
+			</EditModal>
 		</>
 	);
 };

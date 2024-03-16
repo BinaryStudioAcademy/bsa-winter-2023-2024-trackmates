@@ -1,7 +1,7 @@
 import { type GroupResponseDto } from "./group-response-dto.type.js";
 
-type AllGroupsResponseDto = {
+type GroupsGetAllResponseDto = {
 	items: GroupResponseDto[];
 };
 
-export { type AllGroupsResponseDto };
+export { type GroupsGetAllResponseDto };

@@ -1,25 +1,33 @@
 import { Button, Input, Modal } from "~/libs/components/components.js";
-import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
-import { type CourseDto } from "~/modules/courses/courses.js";
+import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
+import {
+	type CourseDto,
+	type CourseUpdateRequestDto,
+} from "~/modules/courses/courses.js";
 import { courseUpdateValidationSchema } from "~/modules/courses/courses.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto;
+	course: CourseDto | null;
+	isOpen: boolean;
 	onClose: () => void;
-	onConfirm: (payload: CourseDto) => void;
+	onConfirm: (payload: CourseUpdateRequestDto) => void;
 };
 
 const EditCourseModal: React.FC<Properties> = ({
 	course,
+	isOpen,
 	onClose,
 	onConfirm,
 }: Properties) => {
-	const { control, errors, handleSubmit, reset } = useAppForm<CourseDto>({
-		defaultValues: course,
-		validationSchema: courseUpdateValidationSchema,
-	});
+	const { control, errors, handleSubmit, reset } =
+		useAppForm<CourseUpdateRequestDto>({
+			defaultValues: {
+				title: course?.title ?? "",
+			},
+			validationSchema: courseUpdateValidationSchema,
+		});
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
@@ -32,30 +40,39 @@ const EditCourseModal: React.FC<Properties> = ({
 		reset();
 	}, [reset]);
 
+	useEffect(() => {
+		reset({ title: course?.title ?? "" });
+	}, [reset, course]);
+
 	return (
 		<Modal
-			centered
 			className={styles["edit-modal"]}
-			isOpen
+			isCentered
+			isOpen={isOpen}
 			onClose={onClose}
-			size="small"
 		>
 			<span className={styles["title"]}>Edit course</span>
 			<form className={styles["content"]} onSubmit={handleFormSubmit}>
 				<div className={styles["input-fields"]}>
-					<Input control={control} errors={errors} label="Title" name="title" />
+					<Input
+						control={control}
+						errors={errors}
+						label="Title"
+						name="title"
+						placeholder="Course title"
+					/>
 				</div>
 				<div className={styles["modal-footer"]}>
 					<Button
 						className={styles["button"]}
-						label="Cancel"
+						label="Reset"
 						onClick={handleReset}
 						size="small"
 						style="secondary"
 					/>
 					<Button
 						className={styles["button"]}
-						label="OK"
+						label="Confirm"
 						size="small"
 						style="primary"
 						type="submit"

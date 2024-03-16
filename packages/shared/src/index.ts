@@ -151,12 +151,12 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
-	type AllGroupsResponseDto,
 	GroupError,
 	GroupErrorMessage,
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
+	type GroupsGetAllResponseDto,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
@@ -173,7 +173,6 @@ export {
 	type UpdateNotificationRequestDto,
 } from "./modules/notifications/notifications.js";
 export {
-	type AllPermissionsResponseDto,
 	PermissionError,
 	PermissionErrorMessage,
 	PermissionKey,
@@ -181,6 +180,7 @@ export {
 	type PermissionRequestDto,
 	type PermissionResponseDto,
 	PermissionsApiPath,
+	type PermissionsGetAllResponseDto,
 	permissionIdParameter,
 } from "./modules/permissions/permissions.js";
 export {

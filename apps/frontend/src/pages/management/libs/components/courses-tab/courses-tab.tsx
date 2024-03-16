@@ -162,21 +162,19 @@ const CoursesTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
-			{isEditModalOpen && (
-				<EditCourseModal
-					course={currentCourse as CourseDto}
-					onClose={handleCloseEditModal}
-					onConfirm={handleConfirmUpdate}
-				/>
-			)}
-			{isConfirmationModalOpen && (
-				<ConfirmationModal
-					onCancel={handleCloseConfirmationModal}
-					onClose={handleCloseConfirmationModal}
-					onConfirm={handleCourseDelete(currentCourse?.id as number)}
-					title={`${ManagementDialogueMessage.DELETE_COURSE} "${currentCourse?.title}"?`}
-				/>
-			)}
+			<EditCourseModal
+				course={currentCourse}
+				isOpen={isEditModalOpen}
+				onClose={handleCloseEditModal}
+				onConfirm={handleConfirmUpdate}
+			/>
+			<ConfirmationModal
+				isOpen={isConfirmationModalOpen}
+				onCancel={handleCloseConfirmationModal}
+				onClose={handleCloseConfirmationModal}
+				onConfirm={handleCourseDelete(currentCourse?.id as number)}
+				title={`${ManagementDialogueMessage.DELETE_COURSE} "${currentCourse?.title}"?`}
+			/>
 		</>
 	);
 };

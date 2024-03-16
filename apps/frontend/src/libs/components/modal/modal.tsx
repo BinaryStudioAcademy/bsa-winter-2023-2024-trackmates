@@ -10,21 +10,19 @@ import { Portal } from "../portal/portal.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	centered?: boolean;
 	children: React.ReactNode;
 	className?: string | undefined;
+	isCentered?: boolean;
 	isOpen: boolean;
 	onClose: () => void;
-	size?: "large" | "small";
 };
 
 const Modal: React.FC<Properties> = ({
-	centered = false,
 	children,
 	className,
+	isCentered = false,
 	isOpen,
 	onClose,
-	size = "large",
 }: Properties) => {
 	const contentReference = useRef<HTMLDivElement | null>(null);
 	useHandleClickOutside({
@@ -38,8 +36,8 @@ const Modal: React.FC<Properties> = ({
 
 	const modalStyles = getValidClassNames(
 		styles["modal"],
-		styles[size],
-		centered && styles["centered"],
+		isCentered && styles["centered"],
+		isOpen && styles["active"],
 	);
 
 	return (

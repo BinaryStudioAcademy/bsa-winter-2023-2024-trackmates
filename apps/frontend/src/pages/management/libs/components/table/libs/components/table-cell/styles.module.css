@@ -25,7 +25,7 @@
 
 .table-data-cell {
 	padding: 15px;
-	border-right: 1px solid rgb(174 180 187 / 30%);
+	border-right: 1px solid rgba(174 180 187 / 30%);
 }
 
 .table-data-cell:last-child {

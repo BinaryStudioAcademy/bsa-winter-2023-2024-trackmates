@@ -1,5 +1,5 @@
 export {
-	type AllGroupsResponseDto,
 	type GroupRequestDto,
 	type GroupResponseDto,
+	type GroupsGetAllResponseDto,
 } from "@trackmates/shared";

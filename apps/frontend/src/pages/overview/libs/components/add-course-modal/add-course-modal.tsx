@@ -28,10 +28,14 @@ import { VendorBadge } from "../vendor-badge/vendor-badge.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	isOpen: boolean;
 	onClose: () => void;
 };
 
-const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
+const AddCourseModal: React.FC<Properties> = ({
+	isOpen,
+	onClose,
+}: Properties) => {
 	const dispatch = useAppDispatch();
 	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
 		(state) => {
@@ -110,7 +114,7 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 	}, [dispatch, onClose]);
 
 	return (
-		<Modal isOpen onClose={handleClose}>
+		<Modal isOpen={isOpen} onClose={handleClose}>
 			<div className={styles["add-course-modal"]}>
 				<header className={styles["header"]}>
 					<h3 className={styles["title"]}>Add course</h3>
@@ -147,7 +151,6 @@ const AddCourseModal: React.FC<Properties> = ({ onClose }: Properties) => {
 						</div>
 					</form>
 				</header>
-
 				<div className={styles["content"]}>
 					<div className={styles["course-container"]}>
 						{isLoading ? (
