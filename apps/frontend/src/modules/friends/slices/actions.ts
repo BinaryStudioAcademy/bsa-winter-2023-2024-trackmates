@@ -14,6 +14,16 @@ import {
 } from "../libs/types/types.js";
 import { name as sliceName } from "./friends.slice.js";
 
+const getAllFollowingsIds = createAsyncThunk<
+	number[],
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/get-all-followings-ids`, (_, { extra }) => {
+	const { friendsApi } = extra;
+
+	return friendsApi.getAllFollowingsIds();
+});
+
 const getPotentialFriends = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
 	PaginationRequestDto,
@@ -83,6 +93,7 @@ const unfollow = createAsyncThunk<
 
 export {
 	follow,
+	getAllFollowingsIds,
 	getFollowers,
 	getFollowings,
 	getIsFollowing,

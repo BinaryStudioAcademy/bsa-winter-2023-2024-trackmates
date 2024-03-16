@@ -1,5 +1,61 @@
 # Changelog
 
+## [1.71.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.70.0...v1.71.0) (2024-03-16)
+
+
+### Features
+
+* **frontend/backend/shared:** badge icon disappears on all devices of the user tm-503 ([#545](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/545)) ([cce2069](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cce2069e31ca9f7ef34f7865167eb607df91bb63))
+* **frontend/backend/shared:** UAM (User Access Management) - Groups tm-230 ([#536](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/536)) ([230ecb1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/230ecb1f679d802bf6faec36c428d22e7bbd6116))
+* **frontend:** add transitions to comments tm-541 ([#564](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/564)) ([ec6102f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ec6102f140abfeab156b6ace326be7821fb99a5b))
+
+## [1.70.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.69.0...v1.70.0) (2024-03-15)
+
+
+### Features
+
+* add links to new documents in the readme file tm-549 ([#553](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/553)) ([8900f9e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8900f9e3715fd04b1859f6b5d689e884389823e3))
+* **frontend:** incoming notification presentation tm-498 ([#548](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/548)) ([fbcf2cc](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fbcf2cc2e6303aa8d5fdcea92e7b4d22a4b3f8e9))
+* **frontend:** search by url tm-470 ([#544](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/544)) ([6602008](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6602008776a09256d614a8d669ac3b2994fad4bb))
+* **frontend:** Update the design of the "Notifications" page tm-447 ([#550](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/550)) ([428889a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/428889a8e00cd28e9ce5a5d6115cd29e10018f97))
+
+
+### Bug Fixes
+
+* **frontend:** Hide previous state of the data from the store on all pages tm-506 ([#539](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/539)) ([0f91f2c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0f91f2c89f8e878c04ddb34b28c44b2473edc136))
+
+## [1.69.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.68.0...v1.69.0) (2024-03-14)
+
+
+### Features
+
+* **frontend:** feat add transitions for modal tm-492 ([#532](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/532)) ([9aff48b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9aff48b4b6f2fce56852121a5bc654903e735dbb))
+* move specification to the GitHub tm-187 ([#526](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/526)) ([e508346](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e5083468a7e61b648882e8d8a86aed6e3a728211))
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#538](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/538)) ([d254906](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d2549065be9bb9eaa3fadb6e0546557a25a8ab3b))
+
+## [1.68.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.67.0...v1.68.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/backend/shared:** Make "Udemy" the default vendor on the "Add Course" pop-up window tm-522 ([#531](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/531)) ([42b5f46](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/42b5f46d63cc2cfe01beb063a6d555195a88ffc4))
+
+## [1.67.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.66.0...v1.67.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/shared:** The "Something went wrong..." toast-message should appear instead of an empty error toast-message tm-523 ([#528](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/528)) ([9343569](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9343569710316054f59150467ed0f1b926638a0f))
+
+
+### Bug Fixes
+
+* **shared:** typo message tm-513 ([#529](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/529)) ([6286527](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6286527c1f89c5dd5b9bd0a03e26851afdc123fc))
+
 ## [1.66.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.65.1...v1.66.0) (2024-03-14)
 
 

@@ -11,5 +11,8 @@ const userNotificationsApi = new UserNotificationsApi({
 });
 
 export { userNotificationsApi };
-export { type NotificationResponseDto } from "./libs/types/types.js";
+export {
+	type NotificationResponseDto,
+	type ReadNotificationsResponseDto,
+} from "./libs/types/types.js";
 export { actions, reducer } from "./slices/user-notifications.js";

@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.34.1...shared-v1.35.0) (2024-03-16)
+
+
+### Features
+
+* **frontend/backend/shared:** badge icon disappears on all devices of the user tm-503 ([#545](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/545)) ([cce2069](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cce2069e31ca9f7ef34f7865167eb607df91bb63))
+* **frontend/backend/shared:** UAM (User Access Management) - Groups tm-230 ([#536](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/536)) ([230ecb1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/230ecb1f679d802bf6faec36c428d22e7bbd6116))
+
+## [1.34.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.34.0...shared-v1.34.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* **backend/frontend/shared:** The "Follow" / "Following" buttons on user components are not updated on the new tab after following / unfollowing the users tm-444 ([#538](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/538)) ([d254906](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d2549065be9bb9eaa3fadb6e0546557a25a8ab3b))
+
+## [1.34.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.33.0...shared-v1.34.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/backend/shared:** Make "Udemy" the default vendor on the "Add Course" pop-up window tm-522 ([#531](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/531)) ([42b5f46](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/42b5f46d63cc2cfe01beb063a6d555195a88ffc4))
+
+## [1.33.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.32.0...shared-v1.33.0) (2024-03-14)
+
+
+### Features
+
+* **frontend/shared:** The "Something went wrong..." toast-message should appear instead of an empty error toast-message tm-523 ([#528](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/528)) ([9343569](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9343569710316054f59150467ed0f1b926638a0f))
+
+
+### Bug Fixes
+
+* **shared:** typo message tm-513 ([#529](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/529)) ([6286527](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6286527c1f89c5dd5b9bd0a03e26851afdc123fc))
+
 ## [1.32.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.31.0...shared-v1.32.0) (2024-03-13)
 
 

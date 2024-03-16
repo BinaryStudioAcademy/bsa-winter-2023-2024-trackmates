@@ -1,0 +1,44 @@
+.table-container {
+	width: 100%;
+}
+
+.column-buttons {
+	display: flex;
+	flex-direction: row;
+	column-gap: 30px;
+}
+
+.modal-list {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	padding: 0;
+}
+
+.modal-item {
+	display: flex;
+	column-gap: 10px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	margin: 0 auto;
+	color: var(--color-text-200);
+	background-color: transparent;
+	border: unset;
+	fill: currentcolor;
+	transition: 0.3s;
+}
+
+.icon-button:hover {
+	color: var(--main-orange);
+	background-color: transparent;
+}
+
+.icon-button:disabled,
+.icon-button:disabled:hover,
+.icon-button:disabled:focus {
+	color: var(--color-text-100);
+	background-color: transparent;
+}

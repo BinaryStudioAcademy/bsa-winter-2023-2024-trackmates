@@ -4,6 +4,7 @@ const AppTitle = {
 	COMPARE_PROGRESS: "Compare Progress",
 	FORGOT_PASSWORD: "Forgot password",
 	FRIENDS: "Friends",
+	MANAGEMENT: "Management",
 	NOTIFICATIONS: "Notifications",
 	PROFILE: "My Profile",
 	SIGN_IN: "Sign In",

@@ -114,12 +114,7 @@ const Friends: React.FC = () => {
 	]);
 
 	useEffect(() => {
-		void dispatch(
-			actions.getFollowings({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: followingsPagination.page,
-			}),
-		);
+		void dispatch(actions.getAllFollowingsIds());
 	}, [dispatch, followingsPagination.page]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {

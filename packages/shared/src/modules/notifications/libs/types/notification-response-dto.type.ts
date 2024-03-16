@@ -1,5 +1,8 @@
 import { type ValueOf } from "../../../../libs/types/types.js";
-import { type NotificationStatus } from "../enums/enums.js";
+import {
+	type NotificationStatus,
+	type NotificationType,
+} from "../enums/enums.js";
 
 type NotificationResponseDto = {
 	createdAt: string;
@@ -7,6 +10,7 @@ type NotificationResponseDto = {
 	message: string;
 	receiverUserId: number;
 	status: ValueOf<typeof NotificationStatus>;
+	type: ValueOf<typeof NotificationType>;
 	updatedAt: string;
 	userAvatarUrl: null | string;
 	userFirstName: string;

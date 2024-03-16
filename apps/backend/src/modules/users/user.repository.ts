@@ -314,7 +314,6 @@ class UserRepository implements Repository<UserEntity> {
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
-			.withGraphJoined(`${RelationName.GROUPS}.userId`)
 			.execute();
 
 		return user

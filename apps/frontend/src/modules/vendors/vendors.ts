@@ -11,5 +11,6 @@ const vendorApi = new VendorApi({
 });
 
 export { vendorApi };
+export { VendorKey } from "./libs/enums/enums.js";
 export { type VendorResponseDto } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/vendors.js";
