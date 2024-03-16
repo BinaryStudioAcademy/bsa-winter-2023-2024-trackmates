@@ -135,10 +135,10 @@ const CoursesTab: React.FC = () => {
 	return (
 		<>
 			<div className={styles["container"]}>
-				<div className={styles["table-container"]}>
-					{isCoursesLoading ? (
-						<Loader color="orange" size="large" />
-					) : (
+				{isCoursesLoading ? (
+					<Loader color="orange" size="large" />
+				) : (
+					<div className={styles["table-container"]}>
 						<Table headers={COURSES_TABLE_HEADERS}>
 							{tableData.map((data) => {
 								return (
@@ -180,8 +180,8 @@ const CoursesTab: React.FC = () => {
 								);
 							})}
 						</Table>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 			<EditCourseModal
 				course={currentCourse}
