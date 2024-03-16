@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 type Properties = {
 	className?: string;
 	color: "orange" | "white";
-	size: "large" | "medium" | "small";
+	size: "large" | "small";
 };
 
 const Loader: React.FC<Properties> = ({

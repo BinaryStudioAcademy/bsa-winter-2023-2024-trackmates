@@ -19,7 +19,7 @@ type Properties = {
 	loaderColor?: React.ComponentProps<typeof Loader>["color"];
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
-	style?: "icon" | "plain" | "primary" | "secondary";
+	style?: "plain" | "primary" | "secondary";
 	type?: "button" | "submit";
 };
 

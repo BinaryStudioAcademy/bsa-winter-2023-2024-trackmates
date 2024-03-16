@@ -131,7 +131,6 @@ const UsersTab: React.FC = () => {
 						label={UsersTableHeader.BUTTONS}
 						loaderColor="orange"
 						onClick={handleOpenDeleteModal(user)}
-						style="icon"
 					/>
 				</div>
 			),

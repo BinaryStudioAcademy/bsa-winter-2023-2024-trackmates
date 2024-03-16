@@ -2,11 +2,6 @@
 	display: flex;
 }
 
-.medium {
-	justify-content: space-between;
-	width: 25px;
-}
-
 .small {
 	justify-content: space-between;
 	width: 25px;
@@ -24,11 +19,6 @@
 	display: block;
 	border-radius: 50%;
 	animation: jumping 0.6s ease-in-out infinite;
-}
-
-.medium .dot {
-	width: 10px;
-	height: 10px;
 }
 
 .small .dot {
