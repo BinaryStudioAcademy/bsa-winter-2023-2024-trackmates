@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.38.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.37.1...backend-v1.38.0) (2024-03-16)
+
+
+### Features
+
+* **frontend/backend/shared:** badge icon disappears on all devices of the user tm-503 ([#545](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/545)) ([cce2069](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cce2069e31ca9f7ef34f7865167eb607df91bb63))
+* **frontend/backend/shared:** UAM (User Access Management) - Groups tm-230 ([#536](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/536)) ([230ecb1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/230ecb1f679d802bf6faec36c428d22e7bbd6116))
+
 ## [1.37.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.37.0...backend-v1.37.1) (2024-03-14)
 
 

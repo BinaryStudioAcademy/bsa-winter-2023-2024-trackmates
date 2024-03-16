@@ -2,8 +2,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
-import { type UserProfileRequestDto } from "~/modules/users/users.js";
+import {
+	type UserAuthResponseDto,
+	type UserProfileRequestDto,
+} from "~/modules/users/users.js";
 
 import { name as sliceName } from "./users.slice.js";
 
@@ -21,6 +23,18 @@ const updateProfile = createAsyncThunk<
 	return user;
 });
 
+const getAll = createAsyncThunk<
+	UserAuthResponseDto[],
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/get-all`, async (_, { extra }) => {
+	const { userApi } = extra;
+
+	const users = await userApi.getAll();
+
+	return users.items;
+});
+
 const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
 	`${sliceName}/get-by-id`,
 	(userPayload, { extra }) => {
@@ -30,4 +44,4 @@ const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
 	},
 );
 
-export { getById, updateProfile };
+export { getAll, getById, updateProfile };

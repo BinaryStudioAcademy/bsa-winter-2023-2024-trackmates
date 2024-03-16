@@ -55,6 +55,10 @@
 	outline: 3px solid var(--main-white);
 }
 
+.counter:hover {
+	cursor: default;
+}
+
 .icon-button {
 	position: relative;
 	gap: 0;

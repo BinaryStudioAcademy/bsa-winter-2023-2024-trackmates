@@ -11,12 +11,16 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
+	className?: string | undefined;
+	isCentered?: boolean;
 	isOpen: boolean;
 	onClose: () => void;
 };
 
 const Modal: React.FC<Properties> = ({
 	children,
+	className,
+	isCentered = false,
 	isOpen,
 	onClose,
 }: Properties) => {
@@ -30,18 +34,17 @@ const Modal: React.FC<Properties> = ({
 		onEscPress: onClose,
 	});
 
+	const modalStyles = getValidClassNames(
+		styles["modal"],
+		isCentered && styles["centered"],
+		isOpen && styles["active"],
+	);
+
 	return (
 		<Portal>
-			<dialog
-				aria-modal
-				className={getValidClassNames(
-					styles["modal"],
-					isOpen && styles["active"],
-				)}
-				open={isOpen}
-			>
+			<dialog aria-modal className={modalStyles} open={isOpen}>
 				<div
-					className={styles["content"]}
+					className={getValidClassNames(styles["content"], className)}
 					ref={contentReference}
 					role="button"
 					tabIndex={0}

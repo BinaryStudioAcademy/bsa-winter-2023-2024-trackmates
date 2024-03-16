@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.56.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.55.0...frontend-v1.56.0) (2024-03-16)
+
+
+### Features
+
+* **frontend/backend/shared:** badge icon disappears on all devices of the user tm-503 ([#545](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/545)) ([cce2069](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cce2069e31ca9f7ef34f7865167eb607df91bb63))
+* **frontend/backend/shared:** UAM (User Access Management) - Groups tm-230 ([#536](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/536)) ([230ecb1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/230ecb1f679d802bf6faec36c428d22e7bbd6116))
+* **frontend:** add transitions to comments tm-541 ([#564](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/564)) ([ec6102f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ec6102f140abfeab156b6ace326be7821fb99a5b))
+
+## [1.55.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.54.0...frontend-v1.55.0) (2024-03-15)
+
+
+### Features
+
+* **frontend:** incoming notification presentation tm-498 ([#548](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/548)) ([fbcf2cc](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fbcf2cc2e6303aa8d5fdcea92e7b4d22a4b3f8e9))
+* **frontend:** search by url tm-470 ([#544](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/544)) ([6602008](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6602008776a09256d614a8d669ac3b2994fad4bb))
+* **frontend:** Update the design of the "Notifications" page tm-447 ([#550](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/550)) ([428889a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/428889a8e00cd28e9ce5a5d6115cd29e10018f97))
+
+
+### Bug Fixes
+
+* **frontend:** Hide previous state of the data from the store on all pages tm-506 ([#539](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/539)) ([0f91f2c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0f91f2c89f8e878c04ddb34b28c44b2473edc136))
+
 ## [1.54.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.53.0...frontend-v1.54.0) (2024-03-14)
 
 

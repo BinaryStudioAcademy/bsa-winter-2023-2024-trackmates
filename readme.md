@@ -11,6 +11,12 @@ Track your progress for all your courses
 Deployed application:
 [TrackMates](https://trackmates.net/)
 
+#### Documentation:
+
+- [Specification](./docs/specification.md)
+- [Test Strategy](./docs/test-strategy.md)
+- [Test Plan](./docs/test-plan.md)
+
 ## 2. Domain
 
 The product helps the users to track the progress in all their courses from different vendors in one place, along with additional features like checking friends' progress
@@ -164,6 +170,38 @@ erDiagram
     int activity_id FK
   }
 
+  groups {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar key UK
+    varchar name UK
+  }
+
+  permissions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar key UK
+    varchar name UK
+  }
+
+  groups_to_permissions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int group_id FK
+    int permission_id FK
+  }
+
+  users_to_groups {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int group_id FK
+    int user_id FK
+  }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
 
@@ -195,6 +233,12 @@ erDiagram
 
    users ||--|{ notifications : receiver_user_id
    users ||--|{ notifications : user_id
+
+   groups ||--|{ groups_to_permissions : group_id
+   permissions ||--|{ groups_to_permissions : permission_id
+
+   users ||--|{ users_to_groups : user_id
+   groups ||--|{ users_to_groups : group_id
 ```
 
 ## 5. Architecture

@@ -79,7 +79,19 @@
 }
 
 .comments-container {
-	padding: 20px 12px;
+	max-height: 0;
+	overflow: hidden;
+	overflow-y: auto;
+	pointer-events: none;
+	touch-action: none;
+	transition: 0.3s ease;
+}
+
+.comments-container.open {
+	max-height: 500px;
+	pointer-events: all;
+	touch-action: manipulation;
+	opacity: 1;
 }
 
 @media screen and (--medium-screen) {

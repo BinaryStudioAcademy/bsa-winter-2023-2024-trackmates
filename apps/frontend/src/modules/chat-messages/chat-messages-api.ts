@@ -8,6 +8,7 @@ import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
 	type ReadChatMessagesRequestDto,
+	type ReadChatMessagesResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -39,7 +40,7 @@ class ChatMessagesApi extends BaseHTTPApi {
 
 	public async setReadChatMessages(
 		payload: ReadChatMessagesRequestDto,
-	): Promise<{ items: ChatMessageItemResponseDto[] }> {
+	): Promise<ReadChatMessagesResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(ChatMessagesApiPath.READ_CHAT_MESSAGES, {}),
 			{
@@ -50,7 +51,7 @@ class ChatMessagesApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<{ items: ChatMessageItemResponseDto[] }>();
+		return await response.json<ReadChatMessagesResponseDto>();
 	}
 }
 
