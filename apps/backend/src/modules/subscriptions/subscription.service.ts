@@ -2,6 +2,10 @@ import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { getShiftedDate } from "~/libs/helpers/helpers.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type StripeService } from "~/libs/modules/stripe/stripe.js";
+import {
+	CronExpression,
+	type TaskScheduler,
+} from "~/libs/modules/task-scheduler/task-scheduler.js";
 import { type Service } from "~/libs/types/types.js";
 import { userService } from "~/modules/users/users.js";
 
@@ -18,16 +22,27 @@ import { type SubscriptionRepository } from "./subscription.repository.js";
 type Constructor = {
 	stripe: StripeService;
 	subscriptionRepository: SubscriptionRepository;
+	taskScheduler: TaskScheduler;
 };
 
 class SubscriptionService implements Service {
 	private stripe: StripeService;
 
 	private subscriptionRepository: SubscriptionRepository;
+	private taskScheduler: TaskScheduler;
 
-	public constructor({ stripe, subscriptionRepository }: Constructor) {
+	public constructor({
+		stripe,
+		subscriptionRepository,
+		taskScheduler,
+	}: Constructor) {
 		this.stripe = stripe;
 		this.subscriptionRepository = subscriptionRepository;
+		this.taskScheduler = taskScheduler;
+	}
+
+	private async deleteExpiredSubscriptions(): Promise<void> {
+		await this.subscriptionRepository.deleteExpiredSubscriptions();
 	}
 
 	public async cancelPaymentIntent(id: string): Promise<boolean> {
@@ -53,6 +68,7 @@ class SubscriptionService implements Service {
 
 		return { clientSecret, id };
 	}
+
 	public async delete(id: number): Promise<boolean> {
 		return await this.subscriptionRepository.delete(id);
 	}
@@ -76,6 +92,12 @@ class SubscriptionService implements Service {
 		return {
 			items: subscriptions.map((subscription) => subscription.toObject()),
 		};
+	}
+
+	public initCrone(): void {
+		this.taskScheduler.schedule(CronExpression.EVERY_MIDNIGHT, () => {
+			void this.deleteExpiredSubscriptions();
+		});
 	}
 
 	public async subscribe({
