@@ -3,7 +3,7 @@ import { type Repository, type ValueOf } from "~/libs/types/types.js";
 import { type UserModel } from "~/modules/users/users.js";
 
 import { NotificationStatus, NotificationType } from "./libs/enums/enums.js";
-import { type filterQueryParameterToNotificationType } from "./libs/maps/maps.js";
+import { type notificationFilterToType } from "./libs/maps/maps.js";
 import { NotificationEntity } from "./notification.entity.js";
 import { type NotificationModel } from "./notification.model.js";
 
@@ -144,7 +144,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	public async findAllByReceiverUserId(
 		receiverUserId: number,
 		search: string,
-		type: ValueOf<typeof filterQueryParameterToNotificationType>,
+		type: ValueOf<typeof notificationFilterToType>,
 	): Promise<NotificationEntity[]> {
 		const userNotifications = await this.notificationModel
 			.query()

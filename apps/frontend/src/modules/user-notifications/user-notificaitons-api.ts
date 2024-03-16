@@ -13,6 +13,7 @@ import {
 	type AllNotificationsResponseDto,
 	type NotificationResponseDto,
 	type ReadNotificationsRequestDto,
+	type ReadNotificationsResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -45,9 +46,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 	}: {
 		search: string | undefined;
 		type: ValueOf<typeof NotificationFilter> | null;
-	}): Promise<{
-		items: NotificationResponseDto[];
-	}> {
+	}): Promise<AllNotificationsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UserNotificationsApiPath.ROOT, {}),
 			{
@@ -66,7 +65,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 
 	public async setReadNotifications(
 		payload: ReadNotificationsRequestDto,
-	): Promise<AllNotificationsResponseDto> {
+	): Promise<ReadNotificationsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UserNotificationsApiPath.READ_NOTIFICATIONS, {}),
 			{
@@ -77,7 +76,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<AllNotificationsResponseDto>();
+		return await response.json<ReadNotificationsResponseDto>();
 	}
 }
 

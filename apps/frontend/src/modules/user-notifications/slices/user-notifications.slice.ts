@@ -1,9 +1,18 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus, NotificationFilter } from "~/libs/enums/enums.js";
+import {
+	DataStatus,
+	NotificationFilter,
+	NotificationStatus,
+} from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { type NotificationResponseDto } from "../libs/types/types.js";
+import { NEW_NOTIFICATION_COUNT } from "../libs/constants/constants.js";
+import { notificationFilterToType } from "../libs/maps/maps.js";
+import {
+	type NotificationResponseDto,
+	type ReadNotificationsResponseDto,
+} from "../libs/types/types.js";
 import {
 	getUnreadNotificationsCount,
 	getUserNotifications,
@@ -46,6 +55,9 @@ const { actions, name, reducer } = createSlice({
 
 				return updatedNotification ?? value;
 			});
+			state.unreadNotificationsCount = Number(
+				action.payload.unreadNotificationsCount,
+			);
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(setReadNotifications.rejected, (state) => {
@@ -62,12 +74,52 @@ const { actions, name, reducer } = createSlice({
 	initialState,
 	name: "user-notifications",
 	reducers: {
+		deleteNotification(state, action: PayloadAction<NotificationResponseDto>) {
+			state.notifications = state.notifications.filter((notification) => {
+				return notification.id != action.payload.id;
+			});
+
+			if (action.payload.status === NotificationStatus.UNREAD) {
+				state.unreadNotificationsCount =
+					state.unreadNotificationsCount - NEW_NOTIFICATION_COUNT;
+			}
+		},
+		newNotification(state, action: PayloadAction<NotificationResponseDto>) {
+			const needUpdateNotifications =
+				state.notificationType === NotificationFilter.ALL ||
+				notificationFilterToType[state.notificationType] ===
+					action.payload.type;
+
+			if (needUpdateNotifications) {
+				state.notifications = [action.payload, ...state.notifications];
+			}
+
+			state.unreadNotificationsCount =
+				state.unreadNotificationsCount + NEW_NOTIFICATION_COUNT;
+		},
 		setNotificationType(
 			state,
 			action: PayloadAction<ValueOf<typeof NotificationFilter>>,
 		) {
 			state.notificationType = action.payload;
 			state.dataStatus = DataStatus.FULFILLED;
+		},
+		updateReadNotifications(
+			state,
+			action: PayloadAction<ReadNotificationsResponseDto>,
+		) {
+			state.notifications = state.notifications.map((value) => {
+				const updatedNotification = action.payload.items.find(
+					(notification) => {
+						return notification.id === value.id;
+					},
+				);
+
+				return updatedNotification ?? value;
+			});
+			state.unreadNotificationsCount = Number(
+				action.payload.unreadNotificationsCount,
+			);
 		},
 	},
 });

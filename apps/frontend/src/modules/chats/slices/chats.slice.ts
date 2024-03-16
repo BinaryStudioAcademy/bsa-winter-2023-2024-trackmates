@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -6,6 +6,7 @@ import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
+	type ReadChatMessagesResponseDto,
 } from "../libs/types/types.js";
 import {
 	addMessageToCurrentChat,
@@ -85,6 +86,22 @@ const { actions, name, reducer } = createSlice({
 	reducers: {
 		leaveChat: (state) => {
 			state.currentChat = null;
+		},
+		updateReadChatMessages(
+			state,
+			action: PayloadAction<ReadChatMessagesResponseDto>,
+		) {
+			state.unreadMessagesCount = action.payload.unreadMessagesCount;
+
+			if (state.currentChat) {
+				state.currentChat.messages = state.currentChat.messages.map((value) => {
+					const updatedMessage = action.payload.items.find((message) => {
+						return message.id === value.id;
+					});
+
+					return updatedMessage ?? value;
+				});
+			}
 		},
 	},
 });
