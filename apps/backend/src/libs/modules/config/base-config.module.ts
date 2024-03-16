@@ -211,7 +211,7 @@ class BaseConfig implements Config {
 			UPDATE_PASSWORD: {
 				BASE_LINK: {
 					default: null,
-					doc: "Reset password base link",
+					doc: "Update password base link",
 					env: "UPDATE_PASSWORD_BASE_LINK",
 					format: String,
 				},
