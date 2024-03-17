@@ -273,7 +273,7 @@ class CourseService {
 			return courses[courseIndex] as CourseSearchResponseDto;
 		});
 
-		return { courses: sortedCourses };
+		return { courses: sortedCourses.filter(Boolean) };
 	}
 
 	public async update(id: number): Promise<CourseDto | null> {

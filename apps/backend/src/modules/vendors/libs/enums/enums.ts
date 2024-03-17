@@ -1,4 +1,3 @@
-export { DefaultSearchPageParameter } from "./default-search-page-parameter.enum.js";
 export { EdxApiPath } from "./edx-api-path.enum.js";
 export { EdxCourseField } from "./edx-course-field.enum.js";
 export { UdemyApiPath } from "./udemy-api-path.enum.js";

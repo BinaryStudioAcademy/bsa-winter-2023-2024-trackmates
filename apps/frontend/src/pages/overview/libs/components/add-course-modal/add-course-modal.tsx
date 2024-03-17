@@ -109,7 +109,7 @@ const AddCourseModal: React.FC<Properties> = ({
 	);
 
 	const handleLoadMore = useCallback((): void => {
-		const newPage = page + PaginationValue.DEFAULT_PAGE;
+		const newPage = page + PaginationValue.DEFAULT_STEP;
 		void dispatch(
 			courseActions.getAll({
 				page: newPage,

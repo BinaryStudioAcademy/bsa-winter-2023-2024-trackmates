@@ -1,3 +1,4 @@
+import { PaginationValue } from "~/libs/enums/enums.js";
 import {
 	ContentType,
 	type HTTP,
@@ -8,7 +9,6 @@ import {
 import {
 	CourseField,
 	CourseSectionField,
-	DefaultSearchPageParameter,
 	UdemyApiPath,
 	UdemyPageParameter,
 	VendorErrorMessage,
@@ -167,7 +167,7 @@ class UdemyService implements VendorService {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
 			page,
-			page_size: DefaultSearchPageParameter.PAGE_SIZE,
+			pageSize: PaginationValue.DEFAULT_COUNT,
 		};
 
 		if (search) {

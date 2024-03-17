@@ -1,10 +1,11 @@
+import { PaginationValue } from "~/libs/enums/enums.js";
 import {
 	ContentType,
 	type HTTP,
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
 
-import { DefaultSearchPageParameter, EdxApiPath } from "./libs/enums/enums.js";
+import { EdxApiPath } from "./libs/enums/enums.js";
 import { edxCourseToCourse } from "./libs/maps/maps.js";
 import {
 	type Course,
@@ -92,7 +93,7 @@ class EdxService implements VendorService {
 	public async getCourses(page: number, search: string): Promise<Course[]> {
 		const query: EdxQuery = {
 			page,
-			pageSize: DefaultSearchPageParameter.PAGE_SIZE,
+			pageSize: PaginationValue.DEFAULT_COUNT,
 			search_term: search,
 		};
 
