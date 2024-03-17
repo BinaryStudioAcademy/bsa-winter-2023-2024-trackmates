@@ -1,0 +1,9 @@
+.table-row {
+	height: 62px;
+	background-color: var(--main-white);
+	border-bottom: 1px solid rgba(174 180 187 / 30%);
+}
+
+.table-row:last-child {
+	border-bottom: unset;
+}

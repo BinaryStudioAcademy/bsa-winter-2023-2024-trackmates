@@ -90,6 +90,12 @@ const User: React.FC = () => {
 		void dispatch(usersActions.getById(userId));
 		void dispatch(userCoursesActions.loadCommonCourses(userId));
 		void dispatch(friendsActions.getIsFollowing(userId));
+
+		return () => {
+			dispatch(usersActions.reset());
+			dispatch(userCoursesActions.reset());
+			dispatch(friendsActions.resetIsFollowing());
+		};
 	}, [dispatch, userId]);
 
 	useEffect(() => {

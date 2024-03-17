@@ -141,6 +141,9 @@ const { actions, name, reducer } = createSlice({
 				(id) => id !== action.payload,
 			);
 		},
+		resetIsFollowing(state) {
+			state.isFollowing = false;
+		},
 		setIsFollowing(state, action: PayloadAction<boolean>) {
 			state.isFollowing = action.payload;
 		},

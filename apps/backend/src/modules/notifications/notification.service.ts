@@ -13,11 +13,12 @@ import {
 	type NotificationType,
 } from "./libs/enums/enums.js";
 import { NotificationError } from "./libs/exceptions/exceptions.js";
-import { filterQueryParameterToNotificationType } from "./libs/maps/maps.js";
+import { notificationFilterToType } from "./libs/maps/maps.js";
 import {
 	type AllNotificationsResponseDto,
 	type CreateNotificationRequestDto,
 	type NotificationResponseDto,
+	type ReadNotificationsResponseDto,
 	type UpdateNotificationRequestDto,
 } from "./libs/types/types.js";
 import { NotificationEntity } from "./notification.entity.js";
@@ -54,9 +55,9 @@ class NotificationService implements Service {
 		const notification = createdNotification.toObject();
 
 		this.socketService.emitMessage({
-			event: SocketEvent.UPDATE_NOTIFICATION,
+			event: SocketEvent.NOTIFICATIONS_NEW,
 			payload: notification,
-			receiversIds: [String(notification.userId), String(receiverUserId)],
+			receiversIds: [String(receiverUserId)],
 			targetNamespace: SocketNamespace.NOTIFICATIONS,
 		});
 
@@ -95,7 +96,7 @@ class NotificationService implements Service {
 		const notificationObject = notification.toObject();
 
 		this.socketService.emitMessage({
-			event: SocketEvent.UPDATE_NOTIFICATION,
+			event: SocketEvent.NOTIFICATIONS_DELETE,
 			payload: notification,
 			receiversIds: [String(notificationObject.receiverUserId)],
 			targetNamespace: SocketNamespace.NOTIFICATIONS,
@@ -130,8 +131,7 @@ class NotificationService implements Service {
 		notificationFilter: ValueOf<typeof NotificationFilter>,
 		search: string,
 	): Promise<AllNotificationsResponseDto> {
-		const notificationType =
-			filterQueryParameterToNotificationType[notificationFilter];
+		const notificationType = notificationFilterToType[notificationFilter];
 
 		const userNotifications =
 			await this.notificationRepository.findAllByReceiverUserId(
@@ -153,12 +153,26 @@ class NotificationService implements Service {
 
 	public async setReadNotifications(
 		notifactionIds: number[],
-	): Promise<AllNotificationsResponseDto> {
+		userId: number,
+	): Promise<ReadNotificationsResponseDto> {
 		const readNotifications =
 			await this.notificationRepository.setReadNotifications(notifactionIds);
+		const unreadNotificationsCount =
+			await this.notificationRepository.getUnreadNotificationsCount(userId);
+
+		this.socketService.emitMessage({
+			event: SocketEvent.NOTIFICATIONS_READ,
+			payload: {
+				items: readNotifications,
+				unreadNotificationsCount,
+			},
+			receiversIds: [String(userId)],
+			targetNamespace: SocketNamespace.NOTIFICATIONS,
+		});
 
 		return {
 			items: readNotifications.map((notifcation) => notifcation.toObject()),
+			unreadNotificationsCount,
 		};
 	}
 
