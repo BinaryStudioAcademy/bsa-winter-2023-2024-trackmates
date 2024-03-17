@@ -10,7 +10,7 @@ import {
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
 import { useEffect, useInView } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
 import { notificationTypeToIconName } from "./libs/maps/maps.js";
@@ -39,7 +39,7 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const date = getTimeDistanceFormatDate(notification.createdAt);
 
-	const iconName = notificationTypeToIconName[notification.type];
+	const iconName = notificationTypeToIconName[notification.type] as IconName;
 
 	return (
 		<li
