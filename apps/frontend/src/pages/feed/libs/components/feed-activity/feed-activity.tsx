@@ -71,7 +71,7 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 					isCommentsOpen && styles["open"],
 				)}
 			>
-				<ActivityComments activityId={activity.id} />
+				{isCommentsOpen && <ActivityComments activityId={activity.id} />}
 			</div>
 		</article>
 	);
