@@ -76,7 +76,7 @@ const { actions, name, reducer } = createSlice({
 	reducers: {
 		deleteNotification(state, action: PayloadAction<NotificationResponseDto>) {
 			state.notifications = state.notifications.filter((notification) => {
-				return notification.id != action.payload.id;
+				return notification.id !== action.payload.id;
 			});
 
 			if (action.payload.status === NotificationStatus.UNREAD) {
