@@ -1,5 +1,6 @@
 type ActivityCounts = {
 	commentCount: number;
+	isLikedByUser: null | number;
 	likesCount: number;
 };
 

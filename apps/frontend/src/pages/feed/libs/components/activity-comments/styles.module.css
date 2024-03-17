@@ -1,5 +1,8 @@
 .container {
-	padding: 10px 12px 24px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	margin-top: 16px;
 }
 
 .comments-container {
@@ -7,5 +10,6 @@
 	flex-direction: column;
 	gap: 8px;
 	width: 100%;
-	margin-bottom: 16px;
+	max-height: 200px;
+	overflow-y: auto;
 }

@@ -46,6 +46,10 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 
 	return (
 		<div className={styles["container"]}>
+			<ActivityCommentForm
+				isLoading={isLoadingComments}
+				onSubmit={handleCreateComment}
+			/>
 			{isLoadingComments ? (
 				<Loader color="orange" size="large" />
 			) : (
@@ -55,10 +59,6 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 					))}
 				</div>
 			)}
-			<ActivityCommentForm
-				isLoading={isLoadingComments}
-				onSubmit={handleCreateComment}
-			/>
 		</div>
 	);
 };
