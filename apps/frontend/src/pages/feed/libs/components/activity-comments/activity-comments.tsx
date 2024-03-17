@@ -1,4 +1,5 @@
 import { Loader } from "~/libs/components/components.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -44,6 +45,8 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 		void dispatch(activityActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
 
+	const hasComments = comments.length > EMPTY_LENGTH;
+
 	return (
 		<div className={styles["container"]}>
 			<ActivityCommentForm
@@ -53,11 +56,15 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 			{isLoadingComments ? (
 				<Loader color="orange" size="large" />
 			) : (
-				<div className={styles["comments-container"]}>
-					{comments.map((comment) => (
-						<CommentCard comment={comment} key={comment.id} />
-					))}
-				</div>
+				<>
+					{hasComments && (
+						<div className={styles["comments-container"]}>
+							{comments.map((comment) => (
+								<CommentCard comment={comment} key={comment.id} />
+							))}
+						</div>
+					)}
+				</>
 			)}
 		</div>
 	);
