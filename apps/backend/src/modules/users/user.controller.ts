@@ -1,5 +1,9 @@
 import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
-import { checkUserPermissions } from "~/libs/hooks/hooks.js";
+import {
+	checkParametersByUser,
+	checkUserPermissions,
+	combineHooks,
+} from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -13,7 +17,8 @@ import {
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
-import { UsersApiPath } from "./libs/enums/enums.js";
+import { UserErrorMessage, UsersApiPath } from "./libs/enums/enums.js";
+import { UserError } from "./libs/exceptions/exceptions.js";
 import {
 	type UserAuthResponseDto,
 	type UserGetByIdRequestDto,
@@ -33,16 +38,26 @@ class UserController extends BaseController {
 				return this.delete(
 					options as APIHandlerOptions<{
 						params: { id: string };
-						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "DELETE",
 			path: UsersApiPath.$ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_USERS],
-				PermissionMode.ALL_OF,
-			),
+			preHandler: combineHooks([
+				checkUserPermissions(
+					[PermissionKey.MANAGE_USERS, PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+				checkParametersByUser<{ id: string }>(
+					(parameters: { id: string }, user: UserAuthResponseDto) => {
+						return Number(parameters.id) !== user.id;
+					},
+					new UserError({
+						message: UserErrorMessage.FORBIDDEN_DELETING_YOURSELF,
+						status: HTTPCode.BAD_REQUEST,
+					}),
+				),
+			]),
 			validation: {
 				params: userIdParametersValidationSchema,
 			},
@@ -109,16 +124,12 @@ class UserController extends BaseController {
 	 */
 	private async delete({
 		params: { id },
-		user,
 	}: APIHandlerOptions<{
 		params: {
 			id: string;
 		};
-		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const userId = Number(id);
-
-		const success = await this.userService.deleteUserByAdmin(user, userId);
+		const success = await this.userService.delete(Number(id));
 
 		return {
 			payload: { success },
