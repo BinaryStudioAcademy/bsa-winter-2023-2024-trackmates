@@ -127,7 +127,7 @@ class CourseController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.update(
+				return this.updateFromVendor(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
@@ -152,7 +152,7 @@ class CourseController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.updateByAdmin(
+				return this.update(
 					options as APIHandlerOptions<{
 						body: CourseUpdateRequestDto;
 						params: { courseId: string };
@@ -425,43 +425,6 @@ class CourseController extends BaseController {
 	/**
 	 * @swagger
 	 * /courses/{id}:
-	 *    put:
-	 *      tags:
-	 *        - Courses
-	 *      description: Update course from vendor API and save it in DB
-	 *      security:
-	 *        - bearerAuth: []
-	 *      parameters:
-	 *        - name: id
-	 *          in: path
-	 *          description: The vendor ID
-	 *          required: true
-	 *          schema:
-	 *            type: integer
-	 *            minimum: 1
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                $ref: "#/components/schemas/Course"
-	 */
-	private async update({
-		params: { courseId },
-	}: APIHandlerOptions<{
-		params: { courseId: string };
-	}>): Promise<APIHandlerResponse> {
-		return {
-			payload: await this.courseService.update(Number(courseId)),
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /courses/{id}:
 	 *    patch:
 	 *      tags:
 	 *        - Courses
@@ -495,7 +458,7 @@ class CourseController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/Course"
 	 */
-	private async updateByAdmin({
+	private async update({
 		body,
 		params: { courseId },
 	}: APIHandlerOptions<{
@@ -503,7 +466,44 @@ class CourseController extends BaseController {
 		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.updateByAdmin(Number(courseId), body),
+			payload: await this.courseService.update(Number(courseId), body),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/{id}:
+	 *    put:
+	 *      tags:
+	 *        - Courses
+	 *      description: Update course from vendor API and save it in DB
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The vendor ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
+	private async updateFromVendor({
+		params: { courseId },
+	}: APIHandlerOptions<{
+		params: { courseId: string };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.updateFromVendor(Number(courseId)),
 			status: HTTPCode.OK,
 		};
 	}

@@ -278,24 +278,7 @@ class CourseService {
 		return { courses: sortedCourses.filter(Boolean) };
 	}
 
-	public async update(id: number): Promise<CourseDto | null> {
-		const existingCourse = await this.courseRepository.find(id);
-
-		if (!existingCourse) {
-			throw new CourseError({
-				message: CourseErrorMessage.NOT_FOUND_COURSE,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
-		const { vendorCourseId, vendorId } = existingCourse.toObject();
-		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
-		const course = await this.courseRepository.update(id, vendorCourse);
-
-		return course ? course.toObject() : null;
-	}
-
-	public async updateByAdmin(
+	public async update(
 		id: number,
 		payload: CourseUpdateRequestDto,
 	): Promise<CourseDto> {
@@ -330,6 +313,23 @@ class CourseService {
 		}
 
 		return updatedCourse.toObject();
+	}
+
+	public async updateFromVendor(id: number): Promise<CourseDto | null> {
+		const existingCourse = await this.courseRepository.find(id);
+
+		if (!existingCourse) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const { vendorCourseId, vendorId } = existingCourse.toObject();
+		const vendorCourse = await this.getVendorCourse(vendorCourseId, vendorId);
+		const course = await this.courseRepository.update(id, vendorCourse);
+
+		return course ? course.toObject() : null;
 	}
 }
 
