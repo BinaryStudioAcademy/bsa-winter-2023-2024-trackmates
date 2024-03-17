@@ -34,7 +34,7 @@ const cancelPaymentIntent = createAsyncThunk<
 	const { subscriptionApi } = extra;
 
 	void subscriptionApi.cancelPaymentIntent(payload);
-	dispatch(appActions.navigate(AppRoute.ROOT));
+	dispatch(appActions.navigate(AppRoute.SUBSCRIPTION));
 });
 
 const confirmPaymentIntent = createAsyncThunk<

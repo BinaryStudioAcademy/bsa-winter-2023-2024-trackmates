@@ -7,6 +7,7 @@ type IconName =
 	| "chats"
 	| "comment"
 	| "cross"
+	| "crown"
 	| "delete"
 	| "edit"
 	| "eye"
