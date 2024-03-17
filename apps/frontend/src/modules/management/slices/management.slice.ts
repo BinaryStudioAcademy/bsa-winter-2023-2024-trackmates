@@ -198,7 +198,6 @@ const { reducer } = createSlice({
 				state.courseToDataStatus[courseId] = {
 					deleteDataStatus: DataStatus.PENDING,
 				};
-				state.coursesDataStatus = DataStatus.PENDING;
 			},
 		);
 		builder.addCase(
@@ -207,7 +206,6 @@ const { reducer } = createSlice({
 				state.courseToDataStatus[courseId] = {
 					deleteDataStatus: DataStatus.REJECTED,
 				};
-				state.coursesDataStatus = DataStatus.REJECTED;
 			},
 		);
 
@@ -228,7 +226,6 @@ const { reducer } = createSlice({
 				state.courseToDataStatus[courseId] = {
 					updateDataStatus: DataStatus.FULFILLED,
 				};
-				state.coursesDataStatus = DataStatus.FULFILLED;
 			},
 		);
 		builder.addCase(
@@ -244,7 +241,6 @@ const { reducer } = createSlice({
 				state.courseToDataStatus[courseId] = {
 					updateDataStatus: DataStatus.PENDING,
 				};
-				state.coursesDataStatus = DataStatus.PENDING;
 			},
 		);
 		builder.addCase(
@@ -260,7 +256,6 @@ const { reducer } = createSlice({
 				state.courseToDataStatus[courseId] = {
 					updateDataStatus: DataStatus.REJECTED,
 				};
-				state.coursesDataStatus = DataStatus.REJECTED;
 			},
 		);
 	},
