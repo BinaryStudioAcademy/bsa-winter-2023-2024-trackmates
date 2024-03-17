@@ -31,7 +31,7 @@
 	}
 }
 
-@media screen and (width <= 320px) {
+@media screen and (--small-screen) {
 	.friends {
 		grid-template-columns: 1fr;
 	}
