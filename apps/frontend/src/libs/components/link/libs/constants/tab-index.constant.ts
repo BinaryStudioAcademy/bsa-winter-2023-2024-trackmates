@@ -1,0 +1,3 @@
+const TAB_INDEX_DISABLED = -1;
+
+export { TAB_INDEX_DISABLED };

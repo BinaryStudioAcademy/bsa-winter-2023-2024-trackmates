@@ -58,7 +58,7 @@ const User: React.FC = () => {
 		};
 	});
 
-	const { handlePageChange, page, pages, pagesCount } = usePagination({
+	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount,
@@ -164,7 +164,6 @@ const User: React.FC = () => {
 								<Courses courses={courses} userId={userId} />
 								<Pagination
 									currentPage={page}
-									onPageChange={handlePageChange}
 									pages={pages}
 									pagesCount={pagesCount}
 								/>

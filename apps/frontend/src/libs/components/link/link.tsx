@@ -5,12 +5,14 @@ import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { TAB_INDEX_DISABLED } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
 	activeClassName?: string | undefined;
 	children: React.ReactNode;
 	className?: string | undefined;
+	isDisabled?: boolean | undefined;
 	to: ValueOf<typeof AppRoute>;
 };
 
@@ -18,6 +20,7 @@ const Link: React.FC<Properties> = ({
 	activeClassName,
 	children,
 	className,
+	isDisabled,
 	to,
 }: Properties) => {
 	const handleLinkStyles = useCallback(
@@ -32,7 +35,11 @@ const Link: React.FC<Properties> = ({
 	);
 
 	return (
-		<NavLink className={handleLinkStyles} to={to}>
+		<NavLink
+			className={handleLinkStyles}
+			tabIndex={isDisabled ? TAB_INDEX_DISABLED : undefined}
+			to={to}
+		>
 			{children}
 		</NavLink>
 	);
