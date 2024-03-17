@@ -154,8 +154,11 @@ const { reducer } = createSlice({
 
 		builder.addCase(
 			usersActions.remove.fulfilled,
-			(state, { payload: userId }) => {
-				state.users = state.users.filter(({ id }) => id !== userId);
+			(state, { meta: { arg: userId }, payload }) => {
+				if (payload) {
+					state.users = state.users.filter(({ id }) => id !== userId);
+				}
+
 				state.userToDataStatus[userId] = DataStatus.FULFILLED;
 			},
 		);

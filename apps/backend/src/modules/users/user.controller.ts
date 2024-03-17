@@ -45,7 +45,7 @@ class UserController extends BaseController {
 			path: UsersApiPath.$ID,
 			preHandler: combineHooks([
 				checkUserPermissions(
-					[PermissionKey.MANAGE_USERS, PermissionKey.MANAGE_COURSES],
+					[PermissionKey.MANAGE_USERS],
 					PermissionMode.ALL_OF,
 				),
 				checkParametersByUser<{ id: string }>(
@@ -117,10 +117,7 @@ class UserController extends BaseController {
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
+	 *                type: boolean
 	 */
 	private async delete({
 		params: { id },
@@ -129,10 +126,8 @@ class UserController extends BaseController {
 			id: string;
 		};
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.userService.delete(Number(id));
-
 		return {
-			payload: { success },
+			payload: await this.userService.delete(Number(id)),
 			status: HTTPCode.OK,
 		};
 	}

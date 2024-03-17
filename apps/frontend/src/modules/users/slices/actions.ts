@@ -1,34 +1,28 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { HTTPCode } from "~/libs/modules/http/http.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
-	UserError,
-	UserErrorMessage,
 	type UserProfileRequestDto,
 } from "~/modules/users/users.js";
 
 import { name as sliceName } from "./users.slice.js";
 
-const remove = createAsyncThunk<number, number, AsyncThunkConfig>(
+const remove = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 	`${sliceName}/remove`,
 	async (id, { extra }) => {
 		const { notification, userApi } = extra;
 
-		const { success } = await userApi.remove(id);
+		const success = await userApi.remove(id);
 
 		if (success) {
 			notification.success(NotificationMessage.USER_DELETED);
 		} else {
-			throw new UserError({
-				message: UserErrorMessage.USER_DELETION_FAILED,
-				status: HTTPCode.BAD_REQUEST,
-			});
+			notification.error(NotificationMessage.USER_DELETION_FAILED);
 		}
 
-		return id;
+		return success;
 	},
 );
 

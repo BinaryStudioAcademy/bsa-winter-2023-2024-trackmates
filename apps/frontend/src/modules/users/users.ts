@@ -11,8 +11,7 @@ const userApi = new UserApi({
 });
 
 export { userApi };
-export { UserErrorMessage, UserSex } from "./libs/enums/enums.js";
-export { UserError } from "./libs/exceptions/exceptions.js";
+export { UserSex } from "./libs/enums/enums.js";
 export { userSexToPronoun } from "./libs/maps/maps.js";
 export {
 	type UserAuthResponseDto,

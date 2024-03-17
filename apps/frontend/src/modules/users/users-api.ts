@@ -49,7 +49,7 @@ class UserApi extends BaseHTTPApi {
 		return await response.json<UserAuthResponseDto>();
 	}
 
-	public async remove(id: number): Promise<{ success: boolean }> {
+	public async remove(id: number): Promise<boolean> {
 		const response = await this.load(
 			this.getFullEndpoint(UsersApiPath.$ID, { id: String(id) }),
 			{
@@ -58,7 +58,7 @@ class UserApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<{ success: boolean }>();
+		return await response.json<boolean>();
 	}
 
 	public async update(
