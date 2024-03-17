@@ -80,6 +80,12 @@ const { actions, name, reducer } = createSlice({
 					: course;
 			});
 
+			state.recommendedCourses = state.recommendedCourses.map((course) => {
+				return course.vendorCourseId === vendorCourseId
+					? { ...course, isUserHasCourse: true }
+					: course;
+			});
+
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;
 		});
