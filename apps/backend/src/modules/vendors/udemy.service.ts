@@ -167,7 +167,7 @@ class UdemyService implements VendorService {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
 			page,
-			pageSize: PaginationValue.DEFAULT_COUNT,
+			page_size: PaginationValue.DEFAULT_COUNT,
 		};
 
 		if (search) {
