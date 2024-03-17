@@ -40,13 +40,15 @@ class SubscriptionRepository implements Repository<SubscriptionEntity> {
 		return Boolean(deletedItemsCount);
 	}
 
-	public async deleteExpiredSubscriptions(): Promise<void> {
+	public async deleteExpiredSubscriptions(): Promise<boolean> {
 		const currentDate = new Date().toISOString();
 
-		await this.subscriptionModel
+		const deletedItemsCount = await this.subscriptionModel
 			.query()
 			.where("expires_at", "<=", currentDate)
 			.delete();
+
+		return Boolean(deletedItemsCount);
 	}
 
 	public async find(id: number): Promise<SubscriptionEntity | null> {

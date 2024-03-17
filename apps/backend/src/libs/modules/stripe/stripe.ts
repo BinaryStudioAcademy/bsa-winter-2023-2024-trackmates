@@ -1,4 +1,5 @@
-import { config } from "../config/config.js";
+import { config } from "~/libs/modules/config/config.js";
+
 import { StripeService } from "./stripe.module.js";
 
 const stripe = new StripeService({

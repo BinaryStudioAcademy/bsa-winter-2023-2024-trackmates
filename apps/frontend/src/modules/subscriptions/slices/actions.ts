@@ -63,7 +63,7 @@ const confirmPaymentIntent = createAsyncThunk<
 		}
 
 		const subscription = await subscriptionApi.subscribe();
-		dispatch(appActions.navigate(AppRoute.PROFILE));
+		dispatch(appActions.navigate(AppRoute.SUBSCRIPTION));
 
 		notification.success(NotificationMessage.SUBSCRIPTION_SUCCESS);
 

@@ -45,7 +45,7 @@ const Header: React.FC = () => {
 
 	const hasUnreadMessages = unreadMessagesCount > EMPTY_LENGTH;
 	const hasUnreadNotifications = unreadNotificationsCount > EMPTY_LENGTH;
-	const hasPremium = Boolean(user.subscription);
+	const hasSubscription = Boolean(user.subscription);
 
 	return (
 		<header className={styles["header"]}>
@@ -83,19 +83,19 @@ const Header: React.FC = () => {
 							</span>
 						)}
 					</div>
-					<Link className={styles["avatar-container"]} to={AppRoute.PROFILE}>
+					<Link className={styles["avatar"]} to={AppRoute.PROFILE}>
 						<Image
 							alt="user-avatar"
 							className={getValidClassNames(
 								styles["image"],
-								hasPremium && styles["premium"],
+								hasSubscription && styles["premium"],
 							)}
 							height="48"
 							shape="circle"
 							src={user.avatarUrl ?? defaultAvatar}
 							width="48"
 						/>
-						{hasPremium && (
+						{hasSubscription && (
 							<Icon className={styles["premium-icon"]} name="crown" />
 						)}
 					</Link>
