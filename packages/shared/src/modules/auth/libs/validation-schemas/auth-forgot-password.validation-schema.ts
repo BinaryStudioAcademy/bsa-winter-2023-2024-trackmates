@@ -5,12 +5,12 @@ import {
 	UserValidationRule,
 } from "../../../users/libs/enums/enums.js";
 
-type AuthSendUpdatePasswordLinkRequestValidationDto = {
+type AuthForgotPasswordRequestValidationDto = {
 	email: z.ZodString;
 };
 
-const authSendUpdatePasswordLink = z
-	.object<AuthSendUpdatePasswordLinkRequestValidationDto>({
+const authForgotPassword = z
+	.object<AuthForgotPasswordRequestValidationDto>({
 		email: z
 			.string()
 			.trim()
@@ -54,4 +54,4 @@ const authSendUpdatePasswordLink = z
 	})
 	.required();
 
-export { authSendUpdatePasswordLink };
+export { authForgotPassword };

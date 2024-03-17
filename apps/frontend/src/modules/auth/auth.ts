@@ -11,12 +11,12 @@ const authApi = new AuthApi({
 });
 
 export {
-	type AuthSendUpdatePasswordLinkRequestDto,
+	type AuthForgotPasswordRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type UserAuthResponseDto,
 } from "./libs/types/types.js";
 export {
-	authSendUpdatePasswordLinkValidationSchema,
+	authForgotPasswordValidationSchema,
 	authUpdatePasswordValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 export { authApi };

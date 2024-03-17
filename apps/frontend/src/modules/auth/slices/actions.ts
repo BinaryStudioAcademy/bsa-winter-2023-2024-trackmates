@@ -4,7 +4,7 @@ import { NotificationMessage } from "~/libs/modules/notification/notification.js
 import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
-	type AuthSendUpdatePasswordLinkRequestDto,
+	type AuthForgotPasswordRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type UserAuthResponseDto,
 } from "~/modules/auth/auth.js";
@@ -15,14 +15,14 @@ import {
 
 import { name as sliceName } from "./auth.slice.js";
 
-const sendUpdatePasswordLink = createAsyncThunk<
+const forgotPassword = createAsyncThunk<
 	boolean,
-	AuthSendUpdatePasswordLinkRequestDto,
+	AuthForgotPasswordRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/send-update-password-link`, async (payload, { extra }) => {
+>(`${sliceName}/forgot-password`, async (payload, { extra }) => {
 	const { authApi } = extra;
 
-	return await authApi.sendUpdatePasswordLink(payload);
+	return await authApi.forgotPassword(payload);
 });
 
 const getAuthenticatedUser = createAsyncThunk<
@@ -98,9 +98,9 @@ const logOut = createAsyncThunk<null, undefined, AsyncThunkConfig>(
 );
 
 export {
+	forgotPassword,
 	getAuthenticatedUser,
 	logOut,
-	sendUpdatePasswordLink,
 	signIn,
 	signUp,
 	updatePassword,

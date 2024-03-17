@@ -11,7 +11,7 @@ import {
 } from "~/modules/users/users.js";
 
 import {
-	type AuthSendUpdatePasswordLinkRequestDto,
+	type AuthForgotPasswordRequestDto,
 	type AuthUpdatePasswordRequestDto,
 } from "./auth.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
@@ -28,23 +28,11 @@ class AuthApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.AUTH, storage });
 	}
 
-	public async getAuthenticatedUser(): Promise<UserAuthResponseDto | null> {
-		const response = await this.load(
-			this.getFullEndpoint(AuthApiPath.AUTHENTICATED_USER, {}),
-			{
-				hasAuth: true,
-				method: "GET",
-			},
-		);
-
-		return await response.json<UserAuthResponseDto | null>();
-	}
-
-	public async sendUpdatePasswordLink(
-		payload: AuthSendUpdatePasswordLinkRequestDto,
+	public async forgotPassword(
+		payload: AuthForgotPasswordRequestDto,
 	): Promise<boolean> {
 		const response = await this.load(
-			this.getFullEndpoint(AuthApiPath.SEND_UPDATE_PASSWORD_LINK, {}),
+			this.getFullEndpoint(AuthApiPath.FORGOT_PASSWORD, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: false,
@@ -55,6 +43,18 @@ class AuthApi extends BaseHTTPApi {
 		const { success } = await response.json<{ success: boolean }>();
 
 		return success;
+	}
+
+	public async getAuthenticatedUser(): Promise<UserAuthResponseDto | null> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.AUTHENTICATED_USER, {}),
+			{
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<UserAuthResponseDto | null>();
 	}
 
 	public async signIn(

@@ -7,9 +7,9 @@ import { actions as filesActions } from "~/modules/files/files.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
 import {
+	forgotPassword,
 	getAuthenticatedUser,
 	logOut,
-	sendUpdatePasswordLink,
 	signIn,
 	signUp,
 	updatePassword,
@@ -18,7 +18,7 @@ import {
 type State = {
 	avatarUploadDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
-	sendUpdatePasswordLinkStatus: ValueOf<typeof DataStatus>;
+	forgotPasswordStatus: ValueOf<typeof DataStatus>;
 	updateUserDataStatus: ValueOf<typeof DataStatus>;
 	user: UserAuthResponseDto | null;
 };
@@ -26,7 +26,7 @@ type State = {
 const initialState: State = {
 	avatarUploadDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
-	sendUpdatePasswordLinkStatus: DataStatus.IDLE,
+	forgotPasswordStatus: DataStatus.IDLE,
 	updateUserDataStatus: DataStatus.IDLE,
 	user: null,
 };
@@ -78,16 +78,16 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(sendUpdatePasswordLink.pending, (state) => {
-			state.sendUpdatePasswordLinkStatus = DataStatus.PENDING;
+		builder.addCase(forgotPassword.pending, (state) => {
+			state.forgotPasswordStatus = DataStatus.PENDING;
 		});
-		builder.addCase(sendUpdatePasswordLink.fulfilled, (state, action) => {
-			state.sendUpdatePasswordLinkStatus = action.payload
+		builder.addCase(forgotPassword.fulfilled, (state, action) => {
+			state.forgotPasswordStatus = action.payload
 				? DataStatus.FULFILLED
 				: DataStatus.REJECTED;
 		});
-		builder.addCase(sendUpdatePasswordLink.rejected, (state) => {
-			state.sendUpdatePasswordLinkStatus = DataStatus.REJECTED;
+		builder.addCase(forgotPassword.rejected, (state) => {
+			state.forgotPasswordStatus = DataStatus.REJECTED;
 		});
 
 		builder.addCase(logOut.fulfilled, (state, action) => {

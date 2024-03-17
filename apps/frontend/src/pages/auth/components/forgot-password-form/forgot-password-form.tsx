@@ -7,26 +7,26 @@ import {
 	useCallback,
 } from "~/libs/hooks/hooks.js";
 import {
-	type AuthSendUpdatePasswordLinkRequestDto,
-	authSendUpdatePasswordLinkValidationSchema,
+	type AuthForgotPasswordRequestDto,
+	authForgotPasswordValidationSchema,
 } from "~/modules/auth/auth.js";
 
-import { DEFAULT_AUTH_SEND_UPDATE_PASSWORD_LINK_IN_PAYLOAD } from "./libs/constants.js";
+import { DEFAULT_AUTH_FORGOT_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	onSubmit: (payload: AuthSendUpdatePasswordLinkRequestDto) => void;
+	onSubmit: (payload: AuthForgotPasswordRequestDto) => void;
 };
 
 const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	const { control, errors, handleSubmit } =
-		useAppForm<AuthSendUpdatePasswordLinkRequestDto>({
-			defaultValues: DEFAULT_AUTH_SEND_UPDATE_PASSWORD_LINK_IN_PAYLOAD,
-			validationSchema: authSendUpdatePasswordLinkValidationSchema,
+		useAppForm<AuthForgotPasswordRequestDto>({
+			defaultValues: DEFAULT_AUTH_FORGOT_PASSWORD_IN_PAYLOAD,
+			validationSchema: authForgotPasswordValidationSchema,
 		});
 
-	const sendUpdatePasswordLinkStatus = useAppSelector(({ auth }) => {
-		return auth.sendUpdatePasswordLinkStatus;
+	const forgotPasswordStatus = useAppSelector(({ auth }) => {
+		return auth.forgotPasswordStatus;
 	});
 
 	const handleFormSubmit = useCallback(
@@ -38,9 +38,9 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	useAppTitle(AppTitle.FORGOT_PASSWORD);
 
-	const isLoading = sendUpdatePasswordLinkStatus === DataStatus.PENDING;
+	const isLoading = forgotPasswordStatus === DataStatus.PENDING;
 
-	if (sendUpdatePasswordLinkStatus === DataStatus.FULFILLED) {
+	if (forgotPasswordStatus === DataStatus.FULFILLED) {
 		return (
 			<div className={styles["content"]}>
 				<h3 className={styles["info"]}>
@@ -53,7 +53,7 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	return (
 		<form className={styles["content"]} onSubmit={handleFormSubmit}>
 			<div>
-				<h2 className={styles["title"]}>Get link for update your password</h2>
+				<h2 className={styles["title"]}>Get link to update your password</h2>
 				<p className={styles["subtitle"]}>
 					No account? Go to{" "}
 					<Link className={styles["link"]} to={AppRoute.SIGN_UP}>

@@ -17,11 +17,11 @@ import {
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
 import {
-	type AuthSendUpdatePasswordLinkRequestDto,
+	type AuthForgotPasswordRequestDto,
 	type AuthUpdatePasswordRequestDto,
 } from "./libs/types/types.js";
 import {
-	authSendUpdatePasswordLinkValidationSchema,
+	authForgotPasswordValidationSchema,
 	authUpdatePasswordValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
@@ -85,16 +85,16 @@ class AuthController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.sendUpdatePasswordLink(
+				return this.forgotPassword(
 					options as APIHandlerOptions<{
-						body: AuthSendUpdatePasswordLinkRequestDto;
+						body: AuthForgotPasswordRequestDto;
 					}>,
 				);
 			},
 			method: "POST",
-			path: AuthApiPath.SEND_UPDATE_PASSWORD_LINK,
+			path: AuthApiPath.FORGOT_PASSWORD,
 			validation: {
-				body: authSendUpdatePasswordLinkValidationSchema,
+				body: authForgotPasswordValidationSchema,
 			},
 		});
 
@@ -139,37 +139,7 @@ class AuthController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /auth/authenticated-user:
-	 *    get:
-	 *      tags:
-	 *        - Authentication
-	 *      security:
-	 *        - bearerAuth: []
-	 *      description: Return current user by token
-	 *      responses:
-	 *        200:
-	 *          description: Successful operation
-	 *          content:
-	 *            application/json:
-	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  message:
-	 *                    type: object
-	 *                    $ref: "#/components/schemas/User"
-	 */
-	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
-		const { user } = options;
-
-		return {
-			payload: user ?? null,
-			status: HTTPCode.OK,
-		};
-	}
-
-	/**
-	 * @swagger
-	 * /auth/send-update-password-link:
+	 * /auth/forgot-password:
 	 *    post:
 	 *      tags:
 	 *        - Authentication
@@ -195,15 +165,45 @@ class AuthController extends BaseController {
 	 *                  success:
 	 *                    type: boolean
 	 */
-	private async sendUpdatePasswordLink({
+	private async forgotPassword({
 		body: { email },
 	}: APIHandlerOptions<{
-		body: AuthSendUpdatePasswordLinkRequestDto;
+		body: AuthForgotPasswordRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.authService.sendUpdatePasswordLink(email);
+		const success = await this.authService.forgotPassword(email);
 
 		return {
 			payload: { success },
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /auth/authenticated-user:
+	 *    get:
+	 *      tags:
+	 *        - Authentication
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Return current user by token
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  message:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
+	private getAuthenticatedUser(options: APIHandlerOptions): APIHandlerResponse {
+		const { user } = options;
+
+		return {
+			payload: user ?? null,
 			status: HTTPCode.OK,
 		};
 	}

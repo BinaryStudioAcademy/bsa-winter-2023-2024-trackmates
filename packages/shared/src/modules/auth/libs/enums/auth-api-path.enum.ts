@@ -1,7 +1,7 @@
 const AuthApiPath = {
 	AUTHENTICATED_USER: "/authenticated-user",
+	FORGOT_PASSWORD: "/forgot-password",
 	ROOT: "/",
-	SEND_UPDATE_PASSWORD_LINK: "/send-update-password-link",
 	SIGN_IN: "/sign-in",
 	SIGN_UP: "/sign-up",
 	UPDATE_PASSWORD: "/update-password",

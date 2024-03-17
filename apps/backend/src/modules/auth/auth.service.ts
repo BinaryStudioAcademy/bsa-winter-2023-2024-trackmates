@@ -102,7 +102,7 @@ class AuthService {
 		return user;
 	}
 
-	public async sendUpdatePasswordLink(email: string): Promise<boolean> {
+	public async forgotPassword(email: string): Promise<boolean> {
 		const user = await this.userService.getByEmail(email);
 
 		if (!user) {

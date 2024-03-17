@@ -73,10 +73,10 @@ export {
 export {
 	AuthApiPath,
 	AuthError,
-	type AuthSendUpdatePasswordLinkRequestDto,
+	type AuthForgotPasswordRequestDto,
 	type AuthUpdatePasswordRequestDto,
 	type AuthUpdatePasswordResponseDto,
-	authSendUpdatePasswordLinkValidationSchema,
+	authForgotPasswordValidationSchema,
 	authUpdatePasswordValidationSchema,
 } from "./modules/auth/auth.js";
 export {
