@@ -9,11 +9,10 @@ import {
 	type UseFormRegister,
 	type UseFormReset,
 	type UseFormSetValue,
-	type UseFormTrigger,
 	type UseFormWatch,
 	type ValidationMode,
+	useForm,
 } from "react-hook-form";
-import { useForm } from "react-hook-form";
 
 import { type ValidationSchema } from "~/libs/types/types.js";
 
@@ -30,7 +29,6 @@ type ReturnValue<T extends FieldValues = FieldValues> = {
 	register: UseFormRegister<T>;
 	reset: UseFormReset<T>;
 	setValue: UseFormSetValue<T>;
-	trigger: UseFormTrigger<T>;
 	watch: UseFormWatch<T>;
 };
 
@@ -58,7 +56,6 @@ const useAppForm = <T extends FieldValues = FieldValues>({
 		register,
 		reset,
 		setValue,
-		trigger,
 		watch,
 	} = useForm<T>(parameters);
 
@@ -69,7 +66,6 @@ const useAppForm = <T extends FieldValues = FieldValues>({
 		register,
 		reset,
 		setValue,
-		trigger,
 		watch,
 	};
 };

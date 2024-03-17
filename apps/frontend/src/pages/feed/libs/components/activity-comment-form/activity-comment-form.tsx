@@ -15,7 +15,7 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	isLoading,
 	onSubmit,
 }: Properties) => {
-	const { control, errors, handleSubmit, reset, trigger } = useAppForm({
+	const { control, errors, handleSubmit, reset } = useAppForm({
 		defaultValues: DEFAULT_COMMENT_PAYLOAD,
 		mode: "onSubmit",
 		validationSchema: commentTextValidationSchema,
@@ -25,13 +25,9 @@ const ActivityCommentForm: React.FC<Properties> = ({
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
 
-			void trigger("text").then((isValid) => {
-				if (isValid) {
-					reset();
-				}
-			});
+			reset();
 		},
-		[reset, handleSubmit, onSubmit, trigger],
+		[reset, handleSubmit, onSubmit],
 	);
 
 	return (

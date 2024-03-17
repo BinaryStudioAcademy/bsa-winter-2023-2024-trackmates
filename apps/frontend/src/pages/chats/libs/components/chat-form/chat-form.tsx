@@ -10,7 +10,7 @@ type Properties = {
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const { control, errors, handleSubmit, reset, trigger } = useAppForm<
+	const { control, errors, handleSubmit, reset } = useAppForm<
 		typeof DEFAULT_MESSAGE_PAYLOAD
 	>({
 		defaultValues: DEFAULT_MESSAGE_PAYLOAD,
@@ -22,13 +22,9 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
 
-			void trigger("message").then((isValid) => {
-				if (isValid) {
-					reset();
-				}
-			});
+			reset();
 		},
-		[handleSubmit, onSubmit, reset, trigger],
+		[handleSubmit, onSubmit, reset],
 	);
 
 	return (
