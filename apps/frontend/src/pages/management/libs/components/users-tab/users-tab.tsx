@@ -1,4 +1,3 @@
-import { Button } from "~/libs/components/components.js";
 import {
 	DataStatus,
 	PermissionKey,
@@ -23,6 +22,7 @@ import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
+import { ItemButton } from "../item-button/item-button.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
 import { USERS_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
@@ -65,10 +65,8 @@ const UsersTab: React.FC = () => {
 	}, [dispatch]);
 
 	const handleOpenEditModal = useCallback((user: UserAuthResponseDto) => {
-		return () => {
-			setCurrentUser(user);
-			setIsEditModalOpen(true);
-		};
+		setCurrentUser(user);
+		setIsEditModalOpen(true);
 	}, []);
 
 	const handleCloseEditModal = useCallback(() => {
@@ -92,10 +90,8 @@ const UsersTab: React.FC = () => {
 
 	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 	const handleOpenDeleteModal = useCallback((user: UserAuthResponseDto) => {
-		return () => {
-			setCurrentUser(user);
-			setIsDeleteModalOpen(true);
-		};
+		setCurrentUser(user);
+		setIsDeleteModalOpen(true);
 	}, []);
 	const handleCloseDeleteModal = useCallback(() => {
 		setIsDeleteModalOpen(false);
@@ -114,23 +110,20 @@ const UsersTab: React.FC = () => {
 		return {
 			buttons: (
 				<div className={styles["column-buttons"]}>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
+					<ItemButton
 						iconName="edit"
 						isDisabled={!hasPermissionToEdit || isSameUser}
+						item={user}
 						label={UsersTableHeader.BUTTONS}
-						onClick={handleOpenEditModal(user)}
+						onClick={handleOpenEditModal}
 					/>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
+					<ItemButton
 						iconName="delete"
 						isDisabled={!hasPermissionToDelete || isSameUser}
 						isLoading={isDeleting}
+						item={user}
 						label={UsersTableHeader.BUTTONS}
-						loaderColor="orange"
-						onClick={handleOpenDeleteModal(user)}
+						onClick={handleOpenDeleteModal}
 					/>
 				</div>
 			),
