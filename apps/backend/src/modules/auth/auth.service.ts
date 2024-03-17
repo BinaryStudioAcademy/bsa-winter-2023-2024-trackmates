@@ -92,7 +92,7 @@ class AuthService {
 		const user = await this.userService.findById(userId);
 		const userUpdatedAt = JSON.parse(JSON.stringify(user?.updatedAt)) as string;
 
-		if (!user || updatedAt != userUpdatedAt) {
+		if (!user || updatedAt !== userUpdatedAt) {
 			throw new AuthError({
 				message: ExceptionMessage.UNAUTHORIZED,
 				status: HTTPCode.UNAUTHORIZED,

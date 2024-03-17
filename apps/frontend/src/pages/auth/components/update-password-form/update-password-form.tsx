@@ -58,13 +58,12 @@ const UpdatePasswordForm: React.FC<Properties> = ({
 				<h2 className={styles["title"]}>Update password</h2>
 			</div>
 			<Input
-				className="visually-hidden"
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
 				label="Token"
 				name="token"
-				type="text"
+				type="hidden"
 			/>
 			<div className={styles["password-input"]}>
 				<Input
