@@ -165,7 +165,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		const courses = await this.courseModel
 			.query()
 			.withGraphFetched("vendor")
-			.orderBy("id")
+			.orderBy("id", "ASC")
 			.execute();
 
 		return courses.map((course) => {
