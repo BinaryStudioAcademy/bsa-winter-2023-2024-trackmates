@@ -1,7 +1,7 @@
 type ActivityCounts = {
 	commentCount: number;
-	userLikesCount: null | number;
 	likesCount: number;
+	userLikesCount: null | number;
 };
 
 export { type ActivityCounts };

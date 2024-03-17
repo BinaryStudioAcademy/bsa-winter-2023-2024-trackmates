@@ -22,16 +22,6 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		this.activityModel = activityModel;
 	}
 
-	private getUserLikesCountQuery(
-		userId: number,
-	): QueryBuilder<ActivityLikeModel> {
-		return this.activityModel
-			.relatedQuery<ActivityLikeModel>(RelationName.LIKES)
-			.where({ userId })
-			.count()
-			.as("userLikesCount");
-	}
-
 	private getCommentsCountQuery(): QueryBuilder<CommentModel> {
 		return this.activityModel
 			.relatedQuery<CommentModel>(RelationName.COMMENTS)
@@ -44,6 +34,16 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.relatedQuery<ActivityLikeModel>(RelationName.LIKES)
 			.count()
 			.as("likesCount");
+	}
+
+	private getUserLikesCountQuery(
+		userId: number,
+	): QueryBuilder<ActivityLikeModel> {
+		return this.activityModel
+			.relatedQuery<ActivityLikeModel>(RelationName.LIKES)
+			.where({ userId })
+			.count()
+			.as("userLikesCount");
 	}
 
 	public async create(activity: ActivityEntity): Promise<ActivityEntity> {
