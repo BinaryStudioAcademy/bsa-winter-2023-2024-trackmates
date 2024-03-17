@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { type Stripe } from "@stripe/stripe-js";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -7,6 +8,7 @@ import {
 	cancelPaymentIntent,
 	confirmPaymentIntent,
 	createPaymentIntent,
+	initializeStripe,
 } from "./actions.js";
 
 type State = {
@@ -14,6 +16,7 @@ type State = {
 	confirmPaymentDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
 	paymentId: null | string;
+	stripe: Stripe | null;
 };
 
 const initialState: State = {
@@ -21,6 +24,7 @@ const initialState: State = {
 	confirmPaymentDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
 	paymentId: null,
+	stripe: null,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -55,6 +59,9 @@ const { actions, name, reducer } = createSlice({
 			state.paymentId = null;
 			state.clientSecret = null;
 			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(initializeStripe.fulfilled, (state, action) => {
+			state.stripe = action.payload;
 		});
 	},
 	initialState,

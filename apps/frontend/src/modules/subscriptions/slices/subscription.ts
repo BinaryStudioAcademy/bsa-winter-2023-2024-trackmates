@@ -2,6 +2,7 @@ import {
 	cancelPaymentIntent,
 	confirmPaymentIntent,
 	createPaymentIntent,
+	initializeStripe,
 } from "./actions.js";
 import { actions } from "./subscription.slice.js";
 
@@ -10,6 +11,7 @@ const allActions = {
 	cancelPaymentIntent,
 	confirmPaymentIntent,
 	createPaymentIntent,
+	initializeStripe,
 };
 
 export { allActions as actions };

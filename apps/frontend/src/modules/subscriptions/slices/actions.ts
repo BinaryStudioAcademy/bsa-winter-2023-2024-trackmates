@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { type Stripe, loadStripe } from "@stripe/stripe-js";
 
 import { AppRoute } from "~/libs/enums/enums.js";
+import { config } from "~/libs/modules/config/config.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { actions as appActions } from "~/libs/slices/app/app.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
@@ -71,4 +73,17 @@ const confirmPaymentIntent = createAsyncThunk<
 	},
 );
 
-export { cancelPaymentIntent, confirmPaymentIntent, createPaymentIntent };
+const initializeStripe = createAsyncThunk<
+	Stripe | null,
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/initialize-stripe`, async () => {
+	return await loadStripe(config.ENV.STRIPE.PUBLIC_KEY);
+});
+
+export {
+	cancelPaymentIntent,
+	confirmPaymentIntent,
+	createPaymentIntent,
+	initializeStripe,
+};
