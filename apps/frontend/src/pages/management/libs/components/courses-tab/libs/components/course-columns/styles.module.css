@@ -9,5 +9,12 @@
 
 .icon-button:hover {
 	color: var(--main-orange);
-	background-color: var(--main-white);
+	background-color: transparent;
+}
+
+.icon-button:disabled,
+.icon-button:disabled:hover,
+.icon-button:disabled:focus {
+	color: var(--color-text-100);
+	background-color: transparent;
 }

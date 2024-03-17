@@ -2,10 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import {
-	type CourseDto,
-	actions as coursesActions,
-} from "~/modules/courses/courses.js";
+import { actions as coursesActions } from "~/modules/courses/courses.js";
 import {
 	type GroupResponseDto,
 	actions as groupsActions,
@@ -27,8 +24,6 @@ type State = {
 			updateDataStatus?: ValueOf<typeof DataStatus>;
 		}
 	>;
-	courses: CourseDto[];
-	coursesDataStatus: ValueOf<typeof DataStatus>;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
@@ -39,8 +34,6 @@ type State = {
 
 const initialState: State = {
 	courseToDataStatus: {},
-	courses: [],
-	coursesDataStatus: DataStatus.IDLE,
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
@@ -166,30 +159,12 @@ const { reducer } = createSlice({
 			state.usersDataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(coursesActions.getAll.fulfilled, (state, action) => {
-			state.courses = action.payload;
-			state.coursesDataStatus = DataStatus.FULFILLED;
-		});
-		builder.addCase(coursesActions.getAll.pending, (state) => {
-			state.coursesDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(coursesActions.getAll.rejected, (state) => {
-			state.coursesDataStatus = DataStatus.REJECTED;
-		});
-
 		builder.addCase(
 			coursesActions.deleteById.fulfilled,
-			(state, { meta: { arg: courseId }, payload }) => {
-				if (payload) {
-					state.courses = state.courses.filter((course) => {
-						return course.id !== courseId;
-					});
-				}
-
+			(state, { meta: { arg: courseId } }) => {
 				state.courseToDataStatus[courseId] = {
 					deleteDataStatus: DataStatus.FULFILLED,
 				};
-				state.coursesDataStatus = DataStatus.FULFILLED;
 			},
 		);
 		builder.addCase(
@@ -217,12 +192,8 @@ const { reducer } = createSlice({
 					meta: {
 						arg: { id: courseId },
 					},
-					payload,
 				},
 			) => {
-				state.courses = state.courses.map((course) => {
-					return course.id === courseId ? payload : course;
-				});
 				state.courseToDataStatus[courseId] = {
 					updateDataStatus: DataStatus.FULFILLED,
 				};

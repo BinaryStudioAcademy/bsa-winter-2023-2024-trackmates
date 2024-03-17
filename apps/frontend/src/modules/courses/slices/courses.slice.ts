@@ -5,10 +5,19 @@ import { type ValueOf } from "~/libs/types/types.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
 import { type CourseDto } from "../libs/types/types.js";
-import { getAllByFilter, getById, getRecommended } from "./actions.js";
+import {
+	deleteById,
+	getAll,
+	getAllByFilter,
+	getById,
+	getRecommended,
+	update,
+} from "./actions.js";
 
 type State = {
 	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
+	allCourses: CourseDto[];
+	allCoursesDataStatus: ValueOf<typeof DataStatus>;
 	currentCourse: CourseDto | null;
 	recommendedCourses: CourseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
@@ -17,6 +26,8 @@ type State = {
 
 const initialState: State = {
 	addedVendorCourseDataStatuses: {},
+	allCourses: [],
+	allCoursesDataStatus: DataStatus.IDLE,
 	currentCourse: null,
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
@@ -71,6 +82,43 @@ const { actions, name, reducer } = createSlice({
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;
 		});
+		builder.addCase(getAll.fulfilled, (state, action) => {
+			state.allCourses = action.payload;
+			state.allCoursesDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getAll.pending, (state) => {
+			state.allCoursesDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(getAll.rejected, (state) => {
+			state.allCoursesDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(
+			deleteById.fulfilled,
+			(state, { meta: { arg: courseId }, payload }) => {
+				if (payload) {
+					state.allCourses = state.allCourses.filter((course) => {
+						return course.id !== courseId;
+					});
+				}
+			},
+		);
+		builder.addCase(
+			update.fulfilled,
+			(
+				state,
+				{
+					meta: {
+						arg: { id: courseId },
+					},
+					payload,
+				},
+			) => {
+				state.allCourses = state.allCourses.map((course) => {
+					return course.id === courseId ? payload : course;
+				});
+			},
+		);
 	},
 	initialState,
 	name: "courses",

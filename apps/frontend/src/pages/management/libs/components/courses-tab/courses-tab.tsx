@@ -31,9 +31,9 @@ const CoursesTab: React.FC = () => {
 		(state) => {
 			return {
 				courseToDataStatus: state.management.courseToDataStatus,
-				courses: state.management.courses,
+				courses: state.courses.allCourses,
 				isCoursesLoading:
-					state.management.coursesDataStatus === DataStatus.PENDING,
+					state.courses.allCoursesDataStatus === DataStatus.PENDING,
 			};
 		},
 	);
