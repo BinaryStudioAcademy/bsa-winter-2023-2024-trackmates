@@ -83,15 +83,17 @@
 
 .comments-container {
 	grid-column: span 2;
-	max-height: 0;
-	overflow: hidden;
+
+	/* max-height: 0; */
+
+	/* overflow: hidden; */
 	pointer-events: none;
 	touch-action: none;
+	opacity: 0;
 	transition: 0.3s ease;
 }
 
 .comments-container.open {
-	max-height: 500px;
 	pointer-events: all;
 	touch-action: manipulation;
 	opacity: 1;
