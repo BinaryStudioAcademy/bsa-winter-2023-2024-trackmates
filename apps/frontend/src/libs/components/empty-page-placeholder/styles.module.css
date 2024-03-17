@@ -8,6 +8,12 @@
 	text-align: center;
 }
 
+.empty-page-placeholder.small {
+	padding-block: 10px;
+	margin: 0;
+	font-size: var(--font-size-300);
+}
+
 @media screen and (--small-screen) {
 	.empty-page-placeholder {
 		font-size: var(--font-size-300);

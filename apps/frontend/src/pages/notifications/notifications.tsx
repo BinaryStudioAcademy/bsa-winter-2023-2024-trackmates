@@ -126,7 +126,10 @@ const Notifications: React.FC = () => {
 							{hasNotifications ? (
 								<NotificationList notifications={notifications} />
 							) : (
-								<EmptyPagePlaceholder title="You don't have any notifications yet" />
+								<EmptyPagePlaceholder
+									size="large"
+									title="You don't have any notifications yet"
+								/>
 							)}
 						</>
 					)}

@@ -1,4 +1,4 @@
-import { Loader } from "~/libs/components/components.js";
+import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
 import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
@@ -54,15 +54,20 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				onSubmit={handleCreateComment}
 			/>
 			{isLoadingComments ? (
-				<Loader color="orange" size="large" />
+				<Loader className={styles["loader"]} color="orange" size="small" />
 			) : (
 				<>
-					{hasComments && (
+					{hasComments ? (
 						<div className={styles["comments-container"]}>
 							{comments.map((comment) => (
 								<CommentCard comment={comment} key={comment.id} />
 							))}
 						</div>
+					) : (
+						<EmptyPagePlaceholder
+							size="small"
+							title="There are no comments yet"
+						/>
 					)}
 				</>
 			)}

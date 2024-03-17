@@ -40,7 +40,10 @@ const Feed: React.FC = () => {
 					{hasActivities ? (
 						<FeedActivityList activities={activities} />
 					) : (
-						<EmptyPagePlaceholder title="There are no activities yet" />
+						<EmptyPagePlaceholder
+							size="large"
+							title="There are no activities yet"
+						/>
 					)}
 				</>
 			)}
