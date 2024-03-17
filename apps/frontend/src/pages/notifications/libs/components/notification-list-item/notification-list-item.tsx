@@ -17,13 +17,13 @@ import { notificationTypeToIconName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	isNotificationFilterAll: boolean;
+	hasIcon: boolean;
 	notification: NotificationResponseDto;
 	onRead: (notificationId: number) => void;
 };
 
 const NotificationListItem: React.FC<Properties> = ({
-	isNotificationFilterAll,
+	hasIcon,
 	notification,
 	onRead,
 }: Properties) => {
@@ -60,7 +60,7 @@ const NotificationListItem: React.FC<Properties> = ({
 					className={styles["notification-source-user-avatar"]}
 					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
-				{isNotificationFilterAll && (
+				{hasIcon && (
 					<span className={styles["icon-container"]}>
 						<Icon className={styles["icon"]} name={iconName} />
 					</span>

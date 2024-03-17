@@ -85,7 +85,7 @@ const Notifications: React.FC = () => {
 
 	const hasNotifications = notifications.length > EMPTY_LENGTH;
 
-	const isNotificationFilterAll =
+	const hasIcon =
 		notificationType === null || notificationType === NotificationFilter.ALL;
 
 	return (
@@ -128,7 +128,7 @@ const Notifications: React.FC = () => {
 						<>
 							{hasNotifications ? (
 								<NotificationList
-									isNotificationFilterAll={isNotificationFilterAll}
+									hasIcon={hasIcon}
 									notifications={notifications}
 								/>
 							) : (
