@@ -3,7 +3,7 @@ export {
 	type AddCourseRequestDto,
 	type CourseDto,
 	type CourseGetAllByUserRequestDto,
+	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
-	type CoursesSearchResponseDto,
 } from "@trackmates/shared";

@@ -16,8 +16,8 @@ import { CourseErrorMessage } from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
 import {
 	type CourseDto,
+	type CourseSearchGetAllResponseDto,
 	type CourseSearchResponseDto,
-	type CoursesSearchResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -232,7 +232,7 @@ class CourseService {
 		search: string;
 		userId: number;
 		vendorsKey: string | undefined;
-	}): Promise<CoursesSearchResponseDto> {
+	}): Promise<CourseSearchGetAllResponseDto> {
 		const { page, search, userId, vendorsKey } = parameters;
 		const vendors = vendorsKey
 			? await this.vendorService.findAllByKeys(vendorsKey.split(","))
@@ -258,7 +258,7 @@ class CourseService {
 		search: string;
 		userId: number;
 		vendorsKey: string | undefined;
-	}): Promise<CoursesSearchResponseDto> {
+	}): Promise<CourseSearchGetAllResponseDto> {
 		const { courses } = await this.findAllByVendors(parameters);
 
 		const prompt =

@@ -5,12 +5,12 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import {
 	type CourseDto,
 	type CourseSearchFilterDto,
-	type CoursesSearchResponseDto,
+	type CourseSearchGetAllResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
 const getAll = createAsyncThunk<
-	CoursesSearchResponseDto,
+	CourseSearchGetAllResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-all`, (filterPayload, { extra }) => {
@@ -29,7 +29,7 @@ const getById = createAsyncThunk<CourseDto, { id: string }, AsyncThunkConfig>(
 );
 
 const getRecommended = createAsyncThunk<
-	CoursesSearchResponseDto,
+	CourseSearchGetAllResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-recommended`, (filterPayload, { extra }) => {

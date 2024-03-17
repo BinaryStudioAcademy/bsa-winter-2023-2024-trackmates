@@ -196,6 +196,7 @@ const AddCourseModal: React.FC<Properties> = ({
 											isLoading={isLoadMore}
 											label="Load more"
 											onClick={handleLoadMore}
+											size="small"
 										/>
 										<div className={styles["recommended-courses"]}>
 											<h2 className={styles["courses-title"]}>
