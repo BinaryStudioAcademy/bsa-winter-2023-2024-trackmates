@@ -22,14 +22,14 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		this.activityModel = activityModel;
 	}
 
-	private checkIsLikedByUserQuery(
+	private getUserLikesCountQuery(
 		userId: number,
 	): QueryBuilder<ActivityLikeModel> {
 		return this.activityModel
 			.relatedQuery<ActivityLikeModel>(RelationName.LIKES)
 			.where({ userId })
 			.count()
-			.as("isLikedByUser");
+			.as("userLikesCount");
 	}
 
 	private getCommentsCountQuery(): QueryBuilder<CommentModel> {
@@ -157,11 +157,11 @@ class ActivityRepository implements Repository<ActivityEntity> {
 	public async findAll(userId: number): Promise<ActivityEntity[]> {
 		const activities = await this.activityModel
 			.query()
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.select(
 				`${DatabaseTableName.ACTIVITIES}.*`,
-				this.checkIsLikedByUserQuery(userId),
+				this.getLikesCountQuery(),
+				this.getCommentsCountQuery(),
+				this.getUserLikesCountQuery(userId),
 			)
 			.whereIn(
 				`${DatabaseTableName.ACTIVITIES}.userId`,
@@ -184,7 +184,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				actionId: activity.actionId,
 				commentCount: activity.commentCount,
 				id: activity.id,
-				isLikedByUser: Boolean(Number(activity.isLikedByUser)),
+				isLikedByUser: Boolean(Number(activity.userLikesCount)),
 				likesCount: activity.likesCount,
 				payload: activity.payload,
 				type: activity.type,
@@ -263,11 +263,11 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		const activity = await this.activityModel
 			.query()
 			.findById(id)
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.select(
 				`${DatabaseTableName.ACTIVITIES}.*`,
-				this.checkIsLikedByUserQuery(userId),
+				this.getLikesCountQuery(),
+				this.getCommentsCountQuery(),
+				this.getUserLikesCountQuery(userId),
 			)
 			.withGraphJoined(
 				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
@@ -280,7 +280,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					actionId: activity.actionId,
 					commentCount: activity.commentCount,
 					id: activity.id,
-					isLikedByUser: Boolean(Number(activity.isLikedByUser)),
+					isLikedByUser: Boolean(Number(activity.userLikesCount)),
 					likesCount: activity.likesCount,
 					payload: activity.payload,
 					type: activity.type,
