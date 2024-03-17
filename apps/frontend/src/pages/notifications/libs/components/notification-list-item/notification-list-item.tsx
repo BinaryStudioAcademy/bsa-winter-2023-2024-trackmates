@@ -41,13 +41,6 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const iconName = notificationTypeToIconName[notification.type];
 
-	const isFollower = iconName === "follower";
-
-	const iconClassName = getValidClassNames(
-		styles["icon"],
-		isFollower && styles["icon-follower"],
-	);
-
 	return (
 		<li
 			className={getValidClassNames(
@@ -69,7 +62,7 @@ const NotificationListItem: React.FC<Properties> = ({
 				/>
 				{isNotificationFilterAll && (
 					<span className={styles["icon-container"]}>
-						<Icon className={iconClassName} name={iconName} />
+						<Icon className={styles["icon"]} name={iconName} />
 					</span>
 				)}
 			</Link>
