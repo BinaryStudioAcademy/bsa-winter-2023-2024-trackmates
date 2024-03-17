@@ -5,6 +5,7 @@ export {
 	type ChatMessageItemWithReceiverIdResponseDto,
 	type ChatMessageUpdateRequestDto,
 	type ReadChatMessagesRequestDto,
+	type ReadChatMessagesResponseDto,
 } from "./libs/types/types.js";
 export {
 	chatMessage as chatMessageValidationSchema,

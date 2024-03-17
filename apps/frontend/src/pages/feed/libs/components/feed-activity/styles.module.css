@@ -79,7 +79,16 @@
 }
 
 .comments-container {
-	padding: 20px 12px;
+	pointer-events: none;
+	touch-action: none;
+	opacity: 0;
+	transition: 0.3s ease;
+}
+
+.comments-container.open {
+	pointer-events: all;
+	touch-action: manipulation;
+	opacity: 1;
 }
 
 @media screen and (--medium-screen) {

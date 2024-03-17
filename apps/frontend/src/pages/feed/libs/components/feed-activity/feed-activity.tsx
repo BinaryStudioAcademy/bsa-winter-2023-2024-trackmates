@@ -1,5 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image } from "~/libs/components/components.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
@@ -64,7 +65,14 @@ const FeedActivity: React.FC<Properties> = ({ activity }: Properties) => {
 					/>
 				</div>
 			</div>
-			{isCommentsOpen && <ActivityComments activityId={activity.id} />}
+			<div
+				className={getValidClassNames(
+					styles["comments-container"],
+					isCommentsOpen && styles["open"],
+				)}
+			>
+				{isCommentsOpen && <ActivityComments activityId={activity.id} />}
+			</div>
 		</article>
 	);
 };

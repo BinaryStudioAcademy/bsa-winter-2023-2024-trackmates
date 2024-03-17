@@ -7,7 +7,11 @@ import {
 import { SocketEvent, SocketNamespace } from "~/libs/modules/socket/socket.js";
 import { type ExtraArguments } from "~/libs/modules/store/store.js";
 import { type AppDispatch, type RootState } from "~/libs/types/types.js";
-import { actions as userNotificationsActions } from "~/modules/user-notifications/user-notifications.js";
+import {
+	type NotificationResponseDto,
+	type ReadNotificationsResponseDto,
+	actions as userNotificationsActions,
+} from "~/modules/user-notifications/user-notifications.js";
 
 const notificationsSocket = ({
 	extra: { socket },
@@ -18,20 +22,33 @@ const notificationsSocket = ({
 		SocketNamespace.NOTIFICATIONS,
 	);
 
-	return ({ dispatch, getState }) => {
-		notificationsSocketInstance.on(SocketEvent.UPDATE_NOTIFICATION, () => {
-			const {
-				userNotifications: { notificationType },
-			} = getState();
+	return ({ dispatch }) => {
+		notificationsSocketInstance.on(
+			SocketEvent.NOTIFICATIONS_DELETE,
+			(notification: NotificationResponseDto) => {
+				void dispatch(
+					userNotificationsActions.deleteNotification(notification),
+				);
+			},
+		);
 
-			void dispatch(
-				userNotificationsActions.getUserNotifications({
-					search: "",
-					type: notificationType,
-				}),
-			);
-			void dispatch(userNotificationsActions.getUnreadNotificationsCount());
-		});
+		notificationsSocketInstance.on(
+			SocketEvent.NOTIFICATIONS_NEW,
+			(notification: NotificationResponseDto) => {
+				void dispatch(userNotificationsActions.newNotification(notification));
+			},
+		);
+
+		notificationsSocketInstance.on(
+			SocketEvent.NOTIFICATIONS_READ,
+			(setReadNotificationsResponse: ReadNotificationsResponseDto) => {
+				void dispatch(
+					userNotificationsActions.updateReadNotifications(
+						setReadNotificationsResponse,
+					),
+				);
+			},
+		);
 
 		return (next) => {
 			return (action) => {

@@ -6,6 +6,7 @@ import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
 import {
 	type AllNotificationsResponseDto,
 	type ReadNotificationsRequestDto,
+	type ReadNotificationsResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-notifications.slice.js";
 
@@ -33,22 +34,14 @@ const getUnreadNotificationsCount = createAsyncThunk<
 });
 
 const setReadNotifications = createAsyncThunk<
-	AllNotificationsResponseDto,
+	ReadNotificationsResponseDto,
 	ReadNotificationsRequestDto,
 	AsyncThunkConfig
->(
-	`${sliceName}/set-read-notifications`,
-	async (payload, { dispatch, extra }) => {
-		const { userNotificationsApi } = extra;
+>(`${sliceName}/set-read-notifications`, async (payload, { extra }) => {
+	const { userNotificationsApi } = extra;
 
-		const readNotifications =
-			await userNotificationsApi.setReadNotifications(payload);
-
-		void dispatch(getUnreadNotificationsCount());
-
-		return readNotifications;
-	},
-);
+	return await userNotificationsApi.setReadNotifications(payload);
+});
 
 const joinRoom = createAction(`${sliceName}/join-room`, (userId: string) => {
 	return {
