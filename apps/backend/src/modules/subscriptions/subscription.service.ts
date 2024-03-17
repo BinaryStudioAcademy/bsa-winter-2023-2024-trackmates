@@ -1,7 +1,9 @@
+import Stripe from "stripe";
+
 import { ExceptionMessage } from "~/libs/enums/enums.js";
 import { getShiftedDate } from "~/libs/helpers/helpers.js";
+import { config } from "~/libs/modules/config/config.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { type StripeService } from "~/libs/modules/stripe/stripe.js";
 import {
 	CronExpression,
 	type TaskScheduler,
@@ -9,7 +11,13 @@ import {
 import { type Service } from "~/libs/types/types.js";
 import { userService } from "~/modules/users/users.js";
 
-import { SubscriptionPlan } from "./libs/enums/enums.js";
+import { SMALLEST_CURRENCY_UNIT_MULTIPLIER } from "./libs/constants/constants.js";
+import {
+	Currency,
+	PaymentIntentStatus,
+	PaymentMethodType,
+	SubscriptionPlan,
+} from "./libs/enums/enums.js";
 import { SubscriptionError } from "./libs/exceptions/exceptions.js";
 import {
 	type SubscriptionPaymentIntentCreateRequestDto,
@@ -20,23 +28,18 @@ import { SubscriptionEntity } from "./subscription.entity.js";
 import { type SubscriptionRepository } from "./subscription.repository.js";
 
 type Constructor = {
-	stripe: StripeService;
 	subscriptionRepository: SubscriptionRepository;
 	taskScheduler: TaskScheduler;
 };
 
 class SubscriptionService implements Service {
-	private stripe: StripeService;
+	private stripe: Stripe;
 
 	private subscriptionRepository: SubscriptionRepository;
 	private taskScheduler: TaskScheduler;
 
-	public constructor({
-		stripe,
-		subscriptionRepository,
-		taskScheduler,
-	}: Constructor) {
-		this.stripe = stripe;
+	public constructor({ subscriptionRepository, taskScheduler }: Constructor) {
+		this.stripe = new Stripe(config.ENV.STRIPE.SECRET_KEY);
 		this.subscriptionRepository = subscriptionRepository;
 		this.taskScheduler = taskScheduler;
 	}
@@ -45,8 +48,14 @@ class SubscriptionService implements Service {
 		await this.subscriptionRepository.deleteExpiredSubscriptions();
 	}
 
+	private getPriceInSmallestCurrencyUnit(amount: number): number {
+		return amount * SMALLEST_CURRENCY_UNIT_MULTIPLIER;
+	}
+
 	public async cancelPaymentIntent(id: string): Promise<boolean> {
-		return await this.stripe.cancelPaymentIntent(id);
+		const { status } = await this.stripe.paymentIntents.cancel(id);
+
+		return status === PaymentIntentStatus.CANCELED;
 	}
 
 	public async create(expiresAt: string): Promise<SubscriptionResponseDto> {
@@ -62,11 +71,14 @@ class SubscriptionService implements Service {
 	public async createPaymentIntent({
 		price,
 	}: SubscriptionPaymentIntentCreateRequestDto): Promise<SubscriptionPaymentIntentCreateResponseDto> {
-		const { clientSecret, id } = await this.stripe.createPaymentIntent({
-			price,
-		});
+		const { client_secret: clientSecret, id } =
+			await this.stripe.paymentIntents.create({
+				amount: this.getPriceInSmallestCurrencyUnit(price),
+				currency: Currency.USD,
+				payment_method_types: [PaymentMethodType.CARD],
+			});
 
-		return { clientSecret, id };
+		return { clientSecret: clientSecret as string, id };
 	}
 
 	public async delete(id: number): Promise<boolean> {

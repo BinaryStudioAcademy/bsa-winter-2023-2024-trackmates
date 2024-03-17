@@ -1,5 +1,4 @@
 import { logger } from "~/libs/modules/logger/logger.js";
-import { stripe } from "~/libs/modules/stripe/stripe.js";
 import { taskScheduler } from "~/libs/modules/task-scheduler/task-scheduler.js";
 
 import { SubscriptionController } from "./subscription.controller.js";
@@ -9,7 +8,6 @@ import { SubscriptionService } from "./subscription.service.js";
 
 const subscriptionRepository = new SubscriptionRepository(SubscriptionModel);
 const subscriptionService = new SubscriptionService({
-	stripe,
 	subscriptionRepository,
 	taskScheduler,
 });
