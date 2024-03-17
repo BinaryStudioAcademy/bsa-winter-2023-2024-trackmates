@@ -23,7 +23,6 @@ import { NotFound } from "./pages/not-found/not-found.js";
 import { Notifications } from "./pages/notifications/notifications.js";
 import { Overview } from "./pages/overview/overview.js";
 import { Profile } from "./pages/profile/profile.js";
-import { Subscription } from "./pages/subscription/subscription.js";
 import { User } from "./pages/user/user.js";
 
 createRoot(document.querySelector("#root") as HTMLElement).render(
@@ -135,11 +134,11 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.MANAGEMENT_GROUPS,
 							},
 							{
-								element: <ProtectedRoute component={<Subscription />} />,
+								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.SUBSCRIPTION,
 							},
 							{
-								element: <ProtectedRoute component={<Subscription />} />,
+								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.SUBSCRIPTION_CHECKOUT,
 							},
 						],

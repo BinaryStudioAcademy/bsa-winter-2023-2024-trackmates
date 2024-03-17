@@ -54,18 +54,19 @@ const confirmPaymentIntent = createAsyncThunk<
 			redirect: "if_required",
 		});
 
-		if (
+		const hasError =
 			error &&
 			(error.type === StripeError.CARD_ERROR ||
-				error.type === StripeError.VALIDATION_ERROR)
-		) {
+				error.type === StripeError.VALIDATION_ERROR);
+
+		if (hasError) {
 			notification.error(error.message as string);
 
 			return rejectWithValue(null);
 		}
 
 		const subscription = await subscriptionApi.subscribe();
-		dispatch(appActions.navigate(AppRoute.SUBSCRIPTION));
+		dispatch(appActions.navigate(AppRoute.PROFILE));
 
 		notification.success(NotificationMessage.SUBSCRIPTION_SUCCESS);
 

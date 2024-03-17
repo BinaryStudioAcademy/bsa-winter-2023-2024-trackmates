@@ -1,0 +1,27 @@
+.actions-container {
+	display: flex;
+	gap: 16px;
+	justify-content: center;
+	min-height: 60px;
+	padding: 14px;
+	background-color: var(--color-menu);
+}
+
+.checkout-form {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+.container {
+	flex-grow: 1;
+	width: 100%;
+	max-width: 500px;
+	padding: 40px 20px;
+	margin: 0 auto;
+}
+
+.action-button {
+	width: 100%;
+	max-width: 150px;
+}

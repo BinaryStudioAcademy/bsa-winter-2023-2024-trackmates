@@ -61,20 +61,26 @@ const CheckoutForm: React.FC = () => {
 
 	return (
 		<form className={styles["checkout-form"]} onSubmit={handleSubmitPayment}>
-			<PaymentElement />
+			<div className={styles["container"]}>
+				<PaymentElement />
+			</div>
 			<div className={styles["actions-container"]}>
 				<Button
-					className={styles["cancel-button"]}
+					className={styles["action-button"]}
 					isDisabled={isDisabled}
 					label="Cancel"
 					onClick={handleCancelPayment}
+					size="small"
+					style="secondary"
 					type="button"
 				/>
 				<Button
-					className={styles["pay-button"]}
+					className={styles["action-button"]}
 					isDisabled={isDisabled}
 					isLoading={isConfirmLoading}
 					label={`Pay $${SubscriptionPlan.PRICE}`}
+					size="small"
+					style="primary"
 					type="submit"
 				/>
 			</div>

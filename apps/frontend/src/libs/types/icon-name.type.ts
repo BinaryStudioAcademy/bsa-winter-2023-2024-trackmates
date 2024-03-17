@@ -9,6 +9,7 @@ type IconName =
 	| "cross"
 	| "crown"
 	| "delete"
+	| "diamond"
 	| "edit"
 	| "eye"
 	| "eyeOff"

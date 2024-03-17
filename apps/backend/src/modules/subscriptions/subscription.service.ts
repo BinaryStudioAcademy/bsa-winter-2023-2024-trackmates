@@ -36,6 +36,7 @@ class SubscriptionService implements Service {
 	private stripe: Stripe;
 
 	private subscriptionRepository: SubscriptionRepository;
+
 	private taskScheduler: TaskScheduler;
 
 	public constructor({ subscriptionRepository, taskScheduler }: Constructor) {
