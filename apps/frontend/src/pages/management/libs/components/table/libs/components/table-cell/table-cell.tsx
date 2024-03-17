@@ -4,15 +4,15 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
-	hasLongText?: boolean;
 	isCentered?: boolean;
+	isCroppedText?: boolean;
 	width?: "medium" | "narrow" | "wide";
 };
 
 const TableCell: React.FC<Properties> = ({
 	children,
-	hasLongText = false,
 	isCentered = false,
+	isCroppedText = false,
 	width = "wide",
 }: Properties) => {
 	return (
@@ -23,7 +23,7 @@ const TableCell: React.FC<Properties> = ({
 				className={getValidClassNames(
 					styles["content"],
 					isCentered && styles["centered"],
-					hasLongText && styles["long-text"],
+					isCroppedText && styles["cropped"],
 				)}
 			>
 				{children}

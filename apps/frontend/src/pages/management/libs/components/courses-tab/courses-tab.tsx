@@ -1,4 +1,4 @@
-import { Button, Loader } from "~/libs/components/components.js";
+import { Loader } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -15,12 +15,13 @@ import {
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
-import { TableCell, TableRow } from "../table/libs/components/components.js";
+import { TableRow } from "../table/libs/components/components.js";
 import { Table } from "../table/table.js";
-import { EditCourseModal } from "./libs/components/components.js";
+import {
+	CourseColumns,
+	EditCourseModal,
+} from "./libs/components/components.js";
 import { COURSES_TABLE_HEADERS } from "./libs/constants/constants.js";
-import { CoursesTableHeader } from "./libs/enums/enums.js";
-import { coursesHeaderToColumnName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const CoursesTab: React.FC = () => {
@@ -39,24 +40,17 @@ const CoursesTab: React.FC = () => {
 
 	const [currentCourse, setCurrentCourse] = useState<CourseDto | null>(null);
 
-	const [isConfirmationModalOpen, setConfirmationModalOpen] =
+	const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
 		useState<boolean>(false);
 
-	const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+	const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
 	useEffect(() => {
 		void dispatch(coursesActions.getAll());
 	}, [dispatch]);
 
-	const handleOpenConfirmationModal = useCallback((course: CourseDto) => {
-		return () => {
-			setCurrentCourse(course);
-			setConfirmationModalOpen(true);
-		};
-	}, []);
-
 	const handleCloseConfirmationModal = useCallback(() => {
-		setConfirmationModalOpen(false);
+		setIsConfirmationModalOpen(false);
 		setCurrentCourse(null);
 	}, []);
 
@@ -70,16 +64,9 @@ const CoursesTab: React.FC = () => {
 		[dispatch, handleCloseConfirmationModal],
 	);
 
-	const handleOpenEditModal = useCallback((course: CourseDto) => {
-		return () => {
-			setCurrentCourse(course);
-			setEditModalOpen(true);
-		};
-	}, []);
-
 	const handleCloseEditModal = useCallback(() => {
 		setCurrentCourse(null);
-		setEditModalOpen(false);
+		setIsEditModalOpen(false);
 	}, []);
 
 	const handleConfirmUpdate = useCallback(
@@ -95,43 +82,6 @@ const CoursesTab: React.FC = () => {
 		[currentCourse, dispatch, handleCloseEditModal],
 	);
 
-	const tableData = courses.map((course) => {
-		return {
-			buttons: (
-				<div className={styles["column-buttons"]}>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="edit"
-						isLoading={
-							courseToDataStatus[course.id as number]?.updateDataStatus ===
-							DataStatus.PENDING
-						}
-						label={CoursesTableHeader.BUTTONS}
-						loaderColor="orange"
-						onClick={handleOpenEditModal(course)}
-					/>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="delete"
-						isLoading={
-							courseToDataStatus[course.id as number]?.deleteDataStatus ===
-							DataStatus.PENDING
-						}
-						label={CoursesTableHeader.BUTTONS}
-						loaderColor="orange"
-						onClick={handleOpenConfirmationModal(course)}
-					/>
-				</div>
-			),
-			description: course.description,
-			id: course.id,
-			title: course.title,
-			vendor: course.vendor.name,
-		};
-	});
-
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -140,42 +90,23 @@ const CoursesTab: React.FC = () => {
 				) : (
 					<div className={styles["table-container"]}>
 						<Table headers={COURSES_TABLE_HEADERS}>
-							{tableData.map((data) => {
+							{courses.map((course) => {
 								return (
-									<TableRow key={data.id}>
-										<TableCell isCentered>
-											{data[coursesHeaderToColumnName[CoursesTableHeader.ID]]}
-										</TableCell>
-										<TableCell>
-											{
-												data[
-													coursesHeaderToColumnName[CoursesTableHeader.TITLE]
-												]
+									<TableRow key={course.id}>
+										<CourseColumns
+											course={course}
+											deletingIsLoading={
+												courseToDataStatus[course.id as number]
+													?.deleteDataStatus === DataStatus.PENDING
 											}
-										</TableCell>
-										<TableCell isCentered>
-											{
-												data[
-													coursesHeaderToColumnName[CoursesTableHeader.VENDOR]
-												]
+											editingIsLoading={
+												courseToDataStatus[course.id as number]
+													?.updateDataStatus === DataStatus.PENDING
 											}
-										</TableCell>
-										<TableCell hasLongText width="narrow">
-											{
-												data[
-													coursesHeaderToColumnName[
-														CoursesTableHeader.DESCRIPTION
-													]
-												]
-											}
-										</TableCell>
-										<TableCell isCentered width="narrow">
-											{
-												data[
-													coursesHeaderToColumnName[CoursesTableHeader.BUTTONS]
-												]
-											}
-										</TableCell>
+											setCurrentCourse={setCurrentCourse}
+											setIsConfirmationModalOpen={setIsConfirmationModalOpen}
+											setIsEditModalOpen={setIsEditModalOpen}
+										/>
 									</TableRow>
 								);
 							})}
