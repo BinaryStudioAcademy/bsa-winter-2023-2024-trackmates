@@ -79,7 +79,7 @@ class UdemyService implements VendorService {
 				page_size: UdemyPageParameter.SIZE,
 			});
 			items = [...items, ...results];
-		} while (results.length == UdemyPageParameter.SIZE);
+		} while (results.length === UdemyPageParameter.SIZE);
 
 		return items;
 	}

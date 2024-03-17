@@ -79,16 +79,13 @@
 }
 
 .comments-container {
-	max-height: 0;
-	overflow: hidden;
-	overflow-y: auto;
 	pointer-events: none;
 	touch-action: none;
+	opacity: 0;
 	transition: 0.3s ease;
 }
 
 .comments-container.open {
-	max-height: 500px;
 	pointer-events: all;
 	touch-action: manipulation;
 	opacity: 1;
