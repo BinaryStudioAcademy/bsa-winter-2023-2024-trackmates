@@ -45,6 +45,7 @@ const CourseColumns: React.FC<Properties> = ({
 					className={styles["icon-button"]}
 					hasVisuallyHiddenLabel
 					iconName="edit"
+					isDisabled={deletingIsLoading}
 					isLoading={editingIsLoading}
 					label="Edit"
 					loaderColor="orange"
@@ -54,6 +55,7 @@ const CourseColumns: React.FC<Properties> = ({
 					className={styles["icon-button"]}
 					hasVisuallyHiddenLabel
 					iconName="delete"
+					isDisabled={editingIsLoading}
 					isLoading={deletingIsLoading}
 					label="Delete"
 					loaderColor="orange"
