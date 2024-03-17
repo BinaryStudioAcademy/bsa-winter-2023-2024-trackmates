@@ -14,14 +14,12 @@ const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 		typeof DEFAULT_MESSAGE_PAYLOAD
 	>({
 		defaultValues: DEFAULT_MESSAGE_PAYLOAD,
-		mode: "onSubmit",
 		validationSchema: chatMessageValidationSchema,
 	});
 
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
-
 			reset();
 		},
 		[handleSubmit, onSubmit, reset],

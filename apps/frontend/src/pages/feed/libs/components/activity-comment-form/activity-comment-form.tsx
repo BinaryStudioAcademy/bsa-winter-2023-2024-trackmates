@@ -17,14 +17,12 @@ const ActivityCommentForm: React.FC<Properties> = ({
 }: Properties) => {
 	const { control, errors, handleSubmit, reset } = useAppForm({
 		defaultValues: DEFAULT_COMMENT_PAYLOAD,
-		mode: "onSubmit",
 		validationSchema: commentTextValidationSchema,
 	});
 
 	const handleCreateComment = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
-
 			reset();
 		},
 		[reset, handleSubmit, onSubmit],
