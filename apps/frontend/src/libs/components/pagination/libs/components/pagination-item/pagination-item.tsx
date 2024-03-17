@@ -6,19 +6,19 @@ import { Button } from "./../../../../button/button.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	href: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
 	isActive?: boolean;
 	isDisabled?: boolean;
 	label: string;
-	to: ValueOf<typeof AppRoute>;
 };
 
 const PaginationItem: React.FC<Properties> = ({
+	href,
 	iconName,
 	isActive,
 	isDisabled,
 	label,
-	to,
 }: Properties) => {
 	const linkClasses = getValidClassNames(styles["item"], {
 		[styles["active"] as string]: isActive,
@@ -29,7 +29,7 @@ const PaginationItem: React.FC<Properties> = ({
 		<li className={styles["item-container"]}>
 			<Button
 				className={linkClasses}
-				href={to}
+				href={href}
 				iconName={iconName}
 				isDisabled={isDisabled}
 				label={label}

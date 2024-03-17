@@ -30,40 +30,40 @@ const Pagination: React.FC<Properties> = ({
 		>
 			<ul className={styles["content"]}>
 				<PaginationItem
+					href={`?page=${ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>}
 					iconName="navFirst"
 					isDisabled={isFirstPage}
 					label=""
-					to={`?page=${ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>}
 				/>
 				<PaginationItem
+					href={
+						`?page=${currentPage - ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
+					}
 					iconName="navPrev"
 					isDisabled={isFirstPage}
 					label=""
-					to={
-						`?page=${currentPage - ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
-					}
 				/>
 				{pages.map((page) => (
 					<PaginationItem
+						href={`?page=${page}` as ValueOf<typeof AppRoute>}
 						isActive={currentPage === page}
 						key={page}
 						label={page.toString()}
-						to={`?page=${page}` as ValueOf<typeof AppRoute>}
 					/>
 				))}
 				<PaginationItem
+					href={
+						`?page=${currentPage + ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
+					}
 					iconName="navNext"
 					isDisabled={isLastPage}
 					label=""
-					to={
-						`?page=${currentPage + ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
-					}
 				/>
 				<PaginationItem
+					href={`?page=${pagesCount}` as ValueOf<typeof AppRoute>}
 					iconName="navLast"
 					isDisabled={isLastPage}
 					label=""
-					to={`?page=${pagesCount}` as ValueOf<typeof AppRoute>}
 				/>
 			</ul>
 		</nav>
