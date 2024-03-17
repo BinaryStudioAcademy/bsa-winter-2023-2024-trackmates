@@ -23,7 +23,7 @@ const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 	const hasUser = user !== null;
-	let navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
