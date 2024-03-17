@@ -90,7 +90,7 @@ class AuthService {
 		} = await this.updatePasswordToken.verify(token);
 
 		const user = await this.userService.findById(userId);
-		const userUpdatedAt = JSON.parse(JSON.stringify(user?.updatedAt)) as string;
+		const userUpdatedAt = new Date(user?.updatedAt as string).toISOString();
 
 		if (!user || updatedAt !== userUpdatedAt) {
 			throw new AuthError({
@@ -119,7 +119,7 @@ class AuthService {
 		return await this.mail.send({
 			email,
 			subject: "Reset your password",
-			text: `Hello! You can update your password for TrackMates using the following link: ${link}`,
+			text: `Hello! \n You can update your password for TrackMates using the following link: ${link}`,
 		});
 	}
 

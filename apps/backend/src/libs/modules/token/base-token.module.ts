@@ -7,7 +7,7 @@ import {
 
 import { type Token } from "./libs/types/types.js";
 
-type Config = {
+type Constructor = {
 	algorithm: string;
 	expiresIn: string;
 	secret: Uint8Array;
@@ -18,7 +18,7 @@ class BaseToken<T extends JWTPayload> implements Token<T> {
 	private expiresIn: string;
 	private secret: Uint8Array;
 
-	public constructor({ algorithm, expiresIn, secret }: Config) {
+	public constructor({ algorithm, expiresIn, secret }: Constructor) {
 		this.algorithm = algorithm;
 		this.expiresIn = expiresIn;
 		this.secret = secret;
