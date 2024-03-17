@@ -12,7 +12,7 @@ const authService = new AuthService({
 	encrypt,
 	mail,
 	token,
-	updatePasswordBaseLink: config.ENV.UPDATE_PASSWORD.BASE_LINK,
+	updatePasswordLink: config.ENV.UPDATE_PASSWORD.LINK,
 	updatePasswordToken,
 	userService,
 });

@@ -23,7 +23,7 @@ type Constructor = {
 	encrypt: Encrypt;
 	mail: Mail;
 	token: Token<TokenPayload>;
-	updatePasswordBaseLink: string;
+	updatePasswordLink: string;
 	updatePasswordToken: Token<UpdatePasswordTokenPayload>;
 	userService: UserService;
 };
@@ -32,7 +32,7 @@ class AuthService {
 	private encrypt: Encrypt;
 	private mail: Mail;
 	private token: Token<TokenPayload>;
-	private updatePasswordBaseLink: string;
+	private updatePasswordLink: string;
 	private updatePasswordToken: Token<UpdatePasswordTokenPayload>;
 	private userService: UserService;
 
@@ -40,14 +40,14 @@ class AuthService {
 		encrypt,
 		mail,
 		token,
-		updatePasswordBaseLink,
+		updatePasswordLink,
 		updatePasswordToken,
 		userService,
 	}: Constructor) {
 		this.encrypt = encrypt;
 		this.mail = mail;
 		this.token = token;
-		this.updatePasswordBaseLink = updatePasswordBaseLink;
+		this.updatePasswordLink = updatePasswordLink;
 		this.updatePasswordToken = updatePasswordToken;
 		this.userService = userService;
 	}
@@ -114,7 +114,7 @@ class AuthService {
 
 		const { id: userId, updatedAt } = user.toObject();
 		const token = await this.updatePasswordToken.create({ updatedAt, userId });
-		const link = `${this.updatePasswordBaseLink}${token}`;
+		const link = `${this.updatePasswordLink}?token=${token}`;
 
 		return await this.mail.send({
 			email,

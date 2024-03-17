@@ -209,12 +209,6 @@ class BaseConfig implements Config {
 				},
 			},
 			UPDATE_PASSWORD: {
-				BASE_LINK: {
-					default: null,
-					doc: "Update password base link",
-					env: "UPDATE_PASSWORD_BASE_LINK",
-					format: String,
-				},
 				JWT: {
 					ALGORITHM: {
 						default: null,
@@ -234,6 +228,12 @@ class BaseConfig implements Config {
 						env: "UPDATE_PASSWORD_SECRET_KEY",
 						format: String,
 					},
+				},
+				LINK: {
+					default: null,
+					doc: "Update password base link",
+					env: "UPDATE_PASSWORD_LINK",
+					format: String,
 				},
 			},
 		});

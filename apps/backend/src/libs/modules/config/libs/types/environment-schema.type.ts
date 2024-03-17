@@ -46,12 +46,12 @@ type EnvironmentSchema = {
 		URL: string;
 	};
 	UPDATE_PASSWORD: {
-		BASE_LINK: string;
 		JWT: {
 			ALGORITHM: string;
 			EXPIRES_IN: string;
 			SECRET: string;
 		};
+		LINK: string;
 	};
 };
 

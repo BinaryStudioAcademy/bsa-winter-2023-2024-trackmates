@@ -7,7 +7,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useLocation,
-	useMatch,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import {
 	type AuthForgotPasswordRequestDto,
@@ -32,7 +32,7 @@ const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 	const hasUser = user !== null;
-	const updatePasswordMatch = useMatch(AppRoute.UPDATE_PASSWORD_$TOKEN);
+	const [searchParameters] = useSearchParams();
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
@@ -75,14 +75,22 @@ const Auth: React.FC = () => {
 			case AppRoute.FORGOT_PASSWORD: {
 				return <ForgotPasswordForm onSubmit={handleForgotPasswordSubmit} />;
 			}
+
+			case AppRoute.UPDATE_PASSWORD: {
+				const token = searchParameters.get("token");
+
+				if (token) {
+					return (
+						<UpdatePasswordForm
+							onSubmit={handleUpdatePasswordSubmit}
+							token={token}
+						/>
+					);
+				}
+			}
 		}
 
-		return updatePasswordMatch && updatePasswordMatch.params.token ? (
-			<UpdatePasswordForm
-				onSubmit={handleUpdatePasswordSubmit}
-				token={updatePasswordMatch.params.token}
-			/>
-		) : null;
+		return null;
 	};
 
 	if (hasUser) {
