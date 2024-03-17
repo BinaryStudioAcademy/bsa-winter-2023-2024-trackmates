@@ -134,7 +134,7 @@ class CourseService {
 		return courses.map((course) => {
 			return {
 				...course,
-				isUserHasCourse: userCoursesIds.has(course.vendorCourseId.toString()),
+				hasUserCourse: userCoursesIds.has(course.vendorCourseId.toString()),
 			};
 		});
 	}

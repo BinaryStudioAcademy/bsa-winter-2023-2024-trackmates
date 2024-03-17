@@ -38,10 +38,10 @@ const Course: React.FC<Properties> = ({
 	const isLoading =
 		addedVendorCourseDataStatuses[vendorCourseId] === DataStatus.PENDING;
 
-	const isUserHasCourse = checkIsSearchedCourse(course)
-		? course.isUserHasCourse
+	const hasUserCourse = checkIsSearchedCourse(course)
+		? course.hasUserCourse
 		: true;
-	const isDisabled = isLoading || isUserHasCourse;
+	const isDisabled = isLoading || hasUserCourse;
 
 	const courseDescriptionRouteById = configureString(
 		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,

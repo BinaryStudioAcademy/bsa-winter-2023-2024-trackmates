@@ -7,7 +7,7 @@ import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.
 const checkIsSearchedCourse = (
 	dto: CourseDto | CourseSearchResponseDto | UserCourseResponseDto,
 ): dto is CourseSearchResponseDto => {
-	return "isUserHasCourse" in dto;
+	return "hasUserCourse" in dto;
 };
 
 export { checkIsSearchedCourse };
