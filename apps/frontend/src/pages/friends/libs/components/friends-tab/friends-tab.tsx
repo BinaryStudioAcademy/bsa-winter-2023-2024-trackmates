@@ -12,7 +12,7 @@ import styles from "./styles.module.css";
 type Properties = {
 	emptyPlaceholder: string;
 	items: UserAuthResponseDto[];
-	pagination: ReturnType<typeof usePagination>;
+	pagination: ReturnType<typeof usePagination> | null;
 };
 
 const FriendsTab: React.FC<Properties> = ({
@@ -20,12 +20,13 @@ const FriendsTab: React.FC<Properties> = ({
 	items,
 	pagination,
 }: Properties) => {
-	const { handlePageChange, page, pages, pagesCount } = pagination;
 	const hasPages = items.length > EMPTY_LENGTH;
 
-	if (!hasPages) {
+	if (!hasPages || !pagination) {
 		return <EmptyPagePlaceholder title={emptyPlaceholder} />;
 	}
+
+	const { handlePageChange, page, pages, pagesCount } = pagination;
 
 	return (
 		<div className={styles["friends-tab"]}>

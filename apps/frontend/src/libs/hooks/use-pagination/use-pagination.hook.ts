@@ -1,7 +1,11 @@
 import { PaginationValue } from "~/libs/enums/enums.js";
 import { useEffect, useSearchParams, useState } from "~/libs/hooks/hooks.js";
 
-import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
+import {
+	checkIsValidPage,
+	getPagesCut,
+	getPagesRange,
+} from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
 	pageSize: number;
@@ -23,12 +27,8 @@ const usePagination: UsePagination = ({
 }) => {
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
-	const isPageInteger = Number.isInteger(pageFromQuery);
-	const isPageValid =
-		isPageInteger && pageFromQuery > PaginationValue.PAGE_NOT_EXISTS;
-	const validPage = isPageValid ? pageFromQuery : PaginationValue.DEFAULT_PAGE;
-	const [page, setPage] = useState<number>(validPage);
-	const [path, setPath] = useState<string>(location.pathname);
+	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
+
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const pagesCut = getPagesCut({
 		currentPage: page,
@@ -38,33 +38,24 @@ const usePagination: UsePagination = ({
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 
 	useEffect(() => {
-		const isValidPage = pagesCount >= pageFromQuery;
+		const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
 		const isInvalidPage = pagesCount !== PaginationValue.PAGE_NOT_EXISTS;
+
+		if (isValidPage) {
+			setPage(pageFromQuery);
+		} else if (isInvalidPage) {
+			setPage(PaginationValue.DEFAULT_PAGE);
+			const url = new URL(window.location.origin + window.location.pathname);
+			window.history.replaceState(null, "", url.toString());
+		}
+	}, [pageFromQuery, pagesCount, location.pathname]);
+
+	const handlePageChange = (page: number): void => {
 		const updatedSearchParameters = new URLSearchParams(
 			searchParameters.toString(),
 		);
-
-		if (path !== location.pathname) {
-			setPath(location.pathname);
-			setPage(PaginationValue.DEFAULT_PAGE);
-
-			return;
-		}
-
-		if (isValidPage) {
-			updatedSearchParameters.set(queryName, String(page));
-			setSearchParameters(updatedSearchParameters);
-		} else if (isInvalidPage) {
-			setPage(PaginationValue.DEFAULT_PAGE);
-			updatedSearchParameters.set(
-				queryName,
-				String(PaginationValue.DEFAULT_PAGE),
-			);
-			setSearchParameters(updatedSearchParameters);
-		}
-	}, [page, pagesCount, location.pathname]);
-
-	const handlePageChange = (page: number): void => {
+		updatedSearchParameters.set(queryName, String(page));
+		setSearchParameters(updatedSearchParameters);
 		setPage(page);
 	};
 
