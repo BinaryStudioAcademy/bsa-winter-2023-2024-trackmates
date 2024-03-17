@@ -71,9 +71,18 @@
 	margin-top: 32px;
 }
 
+.load-more-button {
+	width: 150px;
+	margin: 10px auto 0;
+}
+
 @media screen and (width <= 865px) {
 	.add-course-modal {
 		width: 100vw;
 		height: 100dvh;
+	}
+
+	.load-more-button {
+		font-size: var(--font-size-200);
 	}
 }

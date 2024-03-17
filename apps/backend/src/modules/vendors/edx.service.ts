@@ -4,7 +4,7 @@ import {
 	HTTPHeader,
 } from "~/libs/modules/http/http.js";
 
-import { EdxApiPath } from "./libs/enums/enums.js";
+import { DefaultSearchPageParameter, EdxApiPath } from "./libs/enums/enums.js";
 import { edxCourseToCourse } from "./libs/maps/maps.js";
 import {
 	type Course,
@@ -89,8 +89,10 @@ class EdxService implements VendorService {
 		return await Promise.resolve([]);
 	}
 
-	public async getCourses(search: string): Promise<Course[]> {
+	public async getCourses(page: number, search: string): Promise<Course[]> {
 		const query: EdxQuery = {
+			page,
+			pageSize: DefaultSearchPageParameter.PAGE_SIZE,
 			search_term: search,
 		};
 

@@ -217,28 +217,30 @@ class CourseService {
 	}
 
 	public async findAllByVendor(
+		page: number,
 		search: string,
 		vendor: VendorResponseDto,
 	): Promise<CourseDto[]> {
 		const vendorApi = this.getVendorApiByKey(vendor.key);
-		const items = await vendorApi.getCourses(search);
+		const items = await vendorApi.getCourses(page, search);
 
 		return items.map((item) => ({ ...item, id: null, vendor }));
 	}
 
 	public async findAllByVendors(parameters: {
+		page: number;
 		search: string;
 		userId: number;
 		vendorsKey: string | undefined;
 	}): Promise<CoursesSearchResponseDto> {
-		const { search, userId, vendorsKey } = parameters;
+		const { page, search, userId, vendorsKey } = parameters;
 		const vendors = vendorsKey
 			? await this.vendorService.findAllByKeys(vendorsKey.split(","))
 			: await this.vendorService.findAll();
 
 		const vendorsCourses = await Promise.all(
 			vendors.map((vendor) => {
-				return this.findAllByVendor(search, vendor);
+				return this.findAllByVendor(page, search, vendor);
 			}),
 		);
 		const courses = vendorsCourses.flat();
@@ -252,6 +254,7 @@ class CourseService {
 	}
 
 	public async getRecommendedCoursesByAI(parameters: {
+		page: number;
 		search: string;
 		userId: number;
 		vendorsKey: string | undefined;

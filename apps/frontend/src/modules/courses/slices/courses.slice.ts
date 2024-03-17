@@ -29,7 +29,10 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(getAll.fulfilled, (state, action) => {
-			state.searchedCourses = action.payload.courses;
+			state.searchedCourses = [
+				...state.searchedCourses,
+				...action.payload.courses,
+			];
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getAll.pending, (state) => {
