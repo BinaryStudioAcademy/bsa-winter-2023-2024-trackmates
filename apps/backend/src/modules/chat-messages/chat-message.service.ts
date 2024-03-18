@@ -128,29 +128,65 @@ class ChatMessageService implements Service {
 	}
 
 	public async setReadChatMessages(
+		chatId: number,
 		chatMessageIds: number[],
 		userId: number,
 	): Promise<ReadChatMessagesResponseDto> {
 		const readChatMessages =
 			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
-		const unreadMessagesCount =
-			await this.chatService.getUnreadMessagesCount(userId);
+
+		const unreadMessageCount = await this.chatService.getUnreadMessagesCount({
+			chatId,
+			userId,
+		});
+
+		const unreadMessageCountTotal =
+			await this.chatService.getUnreadMessagesCountTotal(userId);
+
+		const { firstUser, secondUser } = await this.chatService.find(chatId);
+		const interlocutorId =
+			firstUser.id === userId ? secondUser.id : firstUser.id;
+
+		const interlocutorUnreadMessageCountTotal =
+			await this.chatService.getUnreadMessagesCountTotal(interlocutorId);
+
+		const interlocutorUnreadMessageCount =
+			await this.chatService.getUnreadMessagesCount({
+				chatId,
+				userId: interlocutorId,
+			});
 
 		socketService.emitMessage({
 			event: SocketEvent.CHAT_READ_MESSAGES,
 			payload: {
+				chatId,
 				items: readChatMessages,
-				unreadMessagesCount,
+				unreadMessageCount,
+				unreadMessageCountTotal,
 			},
 			receiversIds: [String(userId)],
 			targetNamespace: SocketNamespace.CHAT,
 		});
 
+		socketService.emitMessage({
+			event: SocketEvent.CHAT_READ_MESSAGES,
+			payload: {
+				chatId,
+				interlocutorUnreadMessageCount,
+				interlocutorUnreadMessageCountTotal,
+				items: readChatMessages,
+			},
+			receiversIds: [String(interlocutorId)],
+			targetNamespace: SocketNamespace.CHAT,
+		});
+
 		return {
+			chatId,
 			items: readChatMessages.map((chatMessage) => {
 				return chatMessage.toObject();
 			}),
-			unreadMessagesCount,
+			unreadMessageCount,
+			unreadMessageCountTotal,
 		};
 	}
 

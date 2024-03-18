@@ -398,6 +398,9 @@ class ChatMessageController extends BaseController {
 	 *            schema:
 	 *              type: object
 	 *              properties:
+	 *                chatId:
+	 *                  type: number
+	 *                  minimum: 1
 	 *                chatMessageIds:
 	 *                  type: array
 	 *                  items:
@@ -425,6 +428,7 @@ class ChatMessageController extends BaseController {
 	): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.chatMessageService.setReadChatMessages(
+				options.body.chatId,
 				options.body.chatMessageIds,
 				options.user.id,
 			),
