@@ -13,7 +13,6 @@ const permissionController = new PermissionController(
 );
 
 export { permissionController, permissionService };
-export { PermissionError } from "./libs/exceptions/exceptions.js";
 export {
 	type PermissionResponseDto,
 	type PermissionsGetAllResponseDto,

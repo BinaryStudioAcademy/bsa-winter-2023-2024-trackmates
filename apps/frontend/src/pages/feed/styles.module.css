@@ -5,7 +5,7 @@
 	flex-direction: column;
 	flex-grow: 1;
 	grid-template-rows: auto 1fr;
-	grid-template-columns: 1fr 400px;
+	grid-template-columns: 1fr 250px;
 	max-height: calc(100vh - 98px);
 	padding: 16px 0 16px 24px;
 }
@@ -20,6 +20,22 @@
 	background-repeat: no-repeat;
 	background-position: center bottom;
 	background-size: 200px auto;
+}
+
+@media screen and (--large-screen) {
+	.wrapper {
+		grid-template-columns: 1fr;
+		max-height: unset;
+		padding: 16px 24px;
+	}
+
+	.title {
+		grid-column: span 1;
+	}
+
+	.background {
+		display: none;
+	}
 }
 
 @media screen and (--small-screen) {
