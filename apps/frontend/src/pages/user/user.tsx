@@ -176,6 +176,7 @@ const User: React.FC = () => {
 							</div>
 						) : (
 							<EmptyPagePlaceholder
+								size="large"
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}

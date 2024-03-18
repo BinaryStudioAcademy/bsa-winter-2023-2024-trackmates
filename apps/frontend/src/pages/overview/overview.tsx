@@ -90,7 +90,10 @@ const Overview: React.FC = () => {
 								/>
 							</div>
 						) : (
-							<EmptyPagePlaceholder title="You haven't added any courses yet" />
+							<EmptyPagePlaceholder
+								size="large"
+								title="You haven't added any courses yet"
+							/>
 						)}
 					</>
 				)}

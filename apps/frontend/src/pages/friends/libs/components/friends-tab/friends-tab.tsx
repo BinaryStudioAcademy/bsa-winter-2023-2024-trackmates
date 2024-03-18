@@ -23,7 +23,7 @@ const FriendsTab: React.FC<Properties> = ({
 	const hasPages = items.length > EMPTY_LENGTH;
 
 	if (!hasPages || !pagination) {
-		return <EmptyPagePlaceholder title={emptyPlaceholder} />;
+		return <EmptyPagePlaceholder size="large" title={emptyPlaceholder} />;
 	}
 
 	const { page, pages, pagesCount } = pagination;
