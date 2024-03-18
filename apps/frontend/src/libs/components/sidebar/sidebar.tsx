@@ -89,15 +89,8 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 										key={label}
 										to={href}
 									>
-										<span
-											className={getValidClassNames(
-												styles["link-title"],
-												"visually-hidden",
-											)}
-										>
-											{label}
-										</span>
 										<Icon name={icon} />
+										<span className={styles["link-title"]}>{label}</span>
 									</Link>
 								)
 							);
@@ -106,7 +99,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 				</div>
 				<Button
 					className={styles["log-out-btn"]}
-					hasVisuallyHiddenLabel
 					iconName="logOut"
 					label="Log Out"
 					onClick={handleLogOut}
