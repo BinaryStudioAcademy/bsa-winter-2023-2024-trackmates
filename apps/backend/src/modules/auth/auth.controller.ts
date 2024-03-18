@@ -155,7 +155,7 @@ class AuthController extends BaseController {
 	 *                  type: string
 	 *                  format: email
 	 *      responses:
-	 *        200:
+	 *        201:
 	 *          description: Successful operation
 	 *          content:
 	 *            application/json:

@@ -124,7 +124,7 @@ class UserService implements Service {
 	public async updatePassword(
 		userId: number,
 		password: string,
-	): Promise<UserAuthResponseDto | null> {
+	): Promise<UserAuthResponseDto> {
 		const { hash, salt } = await this.encrypt.encrypt(password);
 
 		const updatedUser = await this.userRepository.updatePassword(userId, {
@@ -132,7 +132,7 @@ class UserService implements Service {
 			salt,
 		});
 
-		return updatedUser?.toObject() ?? null;
+		return updatedUser.toObject();
 	}
 }
 

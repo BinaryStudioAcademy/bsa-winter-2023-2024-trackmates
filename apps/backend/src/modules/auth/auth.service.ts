@@ -114,12 +114,13 @@ class AuthService {
 
 		const { id: userId, updatedAt } = user.toObject();
 		const token = await this.updatePasswordToken.create({ updatedAt, userId });
-		const link = `${this.updatePasswordLink}?token=${token}`;
+		const url = new URL(this.updatePasswordLink);
+		url.searchParams.append("token", token);
 
 		return await this.mail.send({
 			email,
 			subject: "Reset your password",
-			text: `Hello! \n You can update your password for TrackMates using the following link: ${link}`,
+			text: `Hello! \n You can update your password for TrackMates using the following link: ${url.href}`,
 		});
 	}
 
@@ -171,7 +172,7 @@ class AuthService {
 
 		return {
 			token: newToken,
-			user: updatedUser as UserAuthResponseDto,
+			user: updatedUser,
 		};
 	}
 }
