@@ -37,6 +37,7 @@
 	border-radius: 12px;
 	object-fit: cover;
 	object-position: center;
+	height: 150px;
 }
 
 .toolbar {
