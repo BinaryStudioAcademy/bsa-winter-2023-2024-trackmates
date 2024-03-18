@@ -55,7 +55,7 @@ class FriendsApi extends BaseHTTPApi {
 	}
 
 	public async getAllPotentialFriends(
-		query: PaginationRequestDto,
+		query: { search: string } & PaginationRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.POTENTIAL_FOLLOWINGS, {}),
@@ -70,7 +70,7 @@ class FriendsApi extends BaseHTTPApi {
 	}
 
 	public async getFollowers(
-		query: PaginationRequestDto,
+		query: { search: string } & PaginationRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOWERS, {}),
@@ -85,7 +85,7 @@ class FriendsApi extends BaseHTTPApi {
 	}
 
 	public async getFollowings(
-		query: PaginationRequestDto,
+		query: { search: string } & PaginationRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOWINGS, {}),
