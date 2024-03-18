@@ -91,11 +91,17 @@ const { actions, name, reducer } = createSlice({
 			state,
 			action: PayloadAction<ReadChatMessagesResponseDto>,
 		) {
-			state.unreadMessagesCount = action.payload.unreadMessagesCount;
+			const { chatId, items, unreadMessageCount, unreadMessageCountTotal } =
+				action.payload;
+
+			state.unreadMessagesCount = unreadMessageCountTotal;
+			state.chats = state.chats.map((chat) => {
+				return chat.id === chatId ? { ...chat, unreadMessageCount } : chat;
+			});
 
 			if (state.currentChat) {
 				state.currentChat.messages = state.currentChat.messages.map((value) => {
-					const updatedMessage = action.payload.items.find((message) => {
+					const updatedMessage = items.find((message) => {
 						return message.id === value.id;
 					});
 
