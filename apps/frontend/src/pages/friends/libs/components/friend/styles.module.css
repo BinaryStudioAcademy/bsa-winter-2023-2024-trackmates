@@ -26,10 +26,6 @@
 	transition: 0.3s ease;
 }
 
-.card:hover {
-	border: 1px solid var(--color-menu);
-}
-
 .card-content {
 	flex-grow: 1;
 	padding: 12px;
@@ -58,4 +54,10 @@
 	min-height: unset;
 	padding: 6px;
 	fill: currentcolor;
+}
+
+@media (hover: hover) {
+	.card:hover {
+		border: 1px solid var(--color-menu);
+	}
 }
