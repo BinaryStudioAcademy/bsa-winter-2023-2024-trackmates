@@ -1,6 +1,8 @@
-import { Button } from "~/libs/components/components.js";
-import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
-import { PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
+import {
+	DataStatus,
+	PermissionKey,
+	PermissionMode,
+} from "~/libs/enums/enums.js";
 import { checkIfUserHasPermissions } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -15,7 +17,10 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { ManagementDialogueMessage } from "../../enums/enums.js";
+import { ActionsCell } from "../actions-cell/actions-cell.js";
 import { Chip } from "../chip/chip.js";
+import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
@@ -26,13 +31,16 @@ import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { authUser, groups, users } = useAppSelector((state) => {
-		return {
-			authUser: state.auth.user as UserAuthResponseDto,
-			groups: state.management.groups,
-			users: state.management.users,
-		};
-	});
+	const { authUser, groups, userToDataStatus, users } = useAppSelector(
+		(state) => {
+			return {
+				authUser: state.auth.user as UserAuthResponseDto,
+				groups: state.management.groups,
+				userToDataStatus: state.management.userToDataStatus,
+				users: state.management.users,
+			};
+		},
+	);
 
 	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
 		null,
@@ -57,10 +65,8 @@ const UsersTab: React.FC = () => {
 	}, [dispatch]);
 
 	const handleOpenEditModal = useCallback((user: UserAuthResponseDto) => {
-		return () => {
-			setCurrentUser(user);
-			setIsEditModalOpen(true);
-		};
+		setCurrentUser(user);
+		setIsEditModalOpen(true);
 	}, []);
 
 	const handleCloseEditModal = useCallback(() => {
@@ -82,32 +88,33 @@ const UsersTab: React.FC = () => {
 		[currentUser, handleChangeUserGroups],
 	);
 
-	const tableData = users.map((user) => {
-		const isAdmin = user.groups.some((group) => {
-			return group.permissions.length > EMPTY_LENGTH;
-		});
+	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+	const handleOpenDeleteModal = useCallback((user: UserAuthResponseDto) => {
+		setCurrentUser(user);
+		setIsDeleteModalOpen(true);
+	}, []);
+	const handleCloseDeleteModal = useCallback(() => {
+		setIsDeleteModalOpen(false);
+		setCurrentUser(null);
+	}, []);
+	const handleDeleteUser = useCallback(() => {
+		void dispatch(usersActions.remove(currentUser?.id as number));
+		handleCloseDeleteModal();
+	}, [currentUser, dispatch, handleCloseDeleteModal]);
 
+	const tableData = users.map((user) => {
 		const isSameUser = user.id === authUser.id;
 
 		return {
 			buttons: (
-				<div className={styles["column-buttons"]}>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="edit"
-						isDisabled={!hasPermissionToEdit || isSameUser}
-						label={UsersTableHeader.BUTTONS}
-						onClick={handleOpenEditModal(user)}
-					/>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="delete"
-						isDisabled={!hasPermissionToDelete || isAdmin}
-						label={UsersTableHeader.BUTTONS}
-					/>
-				</div>
+				<ActionsCell
+					isDeleteDisabled={!hasPermissionToDelete || isSameUser}
+					isEditDisabled={!hasPermissionToEdit || isSameUser}
+					isLoading={userToDataStatus[user.id] === DataStatus.PENDING}
+					item={user}
+					onDelete={handleOpenDeleteModal}
+					onEdit={handleOpenEditModal}
+				/>
 			),
 			email: `${user.email} ${authUser.id === user.id ? "(you)" : ""}`,
 			firstName: user.firstName,
@@ -177,6 +184,13 @@ const UsersTab: React.FC = () => {
 					})}
 				</ul>
 			</EditModal>
+			<ConfirmationModal
+				isOpen={isDeleteModalOpen}
+				onCancel={handleCloseDeleteModal}
+				onClose={handleCloseDeleteModal}
+				onConfirm={handleDeleteUser}
+				title={`${ManagementDialogueMessage.DELETE_USER} ${currentUser?.firstName} ${currentUser?.lastName}?`}
+			/>
 		</>
 	);
 };

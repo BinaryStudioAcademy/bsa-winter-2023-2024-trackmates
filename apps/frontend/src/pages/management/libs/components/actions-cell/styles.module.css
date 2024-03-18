@@ -1,0 +1,34 @@
+.column-buttons {
+	display: flex;
+	flex-direction: row;
+	column-gap: 30px;
+}
+
+.icon-button {
+	min-height: unset;
+	padding: 0;
+	margin: 0 auto;
+	color: var(--color-text-200);
+	background-color: transparent;
+	border: unset;
+	fill: currentcolor;
+	transition: 0.3s;
+}
+
+.icon-button:disabled,
+.icon-button:disabled:focus {
+	color: var(--color-text-100);
+	background-color: transparent;
+}
+
+@media (hover: hover) {
+	.icon-button:hover {
+		color: var(--main-orange);
+		background-color: transparent;
+	}
+
+	.icon-button:disabled:hover {
+		color: var(--color-text-100);
+		background-color: transparent;
+	}
+}

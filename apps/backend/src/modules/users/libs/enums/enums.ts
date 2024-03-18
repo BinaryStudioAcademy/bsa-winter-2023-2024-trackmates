@@ -1,1 +1,1 @@
-export { UserSex, UsersApiPath } from "@trackmates/shared";
+export { UserErrorMessage, UserSex, UsersApiPath } from "@trackmates/shared";

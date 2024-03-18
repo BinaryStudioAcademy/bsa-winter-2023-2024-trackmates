@@ -5,7 +5,6 @@
 	z-index: var(--z-index-medium);
 	display: flex;
 	flex-direction: column;
-	gap: 76px;
 	height: 100%;
 	padding: 19px;
 	overflow: hidden;
@@ -18,6 +17,12 @@
 	flex-direction: column;
 	flex-grow: 1;
 	width: 100%;
+}
+
+.content-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 
 .burger-button {
@@ -55,7 +60,9 @@
 }
 
 .title-container {
-	min-height: 50px;
+	height: 100%;
+	min-height: 60px;
+	max-height: 126px;
 }
 
 .title {
@@ -76,6 +83,10 @@
 .log-out-btn {
 	justify-content: flex-start;
 	font-weight: 700;
+}
+
+.log-out-btn :last-child {
+	gap: 14px;
 }
 
 @media screen and (--large-screen) {
@@ -253,6 +264,17 @@
 
 	.sidebar.close .menu-item {
 		overflow: unset;
+	}
+
+	.content-container {
+		flex-grow: 3;
+	}
+
+	.log-out-btn :last-child {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		line-height: 24px;
 	}
 }
 
