@@ -9,28 +9,28 @@ type Properties = {
 	course: CourseDto;
 	deletingIsLoading: boolean;
 	editingIsLoading: boolean;
-	setCurrentCourse: (course: CourseDto) => void;
-	setIsConfirmationModalOpen: (isOpen: boolean) => void;
-	setIsEditModalOpen: (isOpen: boolean) => void;
+	onSetCurrentCourse: (course: CourseDto) => void;
+	onSetIsConfirmationModalOpen: (isOpen: boolean) => void;
+	onSetIsEditModalOpen: (isOpen: boolean) => void;
 };
 
 const CourseColumns: React.FC<Properties> = ({
 	course,
 	deletingIsLoading,
 	editingIsLoading,
-	setCurrentCourse,
-	setIsConfirmationModalOpen,
-	setIsEditModalOpen,
+	onSetCurrentCourse,
+	onSetIsConfirmationModalOpen,
+	onSetIsEditModalOpen,
 }: Properties) => {
 	const handleEditButtonClick = useCallback(() => {
-		setCurrentCourse(course);
-		setIsEditModalOpen(true);
-	}, [course, setCurrentCourse, setIsEditModalOpen]);
+		onSetCurrentCourse(course);
+		onSetIsEditModalOpen(true);
+	}, [course, onSetCurrentCourse, onSetIsEditModalOpen]);
 
 	const handleDeleteButtonClick = useCallback(() => {
-		setCurrentCourse(course);
-		setIsConfirmationModalOpen(true);
-	}, [course, setCurrentCourse, setIsConfirmationModalOpen]);
+		onSetCurrentCourse(course);
+		onSetIsConfirmationModalOpen(true);
+	}, [course, onSetCurrentCourse, onSetIsConfirmationModalOpen]);
 
 	return (
 		<>

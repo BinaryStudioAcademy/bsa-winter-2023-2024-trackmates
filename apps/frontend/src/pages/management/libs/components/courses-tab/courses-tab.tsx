@@ -103,9 +103,9 @@ const CoursesTab: React.FC = () => {
 												courseToDataStatus[course.id as number]
 													?.updateDataStatus === DataStatus.PENDING
 											}
-											setCurrentCourse={setCurrentCourse}
-											setIsConfirmationModalOpen={setIsConfirmationModalOpen}
-											setIsEditModalOpen={setIsEditModalOpen}
+											onSetCurrentCourse={setCurrentCourse}
+											onSetIsConfirmationModalOpen={setIsConfirmationModalOpen}
+											onSetIsEditModalOpen={setIsEditModalOpen}
 										/>
 									</TableRow>
 								);
