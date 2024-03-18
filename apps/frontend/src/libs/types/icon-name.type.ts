@@ -13,6 +13,7 @@ type IconName =
 	| "edit"
 	| "eye"
 	| "eyeOff"
+	| "follower"
 	| "home"
 	| "like"
 	| "lock"

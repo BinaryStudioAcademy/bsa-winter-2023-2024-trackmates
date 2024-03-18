@@ -85,6 +85,9 @@ const Notifications: React.FC = () => {
 
 	const hasNotifications = notifications.length > EMPTY_LENGTH;
 
+	const hasIcon =
+		notificationType === null || notificationType === NotificationFilter.ALL;
+
 	return (
 		<div className={styles["page"]}>
 			<div className={styles["header"]}>
@@ -124,7 +127,10 @@ const Notifications: React.FC = () => {
 					) : (
 						<>
 							{hasNotifications ? (
-								<NotificationList notifications={notifications} />
+								<NotificationList
+									hasIcon={hasIcon}
+									notifications={notifications}
+								/>
 							) : (
 								<EmptyPagePlaceholder title="You don't have any notifications yet" />
 							)}
