@@ -9,6 +9,23 @@ import {
 
 import { name as sliceName } from "./users.slice.js";
 
+const remove = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+	`${sliceName}/remove`,
+	async (id, { extra }) => {
+		const { notification, userApi } = extra;
+
+		const success = await userApi.remove(id);
+
+		if (success) {
+			notification.success(NotificationMessage.USER_DELETED);
+		} else {
+			notification.error(NotificationMessage.USER_DELETION_FAILED);
+		}
+
+		return success;
+	},
+);
+
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
 	{ id: number; profilePayload: UserProfileRequestDto },
@@ -44,4 +61,4 @@ const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
 	},
 );
 
-export { getAll, getById, updateProfile };
+export { getAll, getById, remove, updateProfile };
