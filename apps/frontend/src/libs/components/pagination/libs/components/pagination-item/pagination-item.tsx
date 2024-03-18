@@ -2,6 +2,7 @@ import { type AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { type IconName, type ValueOf } from "~/libs/types/types.js";
 
+import { Icon } from "../../../../icon/icon.js";
 import { Button } from "./../../../../button/button.js";
 import styles from "./styles.module.css";
 
@@ -9,7 +10,7 @@ type Properties = {
 	href: ValueOf<typeof AppRoute>;
 	iconName?: IconName;
 	isActive?: boolean;
-	isDisabled?: boolean;
+	isDisabled: boolean;
 	label: string;
 };
 
@@ -17,7 +18,7 @@ const PaginationItem: React.FC<Properties> = ({
 	href,
 	iconName,
 	isActive,
-	isDisabled,
+	isDisabled = false,
 	label,
 }: Properties) => {
 	const linkClasses = getValidClassNames(styles["item"], {
@@ -27,12 +28,18 @@ const PaginationItem: React.FC<Properties> = ({
 
 	return (
 		<li className={styles["item-container"]}>
-			<Button
-				className={linkClasses}
-				href={isDisabled ? ("" as ValueOf<typeof AppRoute>) : href}
-				iconName={iconName}
-				label={label}
-			/>
+			{isDisabled ? (
+				<span className={linkClasses}>
+					<Icon name={iconName as IconName} />
+				</span>
+			) : (
+				<Button
+					className={linkClasses}
+					href={href}
+					iconName={iconName}
+					label={label}
+				/>
+			)}
 		</li>
 	);
 };

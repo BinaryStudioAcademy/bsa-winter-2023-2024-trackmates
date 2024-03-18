@@ -51,6 +51,7 @@ const Pagination: React.FC<Properties> = ({
 					<PaginationItem
 						href={`?page=${page}` as ValueOf<typeof AppRoute>}
 						isActive={currentPage === page}
+						isDisabled={false}
 						key={page}
 						label={page.toString()}
 					/>

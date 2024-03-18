@@ -16,6 +16,10 @@
 }
 
 .disabled {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
 	pointer-events: none;
 	touch-action: none;
 	opacity: 0.5;
