@@ -278,4 +278,15 @@
 	.sidebar.close .menu-item {
 		overflow: unset;
 	}
+
+	.content-container {
+		flex-grow: 3;
+	}
+
+	.log-out-btn :last-child {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		line-height: 24px;
+	}
 }
