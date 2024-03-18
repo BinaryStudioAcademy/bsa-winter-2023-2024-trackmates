@@ -27,9 +27,14 @@ const usePagination: UsePagination = ({
 }) => {
 	const [searchParameters, setSearchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
-	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
 
 	const pagesCount = Math.ceil(totalCount / pageSize);
+	const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
+
+	const [page, setPage] = useState<number>(
+		isValidPage ? pageFromQuery : PaginationValue.DEFAULT_PAGE,
+	);
+
 	const pagesCut = getPagesCut({
 		currentPage: page,
 		pagesCount,
