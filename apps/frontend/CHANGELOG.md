@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.60.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.59.0...frontend-v1.60.0) (2024-03-18)
+
+
+### Features
+
+* **frontend/backend/shared:** uam delete users tm-232 ([#474](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/474)) ([6b047f2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6b047f218edc201d6a561c18fe60077fda1abdbc))
+
+
+### Bug Fixes
+
+* **frontend:** The "Log Out" button can't be reached on the sidebar in landscape mode [Mobile] tm-567 ([#594](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/594)) ([7b14fc7](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7b14fc7925e0251e639b8e3aed2c0fa1c91f9280))
+* **frontend:** update design of activities page tm-555 ([#592](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/592)) ([f437140](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f437140aa97dc4e97d1ac5cb65efd200c0022381))
+
+## [1.59.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.58.0...frontend-v1.59.0) (2024-03-18)
+
+
+### Features
+
+* **backend/frontend/shared:** pagination to the add course pop-up window tm-537 ([#584](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/584)) ([87541d1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/87541d195e8a9e08a3fd7978f54c526ddd01cc01))
+* **backend/frontend/shared:** update design of activities page tm-555 ([#589](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/589)) ([f9195d4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f9195d479cf8939d9bd7af0f79782735859486e2))
+
 ## [1.58.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.57.0...frontend-v1.58.0) (2024-03-18)
 
 

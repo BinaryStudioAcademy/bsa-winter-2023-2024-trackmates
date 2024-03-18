@@ -48,10 +48,9 @@ class PermissionController extends BaseController {
 			},
 			method: "GET",
 			path: PermissionsApiPath.$PERMISSION_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				params: permissionIdParameter,
 			},
@@ -63,10 +62,9 @@ class PermissionController extends BaseController {
 			},
 			method: "GET",
 			path: PermissionsApiPath.ROOT,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 		});
 	}
 
