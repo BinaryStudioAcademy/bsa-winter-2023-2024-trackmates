@@ -55,6 +55,11 @@
 	transition: 0.3s ease;
 }
 
+.menu-item :last-child {
+	width: 20px;
+	height: 21px;
+}
+
 .menu-item:hover {
 	color: var(--color-button);
 	background-color: transparent;
@@ -206,7 +211,7 @@
 		gap: 0;
 		height: fit-content;
 		padding-top: 20px;
-		padding-bottom: 21px;
+		padding-bottom: 5px;
 	}
 
 	.sidebar.close {
