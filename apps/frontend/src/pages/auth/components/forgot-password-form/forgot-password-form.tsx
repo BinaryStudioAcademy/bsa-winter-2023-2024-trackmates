@@ -11,7 +11,7 @@ import {
 	authForgotPasswordValidationSchema,
 } from "~/modules/auth/auth.js";
 
-import { DEFAULT_AUTH_FORGOT_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
+import { DEFAULT_AUTH_FORGOT_PASSWORD_IN_PAYLOAD } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {

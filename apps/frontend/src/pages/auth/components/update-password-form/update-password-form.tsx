@@ -10,7 +10,7 @@ import {
 import { type AuthUpdatePasswordRequestDto } from "~/modules/auth/auth.js";
 import { authUpdatePasswordValidationSchema } from "~/modules/auth/auth.js";
 
-import { DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD } from "./libs/constants.js";
+import { DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -25,7 +25,7 @@ const UpdatePasswordForm: React.FC<Properties> = ({
 	const { control, errors, handleSubmit } =
 		useAppForm<AuthUpdatePasswordRequestDto>({
 			defaultValues: {
-				...DEFAULT_UPDATE_PASSWORD_IN_PAYLOAD,
+				...DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD,
 				token,
 			},
 			validationSchema: authUpdatePasswordValidationSchema,
