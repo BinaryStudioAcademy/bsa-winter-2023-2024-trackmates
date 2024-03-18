@@ -8,6 +8,7 @@ import { type ActivityType } from "../libs/enums/enums.js";
 import { type ActivityResponseDto } from "../libs/types/types.js";
 import {
 	createComment,
+	deleteComment,
 	getAllCommentsToActivity,
 	likeActivity,
 	loadActivities,
@@ -94,6 +95,33 @@ const { actions, name, reducer } = createSlice({
 			state.commentsDataStatuses[activityId] = DataStatus.PENDING;
 		});
 		builder.addCase(createComment.rejected, (state, action) => {
+			const { activityId } = action.meta.arg;
+			state.commentsDataStatuses[activityId] = DataStatus.REJECTED;
+		});
+		builder.addCase(deleteComment.fulfilled, (state, action) => {
+			const isDeletionSuccess = action.payload;
+			const { activityId, commentId } = action.meta.arg;
+
+			if (isDeletionSuccess) {
+				state.activities = state.activities.map((activity) => {
+					return activity.id === activityId
+						? { ...activity, commentCount: --activity.commentCount }
+						: activity;
+				});
+
+				const comments = state.commentsByActivity[activityId] ?? [];
+				state.commentsByActivity[activityId] = comments.filter(
+					(comment) => comment.id !== commentId,
+				);
+			}
+
+			state.commentsDataStatuses[activityId] = DataStatus.FULFILLED;
+		});
+		builder.addCase(deleteComment.pending, (state, action) => {
+			const { activityId } = action.meta.arg;
+			state.commentsDataStatuses[activityId] = DataStatus.PENDING;
+		});
+		builder.addCase(deleteComment.rejected, (state, action) => {
 			const { activityId } = action.meta.arg;
 			state.commentsDataStatuses[activityId] = DataStatus.REJECTED;
 		});

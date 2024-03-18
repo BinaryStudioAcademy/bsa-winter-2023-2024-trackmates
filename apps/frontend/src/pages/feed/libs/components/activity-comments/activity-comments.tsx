@@ -41,6 +41,18 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 		[activityId, dispatch],
 	);
 
+	const handleDeleteComment = useCallback(
+		(activityId: number, commentId: number): void => {
+			void dispatch(
+				activityActions.deleteComment({
+					activityId,
+					commentId,
+				}),
+			);
+		},
+		[dispatch],
+	);
+
 	useEffect(() => {
 		void dispatch(activityActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
@@ -60,7 +72,11 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 					{hasComments ? (
 						<div className={styles["comments-container"]}>
 							{comments.map((comment) => (
-								<CommentCard comment={comment} key={comment.id} />
+								<CommentCard
+									comment={comment}
+									key={comment.id}
+									onDelete={handleDeleteComment}
+								/>
 							))}
 						</div>
 					) : (

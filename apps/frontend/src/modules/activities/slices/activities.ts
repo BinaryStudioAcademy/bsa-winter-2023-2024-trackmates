@@ -1,5 +1,6 @@
 import {
 	createComment,
+	deleteComment,
 	getAllCommentsToActivity,
 	likeActivity,
 	loadActivities,
@@ -9,6 +10,7 @@ import { actions } from "./activities.slice.js";
 const allActions = {
 	...actions,
 	createComment,
+	deleteComment,
 	getAllCommentsToActivity,
 	likeActivity,
 	loadActivities,

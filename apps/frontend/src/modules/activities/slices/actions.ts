@@ -54,8 +54,19 @@ const createComment = createAsyncThunk<
 	return commentApi.create(payload);
 });
 
+const deleteComment = createAsyncThunk<
+	boolean,
+	{ activityId: number; commentId: number },
+	AsyncThunkConfig
+>(`${sliceName}/delete-comment`, (payload, { extra }) => {
+	const { commentApi } = extra;
+
+	return commentApi.delete(payload.commentId);
+});
+
 export {
 	createComment,
+	deleteComment,
 	getAllCommentsToActivity,
 	likeActivity,
 	loadActivities,
