@@ -13,9 +13,3 @@
 	display: flex;
 	column-gap: 10px;
 }
-
-.icon-button:disabled,
-.icon-button:disabled:focus {
-	color: var(--color-text-100);
-	background-color: transparent;
-}
