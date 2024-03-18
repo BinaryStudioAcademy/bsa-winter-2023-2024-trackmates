@@ -331,6 +331,14 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						passwordHash: "",
 						passwordSalt: "",
 						sex: activity.user.userDetails.sex,
+						subscription: activity.user.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt: activity.user.userDetails.subscription.createdAt,
+									expiresAt: activity.user.userDetails.subscription.expiresAt,
+									id: activity.user.userDetails.subscription.id,
+									updatedAt: activity.user.userDetails.subscription.updatedAt,
+								})
+							: null,
 						updatedAt: activity.user.updatedAt,
 					}),
 					userId: activity.userId,
