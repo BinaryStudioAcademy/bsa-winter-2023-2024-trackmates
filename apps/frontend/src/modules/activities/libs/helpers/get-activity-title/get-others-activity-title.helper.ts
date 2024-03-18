@@ -22,7 +22,7 @@ const getOthersActivityTitle = (
 		}
 
 		case ActivityType.FINISH_SECTION: {
-			return `Completed the  "${payload.title}" section of the "${courseTitle}" course! Congratulate ${pronoun}!`;
+			return `Completed the "${payload.title}" section of the "${courseTitle}" course! Congratulate ${pronoun}!`;
 		}
 	}
 };
