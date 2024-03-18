@@ -36,7 +36,7 @@ class CourseApi extends BaseHTTPApi {
 
 	public async getAll(): Promise<CoursesResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ALL, {}),
+			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -51,7 +51,7 @@ class CourseApi extends BaseHTTPApi {
 		filter: CourseSearchFilterDto,
 	): Promise<CoursesResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
+			this.getFullEndpoint(CoursesApiPath.FROM_VENDORS, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -104,7 +104,7 @@ class CourseApi extends BaseHTTPApi {
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
-				method: "PATCH",
+				method: "PUT",
 				payload: JSON.stringify(payload),
 			},
 		);

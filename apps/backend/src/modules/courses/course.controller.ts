@@ -111,7 +111,7 @@ class CourseController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: CoursesApiPath.ROOT,
+			path: CoursesApiPath.FROM_VENDORS,
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -134,7 +134,7 @@ class CourseController extends BaseController {
 				);
 			},
 			method: "PUT",
-			path: CoursesApiPath.$COURSE_ID,
+			path: CoursesApiPath.FROM_VENDORS_$COURSE_ID,
 			validation: {
 				params: courseIdParameterValidationSchema,
 			},
@@ -144,7 +144,7 @@ class CourseController extends BaseController {
 				return this.findAll();
 			},
 			method: "GET",
-			path: CoursesApiPath.ALL,
+			path: CoursesApiPath.ROOT,
 			preHandler: checkUserPermissions(
 				[PermissionKey.MANAGE_COURSES],
 				PermissionMode.ALL_OF,
@@ -159,7 +159,7 @@ class CourseController extends BaseController {
 					}>,
 				);
 			},
-			method: "PATCH",
+			method: "PUT",
 			path: CoursesApiPath.$COURSE_ID,
 			preHandler: checkUserPermissions(
 				[PermissionKey.MANAGE_COURSES],
@@ -294,7 +294,7 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/all:
+	 * /courses:
 	 *    get:
 	 *      tags:
 	 *        - Courses
@@ -324,7 +324,7 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses:
+	 * /courses/from-vendors:
 	 *    get:
 	 *      tags:
 	 *        - Courses
@@ -473,7 +473,7 @@ class CourseController extends BaseController {
 
 	/**
 	 * @swagger
-	 * /courses/{id}:
+	 * /courses/from-vendor/{id}:
 	 *    put:
 	 *      tags:
 	 *        - Courses
