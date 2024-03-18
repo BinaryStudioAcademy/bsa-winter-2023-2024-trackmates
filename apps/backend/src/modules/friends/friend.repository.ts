@@ -9,6 +9,7 @@ import {
 } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
+import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -37,7 +38,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.findById(followingUserId)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<UserModel>();
 
@@ -70,6 +71,14 @@ class FriendRepository implements Repository<UserEntity> {
 			passwordHash: followingUser.passwordHash,
 			passwordSalt: followingUser.passwordSalt,
 			sex: followingUser.userDetails.sex,
+			subscription: followingUser.userDetails.subscription
+				? SubscriptionEntity.initialize({
+						createdAt: followingUser.userDetails.subscription.createdAt,
+						expiresAt: followingUser.userDetails.subscription.expiresAt,
+						id: followingUser.userDetails.subscription.id,
+						updatedAt: followingUser.userDetails.subscription.updatedAt,
+					})
+				: null,
 			updatedAt: followingUser.updatedAt,
 		});
 	}
@@ -111,7 +120,7 @@ class FriendRepository implements Repository<UserEntity> {
 			.query()
 			.findById(id)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -145,6 +154,14 @@ class FriendRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -160,7 +177,7 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			);
 
 		return followings.map((user) => {
@@ -193,6 +210,14 @@ class FriendRepository implements Repository<UserEntity> {
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				sex: user.userDetails.sex,
+				subscription: user.userDetails.subscription
+					? SubscriptionEntity.initialize({
+							createdAt: user.userDetails.subscription.createdAt,
+							expiresAt: user.userDetails.subscription.expiresAt,
+							id: user.userDetails.subscription.id,
+							updatedAt: user.userDetails.subscription.updatedAt,
+						})
+					: null,
 				updatedAt: user.updatedAt,
 			});
 		});
@@ -269,11 +294,12 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.USERS}.id`,
 				"userDetails.id",
 				"userDetails:avatar_file.id",
+				"userDetails:subscription.id",
 				"groups.id",
 				"groups:permissions.id",
 			)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy(`${DatabaseTableName.USERS}.createdAt`, SortOrder.DESC)
 			.page(page, count)
@@ -310,6 +336,14 @@ class FriendRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				});
 			}),
@@ -336,7 +370,7 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
 			.page(page, count)
@@ -373,6 +407,14 @@ class FriendRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				});
 			}),
@@ -399,7 +441,7 @@ class FriendRepository implements Repository<UserEntity> {
 			)
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
 			.page(page, count)
@@ -436,6 +478,14 @@ class FriendRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				});
 			}),
@@ -495,6 +545,14 @@ class FriendRepository implements Repository<UserEntity> {
 			passwordHash: updatedSubscription.passwordHash,
 			passwordSalt: updatedSubscription.passwordSalt,
 			sex: updatedSubscription.userDetails.sex,
+			subscription: updatedSubscription.userDetails.subscription
+				? SubscriptionEntity.initialize({
+						createdAt: updatedSubscription.userDetails.subscription.createdAt,
+						expiresAt: updatedSubscription.userDetails.subscription.expiresAt,
+						id: updatedSubscription.userDetails.subscription.id,
+						updatedAt: updatedSubscription.userDetails.subscription.updatedAt,
+					})
+				: null,
 			updatedAt: updatedSubscription.updatedAt,
 		});
 	}

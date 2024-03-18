@@ -2,6 +2,7 @@ import { RelationName } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
+import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserModel } from "~/modules/users/user.model.js";
 
@@ -24,6 +25,17 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.where("userId", id)
 			.patch({ avatarFileId: fileId })
+			.execute();
+	}
+
+	public async addSubscription(
+		id: number,
+		subscriptionId: number,
+	): Promise<void> {
+		await this.userDetailsModel
+			.query()
+			.where("userId", id)
+			.patch({ subscriptionId })
 			.execute();
 	}
 
@@ -58,6 +70,7 @@ class UserRepository implements Repository<UserEntity> {
 			passwordHash: user.passwordHash,
 			passwordSalt: user.passwordSalt,
 			sex: userDetails.sex,
+			subscription: null,
 			updatedAt: user.updatedAt,
 		});
 	}
@@ -71,7 +84,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(userId)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -105,6 +118,14 @@ class UserRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -114,7 +135,7 @@ class UserRepository implements Repository<UserEntity> {
 		const users = await this.userModel
 			.query()
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -148,6 +169,14 @@ class UserRepository implements Repository<UserEntity> {
 				passwordHash: user.passwordHash,
 				passwordSalt: user.passwordSalt,
 				sex: user.userDetails.sex,
+				subscription: user.userDetails.subscription
+					? SubscriptionEntity.initialize({
+							createdAt: user.userDetails.subscription.createdAt,
+							expiresAt: user.userDetails.subscription.expiresAt,
+							id: user.userDetails.subscription.id,
+							updatedAt: user.userDetails.subscription.updatedAt,
+						})
+					: null,
 				updatedAt: user.updatedAt,
 			}),
 		);
@@ -158,7 +187,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(id)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -192,6 +221,14 @@ class UserRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -202,7 +239,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findOne({ email })
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -236,6 +273,14 @@ class UserRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -254,7 +299,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findOne({ nickname })
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -288,6 +333,14 @@ class UserRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;
@@ -312,7 +365,7 @@ class UserRepository implements Repository<UserEntity> {
 			.query()
 			.findById(userId)
 			.withGraphJoined(
-				`[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -346,6 +399,14 @@ class UserRepository implements Repository<UserEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;

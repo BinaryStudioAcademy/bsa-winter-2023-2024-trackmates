@@ -6,6 +6,9 @@ const NotificationMessage = {
 	GROUP_DELETED: "Group was deleted.",
 	GROUP_PERMISSIONS_CHANGED: "Group permissions were changed.",
 	PROFILE_CHANGES_SAVED: "Changes are saved.",
+	SUBSCRIPTION_SUCCESS: "Congratulations! You are now a Premium Member 🎉",
+	USER_DELETED: "User was deleted.",
+	USER_DELETION_FAILED: "User wasn't deleted.",
 	USER_GROUPS_CHANGED: "User groups were changed.",
 } as const;
 

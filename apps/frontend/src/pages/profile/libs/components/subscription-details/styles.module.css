@@ -1,0 +1,154 @@
+@import url("~/assets/css/media.css");
+
+.container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	min-width: 100%;
+	min-height: 100%;
+}
+
+.info {
+	position: relative;
+	flex-grow: 1;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-width: 78%;
+	padding: 20px;
+}
+
+.subscription-character {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	max-width: 187px;
+	max-height: 179px;
+}
+
+.title {
+	margin: 0;
+	font-size: var(--font-size-600);
+	color: var(--color-menu);
+	text-align: center;
+}
+
+.price {
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
+}
+
+.price-value {
+	font-size: var(--font-size-350);
+	font-weight: 600;
+	color: var(--color-menu);
+}
+
+.cover {
+	color: var(--color-text-200);
+	text-align: center;
+}
+
+.row {
+	display: flex;
+	gap: 64px;
+	justify-content: center;
+}
+
+.col {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.benefits-list {
+	padding: 0;
+	margin: 0 0 0 12px;
+}
+
+.label {
+	font-size: var(--font-size-300);
+	font-weight: 500;
+	color: var(--color-text-300);
+	text-align: center;
+}
+
+.benefit-item {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+	font-size: var(--font-size-200);
+	color: var(--color-text-600);
+}
+
+.benefit-item::before {
+	margin-right: 8px;
+	font-size: 14px;
+	color: var(--color-input);
+	content: "\2714";
+}
+
+.footer {
+	display: flex;
+	gap: 16px;
+	justify-content: center;
+	min-height: 60px;
+	padding: 14px;
+	background-color: var(--color-menu);
+}
+
+.button {
+	width: 100%;
+	max-width: 150px;
+}
+
+.active-subscription {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 50px;
+	font-size: var(--font-size-350);
+	font-weight: 600;
+	color: var(--color-premium);
+	text-transform: uppercase;
+	letter-spacing: 3px;
+}
+
+@media screen and (--medium-screen) {
+	.subscription-character {
+		width: 140px;
+		height: 130px;
+	}
+}
+
+@media screen and (--small-screen) {
+	.subscription-character {
+		display: none;
+	}
+
+	.cover {
+		max-width: 100%;
+	}
+
+	.content {
+		max-width: 100%;
+	}
+
+	.row {
+		flex-wrap: wrap;
+		gap: 16px;
+		justify-content: space-around;
+	}
+
+	.title {
+		margin-top: 16px;
+	}
+
+	.active-subscription {
+		font-size: var(--font-size-300);
+	}
+}
