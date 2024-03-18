@@ -18,7 +18,7 @@ const getOthersActivityTitle = (
 
 	switch (activityType) {
 		case ActivityType.FINISH_COURSE: {
-			return `Completed the "${payload.title}"course! Congratulate ${pronoun}!`;
+			return `Completed the "${payload.title}" course! Congratulate ${pronoun}!`;
 		}
 
 		case ActivityType.FINISH_SECTION: {
