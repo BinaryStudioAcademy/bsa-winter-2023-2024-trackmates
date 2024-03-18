@@ -33,11 +33,11 @@
 }
 
 .card-photo {
+	height: 150px;
 	aspect-ratio: 1 / 1;
 	border-radius: 12px;
 	object-fit: cover;
 	object-position: center;
-	height: 150px;
 }
 
 .toolbar {
