@@ -172,7 +172,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: number;
-		isLikedByUser: boolean | null;
+		isLikedByUser: boolean;
 		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
@@ -195,7 +195,7 @@ class ActivityEntity implements Entity {
 			actionId: this.actionId,
 			commentCount: Number(this.commentCount),
 			id: this.id as number,
-			isLikedByUser: this.isLikedByUser,
+			isLikedByUser: this.isLikedByUser ?? false,
 			likesCount: Number(this.likesCount),
 			payload: this.payload,
 			type: this.type,

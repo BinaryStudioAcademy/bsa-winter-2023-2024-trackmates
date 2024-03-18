@@ -36,7 +36,7 @@ const FeedActivity: React.FC<Properties> = ({
 
 	const likeButtonClasses = getValidClassNames(
 		styles["tool-button"],
-		(activity.isLikedByUser as boolean) && styles["liked"],
+		activity.isLikedByUser && styles["liked"],
 	);
 
 	const commentButtonClasses = getValidClassNames(
