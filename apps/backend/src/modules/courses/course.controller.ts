@@ -425,7 +425,7 @@ class CourseController extends BaseController {
 	/**
 	 * @swagger
 	 * /courses/{id}:
-	 *    patch:
+	 *    put:
 	 *      tags:
 	 *        - Courses
 	 *      description: Update course title
