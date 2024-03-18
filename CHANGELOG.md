@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.72.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.71.0...v1.72.0) (2024-03-17)
+
+
+### Features
+
+* **frontend:** pagination should not be displayed if there is only one page tm-502 ([#562](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/562)) ([626f316](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/626f316847f7d280e7dd1b8e66bdf1311900281d))
+
+
+### Bug Fixes
+
+* **frontend:** fix scrollbar appearance during transitions of comments tm-541 ([#575](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/575)) ([e5c8202](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e5c8202a9c7b6e1eb534fbf9181e87080f130bfc))
+* **frontend:** Hide previous state of the data from the store on all pages tm-506 ([#572](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/572)) ([c36925a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c36925a60bfb2a6e144979ac22004211eca2f710))
+* **frontend:** PWA sidebar mobile responsiveness tm-563 ([#578](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/578)) ([fd8f355](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/fd8f355fa8c4b5fae2bb7bbb99add458e267c1a9))
+
 ## [1.71.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.70.0...v1.71.0) (2024-03-16)
 
 

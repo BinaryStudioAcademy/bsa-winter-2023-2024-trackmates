@@ -29,19 +29,6 @@
 	border-right: 1px solid var(--border-color);
 }
 
-.chats::-webkit-scrollbar {
-	width: 5px;
-}
-
-.chats::-webkit-scrollbar-thumb {
-	background-color: var(--color-text-100);
-	border-radius: 50px;
-}
-
-.chats::-webkit-scrollbar-track {
-	background-color: var(--main-white);
-}
-
 .empty-chat-list {
 	text-align: center;
 }

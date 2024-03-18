@@ -78,8 +78,13 @@
 }
 
 .button {
-	width: 114px;
+	width: 124px;
 	white-space: nowrap;
+}
+
+.premium-button {
+	color: var(--color-premium);
+	border-color: var(--color-premium);
 }
 
 .profile-character {
@@ -87,6 +92,12 @@
 	bottom: -52px;
 	left: 15%;
 	transform: translateY(-50%);
+}
+
+.profile-buttons-container {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
 
 @media screen and (--large-screen) {
