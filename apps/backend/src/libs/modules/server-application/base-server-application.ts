@@ -21,6 +21,7 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { subscriptionService } from "~/modules/subscriptions/subscriptions.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
@@ -83,6 +84,10 @@ class BaseServerApplication implements ServerApplication {
 		this.app = Fastify({
 			ignoreTrailingSlash: true,
 		});
+	}
+
+	private initCrons(): void {
+		subscriptionService.initCrone();
 	}
 
 	private initErrorHandler(): void {
@@ -216,6 +221,8 @@ class BaseServerApplication implements ServerApplication {
 		this.initRoutes();
 
 		this.initSocket();
+
+		this.initCrons();
 
 		this.database.connect();
 

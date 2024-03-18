@@ -40,6 +40,9 @@ type EnvironmentSchema = {
 		API_KEY: string;
 		MODEL: string;
 	};
+	STRIPE: {
+		SECRET_KEY: string;
+	};
 	UDEMY: {
 		CLIENT_ID: string;
 		CLIENT_SECRET: string;

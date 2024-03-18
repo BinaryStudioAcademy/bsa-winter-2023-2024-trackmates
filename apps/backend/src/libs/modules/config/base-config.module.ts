@@ -188,6 +188,14 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			STRIPE: {
+				SECRET_KEY: {
+					default: null,
+					doc: "Stripe secret key",
+					env: "STRIPE_SECRET_KEY",
+					format: String,
+				},
+			},
 			UDEMY: {
 				CLIENT_ID: {
 					default: null,

@@ -9,6 +9,7 @@ const AppTitle = {
 	PROFILE: "My Profile",
 	SIGN_IN: "Sign In",
 	SIGN_UP: "Sign Up",
+	SUBSCRIPTION: "Subscription",
 	UPDATE_PASSWORD: "Update password",
 } as const;
 

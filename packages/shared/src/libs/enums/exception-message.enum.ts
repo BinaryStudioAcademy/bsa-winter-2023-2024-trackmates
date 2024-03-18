@@ -17,6 +17,7 @@ const ExceptionMessage = {
 	PROGRESS_NOT_FOUND: "Progress not found.",
 	SECTION_STATUS_NOT_FOUND: "Section status not found.",
 	SOMETHING_WENT_WRONG: "Something went wrong...",
+	SUBSCRIPTION_NOT_FOUND: "Subscription not found.",
 	TOKEN_EXPIRED: "Token expired.",
 	UNAUTHORIZED: "Unauthorized.",
 	UNKNOWN_ERROR: "Unknown error occurred.",

@@ -15,6 +15,8 @@ const AppRoute = {
 	ROOT: "/",
 	SIGN_IN: "/sign-in",
 	SIGN_UP: "/sign-up",
+	SUBSCRIPTION: "/subscription",
+	SUBSCRIPTION_CHECKOUT: "/subscription/checkout",
 	UPDATE_PASSWORD: "/update-password",
 	USERS_$ID: "/users/:id",
 	USERS_$USER_ID_COURSES_$COURSE_ID: "/users/:userId/courses/:courseId",

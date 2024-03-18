@@ -26,6 +26,13 @@ class UserService implements Service {
 		await this.userRepository.addAvatar(id, fileId);
 	}
 
+	public async addSubscription(
+		id: number,
+		subscriptionId: number,
+	): Promise<void> {
+		await this.userRepository.addSubscription(id, subscriptionId);
+	}
+
 	public async create(
 		payload: UserSignUpRequestDto,
 	): Promise<UserAuthResponseDto> {
