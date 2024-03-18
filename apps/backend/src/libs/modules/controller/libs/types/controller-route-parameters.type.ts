@@ -17,7 +17,7 @@ type ControllerRouteParameters = {
 		request: FastifyRequest,
 		reply: FastifyReply,
 		done: HookHandlerDoneFunction,
-	) => void;
+	) => Promise<void> | void;
 	validation?: {
 		body?: ValidationSchema;
 		params?: ValidationSchema;

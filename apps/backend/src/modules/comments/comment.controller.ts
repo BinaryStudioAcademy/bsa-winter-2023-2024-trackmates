@@ -1,4 +1,5 @@
 import { APIPath } from "~/libs/enums/enums.js";
+import { checkIsUserCreator } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -120,6 +121,27 @@ class CommentController extends BaseController {
 				params: commentIdParameterValidationSchema,
 			},
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.delete(
+					options as APIHandlerOptions<{
+						params: Record<"id", number>;
+					}>,
+				);
+			},
+			method: "DELETE",
+			path: CommentsApiPath.$ID,
+			preHandler: checkIsUserCreator({
+				getDtoIdFromRequest: (request) =>
+					(request.params as Record<"id", number>).id,
+				getUserIdFromDto: (comment) => comment.userId,
+				service: this.commentService,
+			}),
+			validation: {
+				params: commentIdParameterValidationSchema,
+			},
+		});
 	}
 
 	/**
@@ -166,6 +188,44 @@ class CommentController extends BaseController {
 				...options.body,
 			}),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /comments/{id}:
+	 *    delete:
+	 *      tags:
+	 *        - Activity Comments
+	 *      description: Delete own comment by provided comment id
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The comment id
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            format: int64
+	 *            minimum: 1
+	 *            readOnly: true
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: boolean
+	 */
+	private async delete(
+		options: APIHandlerOptions<{
+			params: { id: number };
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.commentService.delete(options.params.id),
+			status: HTTPCode.OK,
 		};
 	}
 
