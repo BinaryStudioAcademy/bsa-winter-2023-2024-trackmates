@@ -78,7 +78,7 @@ class CommentService implements Service {
 		const isDeletionSucceed = await this.commentRepository.delete(id);
 
 		if (isDeletionSucceed) {
-			await this.notificationService.deleteByActionId(
+			void this.notificationService.deleteByActionId(
 				id,
 				NotificationType.NEW_COMMENT,
 			);
