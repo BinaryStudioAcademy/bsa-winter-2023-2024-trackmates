@@ -89,6 +89,14 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 										key={label}
 										to={href}
 									>
+										<span
+											className={getValidClassNames(
+												styles["link-title"],
+												"visually-hidden",
+											)}
+										>
+											{label}
+										</span>
 										<Icon name={icon} />
 									</Link>
 								)
