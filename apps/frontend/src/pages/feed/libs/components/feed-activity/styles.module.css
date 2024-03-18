@@ -82,14 +82,6 @@
 	fill: currentcolor;
 }
 
-.tool-button:hover {
-	padding: 0;
-	color: var(--main-orange);
-	background-color: var(--main-white);
-	border: unset;
-	fill: currentcolor;
-}
-
 .liked {
 	color: var(--main-orange);
 }
