@@ -132,12 +132,14 @@ class CommentController extends BaseController {
 			},
 			method: "DELETE",
 			path: CommentsApiPath.$ID,
-			preHandler: checkIsUserCreator({
-				getDtoIdFromRequest: (request) =>
-					(request.params as Record<"id", number>).id,
-				getUserIdFromDto: (comment) => comment.userId,
-				service: this.commentService,
-			}),
+			preHandlers: [
+				checkIsUserCreator({
+					getDtoIdFromRequest: (request) =>
+						(request.params as Record<"id", number>).id,
+					getUserIdFromDto: (comment) => comment.userId,
+					service: this.commentService,
+				}),
+			],
 			validation: {
 				params: commentIdParameterValidationSchema,
 			},
