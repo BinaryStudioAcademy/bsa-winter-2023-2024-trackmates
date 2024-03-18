@@ -1,8 +1,6 @@
-.item-container .item {
+.item {
 	width: 30px;
 	height: 30px;
-	min-height: 30px;
-	padding: 0;
 	margin: 0 4px;
 	font-family: inherit;
 	font-size: var(--font-size-200);
@@ -15,9 +13,8 @@
 	transition: 0.3s ease;
 }
 
-.disabled {
-	pointer-events: none;
-	touch-action: none;
+.item:disabled {
+	cursor: default;
 	opacity: 0.5;
 }
 
@@ -34,8 +31,11 @@
 		background-color: var(--main-orange);
 	}
 
-	.item:not(.disabled):hover {
-		color: var(--main-white);
-		background-color: var(--color-button);
+	.item:hover {
+		color: var(--main-orange);
+	}
+
+	.item:disabled:hover {
+		color: #8e8e8e;
 	}
 }

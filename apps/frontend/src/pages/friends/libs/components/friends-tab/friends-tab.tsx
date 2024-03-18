@@ -26,12 +26,17 @@ const FriendsTab: React.FC<Properties> = ({
 		return <EmptyPagePlaceholder size="large" title={emptyPlaceholder} />;
 	}
 
-	const { page, pages, pagesCount } = pagination;
+	const { handlePageChange, page, pages, pagesCount } = pagination;
 
 	return (
 		<div className={styles["friends-tab"]}>
 			<FriendList friends={items} />
-			<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
+			<Pagination
+				currentPage={page}
+				onPageChange={handlePageChange}
+				pages={pages}
+				pagesCount={pagesCount}
+			/>
 		</div>
 	);
 };
