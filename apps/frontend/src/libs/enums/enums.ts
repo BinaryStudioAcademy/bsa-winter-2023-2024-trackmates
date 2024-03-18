@@ -12,6 +12,7 @@ export {
 	MessageStatus,
 	NotificationFilter,
 	NotificationStatus,
+	NotificationType,
 	PaginationValue,
 	PermissionKey,
 	PermissionMode,

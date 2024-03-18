@@ -60,10 +60,9 @@ class GroupController extends BaseController {
 			},
 			method: "POST",
 			path: GroupsApiPath.ROOT,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				body: groupRequestBodyValidationSchema,
 			},
@@ -80,10 +79,9 @@ class GroupController extends BaseController {
 			},
 			method: "DELETE",
 			path: GroupsApiPath.$GROUP_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				params: groupIdParameterValidationSchema,
 			},
@@ -99,10 +97,9 @@ class GroupController extends BaseController {
 			},
 			method: "GET",
 			path: GroupsApiPath.$GROUP_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				params: groupIdParameterValidationSchema,
 			},
@@ -118,10 +115,12 @@ class GroupController extends BaseController {
 			},
 			method: "GET",
 			path: GroupsApiPath.ROOT,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM, PermissionKey.MANAGE_USERS],
-				PermissionMode.ONE_OF,
-			),
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_UAM, PermissionKey.MANAGE_USERS],
+					PermissionMode.ONE_OF,
+				),
+			],
 		});
 
 		this.addRoute({
@@ -134,10 +133,9 @@ class GroupController extends BaseController {
 			},
 			method: "GET",
 			path: GroupsApiPath.$GROUP_ID_PERMISSIONS,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				params: groupIdParameterValidationSchema,
 			},
@@ -154,10 +152,9 @@ class GroupController extends BaseController {
 			},
 			method: "PATCH",
 			path: GroupsApiPath.$GROUP_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				body: groupRequestBodyValidationSchema,
 				params: groupIdParameterValidationSchema,
@@ -175,10 +172,9 @@ class GroupController extends BaseController {
 			},
 			method: "PUT",
 			path: GroupsApiPath.$GROUP_ID_PERMISSIONS_$PERMISSION_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				params: groupIdAndPermissionIdParametersValidationSchema,
 			},
@@ -195,10 +191,9 @@ class GroupController extends BaseController {
 			},
 			method: "PUT",
 			path: GroupsApiPath.$GROUP_ID_USERS_$USER_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_UAM],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
+			],
 			validation: {
 				params: groupIdAndUserIdParametersValidationSchema,
 			},

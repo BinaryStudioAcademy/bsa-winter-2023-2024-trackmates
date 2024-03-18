@@ -21,6 +21,7 @@ import {
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { subscriptionService } from "~/modules/subscriptions/subscriptions.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
@@ -83,6 +84,10 @@ class BaseServerApplication implements ServerApplication {
 		this.app = Fastify({
 			ignoreTrailingSlash: true,
 		});
+	}
+
+	private initCrons(): void {
+		subscriptionService.initCrone();
 	}
 
 	private initErrorHandler(): void {
@@ -174,7 +179,7 @@ class BaseServerApplication implements ServerApplication {
 	}
 
 	public addRoute(parameters: ServerApplicationRouteParameters): void {
-		const { handler, method, path, preHandler, validation } = parameters;
+		const { handler, method, path, preHandlers = [], validation } = parameters;
 		const routeParameters: RouteOptions = {
 			handler,
 			method,
@@ -186,9 +191,7 @@ class BaseServerApplication implements ServerApplication {
 			url: path,
 		};
 
-		if (preHandler) {
-			routeParameters.preHandler = preHandler;
-		}
+		routeParameters.preHandler = preHandlers;
 
 		this.app.route(routeParameters);
 		this.logger.info(`Route: ${method} ${path} is registered`);
@@ -216,6 +219,8 @@ class BaseServerApplication implements ServerApplication {
 		this.initRoutes();
 
 		this.initSocket();
+
+		this.initCrons();
 
 		this.database.connect();
 

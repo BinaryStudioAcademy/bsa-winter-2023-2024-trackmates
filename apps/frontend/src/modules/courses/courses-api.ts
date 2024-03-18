@@ -7,7 +7,7 @@ import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type CourseDto,
 	type CourseSearchFilterDto,
-	type CoursesResponseDto,
+	type CourseSearchGetAllResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -23,7 +23,7 @@ class CourseApi extends BaseHTTPApi {
 
 	public async getAll(
 		filter: CourseSearchFilterDto,
-	): Promise<CoursesResponseDto> {
+	): Promise<CourseSearchGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
 			{
@@ -34,7 +34,7 @@ class CourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<CoursesResponseDto>();
+		return await response.json<CourseSearchGetAllResponseDto>();
 	}
 	public async getById(id: string): Promise<CourseDto> {
 		const response = await this.load(
@@ -53,7 +53,7 @@ class CourseApi extends BaseHTTPApi {
 
 	public async getRecommended(
 		filter: CourseSearchFilterDto,
-	): Promise<CoursesResponseDto> {
+	): Promise<CourseSearchGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.RECOMMENDED, {}),
 			{
@@ -64,7 +64,7 @@ class CourseApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<CoursesResponseDto>();
+		return await response.json<CourseSearchGetAllResponseDto>();
 	}
 }
 

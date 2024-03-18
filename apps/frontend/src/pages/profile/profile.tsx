@@ -1,7 +1,8 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
 import { Button, Image, Input, Select } from "~/libs/components/components.js";
-import { AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -21,6 +22,7 @@ import {
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { SubscriptionModal } from "./libs/components/components.js";
 import { userSexToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
@@ -119,15 +121,28 @@ const Profile: React.FC = () => {
 								shape="circle"
 								src={user.avatarUrl ?? defaultAvatar}
 							/>
-							<Button
-								className={styles["button"]}
-								isDisabled={isFileUploadLoading}
-								isLoading={isFileUploadLoading}
-								label="Change photo"
-								onClick={handleOpenFileInput}
-								size="small"
-								style="secondary"
-							/>
+							<div className={styles["profile-buttons-container"]}>
+								<Button
+									className={getValidClassNames(
+										styles["premium-button"],
+										styles["button"],
+									)}
+									href={AppRoute.SUBSCRIPTION}
+									iconName="diamond"
+									label="Premium"
+									size="small"
+									style="secondary"
+								/>
+								<Button
+									className={styles["button"]}
+									isDisabled={isFileUploadLoading}
+									isLoading={isFileUploadLoading}
+									label="Change photo"
+									onClick={handleOpenFileInput}
+									size="small"
+									style="secondary"
+								/>
+							</div>
 							<input
 								accept="image/*"
 								className={styles["file-input"]}
@@ -199,6 +214,7 @@ const Profile: React.FC = () => {
 						/>
 					</div>
 				</form>
+				<SubscriptionModal />
 			</div>
 		</>
 	);

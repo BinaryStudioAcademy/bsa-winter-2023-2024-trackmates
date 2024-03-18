@@ -77,6 +77,22 @@
 	fill: currentcolor;
 }
 
+.avatar {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	top: -36%;
+	left: 24%;
+	width: 24px;
+	aspect-ratio: 1;
+}
+
 @media screen and (--medium-screen) {
 	.header:has(.search-bar-input:focus) .navigation {
 		display: none;

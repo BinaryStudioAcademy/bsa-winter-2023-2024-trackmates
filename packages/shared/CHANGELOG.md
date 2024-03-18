@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.38.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.37.0...shared-v1.38.0) (2024-03-18)
+
+
+### Features
+
+* **frontend/backend/shared:** uam delete users tm-232 ([#474](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/474)) ([6b047f2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6b047f218edc201d6a561c18fe60077fda1abdbc))
+
+## [1.37.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.36.0...shared-v1.37.0) (2024-03-18)
+
+
+### Features
+
+* **backend/frontend/shared:** pagination to the add course pop-up window tm-537 ([#584](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/584)) ([87541d1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/87541d195e8a9e08a3fd7978f54c526ddd01cc01))
+* **backend/frontend/shared:** update design of activities page tm-555 ([#589](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/589)) ([f9195d4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f9195d479cf8939d9bd7af0f79782735859486e2))
+
+## [1.36.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.35.0...shared-v1.36.0) (2024-03-18)
+
+
+### Features
+
+* **frontend/backend/shared:** stripe integration tm-456 ([#580](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/580)) ([9f8bce0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9f8bce0329ab115f3083214af8aec682d0c0f524))
+
+
+### Bug Fixes
+
+* **frontend/shared:** Input fields on "Chats" and "Activities" pages tm-546 ([#551](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/551)) ([a782f44](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a782f44df53fdc149b542b90662b388f6280166c))
+
 ## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.34.1...shared-v1.35.0) (2024-03-16)
 
 

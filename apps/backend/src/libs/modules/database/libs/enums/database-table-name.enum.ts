@@ -15,6 +15,7 @@ const DatabaseTableName = {
 	NOTIFICATIONS: "notifications",
 	PERMISSIONS: "permissions",
 	SECTION_STATUSES: "section_statuses",
+	SUBSCRIPTIONS: "subscriptions",
 	USER_DETAILS: "user_details",
 	USERS: "users",
 	USERS_TO_GROUPS: "users_to_groups",
