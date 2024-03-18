@@ -75,15 +75,15 @@ const { actions, name, reducer } = createSlice({
 			const { vendorCourseId } = action.meta.arg;
 
 			state.searchedCourses = state.searchedCourses.map((course) => {
-				return course.vendorCourseId === vendorCourseId
-					? { ...course, hasUserCourse: true }
-					: course;
+				const hasUserCourse = course.vendorCourseId === vendorCourseId;
+
+				return hasUserCourse ? { ...course, hasUserCourse } : course;
 			});
 
 			state.recommendedCourses = state.recommendedCourses.map((course) => {
-				return course.vendorCourseId === vendorCourseId
-					? { ...course, hasUserCourse: true }
-					: course;
+				const hasUserCourse = course.vendorCourseId === vendorCourseId;
+
+				return hasUserCourse ? { ...course, hasUserCourse } : course;
 			});
 
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
