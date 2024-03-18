@@ -5,6 +5,7 @@ import {
 	AppTitle,
 	DataStatus,
 	PaginationValue,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -14,6 +15,7 @@ import {
 	useEffect,
 	useLocation,
 	usePagination,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/friends/friends.js";
 
@@ -27,6 +29,9 @@ const Friends: React.FC = () => {
 	const { pathname } = useLocation();
 
 	const dispatch = useAppDispatch();
+
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const { isLoading } = useAppSelector((state) => {
 		return {
@@ -72,6 +77,7 @@ const Friends: React.FC = () => {
 					actions.getPotentialFriends({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
@@ -83,6 +89,7 @@ const Friends: React.FC = () => {
 					actions.getFollowers({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
@@ -94,13 +101,14 @@ const Friends: React.FC = () => {
 					actions.getFollowings({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
 				break;
 			}
 		}
-	}, [dispatch, pathname, pagination.page]);
+	}, [dispatch, pathname, pagination.page, searchQuery]);
 
 	useEffect(() => {
 		void dispatch(actions.getAllFollowingsIds());

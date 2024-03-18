@@ -26,22 +26,22 @@ const getAllFollowingsIds = createAsyncThunk<
 
 const getPotentialFriends = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
-	PaginationRequestDto,
+	{ search: string } & PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-potential-friends`, ({ count, page }, { extra }) => {
+>(`${sliceName}/get-potential-friends`, (requestPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getAllPotentialFriends({ count, page });
+	return friendsApi.getAllPotentialFriends(requestPayload);
 });
 
 const getFollowers = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
-	PaginationRequestDto,
+	{ search: string } & PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-followers`, ({ count, page }, { extra }) => {
+>(`${sliceName}/get-followers`, (requestPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getFollowers({ count, page });
+	return friendsApi.getFollowers(requestPayload);
 });
 
 const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
@@ -55,12 +55,12 @@ const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 
 const getFollowings = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
-	PaginationRequestDto,
+	{ search: string } & PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-followings`, ({ count, page }, { extra }) => {
+>(`${sliceName}/get-followings`, (requestPayload, { extra }) => {
 	const { friendsApi } = extra;
 
-	return friendsApi.getFollowings({ count, page });
+	return friendsApi.getFollowings(requestPayload);
 });
 
 const follow = createAsyncThunk<
