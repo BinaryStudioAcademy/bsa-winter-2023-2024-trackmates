@@ -2,7 +2,7 @@ import { type FastifyRequest } from "fastify";
 
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { type Service } from "~/libs/types/types.js";
-import { PermissionError } from "~/modules/permissions/permissions.js";
+import { PermissionError } from "~/modules/permissions/libs/exceptions/exceptions.js";
 
 type CheckIsUserCreatorParameters<T> = {
 	getDtoIdFromRequest: (request: FastifyRequest) => number;
