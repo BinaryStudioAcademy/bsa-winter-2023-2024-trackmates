@@ -52,7 +52,7 @@ const Auth: React.FC = () => {
 	};
 
 	if (hasUser) {
-		return <Navigate to={AppRoute.ROOT} />;
+		return <Navigate replace to={AppRoute.ROOT} />;
 	}
 
 	return (
