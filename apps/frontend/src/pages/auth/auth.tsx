@@ -1,5 +1,5 @@
 import logo from "~/assets/img/logo.svg";
-import { Image } from "~/libs/components/components.js";
+import { Image, Navigate } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -7,7 +7,6 @@ import {
 	useAppSelector,
 	useCallback,
 	useLocation,
-	useNavigate,
 } from "~/libs/hooks/hooks.js";
 import { actions as authActions } from "~/modules/auth/auth.js";
 import {
@@ -23,7 +22,6 @@ const Auth: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const { pathname } = useLocation();
 	const hasUser = user !== null;
-	const navigate = useNavigate();
 
 	const handleSignInSubmit = useCallback(
 		(payload: UserSignInRequestDto): void => {
@@ -54,9 +52,7 @@ const Auth: React.FC = () => {
 	};
 
 	if (hasUser) {
-		navigate(AppRoute.ROOT, { replace: true });
-
-		return;
+		return <Navigate replace to={AppRoute.ROOT} />;
 	}
 
 	return (
