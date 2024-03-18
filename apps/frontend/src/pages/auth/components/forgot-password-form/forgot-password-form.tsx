@@ -43,8 +43,8 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 	if (forgotPasswordStatus === DataStatus.FULFILLED) {
 		return (
 			<div className={styles["content"]}>
-				<h3 className={styles["info"]}>
-					A link to update your password has been sent to your email.
+				<h3 className={styles["success-info"]}>
+					A recovery link has been sent to your email
 				</h3>
 			</div>
 		);
@@ -52,8 +52,14 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 
 	return (
 		<form className={styles["content"]} onSubmit={handleFormSubmit}>
-			<div>
-				<h2 className={styles["title"]}>Get a link to update your password</h2>
+			<div className={styles["info"]}>
+				<h2 className={styles["title"]}>Forgot password</h2>
+				<p className={styles["subtitle"]}>
+					Do you remember it? Go to{" "}
+					<Link className={styles["link"]} to={AppRoute.SIGN_IN}>
+						Log in
+					</Link>
+				</p>
 				<p className={styles["subtitle"]}>
 					No account? Go to{" "}
 					<Link className={styles["link"]} to={AppRoute.SIGN_UP}>
@@ -75,7 +81,7 @@ const ForgotPasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				className={styles["button"]}
 				isDisabled={isLoading}
 				isLoading={isLoading}
-				label="Send me a link"
+				label="Send a recovery link"
 				type="submit"
 			/>
 		</form>
