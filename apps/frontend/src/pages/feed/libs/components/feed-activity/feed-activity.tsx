@@ -60,9 +60,18 @@ const FeedActivity: React.FC<Properties> = ({
 			</div>
 			<div className={styles["card-content"]}>
 				<div>
-					<h3 className={styles["activity-title"]}>
-						{activity.user.firstName} {activity.user.lastName}
-					</h3>
+					<div className={styles["activity-title-container"]}>
+						<Link to={avatarLink as ValueOf<typeof AppRoute>}>
+							<Image
+								className={styles["small-photo"]}
+								alt="User avatar"
+								src={activity.user.avatarUrl ?? defaultAvatar}
+							/>
+						</Link>
+						<h3 className={styles["activity-title"]}>
+							{activity.user.firstName} {activity.user.lastName}
+						</h3>
+					</div>
 					<div className={styles["card-info"]}>
 						{getActivityTitle(activity)}
 					</div>
