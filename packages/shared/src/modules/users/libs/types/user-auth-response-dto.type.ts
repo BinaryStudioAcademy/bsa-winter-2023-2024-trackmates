@@ -1,5 +1,6 @@
 import { type ValueOf } from "../../../../libs/types/types.js";
 import { type GroupResponseDto } from "../../../groups/groups.js";
+import { type SubscriptionResponseDto } from "../../../subscriptions/subscriptions.js";
 import { type UserSex } from "../enums/enums.js";
 
 type UserAuthResponseDto = {
@@ -12,6 +13,7 @@ type UserAuthResponseDto = {
 	lastName: string;
 	nickname: null | string;
 	sex: ValueOf<typeof UserSex> | null;
+	subscription: SubscriptionResponseDto | null;
 	updatedAt: string;
 };
 

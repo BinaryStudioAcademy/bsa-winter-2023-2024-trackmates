@@ -4,6 +4,7 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { actions as filesActions } from "~/modules/files/files.js";
+import { actions as subscriptionActions } from "~/modules/subscriptions/subscriptions.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
 import { getAuthenticatedUser, logOut, signIn, signUp } from "./actions.js";
@@ -94,6 +95,17 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(filesActions.updateUserAvatar.rejected, (state) => {
 			state.avatarUploadDataStatus = DataStatus.REJECTED;
 		});
+		builder.addCase(
+			subscriptionActions.confirmPaymentIntent.fulfilled,
+			(state, action) => {
+				if (state.user && action.payload) {
+					state.user = {
+						...state.user,
+						subscription: action.payload,
+					};
+				}
+			},
+		);
 	},
 	initialState,
 	name: "auth",

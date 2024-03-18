@@ -16,10 +16,12 @@ import { NotificationListItem } from "../notification-list-item/notification-lis
 import styles from "./styles.module.css";
 
 type Properties = {
+	hasIcon: boolean;
 	notifications: NotificationResponseDto[];
 };
 
 const NotificationList: React.FC<Properties> = ({
+	hasIcon,
 	notifications,
 }: Properties) => {
 	const [readNotificationIds, setReadNotificationIds] = useState<Set<number>>(
@@ -64,6 +66,7 @@ const NotificationList: React.FC<Properties> = ({
 		<ul className={styles["notification-list"]}>
 			{notifications.map((notification) => (
 				<NotificationListItem
+					hasIcon={hasIcon}
 					key={notification.id}
 					notification={notification}
 					onRead={handleRead}

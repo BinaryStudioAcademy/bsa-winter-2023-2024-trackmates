@@ -3,6 +3,10 @@ import {
 	type GroupEntity,
 	type GroupResponseDto,
 } from "~/modules/groups/groups.js";
+import {
+	type SubscriptionEntity,
+	type SubscriptionResponseDto,
+} from "~/modules/subscriptions/subscriptions.js";
 
 import { type UserSex } from "./libs/enums/enums.js";
 
@@ -29,6 +33,8 @@ class UserEntity implements Entity {
 
 	private sex: ValueOf<typeof UserSex> | null;
 
+	private subscription: SubscriptionEntity | null;
+
 	public updatedAt: string;
 
 	private constructor({
@@ -43,6 +49,7 @@ class UserEntity implements Entity {
 		passwordHash,
 		passwordSalt,
 		sex,
+		subscription,
 		updatedAt,
 	}: {
 		avatarUrl: null | string;
@@ -56,6 +63,7 @@ class UserEntity implements Entity {
 		passwordHash: string;
 		passwordSalt: string;
 		sex: ValueOf<typeof UserSex> | null;
+		subscription: SubscriptionEntity | null;
 		updatedAt: string;
 	}) {
 		this.avatarUrl = avatarUrl;
@@ -64,6 +72,7 @@ class UserEntity implements Entity {
 		this.id = id;
 		this.lastName = lastName;
 		this.nickname = nickname;
+		this.subscription = subscription;
 		this.email = email;
 		this.passwordHash = passwordHash;
 		this.passwordSalt = passwordSalt;
@@ -84,6 +93,7 @@ class UserEntity implements Entity {
 		passwordHash,
 		passwordSalt,
 		sex,
+		subscription,
 		updatedAt,
 	}: {
 		avatarUrl: null | string;
@@ -97,6 +107,7 @@ class UserEntity implements Entity {
 		passwordHash: string;
 		passwordSalt: string;
 		sex: ValueOf<typeof UserSex> | null;
+		subscription: SubscriptionEntity | null;
 		updatedAt: string;
 	}): UserEntity {
 		return new UserEntity({
@@ -111,6 +122,7 @@ class UserEntity implements Entity {
 			passwordHash,
 			passwordSalt,
 			sex,
+			subscription,
 			updatedAt,
 		});
 	}
@@ -140,6 +152,7 @@ class UserEntity implements Entity {
 			passwordHash,
 			passwordSalt,
 			sex: null,
+			subscription: null,
 			updatedAt: "",
 		});
 	}
@@ -155,6 +168,7 @@ class UserEntity implements Entity {
 		passwordHash: string;
 		passwordSalt: string;
 		sex: ValueOf<typeof UserSex> | null;
+		subscription: SubscriptionResponseDto | null;
 		updatedAt: string;
 	} {
 		return {
@@ -168,6 +182,7 @@ class UserEntity implements Entity {
 			passwordHash: this.passwordHash,
 			passwordSalt: this.passwordSalt,
 			sex: this.sex,
+			subscription: this.subscription?.toObject() ?? null,
 			updatedAt: this.updatedAt,
 		};
 	}
@@ -182,6 +197,7 @@ class UserEntity implements Entity {
 		lastName: string;
 		nickname: null | string;
 		sex: ValueOf<typeof UserSex> | null;
+		subscription: SubscriptionResponseDto | null;
 		updatedAt: string;
 	} {
 		return {
@@ -196,6 +212,7 @@ class UserEntity implements Entity {
 			lastName: this.lastName,
 			nickname: this.nickname,
 			sex: this.sex,
+			subscription: this.subscription?.toObject() ?? null,
 			updatedAt: this.updatedAt,
 		};
 	}

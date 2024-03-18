@@ -32,6 +32,10 @@ const Pagination: React.FC<Properties> = ({
 		[onPageChange],
 	);
 
+	if (pagesCount === ONE_ITEM_COUNT) {
+		return null;
+	}
+
 	return (
 		<nav
 			aria-label="pagination"

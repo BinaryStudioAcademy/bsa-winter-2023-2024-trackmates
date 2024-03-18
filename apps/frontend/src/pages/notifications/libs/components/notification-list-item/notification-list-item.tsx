@@ -1,5 +1,5 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image, Link } from "~/libs/components/components.js";
+import { Icon, Image, Link } from "~/libs/components/components.js";
 import {
 	APIPath,
 	type AppRoute,
@@ -10,17 +10,20 @@ import {
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
 import { useEffect, useInView } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
+import { notificationTypeToIconName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	hasIcon: boolean;
 	notification: NotificationResponseDto;
 	onRead: (notificationId: number) => void;
 };
 
 const NotificationListItem: React.FC<Properties> = ({
+	hasIcon,
 	notification,
 	onRead,
 }: Properties) => {
@@ -35,6 +38,8 @@ const NotificationListItem: React.FC<Properties> = ({
 	}, [inView, isRead, onRead, notification.id]);
 
 	const date = getTimeDistanceFormatDate(notification.createdAt);
+
+	const iconName = notificationTypeToIconName[notification.type] as IconName;
 
 	return (
 		<li
@@ -55,6 +60,11 @@ const NotificationListItem: React.FC<Properties> = ({
 					className={styles["notification-source-user-avatar"]}
 					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
+				{hasIcon && (
+					<span className={styles["icon-container"]}>
+						<Icon className={styles["icon"]} name={iconName} />
+					</span>
+				)}
 			</Link>
 			<div className={styles["text-content"]}>
 				<div className={styles["notification-title"]}>
