@@ -69,6 +69,11 @@
 	fill: currentcolor;
 }
 
+.icon-button :first-child {
+	width: 24px;
+	height: 24px;
+}
+
 .icon-button:hover {
 	padding: 0;
 	color: var(--main-orange);
