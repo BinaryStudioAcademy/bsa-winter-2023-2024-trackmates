@@ -11,7 +11,7 @@ type CourseSection = Pick<CourseSectionDto, CourseSectionFieldForMap>;
 type VendorService = {
 	getCourseById(id: string): Promise<Course>;
 	getCourseSections(vendorId: string): Promise<CourseSection[]>;
-	getCourses(search: string): Promise<Course[]>;
+	getCourses(page: number, search: string): Promise<Course[]>;
 };
 
 export { type Course, type CourseSection, type VendorService };

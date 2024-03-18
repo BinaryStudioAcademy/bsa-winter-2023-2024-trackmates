@@ -1,13 +1,16 @@
 import { Image } from "~/libs/components/image/image.jsx";
 import { LinearProgress } from "~/libs/components/linear-progress/linear-progress.jsx";
-import { type CourseDto } from "~/modules/courses/courses.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+} from "~/modules/courses/courses.js";
 import { type UserCourseResponseDto } from "~/modules/user-courses/user-courses.js";
 
 import { checkIsUserCourse } from "../../helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | UserCourseResponseDto;
+	course: CourseDto | CourseSearchResponseDto | UserCourseResponseDto;
 };
 
 const CourseCard: React.FC<Properties> = ({ course }: Properties) => {

@@ -4,7 +4,10 @@ import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
-import { type CourseDto } from "../libs/types/types.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+} from "../libs/types/types.js";
 import {
 	deleteById,
 	getAll,
@@ -19,9 +22,9 @@ type State = {
 	allCourses: CourseDto[];
 	allCoursesDataStatus: ValueOf<typeof DataStatus>;
 	currentCourse: CourseDto | null;
-	recommendedCourses: CourseDto[];
+	recommendedCourses: CourseSearchResponseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
-	searchedCourses: CourseDto[];
+	searchedCourses: CourseSearchResponseDto[];
 };
 
 const initialState: State = {
@@ -37,7 +40,10 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(getAllByFilter.fulfilled, (state, action) => {
-			state.searchedCourses = action.payload.courses;
+			state.searchedCourses = [
+				...state.searchedCourses,
+				...action.payload.courses,
+			];
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getAllByFilter.pending, (state) => {
@@ -78,6 +84,18 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(userCoursesActions.add.fulfilled, (state, action) => {
 			const { vendorCourseId } = action.meta.arg;
+
+			state.searchedCourses = state.searchedCourses.map((course) => {
+				const hasUserCourse = course.vendorCourseId === vendorCourseId;
+
+				return hasUserCourse ? { ...course, hasUserCourse } : course;
+			});
+
+			state.recommendedCourses = state.recommendedCourses.map((course) => {
+				const hasUserCourse = course.vendorCourseId === vendorCourseId;
+
+				return hasUserCourse ? { ...course, hasUserCourse } : course;
+			});
 
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;

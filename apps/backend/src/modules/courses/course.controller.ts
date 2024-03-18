@@ -46,6 +46,15 @@ import {
  *            $ref: "#/components/schemas/Vendor"
  *          vendorCourseId:
  *            type: string
+ *
+ *      CourseWithOwnership:
+ *        allOf:
+ *          - $ref: "#/components/schemas/Course"
+ *          - type: object
+ *            properties:
+ *              isUserHasCourse:
+ *                type: boolean
+ *                description: Indicates whether the user has the course or not
  */
 class CourseController extends BaseController {
 	private courseService: CourseService;
@@ -351,7 +360,7 @@ class CourseController extends BaseController {
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
-	 *                      $ref: "#/components/schemas/Course"
+	 *                      $ref: "#/components/schemas/CourseWithOwnership"
 	 */
 	private async findAllByVendors({
 		query,
@@ -360,10 +369,11 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKey } = query;
+		const { page, search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.findAllByVendors({
+				page,
 				search,
 				userId: user.id,
 				vendorsKey,
@@ -401,7 +411,7 @@ class CourseController extends BaseController {
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
-	 *                      $ref: "#/components/schemas/Course"
+	 *                      $ref: "#/components/schemas/CourseWithOwnership"
 	 */
 	private async getRecommendedCoursesByAI({
 		query,
@@ -410,10 +420,11 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKey } = query;
+		const { page, search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.getRecommendedCoursesByAI({
+				page,
 				search,
 				userId: user.id,
 				vendorsKey,
