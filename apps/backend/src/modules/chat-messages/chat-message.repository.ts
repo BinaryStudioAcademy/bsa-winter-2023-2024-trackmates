@@ -1,6 +1,7 @@
 import { type Repository } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
+import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 import { UserEntity } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
@@ -26,7 +27,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				text,
 			})
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.returning("*")
 			.execute();
@@ -65,6 +66,17 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				passwordHash: createdMessage.senderUser.passwordHash,
 				passwordSalt: createdMessage.senderUser.passwordSalt,
 				sex: createdMessage.senderUser.userDetails.sex,
+				subscription: createdMessage.senderUser.userDetails.subscription
+					? SubscriptionEntity.initialize({
+							createdAt:
+								createdMessage.senderUser.userDetails.subscription.createdAt,
+							expiresAt:
+								createdMessage.senderUser.userDetails.subscription.expiresAt,
+							id: createdMessage.senderUser.userDetails.subscription.id,
+							updatedAt:
+								createdMessage.senderUser.userDetails.subscription.updatedAt,
+						})
+					: null,
 				updatedAt: createdMessage.senderUser.updatedAt,
 			}),
 			status: createdMessage.status,
@@ -87,7 +99,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.query()
 			.findById(id)
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -126,6 +138,20 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 						passwordHash: chatMessageById.senderUser.passwordHash,
 						passwordSalt: chatMessageById.senderUser.passwordSalt,
 						sex: chatMessageById.senderUser.userDetails.sex,
+						subscription: chatMessageById.senderUser.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt:
+										chatMessageById.senderUser.userDetails.subscription
+											.createdAt,
+									expiresAt:
+										chatMessageById.senderUser.userDetails.subscription
+											.expiresAt,
+									id: chatMessageById.senderUser.userDetails.subscription.id,
+									updatedAt:
+										chatMessageById.senderUser.userDetails.subscription
+											.updatedAt,
+								})
+							: null,
 						updatedAt: chatMessageById.senderUser.updatedAt,
 					}),
 					status: chatMessageById.status,
@@ -140,7 +166,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.query()
 			.where({ senderUserId: userId })
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -179,6 +205,17 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 					passwordHash: messageByUserId.senderUser.passwordHash,
 					passwordSalt: messageByUserId.senderUser.passwordSalt,
 					sex: messageByUserId.senderUser.userDetails.sex,
+					subscription: messageByUserId.senderUser.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt:
+									messageByUserId.senderUser.userDetails.subscription.createdAt,
+								expiresAt:
+									messageByUserId.senderUser.userDetails.subscription.expiresAt,
+								id: messageByUserId.senderUser.userDetails.subscription.id,
+								updatedAt:
+									messageByUserId.senderUser.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: messageByUserId.senderUser.updatedAt,
 				}),
 				status: messageByUserId.status,
@@ -196,7 +233,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			.whereIn("id", chatMessageIds)
 			.update({ status: MessageStatus.READ })
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.returning("*")
 			.execute();
@@ -235,6 +272,17 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 					passwordHash: chatMessage.senderUser.passwordHash,
 					passwordSalt: chatMessage.senderUser.passwordSalt,
 					sex: chatMessage.senderUser.userDetails.sex,
+					subscription: chatMessage.senderUser.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt:
+									chatMessage.senderUser.userDetails.subscription.createdAt,
+								expiresAt:
+									chatMessage.senderUser.userDetails.subscription.expiresAt,
+								id: chatMessage.senderUser.userDetails.subscription.id,
+								updatedAt:
+									chatMessage.senderUser.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: chatMessage.senderUser.updatedAt,
 				}),
 				status: chatMessage.status,
@@ -255,7 +303,7 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				text,
 			})
 			.withGraphFetched(
-				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.SENDER_USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.execute();
 
@@ -293,6 +341,20 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 				passwordHash: updatedChatMessage.senderUser.passwordHash,
 				passwordSalt: updatedChatMessage.senderUser.passwordSalt,
 				sex: updatedChatMessage.senderUser.userDetails.sex,
+				subscription: updatedChatMessage.senderUser.userDetails.subscription
+					? SubscriptionEntity.initialize({
+							createdAt:
+								updatedChatMessage.senderUser.userDetails.subscription
+									.createdAt,
+							expiresAt:
+								updatedChatMessage.senderUser.userDetails.subscription
+									.expiresAt,
+							id: updatedChatMessage.senderUser.userDetails.subscription.id,
+							updatedAt:
+								updatedChatMessage.senderUser.userDetails.subscription
+									.updatedAt,
+						})
+					: null,
 				updatedAt: updatedChatMessage.senderUser.updatedAt,
 			}),
 			status: updatedChatMessage.status,

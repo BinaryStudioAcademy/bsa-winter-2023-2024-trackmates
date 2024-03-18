@@ -7,6 +7,7 @@ import { type ActivityLikeModel } from "~/modules/activity-likes/activity-likes.
 import { type CommentModel } from "~/modules/comments/comments.js";
 import { GroupEntity } from "~/modules/groups/groups.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
+import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 
 import { ActivityEntity } from "./activity.entity.js";
@@ -92,7 +93,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.withGraphJoined(
-				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
@@ -135,6 +136,14 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						passwordHash: "",
 						passwordSalt: "",
 						sex: activity.user.userDetails.sex,
+						subscription: activity.user.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt: activity.user.userDetails.subscription.createdAt,
+									expiresAt: activity.user.userDetails.subscription.expiresAt,
+									id: activity.user.userDetails.subscription.id,
+									updatedAt: activity.user.userDetails.subscription.updatedAt,
+								})
+							: null,
 						updatedAt: activity.user.updatedAt,
 					}),
 					userId: activity.userId,
@@ -157,7 +166,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			)
 			.orWhere(`${DatabaseTableName.ACTIVITIES}.userId`, userId)
 			.withGraphJoined(
-				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy("updatedAt", SortOrder.DESC)
 			.castTo<(ActivityModel & ActivityCounts)[]>()
@@ -201,6 +210,14 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					passwordHash: "",
 					passwordSalt: "",
 					sex: activity.user.userDetails.sex,
+					subscription: activity.user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: activity.user.userDetails.subscription.createdAt,
+								expiresAt: activity.user.userDetails.subscription.expiresAt,
+								id: activity.user.userDetails.subscription.id,
+								updatedAt: activity.user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: activity.user.updatedAt,
 				}),
 				userId: activity.userId,
@@ -250,7 +267,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
 			.returning("*")
 			.withGraphJoined(
-				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
@@ -293,6 +310,17 @@ class ActivityRepository implements Repository<ActivityEntity> {
 						passwordHash: "",
 						passwordSalt: "",
 						sex: updatedActivity.user.userDetails.sex,
+						subscription: updatedActivity.user.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt:
+										updatedActivity.user.userDetails.subscription.createdAt,
+									expiresAt:
+										updatedActivity.user.userDetails.subscription.expiresAt,
+									id: updatedActivity.user.userDetails.subscription.id,
+									updatedAt:
+										updatedActivity.user.userDetails.subscription.updatedAt,
+								})
+							: null,
 						updatedAt: updatedActivity.user.updatedAt,
 					}),
 					userId: updatedActivity.userId,

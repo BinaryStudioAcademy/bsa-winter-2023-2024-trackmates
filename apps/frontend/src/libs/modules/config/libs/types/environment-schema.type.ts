@@ -9,6 +9,9 @@ type EnvironmentSchema = {
 	APP: {
 		ENVIRONMENT: ValueOf<typeof AppEnvironment>;
 	};
+	STRIPE: {
+		PUBLIC_KEY: string;
+	};
 };
 
 export { type EnvironmentSchema };

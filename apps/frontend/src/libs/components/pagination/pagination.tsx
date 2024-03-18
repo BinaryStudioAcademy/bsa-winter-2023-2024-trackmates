@@ -22,6 +22,10 @@ const Pagination: React.FC<Properties> = ({
 	const isLastPage =
 		currentPage === pagesCount || pagesCount === NO_ITEMS_PAGE_COUNT;
 
+	if (pagesCount === ONE_ITEM_COUNT) {
+		return null;
+	}
+
 	return (
 		<nav
 			aria-label="pagination"

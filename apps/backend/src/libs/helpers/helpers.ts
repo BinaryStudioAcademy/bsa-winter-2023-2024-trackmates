@@ -1,2 +1,2 @@
 export { convertPageToZeroIndexed } from "./pagination/pagination.js";
-export { getSizeInBytes } from "@trackmates/shared";
+export { getShiftedDate, getSizeInBytes } from "@trackmates/shared";

@@ -23,6 +23,9 @@ class BaseConfig implements Config {
 					typeof AppEnvironment
 				>,
 			},
+			STRIPE: {
+				PUBLIC_KEY: import.meta.env["VITE_APP_STRIPE_PUBLIC_KEY"] as string,
+			},
 		};
 	}
 }

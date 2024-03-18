@@ -7,6 +7,7 @@ const RelationName = {
 	PERMISSIONS: "permissions",
 	SECOND_USER: "secondUser",
 	SENDER_USER: "senderUser",
+	SUBSCRIPTION: "subscription",
 	USER_DETAILS: "userDetails",
 } as const;
 

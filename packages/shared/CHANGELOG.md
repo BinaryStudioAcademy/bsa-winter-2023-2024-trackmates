@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.36.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.35.0...shared-v1.36.0) (2024-03-18)
+
+
+### Features
+
+* **frontend/backend/shared:** stripe integration tm-456 ([#580](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/580)) ([9f8bce0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9f8bce0329ab115f3083214af8aec682d0c0f524))
+
+
+### Bug Fixes
+
+* **frontend/shared:** Input fields on "Chats" and "Activities" pages tm-546 ([#551](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/551)) ([a782f44](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a782f44df53fdc149b542b90662b388f6280166c))
+
 ## [1.35.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.34.1...shared-v1.35.0) (2024-03-16)
 
 
