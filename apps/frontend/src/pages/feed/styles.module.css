@@ -1,10 +1,25 @@
 @import url("~/assets/css/media.css");
 
 .wrapper {
-	display: flex;
+	display: grid;
 	flex-direction: column;
 	flex-grow: 1;
-	padding: 16px 24px;
+	grid-template-rows: auto 1fr;
+	grid-template-columns: 1fr 400px;
+	max-height: calc(100vh - 98px);
+	padding: 16px 0 16px 24px;
+}
+
+.title {
+	grid-column: span 2;
+}
+
+.background {
+	height: 100%;
+	background-image: url("~/assets/img/activities-character.svg");
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	background-size: 200px auto;
 }
 
 @media screen and (--small-screen) {

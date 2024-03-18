@@ -15,9 +15,12 @@ import styles from "./styles.module.css";
 const Feed: React.FC = () => {
 	useAppTitle(AppTitle.ACTIVITIES);
 
-	const { activities, dataStatus } = useAppSelector(
-		(state) => state.activities,
-	);
+	const { activities, dataStatus } = useAppSelector((state) => {
+		return {
+			activities: state.activities.activities,
+			dataStatus: state.activities.dataStatus,
+		};
+	});
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -29,7 +32,7 @@ const Feed: React.FC = () => {
 
 	return (
 		<div className={styles["wrapper"]}>
-			<h2 className={styles["title"]}>Friends Activity Feed</h2>
+			<h2 className={styles["title"]}>Activities</h2>
 			{isLoading ? (
 				<Loader color="orange" size="large" />
 			) : (
@@ -37,10 +40,14 @@ const Feed: React.FC = () => {
 					{hasActivities ? (
 						<FeedActivityList activities={activities} />
 					) : (
-						<EmptyPagePlaceholder title="There are no activities yet" />
+						<EmptyPagePlaceholder
+							size="large"
+							title="There are no activities yet"
+						/>
 					)}
 				</>
 			)}
+			<div className={styles["background"]} />
 		</div>
 	);
 };

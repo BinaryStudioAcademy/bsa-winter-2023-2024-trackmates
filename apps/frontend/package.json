@@ -1,7 +1,7 @@
 {
 	"name": "@trackmates/frontend",
 	"private": true,
-	"version": "1.57.0",
+	"version": "1.59.0",
 	"type": "module",
 	"engines": {
 		"node": "18.x.x",
@@ -19,6 +19,8 @@
 	"dependencies": {
 		"@hookform/resolvers": "3.3.4",
 		"@reduxjs/toolkit": "2.0.1",
+		"@stripe/react-stripe-js": "2.6.0",
+		"@stripe/stripe-js": "3.0.8",
 		"@trackmates/shared": "*",
 		"clsx": "2.1.0",
 		"react": "18.2.0",
