@@ -1,5 +1,6 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
 import { type GroupResponseDto } from "~/modules/groups/groups.js";
+import { type SubscriptionResponseDto } from "~/modules/subscriptions/subscriptions.js";
 import { type UserEntity } from "~/modules/users/user.entity.js";
 import { type UserSex } from "~/modules/users/users.js";
 
@@ -153,6 +154,7 @@ class ActivityEntity implements Entity {
 			lastName: string;
 			nickname: null | string;
 			sex: ValueOf<typeof UserSex> | null;
+			subscription: SubscriptionResponseDto | null;
 			updatedAt: string;
 		};
 		userId: number;
@@ -187,6 +189,7 @@ class ActivityEntity implements Entity {
 			lastName: string;
 			nickname: null | string;
 			sex: ValueOf<typeof UserSex> | null;
+			subscription: SubscriptionResponseDto | null;
 			updatedAt: string;
 		};
 		userId: number;

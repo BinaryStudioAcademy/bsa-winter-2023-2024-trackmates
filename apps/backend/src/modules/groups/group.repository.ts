@@ -1,4 +1,5 @@
 import { type Repository } from "~/libs/types/types.js";
+import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 
 import { PermissionEntity } from "../permissions/permission.entity.js";
 import { type PermissionModel } from "../permissions/permission.model.js";
@@ -296,7 +297,7 @@ class GroupRepository implements Repository<GroupEntity> {
 				this.userModel.relatedQuery(RelationName.GROUPS).where({ groupId }),
 			)
 			.withGraphFetched(
-				`[${RelationName.GROUPS}.${RelationName.PERMISSIONS}, ${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}]`,
+				`[${RelationName.GROUPS}.${RelationName.PERMISSIONS}, ${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]]`,
 			)
 			.first()
 			.execute();
@@ -331,6 +332,14 @@ class GroupRepository implements Repository<GroupEntity> {
 					passwordHash: user.passwordHash,
 					passwordSalt: user.passwordSalt,
 					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
 					updatedAt: user.updatedAt,
 				})
 			: null;
