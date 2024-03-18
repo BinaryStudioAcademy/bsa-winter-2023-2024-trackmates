@@ -37,6 +37,16 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			.as("likesCount");
 	}
 
+	private getUserLikesCountQuery(
+		userId: number,
+	): QueryBuilder<ActivityLikeModel> {
+		return this.activityModel
+			.relatedQuery<ActivityLikeModel>(RelationName.LIKES)
+			.where({ userId })
+			.count()
+			.as("userLikesCount");
+	}
+
 	public async create(activity: ActivityEntity): Promise<ActivityEntity> {
 		const activityModel = await this.activityModel
 			.query()
@@ -49,6 +59,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 			actionId: activityModel.actionId,
 			commentCount: EMPTY_COUNT,
 			id: activityModel.id,
+			isLikedByUser: false,
 			likesCount: EMPTY_COUNT,
 			payload: activityModel.payload,
 			type: activityModel.type,
@@ -103,6 +114,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					actionId: activity.actionId,
 					commentCount: activity.commentCount,
 					id: activity.id,
+					isLikedByUser: null,
 					likesCount: activity.likesCount,
 					payload: activity.payload,
 					type: activity.type,
@@ -154,8 +166,12 @@ class ActivityRepository implements Repository<ActivityEntity> {
 	public async findAll(userId: number): Promise<ActivityEntity[]> {
 		const activities = await this.activityModel
 			.query()
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getLikesCountQuery())
-			.select(`${DatabaseTableName.ACTIVITIES}.*`, this.getCommentsCountQuery())
+			.select(
+				`${DatabaseTableName.ACTIVITIES}.*`,
+				this.getLikesCountQuery(),
+				this.getCommentsCountQuery(),
+				this.getUserLikesCountQuery(userId),
+			)
 			.whereIn(
 				`${DatabaseTableName.ACTIVITIES}.userId`,
 				this.activityModel
@@ -177,6 +193,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				actionId: activity.actionId,
 				commentCount: activity.commentCount,
 				id: activity.id,
+				isLikedByUser: Boolean(Number(activity.userLikesCount)),
 				likesCount: activity.likesCount,
 				payload: activity.payload,
 				type: activity.type,
@@ -245,11 +262,85 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					actionId: activity.actionId,
 					commentCount: null,
 					id: activity.id,
+					isLikedByUser: null,
 					likesCount: null,
 					payload: activity.payload,
 					type: activity.type,
 					updatedAt: activity.updatedAt,
 					user: null,
+					userId: activity.userId,
+				})
+			: null;
+	}
+
+	public async findWithUserLike(
+		id: number,
+		userId: number,
+	): Promise<ActivityEntity | null> {
+		const activity = await this.activityModel
+			.query()
+			.findById(id)
+			.select(
+				`${DatabaseTableName.ACTIVITIES}.*`,
+				this.getLikesCountQuery(),
+				this.getCommentsCountQuery(),
+				this.getUserLikesCountQuery(userId),
+			)
+			.withGraphJoined(
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+			)
+			.castTo<(ActivityModel & ActivityCounts) | undefined>()
+			.execute();
+
+		return activity
+			? ActivityEntity.initialize({
+					actionId: activity.actionId,
+					commentCount: activity.commentCount,
+					id: activity.id,
+					isLikedByUser: Boolean(Number(activity.userLikesCount)),
+					likesCount: activity.likesCount,
+					payload: activity.payload,
+					type: activity.type,
+					updatedAt: activity.updatedAt,
+					user: UserEntity.initialize({
+						avatarUrl: activity.user.userDetails.avatarFile?.url ?? null,
+						createdAt: activity.user.createdAt,
+						email: activity.user.email,
+						firstName: activity.user.userDetails.firstName,
+						groups: activity.user.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
+						id: activity.user.id,
+						lastName: activity.user.userDetails.lastName,
+						nickname: activity.user.userDetails.nickname,
+						passwordHash: "",
+						passwordSalt: "",
+						sex: activity.user.userDetails.sex,
+						subscription: activity.user.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt: activity.user.userDetails.subscription.createdAt,
+									expiresAt: activity.user.userDetails.subscription.expiresAt,
+									id: activity.user.userDetails.subscription.id,
+									updatedAt: activity.user.userDetails.subscription.updatedAt,
+								})
+							: null,
+						updatedAt: activity.user.updatedAt,
+					}),
 					userId: activity.userId,
 				})
 			: null;
@@ -277,6 +368,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 					actionId: updatedActivity.actionId,
 					commentCount: updatedActivity.commentCount,
 					id: updatedActivity.id,
+					isLikedByUser: null,
 					likesCount: updatedActivity.likesCount,
 					payload: updatedActivity.payload,
 					type: updatedActivity.type,

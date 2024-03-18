@@ -53,7 +53,8 @@ const Notifications: React.FC = () => {
 	useEffect(() => {
 		void dispatch(
 			actions.setNotificationType(
-				notificationType as ValueOf<typeof NotificationFilter>,
+				(notificationType as ValueOf<typeof NotificationFilter> | null) ??
+					NotificationFilter.ALL,
 			),
 		);
 	}, [dispatch, notificationType]);
@@ -132,7 +133,10 @@ const Notifications: React.FC = () => {
 									notifications={notifications}
 								/>
 							) : (
-								<EmptyPagePlaceholder title="You don't have any notifications yet" />
+								<EmptyPagePlaceholder
+									size="large"
+									title="You don't have any notifications yet"
+								/>
 							)}
 						</>
 					)}

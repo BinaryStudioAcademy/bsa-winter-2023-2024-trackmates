@@ -44,12 +44,13 @@ const ActivityCommentForm: React.FC<Properties> = ({
 			onSubmit={handleCreateComment}
 		>
 			<Input
-				className={styles["input"]}
+				className={styles["textarea"]}
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
 				label="Enter your comment here.."
 				name="text"
+				rows={1}
 			/>
 			<Button
 				className={styles["icon"]}
