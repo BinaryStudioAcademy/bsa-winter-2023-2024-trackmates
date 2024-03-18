@@ -5,14 +5,11 @@ import {
 } from "fastify";
 
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
-import { type HTTPError } from "~/libs/exceptions/exceptions.js";
+import { UserErrorMessage } from "~/modules/users/libs/enums/enums.js";
 import { type UserAuthResponseDto, UserError } from "~/modules/users/users.js";
 
-const checkParametersByUser =
-	<T>(
-		checker: (parameters: T, user: UserAuthResponseDto) => boolean,
-		error: HTTPError,
-	) =>
+const checkByParameterIfNotTheSameUser =
+	<T>(parameterName: keyof T) =>
 	(
 		request: FastifyRequest,
 		_reply: FastifyReply,
@@ -28,11 +25,17 @@ const checkParametersByUser =
 			});
 		}
 
-		if (!checker(params as T, user as UserAuthResponseDto)) {
-			throw error;
+		const isSameUser =
+			Number((params as T)[parameterName]) === (user as UserAuthResponseDto).id;
+
+		if (isSameUser) {
+			throw new UserError({
+				message: UserErrorMessage.FORBIDDEN_FOR_YOU,
+				status: HTTPCode.BAD_REQUEST,
+			});
 		}
 
 		done();
 	};
 
-export { checkParametersByUser };
+export { checkByParameterIfNotTheSameUser };

@@ -1,5 +1,5 @@
 const UserErrorMessage = {
-	FORBIDDEN_DELETING_YOURSELF: "It is forbidden to delete yourself.",
+	FORBIDDEN_FOR_YOU: "This operation is forbidden for you.",
 	USER_DELETION_FAILED: "User wasn't deleted.",
 } as const;
 
