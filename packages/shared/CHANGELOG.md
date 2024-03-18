@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.38.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.37.0...shared-v1.38.0) (2024-03-18)
+
+
+### Features
+
+* **frontend/backend/shared:** uam delete users tm-232 ([#474](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/474)) ([6b047f2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6b047f218edc201d6a561c18fe60077fda1abdbc))
+
 ## [1.37.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.36.0...shared-v1.37.0) (2024-03-18)
 
 
