@@ -21,14 +21,20 @@
 	opacity: 0.5;
 }
 
-.item.active,
-.item.active:hover {
+.item.active {
 	color: var(--main-white);
 	cursor: default;
 	background-color: var(--main-orange);
 }
 
-.item:not(.disabled):hover {
-	color: var(--main-white);
-	background-color: var(--color-button);
+@media (hover: hover) {
+	.item:not(.disabled):hover {
+		color: var(--color-button);
+	}
+
+	.item.active:hover {
+		color: var(--main-white);
+		cursor: default;
+		background-color: var(--main-orange);
+	}
 }

@@ -29,9 +29,8 @@ const PaginationItem: React.FC<Properties> = ({
 		<li className={styles["item-container"]}>
 			<Button
 				className={linkClasses}
-				href={href}
+				href={isDisabled ? ("" as ValueOf<typeof AppRoute>) : href}
 				iconName={iconName}
-				isDisabled={isDisabled}
 				label={label}
 			/>
 		</li>

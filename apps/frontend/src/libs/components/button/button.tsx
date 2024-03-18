@@ -13,7 +13,7 @@ type Properties = {
 	href?: ValueOf<typeof AppRoute>;
 	iconClassName?: string | undefined;
 	iconName?: IconName | undefined;
-	isDisabled?: boolean | undefined;
+	isDisabled?: boolean;
 	isLoading?: boolean;
 	label: string;
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
@@ -59,7 +59,7 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<Link className={buttonStyles} isDisabled={isDisabled} to={href}>
+				<Link className={buttonStyles} to={href}>
 					{icon}
 					<span className={labelStyle}>{label}</span>
 				</Link>
