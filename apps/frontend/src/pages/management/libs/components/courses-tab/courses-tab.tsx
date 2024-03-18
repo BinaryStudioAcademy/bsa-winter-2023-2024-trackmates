@@ -95,11 +95,11 @@ const CoursesTab: React.FC = () => {
 									<TableRow key={course.id}>
 										<CourseColumns
 											course={course}
-											deletingIsLoading={
+											isDeleting={
 												courseToDataStatus[course.id as number]
 													?.deleteDataStatus === DataStatus.PENDING
 											}
-											editingIsLoading={
+											isEditing={
 												courseToDataStatus[course.id as number]
 													?.updateDataStatus === DataStatus.PENDING
 											}

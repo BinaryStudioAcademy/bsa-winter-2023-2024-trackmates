@@ -7,8 +7,8 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	course: CourseDto;
-	deletingIsLoading: boolean;
-	editingIsLoading: boolean;
+	isDeleting: boolean;
+	isEditing: boolean;
 	onSetCurrentCourse: (course: CourseDto) => void;
 	onSetIsConfirmationModalOpen: (isOpen: boolean) => void;
 	onSetIsEditModalOpen: (isOpen: boolean) => void;
@@ -16,8 +16,8 @@ type Properties = {
 
 const CourseColumns: React.FC<Properties> = ({
 	course,
-	deletingIsLoading,
-	editingIsLoading,
+	isDeleting,
+	isEditing,
 	onSetCurrentCourse,
 	onSetIsConfirmationModalOpen,
 	onSetIsEditModalOpen,
@@ -45,8 +45,8 @@ const CourseColumns: React.FC<Properties> = ({
 					className={styles["icon-button"]}
 					hasVisuallyHiddenLabel
 					iconName="edit"
-					isDisabled={deletingIsLoading}
-					isLoading={editingIsLoading}
+					isDisabled={isDeleting}
+					isLoading={isEditing}
 					label="Edit"
 					loaderColor="orange"
 					onClick={handleEditButtonClick}
@@ -55,8 +55,8 @@ const CourseColumns: React.FC<Properties> = ({
 					className={styles["icon-button"]}
 					hasVisuallyHiddenLabel
 					iconName="delete"
-					isDisabled={editingIsLoading}
-					isLoading={deletingIsLoading}
+					isDisabled={isEditing}
+					isLoading={isDeleting}
 					label="Delete"
 					loaderColor="orange"
 					onClick={handleDeleteButtonClick}
