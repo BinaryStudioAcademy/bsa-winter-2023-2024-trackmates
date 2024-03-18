@@ -160,21 +160,16 @@ class AuthController extends BaseController {
 	 *          content:
 	 *            application/json:
 	 *              schema:
-	 *                type: object
-	 *                properties:
-	 *                  success:
-	 *                    type: boolean
+	 *                type: boolean
 	 */
 	private async forgotPassword({
 		body: { email },
 	}: APIHandlerOptions<{
 		body: AuthForgotPasswordRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		const success = await this.authService.forgotPassword(email);
-
 		return {
-			payload: { success },
-			status: HTTPCode.OK,
+			payload: await this.authService.forgotPassword(email),
+			status: HTTPCode.CREATED,
 		};
 	}
 

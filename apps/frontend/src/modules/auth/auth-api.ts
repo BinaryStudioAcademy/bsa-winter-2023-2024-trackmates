@@ -40,9 +40,8 @@ class AuthApi extends BaseHTTPApi {
 				payload: JSON.stringify(payload),
 			},
 		);
-		const { success } = await response.json<{ success: boolean }>();
 
-		return success;
+		return await response.json<boolean>();
 	}
 
 	public async getAuthenticatedUser(): Promise<UserAuthResponseDto | null> {
