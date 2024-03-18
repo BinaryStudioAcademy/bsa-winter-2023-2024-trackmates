@@ -22,8 +22,6 @@ const Link: React.FC<Properties> = ({
 	isDisabled,
 	to,
 }: Properties) => {
-	const disabledStyle = getValidClassNames(className, styles["link"]);
-
 	const handleLinkStyles = useCallback(
 		({ isActive }: { isActive: boolean }): string => {
 			return getValidClassNames(
@@ -36,7 +34,7 @@ const Link: React.FC<Properties> = ({
 	);
 
 	return isDisabled ? (
-		<span className={disabledStyle}>{children}</span>
+		<span className={className}>{children}</span>
 	) : (
 		<NavLink className={handleLinkStyles} to={to}>
 			{children}
