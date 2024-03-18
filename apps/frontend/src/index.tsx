@@ -145,6 +145,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								),
 								path: AppRoute.MANAGEMENT_GROUPS,
 							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.SUBSCRIPTION,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.SUBSCRIPTION_CHECKOUT,
+							},
 						],
 						element: <App />,
 						path: AppRoute.ROOT,

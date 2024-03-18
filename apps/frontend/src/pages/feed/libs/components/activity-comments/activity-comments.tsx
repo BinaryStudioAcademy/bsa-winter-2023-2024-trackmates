@@ -1,4 +1,5 @@
-import { Loader } from "~/libs/components/components.js";
+import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -44,21 +45,32 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 		void dispatch(activityActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
 
+	const hasComments = comments.length > EMPTY_LENGTH;
+
 	return (
 		<div className={styles["container"]}>
-			{isLoadingComments ? (
-				<Loader color="orange" size="large" />
-			) : (
-				<div className={styles["comments-container"]}>
-					{comments.map((comment) => (
-						<CommentCard comment={comment} key={comment.id} />
-					))}
-				</div>
-			)}
 			<ActivityCommentForm
 				isLoading={isLoadingComments}
 				onSubmit={handleCreateComment}
 			/>
+			{isLoadingComments ? (
+				<Loader className={styles["loader"]} color="orange" size="small" />
+			) : (
+				<>
+					{hasComments ? (
+						<div className={styles["comments-container"]}>
+							{comments.map((comment) => (
+								<CommentCard comment={comment} key={comment.id} />
+							))}
+						</div>
+					) : (
+						<EmptyPagePlaceholder
+							size="small"
+							title="There are no comments yet"
+						/>
+					)}
+				</>
+			)}
 		</div>
 	);
 };

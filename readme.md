@@ -202,8 +202,16 @@ erDiagram
     int user_id FK
   }
 
+  subscriptions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    dateTime expires_at
+  }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
+   user_details ||--|| subscriptions : subscription_id
 
    users ||--|{ friends : follower_id
    users ||--|{ friends : following_id
