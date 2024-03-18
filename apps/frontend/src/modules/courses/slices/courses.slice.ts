@@ -10,8 +10,8 @@ import {
 } from "../libs/types/types.js";
 import {
 	deleteById,
-	getAll,
 	getAllByFilter,
+	getAllByVendor,
 	getById,
 	getRecommended,
 	update,
@@ -39,17 +39,17 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(getAllByFilter.fulfilled, (state, action) => {
+		builder.addCase(getAllByVendor.fulfilled, (state, action) => {
 			state.searchedCourses = [
 				...state.searchedCourses,
 				...action.payload.courses,
 			];
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getAllByFilter.pending, (state) => {
+		builder.addCase(getAllByVendor.pending, (state) => {
 			state.searchDataStatus = DataStatus.PENDING;
 		});
-		builder.addCase(getAllByFilter.rejected, (state) => {
+		builder.addCase(getAllByVendor.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getById.fulfilled, (state, action) => {
@@ -100,14 +100,14 @@ const { actions, name, reducer } = createSlice({
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;
 		});
-		builder.addCase(getAll.fulfilled, (state, action) => {
+		builder.addCase(getAllByFilter.fulfilled, (state, action) => {
 			state.allCourses = action.payload;
 			state.allCoursesDataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getAll.pending, (state) => {
+		builder.addCase(getAllByFilter.pending, (state) => {
 			state.allCoursesDataStatus = DataStatus.PENDING;
 		});
-		builder.addCase(getAll.rejected, (state) => {
+		builder.addCase(getAllByFilter.rejected, (state) => {
 			state.allCoursesDataStatus = DataStatus.REJECTED;
 		});
 

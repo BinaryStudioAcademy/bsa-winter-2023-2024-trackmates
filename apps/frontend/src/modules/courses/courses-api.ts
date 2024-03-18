@@ -34,7 +34,7 @@ class CourseApi extends BaseHTTPApi {
 		return await response.json<{ success: boolean }>();
 	}
 
-	public async getAll(): Promise<CourseSearchGetAllResponseDto> {
+	public async getAllByFilter(): Promise<CourseSearchGetAllResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
 			{
@@ -47,7 +47,7 @@ class CourseApi extends BaseHTTPApi {
 		return await response.json<CourseSearchGetAllResponseDto>();
 	}
 
-	public async getAllByFilter(
+	public async getAllByVendor(
 		filter: CourseSearchFilterDto,
 	): Promise<CourseSearchGetAllResponseDto> {
 		const response = await this.load(

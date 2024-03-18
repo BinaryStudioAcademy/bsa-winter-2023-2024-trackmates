@@ -11,14 +11,14 @@ import {
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
-const getAllByFilter = createAsyncThunk<
+const getAllByVendor = createAsyncThunk<
 	CourseSearchGetAllResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
->(`${sliceName}/get-all-by-filter`, (filterPayload, { extra }) => {
+>(`${sliceName}/get-all-by-vendor`, (filterPayload, { extra }) => {
 	const { courseApi } = extra;
 
-	return courseApi.getAllByFilter(filterPayload);
+	return courseApi.getAllByVendor(filterPayload);
 });
 
 const getById = createAsyncThunk<CourseDto, { id: string }, AsyncThunkConfig>(
@@ -40,16 +40,17 @@ const getRecommended = createAsyncThunk<
 	return courseApi.getRecommended(filterPayload);
 });
 
-const getAll = createAsyncThunk<CourseDto[], undefined, AsyncThunkConfig>(
-	`${sliceName}/get-all`,
-	async (_, { extra }) => {
-		const { courseApi } = extra;
+const getAllByFilter = createAsyncThunk<
+	CourseDto[],
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/get-all-by-filter`, async (_, { extra }) => {
+	const { courseApi } = extra;
 
-		const { courses } = await courseApi.getAll();
+	const { courses } = await courseApi.getAllByFilter();
 
-		return courses;
-	},
-);
+	return courses;
+});
 
 const deleteById = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 	`${sliceName}/delete-by-id`,
@@ -82,4 +83,11 @@ const update = createAsyncThunk<
 	return updatedCourse;
 });
 
-export { deleteById, getAll, getAllByFilter, getById, getRecommended, update };
+export {
+	deleteById,
+	getAllByFilter,
+	getAllByVendor,
+	getById,
+	getRecommended,
+	update,
+};
