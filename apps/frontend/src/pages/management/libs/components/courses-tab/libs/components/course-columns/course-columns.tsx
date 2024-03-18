@@ -1,4 +1,4 @@
-import { Button } from "~/libs/components/components.js";
+import { Button, Image } from "~/libs/components/components.js";
 import { useCallback } from "~/libs/hooks/hooks.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 import { TableCell } from "~/pages/management/libs/components/table/table.jsx";
@@ -36,7 +36,12 @@ const CourseColumns: React.FC<Properties> = ({
 		<>
 			<TableCell isCentered>{course.id}</TableCell>
 			<TableCell>{course.title}</TableCell>
-			<TableCell isCentered>{course.vendor.name}</TableCell>
+			<TableCell isCentered>
+				<Image
+					alt="Course source logo"
+					src={`/vendors/${course.vendor.key}.svg`}
+				/>
+			</TableCell>
 			<TableCell isCroppedText width="narrow">
 				{course.description}
 			</TableCell>
