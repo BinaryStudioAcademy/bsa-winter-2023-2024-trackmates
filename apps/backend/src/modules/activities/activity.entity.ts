@@ -7,6 +7,8 @@ import { type UserSex } from "~/modules/users/users.js";
 import { type ActivityType } from "./libs/enums/enums.js";
 
 class ActivityEntity implements Entity {
+	private isLikedByUser: boolean | null;
+
 	public actionId: number;
 
 	public commentCount: null | number;
@@ -29,6 +31,7 @@ class ActivityEntity implements Entity {
 		actionId,
 		commentCount,
 		id,
+		isLikedByUser,
 		likesCount,
 		payload,
 		type,
@@ -39,6 +42,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: null | number;
+		isLikedByUser: boolean | null;
 		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
@@ -48,6 +52,7 @@ class ActivityEntity implements Entity {
 	}) {
 		this.actionId = actionId;
 		this.id = id;
+		this.isLikedByUser = isLikedByUser;
 		this.likesCount = likesCount;
 		this.payload = payload;
 		this.type = type;
@@ -61,6 +66,7 @@ class ActivityEntity implements Entity {
 		actionId,
 		commentCount,
 		id,
+		isLikedByUser,
 		likesCount,
 		payload,
 		type,
@@ -71,6 +77,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: number;
+		isLikedByUser: boolean | null;
 		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
@@ -82,6 +89,7 @@ class ActivityEntity implements Entity {
 			actionId,
 			commentCount,
 			id,
+			isLikedByUser,
 			likesCount,
 			payload,
 			type,
@@ -106,6 +114,7 @@ class ActivityEntity implements Entity {
 			actionId,
 			commentCount: null,
 			id: null,
+			isLikedByUser: null,
 			likesCount: null,
 			payload,
 			type,
@@ -165,6 +174,7 @@ class ActivityEntity implements Entity {
 		actionId: number;
 		commentCount: null | number;
 		id: number;
+		isLikedByUser: boolean;
 		likesCount: null | number;
 		payload: unknown;
 		type: ValueOf<typeof ActivityType>;
@@ -188,6 +198,7 @@ class ActivityEntity implements Entity {
 			actionId: this.actionId,
 			commentCount: Number(this.commentCount),
 			id: this.id as number,
+			isLikedByUser: this.isLikedByUser ?? false,
 			likesCount: Number(this.likesCount),
 			payload: this.payload,
 			type: this.type,
