@@ -1,5 +1,5 @@
 import { Button, Input } from "~/libs/components/components.js";
-import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
 import { chatMessageValidationSchema } from "~/modules/chat-messages/chat-messages.js";
 
 import { DEFAULT_MESSAGE_PAYLOAD } from "../../constants/constants.js";
@@ -10,19 +10,26 @@ type Properties = {
 };
 
 const ChatForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
-	const { control, errors, handleSubmit, reset } = useAppForm<
-		typeof DEFAULT_MESSAGE_PAYLOAD
-	>({
+	const {
+		control,
+		errors,
+		formState: { isSubmitSuccessful },
+		handleSubmit,
+		reset,
+	} = useAppForm<typeof DEFAULT_MESSAGE_PAYLOAD>({
 		defaultValues: DEFAULT_MESSAGE_PAYLOAD,
 		validationSchema: chatMessageValidationSchema,
 	});
 
+	useEffect(() => {
+		reset();
+	}, [isSubmitSuccessful, reset]);
+
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
-			reset();
 		},
-		[handleSubmit, onSubmit, reset],
+		[handleSubmit, onSubmit],
 	);
 
 	return (
