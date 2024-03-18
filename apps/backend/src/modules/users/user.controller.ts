@@ -1,8 +1,7 @@
 import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
 import {
-	checkParametersByUser,
+	checkByParameterIfNotTheSameUser,
 	checkUserPermissions,
-	combineHooks,
 } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
@@ -17,12 +16,8 @@ import {
 	userProfileValidationSchema,
 } from "~/modules/users/users.js";
 
-import { UserErrorMessage, UsersApiPath } from "./libs/enums/enums.js";
-import { UserError } from "./libs/exceptions/exceptions.js";
-import {
-	type UserAuthResponseDto,
-	type UserGetByIdRequestDto,
-} from "./libs/types/types.js";
+import { UsersApiPath } from "./libs/enums/enums.js";
+import { type UserGetByIdRequestDto } from "./libs/types/types.js";
 import { userIdParametersValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 class UserController extends BaseController {
@@ -43,21 +38,13 @@ class UserController extends BaseController {
 			},
 			method: "DELETE",
 			path: UsersApiPath.$ID,
-			preHandler: combineHooks([
+			preHandlers: [
 				checkUserPermissions(
 					[PermissionKey.MANAGE_USERS],
 					PermissionMode.ALL_OF,
 				),
-				checkParametersByUser<{ id: string }>(
-					(parameters: { id: string }, user: UserAuthResponseDto) => {
-						return Number(parameters.id) !== user.id;
-					},
-					new UserError({
-						message: UserErrorMessage.FORBIDDEN_DELETING_YOURSELF,
-						status: HTTPCode.BAD_REQUEST,
-					}),
-				),
-			]),
+				checkByParameterIfNotTheSameUser<{ id: string }>("id"),
+			],
 			validation: {
 				params: userIdParametersValidationSchema,
 			},
