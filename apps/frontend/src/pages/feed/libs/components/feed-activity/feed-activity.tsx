@@ -63,8 +63,8 @@ const FeedActivity: React.FC<Properties> = ({
 					<div className={styles["activity-title-container"]}>
 						<Link to={avatarLink as ValueOf<typeof AppRoute>}>
 							<Image
-								className={styles["small-photo"]}
 								alt="User avatar"
+								className={styles["small-photo"]}
 								src={activity.user.avatarUrl ?? defaultAvatar}
 							/>
 						</Link>
