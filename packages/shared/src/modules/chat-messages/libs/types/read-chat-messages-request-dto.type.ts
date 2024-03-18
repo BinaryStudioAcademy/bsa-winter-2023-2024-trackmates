@@ -1,4 +1,5 @@
 type ReadChatMessagesRequestDto = {
+	chatId: number;
 	chatMessageIds: number[];
 };
 
