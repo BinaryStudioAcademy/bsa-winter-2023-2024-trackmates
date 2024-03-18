@@ -129,9 +129,10 @@ export {
 	CourseErrorMessage,
 	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
+	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
 	CoursesApiPath,
-	type CoursesResponseDto,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
 } from "./modules/courses/courses.js";

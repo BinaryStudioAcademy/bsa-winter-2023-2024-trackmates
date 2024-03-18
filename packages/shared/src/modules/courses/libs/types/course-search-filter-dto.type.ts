@@ -1,4 +1,5 @@
 type CourseSearchFilterDto = {
+	page?: number;
 	search: string;
 	vendorsKey: string[];
 };
