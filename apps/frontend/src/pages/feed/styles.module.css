@@ -38,7 +38,7 @@
 	}
 }
 
-@media screen and (--medium-screen) {
+@media screen and (--small-screen) {
 	.title {
 		font-size: var(--font-size-300);
 	}
