@@ -17,7 +17,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	authForgotPasswordValidationSchema,
-	authUpdatePasswordValidationSchema,
+	authPasswordValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 export { authApi };
 export { actions, reducer } from "./slices/auth.js";

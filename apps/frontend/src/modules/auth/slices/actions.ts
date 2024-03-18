@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { HTTPCode } from "~/libs/modules/http/http.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { StorageKey } from "~/libs/modules/storage/storage.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
@@ -13,6 +14,8 @@ import {
 	type UserSignUpRequestDto,
 } from "~/modules/users/users.js";
 
+import { AuthErrorMessage } from "../libs/enums/enums.js";
+import { AuthError } from "./../libs/exceptions/exceptions.js";
 import { name as sliceName } from "./auth.slice.js";
 
 const forgotPassword = createAsyncThunk<
@@ -44,12 +47,26 @@ const getAuthenticatedUser = createAsyncThunk<
 
 const updatePassword = createAsyncThunk<
 	UserAuthResponseDto,
-	AuthUpdatePasswordRequestDto,
+	Omit<AuthUpdatePasswordRequestDto, "token">,
 	AsyncThunkConfig
 >(`${sliceName}/update-password`, async (payload, { extra }) => {
 	const { authApi, notification, storage } = extra;
 
-	const { token, user } = await authApi.updatePassword(payload);
+	const queryToken = new URL(window.location.toString()).searchParams.get(
+		"token",
+	);
+
+	if (!queryToken) {
+		throw new AuthError({
+			message: AuthErrorMessage.WRONG_UPDATE_PASSWORD_LINK,
+			status: HTTPCode.BAD_REQUEST,
+		});
+	}
+
+	const { token, user } = await authApi.updatePassword({
+		...payload,
+		token: queryToken,
+	});
 
 	notification.success(NotificationMessage.PASSWORD_WAS_UPDATED);
 

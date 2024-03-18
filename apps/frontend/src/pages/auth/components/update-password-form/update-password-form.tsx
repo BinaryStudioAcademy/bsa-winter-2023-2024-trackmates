@@ -8,28 +8,22 @@ import {
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type AuthUpdatePasswordRequestDto } from "~/modules/auth/auth.js";
-import { authUpdatePasswordValidationSchema } from "~/modules/auth/auth.js";
+import { authPasswordValidationSchema } from "~/modules/auth/auth.js";
 
 import { DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	onSubmit: (payload: AuthUpdatePasswordRequestDto) => void;
-	token: string;
+	onSubmit: (payload: Omit<AuthUpdatePasswordRequestDto, "token">) => void;
 };
 
-const UpdatePasswordForm: React.FC<Properties> = ({
-	onSubmit,
-	token,
-}: Properties) => {
-	const { control, errors, handleSubmit } =
-		useAppForm<AuthUpdatePasswordRequestDto>({
-			defaultValues: {
-				...DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD,
-				token,
-			},
-			validationSchema: authUpdatePasswordValidationSchema,
-		});
+const UpdatePasswordForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
+	const { control, errors, handleSubmit } = useAppForm<
+		Omit<AuthUpdatePasswordRequestDto, "token">
+	>({
+		defaultValues: DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD,
+		validationSchema: authPasswordValidationSchema,
+	});
 
 	const authDataStatus = useAppSelector(({ auth }) => {
 		return auth.dataStatus;
@@ -57,14 +51,6 @@ const UpdatePasswordForm: React.FC<Properties> = ({
 			<div>
 				<h2 className={styles["title"]}>Update password</h2>
 			</div>
-			<Input
-				control={control}
-				errors={errors}
-				hasVisuallyHiddenLabel
-				label="Token"
-				name="token"
-				type="hidden"
-			/>
 			<div className={styles["password-input"]}>
 				<Input
 					className={styles["password"]}

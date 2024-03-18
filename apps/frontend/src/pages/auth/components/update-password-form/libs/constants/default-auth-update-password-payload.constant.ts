@@ -1,8 +1,10 @@
 import { type AuthUpdatePasswordRequestDto } from "~/modules/auth/auth.js";
 
-const DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD: AuthUpdatePasswordRequestDto = {
+const DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD: Omit<
+	AuthUpdatePasswordRequestDto,
+	"token"
+> = {
 	password: "",
-	token: "",
 };
 
 export { DEFAULT_AUTH_UPDATE_PASSWORD_IN_PAYLOAD };
