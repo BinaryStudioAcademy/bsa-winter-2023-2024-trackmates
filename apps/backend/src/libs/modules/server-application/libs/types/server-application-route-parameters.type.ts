@@ -14,11 +14,11 @@ type ServerApplicationRouteParameters = {
 	) => Promise<void> | void;
 	method: HTTPMethod;
 	path: string;
-	preHandler?: (
+	preHandlers?: ((
 		request: FastifyRequest,
 		reply: FastifyReply,
 		done: HookHandlerDoneFunction,
-	) => void;
+	) => void)[];
 	validation?: {
 		body?: ValidationSchema;
 		params?: ValidationSchema;

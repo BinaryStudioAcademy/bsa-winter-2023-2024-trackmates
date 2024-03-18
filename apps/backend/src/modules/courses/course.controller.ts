@@ -88,10 +88,12 @@ class CourseController extends BaseController {
 			},
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_COURSES],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+			],
 			validation: {
 				params: courseIdParameterValidationSchema,
 			},
@@ -154,10 +156,12 @@ class CourseController extends BaseController {
 			},
 			method: "GET",
 			path: CoursesApiPath.ROOT,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_COURSES],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+			],
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -170,10 +174,12 @@ class CourseController extends BaseController {
 			},
 			method: "PUT",
 			path: CoursesApiPath.$COURSE_ID,
-			preHandler: checkUserPermissions(
-				[PermissionKey.MANAGE_COURSES],
-				PermissionMode.ALL_OF,
-			),
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+			],
 			validation: {
 				body: courseUpdateValidationSchema,
 				params: courseIdParameterValidationSchema,

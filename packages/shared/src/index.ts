@@ -232,6 +232,7 @@ export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,
 	UserError,
+	UserErrorMessage,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,

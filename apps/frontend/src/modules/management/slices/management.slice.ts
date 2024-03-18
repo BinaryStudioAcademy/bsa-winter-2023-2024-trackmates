@@ -28,6 +28,7 @@ type State = {
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
+	userToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
 	users: UserAuthResponseDto[];
 	usersDataStatus: ValueOf<typeof DataStatus>;
 };
@@ -38,6 +39,7 @@ const initialState: State = {
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
 	permissionsDataStatus: DataStatus.IDLE,
+	userToDataStatus: {},
 	users: [],
 	usersDataStatus: DataStatus.IDLE,
 };
@@ -158,6 +160,29 @@ const { reducer } = createSlice({
 		builder.addCase(usersActions.getAll.rejected, (state) => {
 			state.usersDataStatus = DataStatus.REJECTED;
 		});
+
+		builder.addCase(
+			usersActions.remove.fulfilled,
+			(state, { meta: { arg: userId }, payload }) => {
+				if (payload) {
+					state.users = state.users.filter(({ id }) => id !== userId);
+				}
+
+				state.userToDataStatus[userId] = DataStatus.FULFILLED;
+			},
+		);
+		builder.addCase(
+			usersActions.remove.pending,
+			(state, { meta: { arg: userId } }) => {
+				state.userToDataStatus[userId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			usersActions.remove.rejected,
+			(state, { meta: { arg: userId } }) => {
+				state.userToDataStatus[userId] = DataStatus.REJECTED;
+			},
+		);
 
 		builder.addCase(
 			coursesActions.deleteById.fulfilled,
