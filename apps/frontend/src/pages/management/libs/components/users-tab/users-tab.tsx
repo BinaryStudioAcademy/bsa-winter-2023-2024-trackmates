@@ -18,11 +18,11 @@ import {
 } from "~/modules/users/users.js";
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
+import { ActionsCell } from "../actions-cell/actions-cell.js";
 import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
-import { ItemButton } from "../item-button/item-button.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
 import { USERS_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
@@ -105,27 +105,16 @@ const UsersTab: React.FC = () => {
 	const tableData = users.map((user) => {
 		const isSameUser = user.id === authUser.id;
 
-		const isDeleting = userToDataStatus[user.id] === DataStatus.PENDING;
-
 		return {
 			buttons: (
-				<div className={styles["column-buttons"]}>
-					<ItemButton
-						iconName="edit"
-						isDisabled={!hasPermissionToEdit || isSameUser}
-						item={user}
-						label={UsersTableHeader.BUTTONS}
-						onClick={handleOpenEditModal}
-					/>
-					<ItemButton
-						iconName="delete"
-						isDisabled={!hasPermissionToDelete || isSameUser}
-						isLoading={isDeleting}
-						item={user}
-						label={UsersTableHeader.BUTTONS}
-						onClick={handleOpenDeleteModal}
-					/>
-				</div>
+				<ActionsCell
+					isDeleteDisabled={!hasPermissionToDelete || isSameUser}
+					isEditDisabled={!hasPermissionToEdit || isSameUser}
+					isLoading={userToDataStatus[user.id] === DataStatus.PENDING}
+					item={user}
+					onDelete={handleOpenDeleteModal}
+					onEdit={handleOpenEditModal}
+				/>
 			),
 			email: `${user.email} ${authUser.id === user.id ? "(you)" : ""}`,
 			firstName: user.firstName,

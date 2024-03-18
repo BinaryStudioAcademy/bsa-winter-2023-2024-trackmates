@@ -1,3 +1,9 @@
+.column-buttons {
+	display: flex;
+	flex-direction: row;
+	column-gap: 30px;
+}
+
 .icon-button {
 	min-height: unset;
 	padding: 0;

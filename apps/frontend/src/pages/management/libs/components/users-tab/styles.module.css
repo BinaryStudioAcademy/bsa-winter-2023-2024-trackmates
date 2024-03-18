@@ -2,12 +2,6 @@
 	width: 100%;
 }
 
-.column-buttons {
-	display: flex;
-	flex-direction: row;
-	column-gap: 30px;
-}
-
 .modal-list {
 	display: flex;
 	flex-direction: column;
