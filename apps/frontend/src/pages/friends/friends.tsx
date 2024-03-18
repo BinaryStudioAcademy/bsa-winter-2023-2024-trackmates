@@ -17,6 +17,7 @@ import {
 	usePagination,
 	useSearchParams,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
 import { FriendsTab } from "./libs/components/components.js";
@@ -151,19 +152,29 @@ const Friends: React.FC = () => {
 	return (
 		<div className={styles["wrapper"]}>
 			<ul className={styles["link-list"]}>
-				{LINKS.map((link, index) => (
-					<li
-						className={getValidClassNames(
-							styles["link-item"],
-							link.to === pathname && styles["active"],
-						)}
-						key={index}
-					>
-						<Link className={styles["link"]} to={link.to}>
-							{link.title}
-						</Link>
-					</li>
-				))}
+				{LINKS.map((link, index) => {
+					const queryString = searchQuery
+						? `?${QueryParameterName.SEARCH}=${searchQuery}`
+						: "";
+					const currentLink = link.to + queryString;
+
+					return (
+						<li
+							className={getValidClassNames(
+								styles["link-item"],
+								link.to === pathname && styles["active"],
+							)}
+							key={index}
+						>
+							<Link
+								className={styles["link"]}
+								to={currentLink as ValueOf<typeof AppRoute>}
+							>
+								{link.title}
+							</Link>
+						</li>
+					);
+				})}
 			</ul>
 			{isLoading ? (
 				<Loader color="orange" size="large" />

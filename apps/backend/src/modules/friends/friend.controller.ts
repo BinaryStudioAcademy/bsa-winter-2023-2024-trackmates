@@ -137,7 +137,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getUserFollowers(
 					options as APIHandlerOptions<{
-						query: PaginationRequestDto;
+						query: { search: string } & PaginationRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -152,7 +152,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getUserFollowings(
 					options as APIHandlerOptions<{
-						query: PaginationRequestDto;
+						query: { search: string } & PaginationRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -178,7 +178,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getPotentialFollowers(
 					options as APIHandlerOptions<{
-						query: PaginationRequestDto;
+						query: { search: string } & PaginationRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -506,6 +506,10 @@ class FriendController extends BaseController {
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
+	 *       - name: search
+	 * 		   in: query
+	 *         schema:
+	 *           type: string
 	 *       - name: count
 	 *         in: query
 	 *         schema:
@@ -526,13 +530,13 @@ class FriendController extends BaseController {
 	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async getPotentialFollowers({
-		query: { count, page },
+		query: { count, page, search },
 		user: { id },
 	}: APIHandlerOptions<{
-		query: PaginationRequestDto;
+		query: { search: string | undefined } & PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const parameters = { count, id, page };
+		const parameters = { count, id, page, search: search ?? "" };
 
 		return {
 			payload: await this.friendService.getPotentialFollowers(parameters),
@@ -550,6 +554,10 @@ class FriendController extends BaseController {
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
+	 * 		- name: search
+	 * 		   in: query
+	 *         schema:
+	 *           type: string
 	 *       - name: count
 	 *         in: query
 	 *         schema:
@@ -570,13 +578,13 @@ class FriendController extends BaseController {
 	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async getUserFollowers({
-		query: { count, page },
+		query: { count, page, search },
 		user: { id },
 	}: APIHandlerOptions<{
-		query: PaginationRequestDto;
+		query: { search: string | undefined } & PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const parameters = { count, id, page };
+		const parameters = { count, id, page, search: search ?? "" };
 
 		return {
 			payload: await this.friendService.getUserFollowers(parameters),
@@ -594,6 +602,10 @@ class FriendController extends BaseController {
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
+	 *       - name: search
+	 * 		   in: query
+	 *         schema:
+	 *           type: string
 	 *       - name: count
 	 *         in: query
 	 *         schema:
@@ -614,13 +626,13 @@ class FriendController extends BaseController {
 	 *                 $ref: "#/components/schemas/User"
 	 */
 	private async getUserFollowings({
-		query: { count, page },
+		query: { count, page, search },
 		user: { id },
 	}: APIHandlerOptions<{
-		query: PaginationRequestDto;
+		query: { search: string | undefined } & PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const parameters = { count, id, page };
+		const parameters = { count, id, page, search: search ?? "" };
 
 		return {
 			payload: await this.friendService.getUserFollowings(parameters),
