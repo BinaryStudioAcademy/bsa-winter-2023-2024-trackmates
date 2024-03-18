@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .feed {
 	display: flex;
 	flex-direction: column;
@@ -5,4 +7,11 @@
 	max-height: 100%;
 	padding: 8px;
 	overflow-y: auto;
+}
+
+@media screen and (--large-screen) {
+	.feed {
+		padding: 0;
+		overflow: visible;
+	}
 }
