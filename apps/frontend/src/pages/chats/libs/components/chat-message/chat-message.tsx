@@ -29,6 +29,7 @@ const ChatMessage: React.FC<Properties> = ({
 	const { inView, ref } = useInView();
 
 	const isRead = status === MessageStatus.READ;
+	const isUnread = status === MessageStatus.UNREAD;
 
 	useEffect(() => {
 		if (!isRead && !isCurrentUserSender && inView) {
@@ -56,7 +57,13 @@ const ChatMessage: React.FC<Properties> = ({
 				<span className={styles["sender-name"]}>{sender}</span>
 				<span className={styles["date"]}>{date}</span>
 			</div>
-			<div className={styles["message-container"]}>
+			<div
+				className={getValidClassNames(
+					styles["message-container"],
+					isUnread && styles["unread"],
+					styles[isCurrentUserSender ? "right" : "left"],
+				)}
+			>
 				<span className={styles["message"]}>{text}</span>
 			</div>
 		</li>

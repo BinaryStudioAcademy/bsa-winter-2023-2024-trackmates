@@ -14,8 +14,10 @@ import {
 	type ChatMessageItemResponseDto,
 	actions as chatMessageActions,
 } from "~/modules/chat-messages/chat-messages.js";
-import { actions as chatActions } from "~/modules/chats/chats.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
+import {
+	type ChatItemResponseDto,
+	actions as chatActions,
+} from "~/modules/chats/chats.js";
 
 import {
 	type DEFAULT_MESSAGE_PAYLOAD,
@@ -29,20 +31,20 @@ import { ChatMessage } from "../chat-message/chat-message.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	chat: ChatItemResponseDto;
 	className?: string | undefined;
 	isMessageLoading: boolean;
-	messages: ChatMessageItemResponseDto[];
 	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
-	receiver: UserAuthResponseDto;
 };
 
 const Chat: React.FC<Properties> = ({
+	chat,
 	className,
 	isMessageLoading,
-	messages,
 	onSubmit,
-	receiver,
 }: Properties) => {
+	const { id, interlocutor, messages } = chat;
+
 	const [readChatMessageIds, setChatMessageIds] = useState<Set<number>>(
 		new Set<number>(),
 	);
@@ -63,6 +65,7 @@ const Chat: React.FC<Properties> = ({
 
 		void dispatch(
 			chatMessageActions.setReadChatMessages({
+				chatId: id,
 				chatMessageIds: [...readChatMessageIds],
 			}),
 		);
@@ -109,12 +112,12 @@ const Chat: React.FC<Properties> = ({
 							alt="User avatar"
 							height="48"
 							shape="circle"
-							src={receiver.avatarUrl ?? defaultAvatar}
+							src={interlocutor.avatarUrl ?? defaultAvatar}
 							width="48"
 						/>
 					</div>
 					<span className={styles["full-name"]}>
-						{receiver.firstName} {receiver.lastName}
+						{interlocutor.firstName} {interlocutor.lastName}
 					</span>
 				</div>
 			</div>
@@ -126,7 +129,7 @@ const Chat: React.FC<Properties> = ({
 						<ChatDate date={item.value as string} key={`date-${index}`} />
 					) : (
 						<ChatMessage
-							isCurrentUserSender={receiver.id !== message.senderUser.id}
+							isCurrentUserSender={interlocutor.id !== message.senderUser.id}
 							key={message.id}
 							message={message}
 							onRead={handleRead}
