@@ -6,7 +6,9 @@ import BurgerIcon from "~/assets/icons/burger.svg?react";
 import ChatsIcon from "~/assets/icons/chats.svg?react";
 import CommentIcon from "~/assets/icons/comment.svg?react";
 import CrossIcon from "~/assets/icons/cross.svg?react";
+import CrownIcon from "~/assets/icons/crown.svg?react";
 import DeleteIcon from "~/assets/icons/delete.svg?react";
+import DiamondIcon from "~/assets/icons/diamond.svg?react";
 import EditIcon from "~/assets/icons/edit.svg?react";
 import EyeIcon from "~/assets/icons/eye.svg?react";
 import EyeOffIcon from "~/assets/icons/eye-off.svg?react";
@@ -38,7 +40,9 @@ const iconNameToSvg: Record<
 	chats: ChatsIcon,
 	comment: CommentIcon,
 	cross: CrossIcon,
+	crown: CrownIcon,
 	delete: DeleteIcon,
+	diamond: DiamondIcon,
 	edit: EditIcon,
 	eye: EyeIcon,
 	eyeOff: EyeOffIcon,

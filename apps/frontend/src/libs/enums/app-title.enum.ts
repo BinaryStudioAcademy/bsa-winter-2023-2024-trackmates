@@ -8,6 +8,7 @@ const AppTitle = {
 	PROFILE: "My Profile",
 	SIGN_IN: "Sign In",
 	SIGN_UP: "Sign Up",
+	SUBSCRIPTION: "Subscription",
 } as const;
 
 export { AppTitle };
