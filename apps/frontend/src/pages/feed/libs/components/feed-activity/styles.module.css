@@ -115,6 +115,7 @@
 .activity-title {
 	margin: 0;
 	font-size: var(--font-size-400);
+	color: var(--color-text-300);
 }
 
 @media screen and (--medium-screen) {
