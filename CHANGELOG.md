@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.77.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.76.2...v1.77.0) (2024-03-19)
+
+
+### Features
+
+* **backend/frontend/shared:** UAM (User Access Management) - Courses tm-231 ([#568](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/568)) ([6c586f1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6c586f19f913b18fe568ab361e7c7984227f448a))
+* **frontend:** add shadows to the components tm-593 ([#625](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/625)) ([aa67eba](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/aa67ebab4a468192b199e10dc8bfa6597a00bf4b))
+
 ## [1.76.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.76.1...v1.76.2) (2024-03-19)
 
 
