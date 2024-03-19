@@ -103,6 +103,12 @@ class FriendService {
 			});
 		}
 
+		await this.notificationService.deteleAllNotificationByUserId(
+			id,
+			userId,
+			NotificationType.NEW_FOLLOWER,
+		);
+
 		return isDeleted;
 	}
 

@@ -105,6 +105,18 @@ class NotificationService implements Service {
 		return await this.notificationRepository.deleteByActionId(actionId, type);
 	}
 
+	public async deteleAllNotificationByUserId(
+		id: number,
+		userId: number,
+		type: string,
+	): Promise<boolean> {
+		return await this.notificationRepository.deleteAllNotificationByUserId(
+			id,
+			userId,
+			type,
+		);
+	}
+
 	public async find(notificationId: number): Promise<NotificationResponseDto> {
 		const notification = await this.notificationRepository.find(notificationId);
 
