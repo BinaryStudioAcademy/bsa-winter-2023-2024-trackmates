@@ -15,7 +15,10 @@ import {
 	friendIdParameterValidationSchema,
 } from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
-import { type FriendFollowRequestDto } from "./libs/types/types.js";
+import {
+	type FriendFollowRequestDto,
+	type FriendListRequestDto,
+} from "./libs/types/types.js";
 import { friendGetAllQueryValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -137,7 +140,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getUserFollowers(
 					options as APIHandlerOptions<{
-						query: { search: string } & PaginationRequestDto;
+						query: FriendListRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -152,7 +155,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getUserFollowings(
 					options as APIHandlerOptions<{
-						query: { search: string } & PaginationRequestDto;
+						query: FriendListRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
@@ -178,7 +181,7 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getPotentialFollowers(
 					options as APIHandlerOptions<{
-						query: { search: string } & PaginationRequestDto;
+						query: FriendListRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
