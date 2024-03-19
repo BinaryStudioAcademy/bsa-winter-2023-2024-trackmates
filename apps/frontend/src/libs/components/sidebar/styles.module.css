@@ -60,13 +60,6 @@
 	height: 21px;
 }
 
-.menu-item:hover {
-	color: var(--color-button);
-	background-color: transparent;
-	border-color: var(--color-button);
-	opacity: 1;
-}
-
 .link-title {
 	line-height: normal;
 }
@@ -90,12 +83,6 @@
 	background-color: var(--main-white);
 	border-color: var(--main-white);
 	opacity: 1;
-}
-
-.active:hover {
-	color: var(--main-white);
-	background-color: var(--color-button);
-	border-color: var(--color-button);
 }
 
 .log-out-btn {
@@ -300,5 +287,20 @@
 
 	.close .link-title {
 		display: block;
+	}
+}
+
+@media (hover: hover) {
+	.menu-item:hover {
+		color: var(--color-button);
+		background-color: transparent;
+		border-color: var(--color-button);
+		opacity: 1;
+	}
+
+	.active:hover {
+		color: var(--main-white);
+		background-color: var(--color-button);
+		border-color: var(--color-button);
 	}
 }

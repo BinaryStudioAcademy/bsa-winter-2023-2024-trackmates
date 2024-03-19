@@ -14,7 +14,7 @@ import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type SocketService } from "~/libs/modules/socket/socket.js";
-import { type Token } from "~/libs/modules/token/token.js";
+import { type Token, type TokenPayload } from "~/libs/modules/token/token.js";
 import { authorization, fileUpload } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
@@ -41,7 +41,7 @@ type Constructor = {
 		userService: UserService;
 	};
 	title: string;
-	token: Token;
+	token: Token<TokenPayload>;
 };
 
 class BaseServerApplication implements ServerApplication {
@@ -62,7 +62,7 @@ class BaseServerApplication implements ServerApplication {
 
 	private title: string;
 
-	private token: Token;
+	private token: Token<TokenPayload>;
 
 	public constructor({
 		apis,
