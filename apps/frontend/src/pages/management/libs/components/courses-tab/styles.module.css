@@ -1,0 +1,13 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	row-gap: 40px;
+	min-width: 100%;
+	overflow: auto;
+}
+
+.table-container {
+	display: flex;
+	max-width: 100%;
+}

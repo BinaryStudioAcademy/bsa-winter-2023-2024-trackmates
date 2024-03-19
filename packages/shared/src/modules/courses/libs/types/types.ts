@@ -5,3 +5,4 @@ export { type CourseSearchFilterDto } from "./course-search-filter-dto.type.js";
 export { type CourseSearchGetAllResponseDto } from "./course-search-get-all-response-dto.type.js";
 export { type CourseSearchRequestDto } from "./course-search-request-dto.type.js";
 export { type CourseSearchResponseDto } from "./course-search-response-dto.type.js";
+export { type CourseUpdateRequestDto } from "./course-update-request-dto.type.js";
