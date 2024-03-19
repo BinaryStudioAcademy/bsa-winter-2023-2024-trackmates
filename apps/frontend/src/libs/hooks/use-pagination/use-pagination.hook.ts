@@ -1,7 +1,11 @@
 import { PaginationValue } from "~/libs/enums/enums.js";
 import { useEffect, useSearchParams, useState } from "~/libs/hooks/hooks.js";
 
-import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
+import {
+	checkIsValidPage,
+	getPagesCut,
+	getPagesRange,
+} from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
 	pageSize: number;
@@ -9,7 +13,6 @@ type UsePagination = (options: {
 	queryName?: string;
 	totalCount: number;
 }) => {
-	handlePageChange: (page: number) => void;
 	page: number;
 	pages: number[];
 	pagesCount: number;
@@ -21,15 +24,16 @@ const usePagination: UsePagination = ({
 	queryName = "page",
 	totalCount,
 }) => {
-	const [searchParameters, setSearchParameters] = useSearchParams();
+	const [searchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
-	const isPageInteger = Number.isInteger(pageFromQuery);
-	const isPageValid =
-		isPageInteger && pageFromQuery > PaginationValue.PAGE_NOT_EXISTS;
-	const validPage = isPageValid ? pageFromQuery : PaginationValue.DEFAULT_PAGE;
-	const [page, setPage] = useState<number>(validPage);
-	const [path, setPath] = useState<string>(location.pathname);
+
 	const pagesCount = Math.ceil(totalCount / pageSize);
+	const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
+
+	const [page, setPage] = useState<number>(
+		isValidPage ? pageFromQuery : PaginationValue.DEFAULT_PAGE,
+	);
+
 	const pagesCut = getPagesCut({
 		currentPage: page,
 		pagesCount,
@@ -38,37 +42,19 @@ const usePagination: UsePagination = ({
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 
 	useEffect(() => {
-		const isValidPage = pagesCount >= pageFromQuery;
+		const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
 		const isInvalidPage = pagesCount !== PaginationValue.PAGE_NOT_EXISTS;
-		const updatedSearchParameters = new URLSearchParams(
-			searchParameters.toString(),
-		);
-
-		if (path !== location.pathname) {
-			setPath(location.pathname);
-			setPage(PaginationValue.DEFAULT_PAGE);
-
-			return;
-		}
 
 		if (isValidPage) {
-			updatedSearchParameters.set(queryName, String(page));
-			setSearchParameters(updatedSearchParameters);
+			setPage(pageFromQuery);
 		} else if (isInvalidPage) {
 			setPage(PaginationValue.DEFAULT_PAGE);
-			updatedSearchParameters.set(
-				queryName,
-				String(PaginationValue.DEFAULT_PAGE),
-			);
-			setSearchParameters(updatedSearchParameters);
+			const url = new URL(window.location.origin + window.location.pathname);
+			window.history.replaceState(null, "", url.toString());
 		}
-	}, [page, pagesCount, location.pathname]);
+	}, [pageFromQuery, pagesCount, location.pathname]);
 
-	const handlePageChange = (page: number): void => {
-		setPage(page);
-	};
-
-	return { handlePageChange, page, pages, pagesCount };
+	return { page, pages, pagesCount };
 };
 
 export { usePagination };

@@ -40,6 +40,7 @@ const jsConfig = {
 		...js.configs.recommended.rules,
 		"arrow-parens": ["error", "always"],
 		curly: ["error", "all"],
+		eqeqeq: ["error", "always"],
 		"max-params": ["error", JS_MAX_PARAMS_ALLOWED],
 		"no-console": ["error"],
 		"no-multiple-empty-lines": [

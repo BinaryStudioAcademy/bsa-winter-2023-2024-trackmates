@@ -8,13 +8,22 @@ import {
 	useCallback,
 	useLocation,
 } from "~/libs/hooks/hooks.js";
-import { actions as authActions } from "~/modules/auth/auth.js";
+import {
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+	actions as authActions,
+} from "~/modules/auth/auth.js";
 import {
 	type UserSignInRequestDto,
 	type UserSignUpRequestDto,
 } from "~/modules/users/users.js";
 
-import { SignInForm, SignUpForm } from "./components/components.js";
+import {
+	ForgotPasswordForm,
+	SignInForm,
+	SignUpForm,
+	UpdatePasswordForm,
+} from "./components/components.js";
 import styles from "./styles.module.css";
 
 const Auth: React.FC = () => {
@@ -37,6 +46,20 @@ const Auth: React.FC = () => {
 		[dispatch],
 	);
 
+	const handleForgotPasswordSubmit = useCallback(
+		(payload: AuthForgotPasswordRequestDto): void => {
+			void dispatch(authActions.forgotPassword(payload));
+		},
+		[dispatch],
+	);
+
+	const handleUpdatePasswordSubmit = useCallback(
+		(payload: Omit<AuthUpdatePasswordRequestDto, "token">): void => {
+			void dispatch(authActions.updatePassword(payload));
+		},
+		[dispatch],
+	);
+
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.SIGN_IN: {
@@ -46,13 +69,21 @@ const Auth: React.FC = () => {
 			case AppRoute.SIGN_UP: {
 				return <SignUpForm onSubmit={handleSignUpSubmit} />;
 			}
+
+			case AppRoute.FORGOT_PASSWORD: {
+				return <ForgotPasswordForm onSubmit={handleForgotPasswordSubmit} />;
+			}
+
+			case AppRoute.UPDATE_PASSWORD: {
+				return <UpdatePasswordForm onSubmit={handleUpdatePasswordSubmit} />;
+			}
 		}
 
 		return null;
 	};
 
 	if (hasUser) {
-		return <Navigate to={AppRoute.ROOT} />;
+		return <Navigate replace to={AppRoute.ROOT} />;
 	}
 
 	return (

@@ -6,6 +6,7 @@ export {
 	ContentType,
 	ExceptionMessage,
 	HTTPCode,
+	PaginationValue,
 	PermissionKey,
 	PermissionMode,
 	ServerErrorType,

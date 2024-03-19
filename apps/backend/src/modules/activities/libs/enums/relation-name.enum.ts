@@ -4,6 +4,7 @@ const RelationName = {
 	GROUPS: "groups",
 	LIKES: "likes",
 	PERMISSIONS: "permissions",
+	SUBSCRIPTION: "subscription",
 	USER: "user",
 	USER_DETAILS: "userDetails",
 } as const;

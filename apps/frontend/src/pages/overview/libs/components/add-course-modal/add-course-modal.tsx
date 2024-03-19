@@ -1,6 +1,12 @@
-import { Courses, Input, Loader, Modal } from "~/libs/components/components.js";
+import {
+	Button,
+	Courses,
+	Input,
+	Loader,
+	Modal,
+} from "~/libs/components/components.js";
 import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import { initDebounce } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -8,6 +14,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 import {
@@ -47,10 +54,14 @@ const AddCourseModal: React.FC<Properties> = ({
 			};
 		},
 	);
-	const { control, errors, handleSubmit, setValue } = useAppForm({
+	const { control, errors, getValues, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
 	});
+
+	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
+	const isLoadFirstPage = isLoading && page === PaginationValue.DEFAULT_PAGE;
+	const isLoadMore = isLoading && page !== PaginationValue.DEFAULT_PAGE;
 
 	const handleAddCourse = useCallback(
 		(payload: AddCourseRequestDto) => {
@@ -62,14 +73,19 @@ const AddCourseModal: React.FC<Properties> = ({
 	const handleSearchCourses = (
 		filterFormData: typeof DEFAULT_SEARCH_COURSE_PAYLOAD,
 	): void => {
+		dispatch(courseActions.clearCourses());
+		setPage(PaginationValue.DEFAULT_PAGE);
+
 		void dispatch(
 			courseActions.getAll({
+				page: PaginationValue.DEFAULT_PAGE,
 				search: filterFormData.search,
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),
 		);
 		void dispatch(
 			courseActions.getRecommended({
+				page: PaginationValue.DEFAULT_PAGE,
 				search: filterFormData.search,
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),
@@ -92,6 +108,18 @@ const AddCourseModal: React.FC<Properties> = ({
 		SEARCH_COURSES_DELAY_MS,
 	);
 
+	const handleLoadMore = useCallback((): void => {
+		const newPage = page + PaginationValue.DEFAULT_STEP;
+		void dispatch(
+			courseActions.getAll({
+				page: newPage,
+				search: getValues("search"),
+				vendorsKey: getVendorsFromForm(getValues("vendors")),
+			}),
+		);
+		setPage(newPage);
+	}, [dispatch, getValues, page]);
+
 	useEffect(() => {
 		void dispatch(vendorActions.loadAll())
 			.unwrap()
@@ -110,8 +138,10 @@ const AddCourseModal: React.FC<Properties> = ({
 
 	const handleClose = useCallback((): void => {
 		dispatch(courseActions.clearCourses());
+		setPage(PaginationValue.DEFAULT_PAGE);
+		setValue("search", "");
 		onClose();
-	}, [dispatch, onClose]);
+	}, [dispatch, onClose, setPage, setValue]);
 
 	return (
 		<Modal isOpen={isOpen} onClose={handleClose}>
@@ -153,22 +183,32 @@ const AddCourseModal: React.FC<Properties> = ({
 				</header>
 				<div className={styles["content"]}>
 					<div className={styles["course-container"]}>
-						{isLoading ? (
+						{isLoadFirstPage ? (
 							<Loader color="orange" size="large" />
 						) : (
 							<>
 								<Courses courses={courses} onAddCourse={handleAddCourse} />
 								{hasCourses && (
-									<div className={styles["recommended-courses"]}>
-										<h2 className={styles["courses-title"]}>
-											Recommended Courses
-										</h2>
-
-										<Courses
-											courses={recommendedCourses}
-											onAddCourse={handleAddCourse}
+									<>
+										<Button
+											className={styles["load-more-button"]}
+											isDisabled={isLoadMore}
+											isLoading={isLoadMore}
+											label="Load more"
+											onClick={handleLoadMore}
+											size="small"
 										/>
-									</div>
+										<div className={styles["recommended-courses"]}>
+											<h2 className={styles["courses-title"]}>
+												Recommended Courses
+											</h2>
+
+											<Courses
+												courses={recommendedCourses}
+												onAddCourse={handleAddCourse}
+											/>
+										</div>
+									</>
 								)}
 							</>
 						)}

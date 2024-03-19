@@ -202,8 +202,16 @@ erDiagram
     int user_id FK
   }
 
+  subscriptions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    dateTime expires_at
+  }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
+   user_details ||--|| subscriptions : subscription_id
 
    users ||--|{ friends : follower_id
    users ||--|{ friends : following_id
@@ -324,6 +332,8 @@ As we are already using js on both frontend and backend it would be useful to sh
 - apps/backend/.env
 
 You should use .env.example files as a reference.
+
+In order to set up sending emails you need specify `MAIL_USER_EMAIL` and `MAIL_USER_PASSWORD`. Here is [instruction for generating gmail app password](https://support.google.com/mail/answer/185833?hl=en)
 
 1. Install dependencies: `npm install`.
 

@@ -1,11 +1,14 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Button, Image, Link } from "~/libs/components/components.js";
+import { Button, Icon, Image, Link } from "~/libs/components/components.js";
 import {
 	EMPTY_LENGTH,
 	PAGES_WITH_SEARCH_BAR,
 } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { checkIfPathMatchingPattern } from "~/libs/helpers/helpers.js";
+import {
+	checkIfPathMatchingPattern,
+	getValidClassNames,
+} from "~/libs/helpers/helpers.js";
 import { useAppSelector, useLocation } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -42,6 +45,7 @@ const Header: React.FC = () => {
 
 	const hasUnreadMessages = unreadMessagesCount > EMPTY_LENGTH;
 	const hasUnreadNotifications = unreadNotificationsCount > EMPTY_LENGTH;
+	const hasSubscription = Boolean(user.subscription);
 
 	return (
 		<header className={styles["header"]}>
@@ -79,15 +83,21 @@ const Header: React.FC = () => {
 							</span>
 						)}
 					</div>
-					<Link to={AppRoute.PROFILE}>
+					<Link className={styles["avatar"]} to={AppRoute.PROFILE}>
 						<Image
 							alt="user-avatar"
-							className={styles["image"]}
+							className={getValidClassNames(
+								styles["image"],
+								hasSubscription && styles["premium"],
+							)}
 							height="48"
 							shape="circle"
 							src={user.avatarUrl ?? defaultAvatar}
 							width="48"
 						/>
+						{hasSubscription && (
+							<Icon className={styles["premium-icon"]} name="crown" />
+						)}
 					</Link>
 				</nav>
 			</div>

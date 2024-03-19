@@ -8,6 +8,7 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
+	Currency,
 	DateValue,
 	ExceptionMessage,
 	FormatDateType,
@@ -26,6 +27,7 @@ export {
 	getFormattedDate,
 	getPercentage,
 	getSanitizedHtml,
+	getShiftedDate,
 	getSizeInBytes,
 	getTimeDistanceFormatDate,
 	initDebounce,
@@ -49,6 +51,7 @@ export {
 	type ServerErrorResponse,
 	type ServerValidationErrorResponse,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
@@ -57,6 +60,8 @@ export {
 	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
+	type ActivityFinishCourseResponseDto,
+	type ActivityFinishSectionResponseDto,
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
@@ -69,7 +74,17 @@ export {
 	type ActivityLikeRequestDto,
 	activityLikeChangeValidationSchema,
 } from "./modules/activity-likes/activity-likes.js";
-export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	AuthApiPath,
+	AuthError,
+	AuthErrorMessage,
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+	type AuthUpdatePasswordResponseDto,
+	authForgotPasswordValidationSchema,
+	authPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
@@ -78,6 +93,7 @@ export {
 	ChatMessagesApiPath,
 	MessageStatus,
 	type ReadChatMessagesRequestDto,
+	type ReadChatMessagesResponseDto,
 	chatMessageCreateValidationSchema,
 	chatMessageIdParameterValidationSchema,
 	chatMessageUpdateValidationSchema,
@@ -126,9 +142,10 @@ export {
 	CourseErrorMessage,
 	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
+	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
 	CoursesApiPath,
-	type CoursesResponseDto,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
 } from "./modules/courses/courses.js";
@@ -168,7 +185,9 @@ export {
 	type NotificationResponseDto,
 	NotificationStatus,
 	NotificationType,
+	type ReadNotificationsResponseDto,
 	type UpdateNotificationRequestDto,
+	notificationFilterToType,
 } from "./modules/notifications/notifications.js";
 export {
 	PermissionError,
@@ -196,6 +215,17 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
+	SubscriptionApiPath,
+	SubscriptionError,
+	type SubscriptionPaymentIntentCancelRequestDto,
+	type SubscriptionPaymentIntentCreateRequestDto,
+	type SubscriptionPaymentIntentCreateResponseDto,
+	SubscriptionPlan,
+	type SubscriptionResponseDto,
+	cancelPaymentIntentValidationSchema,
+	createPaymentIntentValidationSchema,
+} from "./modules/subscriptions/subscriptions.js";
+export {
 	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,
@@ -213,6 +243,7 @@ export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,
 	UserError,
+	UserErrorMessage,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,

@@ -15,6 +15,7 @@ import { friendController } from "~/modules/friends/friends.js";
 import { groupController } from "~/modules/groups/groups.js";
 import { permissionController } from "~/modules/permissions/permissions.js";
 import { sectionStatusController } from "~/modules/section-statuses/section-statuses.js";
+import { subscriptionController } from "~/modules/subscriptions/subscriptions.js";
 import { userCourseController } from "~/modules/user-courses/user-courses.js";
 import { userNotificationController } from "~/modules/user-notifications/user-notifications.js";
 import { userController, userService } from "~/modules/users/users.js";
@@ -42,6 +43,7 @@ const apiV1 = new BaseServerApplicationApi(
 	...courseSectionController.routes,
 	...sectionStatusController.routes,
 	...commentController.routes,
+	...subscriptionController.routes,
 );
 const serverApplication = new BaseServerApplication({
 	apis: [apiV1],

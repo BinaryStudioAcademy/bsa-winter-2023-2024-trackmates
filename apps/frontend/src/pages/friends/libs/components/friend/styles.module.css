@@ -1,15 +1,17 @@
 .actions {
 	display: flex;
-	gap: 24px;
+	gap: 9px;
 	align-items: center;
 	min-height: 60px;
-	padding: 12px;
+	padding: 12px 8px;
 	font-weight: 500;
 	background-color: var(--color-menu);
 }
 
 .button {
 	flex: 1;
+	height: 32px;
+	padding: 4px 10px;
 	cursor: pointer;
 }
 
@@ -24,10 +26,6 @@
 	transition: 0.3s ease;
 }
 
-.card:hover {
-	border: 1px solid var(--color-menu);
-}
-
 .card-content {
 	flex-grow: 1;
 	padding: 12px;
@@ -35,9 +33,10 @@
 }
 
 .fullName {
-	overflow: hidden;
+	margin: 17px 0 12px;
 	font-size: var(--font-size-300);
 	font-weight: 500;
+	line-height: 1;
 	color: var(--color-text-300);
 	text-overflow: ellipsis;
 }
@@ -51,7 +50,19 @@
 }
 
 .start-chat {
+	height: 32px;
 	min-height: unset;
-	padding: 7px;
+	padding: 6px;
 	fill: currentcolor;
+}
+
+.start-chat :first-child {
+	width: 18px;
+	height: 18px;
+}
+
+@media (hover: hover) {
+	.card:hover {
+		border: 1px solid var(--color-menu);
+	}
 }

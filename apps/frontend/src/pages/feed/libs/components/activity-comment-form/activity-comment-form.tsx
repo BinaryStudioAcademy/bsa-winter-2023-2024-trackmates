@@ -1,5 +1,5 @@
 import { Button, Input } from "~/libs/components/components.js";
-import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 import { commentTextValidationSchema } from "~/modules/comments/comments.js";
 
@@ -15,17 +15,26 @@ const ActivityCommentForm: React.FC<Properties> = ({
 	isLoading,
 	onSubmit,
 }: Properties) => {
-	const { control, errors, handleSubmit, reset } = useAppForm({
+	const {
+		control,
+		errors,
+		formState: { isSubmitSuccessful },
+		handleSubmit,
+		reset,
+	} = useAppForm({
 		defaultValues: DEFAULT_COMMENT_PAYLOAD,
 		validationSchema: commentTextValidationSchema,
 	});
 
+	useEffect(() => {
+		reset();
+	}, [isSubmitSuccessful, reset]);
+
 	const handleCreateComment = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onSubmit)(event_);
-			reset();
 		},
-		[reset, handleSubmit, onSubmit],
+		[handleSubmit, onSubmit],
 	);
 
 	return (
@@ -35,12 +44,13 @@ const ActivityCommentForm: React.FC<Properties> = ({
 			onSubmit={handleCreateComment}
 		>
 			<Input
-				className={styles["input"]}
+				className={styles["textarea"]}
 				control={control}
 				errors={errors}
 				hasVisuallyHiddenLabel
 				label="Enter your comment here.."
 				name="text"
+				rows={1}
 			/>
 			<Button
 				className={styles["icon"]}

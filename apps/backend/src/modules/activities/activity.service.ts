@@ -82,7 +82,7 @@ class ActivityService implements Service {
 		}
 
 		const updatedTargetActivity =
-			await this.activityRepository.find(activityId);
+			await this.activityRepository.findWithUserLike(activityId, userId);
 
 		return updatedTargetActivity
 			? (updatedTargetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
