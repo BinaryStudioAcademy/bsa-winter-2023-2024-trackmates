@@ -103,7 +103,7 @@ class FriendService {
 			});
 		}
 
-		await this.notificationService.deleteAllNotificationsByUserId(
+		await this.notificationService.deleteAllNotificationsByParameters(
 			id,
 			userId,
 			NotificationType.NEW_FOLLOWER,
