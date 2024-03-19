@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.76.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.76.0...v1.76.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* **frontend:** align dates vertically tm-579 ([#613](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/613)) ([5b0c16f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5b0c16f1a718455ba7d9851a783776986c56e696))
+* **frontend:** buttons should not have hover effect on mobile devices tm-574 ([#597](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/597)) ([b3f458f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b3f458f9a13ebeb2231a16d5866b11d8136f9c6b))
+
 ## [1.76.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.75.0...v1.76.0) (2024-03-19)
 
 
