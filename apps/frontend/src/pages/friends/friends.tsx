@@ -153,10 +153,11 @@ const Friends: React.FC = () => {
 		<div className={styles["wrapper"]}>
 			<ul className={styles["link-list"]}>
 				{LINKS.map((link, index) => {
-					const queryString = searchQuery
-						? `?${QueryParameterName.SEARCH}=${searchQuery}`
-						: "";
-					const currentLink = link.to + queryString;
+					const queryString = new URLSearchParams({
+						[QueryParameterName.SEARCH]: searchQuery ?? "",
+					}).toString();
+
+					const currentLink = link.to + `?${queryString}`;
 
 					return (
 						<li
