@@ -411,6 +411,64 @@ class UserRepository implements Repository<UserEntity> {
 				})
 			: null;
 	}
+
+	public async updatePassword(
+		id: number,
+		password: {
+			hash: string;
+			salt: string;
+		},
+	): Promise<UserEntity> {
+		const { hash: passwordHash, salt: passwordSalt } = password;
+
+		const user = await this.userModel
+			.query()
+			.patchAndFetchById(id, { passwordHash, passwordSalt })
+			.withGraphFetched(
+				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+			)
+			.execute();
+
+		return UserEntity.initialize({
+			avatarUrl: user.userDetails.avatarFile?.url ?? null,
+			createdAt: user.createdAt,
+			email: user.email,
+			firstName: user.userDetails.firstName,
+			groups: user.groups.map((group) => {
+				return GroupEntity.initialize({
+					createdAt: group.createdAt,
+					id: group.id,
+					key: group.key,
+					name: group.name,
+					permissions: group.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
+					updatedAt: group.updatedAt,
+				});
+			}),
+			id: user.id,
+			lastName: user.userDetails.lastName,
+			nickname: user.userDetails.nickname,
+			passwordHash: user.passwordHash,
+			passwordSalt: user.passwordSalt,
+			sex: user.userDetails.sex,
+			subscription: user.userDetails.subscription
+				? SubscriptionEntity.initialize({
+						createdAt: user.userDetails.subscription.createdAt,
+						expiresAt: user.userDetails.subscription.expiresAt,
+						id: user.userDetails.subscription.id,
+						updatedAt: user.userDetails.subscription.updatedAt,
+					})
+				: null,
+			updatedAt: user.updatedAt,
+		});
+	}
 }
 
 export { UserRepository };

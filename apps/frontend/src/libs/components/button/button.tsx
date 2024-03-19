@@ -12,7 +12,7 @@ type Properties = {
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconClassName?: string | undefined;
-	iconName?: IconName;
+	iconName?: IconName | undefined;
 	isDisabled?: boolean;
 	isLoading?: boolean;
 	label: string;
@@ -61,7 +61,7 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<Link className={buttonStyles} to={href}>
+				<Link className={buttonStyles} isDisabled={isDisabled} to={href}>
 					{icon}
 					<span className={labelStyle}>{label}</span>
 				</Link>

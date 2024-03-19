@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.42.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.41.0...backend-v1.42.0) (2024-03-19)
+
+
+### Features
+
+* **frontend/backend/shared:** forgot password tm-499 ([#570](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/570)) ([862bf9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/862bf9b449ada694b5f159d4fccac50dd5f7817f))
+
 ## [1.41.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.40.0...backend-v1.41.0) (2024-03-18)
 
 

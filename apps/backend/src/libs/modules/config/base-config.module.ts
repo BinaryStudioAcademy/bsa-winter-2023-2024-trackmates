@@ -130,6 +130,50 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			MAIL: {
+				IS_LOGGED: {
+					default: false,
+					doc: "If set to true then logs to console",
+					env: "MAIL_IS_LOGGED",
+					format: Boolean,
+				},
+				IS_REQUIRE_TLS: {
+					default: false,
+					doc: "Forces the client to use STARTTLS",
+					env: "MAIL_IS_REQUIRE_TLS",
+					format: Boolean,
+				},
+				IS_SECURE: {
+					default: true,
+					doc: "Defines if the connection should use SSL",
+					env: "MAIL_IS_SECURE",
+					format: Boolean,
+				},
+				SERVICE: {
+					default: null,
+					doc: "Service for sending mails",
+					env: "MAIL_SERVICE",
+					format: String,
+				},
+				USER_EMAIL: {
+					default: null,
+					doc: "Email of sender user",
+					env: "MAIL_USER_EMAIL",
+					format: String,
+				},
+				USER_NAME: {
+					default: null,
+					doc: "Name of sender user",
+					env: "MAIL_USER_NAME",
+					format: String,
+				},
+				USER_PASSWORD: {
+					default: null,
+					doc: "Password of sender user",
+					env: "MAIL_USER_PASSWORD",
+					format: String,
+				},
+			},
 			OPENAI: {
 				API_KEY: {
 					default: null,
@@ -169,6 +213,34 @@ class BaseConfig implements Config {
 					default: null,
 					doc: "API url",
 					env: "UDEMY_URL",
+					format: String,
+				},
+			},
+			UPDATE_PASSWORD: {
+				JWT: {
+					ALGORITHM: {
+						default: null,
+						doc: "Algorithm for token generation",
+						env: "UPDATE_PASSWORD_TOKEN_ALGORITHM",
+						format: String,
+					},
+					EXPIRES_IN: {
+						default: null,
+						doc: "Token expiration time",
+						env: "UPDATE_PASSWORD_TOKEN_EXPIRES_IN",
+						format: String,
+					},
+					SECRET: {
+						default: null,
+						doc: "Secret key for token generation",
+						env: "UPDATE_PASSWORD_SECRET_KEY",
+						format: String,
+					},
+				},
+				LINK: {
+					default: null,
+					doc: "Update password base link",
+					env: "UPDATE_PASSWORD_LINK",
 					format: String,
 				},
 			},

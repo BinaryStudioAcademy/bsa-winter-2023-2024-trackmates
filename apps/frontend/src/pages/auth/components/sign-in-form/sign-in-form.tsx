@@ -68,6 +68,12 @@ const SignInForm: React.FC<Properties> = ({ onSubmit }: Properties) => {
 				type="text"
 			/>
 			<div className={styles["password-input"]}>
+				<Link
+					className={styles["forgot-password-link"]}
+					to={AppRoute.FORGOT_PASSWORD}
+				>
+					Forgot password?
+				</Link>
 				<Input
 					className={styles["password"]}
 					color="dark"

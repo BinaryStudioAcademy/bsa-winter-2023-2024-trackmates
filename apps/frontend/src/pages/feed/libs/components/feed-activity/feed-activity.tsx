@@ -72,9 +72,9 @@ const FeedActivity: React.FC<Properties> = ({
 							{activity.user.firstName} {activity.user.lastName}
 						</h3>
 					</div>
-					<div className={styles["card-info"]}>
-						{getActivityTitle(activity)}
-					</div>
+					<p className={styles["card-info"]}>
+						{getActivityTitle(activity, userId)}
+					</p>
 				</div>
 				<div className={styles["toolbar"]}>
 					<div className={styles["tool-container"]}>

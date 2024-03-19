@@ -8,7 +8,6 @@
 	padding: 10px 19px 10px 12px;
 }
 
-.container:hover,
 .container:focus {
 	background-color: var(--color-background);
 }
@@ -72,5 +71,11 @@
 @media screen and (--medium-screen) {
 	.reducible .text-container {
 		display: none;
+	}
+}
+
+@media (hover: hover) {
+	.container:hover {
+		background-color: var(--color-background);
 	}
 }
