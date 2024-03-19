@@ -73,7 +73,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		return Boolean(deletedRowsCount);
 	}
 
-	public async deleteAllNotificationByParameters(
+	public async deleteAllNotificationsByParameters(
 		id: number,
 		receiverUserId: number,
 		type: string,
