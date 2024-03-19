@@ -53,6 +53,8 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		[user],
 	);
 
+	const isPWASidebar = window.matchMedia("(display-mode: standalone)").matches;
+
 	return (
 		<>
 			<Button
@@ -90,7 +92,14 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 										to={href}
 									>
 										<Icon className={styles["link-icon"]} name={icon} />
-										<span className={styles["link-title"]}>{label}</span>
+										<span
+											className={getValidClassNames(
+												styles["link-title"],
+												isPWASidebar && "visually-hidden",
+											)}
+										>
+											{label}
+										</span>
 									</Link>
 								)
 							);
@@ -99,9 +108,9 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 				</div>
 				<Button
 					className={styles["log-out-btn"]}
+					hasVisuallyHiddenLabel={isPWASidebar}
 					iconName="logOut"
 					label="Log Out"
-					labelClassName={styles["log-out-label"]}
 					onClick={handleLogOut}
 					style="plain"
 				/>
