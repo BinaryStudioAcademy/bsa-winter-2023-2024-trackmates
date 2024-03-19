@@ -1,7 +1,7 @@
 import { UsersTableHeader } from "../enums/enums.js";
 
 const usersHeaderToPropertyName = {
-	[UsersTableHeader.BUTTONS]: "buttons",
+	[UsersTableHeader.ACTIONS]: "actions",
 	[UsersTableHeader.EMAIL]: "email",
 	[UsersTableHeader.FIRST_NAME]: "firstName",
 	[UsersTableHeader.GROUPS]: "groups",
