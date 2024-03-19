@@ -3,13 +3,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import {
 	type AsyncThunkConfig,
-	type PaginationRequestDto,
 	type PaginationResponseDto,
 } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 
 import {
 	type FriendFollowRequestDto,
+	type FriendListRequestDto,
 	type FriendUnfollowRequestDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./friends.slice.js";
@@ -26,7 +26,7 @@ const getAllFollowingsIds = createAsyncThunk<
 
 const getPotentialFriends = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
-	{ search: string } & PaginationRequestDto,
+	FriendListRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-potential-friends`, (requestPayload, { extra }) => {
 	const { friendsApi } = extra;
@@ -36,7 +36,7 @@ const getPotentialFriends = createAsyncThunk<
 
 const getFollowers = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
-	{ search: string } & PaginationRequestDto,
+	FriendListRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-followers`, (requestPayload, { extra }) => {
 	const { friendsApi } = extra;
@@ -55,7 +55,7 @@ const getIsFollowing = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 
 const getFollowings = createAsyncThunk<
 	PaginationResponseDto<UserAuthResponseDto>,
-	{ search: string } & PaginationRequestDto,
+	FriendListRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-followings`, (requestPayload, { extra }) => {
 	const { friendsApi } = extra;

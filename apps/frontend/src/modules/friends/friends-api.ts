@@ -2,16 +2,14 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
-import {
-	type PaginationRequestDto,
-	type PaginationResponseDto,
-} from "~/libs/types/types.js";
+import { type PaginationResponseDto } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../auth/auth.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import {
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
+	type FriendListRequestDto,
 	type FriendUnfollowRequestDto,
 } from "./libs/types/types.js";
 
@@ -55,7 +53,7 @@ class FriendsApi extends BaseHTTPApi {
 	}
 
 	public async getAllPotentialFriends(
-		query: { search: string } & PaginationRequestDto,
+		query: FriendListRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.POTENTIAL_FOLLOWINGS, {}),
@@ -70,7 +68,7 @@ class FriendsApi extends BaseHTTPApi {
 	}
 
 	public async getFollowers(
-		query: { search: string } & PaginationRequestDto,
+		query: FriendListRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOWERS, {}),
@@ -85,7 +83,7 @@ class FriendsApi extends BaseHTTPApi {
 	}
 
 	public async getFollowings(
-		query: { search: string } & PaginationRequestDto,
+		query: FriendListRequestDto,
 	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(FriendsApiPath.FOLLOWINGS, {}),
