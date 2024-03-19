@@ -10,7 +10,7 @@ import {
 } from "../libs/types/types.js";
 import {
 	deleteById,
-	getAllByFilter,
+	getAll,
 	getAllByVendor,
 	getById,
 	getRecommended,
@@ -102,14 +102,14 @@ const { actions, name, reducer } = createSlice({
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;
 		});
-		builder.addCase(getAllByFilter.fulfilled, (state, action) => {
+		builder.addCase(getAll.fulfilled, (state, action) => {
 			state.allCourses = action.payload;
 			state.allCoursesDataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getAllByFilter.pending, (state) => {
+		builder.addCase(getAll.pending, (state) => {
 			state.allCoursesDataStatus = DataStatus.PENDING;
 		});
-		builder.addCase(getAllByFilter.rejected, (state) => {
+		builder.addCase(getAll.rejected, (state) => {
 			state.allCoursesDataStatus = DataStatus.REJECTED;
 		});
 

@@ -40,17 +40,16 @@ const getRecommended = createAsyncThunk<
 	return courseApi.getRecommended(filterPayload);
 });
 
-const getAllByFilter = createAsyncThunk<
-	CourseDto[],
-	undefined,
-	AsyncThunkConfig
->(`${sliceName}/get-all-by-filter`, async (_, { extra }) => {
-	const { courseApi } = extra;
+const getAll = createAsyncThunk<CourseDto[], undefined, AsyncThunkConfig>(
+	`${sliceName}/get-all`,
+	async (_, { extra }) => {
+		const { courseApi } = extra;
 
-	const { courses } = await courseApi.getAllByFilter();
+		const { courses } = await courseApi.getAll();
 
-	return courses;
-});
+		return courses;
+	},
+);
 
 const deleteById = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 	`${sliceName}/delete-by-id`,
@@ -83,11 +82,4 @@ const update = createAsyncThunk<
 	return updatedCourse;
 });
 
-export {
-	deleteById,
-	getAllByFilter,
-	getAllByVendor,
-	getById,
-	getRecommended,
-	update,
-};
+export { deleteById, getAll, getAllByVendor, getById, getRecommended, update };

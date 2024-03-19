@@ -1,6 +1,6 @@
 import {
 	deleteById,
-	getAllByFilter,
+	getAll,
 	getAllByVendor,
 	getById,
 	getRecommended,
@@ -11,7 +11,7 @@ import { actions } from "./courses.slice.js";
 const allActions = {
 	...actions,
 	deleteById,
-	getAllByFilter,
+	getAll,
 	getAllByVendor,
 	getById,
 	getRecommended,

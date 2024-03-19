@@ -46,7 +46,7 @@ const CoursesTab: React.FC = () => {
 	const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
 	useEffect(() => {
-		void dispatch(coursesActions.getAllByFilter());
+		void dispatch(coursesActions.getAll());
 	}, [dispatch]);
 
 	const handleCloseConfirmationModal = useCallback(() => {
