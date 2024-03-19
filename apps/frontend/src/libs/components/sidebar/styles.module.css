@@ -281,7 +281,7 @@
 	}
 
 	.link-title,
-	.log-out-btn > :first-child > :last-child {
+	.log-out-icon ~ :last-child {
 		position: absolute;
 		width: 1px;
 		height: 1px;

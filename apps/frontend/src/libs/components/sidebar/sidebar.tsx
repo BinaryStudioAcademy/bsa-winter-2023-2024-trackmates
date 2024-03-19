@@ -99,6 +99,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 				</div>
 				<Button
 					className={styles["log-out-btn"]}
+					iconClassName={styles["log-out-icon"]}
 					iconName="logOut"
 					label="Log Out"
 					onClick={handleLogOut}
