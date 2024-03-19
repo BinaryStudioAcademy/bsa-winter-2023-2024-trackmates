@@ -77,6 +77,18 @@ class NotificationService implements Service {
 		return await this.notificationRepository.delete(notificationId);
 	}
 
+	public async deleteAllNotificationsByUserId(
+		id: number,
+		userId: number,
+		type: string,
+	): Promise<boolean> {
+		return await this.notificationRepository.deleteAllNotificationByParameters(
+			id,
+			userId,
+			type,
+		);
+	}
+
 	public async deleteByActionId(
 		actionId: number,
 		type: ValueOf<typeof NotificationType>,
@@ -103,18 +115,6 @@ class NotificationService implements Service {
 		});
 
 		return await this.notificationRepository.deleteByActionId(actionId, type);
-	}
-
-	public async deteleAllNotificationByUserId(
-		id: number,
-		userId: number,
-		type: string,
-	): Promise<boolean> {
-		return await this.notificationRepository.deleteAllNotificationByParameters(
-			id,
-			userId,
-			type,
-		);
 	}
 
 	public async find(notificationId: number): Promise<NotificationResponseDto> {
