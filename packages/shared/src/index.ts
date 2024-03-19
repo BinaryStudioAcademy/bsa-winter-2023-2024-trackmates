@@ -51,6 +51,7 @@ export {
 	type ServerErrorResponse,
 	type ServerValidationErrorResponse,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
@@ -71,7 +72,17 @@ export {
 	type ActivityLikeRequestDto,
 	activityLikeChangeValidationSchema,
 } from "./modules/activity-likes/activity-likes.js";
-export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	AuthApiPath,
+	AuthError,
+	AuthErrorMessage,
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+	type AuthUpdatePasswordResponseDto,
+	authForgotPasswordValidationSchema,
+	authPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,

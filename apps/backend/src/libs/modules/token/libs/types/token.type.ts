@@ -1,10 +1,8 @@
 import { type JWTVerifyResult } from "jose";
 
-import { type TokenPayload } from "./types.js";
-
-type Token = {
-	create(payload: TokenPayload): Promise<string>;
-	verify(token: string): Promise<JWTVerifyResult<TokenPayload>>;
+type Token<T> = {
+	create(payload: T): Promise<string>;
+	verify(token: string): Promise<JWTVerifyResult<T>>;
 };
 
 export { type Token };
