@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.78.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.77.0...v1.78.0) (2024-03-19)
+
+
+### Features
+
+* **shared:** change default count to 12 tm-629 ([#633](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/633)) ([2e6b308](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2e6b308f46f993f3f06d0d6efa3a1cef9b2b67ee))
+
 ## [1.77.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.76.2...v1.77.0) (2024-03-19)
 
 
