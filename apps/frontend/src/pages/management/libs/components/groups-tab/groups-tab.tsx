@@ -233,12 +233,14 @@ const GroupsTab: React.FC = () => {
 							});
 
 						return (
-							<li className={styles["modal-item"]} key={permission.id}>
+							<li
+								className={styles["modal-item"]}
+								key={`${currentGroup?.id}${permission.id}`}
+							>
 								<EditCheckbox
 									isChecked={isChecked}
 									isDisabled={isDisabled}
 									itemId={permission.id}
-									key={permission.id}
 									name={permission.name}
 									onToggle={handleToggleCheckbox}
 								/>
