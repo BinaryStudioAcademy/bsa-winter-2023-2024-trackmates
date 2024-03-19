@@ -8,6 +8,7 @@ import {
 	type CourseDto,
 	type CourseSearchFilterDto,
 	type CourseSearchGetAllResponseDto,
+	type CourseUpdateRequestDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -21,11 +22,36 @@ class CourseApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.COURSES, storage });
 	}
 
-	public async getAll(
+	public async deleteById(courseId: string): Promise<{ success: boolean }> {
+		const response = await this.load(
+			this.getFullEndpoint(CoursesApiPath.$COURSE_ID, { courseId }),
+			{
+				hasAuth: true,
+				method: "DELETE",
+			},
+		);
+
+		return await response.json<{ success: boolean }>();
+	}
+
+	public async getAll(): Promise<CourseSearchGetAllResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<CourseSearchGetAllResponseDto>();
+	}
+
+	public async getAllByVendor(
 		filter: CourseSearchFilterDto,
 	): Promise<CourseSearchGetAllResponseDto> {
 		const response = await this.load(
-			this.getFullEndpoint(CoursesApiPath.ROOT, {}),
+			this.getFullEndpoint(CoursesApiPath.FROM_VENDORS, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -65,6 +91,25 @@ class CourseApi extends BaseHTTPApi {
 		);
 
 		return await response.json<CourseSearchGetAllResponseDto>();
+	}
+
+	public async update(
+		courseId: string,
+		payload: CourseUpdateRequestDto,
+	): Promise<CourseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(CoursesApiPath.$COURSE_ID, {
+				courseId,
+			}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "PUT",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<CourseDto>();
 	}
 }
 

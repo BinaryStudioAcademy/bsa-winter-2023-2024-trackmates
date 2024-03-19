@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.41.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.40.0...shared-v1.41.0) (2024-03-19)
+
+
+### Features
+
+* **shared:** change default count to 12 tm-629 ([#633](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/633)) ([2e6b308](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2e6b308f46f993f3f06d0d6efa3a1cef9b2b67ee))
+
+## [1.40.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.39.0...shared-v1.40.0) (2024-03-19)
+
+
+### Features
+
+* **backend/frontend/shared:** UAM (User Access Management) - Courses tm-231 ([#568](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/568)) ([6c586f1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6c586f19f913b18fe568ab361e7c7984227f448a))
+
 ## [1.39.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.38.0...shared-v1.39.0) (2024-03-19)
 
 
