@@ -1,5 +1,11 @@
-import { Link } from "~/libs/components/components.js";
-import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
+import { Link, Loader } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
+import {
+	AppRoute,
+	AppTitle,
+	DataStatus,
+	PaginationValue,
+} from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -7,65 +13,131 @@ import {
 	useAppTitle,
 	useEffect,
 	useLocation,
+	usePagination,
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/friends/friends.js";
 
-import { FriendList } from "./libs/components/components.js";
+import { FriendsTab } from "./libs/components/components.js";
 import { LINKS } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const Friends: React.FC = () => {
-	const { followers, followings, potentialFriends } = useAppSelector(
-		({ friends }) => {
-			return {
-				followers: friends.followers,
-				followings: friends.followings,
-				potentialFriends: friends.potentialFriends,
-			};
-		},
-	);
-	const dispatch = useAppDispatch();
+	useAppTitle(AppTitle.FRIENDS);
+
 	const { pathname } = useLocation();
 
-	useAppTitle(AppTitle.FRIENDS);
+	const dispatch = useAppDispatch();
+
+	const { isLoading } = useAppSelector((state) => {
+		return {
+			isLoading: state.friends.dataStatus === DataStatus.PENDING,
+		};
+	});
+
+	const friendsData = useAppSelector((state) => {
+		switch (pathname) {
+			case AppRoute.FRIENDS_FOLLOWERS: {
+				return {
+					items: state.friends.followers,
+					total: state.friends.followersTotalCount,
+				};
+			}
+
+			case AppRoute.FRIENDS_FOLLOWINGS: {
+				return {
+					items: state.friends.followings,
+					total: state.friends.followingsTotalCount,
+				};
+			}
+
+			default: {
+				return {
+					items: state.friends.potentialFriends,
+					total: state.friends.potentialFriendsTotalCount,
+				};
+			}
+		}
+	});
+
+	const pagination = usePagination({
+		pageSize: PaginationValue.DEFAULT_COUNT,
+		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		totalCount: friendsData.total,
+	});
 
 	useEffect(() => {
 		switch (pathname) {
 			case AppRoute.FRIENDS: {
-				void dispatch(actions.getPotentialFriends());
-				void dispatch(actions.getFollowings());
+				void dispatch(
+					actions.getPotentialFriends({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: pagination.page,
+					}),
+				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 
 			case AppRoute.FRIENDS_FOLLOWERS: {
-				void dispatch(actions.getFollowers());
-				void dispatch(actions.getFollowings());
+				void dispatch(
+					actions.getFollowers({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: pagination.page,
+					}),
+				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 
 			case AppRoute.FRIENDS_FOLLOWINGS: {
-				void dispatch(actions.getFollowings());
+				void dispatch(
+					actions.getFollowings({
+						count: PaginationValue.DEFAULT_COUNT,
+						page: pagination.page,
+					}),
+				);
+				dispatch(actions.clearFollowings());
 				break;
 			}
 		}
-	}, [dispatch, pathname]);
+	}, [dispatch, pathname, pagination.page]);
+
+	useEffect(() => {
+		void dispatch(actions.getAllFollowingsIds());
+	}, [dispatch, pagination.page]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
 			case AppRoute.FRIENDS: {
-				return <FriendList friends={potentialFriends} />;
+				return (
+					<FriendsTab
+						emptyPlaceholder="There aren't any potential friends"
+						items={friendsData.items}
+						pagination={pagination}
+					/>
+				);
 			}
 
 			case AppRoute.FRIENDS_FOLLOWERS: {
-				return <FriendList friends={followers} />;
+				return (
+					<FriendsTab
+						emptyPlaceholder="You don't have any followers yet"
+						items={friendsData.items}
+						pagination={pagination}
+					/>
+				);
 			}
 
 			case AppRoute.FRIENDS_FOLLOWINGS: {
-				return <FriendList friends={followings} />;
+				return (
+					<FriendsTab
+						emptyPlaceholder="You aren't following anyone yet"
+						items={friendsData.items}
+						pagination={pagination}
+					/>
+				);
 			}
 		}
-
-		return null;
 	};
 
 	return (
@@ -85,7 +157,11 @@ const Friends: React.FC = () => {
 					</li>
 				))}
 			</ul>
-			{handleScreenRender(pathname)}
+			{isLoading ? (
+				<Loader color="orange" size="large" />
+			) : (
+				handleScreenRender(pathname)
+			)}
 		</div>
 	);
 };

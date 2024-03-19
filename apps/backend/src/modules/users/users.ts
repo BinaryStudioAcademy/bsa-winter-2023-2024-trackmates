@@ -12,6 +12,8 @@ const userService = new UserService(encrypt, userRepository);
 const userController = new UserController(logger, userService);
 
 export { userController, userRepository, userService };
+export { UserSex } from "./libs/enums/enums.js";
+export { UserError } from "./libs/exceptions/exceptions.js";
 export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,

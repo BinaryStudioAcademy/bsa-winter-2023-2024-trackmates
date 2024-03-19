@@ -1,7 +1,10 @@
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute, DataStatus } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
-import { useCallback, useState } from "~/libs/hooks/hooks.js";
-import { type CourseDto } from "~/modules/courses/courses.js";
+import { useAppSelector, useCallback } from "~/libs/hooks/hooks.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+} from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
 	type UserCourseResponseDto,
@@ -10,10 +13,14 @@ import {
 import { Button } from "../button/button.js";
 import { Link } from "../link/link.js";
 import { CourseCard } from "./libs/component/component.js";
+import {
+	checkIsSearchedCourse,
+	checkIsUserCourse,
+} from "./libs/helpers/helpers.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | UserCourseResponseDto;
+	course: CourseDto | CourseSearchResponseDto | UserCourseResponseDto;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
 	userId?: number | undefined;
 };
@@ -24,7 +31,17 @@ const Course: React.FC<Properties> = ({
 	userId,
 }: Properties) => {
 	const { id, url, vendor, vendorCourseId } = course;
-	const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
+	const addedVendorCourseDataStatuses = useAppSelector(({ courses }) => {
+		return courses.addedVendorCourseDataStatuses;
+	});
+
+	const isLoading =
+		addedVendorCourseDataStatuses[vendorCourseId] === DataStatus.PENDING;
+
+	const hasUserCourse = checkIsSearchedCourse(course)
+		? course.hasUserCourse
+		: true;
+	const isDisabled = isLoading || hasUserCourse;
 
 	const courseDescriptionRouteById = configureString(
 		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
@@ -33,25 +50,33 @@ const Course: React.FC<Properties> = ({
 			userId: String(userId),
 		},
 	) as typeof AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID;
+	const courseComparisonRoute = configureString(
+		AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE,
+		{
+			courseId: String(id),
+			userId: String(userId),
+		},
+	) as typeof AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE;
 
 	const hasAddCourse = !!onAddCourse;
+	const hasProgress = checkIsUserCourse(course);
+	const hasCompare = !hasProgress && !hasAddCourse;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
 			vendorCourseId,
 			vendorId: vendor.id,
 		});
-		setIsButtonDisabled(true);
 	}, [onAddCourse, vendor.id, vendorCourseId]);
 
 	return (
 		<article className={styles["container"]}>
-			{hasAddCourse ? (
-				<CourseCard course={course} />
-			) : (
+			{hasProgress ? (
 				<Link className={styles["link"]} to={courseDescriptionRouteById}>
 					<CourseCard course={course} />
 				</Link>
+			) : (
+				<CourseCard course={course} />
 			)}
 			{hasAddCourse && (
 				<div className={styles["actions"]}>
@@ -66,9 +91,20 @@ const Course: React.FC<Properties> = ({
 					<Button
 						className={styles["course-add-button"]}
 						iconName="plusOutlined"
-						isDisabled={isButtonDisabled}
+						isDisabled={isDisabled}
+						isLoading={isLoading}
 						label="Add"
 						onClick={handleAddCourse}
+						size="small"
+					/>
+				</div>
+			)}
+			{hasCompare && (
+				<div className={styles["actions"]}>
+					<Button
+						className={styles["compare-progress-button"]}
+						href={courseComparisonRoute}
+						label="Compare progress"
 						size="small"
 					/>
 				</div>

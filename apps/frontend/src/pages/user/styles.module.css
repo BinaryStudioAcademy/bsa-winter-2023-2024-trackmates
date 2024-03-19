@@ -1,10 +1,28 @@
+@import url("~/assets/css/media.css");
+
 .container {
-	position: relative;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	padding: 33px 41px 21px;
+	flex-grow: 1;
+	padding: 16px 40px;
 	background-color: var(--color-background);
+}
+
+.courses-container {
+	display: grid;
+	flex-grow: 1;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	padding: 27px 0 0;
+	margin: 0 auto;
+	color: var(--color-text-300);
+}
+
+.courses-container-content {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	justify-content: space-between;
 }
 
 .user-content {
@@ -59,11 +77,47 @@
 }
 
 .courses-title {
-	margin: 27px 0 10px;
+	margin: 0 0 10px;
 	font-size: var(--font-size-400);
 	color: var(--color-text-300);
 }
 
 .follow-button {
 	max-width: 120px;
+}
+
+@media screen and (--medium-screen) {
+	.container {
+		padding: 16px 20px;
+	}
+
+	.profile-image-wrapper {
+		max-width: 100px;
+		height: 100px;
+	}
+
+	.user-content {
+		gap: 10px;
+	}
+}
+
+@media screen and (--small-screen) {
+	.profile-image-wrapper {
+		max-width: 95px;
+		height: 95px;
+	}
+
+	.user-content {
+		gap: 22px;
+		padding: 6px 0;
+	}
+
+	.follow-button {
+		max-width: 114px;
+	}
+
+	.courses-title {
+		padding-left: 4px;
+		font-size: var(--font-size-300);
+	}
 }

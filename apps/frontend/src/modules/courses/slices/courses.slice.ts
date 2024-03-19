@@ -2,18 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
+import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
-import { type CourseDto } from "../libs/types/types.js";
+import {
+	type CourseDto,
+	type CourseSearchResponseDto,
+} from "../libs/types/types.js";
 import { getAll, getById, getRecommended } from "./actions.js";
 
 type State = {
+	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
 	currentCourse: CourseDto | null;
-	recommendedCourses: CourseDto[];
+	recommendedCourses: CourseSearchResponseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
-	searchedCourses: CourseDto[];
+	searchedCourses: CourseSearchResponseDto[];
 };
 
 const initialState: State = {
+	addedVendorCourseDataStatuses: {},
 	currentCourse: null,
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
@@ -23,7 +29,10 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(getAll.fulfilled, (state, action) => {
-			state.searchedCourses = action.payload.courses;
+			state.searchedCourses = [
+				...state.searchedCourses,
+				...action.payload.courses,
+			];
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getAll.pending, (state) => {
@@ -52,6 +61,34 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(getRecommended.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
+		builder.addCase(userCoursesActions.add.pending, (state, action) => {
+			const { vendorCourseId } = action.meta.arg;
+
+			state.addedVendorCourseDataStatuses[vendorCourseId] = DataStatus.PENDING;
+		});
+		builder.addCase(userCoursesActions.add.rejected, (state, action) => {
+			const { vendorCourseId } = action.meta.arg;
+
+			state.addedVendorCourseDataStatuses[vendorCourseId] = DataStatus.REJECTED;
+		});
+		builder.addCase(userCoursesActions.add.fulfilled, (state, action) => {
+			const { vendorCourseId } = action.meta.arg;
+
+			state.searchedCourses = state.searchedCourses.map((course) => {
+				const hasUserCourse = course.vendorCourseId === vendorCourseId;
+
+				return hasUserCourse ? { ...course, hasUserCourse } : course;
+			});
+
+			state.recommendedCourses = state.recommendedCourses.map((course) => {
+				const hasUserCourse = course.vendorCourseId === vendorCourseId;
+
+				return hasUserCourse ? { ...course, hasUserCourse } : course;
+			});
+
+			state.addedVendorCourseDataStatuses[vendorCourseId] =
+				DataStatus.FULFILLED;
+		});
 	},
 	initialState,
 	name: "courses",
@@ -59,6 +96,10 @@ const { actions, name, reducer } = createSlice({
 		clearCourses(state) {
 			state.recommendedCourses = [];
 			state.searchedCourses = [];
+			state.addedVendorCourseDataStatuses = {};
+		},
+		clearCurrentCourse(state) {
+			state.currentCourse = null;
 		},
 	},
 });

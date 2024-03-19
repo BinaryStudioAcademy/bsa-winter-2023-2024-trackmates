@@ -1,16 +1,28 @@
 @import url("~/assets/css/media.css");
 
 .container {
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
-	padding: 15px 40px;
+	padding: 16px 40px;
 	background-color: var(--color-background);
 }
 
 .courses-container {
-	max-width: 1500px;
-	padding: 27px 0 90px;
-	margin: auto;
+	display: grid;
+	flex-grow: 1;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	padding: 27px 0 0;
+	margin: 0 auto;
 	color: var(--color-text-300);
+}
+
+.courses-container-content {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	justify-content: space-between;
 }
 
 .courses-title {
@@ -27,11 +39,5 @@
 @media screen and (--small-screen) {
 	.courses-title {
 		font-size: var(--font-size-300);
-	}
-}
-
-@media (display-mode: standalone) and (--small-screen) {
-	.container {
-		margin-bottom: 67px;
 	}
 }

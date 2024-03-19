@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type PaginationRequestDto } from "~/libs/types/types.js";
 
 import { type UserAuthResponseDto } from "../users/users.js";
 import { type FriendService } from "./friend.service.js";
@@ -15,6 +16,7 @@ import {
 } from "./friends.js";
 import { FriendsApiPath } from "./libs/enums/enums.js";
 import { type FriendFollowRequestDto } from "./libs/types/types.js";
+import { friendGetAllQueryValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
  * @swagger
@@ -135,34 +137,57 @@ class FriendController extends BaseController {
 			handler: (options) => {
 				return this.getUserFollowers(
 					options as APIHandlerOptions<{
+						query: PaginationRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
 			path: FriendsApiPath.FOLLOWERS,
+			validation: {
+				query: friendGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
 				return this.getUserFollowings(
 					options as APIHandlerOptions<{
+						query: PaginationRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
 			path: FriendsApiPath.FOLLOWINGS,
+			validation: {
+				query: friendGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.getPotentialFollowers(
+				return this.getAllUserFollowingsIds(
 					options as APIHandlerOptions<{
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
+			path: FriendsApiPath.FOLLOWINGS_IDS,
+		});
+		this.addRoute({
+			handler: (options) => {
+				return this.getPotentialFollowers(
+					options as APIHandlerOptions<{
+						query: PaginationRequestDto;
+						user: UserAuthResponseDto;
+					}>,
+				);
+			},
+			method: "GET",
 			path: FriendsApiPath.POTENTIAL_FOLLOWINGS,
+			validation: {
+				query: friendGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -404,6 +429,36 @@ class FriendController extends BaseController {
 
 	/**
 	 * @swagger
+	 * /friends/followings/ids:
+	 *   get:
+	 *     tags:
+	 *       - Friends
+	 *     description: Returns an array of ids that belong to friends that user follows
+	 *     security:
+	 *       - bearerAuth: []
+	 *     responses:
+	 *       200:
+	 *         description: Successful operation
+	 *         content:
+	 *           application/json:
+	 *             schema:
+	 *               type: array
+	 *               items:
+	 *                 type: integer
+	 */
+	private async getAllUserFollowingsIds(
+		options: APIHandlerOptions<{
+			user: UserAuthResponseDto;
+		}>,
+	): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.friendService.getUserFollowingsIds(options.user.id),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
 	 * /friends/{id}/is-following:
 	 *   get:
 	 *     tags:
@@ -450,6 +505,16 @@ class FriendController extends BaseController {
 	 *     description: Returns an array of User that the user does not follow
 	 *     security:
 	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
 	 *     responses:
 	 *       200:
 	 *         description: Successful operation
@@ -460,13 +525,17 @@ class FriendController extends BaseController {
 	 *               items:
 	 *                 $ref: "#/components/schemas/User"
 	 */
-	private async getPotentialFollowers(
-		options: APIHandlerOptions<{
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
+	private async getPotentialFollowers({
+		query: { count, page },
+		user: { id },
+	}: APIHandlerOptions<{
+		query: PaginationRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		const parameters = { count, id, page };
+
 		return {
-			payload: await this.friendService.getPotentialFollowers(options.user.id),
+			payload: await this.friendService.getPotentialFollowers(parameters),
 			status: HTTPCode.OK,
 		};
 	}
@@ -480,6 +549,16 @@ class FriendController extends BaseController {
 	 *     description: Returns an array of User that the user is followed by
 	 *     security:
 	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
 	 *     responses:
 	 *       200:
 	 *         description: Successful operation
@@ -490,13 +569,17 @@ class FriendController extends BaseController {
 	 *               items:
 	 *                 $ref: "#/components/schemas/User"
 	 */
-	private async getUserFollowers(
-		options: APIHandlerOptions<{
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
+	private async getUserFollowers({
+		query: { count, page },
+		user: { id },
+	}: APIHandlerOptions<{
+		query: PaginationRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		const parameters = { count, id, page };
+
 		return {
-			payload: await this.friendService.getUserFollowers(options.user.id),
+			payload: await this.friendService.getUserFollowers(parameters),
 			status: HTTPCode.OK,
 		};
 	}
@@ -510,6 +593,16 @@ class FriendController extends BaseController {
 	 *     description: Returns an array of User that the user is following
 	 *     security:
 	 *       - bearerAuth: []
+	 *     parameters:
+	 *       - name: count
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *       - name: page
+	 *         in: query
+	 *         schema:
+	 *           type: integer
+	 *           minimum: 1
 	 *     responses:
 	 *       200:
 	 *         description: Successful operation
@@ -520,13 +613,17 @@ class FriendController extends BaseController {
 	 *               items:
 	 *                 $ref: "#/components/schemas/User"
 	 */
-	private async getUserFollowings(
-		options: APIHandlerOptions<{
-			user: UserAuthResponseDto;
-		}>,
-	): Promise<APIHandlerResponse> {
+	private async getUserFollowings({
+		query: { count, page },
+		user: { id },
+	}: APIHandlerOptions<{
+		query: PaginationRequestDto;
+		user: UserAuthResponseDto;
+	}>): Promise<APIHandlerResponse> {
+		const parameters = { count, id, page };
+
 		return {
-			payload: await this.friendService.getUserFollowings(options.user.id),
+			payload: await this.friendService.getUserFollowings(parameters),
 			status: HTTPCode.OK,
 		};
 	}

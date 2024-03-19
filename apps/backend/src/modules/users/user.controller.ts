@@ -1,4 +1,8 @@
-import { APIPath } from "~/libs/enums/enums.js";
+import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
+import {
+	checkByParameterIfNotTheSameUser,
+	checkUserPermissions,
+} from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -25,6 +29,28 @@ class UserController extends BaseController {
 		this.userService = userService;
 
 		this.addRoute({
+			handler: (options) => {
+				return this.delete(
+					options as APIHandlerOptions<{
+						params: { id: string };
+					}>,
+				);
+			},
+			method: "DELETE",
+			path: UsersApiPath.$ID,
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_USERS],
+					PermissionMode.ALL_OF,
+				),
+				checkByParameterIfNotTheSameUser<{ id: string }>("id"),
+			],
+			validation: {
+				params: userIdParametersValidationSchema,
+			},
+		});
+
+		this.addRoute({
 			handler: (options) =>
 				this.updateUser(
 					options as APIHandlerOptions<{
@@ -37,6 +63,14 @@ class UserController extends BaseController {
 			validation: {
 				body: userProfileValidationSchema,
 			},
+		});
+
+		this.addRoute({
+			handler: () => {
+				return this.findAll();
+			},
+			method: "GET",
+			path: UsersApiPath.ROOT,
 		});
 
 		this.addRoute({
@@ -53,6 +87,66 @@ class UserController extends BaseController {
 				params: userIdParametersValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /users:
+	 *    delete:
+	 *      tags:
+	 *        - Users
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Delete user
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: boolean
+	 */
+	private async delete({
+		params: { id },
+	}: APIHandlerOptions<{
+		params: {
+			id: string;
+		};
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userService.delete(Number(id)),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /users:
+	 *    get:
+	 *      tags:
+	 *        - Users
+	 *      security:
+	 *        - bearerAuth: []
+	 *      description: Find all users
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  items:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/User"
+	 */
+	private async findAll(): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.userService.findAll(),
+			status: HTTPCode.OK,
+		};
 	}
 
 	/**
@@ -122,6 +216,9 @@ class UserController extends BaseController {
 	 *                  type: string
 	 *                nickname:
 	 *                  type: string
+	 *                sex:
+	 *                  type: string
+	 *                  enum: [male, female, prefer-not-to-say]
 	 *      responses:
 	 *        '200':
 	 *          description: Successful operation

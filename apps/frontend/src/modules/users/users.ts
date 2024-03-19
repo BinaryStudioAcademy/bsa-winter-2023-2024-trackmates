@@ -11,6 +11,8 @@ const userApi = new UserApi({
 });
 
 export { userApi };
+export { UserSex } from "./libs/enums/enums.js";
+export { userSexToPronoun } from "./libs/maps/maps.js";
 export {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,

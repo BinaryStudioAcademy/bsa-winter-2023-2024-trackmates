@@ -2,10 +2,29 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
-import { type UserProfileRequestDto } from "~/modules/users/users.js";
+import {
+	type UserAuthResponseDto,
+	type UserProfileRequestDto,
+} from "~/modules/users/users.js";
 
 import { name as sliceName } from "./users.slice.js";
+
+const remove = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+	`${sliceName}/remove`,
+	async (id, { extra }) => {
+		const { notification, userApi } = extra;
+
+		const success = await userApi.remove(id);
+
+		if (success) {
+			notification.success(NotificationMessage.USER_DELETED);
+		} else {
+			notification.error(NotificationMessage.USER_DELETION_FAILED);
+		}
+
+		return success;
+	},
+);
 
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
@@ -21,6 +40,18 @@ const updateProfile = createAsyncThunk<
 	return user;
 });
 
+const getAll = createAsyncThunk<
+	UserAuthResponseDto[],
+	undefined,
+	AsyncThunkConfig
+>(`${sliceName}/get-all`, async (_, { extra }) => {
+	const { userApi } = extra;
+
+	const users = await userApi.getAll();
+
+	return users.items;
+});
+
 const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
 	`${sliceName}/get-by-id`,
 	(userPayload, { extra }) => {
@@ -30,4 +61,4 @@ const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(
 	},
 );
 
-export { getById, updateProfile };
+export { getAll, getById, remove, updateProfile };

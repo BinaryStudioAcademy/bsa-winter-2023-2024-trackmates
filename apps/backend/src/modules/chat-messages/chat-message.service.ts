@@ -1,15 +1,22 @@
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
+import {
+	SocketEvent,
+	SocketNamespace,
+	socketService,
+} from "~/libs/modules/socket/socket.js";
 import { type Service } from "~/libs/types/types.js";
 import { ChatError, type ChatService } from "~/modules/chats/chats.js";
 import { type UserEntity, type UserRepository } from "~/modules/users/users.js";
 
 import { ChatMessageEntity } from "./chat-message.entity.js";
 import { type ChatMessageRepository } from "./chat-message.repository.js";
+import { MessageStatus } from "./libs/enums/enums.js";
 import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
 	type ChatMessageItemWithReceiverIdResponseDto,
 	type ChatMessageUpdateRequestDto,
+	type ReadChatMessagesResponseDto,
 } from "./libs/types/types.js";
 
 class ChatMessageService implements Service {
@@ -66,6 +73,7 @@ class ChatMessageService implements Service {
 			ChatMessageEntity.initializeNew({
 				chatId,
 				senderUser,
+				status: MessageStatus.UNREAD,
 				text: messageData.text,
 			}),
 		);
@@ -119,6 +127,33 @@ class ChatMessageService implements Service {
 		};
 	}
 
+	public async setReadChatMessages(
+		chatMessageIds: number[],
+		userId: number,
+	): Promise<ReadChatMessagesResponseDto> {
+		const readChatMessages =
+			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
+		const unreadMessagesCount =
+			await this.chatService.getUnreadMessagesCount(userId);
+
+		socketService.emitMessage({
+			event: SocketEvent.CHAT_READ_MESSAGES,
+			payload: {
+				items: readChatMessages,
+				unreadMessagesCount,
+			},
+			receiversIds: [String(userId)],
+			targetNamespace: SocketNamespace.CHAT,
+		});
+
+		return {
+			items: readChatMessages.map((chatMessage) => {
+				return chatMessage.toObject();
+			}),
+			unreadMessagesCount,
+		};
+	}
+
 	public async update(
 		id: number,
 		{
@@ -144,6 +179,7 @@ class ChatMessageService implements Service {
 			ChatMessageEntity.initializeNew({
 				chatId: messageById.chatId,
 				senderUser: senderUser as UserEntity,
+				status: updateMessageData.status,
 				text: updateMessageData.text,
 			}),
 		);

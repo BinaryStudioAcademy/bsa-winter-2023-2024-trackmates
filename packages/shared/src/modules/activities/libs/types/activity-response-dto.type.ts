@@ -6,6 +6,7 @@ import { type ActivityPayloadMap } from "./activity-payload-map.type.js";
 type ActivityResponseDto<T extends ValueOf<typeof ActivityType>> = {
 	commentCount: number;
 	id: number;
+	isLikedByUser: boolean;
 	likesCount: number;
 	payload: ActivityPayloadMap[T];
 	type: T;

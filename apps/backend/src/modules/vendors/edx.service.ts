@@ -1,3 +1,4 @@
+import { PaginationValue } from "~/libs/enums/enums.js";
 import {
 	ContentType,
 	type HTTP,
@@ -66,8 +67,8 @@ class EdxService implements VendorService {
 	private mapToCourse(item: EdxCourseResponseDto): Course {
 		const course = this.mapItem(item, edxCourseToCourse);
 
-		const media = item["media"];
-		const courseImage = media["course_image"];
+		const { media } = item;
+		const { course_image: courseImage } = media;
 
 		course.image = `${this.baseUrl}${courseImage["uri"]}`;
 		course.url = "https://www.edx.org/";
@@ -89,8 +90,10 @@ class EdxService implements VendorService {
 		return await Promise.resolve([]);
 	}
 
-	public async getCourses(search: string): Promise<Course[]> {
+	public async getCourses(page: number, search: string): Promise<Course[]> {
 		const query: EdxQuery = {
+			page,
+			pageSize: PaginationValue.DEFAULT_COUNT,
 			search_term: search,
 		};
 

@@ -3,6 +3,10 @@ import {
 	ActivityLikeEntity,
 	type ActivityLikeRepository,
 } from "~/modules/activity-likes/activity-likes.js";
+import {
+	type NotificationService,
+	NotificationType,
+} from "~/modules/notifications/notifications.js";
 
 import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
@@ -16,6 +20,7 @@ import {
 type Constructor = {
 	activityLikeRepository: ActivityLikeRepository;
 	activityRepository: ActivityRepository;
+	notificationService: NotificationService;
 };
 
 class ActivityService implements Service {
@@ -23,12 +28,16 @@ class ActivityService implements Service {
 
 	private activityRepository: ActivityRepository;
 
+	private notificationService: NotificationService;
+
 	public constructor({
 		activityLikeRepository,
 		activityRepository,
+		notificationService,
 	}: Constructor) {
 		this.activityRepository = activityRepository;
 		this.activityLikeRepository = activityLikeRepository;
+		this.notificationService = notificationService;
 	}
 
 	public async changeLike(
@@ -41,17 +50,42 @@ class ActivityService implements Service {
 		);
 
 		const likeObject = like?.toObject();
-
-		likeObject?.id
-			? await this.activityLikeRepository.delete(likeObject.id)
-			: await this.activityLikeRepository.create(
-					ActivityLikeEntity.initializeNew({ activityId, userId }),
-				);
-
 		const targetActivity = await this.activityRepository.find(activityId);
 
-		return targetActivity
-			? (targetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
+		if (likeObject?.id) {
+			await this.activityLikeRepository.delete(likeObject.id);
+
+			if (userId !== targetActivity?.userId) {
+				await this.notificationService.deleteByActionId(
+					likeObject.id,
+					NotificationType.NEW_LIKE,
+				);
+			}
+		} else {
+			const like = await this.activityLikeRepository.create(
+				ActivityLikeEntity.initializeNew({
+					activityId,
+					userId,
+				}),
+			);
+
+			if (userId !== targetActivity?.userId) {
+				const likeObject = like.toObject();
+
+				await this.notificationService.create({
+					actionId: likeObject.id,
+					receiverUserId: targetActivity?.userId as number,
+					type: NotificationType.NEW_LIKE,
+					userId,
+				});
+			}
+		}
+
+		const updatedTargetActivity =
+			await this.activityRepository.findWithUserLike(activityId, userId);
+
+		return updatedTargetActivity
+			? (updatedTargetActivity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
 					ValueOf<typeof ActivityType>
 				>)
 			: null;

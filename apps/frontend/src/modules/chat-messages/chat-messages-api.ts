@@ -7,6 +7,8 @@ import { ChatMessagesApiPath } from "./libs/enums/enums.js";
 import {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
+	type ReadChatMessagesRequestDto,
+	type ReadChatMessagesResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -34,6 +36,22 @@ class ChatMessagesApi extends BaseHTTPApi {
 		);
 
 		return await response.json<ChatMessageItemResponseDto>();
+	}
+
+	public async setReadChatMessages(
+		payload: ReadChatMessagesRequestDto,
+	): Promise<ReadChatMessagesResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(ChatMessagesApiPath.READ_CHAT_MESSAGES, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "PATCH",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<ReadChatMessagesResponseDto>();
 	}
 }
 

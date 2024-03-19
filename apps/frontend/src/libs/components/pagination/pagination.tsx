@@ -1,11 +1,11 @@
-import { useCallback } from "react";
+import { type AppRoute } from "~/libs/enums/enums.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
 import { PaginationItem } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 type Properties = {
 	currentPage: number;
-	onPageChange: (nextPage: number) => void;
 	pages: number[];
 	pagesCount: number;
 };
@@ -15,7 +15,6 @@ const NO_ITEMS_PAGE_COUNT = 0;
 
 const Pagination: React.FC<Properties> = ({
 	currentPage,
-	onPageChange,
 	pages,
 	pagesCount,
 }: Properties) => {
@@ -23,14 +22,9 @@ const Pagination: React.FC<Properties> = ({
 	const isLastPage =
 		currentPage === pagesCount || pagesCount === NO_ITEMS_PAGE_COUNT;
 
-	const handlePageChange = useCallback(
-		(nextPage: number) => {
-			return (): void => {
-				onPageChange(nextPage);
-			};
-		},
-		[onPageChange],
-	);
+	if (pagesCount === ONE_ITEM_COUNT) {
+		return null;
+	}
 
 	return (
 		<nav
@@ -40,32 +34,41 @@ const Pagination: React.FC<Properties> = ({
 		>
 			<ul className={styles["content"]}>
 				<PaginationItem
+					href={`?page=${ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>}
+					iconName="navFirst"
 					isDisabled={isFirstPage}
-					label="First"
-					onPageChange={handlePageChange(ONE_ITEM_COUNT)}
+					label=""
 				/>
 				<PaginationItem
+					href={
+						`?page=${currentPage - ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
+					}
+					iconName="navPrev"
 					isDisabled={isFirstPage}
-					label="Prev"
-					onPageChange={handlePageChange(currentPage - ONE_ITEM_COUNT)}
+					label=""
 				/>
 				{pages.map((page) => (
 					<PaginationItem
+						href={`?page=${page}` as ValueOf<typeof AppRoute>}
 						isActive={currentPage === page}
+						isDisabled={false}
 						key={page}
-						label={page}
-						onPageChange={handlePageChange(page)}
+						label={page.toString()}
 					/>
 				))}
 				<PaginationItem
+					href={
+						`?page=${currentPage + ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
+					}
+					iconName="navNext"
 					isDisabled={isLastPage}
-					label="Next"
-					onPageChange={handlePageChange(currentPage + ONE_ITEM_COUNT)}
+					label=""
 				/>
 				<PaginationItem
+					href={`?page=${pagesCount}` as ValueOf<typeof AppRoute>}
+					iconName="navLast"
 					isDisabled={isLastPage}
-					label="Last"
-					onPageChange={handlePageChange(pagesCount)}
+					label=""
 				/>
 			</ul>
 		</nav>

@@ -16,6 +16,14 @@ import {
 
 import { type AuthService } from "./auth.service.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
+import {
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+} from "./libs/types/types.js";
+import {
+	authForgotPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 /***
  * @swagger
@@ -34,6 +42,11 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *            format: email
  *          firstName:
  *            type: string
+ *          groups:
+ *            type: array
+ *            items:
+ *              type: object
+ *              $ref: "#/components/schemas/Group"
  *          id:
  *            type: number
  *            minimum: 1
@@ -42,6 +55,9 @@ import { AuthApiPath } from "./libs/enums/enums.js";
  *          nickname:
  *            type: string
  *            nullable: true
+ *          sex:
+ *            type: string
+ *            enum: [male, female, prefer-not-to-say]
  *          updatedAt:
  *            type: string
  */
@@ -66,6 +82,37 @@ class AuthController extends BaseController {
 				body: userSignUpValidationSchema,
 			},
 		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.forgotPassword(
+					options as APIHandlerOptions<{
+						body: AuthForgotPasswordRequestDto;
+					}>,
+				);
+			},
+			method: "POST",
+			path: AuthApiPath.FORGOT_PASSWORD,
+			validation: {
+				body: authForgotPasswordValidationSchema,
+			},
+		});
+
+		this.addRoute({
+			handler: (options) => {
+				return this.updatePassword(
+					options as APIHandlerOptions<{
+						body: AuthUpdatePasswordRequestDto;
+					}>,
+				);
+			},
+			method: "PATCH",
+			path: AuthApiPath.UPDATE_PASSWORD,
+			validation: {
+				body: authUpdatePasswordValidationSchema,
+			},
+		});
+
 		this.addRoute({
 			handler: (options) =>
 				this.getAuthenticatedUser(
@@ -88,6 +135,42 @@ class AuthController extends BaseController {
 				body: userSignInValidationSchema,
 			},
 		});
+	}
+
+	/**
+	 * @swagger
+	 * /auth/forgot-password:
+	 *    post:
+	 *      tags:
+	 *        - Authentication
+	 *      description: Sends link for update password on specified email
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                email:
+	 *                  type: string
+	 *                  format: email
+	 *      responses:
+	 *        201:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: boolean
+	 */
+	private async forgotPassword({
+		body: { email },
+	}: APIHandlerOptions<{
+		body: AuthForgotPasswordRequestDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.authService.forgotPassword(email),
+			status: HTTPCode.CREATED,
+		};
 	}
 
 	/**
@@ -207,6 +290,49 @@ class AuthController extends BaseController {
 		return {
 			payload: await this.authService.signUp(options.body),
 			status: HTTPCode.CREATED,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /auth/update-password:
+	 *    patch:
+	 *      tags:
+	 *        - Authentication
+	 *      description: Verifies token and updates password
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                token:
+	 *                  type: string
+	 *                password:
+	 *                  type: string
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  token:
+	 *                    type: string
+	 *                  user:
+	 *                    type: object
+	 *                    $ref: "#/components/schemas/User"
+	 */
+	private async updatePassword({
+		body: { password, token },
+	}: APIHandlerOptions<{
+		body: AuthUpdatePasswordRequestDto;
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.authService.updatePassword(password, token),
+			status: HTTPCode.OK,
 		};
 	}
 }

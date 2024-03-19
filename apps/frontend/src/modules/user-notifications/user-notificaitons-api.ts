@@ -1,13 +1,19 @@
-import { APIPath, ContentType } from "~/libs/enums/enums.js";
+import {
+	APIPath,
+	ContentType,
+	NotificationFilter,
+} from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import { type ValueOf } from "~/libs/types/types.js";
 
 import { UserNotificationsApiPath } from "./libs/enums/enums.js";
 import {
 	type AllNotificationsResponseDto,
 	type NotificationResponseDto,
 	type ReadNotificationsRequestDto,
+	type ReadNotificationsResponseDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -21,12 +27,9 @@ class UserNotificationsApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USER_NOTIFICATIONS, storage });
 	}
 
-	public async checkHasUserUnreadNotifications(): Promise<boolean> {
+	public async getUnreadNotificationsCount(): Promise<number> {
 		const response = await this.load(
-			this.getFullEndpoint(
-				UserNotificationsApiPath.CHECK_HAS_USER_UNREAD_NOTIFICATIONS,
-				{},
-			),
+			this.getFullEndpoint(UserNotificationsApiPath.UNREAD_COUNT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
@@ -34,18 +37,26 @@ class UserNotificationsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<boolean>();
+		return await response.json<number>();
 	}
 
-	public async getUserNotifications(): Promise<{
-		items: NotificationResponseDto[];
-	}> {
+	public async getUserNotifications({
+		search = "",
+		type,
+	}: {
+		search: string | undefined;
+		type: ValueOf<typeof NotificationFilter> | null;
+	}): Promise<AllNotificationsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UserNotificationsApiPath.ROOT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
+				query: {
+					search,
+					type: type ?? NotificationFilter.ALL,
+				},
 			},
 		);
 
@@ -54,7 +65,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 
 	public async setReadNotifications(
 		payload: ReadNotificationsRequestDto,
-	): Promise<AllNotificationsResponseDto> {
+	): Promise<ReadNotificationsResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(UserNotificationsApiPath.READ_NOTIFICATIONS, {}),
 			{
@@ -65,7 +76,7 @@ class UserNotificationsApi extends BaseHTTPApi {
 			},
 		);
 
-		return await response.json<AllNotificationsResponseDto>();
+		return await response.json<ReadNotificationsResponseDto>();
 	}
 }
 

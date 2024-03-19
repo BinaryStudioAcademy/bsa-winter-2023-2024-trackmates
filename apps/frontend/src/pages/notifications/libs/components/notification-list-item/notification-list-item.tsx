@@ -1,23 +1,29 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image, Link } from "~/libs/components/components.js";
-import { APIPath, type AppRoute } from "~/libs/enums/enums.js";
+import { Icon, Image, Link } from "~/libs/components/components.js";
+import {
+	APIPath,
+	type AppRoute,
+	NotificationStatus,
+} from "~/libs/enums/enums.js";
 import {
 	getTimeDistanceFormatDate,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
 import { useEffect, useInView } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
+import { type IconName, type ValueOf } from "~/libs/types/types.js";
 import { type NotificationResponseDto } from "~/modules/user-notifications/user-notifications.js";
 
-import { NotificationStatus } from "../../enums/enums.js";
+import { notificationTypeToIconName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	hasIcon: boolean;
 	notification: NotificationResponseDto;
 	onRead: (notificationId: number) => void;
 };
 
 const NotificationListItem: React.FC<Properties> = ({
+	hasIcon,
 	notification,
 	onRead,
 }: Properties) => {
@@ -33,6 +39,8 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const date = getTimeDistanceFormatDate(notification.createdAt);
 
+	const iconName = notificationTypeToIconName[notification.type] as IconName;
+
 	return (
 		<li
 			className={getValidClassNames(
@@ -42,6 +50,7 @@ const NotificationListItem: React.FC<Properties> = ({
 			ref={ref}
 		>
 			<Link
+				className={styles["avatar-container"]}
 				to={
 					`${APIPath.USERS}/${notification.userId}` as ValueOf<typeof AppRoute>
 				}
@@ -51,12 +60,17 @@ const NotificationListItem: React.FC<Properties> = ({
 					className={styles["notification-source-user-avatar"]}
 					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
+				{hasIcon && (
+					<span className={styles["icon-container"]}>
+						<Icon className={styles["icon"]} name={iconName} />
+					</span>
+				)}
 			</Link>
-			<div>
+			<div className={styles["text-content"]}>
 				<div className={styles["notification-title"]}>
-					<span>{notification.message}</span>
+					{notification.message}
 				</div>
-				<span className={styles["notification-subtitle"]}>{date}</span>
+				<span className={styles["notification-date"]}>{date}</span>
 			</div>
 		</li>
 	);

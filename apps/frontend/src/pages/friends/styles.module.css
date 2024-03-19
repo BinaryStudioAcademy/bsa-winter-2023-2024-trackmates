@@ -1,6 +1,9 @@
 @import url("~/assets/css/media.css");
 
 .wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 	width: 100%;
 	padding: 16px 24px;
 }
@@ -46,14 +49,9 @@
 
 @media screen and (--small-screen) {
 	.link-item {
+		width: 100%;
 		padding-inline: 13px;
 		font-size: var(--font-size-200);
-	}
-}
-
-@media screen and (width <= 320px) {
-	.link-item {
-		width: 100%;
 	}
 
 	.link-list {

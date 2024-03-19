@@ -1,53 +1,64 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import { type NotificationFilter } from "~/libs/enums/enums.js";
+import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
 
 import {
 	type AllNotificationsResponseDto,
 	type ReadNotificationsRequestDto,
+	type ReadNotificationsResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./user-notifications.slice.js";
 
 const getUserNotifications = createAsyncThunk<
 	AllNotificationsResponseDto,
-	undefined,
+	{
+		search: string | undefined;
+		type: ValueOf<typeof NotificationFilter> | null;
+	},
 	AsyncThunkConfig
->(`${sliceName}/get-user-notifications`, (_, { extra }) => {
+>(`${sliceName}/get-user-notifications`, ({ search, type }, { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.getUserNotifications();
+	return userNotificationsApi.getUserNotifications({ search, type });
 });
 
-const checkHasUserUnreadNotifications = createAsyncThunk<
-	boolean,
+const getUnreadNotificationsCount = createAsyncThunk<
+	number,
 	undefined,
 	AsyncThunkConfig
->(`${sliceName}/check-has-user-unread-notifications`, (_, { extra }) => {
+>(`${sliceName}/get-unread-notifications-count`, (_, { extra }) => {
 	const { userNotificationsApi } = extra;
 
-	return userNotificationsApi.checkHasUserUnreadNotifications();
+	return userNotificationsApi.getUnreadNotificationsCount();
 });
 
 const setReadNotifications = createAsyncThunk<
-	AllNotificationsResponseDto,
+	ReadNotificationsResponseDto,
 	ReadNotificationsRequestDto,
 	AsyncThunkConfig
->(
-	`${sliceName}/set-read-notifications`,
-	async (payload, { dispatch, extra }) => {
-		const { userNotificationsApi } = extra;
+>(`${sliceName}/set-read-notifications`, async (payload, { extra }) => {
+	const { userNotificationsApi } = extra;
 
-		const readNotifications =
-			await userNotificationsApi.setReadNotifications(payload);
+	return await userNotificationsApi.setReadNotifications(payload);
+});
 
-		void dispatch(checkHasUserUnreadNotifications());
+const joinRoom = createAction(`${sliceName}/join-room`, (userId: string) => {
+	return {
+		payload: userId,
+	};
+});
 
-		return readNotifications;
-	},
-);
+const leaveRoom = createAction(`${sliceName}/leave-room`, (userId: string) => {
+	return {
+		payload: userId,
+	};
+});
 
 export {
-	checkHasUserUnreadNotifications,
+	getUnreadNotificationsCount,
 	getUserNotifications,
+	joinRoom,
+	leaveRoom,
 	setReadNotifications,
 };

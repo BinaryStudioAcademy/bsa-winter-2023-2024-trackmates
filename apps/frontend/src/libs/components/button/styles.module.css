@@ -1,5 +1,5 @@
 .button {
-	box-sizing: border-box;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -9,10 +9,16 @@
 	text-decoration: none;
 	cursor: pointer;
 	border: 1px solid;
+	transition: 0.3s ease;
+}
+
+.content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .regular {
-	column-gap: 8px;
 	min-height: 54px;
 	padding: 8px 24px;
 	font-size: var(--font-size-300);
@@ -20,11 +26,18 @@
 }
 
 .small {
-	column-gap: 4px;
 	min-height: 32px;
 	padding: 4px 16px;
 	font-size: var(--font-size-200);
 	border-radius: 26px;
+}
+
+.regular > .content {
+	column-gap: 8px;
+}
+
+.small > .content {
+	column-gap: 4px;
 }
 
 .primary {
@@ -33,21 +46,10 @@
 	border-color: var(--main-white);
 }
 
-.primary:hover {
-	color: var(--main-white);
-	background-color: var(--color-button);
-	border-color: var(--color-button);
-}
-
 .secondary {
 	color: var(--main-white);
 	background-color: transparent;
 	border-color: var(--main-white);
-}
-
-.secondary:hover {
-	color: var(--color-button);
-	border-color: var(--color-button);
 }
 
 .plain {
@@ -57,16 +59,56 @@
 	opacity: 0.6;
 }
 
-.plain:hover {
-	color: var(--color-button);
-	background-color: transparent;
-	opacity: 1;
-}
-
-.button.disabled,
-.button.disabled:hover,
-.button.disabled:focus {
+.primary.disabled,
+.primary.disabled:focus {
 	color: var(--main-white);
+	cursor: default;
 	background-color: var(--color-text-100);
 	border-color: var(--color-text-100);
+}
+
+.secondary.disabled,
+.secondary.disabled:focus {
+	border-color: var(--color-text-100);
+}
+
+.content-hidden {
+	visibility: hidden;
+}
+
+.button-loader {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@media (hover: hover) {
+	.secondary.disabled:hover {
+		border-color: var(--color-text-100);
+	}
+
+	.primary.disabled:hover {
+		color: var(--main-white);
+		cursor: default;
+		background-color: var(--color-text-100);
+		border-color: var(--color-text-100);
+	}
+
+	.plain:hover {
+		color: var(--color-button);
+		background-color: transparent;
+		opacity: 1;
+	}
+
+	.secondary:hover {
+		color: var(--color-button);
+		border-color: var(--color-button);
+	}
+
+	.primary:hover {
+		color: var(--main-white);
+		background-color: var(--color-button);
+		border-color: var(--color-button);
+	}
 }

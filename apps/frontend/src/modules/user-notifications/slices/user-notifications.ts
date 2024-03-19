@@ -1,14 +1,18 @@
 import {
-	checkHasUserUnreadNotifications,
+	getUnreadNotificationsCount,
 	getUserNotifications,
+	joinRoom,
+	leaveRoom,
 	setReadNotifications,
 } from "./actions.js";
 import { actions } from "./user-notifications.slice.js";
 
 const allActions = {
 	...actions,
-	checkHasUserUnreadNotifications,
+	getUnreadNotificationsCount,
 	getUserNotifications,
+	joinRoom,
+	leaveRoom,
 	setReadNotifications,
 };
 

@@ -15,10 +15,6 @@
 	border-radius: 12px;
 }
 
-.friend-item:hover {
-	box-shadow: 3px 11px 22px -14px #00000080;
-}
-
 @media screen and (--large-screen) {
 	.friends {
 		grid-template-columns: repeat(3, 1fr);
@@ -31,8 +27,14 @@
 	}
 }
 
-@media screen and (width <= 320px) {
+@media screen and (--small-screen) {
 	.friends {
 		grid-template-columns: 1fr;
+	}
+}
+
+@media (hover: hover) {
+	.friend-item:hover {
+		box-shadow: 3px 11px 22px -14px #00000080;
 	}
 }

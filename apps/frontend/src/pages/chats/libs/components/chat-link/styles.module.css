@@ -1,20 +1,24 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	display: grid;
 	grid-template-columns: 48px auto;
-	gap: 10px;
+	gap: 20px;
 	width: 100%;
-	padding: 10px;
+	padding: 10px 19px 10px 12px;
 }
 
-.container:hover,
 .container:focus {
 	background-color: var(--color-background);
 }
 
-.top-container {
+.message-container {
 	display: flex;
-	justify-content: space-between;
-	margin-bottom: 5px;
+	flex-direction: column;
+	flex-grow: 1;
+	gap: 7px;
+	justify-content: center;
+	padding: 2.5px 0;
 }
 
 .name {
@@ -23,7 +27,9 @@
 }
 
 .date {
-	margin-left: auto;
+	flex-shrink: 0;
+	padding-top: 4px;
+	font-size: var(--font-size-50);
 }
 
 .name,
@@ -39,6 +45,37 @@
 }
 
 .message {
-	width: 190px;
+	width: 142px;
 	margin: 0;
+	text-overflow: ellipsis;
+}
+
+.your-message {
+	color: var(--color-text-300);
+}
+
+.text-container {
+	display: flex;
+	width: 100%;
+}
+
+.message-container,
+.message {
+	line-height: 16px;
+}
+
+.current {
+	background-color: var(--color-background);
+}
+
+@media screen and (--medium-screen) {
+	.reducible .text-container {
+		display: none;
+	}
+}
+
+@media (hover: hover) {
+	.container:hover {
+		background-color: var(--color-background);
+	}
 }

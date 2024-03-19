@@ -5,16 +5,22 @@ import {
 	configureString,
 	getDifferenceInHours,
 	getFormattedDate,
+	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
+import { useAppSelector } from "~/libs/hooks/hooks.js";
 import { type ChatGetAllItemResponseDto } from "~/modules/chats/chats.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
 	chat: ChatGetAllItemResponseDto;
+	isReducible: boolean;
 };
 
-const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
+const ChatLink: React.FC<Properties> = ({ chat, isReducible }: Properties) => {
+	const { currentChat } = useAppSelector(({ chats }) => ({
+		currentChat: chats.currentChat,
+	}));
 	const { id, interlocutor, lastMessage } = chat;
 	const chatRouteById = configureString(AppRoute.CHATS_$ID, {
 		id: String(id),
@@ -26,8 +32,17 @@ const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
 			? getFormattedDate(lastMessage.createdAt, FormatDateType.HH_MM)
 			: getFormattedDate(lastMessage.createdAt, FormatDateType.DD_MM_YYYY);
 
+	const isCurrentChat = currentChat?.id === id;
+
 	return (
-		<Link className={styles["container"]} to={chatRouteById}>
+		<Link
+			className={getValidClassNames(
+				styles["container"],
+				isCurrentChat && styles["current"],
+				isReducible && styles["reducible"],
+			)}
+			to={chatRouteById}
+		>
 			<Image
 				alt="User avatar"
 				height="48"
@@ -36,15 +51,20 @@ const ChatLink: React.FC<Properties> = ({ chat }: Properties) => {
 				width="48"
 			/>
 			<div className={styles["text-container"]}>
-				<div className={styles["top-container"]}>
+				<div className={styles["message-container"]}>
 					<span
 						className={styles["name"]}
 					>{`${interlocutor.firstName} ${interlocutor.lastName}`}</span>
-					<span className={styles["date"]}>{date}</span>
+
+					<p className={styles["message"]}>
+						{isLastMessagesYours && (
+							<span className={styles["your-message"]}>You: </span>
+						)}
+						{lastMessage.text}
+					</p>
 				</div>
-				<p className={styles["message"]}>
-					{isLastMessagesYours ? `You: ${lastMessage.text}` : lastMessage.text}
-				</p>
+
+				<span className={styles["date"]}>{date}</span>
 			</div>
 		</Link>
 	);

@@ -26,6 +26,13 @@ class UserService implements Service {
 		await this.userRepository.addAvatar(id, fileId);
 	}
 
+	public async addSubscription(
+		id: number,
+		subscriptionId: number,
+	): Promise<void> {
+		await this.userRepository.addSubscription(id, subscriptionId);
+	}
+
 	public async create(
 		payload: UserSignUpRequestDto,
 	): Promise<UserAuthResponseDto> {
@@ -92,7 +99,7 @@ class UserService implements Service {
 		userId: number,
 		userProfile: UserProfileRequestDto,
 	): Promise<UserAuthResponseDto | null> {
-		const { firstName, lastName, nickname } = userProfile;
+		const { firstName, lastName, nickname, sex } = userProfile;
 		const user = await this.userRepository.getByNickname(nickname);
 		const hasUser = Boolean(user);
 		const isSameUser = user?.toObject().id === userId;
@@ -108,9 +115,24 @@ class UserService implements Service {
 			firstName,
 			lastName,
 			nickname,
+			sex,
 		});
 
 		return updatedUser?.toObject() ?? null;
+	}
+
+	public async updatePassword(
+		userId: number,
+		password: string,
+	): Promise<UserAuthResponseDto> {
+		const { hash, salt } = await this.encrypt.encrypt(password);
+
+		const updatedUser = await this.userRepository.updatePassword(userId, {
+			hash,
+			salt,
+		});
+
+		return updatedUser.toObject();
 	}
 }
 

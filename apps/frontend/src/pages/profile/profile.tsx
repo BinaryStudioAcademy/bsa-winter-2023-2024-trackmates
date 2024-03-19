@@ -1,29 +1,41 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
-import { Button, Image, Input } from "~/libs/components/components.js";
-import { AppTitle } from "~/libs/enums/enums.js";
+import { Button, Image, Input, Select } from "~/libs/components/components.js";
+import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
 	useAppSelector,
 	useAppTitle,
 	useCallback,
+	useMemo,
 	useRef,
 } from "~/libs/hooks/hooks.js";
+import { type SelectOption } from "~/libs/types/types.js";
 import { actions as filesActions } from "~/modules/files/files.js";
 import {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
+	UserSex,
 	userProfileValidationSchema,
 	actions as usersActions,
 } from "~/modules/users/users.js";
 
+import { SubscriptionModal } from "./libs/components/components.js";
+import { userSexToReadable } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 const Profile: React.FC = () => {
-	const user = useAppSelector(({ auth }) => {
-		return auth.user as UserAuthResponseDto;
-	});
+	const { avatarUploadDataStatus, updateUserDataStatus, user } = useAppSelector(
+		({ auth }) => {
+			return {
+				avatarUploadDataStatus: auth.avatarUploadDataStatus,
+				updateUserDataStatus: auth.updateUserDataStatus,
+				user: auth.user as UserAuthResponseDto,
+			};
+		},
+	);
 	const fileInputReference = useRef<HTMLInputElement | null>(null);
 	const dispatch = useAppDispatch();
 
@@ -33,6 +45,7 @@ const Profile: React.FC = () => {
 				firstName: user.firstName,
 				lastName: user.lastName,
 				nickname: user.nickname ?? "",
+				sex: user.sex,
 			},
 			validationSchema: userProfileValidationSchema,
 		});
@@ -83,6 +96,18 @@ const Profile: React.FC = () => {
 
 	useAppTitle(AppTitle.PROFILE);
 
+	const sexSelectOptions = useMemo<SelectOption[]>(() => {
+		return Object.values(UserSex).map((sex) => {
+			return {
+				label: userSexToReadable[sex],
+				value: sex,
+			};
+		});
+	}, []);
+
+	const isFileUploadLoading = avatarUploadDataStatus === DataStatus.PENDING;
+	const isUpdateUserLoading = updateUserDataStatus === DataStatus.PENDING;
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -96,12 +121,28 @@ const Profile: React.FC = () => {
 								shape="circle"
 								src={user.avatarUrl ?? defaultAvatar}
 							/>
-							<Button
-								label="Change photo"
-								onClick={handleOpenFileInput}
-								size="small"
-								style="secondary"
-							/>
+							<div className={styles["profile-buttons-container"]}>
+								<Button
+									className={getValidClassNames(
+										styles["premium-button"],
+										styles["button"],
+									)}
+									href={AppRoute.SUBSCRIPTION}
+									iconName="diamond"
+									label="Premium"
+									size="small"
+									style="secondary"
+								/>
+								<Button
+									className={styles["button"]}
+									isDisabled={isFileUploadLoading}
+									isLoading={isFileUploadLoading}
+									label="Change photo"
+									onClick={handleOpenFileInput}
+									size="small"
+									style="secondary"
+								/>
+							</div>
 							<input
 								accept="image/*"
 								className={styles["file-input"]}
@@ -138,6 +179,14 @@ const Profile: React.FC = () => {
 								placeholder={placeholder}
 								type="text"
 							/>
+							<Select
+								control={control}
+								errors={errors}
+								label="Sex"
+								name="sex"
+								options={sexSelectOptions}
+								placeholder="Select sex"
+							/>
 						</fieldset>
 					</div>
 					<Image
@@ -157,12 +206,15 @@ const Profile: React.FC = () => {
 						/>
 						<Button
 							className={styles["button"]}
+							isDisabled={isUpdateUserLoading}
+							isLoading={isUpdateUserLoading}
 							label="Update"
 							size="small"
 							type="submit"
 						/>
 					</div>
 				</form>
+				<SubscriptionModal />
 			</div>
 		</>
 	);

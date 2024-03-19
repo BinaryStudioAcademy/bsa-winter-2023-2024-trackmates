@@ -4,8 +4,11 @@ import {
 	AbstractModel,
 	DatabaseTableName,
 } from "~/libs/modules/database/database.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { FileModel } from "~/modules/files/file.model.js";
+import { SubscriptionModel } from "~/modules/subscriptions/subscriptions.js";
 
+import { type UserSex } from "./libs/enums/enums.js";
 import { UserModel } from "./user.model.js";
 
 class UserDetailsModel extends AbstractModel {
@@ -17,6 +20,14 @@ class UserDetailsModel extends AbstractModel {
 					to: `${DatabaseTableName.FILES}.id`,
 				},
 				modelClass: FileModel,
+				relation: Model.HasOneRelation,
+			},
+			subscription: {
+				join: {
+					from: `${DatabaseTableName.USER_DETAILS}.subscriptionId`,
+					to: `${DatabaseTableName.SUBSCRIPTIONS}.id`,
+				},
+				modelClass: SubscriptionModel,
 				relation: Model.HasOneRelation,
 			},
 			user: {
@@ -39,6 +50,12 @@ class UserDetailsModel extends AbstractModel {
 	public lastName!: string;
 
 	public nickname!: null | string;
+
+	public sex!: ValueOf<typeof UserSex> | null;
+
+	public subscription?: SubscriptionModel;
+
+	public subscriptionId!: null | number;
 
 	public userId!: number;
 

@@ -1,5 +1,9 @@
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
-import { useHandleClickOutside, useRef } from "~/libs/hooks/hooks.js";
+import {
+	useHandleClickOutside,
+	useHandleEscPress,
+	useRef,
+} from "~/libs/hooks/hooks.js";
 
 import { Button } from "../button/button.js";
 import { Portal } from "../portal/portal.js";
@@ -7,12 +11,16 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
+	className?: string | undefined;
+	isCentered?: boolean;
 	isOpen: boolean;
 	onClose: () => void;
 };
 
 const Modal: React.FC<Properties> = ({
 	children,
+	className,
+	isCentered = false,
 	isOpen,
 	onClose,
 }: Properties) => {
@@ -22,15 +30,21 @@ const Modal: React.FC<Properties> = ({
 		ref: contentReference,
 	});
 
+	useHandleEscPress({
+		onEscPress: onClose,
+	});
+
+	const modalStyles = getValidClassNames(
+		styles["modal"],
+		isCentered && styles["centered"],
+		isOpen && styles["active"],
+	);
+
 	return (
 		<Portal>
-			<dialog
-				aria-modal
-				className={getValidClassNames(styles["modal"])}
-				open={isOpen}
-			>
+			<dialog aria-modal className={modalStyles} open={isOpen}>
 				<div
-					className={styles["content"]}
+					className={getValidClassNames(styles["content"], className)}
 					ref={contentReference}
 					role="button"
 					tabIndex={0}

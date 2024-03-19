@@ -1,8 +1,9 @@
-import { Button } from "~/libs/components/components.js";
+import { Button, Loader } from "~/libs/components/components.js";
 import {
 	BACK_NAVIGATION_STEP,
-	EMPTY_ARRAY_LENGTH,
+	EMPTY_LENGTH,
 } from "~/libs/constants/constants.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import { getPercentage } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -15,7 +16,10 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { actions as courseSectionsActions } from "~/modules/course-sections/course-sections.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
-import { SectionStatus } from "~/modules/section-statuses/section-statuses.js";
+import {
+	SectionStatus,
+	actions as sectionStatusesActions,
+} from "~/modules/section-statuses/section-statuses.js";
 
 import {
 	CourseActivities,
@@ -25,10 +29,11 @@ import {
 import styles from "./styles.module.css";
 
 const CourseDescription: React.FC = () => {
-	const { course, courseSections, sectionStatuses } = useAppSelector(
+	const { course, courseSections, isLoading, sectionStatuses } = useAppSelector(
 		({ course, courses, sectionStatuses }) => ({
 			course: courses.currentCourse,
 			courseSections: course.courseSections,
+			isLoading: course.dataStatus === DataStatus.PENDING,
 			sectionStatuses: sectionStatuses.sectionStatuses,
 		}),
 	);
@@ -63,15 +68,19 @@ const CourseDescription: React.FC = () => {
 				courseSectionsActions.getAllByCourseId({ courseId: Number(courseId) }),
 			);
 		}
+
+		return () => {
+			dispatch(courseActions.clearCurrentCourse());
+			dispatch(courseSectionsActions.reset());
+			dispatch(sectionStatusesActions.reset());
+		};
 	}, [dispatch, courseId]);
 
-	if (!course) {
-		return null;
-	}
+	const hasCourseSections = courseSections.length > EMPTY_LENGTH;
 
-	const hasCourseSections = courseSections.length > EMPTY_ARRAY_LENGTH;
-
-	return (
+	return isLoading || !course ? (
+		<Loader color="orange" size="large" />
+	) : (
 		<>
 			<Button
 				className={styles["back-button"]}

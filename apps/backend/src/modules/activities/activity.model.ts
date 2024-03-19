@@ -6,7 +6,7 @@ import {
 } from "~/libs/modules/database/database.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
-import { CommentModel } from "~/modules/comments/comments.js";
+import { CommentModel } from "~/modules/comments/comment.model.js";
 import { UserModel } from "~/modules/users/users.js";
 
 import { type ActivityType } from "./libs/enums/enums.js";

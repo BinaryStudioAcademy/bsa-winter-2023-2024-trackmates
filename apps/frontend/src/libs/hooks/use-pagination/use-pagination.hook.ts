@@ -1,14 +1,18 @@
 import { PaginationValue } from "~/libs/enums/enums.js";
-import { useState } from "~/libs/hooks/hooks.js";
+import { useEffect, useSearchParams, useState } from "~/libs/hooks/hooks.js";
 
-import { getPagesCut, getPagesRange } from "./libs/helpers/helpers.js";
+import {
+	checkIsValidPage,
+	getPagesCut,
+	getPagesRange,
+} from "./libs/helpers/helpers.js";
 
 type UsePagination = (options: {
 	pageSize: number;
 	pagesCutCount: number;
+	queryName?: string;
 	totalCount: number;
 }) => {
-	handlePageChange: (page: number) => void;
 	page: number;
 	pages: number[];
 	pagesCount: number;
@@ -17,11 +21,19 @@ type UsePagination = (options: {
 const usePagination: UsePagination = ({
 	pageSize,
 	pagesCutCount,
+	queryName = "page",
 	totalCount,
 }) => {
-	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
+	const [searchParameters] = useSearchParams();
+	const pageFromQuery = Number(searchParameters.get(queryName));
 
 	const pagesCount = Math.ceil(totalCount / pageSize);
+	const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
+
+	const [page, setPage] = useState<number>(
+		isValidPage ? pageFromQuery : PaginationValue.DEFAULT_PAGE,
+	);
+
 	const pagesCut = getPagesCut({
 		currentPage: page,
 		pagesCount,
@@ -29,11 +41,20 @@ const usePagination: UsePagination = ({
 	});
 	const pages = getPagesRange(pagesCut.start, pagesCut.end);
 
-	const handlePageChange = (page: number): void => {
-		setPage(page);
-	};
+	useEffect(() => {
+		const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
+		const isInvalidPage = pagesCount !== PaginationValue.PAGE_NOT_EXISTS;
 
-	return { handlePageChange, page, pages, pagesCount };
+		if (isValidPage) {
+			setPage(pageFromQuery);
+		} else if (isInvalidPage) {
+			setPage(PaginationValue.DEFAULT_PAGE);
+			const url = new URL(window.location.origin + window.location.pathname);
+			window.history.replaceState(null, "", url.toString());
+		}
+	}, [pageFromQuery, pagesCount, location.pathname]);
+
+	return { page, pages, pagesCount };
 };
 
 export { usePagination };

@@ -22,12 +22,12 @@ type Properties = {
 const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 	const [isFollowing, setIsFollowing] = useState<boolean>(
 		useAppSelector((state) =>
-			state.friends.followings.some((user) => user.id === friend.id),
+			state.friends.allFollowingsIds.includes(friend.id),
 		),
 	);
 
 	const isFollowingFromSelector = useAppSelector((state) =>
-		state.friends.followings.some((user) => user.id === friend.id),
+		state.friends.allFollowingsIds.includes(friend.id),
 	);
 	const dispatch = useAppDispatch();
 
@@ -44,6 +44,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			.unwrap()
 			.then(() => {
 				setIsFollowing(true);
+				dispatch(actions.addFollowedFriendId(friend.id));
 			});
 	}, [dispatch, friend.id]);
 
@@ -52,6 +53,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			.unwrap()
 			.then(() => {
 				setIsFollowing(false);
+				dispatch(actions.removeUnfollowedFriendId(friend.id));
 			});
 	}, [dispatch, friend.id]);
 
@@ -86,7 +88,7 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 					iconName="chats"
 					label="Start chat"
 					onClick={handleCreateChat}
-					style="primary"
+					style="secondary"
 				/>
 			</div>
 		</article>

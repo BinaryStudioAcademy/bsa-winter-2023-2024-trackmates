@@ -1,7 +1,7 @@
 import fastifyStatic from "@fastify/static";
 import swagger, { type StaticDocumentSpec } from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
-import Fastify, { type FastifyError } from "fastify";
+import Fastify, { type FastifyError, type RouteOptions } from "fastify";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -14,13 +14,14 @@ import { type Database } from "~/libs/modules/database/database.js";
 import { HTTPCode, HTTPError } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
 import { type SocketService } from "~/libs/modules/socket/socket.js";
-import { type Token } from "~/libs/modules/token/token.js";
+import { type Token, type TokenPayload } from "~/libs/modules/token/token.js";
 import { authorization, fileUpload } from "~/libs/plugins/plugins.js";
 import {
 	type ServerCommonErrorResponse,
 	type ServerValidationErrorResponse,
 	type ValidationSchema,
 } from "~/libs/types/types.js";
+import { subscriptionService } from "~/modules/subscriptions/subscriptions.js";
 import { type UserService } from "~/modules/users/users.js";
 
 import { WHITE_ROUTES } from "./libs/constants/constants.js";
@@ -40,7 +41,7 @@ type Constructor = {
 		userService: UserService;
 	};
 	title: string;
-	token: Token;
+	token: Token<TokenPayload>;
 };
 
 class BaseServerApplication implements ServerApplication {
@@ -61,7 +62,7 @@ class BaseServerApplication implements ServerApplication {
 
 	private title: string;
 
-	private token: Token;
+	private token: Token<TokenPayload>;
 
 	public constructor({
 		apis,
@@ -83,6 +84,10 @@ class BaseServerApplication implements ServerApplication {
 		this.app = Fastify({
 			ignoreTrailingSlash: true,
 		});
+	}
+
+	private initCrons(): void {
+		subscriptionService.initCrone();
 	}
 
 	private initErrorHandler(): void {
@@ -174,9 +179,8 @@ class BaseServerApplication implements ServerApplication {
 	}
 
 	public addRoute(parameters: ServerApplicationRouteParameters): void {
-		const { handler, method, path, validation } = parameters;
-
-		this.app.route({
+		const { handler, method, path, preHandlers = [], validation } = parameters;
+		const routeParameters: RouteOptions = {
 			handler,
 			method,
 			schema: {
@@ -185,8 +189,11 @@ class BaseServerApplication implements ServerApplication {
 				querystring: validation?.query,
 			},
 			url: path,
-		});
+		};
 
+		routeParameters.preHandler = preHandlers;
+
+		this.app.route(routeParameters);
 		this.logger.info(`Route: ${method} ${path} is registered`);
 	}
 
@@ -212,6 +219,8 @@ class BaseServerApplication implements ServerApplication {
 		this.initRoutes();
 
 		this.initSocket();
+
+		this.initCrons();
 
 		this.database.connect();
 

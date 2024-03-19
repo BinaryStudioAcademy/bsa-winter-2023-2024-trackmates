@@ -1,1 +1,5 @@
-export { NotificationStatus, NotificationType } from "@trackmates/shared";
+export {
+	NotificationFilter,
+	NotificationStatus,
+	NotificationType,
+} from "@trackmates/shared";

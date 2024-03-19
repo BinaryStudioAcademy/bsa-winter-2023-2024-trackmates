@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -6,12 +6,14 @@ import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
+	type ReadChatMessagesResponseDto,
 } from "../libs/types/types.js";
 import {
 	addMessageToCurrentChat,
 	createChat,
 	getAllChats,
 	getChat,
+	getUnreadMessagesCount,
 	updateChats,
 } from "./actions.js";
 
@@ -19,12 +21,14 @@ type State = {
 	chats: ChatGetAllItemResponseDto[];
 	currentChat: ChatItemResponseDto | null;
 	dataStatus: ValueOf<typeof DataStatus>;
+	unreadMessagesCount: number;
 };
 
 const initialState: State = {
 	chats: [],
 	currentChat: null,
 	dataStatus: DataStatus.IDLE,
+	unreadMessagesCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -62,6 +66,14 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 
+		builder.addCase(getUnreadMessagesCount.fulfilled, (state, action) => {
+			state.unreadMessagesCount = action.payload;
+			state.dataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getUnreadMessagesCount.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+
 		builder.addCase(addMessageToCurrentChat.fulfilled, (state, action) => {
 			state.currentChat = action.payload;
 		});
@@ -74,6 +86,22 @@ const { actions, name, reducer } = createSlice({
 	reducers: {
 		leaveChat: (state) => {
 			state.currentChat = null;
+		},
+		updateReadChatMessages(
+			state,
+			action: PayloadAction<ReadChatMessagesResponseDto>,
+		) {
+			state.unreadMessagesCount = action.payload.unreadMessagesCount;
+
+			if (state.currentChat) {
+				state.currentChat.messages = state.currentChat.messages.map((value) => {
+					const updatedMessage = action.payload.items.find((message) => {
+						return message.id === value.id;
+					});
+
+					return updatedMessage ?? value;
+				});
+			}
 		},
 	},
 });

@@ -12,7 +12,10 @@ import { courseSectionController } from "~/modules/course-sections/course-sectio
 import { courseController } from "~/modules/courses/courses.js";
 import { fileController } from "~/modules/files/files.js";
 import { friendController } from "~/modules/friends/friends.js";
+import { groupController } from "~/modules/groups/groups.js";
+import { permissionController } from "~/modules/permissions/permissions.js";
 import { sectionStatusController } from "~/modules/section-statuses/section-statuses.js";
+import { subscriptionController } from "~/modules/subscriptions/subscriptions.js";
 import { userCourseController } from "~/modules/user-courses/user-courses.js";
 import { userNotificationController } from "~/modules/user-notifications/user-notifications.js";
 import { userController, userService } from "~/modules/users/users.js";
@@ -33,11 +36,14 @@ const apiV1 = new BaseServerApplicationApi(
 	...userCourseController.routes,
 	...fileController.routes,
 	...friendController.routes,
+	...groupController.routes,
+	...permissionController.routes,
 	...userController.routes,
 	...userNotificationController.routes,
 	...courseSectionController.routes,
 	...sectionStatusController.routes,
 	...commentController.routes,
+	...subscriptionController.routes,
 );
 const serverApplication = new BaseServerApplication({
 	apis: [apiV1],

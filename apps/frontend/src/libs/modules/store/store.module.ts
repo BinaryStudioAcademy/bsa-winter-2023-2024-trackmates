@@ -34,10 +34,17 @@ import {
 	friendsApi,
 	reducer as friendsReducer,
 } from "~/modules/friends/friends.js";
+import { groupsApi } from "~/modules/groups/groups.js";
+import { reducer as managementReducer } from "~/modules/management/management.js";
+import { permissionsApi } from "~/modules/permissions/permissions.js";
 import {
 	sectionStatusApi,
 	reducer as sectionStatusesReducer,
 } from "~/modules/section-statuses/section-statuses.js";
+import {
+	subscriptionApi,
+	reducer as subscriptionReducer,
+} from "~/modules/subscriptions/subscriptions.js";
 import {
 	userCourseApi,
 	reducer as userCoursesReducer,
@@ -53,7 +60,11 @@ import {
 } from "~/modules/vendors/vendors.js";
 
 import { storage } from "../storage/storage.js";
-import { chatSocket, handleError } from "./middlewares/middlewares.js";
+import {
+	chatSocket,
+	handleError,
+	notificationsSocket,
+} from "./middlewares/middlewares.js";
 
 type RootReducer = {
 	activities: ReturnType<typeof activitiesReducer>;
@@ -64,7 +75,9 @@ type RootReducer = {
 	course: ReturnType<typeof courseSectionsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
+	management: ReturnType<typeof managementReducer>;
 	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
+	subscription: ReturnType<typeof subscriptionReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	userNotifications: ReturnType<typeof userNotificationsReducer>;
 	users: ReturnType<typeof usersReducer>;
@@ -81,10 +94,13 @@ type ExtraArguments = {
 	courseSectionsApi: typeof courseSectionsApi;
 	filesApi: typeof filesApi;
 	friendsApi: typeof friendsApi;
+	groupsApi: typeof groupsApi;
 	notification: typeof notification;
+	permissionsApi: typeof permissionsApi;
 	sectionStatusApi: typeof sectionStatusApi;
 	socket: typeof socket;
 	storage: typeof storage;
+	subscriptionApi: typeof subscriptionApi;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
 	userNotificationsApi: typeof userNotificationsApi;
@@ -108,7 +124,11 @@ class Store {
 					thunk: {
 						extraArgument: this.extraArguments,
 					},
-				}).prepend([handleError, chatSocket({ extra: this.extraArguments })]);
+				}).prepend([
+					handleError,
+					chatSocket({ extra: this.extraArguments }),
+					notificationsSocket({ extra: this.extraArguments }),
+				]);
 			},
 			reducer: {
 				activities: activitiesReducer,
@@ -119,7 +139,9 @@ class Store {
 				course: courseSectionsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,
+				management: managementReducer,
 				sectionStatuses: sectionStatusesReducer,
+				subscription: subscriptionReducer,
 				userCourses: userCoursesReducer,
 				userNotifications: userNotificationsReducer,
 				users: usersReducer,
@@ -139,10 +161,13 @@ class Store {
 			courseSectionsApi,
 			filesApi,
 			friendsApi,
+			groupsApi,
 			notification,
+			permissionsApi,
 			sectionStatusApi,
 			socket,
 			storage,
+			subscriptionApi,
 			userApi,
 			userCourseApi,
 			userNotificationsApi,

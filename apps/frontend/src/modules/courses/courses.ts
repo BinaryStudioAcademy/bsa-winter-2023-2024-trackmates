@@ -18,6 +18,6 @@ export {
 export {
 	type CourseDto,
 	type CourseSearchFilterDto,
-	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
 } from "./libs/types/types.js";
 export { actions, reducer } from "./slices/courses.js";

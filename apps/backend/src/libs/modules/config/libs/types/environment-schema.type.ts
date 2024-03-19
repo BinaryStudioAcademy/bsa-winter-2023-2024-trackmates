@@ -27,14 +27,34 @@ type EnvironmentSchema = {
 		EXPIRES_IN: string;
 		SECRET: string;
 	};
+	MAIL: {
+		IS_LOGGED: boolean;
+		IS_REQUIRE_TLS: boolean;
+		IS_SECURE: boolean;
+		SERVICE: string;
+		USER_EMAIL: string;
+		USER_NAME: string;
+		USER_PASSWORD: string;
+	};
 	OPENAI: {
 		API_KEY: string;
 		MODEL: string;
+	};
+	STRIPE: {
+		SECRET_KEY: string;
 	};
 	UDEMY: {
 		CLIENT_ID: string;
 		CLIENT_SECRET: string;
 		URL: string;
+	};
+	UPDATE_PASSWORD: {
+		JWT: {
+			ALGORITHM: string;
+			EXPIRES_IN: string;
+			SECRET: string;
+		};
+		LINK: string;
 	};
 };
 

@@ -1,20 +1,16 @@
-import { PaginationValue } from "~/libs/enums/enums.js";
+import { QueryParameterName } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
 import {
-	useAppDispatch,
 	useAppForm,
-	useAppSelector,
 	useCallback,
+	useEffect,
+	useLocation,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
-import {
-	type CourseSearchRequestDto,
-	DEFAULT_SEARCH_MY_COURSES_PAYLOAD,
-	SEARCH_COURSES_DELAY_MS,
-} from "~/modules/courses/courses.js";
-import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
+import { SEARCH_COURSES_DELAY_MS } from "~/modules/courses/courses.js";
 
 import { Input } from "../input/input.js";
+import { searchPagePathToDefaultValue } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -26,13 +22,16 @@ const SearchBar: React.FC<Properties> = ({
 	className: classNames,
 	inputClassName: inputClassNames,
 }: Properties) => {
-	const { user } = useAppSelector((state) => ({
-		user: state.auth.user as UserAuthResponseDto,
-	}));
-	const dispatch = useAppDispatch();
+	const { pathname } = useLocation();
+	const [searchParameters, setSearchParameters] = useSearchParams();
+	const searchQuery = searchParameters.get(QueryParameterName.SEARCH);
 
-	const { control, errors, handleSubmit } = useAppForm({
-		defaultValues: DEFAULT_SEARCH_MY_COURSES_PAYLOAD,
+	const { control, errors, handleSubmit, reset } = useAppForm({
+		defaultValues: searchQuery
+			? { search: searchQuery }
+			: searchPagePathToDefaultValue[
+					pathname as keyof typeof searchPagePathToDefaultValue
+				],
 		mode: "onChange",
 	});
 
@@ -43,27 +42,24 @@ const SearchBar: React.FC<Properties> = ({
 		[],
 	);
 
-	const handleSearchCourses = (
-		filterFormData: CourseSearchRequestDto,
-	): void => {
-		void dispatch(
-			userCourseActions.loadMyCourses({
-				count: PaginationValue.DEFAULT_COUNT,
-				page: PaginationValue.DEFAULT_PAGE,
-				search: filterFormData.search,
-				userId: user.id,
-			}),
-		);
-	};
-
 	const handleFormChange = (event_: React.BaseSyntheticEvent): void => {
-		void handleSubmit(handleSearchCourses)(event_);
+		void handleSubmit((payload) => {
+			const currentSearchParameters = new URLSearchParams(
+				searchParameters.toString(),
+			);
+			currentSearchParameters.set(QueryParameterName.SEARCH, payload.search);
+			setSearchParameters(currentSearchParameters);
+		})(event_);
 	};
 
 	const handleDebouncedSearchCourses = initDebounce(
 		handleFormChange,
 		SEARCH_COURSES_DELAY_MS,
 	);
+
+	useEffect(() => {
+		reset();
+	}, [pathname, reset]);
 
 	return (
 		<form

@@ -7,7 +7,10 @@ import {
 import { SocketEvent, SocketNamespace } from "~/libs/modules/socket/socket.js";
 import { type ExtraArguments } from "~/libs/modules/store/store.js";
 import { type AppDispatch, type RootState } from "~/libs/types/types.js";
-import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
+import {
+	type ChatMessageItemResponseDto,
+	type ReadChatMessagesResponseDto,
+} from "~/modules/chat-messages/chat-messages.js";
 import { actions as chatsActions } from "~/modules/chats/chats.js";
 
 const chatSocket = ({
@@ -22,6 +25,14 @@ const chatSocket = ({
 			SocketEvent.CHAT_ADD_NEW_MESSAGE,
 			(message: ChatMessageItemResponseDto) => {
 				void dispatch(chatsActions.addMessageToCurrentChat(message));
+				void dispatch(chatsActions.getUnreadMessagesCount());
+			},
+		);
+
+		chatSocketInstance.on(
+			SocketEvent.CHAT_READ_MESSAGES,
+			(response: ReadChatMessagesResponseDto) => {
+				void dispatch(chatsActions.updateReadChatMessages(response));
 			},
 		);
 

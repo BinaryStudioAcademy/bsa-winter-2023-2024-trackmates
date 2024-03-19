@@ -1,5 +1,18 @@
-import { Courses, Loader, Pagination } from "~/libs/components/components.js";
-import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+import {
+	Courses,
+	EmptyPagePlaceholder,
+	Loader,
+	Pagination,
+} from "~/libs/components/components.js";
+import {
+	EMPTY_LENGTH,
+	PAGINATION_PAGES_CUT_COUNT,
+} from "~/libs/constants/constants.js";
+import {
+	DataStatus,
+	PaginationValue,
+	QueryParameterName,
+} from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -7,6 +20,7 @@ import {
 	useCallback,
 	useEffect,
 	usePagination,
+	useSearchParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
@@ -14,8 +28,6 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { AddCourseModal, WelcomeHeader } from "./libs/components/components.js";
 import styles from "./styles.module.css";
-
-const PAGINATION_PAGES_CUT_COUNT = 5;
 
 const Overview: React.FC = () => {
 	const { courses, isLoading, totalCount, user } = useAppSelector((state) => {
@@ -29,11 +41,13 @@ const Overview: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const [isAddCourseModalOpen, setIsAddCourseModalOpen] =
 		useState<boolean>(false);
-	const { handlePageChange, page, pages, pagesCount } = usePagination({
+	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount,
 	});
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const handleModalOpen = useCallback(() => {
 		setIsAddCourseModalOpen(true);
@@ -49,11 +63,13 @@ const Overview: React.FC = () => {
 			userCourseActions.loadMyCourses({
 				count: PaginationValue.DEFAULT_COUNT,
 				page,
-				search: "",
+				search: searchQuery ?? "",
 				userId: user.id,
 			}),
 		);
-	}, [dispatch, user, page]);
+	}, [dispatch, user, page, totalCount, searchQuery]);
+
+	const hasCourses = courses.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["container"]}>
@@ -63,16 +79,29 @@ const Overview: React.FC = () => {
 				{isLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
-					<Courses courses={courses} userId={user.id} />
+					<>
+						{hasCourses ? (
+							<div className={styles["courses-container-content"]}>
+								<Courses courses={courses} userId={user.id} />
+								<Pagination
+									currentPage={page}
+									pages={pages}
+									pagesCount={pagesCount}
+								/>
+							</div>
+						) : (
+							<EmptyPagePlaceholder
+								size="large"
+								title="You haven't added any courses yet"
+							/>
+						)}
+					</>
 				)}
-				<Pagination
-					currentPage={page}
-					onPageChange={handlePageChange}
-					pages={pages}
-					pagesCount={pagesCount}
-				/>
 			</div>
-			{isAddCourseModalOpen && <AddCourseModal onClose={handleModalClose} />}
+			<AddCourseModal
+				isOpen={isAddCourseModalOpen}
+				onClose={handleModalClose}
+			/>
 		</div>
 	);
 };

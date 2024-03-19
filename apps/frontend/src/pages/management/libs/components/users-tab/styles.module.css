@@ -1,0 +1,15 @@
+.table-container {
+	width: 100%;
+}
+
+.modal-list {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	padding: 0;
+}
+
+.modal-item {
+	display: flex;
+	column-gap: 10px;
+}

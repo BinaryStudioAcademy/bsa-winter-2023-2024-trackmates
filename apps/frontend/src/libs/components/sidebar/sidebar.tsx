@@ -1,8 +1,15 @@
 import logo from "~/assets/img/sidebar-logo.svg";
-import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import {
+	checkIfUserHasPermissions,
+	getValidClassNames,
+} from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
-import { type MenuItem } from "~/libs/types/types.js";
-import { actions as authActions } from "~/modules/auth/auth.js";
+import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
+import {
+	type UserAuthResponseDto,
+	actions as authActions,
+} from "~/modules/auth/auth.js";
+import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
 
 import { BlurredBackground } from "../blurred-background/blurred-background.js";
 import { Button } from "../button/button.js";
@@ -13,9 +20,10 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	menuItems: MenuItem[];
+	user: UserAuthResponseDto;
 };
 
-const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
+const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 	const dispatch = useAppDispatch();
 	const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -24,8 +32,26 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 	}, []);
 
 	const handleLogOut = useCallback(() => {
-		void dispatch(authActions.logOut());
+		void dispatch(authActions.logOut())
+			.unwrap()
+			.then(() => {
+				dispatch(userCoursesActions.reset());
+			});
 	}, [dispatch]);
+
+	const handleCheckPermissions = useCallback(
+		(pagePermissions: PagePermissions | undefined): boolean => {
+			return (
+				!pagePermissions ||
+				checkIfUserHasPermissions(
+					user,
+					pagePermissions.permissions,
+					pagePermissions.mode,
+				)
+			);
+		},
+		[user],
+	);
 
 	return (
 		<>
@@ -46,25 +72,31 @@ const Sidebar: React.FC<Properties> = ({ menuItems }: Properties) => {
 					styles[isOpen ? "open" : "close"],
 				)}
 			>
-				<Link className={styles["title-container"]} to="/">
-					<Image alt="website logo" className={styles["logo"]} src={logo} />
-				</Link>
-				<nav className={styles["menu"]}>
-					{menuItems.map(({ href, icon, label }) => (
-						<Link
-							activeClassName={styles["active"]}
-							className={getValidClassNames(
-								styles["bottom-menu"],
-								styles["menu-item"],
-							)}
-							key={label}
-							to={href}
-						>
-							<Icon name={icon} />
-							<span className={styles["link-title"]}>{label}</span>
-						</Link>
-					))}
-				</nav>
+				<div className={styles["content-container"]}>
+					<Link className={styles["title-container"]} to="/">
+						<Image alt="website logo" className={styles["logo"]} src={logo} />
+					</Link>
+					<nav className={styles["menu"]}>
+						{menuItems.map(({ href, icon, label, pagePermissions }) => {
+							return (
+								handleCheckPermissions(pagePermissions) && (
+									<Link
+										activeClassName={styles["active"]}
+										className={getValidClassNames(
+											styles["bottom-menu"],
+											styles["menu-item"],
+										)}
+										key={label}
+										to={href}
+									>
+										<Icon name={icon} />
+										<span className={styles["link-title"]}>{label}</span>
+									</Link>
+								)
+							);
+						})}
+					</nav>
+				</div>
 				<Button
 					className={styles["log-out-btn"]}
 					iconName="logOut"

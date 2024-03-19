@@ -9,14 +9,16 @@ import {
 	RouterProvider,
 	StoreProvider,
 } from "~/libs/components/components.js";
-import { AppRoute } from "~/libs/enums/enums.js";
+import { AppRoute, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
 import { store } from "~/libs/modules/store/store.js";
 import { Auth } from "~/pages/auth/auth.jsx";
 
 import { Chats } from "./pages/chats/chats.js";
 import { CourseDescription } from "./pages/course-description/course-description.js";
+import { CourseProgressComparison } from "./pages/course-progress-comparison/course-progress-comparison.js";
 import { Feed } from "./pages/feed/feed.js";
 import { Friends } from "./pages/friends/friends.js";
+import { Management } from "./pages/management/management.js";
 import { NotFound } from "./pages/not-found/not-found.js";
 import { Notifications } from "./pages/notifications/notifications.js";
 import { Overview } from "./pages/overview/overview.js";
@@ -72,6 +74,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.SIGN_UP,
 							},
 							{
+								element: <Auth />,
+								path: AppRoute.FORGOT_PASSWORD,
+							},
+							{
+								element: <Auth />,
+								path: AppRoute.UPDATE_PASSWORD,
+							},
+							{
 								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.PROFILE,
 							},
@@ -80,8 +90,64 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID,
 							},
 							{
+								element: (
+									<ProtectedRoute component={<CourseProgressComparison />} />
+								),
+								path: AppRoute.USERS_$USER_ID_COURSES_$COURSE_ID_COMPARE,
+							},
+							{
 								element: <ProtectedRoute component={<User />} />,
 								path: AppRoute.USERS_$ID,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ONE_OF,
+											permissions: [
+												PermissionKey.MANAGE_UAM,
+												PermissionKey.MANAGE_USERS,
+											],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ONE_OF,
+											permissions: [
+												PermissionKey.MANAGE_UAM,
+												PermissionKey.MANAGE_USERS,
+											],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT_USERS,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ALL_OF,
+											permissions: [PermissionKey.MANAGE_UAM],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT_GROUPS,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.SUBSCRIPTION,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.SUBSCRIPTION_CHECKOUT,
 							},
 						],
 						element: <App />,

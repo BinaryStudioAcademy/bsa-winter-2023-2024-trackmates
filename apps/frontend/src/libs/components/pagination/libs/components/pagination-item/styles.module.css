@@ -1,38 +1,43 @@
-.item {
-	padding: 8px 12px;
-	margin-left: -1px;
-	font-weight: 500;
-	color: var(--color-menu);
+.item-container .item {
+	width: 30px;
+	min-height: 30px;
+	padding: 0;
+	margin: 0 4px;
+	font-family: inherit;
+	font-size: var(--font-size-200);
+	font-weight: 700;
+	color: #8e8e8e;
 	cursor: pointer;
-	background-color: transparent;
-	border: 1px solid var(--color-menu);
-	transition: 0.1s ease-out;
+	background-color: #efefef;
+	border: 0;
+	border-radius: 15px;
+	transition: 0.3s ease;
 }
 
-.item:disabled {
-	cursor: default;
+.disabled {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	pointer-events: none;
+	touch-action: none;
 	opacity: 0.5;
 }
 
-.item-container:first-child .item {
-	margin-left: 0;
-	border-top-left-radius: 8px;
-	border-bottom-left-radius: 8px;
-}
-
-.item-container:last-child .item {
-	border-top-right-radius: 8px;
-	border-bottom-right-radius: 8px;
-}
-
-.item:hover:not(:disabled) {
-	color: var(--main-white);
-	background-color: var(--color-button);
-}
-
-.item.active,
-.item.active:hover {
+.item.active {
 	color: var(--main-white);
 	cursor: default;
-	background-color: var(--color-menu);
+	background-color: var(--main-orange);
+}
+
+@media (hover: hover) {
+	.item:not(.disabled):hover {
+		color: var(--color-button);
+	}
+
+	.item.active:hover {
+		color: var(--main-white);
+		cursor: default;
+		background-color: var(--main-orange);
+	}
 }

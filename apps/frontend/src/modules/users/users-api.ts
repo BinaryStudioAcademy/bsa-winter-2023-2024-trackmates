@@ -6,6 +6,7 @@ import { type Storage } from "~/libs/modules/storage/storage.js";
 import { UsersApiPath } from "./libs/enums/enums.js";
 import {
 	type UserAuthResponseDto,
+	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 } from "./libs/types/types.js";
 
@@ -18,6 +19,19 @@ type Constructor = {
 class UserApi extends BaseHTTPApi {
 	public constructor({ baseUrl, http, storage }: Constructor) {
 		super({ baseUrl, http, path: APIPath.USERS, storage });
+	}
+
+	public async getAll(): Promise<UserGetAllResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(UsersApiPath.ROOT, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: true,
+				method: "GET",
+			},
+		);
+
+		return await response.json<UserGetAllResponseDto>();
 	}
 
 	public async getById(id: number): Promise<UserAuthResponseDto> {
@@ -33,6 +47,18 @@ class UserApi extends BaseHTTPApi {
 		);
 
 		return await response.json<UserAuthResponseDto>();
+	}
+
+	public async remove(id: number): Promise<boolean> {
+		const response = await this.load(
+			this.getFullEndpoint(UsersApiPath.$ID, { id: String(id) }),
+			{
+				hasAuth: true,
+				method: "DELETE",
+			},
+		);
+
+		return await response.json<boolean>();
 	}
 
 	public async update(

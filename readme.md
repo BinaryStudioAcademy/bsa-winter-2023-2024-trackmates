@@ -11,6 +11,12 @@ Track your progress for all your courses
 Deployed application:
 [TrackMates](https://trackmates.net/)
 
+#### Documentation:
+
+- [Specification](./docs/specification.md)
+- [Test Strategy](./docs/test-strategy.md)
+- [Test Plan](./docs/test-plan.md)
+
 ## 2. Domain
 
 The product helps the users to track the progress in all their courses from different vendors in one place, along with additional features like checking friends' progress
@@ -43,6 +49,7 @@ erDiagram
     varchar first_name
     varchar last_name
     varchar nickname
+    enum sex
     int avatar_file_id FK
    }
 
@@ -132,6 +139,7 @@ erDiagram
     dateTime updated_at
     int receiver_user_id FK
     int user_id FK
+    int action_id
     enum status
     enum type
    }
@@ -162,8 +170,48 @@ erDiagram
     int activity_id FK
   }
 
+  groups {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar key UK
+    varchar name UK
+  }
+
+  permissions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    varchar key UK
+    varchar name UK
+  }
+
+  groups_to_permissions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int group_id FK
+    int permission_id FK
+  }
+
+  users_to_groups {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    int group_id FK
+    int user_id FK
+  }
+
+  subscriptions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    dateTime expires_at
+  }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
+   user_details ||--|| subscriptions : subscription_id
 
    users ||--|{ friends : follower_id
    users ||--|{ friends : following_id
@@ -193,6 +241,12 @@ erDiagram
 
    users ||--|{ notifications : receiver_user_id
    users ||--|{ notifications : user_id
+
+   groups ||--|{ groups_to_permissions : group_id
+   permissions ||--|{ groups_to_permissions : permission_id
+
+   users ||--|{ users_to_groups : user_id
+   groups ||--|{ users_to_groups : group_id
 ```
 
 ## 5. Architecture
@@ -332,6 +386,8 @@ As we are already using js on both frontend and backend it would be useful to sh
 - apps/backend/.env
 
 You should use .env.example files as a reference.
+
+In order to set up sending emails you need specify `MAIL_USER_EMAIL` and `MAIL_USER_PASSWORD`. Here is [instruction for generating gmail app password](https://support.google.com/mail/answer/185833?hl=en)
 
 1. Install dependencies: `npm install`.
 
