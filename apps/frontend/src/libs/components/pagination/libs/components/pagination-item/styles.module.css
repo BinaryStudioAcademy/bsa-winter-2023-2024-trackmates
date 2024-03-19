@@ -1,6 +1,7 @@
-.item {
+.item-container .item {
 	width: 30px;
-	height: 30px;
+	min-height: 30px;
+	padding: 0;
 	margin: 0 4px;
 	font-family: inherit;
 	font-size: var(--font-size-200);
@@ -13,22 +14,30 @@
 	transition: 0.3s ease;
 }
 
-.item:disabled {
-	cursor: default;
+.disabled {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-decoration: none;
+	pointer-events: none;
+	touch-action: none;
 	opacity: 0.5;
 }
 
-.item:hover {
-	color: var(--main-orange);
-}
-
-.item:disabled:hover {
-	color: #8e8e8e;
-}
-
-.item.active,
-.item.active:hover {
+.item.active {
 	color: var(--main-white);
 	cursor: default;
 	background-color: var(--main-orange);
+}
+
+@media (hover: hover) {
+	.item:not(.disabled):hover {
+		color: var(--color-button);
+	}
+
+	.item.active:hover {
+		color: var(--main-white);
+		cursor: default;
+		background-color: var(--main-orange);
+	}
 }

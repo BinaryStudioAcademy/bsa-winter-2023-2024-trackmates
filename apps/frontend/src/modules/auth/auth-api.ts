@@ -10,7 +10,12 @@ import {
 	type UserSignUpResponseDto,
 } from "~/modules/users/users.js";
 
+import {
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+} from "./auth.js";
 import { AuthApiPath } from "./libs/enums/enums.js";
+import { type AuthUpdatePasswordResponseDto } from "./libs/types/types.js";
 
 type Constructor = {
 	baseUrl: string;
@@ -21,6 +26,22 @@ type Constructor = {
 class AuthApi extends BaseHTTPApi {
 	public constructor({ baseUrl, http, storage }: Constructor) {
 		super({ baseUrl, http, path: APIPath.AUTH, storage });
+	}
+
+	public async forgotPassword(
+		payload: AuthForgotPasswordRequestDto,
+	): Promise<boolean> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.FORGOT_PASSWORD, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: false,
+				method: "POST",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<boolean>();
 	}
 
 	public async getAuthenticatedUser(): Promise<UserAuthResponseDto | null> {
@@ -65,6 +86,22 @@ class AuthApi extends BaseHTTPApi {
 		);
 
 		return await response.json<UserSignUpResponseDto>();
+	}
+
+	public async updatePassword(
+		payload: AuthUpdatePasswordRequestDto,
+	): Promise<AuthUpdatePasswordResponseDto> {
+		const response = await this.load(
+			this.getFullEndpoint(AuthApiPath.UPDATE_PASSWORD, {}),
+			{
+				contentType: ContentType.JSON,
+				hasAuth: false,
+				method: "PATCH",
+				payload: JSON.stringify(payload),
+			},
+		);
+
+		return await response.json<AuthUpdatePasswordResponseDto>();
 	}
 }
 

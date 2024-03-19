@@ -7,11 +7,19 @@ import { actions as filesActions } from "~/modules/files/files.js";
 import { actions as subscriptionActions } from "~/modules/subscriptions/subscriptions.js";
 import { actions as usersActions } from "~/modules/users/users.js";
 
-import { getAuthenticatedUser, logOut, signIn, signUp } from "./actions.js";
+import {
+	forgotPassword,
+	getAuthenticatedUser,
+	logOut,
+	signIn,
+	signUp,
+	updatePassword,
+} from "./actions.js";
 
 type State = {
 	avatarUploadDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
+	forgotPasswordStatus: ValueOf<typeof DataStatus>;
 	updateUserDataStatus: ValueOf<typeof DataStatus>;
 	user: UserAuthResponseDto | null;
 };
@@ -19,6 +27,7 @@ type State = {
 const initialState: State = {
 	avatarUploadDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
+	forgotPasswordStatus: DataStatus.IDLE,
 	updateUserDataStatus: DataStatus.IDLE,
 	user: null,
 };
@@ -57,6 +66,29 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(signIn.rejected, (state) => {
 			state.dataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(updatePassword.pending, (state) => {
+			state.dataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(updatePassword.fulfilled, (state, action) => {
+			state.dataStatus = DataStatus.FULFILLED;
+			state.user = action.payload;
+		});
+		builder.addCase(updatePassword.rejected, (state) => {
+			state.dataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(forgotPassword.pending, (state) => {
+			state.forgotPasswordStatus = DataStatus.PENDING;
+		});
+		builder.addCase(forgotPassword.fulfilled, (state, action) => {
+			state.forgotPasswordStatus = action.payload
+				? DataStatus.FULFILLED
+				: DataStatus.REJECTED;
+		});
+		builder.addCase(forgotPassword.rejected, (state) => {
+			state.forgotPasswordStatus = DataStatus.REJECTED;
 		});
 
 		builder.addCase(logOut.fulfilled, (state, action) => {

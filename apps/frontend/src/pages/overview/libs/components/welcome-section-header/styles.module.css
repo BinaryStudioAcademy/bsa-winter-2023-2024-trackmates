@@ -75,16 +75,8 @@
 	outline: none;
 }
 
-.add-course-button:hover {
-	color: var(--main-white);
-}
-
 .add-course-button-icon {
 	fill: var(--main-orange);
-}
-
-.add-course-button:hover .add-course-button-icon {
-	fill: var(--main-white);
 }
 
 @media screen and (width <= 1400px) {
@@ -202,5 +194,15 @@
 	.add-course-button {
 		min-height: 30px;
 		padding: 5px;
+	}
+}
+
+@media (hover: hover) {
+	.add-course-button:hover {
+		color: var(--main-white);
+	}
+
+	.add-course-button:hover .add-course-button-icon {
+		fill: var(--main-white);
 	}
 }

@@ -120,6 +120,20 @@ class UserService implements Service {
 
 		return updatedUser?.toObject() ?? null;
 	}
+
+	public async updatePassword(
+		userId: number,
+		password: string,
+	): Promise<UserAuthResponseDto> {
+		const { hash, salt } = await this.encrypt.encrypt(password);
+
+		const updatedUser = await this.userRepository.updatePassword(userId, {
+			hash,
+			salt,
+		});
+
+		return updatedUser.toObject();
+	}
 }
 
 export { UserService };

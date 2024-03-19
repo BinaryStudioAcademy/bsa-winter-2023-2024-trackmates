@@ -94,7 +94,6 @@
 	transition: 0.3s ease;
 }
 
-.filter-item:hover,
 .filter-item.active {
 	color: unset;
 	background-color: var(--main-white);
@@ -169,5 +168,12 @@
 		width: 100%;
 		max-width: unset;
 		padding: 0 40px;
+	}
+}
+
+@media (hover: hover) {
+	.filter-item:hover {
+		color: unset;
+		background-color: var(--main-white);
 	}
 }

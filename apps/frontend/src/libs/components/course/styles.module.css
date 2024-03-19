@@ -13,10 +13,6 @@
 	transition: 0.3s ease;
 }
 
-.container:hover {
-	border: 1px solid var(--color-menu);
-}
-
 .link {
 	height: 100%;
 	color: var(--color-text-300);
@@ -48,12 +44,18 @@
 	transition: 0.3s ease;
 }
 
-.course-details-link:hover {
-	color: var(--color-button);
-	border-color: var(--color-button);
-}
-
 .course-add-button,
 .compare-progress-button {
 	flex-grow: 1;
+}
+
+@media (hover: hover) {
+	.container:hover {
+		border: 1px solid var(--color-menu);
+	}
+
+	.course-details-link:hover {
+		color: var(--color-button);
+		border-color: var(--color-button);
+	}
 }
