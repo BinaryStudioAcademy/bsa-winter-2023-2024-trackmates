@@ -39,7 +39,7 @@ import {
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
-	useAppTitle(AppTitle.FRIENDS);
+	useAppTitle(AppTitle.FRIEND);
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const userId = Number(id);

@@ -3,6 +3,7 @@ const AppTitle = {
 	CHATS: "Chats",
 	COMPARE_PROGRESS: "Compare Progress",
 	FORGOT_PASSWORD: "Forgot password",
+	FRIEND: "Friend",
 	FRIENDS: "Friends",
 	MANAGEMENT: "Management",
 	NOT_FOUND: "Not Found",
