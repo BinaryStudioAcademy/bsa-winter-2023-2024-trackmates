@@ -165,6 +165,7 @@ class CourseRepository implements Repository<CourseEntity> {
 		const courses = await this.courseModel
 			.query()
 			.withGraphFetched("vendor")
+			.orderBy("id", SortOrder.ASC)
 			.execute();
 
 		return courses.map((course) => {
@@ -409,13 +410,12 @@ class CourseRepository implements Repository<CourseEntity> {
 		const course = entity.toNewObject();
 		const courseModel = await this.courseModel
 			.query()
-			.findById(id)
-			.patch(course)
-			.returning("*")
-			.castTo<CourseModel>()
+			.updateAndFetchById(id, course)
+			.withGraphFetched("vendor")
+			.castTo<CourseModel | undefined>()
 			.execute();
 
-		return courseModel.id
+		return courseModel
 			? CourseEntity.initialize({
 					createdAt: courseModel.createdAt,
 					description: courseModel.description,
