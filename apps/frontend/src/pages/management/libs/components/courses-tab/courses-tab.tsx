@@ -30,7 +30,7 @@ const CoursesTab: React.FC = () => {
 	const { courseToDataStatus, courses, isCoursesLoading } = useAppSelector(
 		(state) => {
 			return {
-				courseToDataStatus: state.management.courseToDataStatus,
+				courseToDataStatus: state.courses.courseToDataStatus,
 				courses: state.courses.allCourses,
 				isCoursesLoading:
 					state.courses.allCoursesDataStatus === DataStatus.PENDING,
@@ -95,13 +95,9 @@ const CoursesTab: React.FC = () => {
 									<TableRow key={course.id}>
 										<CourseColumns
 											course={course}
-											isDeleting={
-												courseToDataStatus[course.id as number]
-													?.deleteDataStatus === DataStatus.PENDING
-											}
-											isEditing={
-												courseToDataStatus[course.id as number]
-													?.updateDataStatus === DataStatus.PENDING
+											isLoading={
+												courseToDataStatus[course.id as number] ===
+												DataStatus.PENDING
 											}
 											onSetCurrentCourse={setCurrentCourse}
 											onSetIsConfirmationModalOpen={setIsConfirmationModalOpen}
