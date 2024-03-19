@@ -26,10 +26,6 @@
 	transition: 0.3s ease;
 }
 
-.card:hover {
-	border: 1px solid var(--color-menu);
-}
-
 .card-content {
 	flex-grow: 1;
 	padding: 12px;
@@ -63,4 +59,10 @@
 .start-chat :first-child {
 	width: 18px;
 	height: 18px;
+}
+
+@media (hover: hover) {
+	.card:hover {
+		border: 1px solid var(--color-menu);
+	}
 }

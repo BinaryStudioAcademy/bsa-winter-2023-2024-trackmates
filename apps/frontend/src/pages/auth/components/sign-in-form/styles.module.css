@@ -45,10 +45,6 @@
 	transition: 0.3s color ease;
 }
 
-.link:hover {
-	text-decoration: underline;
-}
-
 .password-input {
 	position: relative;
 }
@@ -80,5 +76,11 @@
 
 	.button {
 		margin-top: 24px;
+	}
+}
+
+@media (hover: hover) {
+	.link:hover {
+		text-decoration: underline;
 	}
 }

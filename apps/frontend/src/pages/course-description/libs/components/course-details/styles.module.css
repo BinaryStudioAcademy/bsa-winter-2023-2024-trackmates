@@ -25,10 +25,6 @@
 	transition: 0.1s color ease;
 }
 
-.link:hover {
-	color: var(--color-button);
-}
-
 .tabs {
 	display: flex;
 	flex-wrap: wrap;
@@ -75,21 +71,9 @@
 	border-radius: 0;
 }
 
-.button:hover {
-	font-weight: bold;
-	color: var(--color-text-600);
-	cursor: pointer;
-	background-color: transparent;
-	border-bottom: 1px solid #e4e4e4;
-}
-
 .active {
 	font-weight: bold;
 	color: var(--color-text-600);
-	border-bottom: 3px solid var(--main-orange);
-}
-
-.active:hover {
 	border-bottom: 3px solid var(--main-orange);
 }
 
@@ -100,5 +84,23 @@
 
 	.content-title {
 		padding-top: 16px;
+	}
+}
+
+@media (hover: hover) {
+	.active:hover {
+		border-bottom: 3px solid var(--main-orange);
+	}
+
+	.link:hover {
+		color: var(--color-button);
+	}
+
+	.button:hover {
+		font-weight: bold;
+		color: var(--color-text-600);
+		cursor: pointer;
+		background-color: transparent;
+		border-bottom: 1px solid #e4e4e4;
 	}
 }
