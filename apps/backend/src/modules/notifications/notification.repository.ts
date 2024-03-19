@@ -73,17 +73,15 @@ class NotificationRepository implements Repository<NotificationEntity> {
 		return Boolean(deletedRowsCount);
 	}
 
-	public async deleteAllNotificationByUserId(
+	public async deleteAllNotificationByParameters(
 		id: number,
-		userId: number,
+		receiverUserId: number,
 		type: string,
 	): Promise<boolean> {
 		const deletedItemsCount = await this.notificationModel
 			.query()
 			.delete()
-			.where("receiverUserId", userId)
-			.andWhere("userId", id)
-			.andWhere("type", type);
+			.where({ receiverUserId, type, userId: id });
 
 		return Boolean(deletedItemsCount);
 	}

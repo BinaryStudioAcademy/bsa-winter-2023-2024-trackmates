@@ -110,7 +110,7 @@ class NotificationService implements Service {
 		userId: number,
 		type: string,
 	): Promise<boolean> {
-		return await this.notificationRepository.deleteAllNotificationByUserId(
+		return await this.notificationRepository.deleteAllNotificationByParameters(
 			id,
 			userId,
 			type,
