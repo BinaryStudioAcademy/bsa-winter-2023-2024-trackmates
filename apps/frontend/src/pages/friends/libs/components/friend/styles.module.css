@@ -56,6 +56,11 @@
 	fill: currentcolor;
 }
 
+.start-chat :first-child {
+	width: 18px;
+	height: 18px;
+}
+
 @media (hover: hover) {
 	.card:hover {
 		border: 1px solid var(--color-menu);

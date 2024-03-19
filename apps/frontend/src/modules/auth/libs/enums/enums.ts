@@ -1,1 +1,1 @@
-export { AuthApiPath } from "@trackmates/shared";
+export { AuthApiPath, AuthErrorMessage } from "@trackmates/shared";

@@ -1,0 +1,53 @@
+@import url("~/assets/css/media.css");
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 27px;
+	width: 100%;
+	max-width: 253px;
+	margin-top: 141px;
+	margin-bottom: 190px;
+	color: var(--main-white);
+}
+
+.title {
+	margin: 0 0 14px;
+	font-size: var(--font-size-600);
+	font-weight: 600;
+	line-height: 48px;
+}
+
+.password-input {
+	position: relative;
+}
+
+.password {
+	padding-right: 50px;
+}
+
+.icon {
+	position: absolute;
+	top: 32px;
+	right: 18px;
+	min-height: auto;
+	padding: 0;
+	background-color: transparent;
+	border: unset;
+}
+
+.button {
+	font-weight: 700;
+}
+
+@media screen and (--small-screen) {
+	.form {
+		max-width: unset;
+		padding: 0 30px;
+		margin-top: 0;
+	}
+
+	.button {
+		margin-top: 24px;
+	}
+}
