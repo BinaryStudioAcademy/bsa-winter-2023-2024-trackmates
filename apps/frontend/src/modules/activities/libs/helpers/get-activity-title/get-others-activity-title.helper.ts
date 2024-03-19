@@ -12,16 +12,16 @@ const getOthersActivityTitle = (
 	payload: ActivityFinishCourseResponseDto | ActivityFinishSectionResponseDto,
 	pronoun: string,
 ): string => {
-	const courseTitle = checkIsFinishSectionActivity(payload)
-		? payload.courseTitle
-		: null;
-
 	switch (activityType) {
 		case ActivityType.FINISH_COURSE: {
 			return `Completed the "${payload.title}" course! Congratulate ${pronoun}!`;
 		}
 
 		case ActivityType.FINISH_SECTION: {
+			const courseTitle = checkIsFinishSectionActivity(payload)
+				? payload.courseTitle
+				: null;
+
 			return `Completed the "${payload.title}" section of the "${courseTitle}" course! Congratulate ${pronoun}!`;
 		}
 	}

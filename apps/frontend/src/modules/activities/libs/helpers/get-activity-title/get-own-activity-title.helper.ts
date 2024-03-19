@@ -11,16 +11,16 @@ const getOwnActivityTitle = (
 	activityType: ValueOf<typeof ActivityType>,
 	payload: ActivityFinishCourseResponseDto | ActivityFinishSectionResponseDto,
 ): string => {
-	const courseTitle = checkIsFinishSectionActivity(payload)
-		? payload.courseTitle
-		: null;
-
 	switch (activityType) {
 		case ActivityType.FINISH_COURSE: {
 			return `Congratulations on completing the "${payload.title}" course!`;
 		}
 
 		case ActivityType.FINISH_SECTION: {
+			const courseTitle = checkIsFinishSectionActivity(payload)
+				? payload.courseTitle
+				: null;
+
 			return `Congratulations on completing the "${payload.title}" section of the "${courseTitle}" course!`;
 		}
 	}
