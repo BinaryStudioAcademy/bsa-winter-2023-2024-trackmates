@@ -557,7 +557,7 @@ class FriendController extends BaseController {
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
-	 * 		- name: search
+	 *       - name: search
 	 * 		   in: query
 	 *         schema:
 	 *           type: string
