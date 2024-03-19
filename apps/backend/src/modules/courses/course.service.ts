@@ -18,6 +18,7 @@ import {
 	type CourseDto,
 	type CourseSearchGetAllResponseDto,
 	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 } from "./libs/types/types.js";
 
 type Constructor = {
@@ -194,6 +195,15 @@ class CourseService {
 	}
 
 	public async delete(id: number): Promise<boolean> {
+		const courseById = await this.courseRepository.find(id);
+
+		if (!courseById) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
 		return await this.courseRepository.delete(id);
 	}
 
@@ -210,10 +220,15 @@ class CourseService {
 		return entity.toObject();
 	}
 
-	public async findAll(): Promise<CourseDto[]> {
+	public async findAll(): Promise<CourseSearchGetAllResponseDto> {
 		const entities = await this.courseRepository.findAll();
 
-		return entities.map((entity) => entity.toObject());
+		const courses = entities.map((entity) => ({
+			...entity.toObject(),
+			hasUserCourse: false,
+		}));
+
+		return { courses };
 	}
 
 	public async findAllByVendor(
@@ -276,7 +291,44 @@ class CourseService {
 		return { courses: sortedCourses.filter(Boolean) };
 	}
 
-	public async update(id: number): Promise<CourseDto | null> {
+	public async update(
+		id: number,
+		payload: CourseUpdateRequestDto,
+	): Promise<CourseDto> {
+		const courseById = await this.courseRepository.find(id);
+
+		if (!courseById) {
+			throw new CourseError({
+				message: CourseErrorMessage.NOT_FOUND_COURSE,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		const existingCourse = courseById.toObject();
+
+		const updatedCourse = await this.courseRepository.update(
+			id,
+			CourseEntity.initializeNew({
+				description: existingCourse.description,
+				image: existingCourse.image,
+				title: payload.title,
+				url: existingCourse.url,
+				vendorCourseId: existingCourse.vendorCourseId,
+				vendorId: existingCourse.vendorId,
+			}),
+		);
+
+		if (!updatedCourse) {
+			throw new CourseError({
+				message: CourseErrorMessage.COURSE_UPDATE_FAILED,
+				status: HTTPCode.BAD_REQUEST,
+			});
+		}
+
+		return updatedCourse.toObject();
+	}
+
+	public async updateFromVendor(id: number): Promise<CourseDto | null> {
 		const existingCourse = await this.courseRepository.find(id);
 
 		if (!existingCourse) {

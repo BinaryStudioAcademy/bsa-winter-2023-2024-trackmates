@@ -6,4 +6,5 @@ export {
 	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 } from "@trackmates/shared";
