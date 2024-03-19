@@ -41,7 +41,7 @@
 	bottom: -1px;
 	font-size: 13px;
 	color: var(--main-white);
-	content: "\2714";
+	content: "\2714 \fe0e";
 }
 
 .error {

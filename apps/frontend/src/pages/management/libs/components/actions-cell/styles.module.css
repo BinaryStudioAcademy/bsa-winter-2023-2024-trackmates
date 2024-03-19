@@ -15,14 +15,20 @@
 	transition: 0.3s;
 }
 
-.icon-button:hover {
-	color: var(--main-orange);
-	background-color: transparent;
-}
-
 .icon-button:disabled,
-.icon-button:disabled:hover,
 .icon-button:disabled:focus {
 	color: var(--color-text-100);
 	background-color: transparent;
+}
+
+@media (hover: hover) {
+	.icon-button:hover {
+		color: var(--main-orange);
+		background-color: transparent;
+	}
+
+	.icon-button:disabled:hover {
+		color: var(--color-text-100);
+		background-color: transparent;
+	}
 }

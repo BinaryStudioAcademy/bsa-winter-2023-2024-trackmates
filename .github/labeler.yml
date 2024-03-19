@@ -16,6 +16,8 @@ frontend:
 
 beanstalk: ".ebextensions/**/*"
 
+docs: "docs/**/*"
+
 ENV:
   - "backend/.env.example"
   - "frontend/.env.example"

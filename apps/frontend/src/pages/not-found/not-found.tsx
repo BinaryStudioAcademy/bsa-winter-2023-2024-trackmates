@@ -1,10 +1,14 @@
 import questionCharacter from "~/assets/img/question-character.svg";
 import { Button } from "~/libs/components/components.js";
+import { AppTitle } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
+import { useAppTitle } from "~/libs/hooks/hooks.js";
 
 import styles from "./styles.module.css";
 
 const NotFound: React.FC = () => {
+	useAppTitle(AppTitle.NOT_FOUND);
+
 	return (
 		<div className={styles["not-found-page-container"]}>
 			<div className={styles["not-found-page-content-container"]}>

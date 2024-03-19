@@ -69,6 +69,7 @@
 
 .message {
 	margin: 0;
-	overflow-wrap: break-word;
+	word-break: break-word;
+	overflow-wrap: anywhere;
 	white-space: pre-wrap;
 }

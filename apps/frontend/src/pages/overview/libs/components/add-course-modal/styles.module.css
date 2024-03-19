@@ -73,7 +73,7 @@
 
 .load-more-button {
 	width: 150px;
-	margin: 10px auto 0;
+	margin: 30px auto 0;
 }
 
 @media screen and (width <= 865px) {

@@ -1,0 +1,64 @@
+@import url("~/assets/css/media.css");
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 27px;
+	width: 100%;
+	max-width: 253px;
+	margin-top: 141px;
+	margin-bottom: 190px;
+	color: var(--main-white);
+}
+
+.title {
+	margin: 0;
+	font-size: var(--font-size-600);
+	font-weight: 600;
+	line-height: 48px;
+}
+
+.info {
+	margin-bottom: 14px;
+}
+
+.subtitle {
+	margin: 0;
+	font-size: var(--font-size-200);
+	font-weight: 400;
+	line-height: 20px;
+}
+
+.success-info {
+	padding: 20px;
+	font-size: var(--font-size-600);
+	font-weight: 600;
+	line-height: 48px;
+	text-align: center;
+}
+
+.link {
+	color: var(--color-button);
+	text-decoration: none;
+	transition: 0.3s color ease;
+}
+
+.link:hover {
+	text-decoration: underline;
+}
+
+.button {
+	font-weight: 700;
+}
+
+@media screen and (--small-screen) {
+	.content {
+		max-width: unset;
+		padding: 0 30px;
+		margin-top: 0;
+	}
+
+	.button {
+		margin-top: 24px;
+	}
+}
