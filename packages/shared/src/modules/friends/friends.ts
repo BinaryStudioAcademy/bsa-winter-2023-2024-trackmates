@@ -3,7 +3,7 @@ export { FriendError } from "./libs/exceptions/exceptions.js";
 export {
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
-	type FriendListRequestDto,
+	type FriendListRequestQueryDto,
 	type FriendUnfollowRequestDto,
 } from "./libs/types/types.js";
 export {

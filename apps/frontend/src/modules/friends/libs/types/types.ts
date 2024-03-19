@@ -1,6 +1,6 @@
 export {
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
-	type FriendListRequestDto,
+	type FriendListRequestQueryDto,
 	type FriendUnfollowRequestDto,
 } from "@trackmates/shared";
