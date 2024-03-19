@@ -89,7 +89,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 										key={label}
 										to={href}
 									>
-										<Icon name={icon} />
+										<Icon className={styles["link-icon"]} name={icon} />
 										<span className={styles["link-title"]}>{label}</span>
 									</Link>
 								)
@@ -99,9 +99,9 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 				</div>
 				<Button
 					className={styles["log-out-btn"]}
-					iconClassName={styles["log-out-icon"]}
 					iconName="logOut"
 					label="Log Out"
+					labelClassName={styles["log-out-label"]}
 					onClick={handleLogOut}
 					style="plain"
 				/>

@@ -16,6 +16,7 @@ type Properties = {
 	isDisabled?: boolean;
 	isLoading?: boolean;
 	label: string;
+	labelClassName?: string | undefined;
 	loaderColor?: React.ComponentProps<typeof Loader>["color"];
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
@@ -32,6 +33,7 @@ const Button: React.FC<Properties> = ({
 	isDisabled = false,
 	isLoading,
 	label,
+	labelClassName,
 	loaderColor = "white",
 	onClick,
 	size = "regular",
@@ -50,6 +52,7 @@ const Button: React.FC<Properties> = ({
 		<Icon className={iconClassName} name={iconName} />
 	) : null;
 	const labelStyle = getValidClassNames(
+		labelClassName,
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 

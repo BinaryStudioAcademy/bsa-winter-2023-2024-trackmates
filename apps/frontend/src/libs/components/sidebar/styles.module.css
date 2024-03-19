@@ -55,7 +55,7 @@
 	transition: 0.3s ease;
 }
 
-.menu-item :first-child {
+.link-icon {
 	width: 20px;
 	height: 21px;
 }
@@ -268,7 +268,7 @@
 	}
 
 	.link-title,
-	.log-out-icon ~ :last-child {
+	.log-out-label {
 		position: absolute;
 		width: 1px;
 		height: 1px;
