@@ -145,9 +145,11 @@ export {
 	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 	CoursesApiPath,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./modules/courses/courses.js";
 export {
 	FileError,
