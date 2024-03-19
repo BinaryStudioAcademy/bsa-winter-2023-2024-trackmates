@@ -5,6 +5,7 @@ const AppTitle = {
 	FORGOT_PASSWORD: "Forgot password",
 	FRIENDS: "Friends",
 	MANAGEMENT: "Management",
+	NOT_FOUND: "Not Found",
 	NOTIFICATIONS: "Notifications",
 	PROFILE: "My Profile",
 	SIGN_IN: "Sign In",

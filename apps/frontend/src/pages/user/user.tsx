@@ -13,10 +13,16 @@ import {
 	EMPTY_LENGTH,
 	PAGINATION_PAGES_CUT_COUNT,
 } from "~/libs/constants/constants.js";
-import { AppRoute, DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+import {
+	AppRoute,
+	AppTitle,
+	DataStatus,
+	PaginationValue,
+} from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useCallback,
 	useEffect,
 	useNavigate,
@@ -33,6 +39,7 @@ import {
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
+	useAppTitle(AppTitle.FRIENDS);
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const userId = Number(id);
