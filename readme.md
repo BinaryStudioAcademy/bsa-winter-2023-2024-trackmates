@@ -25,7 +25,7 @@ The product helps the users to track the progress in all their courses from diff
 
 - [NodeJS](https://nodejs.org/en) (18.x.x);
 - [npm](https://www.npmjs.com/) (>=9.x.x);
-- [PostgreSQL](https://www.postgresql.org/) (15.4)
+- [PostgreSQL](https://www.postgresql.org/) (15.5)
 
 ## 4. Database Schema
 
@@ -252,59 +252,39 @@ erDiagram
 ## 5. Architecture
 
 ```mermaid
-graph LR
 
-   subgraph TrackMates
-      subgraph Web
-         Web_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/web.jpeg'; /> ")
-      end
+graph TD
 
-      subgraph Mobile
-         Mobile_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/mobile.jpeg'; /> ")
-      end
-   end
+   User
 
-   subgraph Route53
-      Route53_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/route53.png'; />")
-   end
+   WebApp["Web App"]
+   PWA
 
-   subgraph ELB["Elastic Load Balancer (ELB)"]
-      ELB_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/elb.png'; />")
-   end
+   Route53
 
-   subgraph EC2["Amazon EC2 Instance"]
-      EC2_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/ec2.png'; />")
-   end
+   ELB["Elastic Load Balancer (ELB)"]
 
-   subgraph NodeJS
-      NodeJS_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/nodejs.png'; />")
-   end
+   EC2["Amazon EC2 Instance (NodeJS)"]
 
-   subgraph RDS["PostgreSQL Database"]
-      RDS_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/rds.png'; />")
-   end
+   DB["Database (Amazon RDS)"]
+   S3["Amazon S3"]
+   NodeJS["NodeJS API"]
+   OpenAI["OpenAI API"]
+   Udemy["Udemy API"]
+   Stripe["Stripe API"]
 
-   subgraph S3["Amazon S3 Storage"]
-      S3_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/s3.png'; />")
-   end
-
-   subgraph OpenAI["OpenAI API"]
-      OpenAI_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/open-ai.webp'; />")
-   end
-
-   subgraph Udemy["Udemy API"]
-      Udemy_image("<img src='https://raw.githubusercontent.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/main/docs/application-schema/assets/img/udemy.jpeg'; />")
-   end
-
-   TrackMates -->|Connects to| Route53
-   Mobile-->|Connects to| Route53
+   User -->|Connects to| WebApp
+   User -->|Connects to| PWA
+   WebApp -->|Connects to| Route53
+   PWA -->|Connects to| Route53
    Route53 -->|Sends traffic to| ELB
-   ELB -->|Reroutes traffic to| EC2
-   EC2 -->|Connects to| RDS
+   ELB -->|Sends traffic to| EC2
+   EC2 -->|Connects to| DB
    EC2 -->|Connects to| S3
    EC2 -->|Uses| NodeJS
    EC2 -->|Connects to| OpenAI
    EC2 -->|Connects to| Udemy
+   EC2 -->|Connects to| Stripe
 ```
 
 ### 5.1 Global
