@@ -13,7 +13,6 @@ type UsePagination = (options: {
 	queryName?: string;
 	totalCount: number;
 }) => {
-	handlePageChange: (page: number) => void;
 	page: number;
 	pages: number[];
 	pagesCount: number;
@@ -25,7 +24,7 @@ const usePagination: UsePagination = ({
 	queryName = "page",
 	totalCount,
 }) => {
-	const [searchParameters, setSearchParameters] = useSearchParams();
+	const [searchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
 	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
 
@@ -50,16 +49,7 @@ const usePagination: UsePagination = ({
 		}
 	}, [pageFromQuery, pagesCount, location.pathname]);
 
-	const handlePageChange = (page: number): void => {
-		const updatedSearchParameters = new URLSearchParams(
-			searchParameters.toString(),
-		);
-		updatedSearchParameters.set(queryName, String(page));
-		setSearchParameters(updatedSearchParameters);
-		setPage(page);
-	};
-
-	return { handlePageChange, page, pages, pagesCount };
+	return { page, pages, pagesCount };
 };
 
 export { usePagination };
