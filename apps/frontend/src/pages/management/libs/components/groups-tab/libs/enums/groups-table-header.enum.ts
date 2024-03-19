@@ -1,5 +1,5 @@
 const GroupsTableHeader = {
-	BUTTONS: "",
+	BUTTONS: "Actions",
 	ID: "ID",
 	NAME: "Group name",
 	PERMISSIONS: "Permissions",
