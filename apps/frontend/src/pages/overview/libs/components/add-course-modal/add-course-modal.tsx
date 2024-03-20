@@ -44,24 +44,31 @@ const AddCourseModal: React.FC<Properties> = ({
 	onClose,
 }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
-		(state) => {
-			return {
-				courses: state.courses.searchedCourses,
-				isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
-				recommendedCourses: state.courses.recommendedCourses,
-				vendors: state.vendors.vendors,
-			};
-		},
-	);
+	const {
+		courses,
+		isRecommendedLoading,
+		isSearchLoading,
+		recommendedCourses,
+		vendors,
+	} = useAppSelector((state) => {
+		return {
+			courses: state.courses.searchedCourses,
+			isRecommendedLoading:
+				state.courses.recommendedDataStatus === DataStatus.PENDING,
+			isSearchLoading: state.courses.searchDataStatus === DataStatus.PENDING,
+			recommendedCourses: state.courses.recommendedCourses,
+			vendors: state.vendors.vendors,
+		};
+	});
 	const { control, errors, getValues, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
 	});
 
 	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
-	const isLoadFirstPage = isLoading && page === PaginationValue.DEFAULT_PAGE;
-	const isLoadMore = isLoading && page !== PaginationValue.DEFAULT_PAGE;
+	const isLoadFirstPage =
+		isSearchLoading && page === PaginationValue.DEFAULT_PAGE;
+	const isLoadMore = isSearchLoading && page !== PaginationValue.DEFAULT_PAGE;
 
 	const handleAddCourse = useCallback(
 		(payload: AddCourseRequestDto) => {
@@ -186,11 +193,14 @@ const AddCourseModal: React.FC<Properties> = ({
 									<h2 className={styles["courses-title"]}>
 										Recommended Courses
 									</h2>
-
-									<Courses
-										courses={recommendedCourses}
-										onAddCourse={handleAddCourse}
-									/>
+									{isRecommendedLoading ? (
+										<Loader color="orange" size="large" />
+									) : (
+										<Courses
+											courses={recommendedCourses}
+											onAddCourse={handleAddCourse}
+										/>
+									)}
 								</div>
 
 								<div className={styles["searched-courses"]}>
