@@ -220,10 +220,12 @@ class GroupController extends BaseController {
 	 *            schema:
 	 *              type: object
 	 *              properties:
-	 *                key:
-	 *                  type: string
 	 *                name:
 	 *                  type: string
+	 *                permissions:
+	 *                  type: array
+	 *                  items:
+	 *                    type: string
 	 *      responses:
 	 *        201:
 	 *          description: Successful operation
