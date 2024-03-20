@@ -69,24 +69,31 @@ class GroupEntity implements Entity {
 	public static initializeNew({
 		key,
 		name,
+		permissions,
 	}: {
 		key: string;
 		name: string;
+		permissions: PermissionEntity[];
 	}): GroupEntity {
 		return new GroupEntity({
 			createdAt: "",
 			id: null,
 			key,
 			name,
-			permissions: [],
+			permissions,
 			updatedAt: "",
 		});
 	}
 
-	public toNewObject(): { key: string; name: string } {
+	public toNewObject(): {
+		key: string;
+		name: string;
+		permissions: PermissionResponseDto[];
+	} {
 		return {
 			key: this.key,
 			name: this.name,
+			permissions: this.permissions.map((permission) => permission.toObject()),
 		};
 	}
 

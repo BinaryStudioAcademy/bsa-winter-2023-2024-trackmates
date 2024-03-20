@@ -15,7 +15,10 @@ import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type GroupService } from "./group.service.js";
 import { GroupsApiPath } from "./libs/enums/enums.js";
-import { type GroupRequestDto } from "./libs/types/types.js";
+import {
+	type GroupCreateRequestDto,
+	type GroupRequestDto,
+} from "./libs/types/types.js";
 import {
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
@@ -54,7 +57,7 @@ class GroupController extends BaseController {
 			handler: (options) => {
 				return this.create(
 					options as APIHandlerOptions<{
-						body: GroupRequestDto;
+						body: GroupCreateRequestDto;
 					}>,
 				);
 			},
@@ -232,7 +235,7 @@ class GroupController extends BaseController {
 	private async create({
 		body,
 	}: APIHandlerOptions<{
-		body: GroupRequestDto;
+		body: GroupCreateRequestDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
 			payload: await this.groupService.create(body),

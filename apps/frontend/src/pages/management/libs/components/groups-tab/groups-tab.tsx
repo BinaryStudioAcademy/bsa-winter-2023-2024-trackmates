@@ -1,8 +1,7 @@
-import { Button, Input } from "~/libs/components/components.js";
+import { Button } from "~/libs/components/components.js";
 import { PermissionKey } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
-	useAppForm,
 	useAppSelector,
 	useCallback,
 	useEffect,
@@ -10,22 +9,20 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
+	type GroupCreateRequestDto,
 	type GroupResponseDto,
-	groupNameFieldValidationSchema,
 	actions as groupsActions,
 } from "~/modules/groups/groups.js";
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
+import { AddGroup } from "../add-group/add-group.js";
 import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
-import {
-	GROUPS_TABLE_HEADERS,
-	INPUT_DEFAULT_VALUE,
-} from "./libs/constants/constants.js";
+import { GROUPS_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { GroupsTableHeader } from "./libs/enums/enums.js";
 import { groupsHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -39,12 +36,6 @@ const GroupsTab: React.FC = () => {
 			permissions: state.management.permissions,
 		};
 	});
-	const { control, errors, handleSubmit, reset } = useAppForm<{ name: string }>(
-		{
-			defaultValues: INPUT_DEFAULT_VALUE,
-			validationSchema: groupNameFieldValidationSchema,
-		},
-	);
 
 	const [currentGroup, setCurrentGroup] = useState<GroupResponseDto | null>(
 		null,
@@ -58,20 +49,20 @@ const GroupsTab: React.FC = () => {
 		void dispatch(permissionsActions.getAllPermissions());
 	}, [dispatch]);
 
-	const handleCreateGroup = useCallback(
-		({ name }: { name: string }) => {
-			const key = name.trim().replace(" ", "-").toLowerCase();
-			void dispatch(groupsActions.createGroup({ key, name }));
-			reset();
-		},
-		[dispatch, reset],
-	);
+	// const handleCreateGroup = useCallback(
+	// 	({ name }: { name: string }) => {
+	// 		const key = name.trim().replace(" ", "-").toLowerCase();
+	// 		void dispatch(groupsActions.createGroup({ key, name }));
+	// 		reset();
+	// 	},
+	// 	[dispatch, reset],
+	// );
 
-	const handleFormSubmit = useCallback(
-		(event_: React.BaseSyntheticEvent): void => {
-			void handleSubmit(handleCreateGroup)(event_);
+	const handleCreateGroup = useCallback(
+		(payload: GroupCreateRequestDto) => {
+			void dispatch(groupsActions.createGroup(payload));
 		},
-		[handleSubmit, handleCreateGroup],
+		[dispatch],
 	);
 
 	const handleOpenEditModal = useCallback((group: GroupResponseDto) => {
@@ -160,26 +151,9 @@ const GroupsTab: React.FC = () => {
 	return (
 		<>
 			<div className={styles["container"]}>
-				<form className={styles["group-form"]} onSubmit={handleFormSubmit}>
-					<div className={styles["input"]}>
-						<Input
-							color="light"
-							control={control}
-							errors={errors}
-							label="Group name"
-							name="name"
-							placeholder="Group name"
-							type="text"
-						/>
-					</div>
-					<Button
-						className={styles["button"]}
-						label="Create"
-						size="small"
-						style="primary"
-						type="submit"
-					/>
-				</form>
+				<div className={styles["add-group"]}>
+					<AddGroup onCreate={handleCreateGroup} permissions={permissions} />
+				</div>
 				<div className={styles["table-container"]}>
 					<Table headers={GROUPS_TABLE_HEADERS}>
 						{tableData.map((data) => {

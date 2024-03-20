@@ -1,0 +1,40 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.modal {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	max-width: 500px;
+}
+
+.modal-title {
+	padding: 50px 50px 20px;
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	text-align: center;
+}
+
+.form-content {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	padding: 0 50px;
+}
+
+.form-footer {
+	display: flex;
+	justify-content: space-around;
+	height: 60px;
+	padding: 14px;
+	margin-top: 30px;
+	background-color: var(--color-menu);
+}
+
+.button {
+	width: 80px;
+}

@@ -45,6 +45,11 @@
 	column-gap: 10px;
 }
 
+.add-group {
+	display: flex;
+	justify-content: flex-end;
+}
+
 .icon-button {
 	min-height: unset;
 	padding: 0;

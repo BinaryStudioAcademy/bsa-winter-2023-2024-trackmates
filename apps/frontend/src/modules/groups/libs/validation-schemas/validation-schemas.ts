@@ -1,1 +1,1 @@
-export { groupNameFieldValidationSchema } from "@trackmates/shared";
+export { groupCreateRequestValidationSchema } from "@trackmates/shared";
