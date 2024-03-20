@@ -165,7 +165,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.filter-item:hover {
 		color: unset;
 		background-color: var(--main-white);
