@@ -290,3 +290,15 @@
 		line-height: 24px;
 	}
 }
+
+@media screen and (height <= 350px) {
+	.menu-item,
+	.log-out-btn {
+		min-height: 44px;
+		padding: 6px 24px;
+	}
+
+	.title-container {
+		margin-bottom: 10px;
+	}
+}
