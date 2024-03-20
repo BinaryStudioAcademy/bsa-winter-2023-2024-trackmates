@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.79.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.78.0...v1.79.0) (2024-03-20)
+
+
+### Features
+
+* **backend/frontend/shared:** add search functionality to friends page tm-561 ([#618](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/618)) ([b20a52c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b20a52c9c6229a9c7f1b28621f213db7b9cce7bb))
+* **backend:** delete notification when user unffollow current user tm-608 ([#628](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/628)) ([2261b2d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2261b2db95cfcba3155298e381e507e29b4779b6))
+* **frontend:** add actions title to button column of tables on the Management page tm-557 ([#626](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/626)) ([d29ce1e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d29ce1ee0b5953622d7b4af32368e38f6309d827))
+
+
+### Bug Fixes
+
+* **frontend:** Compare progress mobile responsiveness tm-602 ([#636](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/636)) ([66a0c07](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/66a0c07dd0226936fb7c7b5a202f23c55e82e634))
+
 ## [1.78.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.77.0...v1.78.0) (2024-03-19)
 
 

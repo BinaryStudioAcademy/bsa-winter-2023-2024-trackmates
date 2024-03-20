@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.42.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.41.0...shared-v1.42.0) (2024-03-20)
+
+
+### Features
+
+* **backend/frontend/shared:** add search functionality to friends page tm-561 ([#618](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/618)) ([b20a52c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b20a52c9c6229a9c7f1b28621f213db7b9cce7bb))
+
 ## [1.41.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.40.0...shared-v1.41.0) (2024-03-19)
 
 
