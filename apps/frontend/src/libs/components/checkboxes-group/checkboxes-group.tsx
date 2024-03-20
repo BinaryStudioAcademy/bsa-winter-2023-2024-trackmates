@@ -42,10 +42,10 @@ const CheckboxesGroup = <T extends FieldValues>({
 	const {
 		field: { onChange, value, ...inputProperties },
 	} = useFormController({ control, name });
+	const currentValue = value as string[];
 
 	const handleChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>): void => {
-			const currentValue = value as string[];
 			const { checked, value: name } = event.target;
 
 			const newValue: string[] = checked
@@ -54,7 +54,7 @@ const CheckboxesGroup = <T extends FieldValues>({
 
 			onChange(newValue);
 		},
-		[onChange, value],
+		[currentValue, onChange],
 	);
 
 	const error = errors[name]?.message;
@@ -84,6 +84,7 @@ const CheckboxesGroup = <T extends FieldValues>({
 					<label className={styles["checkbox-container"]} key={key}>
 						<span className={checkboxLabelClasses}>{label}</span>
 						<input
+							checked={currentValue.includes(key)}
 							id={key}
 							value={key}
 							{...inputProperties}

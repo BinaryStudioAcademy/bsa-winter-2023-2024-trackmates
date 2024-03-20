@@ -29,10 +29,11 @@ const AddGroup: React.FC<Properties> = ({
 	permissions,
 }: Properties) => {
 	const title = "Add new group";
-	const { control, errors, handleSubmit } = useAppForm<GroupCreateRequestDto>({
-		defaultValues: DEFAULT_GROUP_CREATE_IN_PAYLOAD,
-		validationSchema: groupCreateRequestValidationSchema,
-	});
+	const { control, errors, handleSubmit, reset } =
+		useAppForm<GroupCreateRequestDto>({
+			defaultValues: DEFAULT_GROUP_CREATE_IN_PAYLOAD,
+			validationSchema: groupCreateRequestValidationSchema,
+		});
 
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -52,8 +53,10 @@ const AddGroup: React.FC<Properties> = ({
 	const handleFormSubmit = useCallback(
 		(event_: React.BaseSyntheticEvent): void => {
 			void handleSubmit(onCreate)(event_);
+			setIsModalOpen(false);
+			reset(DEFAULT_GROUP_CREATE_IN_PAYLOAD);
 		},
-		[handleSubmit, onCreate],
+		[handleSubmit, onCreate, reset],
 	);
 
 	return (
