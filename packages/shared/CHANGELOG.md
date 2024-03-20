@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.42.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.41.0...shared-v1.42.0) (2024-03-20)
+
+
+### Features
+
+* **backend/frontend/shared:** add search functionality to friends page tm-561 ([#618](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/618)) ([b20a52c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b20a52c9c6229a9c7f1b28621f213db7b9cce7bb))
+
+## [1.41.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.40.0...shared-v1.41.0) (2024-03-19)
+
+
+### Features
+
+* **shared:** change default count to 12 tm-629 ([#633](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/633)) ([2e6b308](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2e6b308f46f993f3f06d0d6efa3a1cef9b2b67ee))
+
+## [1.40.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.39.0...shared-v1.40.0) (2024-03-19)
+
+
+### Features
+
+* **backend/frontend/shared:** UAM (User Access Management) - Courses tm-231 ([#568](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/568)) ([6c586f1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6c586f19f913b18fe568ab361e7c7984227f448a))
+
+## [1.39.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.38.0...shared-v1.39.0) (2024-03-19)
+
+
+### Features
+
+* **frontend/backend/shared:** forgot password tm-499 ([#570](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/570)) ([862bf9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/862bf9b449ada694b5f159d4fccac50dd5f7817f))
+* **frontend:** update activities messages tm-556 ([#603](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/603)) ([d8f3826](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/d8f38268b78ee76bf86a8865d4236800d4c16cee))
+
 ## [1.38.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.37.0...shared-v1.38.0) (2024-03-18)
 
 

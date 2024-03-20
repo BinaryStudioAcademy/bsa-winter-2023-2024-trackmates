@@ -145,9 +145,11 @@ export {
 	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 	CoursesApiPath,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./modules/courses/courses.js";
 export {
 	FileError,
@@ -159,6 +161,7 @@ export {
 	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
+	type FriendListRequestQueryDto,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,

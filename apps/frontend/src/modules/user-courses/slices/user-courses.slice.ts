@@ -13,6 +13,7 @@ import {
 } from "./actions.js";
 
 type State = {
+	addCourseDataStatus: ValueOf<typeof DataStatus>;
 	commonCourses: CourseDto[];
 	commonDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
@@ -23,6 +24,7 @@ type State = {
 };
 
 const initialState: State = {
+	addCourseDataStatus: DataStatus.IDLE,
 	commonCourses: [],
 	commonDataStatus: DataStatus.IDLE,
 	dataStatus: DataStatus.IDLE,
@@ -36,13 +38,13 @@ const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(add.fulfilled, (state) => {
 			state.totalMyCoursesCount++;
-			state.dataStatus = DataStatus.FULFILLED;
+			state.addCourseDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(add.pending, (state) => {
-			state.dataStatus = DataStatus.PENDING;
+			state.addCourseDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(add.rejected, (state) => {
-			state.dataStatus = DataStatus.REJECTED;
+			state.addCourseDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadMyCourses.fulfilled, (state, action) => {
 			state.myCourses = action.payload.items;
