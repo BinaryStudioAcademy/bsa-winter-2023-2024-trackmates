@@ -45,7 +45,7 @@ class Mail {
 		subject: string;
 		text: string;
 	}): Promise<boolean> {
-		const parameters = {
+		const sendEmailCommand = new SendEmailCommand({
 			Destination: {
 				ToAddresses: [to],
 			},
@@ -60,9 +60,7 @@ class Mail {
 				},
 			},
 			Source: this.sender,
-		};
-
-		const sendEmailCommand = new SendEmailCommand(parameters);
+		});
 
 		try {
 			await this.sesClient.send(sendEmailCommand);
