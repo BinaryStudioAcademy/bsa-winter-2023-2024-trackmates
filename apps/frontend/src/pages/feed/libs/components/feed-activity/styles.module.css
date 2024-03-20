@@ -56,6 +56,10 @@
 	object-position: center;
 }
 
+.small-premium-icon {
+	display: none;
+}
+
 .activity-title-container {
 	display: grid;
 	grid-template-columns: 1fr;
@@ -110,6 +114,22 @@
 	color: var(--color-text-300);
 }
 
+.avatar {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: 3px;
+	bottom: 0;
+	width: 34px;
+	aspect-ratio: 1;
+}
+
 @media screen and (--medium-screen) {
 	.card {
 		grid-template-columns: 100px 1fr;
@@ -130,6 +150,10 @@
 	.tool-button {
 		column-gap: 0;
 		font-size: 0;
+	}
+
+	.premium-icon {
+		width: 24px;
 	}
 }
 
@@ -168,6 +192,19 @@
 
 	.tool-count {
 		font-size: var(--font-size-100);
+	}
+
+	.premium-icon {
+		display: none;
+	}
+
+	.small-premium-icon {
+		position: absolute;
+		right: 6px;
+		bottom: 2px;
+		display: block;
+		width: 13px;
+		aspect-ratio: 1;
 	}
 }
 
