@@ -79,7 +79,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.link:hover {
 		text-decoration: underline;
 	}

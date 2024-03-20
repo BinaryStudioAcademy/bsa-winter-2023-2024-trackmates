@@ -171,7 +171,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.tool-button:hover {
 		padding: 0;
 		color: var(--main-orange);

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.44.0...backend-v1.45.0) (2024-03-20)
+
+
+### Features
+
+* **frontend/backend:** add possibility to delete own comments tm-489 ([#599](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/599)) ([9fdd82a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9fdd82ade65d7c0737a8d9ff61758dc3dde78031))
+
 ## [1.44.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.43.0...backend-v1.44.0) (2024-03-20)
 
 
