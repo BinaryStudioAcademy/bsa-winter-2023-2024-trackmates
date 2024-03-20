@@ -510,7 +510,7 @@ class FriendController extends BaseController {
 	 *       - bearerAuth: []
 	 *     parameters:
 	 *       - name: search
-	 * 		   in: query
+	 *         in: query
 	 *         schema:
 	 *           type: string
 	 *       - name: count
@@ -558,7 +558,7 @@ class FriendController extends BaseController {
 	 *       - bearerAuth: []
 	 *     parameters:
 	 *       - name: search
-	 * 		   in: query
+	 *         in: query
 	 *         schema:
 	 *           type: string
 	 *       - name: count
@@ -580,6 +580,7 @@ class FriendController extends BaseController {
 	 *               items:
 	 *                 $ref: "#/components/schemas/User"
 	 */
+
 	private async getUserFollowers({
 		query: { count, page, search },
 		user: { id },
@@ -594,7 +595,6 @@ class FriendController extends BaseController {
 			status: HTTPCode.OK,
 		};
 	}
-
 	/**
 	 * @swagger
 	 * /friends/followings:
@@ -606,7 +606,7 @@ class FriendController extends BaseController {
 	 *       - bearerAuth: []
 	 *     parameters:
 	 *       - name: search
-	 * 		   in: query
+	 *         in: query
 	 *         schema:
 	 *           type: string
 	 *       - name: count
@@ -628,6 +628,7 @@ class FriendController extends BaseController {
 	 *               items:
 	 *                 $ref: "#/components/schemas/User"
 	 */
+
 	private async getUserFollowings({
 		query: { count, page, search },
 		user: { id },
