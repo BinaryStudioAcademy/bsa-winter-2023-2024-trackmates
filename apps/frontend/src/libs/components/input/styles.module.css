@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	position: relative;
 	display: flex;
@@ -103,7 +105,7 @@
 	padding-left: 42px;
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.light:-webkit-autofill:hover {
 		box-shadow: 0 0 0 1000px var(--color-background) inset;
 	}

@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .item-container .item {
 	width: 30px;
 	min-height: 30px;
@@ -30,7 +32,7 @@
 	background-color: var(--main-orange);
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.item:not(.disabled):hover {
 		color: var(--color-button);
 	}

@@ -13,7 +13,7 @@ const commentApi = new CommentApi({
 export { commentApi };
 export {
 	type CommentCreateRequestDto,
-	type CommentGetAllResponseDto,
 	type CommentWithRelationsResponseDto,
 } from "./libs/types/types.js";
 export { commentTextValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+export { actions, reducer } from "./slices/comments.js";
