@@ -67,7 +67,7 @@ const Overview: React.FC = () => {
 				userId: user.id,
 			}),
 		);
-	}, [dispatch, user, page, totalCount, searchQuery]);
+	}, [dispatch, user, page, searchQuery]);
 
 	const hasCourses = courses.length > EMPTY_LENGTH;
 
