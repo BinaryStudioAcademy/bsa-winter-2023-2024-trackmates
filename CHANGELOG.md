@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.80.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.79.0...v1.80.0) (2024-03-20)
+
+
+### Features
+
+* **frontend/backend:** add possibility to delete own comments tm-489 ([#599](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/599)) ([9fdd82a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9fdd82ade65d7c0737a8d9ff61758dc3dde78031))
+* **frontend:** add link in the user avatar on chat page tm-635 ([#648](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/648)) ([480f73e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/480f73eb140dc5fbf52cee05efc6739ceca99563))
+
+
+### Bug Fixes
+
+* **frontend:** apply elipsis to extra long names tm-637 ([#644](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/644)) ([bcc07d4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/bcc07d42181b1cb4f6b5f7975bbc7a937dc2d9a3))
+* **frontend:** buttons should not have hover effect on mobile devices tm-574 ([#647](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/647)) ([b1532c8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b1532c84bfd80a8b8b3c029cd2a396495368b647))
+* **frontend:** Courses on the "Overview" page disappear and reappear, when a new course is being added on the "Add course" pop-up window tm-610 ([#642](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/642)) ([5688f73](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5688f73364043760a12f7baff53018de068eca81))
+* **frontend:** fix scroolbar tm-632 ([#643](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/643)) ([283261f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/283261f1772c192b0ae7b6b6fa80a6b40b9a0746))
+
 ## [1.79.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.78.0...v1.79.0) (2024-03-20)
 
 
