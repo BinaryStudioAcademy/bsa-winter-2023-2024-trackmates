@@ -194,7 +194,6 @@ const AddCourseModal: React.FC<Properties> = ({
 								</div>
 
 								<div className={styles["searched-courses"]}>
-									<h2 className={styles["courses-title"]}>Search results</h2>
 									<p className={styles["results-count"]}>
 										{courses.length} results
 									</p>
