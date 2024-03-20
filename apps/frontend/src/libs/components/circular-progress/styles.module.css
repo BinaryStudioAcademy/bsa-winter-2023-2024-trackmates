@@ -31,7 +31,7 @@
 	}
 
 	to {
-		stroke-dashoffset: calc(439.6px - (439.6px * (var(--percentage) / 100)));
+		stroke-dashoffset: calc(442px - (442px * (var(--percentage) / 100)));
 	}
 }
 
