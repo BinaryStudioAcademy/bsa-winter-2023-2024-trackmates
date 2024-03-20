@@ -94,7 +94,7 @@ const UsersTab: React.FC = () => {
 		const isSameUser = user.id === authUser.id;
 
 		return {
-			buttons: (
+			actions: (
 				<ActionsCell
 					isDeleteDisabled={!hasPermissionToDelete || isSameUser}
 					isEditDisabled={!hasPermissionToEdit || isSameUser}
@@ -137,7 +137,7 @@ const UsersTab: React.FC = () => {
 									{data[usersHeaderToPropertyName[UsersTableHeader.GROUPS]]}
 								</TableCell>
 								<TableCell isCentered width="narrow">
-									{data[usersHeaderToPropertyName[UsersTableHeader.BUTTONS]]}
+									{data[usersHeaderToPropertyName[UsersTableHeader.ACTIONS]]}
 								</TableCell>
 							</TableRow>
 						);

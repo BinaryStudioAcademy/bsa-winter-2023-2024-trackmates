@@ -1,4 +1,7 @@
 .wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 	padding: 16px 40px;
 	color: var(--color-text-300);
 	background-color: var(--color-background);

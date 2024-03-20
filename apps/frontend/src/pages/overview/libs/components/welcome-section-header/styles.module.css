@@ -197,7 +197,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.add-course-button:hover {
 		color: var(--main-white);
 	}

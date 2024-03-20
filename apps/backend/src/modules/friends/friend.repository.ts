@@ -1,4 +1,4 @@
-import { type Page } from "objection";
+import { type Page, type QueryBuilder } from "objection";
 
 import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { SortOrder } from "~/libs/enums/enums.js";
@@ -20,6 +20,20 @@ class FriendRepository implements Repository<UserEntity> {
 
 	public constructor(userModel: typeof UserModel) {
 		this.userModel = userModel;
+	}
+
+	private filterBySearch(
+		builder: QueryBuilder<UserModel>,
+		search: string,
+	): void {
+		void builder
+			.whereILike("userDetails.firstName", `%${search}%`)
+			.orWhereILike("userDetails.lastName", `%${search}%`)
+			.orWhereRaw("concat(??, ' ', ??) ILIKE ?", [
+				"userDetails.firstName",
+				"userDetails.lastName",
+				`%${search}%`,
+			]);
 	}
 
 	public async create({
@@ -262,10 +276,12 @@ class FriendRepository implements Repository<UserEntity> {
 		count,
 		id,
 		page,
+		search,
 	}: {
 		count: number;
 		id: number;
 		page: number;
+		search: string;
 	}): Promise<PaginationResponseDto<UserEntity>> {
 		const { results, total } = await this.userModel
 			.query()
@@ -290,6 +306,9 @@ class FriendRepository implements Repository<UserEntity> {
 					.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
 					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
 			)
+			.where((builder) => {
+				this.filterBySearch(builder, search);
+			})
 			.groupBy(
 				`${DatabaseTableName.USERS}.id`,
 				"userDetails.id",
@@ -355,10 +374,12 @@ class FriendRepository implements Repository<UserEntity> {
 		count,
 		id,
 		page,
+		search,
 	}: {
 		count: number;
 		id: number;
 		page: number;
+		search: string;
 	}): Promise<PaginationResponseDto<UserEntity>> {
 		const { results, total } = await this.userModel
 			.query()
@@ -369,6 +390,9 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.follower_id`,
 			)
 			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
+			.where((builder) => {
+				this.filterBySearch(builder, search);
+			})
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
@@ -426,10 +450,12 @@ class FriendRepository implements Repository<UserEntity> {
 		count,
 		id,
 		page,
+		search,
 	}: {
 		count: number;
 		id: number;
 		page: number;
+		search: string;
 	}): Promise<PaginationResponseDto<UserEntity>> {
 		const { results, total } = await this.userModel
 			.query()
@@ -440,6 +466,9 @@ class FriendRepository implements Repository<UserEntity> {
 				`${DatabaseTableName.FRIENDS}.following_id`,
 			)
 			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
+			.where((builder) => {
+				this.filterBySearch(builder, search);
+			})
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)

@@ -10,4 +10,5 @@ export { getSanitizedHtml } from "./get-sanitized-html/get-sanitized-html.helper
 export { getShiftedDate } from "./get-shifted-date/get-shifted-date.helper.js";
 export { getSizeInBytes } from "./get-size-in-bytes/get-size-in-bytes.helper.js";
 export { getTimeDistanceFormatDate } from "./get-time-distance-format-date/get-time-distance-format-date.helper.js";
+export { getValueByPath } from "./get-value-by-path/get-value-by-path.helper.js";
 export { initDebounce } from "./init-debounce/init-debounce.helper.js";
