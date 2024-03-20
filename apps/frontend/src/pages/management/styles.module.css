@@ -1,4 +1,9 @@
+@import url("~/assets/css/media.css");
+
 .wrapper {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 	padding: 16px 40px;
 	color: var(--color-text-300);
 	background-color: var(--color-background);
@@ -48,4 +53,17 @@
 	color: var(--color-text-100);
 	pointer-events: none;
 	cursor: default;
+}
+
+@media screen and (--medium-screen) {
+	.link-list {
+		flex-direction: column;
+		width: unset;
+		border-radius: 20px;
+	}
+
+	.link-item {
+		flex-grow: 1;
+		width: unset;
+	}
 }
