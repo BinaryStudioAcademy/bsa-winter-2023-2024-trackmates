@@ -28,7 +28,8 @@
 
 .form-footer {
 	display: flex;
-	justify-content: space-around;
+	gap: 30px;
+	justify-content: center;
 	height: 60px;
 	padding: 14px;
 	margin-top: 30px;

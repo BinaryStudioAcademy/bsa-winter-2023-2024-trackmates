@@ -1,7 +1,7 @@
 .container {
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	row-gap: 40px;
 	width: 100%;
 }
 
@@ -46,6 +46,9 @@
 }
 
 .add-group {
+	position: absolute;
+	top: -60px;
+	right: 20px;
 	display: flex;
 	justify-content: flex-end;
 }
