@@ -187,17 +187,8 @@ const AddCourseModal: React.FC<Properties> = ({
 							<Loader color="orange" size="large" />
 						) : (
 							<>
-								<Courses courses={courses} onAddCourse={handleAddCourse} />
 								{hasCourses && (
 									<>
-										<Button
-											className={styles["load-more-button"]}
-											isDisabled={isLoadMore}
-											isLoading={isLoadMore}
-											label="Load more"
-											onClick={handleLoadMore}
-											size="small"
-										/>
 										<div className={styles["recommended-courses"]}>
 											<h2 className={styles["courses-title"]}>
 												Recommended Courses
@@ -208,6 +199,16 @@ const AddCourseModal: React.FC<Properties> = ({
 												onAddCourse={handleAddCourse}
 											/>
 										</div>
+										<h2 className={styles["courses-title"]}>Search results</h2>
+										<Courses courses={courses} onAddCourse={handleAddCourse} />
+										<Button
+											className={styles["load-more-button"]}
+											isDisabled={isLoadMore}
+											isLoading={isLoadMore}
+											label="Load more"
+											onClick={handleLoadMore}
+											size="small"
+										/>
 									</>
 								)}
 							</>
