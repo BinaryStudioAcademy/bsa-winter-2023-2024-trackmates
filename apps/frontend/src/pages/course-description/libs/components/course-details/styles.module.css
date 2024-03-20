@@ -87,7 +87,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.active:hover {
 		border-bottom: 3px solid var(--main-orange);
 	}
