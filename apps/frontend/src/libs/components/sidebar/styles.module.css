@@ -290,22 +290,26 @@
 }
 
 @media screen and (height <= 665px) {
+	.title-container {
+		max-height: 46px;
+	}
+
 	.sidebar .content-wrapper {
 		padding-right: 12px;
 	}
 }
 
 @media screen and (--large-screen) and (height <= 665px) {
+	.sidebar:not(.open) .content-wrapper {
+		margin-right: -8px;
+	}
+
 	.sidebar:not(.open) {
 		padding-top: 80px;
 	}
 
 	.sidebar:not(.open) .title-container {
 		display: none;
-	}
-
-	.sidebar:not(.open) .content-wrapper {
-		margin-right: -8px;
 	}
 }
 
