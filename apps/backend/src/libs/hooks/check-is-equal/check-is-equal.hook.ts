@@ -32,9 +32,9 @@ const checkIsEqual =
 		const dto = await service.find(dtoId);
 		const dtoIdToCompare = getValueByPath(dto, pathInDtoToCompareId);
 
-		const isCreator = dtoIdToCompare === toCompareId;
+		const isEqual = dtoIdToCompare === toCompareId;
 
-		if (!isCreator) {
+		if (!isEqual) {
 			throw new PermissionError({
 				message: ExceptionMessage.NO_PERMISSION,
 				status: HTTPCode.FORBIDDEN,
