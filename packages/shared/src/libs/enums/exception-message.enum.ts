@@ -8,6 +8,7 @@ const ExceptionMessage = {
 	FILE_IS_TOO_LARGE: "File is too large.",
 	FILE_NOT_FOUND: "File not found.",
 	INVALID_CREDENTIALS: "Invalid credentials.",
+	INVALID_REQUEST_PARAMETERS: "Request parameters is invalid.",
 	INVALID_TOKEN: "Token is invalid.",
 	MESSAGE_NOT_FOUND: "Message not found.",
 	NICKNAME_ALREADY_EXISTS: "Nickname is already taken.",

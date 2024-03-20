@@ -25,7 +25,7 @@ The product helps the users to track the progress in all their courses from diff
 
 - [NodeJS](https://nodejs.org/en) (18.x.x);
 - [npm](https://www.npmjs.com/) (>=9.x.x);
-- [PostgreSQL](https://www.postgresql.org/) (15.4)
+- [PostgreSQL](https://www.postgresql.org/) (15.5)
 
 ## 4. Database Schema
 
@@ -251,7 +251,41 @@ erDiagram
 
 ## 5. Architecture
 
-TODO: add application schema
+```mermaid
+
+graph TD
+
+   User
+
+   WebApp["Web App"]
+   PWA
+
+   Route53
+
+   ELB["Elastic Load Balancer (ELB)"]
+
+   EC2["Amazon EC2 Instance (NodeJS)"]
+
+   DB["Database (Amazon RDS)"]
+   S3["Amazon S3"]
+   NodeJS["NodeJS API"]
+   OpenAI["OpenAI API"]
+   Udemy["Udemy API"]
+   Stripe["Stripe API"]
+
+   User -->|Connects to| WebApp
+   User -->|Connects to| PWA
+   WebApp -->|Connects to| Route53
+   PWA -->|Connects to| Route53
+   Route53 -->|Sends traffic to| ELB
+   ELB -->|Sends traffic to| EC2
+   EC2 -->|Connects to| DB
+   EC2 -->|Connects to| S3
+   EC2 -->|Uses| NodeJS
+   EC2 -->|Connects to| OpenAI
+   EC2 -->|Connects to| Udemy
+   EC2 -->|Connects to| Stripe
+```
 
 ### 5.1 Global
 

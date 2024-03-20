@@ -11,6 +11,7 @@
 	font-family: Inter, Arial, sans-serif;
 	background-color: var(--main-white);
 	border-radius: 14px;
+	box-shadow: 0 0 8px 1px var(--shadow-color);
 }
 
 .charts {

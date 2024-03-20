@@ -77,7 +77,7 @@ const AddCourseModal: React.FC<Properties> = ({
 		setPage(PaginationValue.DEFAULT_PAGE);
 
 		void dispatch(
-			courseActions.getAll({
+			courseActions.getAllByVendor({
 				page: PaginationValue.DEFAULT_PAGE,
 				search: filterFormData.search,
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
@@ -111,7 +111,7 @@ const AddCourseModal: React.FC<Properties> = ({
 	const handleLoadMore = useCallback((): void => {
 		const newPage = page + PaginationValue.DEFAULT_STEP;
 		void dispatch(
-			courseActions.getAll({
+			courseActions.getAllByVendor({
 				page: newPage,
 				search: getValues("search"),
 				vendorsKey: getVendorsFromForm(getValues("vendors")),
