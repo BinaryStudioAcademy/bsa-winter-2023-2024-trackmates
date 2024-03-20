@@ -6,8 +6,14 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useMemo,
 } from "~/libs/hooks/hooks.js";
-import { actions as activityActions } from "~/modules/activities/activities.js";
+import { type ValueOf } from "~/libs/types/types.js";
+import {
+	type ActivityResponseDto,
+	type ActivityType,
+	actions as activityActions,
+} from "~/modules/activities/activities.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 
 import { ActivityCommentForm } from "../activity-comment-form/activity-comment-form.js";
@@ -20,14 +26,30 @@ type Properties = {
 
 const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { comments, isLoadingComments } = useAppSelector((state) => {
-		return {
-			comments: state.activities.commentsByActivity[activityId] ?? [],
-			isLoadingComments:
-				state.activities.commentsDataStatuses[activityId] ===
-				DataStatus.PENDING,
-		};
-	});
+	const { activities, comments, isLoadingComments } = useAppSelector(
+		(state) => {
+			return {
+				activities: state.activities.activities,
+				comments: state.activities.commentsByActivity[activityId] ?? [],
+				isLoadingComments:
+					state.activities.commentsDataStatuses[activityId] ===
+					DataStatus.PENDING,
+			};
+		},
+	);
+
+	const usersMap = useMemo(() => {
+		const map = new Map<
+			number,
+			ActivityResponseDto<ValueOf<typeof ActivityType>>
+		>();
+
+		for (const activity of activities) {
+			map.set(activity.user.id, activity);
+		}
+
+		return map;
+	}, [activities]);
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
@@ -59,9 +81,21 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				<>
 					{hasComments ? (
 						<div className={styles["comments-container"]}>
-							{comments.map((comment) => (
-								<CommentCard comment={comment} key={comment.id} />
-							))}
+							{comments.map((comment) => {
+								const commentAuthor = usersMap.get(comment.userId);
+
+								const hasSubscription = Boolean(
+									commentAuthor?.user.subscription,
+								);
+
+								return (
+									<CommentCard
+										comment={comment}
+										hasSubscription={hasSubscription}
+										key={comment.id}
+									/>
+								);
+							})}
 						</div>
 					) : (
 						<EmptyPagePlaceholder
