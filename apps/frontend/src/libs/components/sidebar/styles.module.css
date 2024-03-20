@@ -237,6 +237,14 @@
 		visibility: hidden;
 	}
 
+	.link-title {
+		line-height: unset;
+	}
+
+	.close .link-title {
+		display: block;
+	}
+
 	.log-out-btn > :last-child {
 		display: flex;
 		flex-direction: column;
@@ -269,14 +277,6 @@
 
 	.content-container {
 		flex-grow: var(--number-of-menu-items);
-	}
-
-	.link-title {
-		line-height: unset;
-	}
-
-	.close .link-title {
-		display: block;
 	}
 }
 
