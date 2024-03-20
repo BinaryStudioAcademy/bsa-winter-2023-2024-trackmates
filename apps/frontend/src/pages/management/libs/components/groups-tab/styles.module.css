@@ -1,17 +1,25 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 	row-gap: 40px;
 	width: 100%;
 }
 
 .table-container {
-	max-width: 100%;
+	display: grid;
+	width: 100%;
+	overflow-x: auto;
+	background-color: var(--main-white);
+	border-radius: 16px 16px 0 0;
 }
 
 .group-form {
 	display: flex;
-	column-gap: 20px;
+	flex-wrap: wrap;
+	gap: 20px;
 	align-items: end;
 	padding: 20px;
 	color: var(--main-white);
@@ -20,7 +28,7 @@
 }
 
 .input {
-	width: 300px;
+	flex-basis: 300px;
 }
 
 .button {
@@ -66,4 +74,11 @@
 .icon-button:disabled:focus {
 	color: var(--color-text-100);
 	background-color: transparent;
+}
+
+@media screen and (--medium-screen) {
+	.button,
+	.input {
+		flex-grow: 1;
+	}
 }

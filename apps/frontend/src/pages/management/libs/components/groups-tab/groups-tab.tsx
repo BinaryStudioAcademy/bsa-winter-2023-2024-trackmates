@@ -1,5 +1,6 @@
-import { Button, Input } from "~/libs/components/components.js";
-import { PermissionKey } from "~/libs/enums/enums.js";
+import { Button, Input, Loader } from "~/libs/components/components.js";
+import { DataStatus, PermissionKey } from "~/libs/enums/enums.js";
+import { findItemById } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppForm,
@@ -17,28 +18,26 @@ import {
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
-import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
 import { EditModal } from "../edit-modal/edit-modal.js";
-import { Table, TableCell, TableRow } from "../table/table.js";
-import {
-	GROUPS_TABLE_HEADERS,
-	INPUT_DEFAULT_VALUE,
-} from "./libs/constants/constants.js";
-import { GroupsTableHeader } from "./libs/enums/enums.js";
-import { groupsHeaderToPropertyName } from "./libs/maps/maps.js";
+import { GroupsTable } from "./libs/components/components.js";
+import { INPUT_DEFAULT_VALUE } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 const GroupsTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { authUser, groups, permissions } = useAppSelector((state) => {
-		return {
-			authUser: state.auth.user as UserAuthResponseDto,
-			groups: state.management.groups,
-			permissions: state.management.permissions,
-		};
-	});
+	const { authUser, groupToDataStatus, groups, isGroupsLoading, permissions } =
+		useAppSelector((state) => {
+			return {
+				authUser: state.auth.user as UserAuthResponseDto,
+				groupToDataStatus: state.management.groupToDataStatus,
+				groups: state.management.groups,
+				isGroupsLoading:
+					state.management.groupsDataStatus === DataStatus.PENDING,
+				permissions: state.management.permissions,
+			};
+		});
 	const { control, errors, handleSubmit, reset } = useAppForm<{ name: string }>(
 		{
 			defaultValues: INPUT_DEFAULT_VALUE,
@@ -74,23 +73,9 @@ const GroupsTab: React.FC = () => {
 		[handleSubmit, handleCreateGroup],
 	);
 
-	const handleOpenEditModal = useCallback((group: GroupResponseDto) => {
-		return () => {
-			setCurrentGroup(group);
-			setIsEditModalOpen(true);
-		};
-	}, []);
-
 	const handleCloseEditModal = useCallback(() => {
 		setIsEditModalOpen(false);
 		setCurrentGroup(null);
-	}, []);
-
-	const handleOpenConfirmationModal = useCallback((group: GroupResponseDto) => {
-		return () => {
-			setCurrentGroup(group);
-			setIsConfirmationModalOpen(true);
-		};
 	}, []);
 
 	const handleCloseConfirmationModal = useCallback(() => {
@@ -124,38 +109,42 @@ const GroupsTab: React.FC = () => {
 		[dispatch, handleCloseConfirmationModal],
 	);
 
-	const tableData = groups.map((group) => {
-		const hasGroup = authUser.groups.some((userGroup) => {
-			return userGroup.id === group.id;
-		});
+	const onEditGroup = useCallback(
+		(groupId: number) => {
+			const groupById = findItemById(groups, groupId);
 
-		return {
-			buttons: (
-				<div className={styles["column-buttons"]}>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="edit"
-						label={GroupsTableHeader.BUTTONS}
-						onClick={handleOpenEditModal(group)}
-					/>
-					<Button
-						className={styles["icon-button"]}
-						hasVisuallyHiddenLabel
-						iconName="delete"
-						isDisabled={hasGroup}
-						label={GroupsTableHeader.BUTTONS}
-						onClick={handleOpenConfirmationModal(group)}
-					/>
-				</div>
-			),
-			id: group.id,
-			name: group.name,
-			permissions: group.permissions.map((permission) => {
-				return <Chip key={permission.id} label={permission.name} />;
-			}),
-		};
-	});
+			if (!groupById) {
+				return;
+			}
+
+			setCurrentGroup(groupById);
+			setIsEditModalOpen(true);
+		},
+		[groups],
+	);
+
+	const onDeleteGroup = useCallback(
+		(groupId: number) => {
+			const groupById = findItemById(groups, groupId);
+
+			if (!groupById) {
+				return;
+			}
+
+			setCurrentGroup(groupById);
+			setIsConfirmationModalOpen(true);
+		},
+		[groups],
+	);
+
+	const checkIfCurrentUserHasGroup = useCallback(
+		(groupId: number) => {
+			return authUser.groups.some((userGroup) => {
+				return userGroup.id === groupId;
+			});
+		},
+		[authUser],
+	);
 
 	return (
 		<>
@@ -180,38 +169,19 @@ const GroupsTab: React.FC = () => {
 						type="submit"
 					/>
 				</form>
-				<div className={styles["table-container"]}>
-					<Table headers={GROUPS_TABLE_HEADERS}>
-						{tableData.map((data) => {
-							return (
-								<TableRow key={data.id}>
-									<TableCell isCentered width="narrow">
-										{data[groupsHeaderToPropertyName[GroupsTableHeader.ID]]}
-									</TableCell>
-									<TableCell width="medium">
-										{data[groupsHeaderToPropertyName[GroupsTableHeader.NAME]]}
-									</TableCell>
-									<TableCell>
-										{
-											data[
-												groupsHeaderToPropertyName[
-													GroupsTableHeader.PERMISSIONS
-												]
-											]
-										}
-									</TableCell>
-									<TableCell isCentered width="narrow">
-										{
-											data[
-												groupsHeaderToPropertyName[GroupsTableHeader.BUTTONS]
-											]
-										}
-									</TableCell>
-								</TableRow>
-							);
-						})}
-					</Table>
-				</div>
+				{isGroupsLoading ? (
+					<Loader color="orange" size="large" />
+				) : (
+					<div className={styles["table-container"]}>
+						<GroupsTable
+							checkIfCurrentUserHasGroup={checkIfCurrentUserHasGroup}
+							groupToDataStatus={groupToDataStatus}
+							groups={groups}
+							onDelete={onDeleteGroup}
+							onEdit={onEditGroup}
+						/>
+					</div>
+				)}
 			</div>
 			<EditModal
 				isOpen={isEditModalOpen}
