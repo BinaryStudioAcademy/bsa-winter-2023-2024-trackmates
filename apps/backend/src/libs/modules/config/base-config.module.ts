@@ -77,10 +77,12 @@ class BaseConfig implements Config {
 				},
 			},
 			AWS_SES: {
-				default: null,
-				doc: "AWS SES sender info",
-				env: "AWS_SES_SENDER",
-				format: String,
+				SES_SENDER: {
+					default: null,
+					doc: "AWS SES sender info",
+					env: "SES_SENDER",
+					format: String,
+				},
 			},
 			DB: {
 				CONNECTION_STRING: {
