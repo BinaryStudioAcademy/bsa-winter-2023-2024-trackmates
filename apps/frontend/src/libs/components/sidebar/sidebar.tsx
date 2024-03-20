@@ -3,7 +3,12 @@ import {
 	checkIfUserHasPermissions,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useCallback,
+	useMemo,
+	useState,
+} from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
@@ -53,9 +58,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		[user],
 	);
 
-	const numberOfMenuItems = menuItems.filter(({ pagePermissions }) => {
-		return handleCheckPermissions(pagePermissions);
-	}).length;
+	const numberOfMenuItems = useMemo(() => {
+		return menuItems.filter(({ pagePermissions }) => {
+			return handleCheckPermissions(pagePermissions);
+		}).length;
+	}, [menuItems, handleCheckPermissions]);
 
 	return (
 		<>
