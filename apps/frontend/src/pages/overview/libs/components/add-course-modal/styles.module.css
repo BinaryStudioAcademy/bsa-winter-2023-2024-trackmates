@@ -32,7 +32,7 @@
 
 .toolbar {
 	display: flex;
-	justify-content: space-between;
+	justify-content: end;
 	width: 100%;
 	padding: 8px 32px;
 	background-color: var(--color-background);
@@ -41,7 +41,7 @@
 .results-count {
 	display: inline-flex;
 	align-self: flex-end;
-	margin: 0;
+	margin: 0 0 10px;
 	color: var(--color-text-200);
 }
 
@@ -67,7 +67,7 @@
 	font-size: var(--font-size-400);
 }
 
-.recommended-courses {
+.searched-courses {
 	margin-top: 32px;
 }
 

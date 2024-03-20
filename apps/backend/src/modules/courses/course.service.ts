@@ -12,7 +12,10 @@ import {
 
 import { CourseEntity } from "./course.entity.js";
 import { type CourseRepository } from "./course.repository.js";
-import { CourseErrorMessage } from "./libs/enums/enums.js";
+import {
+	CourseErrorMessage,
+	RecommendedCoursesCount,
+} from "./libs/enums/enums.js";
 import { CourseError } from "./libs/exceptions/exceptions.js";
 import {
 	type CourseDto,
@@ -281,11 +284,13 @@ class CourseService {
 		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
 		const response = await this.openAI.call(request);
 		const sortedIndexes = JSON.parse(response) as number[];
+		const topIndexes = sortedIndexes.slice(
+			RecommendedCoursesCount.FIRST,
+			RecommendedCoursesCount.LAST,
+		);
 
-		const sortedCourses = courses.map((_, index) => {
-			const courseIndex = sortedIndexes[index] as number;
-
-			return courses[courseIndex] as CourseSearchResponseDto;
+		const sortedCourses = topIndexes.map((index) => {
+			return courses[index] as CourseSearchResponseDto;
 		});
 
 		return { courses: sortedCourses.filter(Boolean) };

@@ -165,9 +165,6 @@ const AddCourseModal: React.FC<Properties> = ({
 							/>
 						</div>
 						<div className={styles["toolbar"]}>
-							<p className={styles["results-count"]}>
-								{courses.length} results
-							</p>
 							<fieldset className={styles["vendors-container"]}>
 								{vendors.map((vendor) => (
 									<VendorBadge
@@ -183,34 +180,43 @@ const AddCourseModal: React.FC<Properties> = ({
 				</header>
 				<div className={styles["content"]}>
 					<div className={styles["course-container"]}>
-						{isLoadFirstPage ? (
-							<Loader color="orange" size="large" />
-						) : (
+						{hasCourses && (
 							<>
-								{hasCourses && (
-									<>
-										<div className={styles["recommended-courses"]}>
-											<h2 className={styles["courses-title"]}>
-												Recommended Courses
-											</h2>
+								<div>
+									<h2 className={styles["courses-title"]}>
+										Recommended Courses
+									</h2>
 
+									<Courses
+										courses={recommendedCourses}
+										onAddCourse={handleAddCourse}
+									/>
+								</div>
+
+								<div className={styles["searched-courses"]}>
+									<h2 className={styles["courses-title"]}>Search results</h2>
+									<p className={styles["results-count"]}>
+										{courses.length} results
+									</p>
+									{isLoadFirstPage ? (
+										<Loader color="orange" size="large" />
+									) : (
+										<>
 											<Courses
-												courses={recommendedCourses}
+												courses={courses}
 												onAddCourse={handleAddCourse}
 											/>
-										</div>
-										<h2 className={styles["courses-title"]}>Search results</h2>
-										<Courses courses={courses} onAddCourse={handleAddCourse} />
-										<Button
-											className={styles["load-more-button"]}
-											isDisabled={isLoadMore}
-											isLoading={isLoadMore}
-											label="Load more"
-											onClick={handleLoadMore}
-											size="small"
-										/>
-									</>
-								)}
+											<Button
+												className={styles["load-more-button"]}
+												isDisabled={isLoadMore}
+												isLoading={isLoadMore}
+												label="Load more"
+												onClick={handleLoadMore}
+												size="small"
+											/>
+										</>
+									)}
+								</div>
 							</>
 						)}
 					</div>
