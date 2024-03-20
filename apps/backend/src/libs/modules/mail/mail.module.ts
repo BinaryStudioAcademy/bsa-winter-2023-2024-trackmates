@@ -7,9 +7,9 @@ import { MailError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
 	config: {
-		accessKeyId: string;
+		accessKey: string;
 		region: string;
-		secretAccessKey: string;
+		secretKey: string;
 		sender: string;
 	};
 	logger: Logger;
@@ -21,7 +21,7 @@ class Mail {
 	private sesClient: SESClient;
 
 	public constructor({
-		config: { accessKeyId, region, secretAccessKey, sender },
+		config: { accessKey, region, secretKey, sender },
 		logger,
 	}: Constructor) {
 		this.logger = logger;
@@ -29,8 +29,8 @@ class Mail {
 
 		this.sesClient = new SESClient({
 			credentials: {
-				accessKeyId,
-				secretAccessKey,
+				accessKeyId: accessKey,
+				secretAccessKey: secretKey,
 			},
 			region,
 		});
