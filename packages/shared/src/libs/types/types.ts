@@ -1,3 +1,4 @@
+export { type ExtractPath } from "./extract-path.type.js";
 export { type PaginationRequestDto } from "./pagination-request-dto.js";
 export { type PaginationResponseDto } from "./pagination-response-dto.js";
 export { type ServerErrorDetail } from "./server-error-detail.type.js";

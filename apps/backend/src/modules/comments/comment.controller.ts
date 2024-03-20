@@ -1,5 +1,7 @@
+import { type FastifyRequest } from "fastify";
+
 import { APIPath } from "~/libs/enums/enums.js";
-import { checkIsUserCreator } from "~/libs/hooks/hooks.js";
+import { checkIsEqual } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -15,6 +17,7 @@ import {
 	type CommentCreateRequestDto,
 	type CommentGetAllRequestDto,
 	type CommentUpdateRequestDto,
+	type CommentWithRelationsResponseDto,
 } from "./libs/types/types.js";
 import {
 	commentCreateBodyValidationSchema,
@@ -133,10 +136,16 @@ class CommentController extends BaseController {
 			method: "DELETE",
 			path: CommentsApiPath.$ID,
 			preHandlers: [
-				checkIsUserCreator({
-					getDtoIdFromRequest: (request) =>
-						(request.params as Record<"id", number>).id,
-					getUserIdFromDto: (comment) => comment.userId,
+				checkIsEqual<
+					CommentWithRelationsResponseDto,
+					FastifyRequest & {
+						params: Record<"id", number>;
+						user: UserAuthResponseDto;
+					}
+				>({
+					pathInDtoToCompareId: "userId",
+					pathInRequestToCompareId: "user.id",
+					pathInRequestToDtoId: "params.id",
 					service: this.commentService,
 				}),
 			],
