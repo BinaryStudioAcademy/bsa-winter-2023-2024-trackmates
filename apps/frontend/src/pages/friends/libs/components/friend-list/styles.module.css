@@ -35,9 +35,3 @@
 		grid-template-columns: 1fr;
 	}
 }
-
-@media (--hover-active) {
-	.friend-item:hover {
-		box-shadow: 3px 11px 22px -14px #00000080;
-	}
-}
