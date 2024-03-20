@@ -6,7 +6,7 @@ const USERS_TABLE_HEADERS = [
 	UsersTableHeader.FIRST_NAME,
 	UsersTableHeader.LAST_NAME,
 	UsersTableHeader.GROUPS,
-	UsersTableHeader.BUTTONS,
+	UsersTableHeader.ACTIONS,
 ];
 
 export { USERS_TABLE_HEADERS };

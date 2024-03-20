@@ -4,7 +4,7 @@ const GROUPS_TABLE_HEADERS = [
 	GroupsTableHeader.ID,
 	GroupsTableHeader.NAME,
 	GroupsTableHeader.PERMISSIONS,
-	GroupsTableHeader.BUTTONS,
+	GroupsTableHeader.ACTIONS,
 ];
 
 export { GROUPS_TABLE_HEADERS };
