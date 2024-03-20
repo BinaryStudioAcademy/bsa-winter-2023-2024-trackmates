@@ -14,7 +14,7 @@ type Properties = {
 	isOpen: boolean;
 	onClose: () => void;
 	title?: string | undefined;
-	user: UserAuthResponseDto | null;
+	user: UserAuthResponseDto;
 };
 
 const EditUserModal: React.FC<Properties> = ({
@@ -35,7 +35,7 @@ const EditUserModal: React.FC<Properties> = ({
 
 	const handleToggleCheckbox = useCallback(
 		(groupId: number) => {
-			handleChangeUserGroups(groupId, user?.id as number);
+			handleChangeUserGroups(groupId, user.id);
 		},
 		[user, handleChangeUserGroups],
 	);
@@ -53,7 +53,7 @@ const EditUserModal: React.FC<Properties> = ({
 					<ul className={styles["checkbox-list"]}>
 						{groups.map((group) => {
 							const isChecked = Boolean(
-								user?.groups.some((userGroup) => {
+								user.groups.some((userGroup) => {
 									return userGroup.id === group.id;
 								}),
 							);
@@ -61,7 +61,7 @@ const EditUserModal: React.FC<Properties> = ({
 							return (
 								<li
 									className={styles["checkbox-item"]}
-									key={`${user?.id}${group.id}`}
+									key={`${user.id}${group.id}`}
 								>
 									<EditCheckbox
 										isChecked={isChecked}

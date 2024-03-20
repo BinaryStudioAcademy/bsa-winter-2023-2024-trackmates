@@ -12,7 +12,7 @@ import { EditCheckbox } from "~/pages/management/libs/components/edit-checkbox/e
 import styles from "./styles.module.css";
 
 type Properties = {
-	group: GroupResponseDto | null;
+	group: GroupResponseDto;
 	isOpen: boolean;
 	onClose: () => void;
 	permissions: PermissionResponseDto[];
@@ -41,7 +41,7 @@ const EditGroupModal: React.FC<Properties> = ({
 
 	const handleToggleCheckbox = useCallback(
 		(permissionId: number) => {
-			handleChangeGroupPermissions(group?.id as number, permissionId);
+			handleChangeGroupPermissions(group.id, permissionId);
 		},
 		[group, handleChangeGroupPermissions],
 	);
@@ -59,7 +59,7 @@ const EditGroupModal: React.FC<Properties> = ({
 					<ul className={styles["checkbox-list"]}>
 						{permissions.map((permission) => {
 							const isChecked = Boolean(
-								group?.permissions.some((permissionInGroup) => {
+								group.permissions.some((permissionInGroup) => {
 									return permissionInGroup.id === permission.id;
 								}),
 							);
@@ -67,13 +67,13 @@ const EditGroupModal: React.FC<Properties> = ({
 							const isDisabled =
 								permission.key === PermissionKey.MANAGE_UAM &&
 								user.groups.some((userGroup) => {
-									return userGroup.id === group?.id;
+									return userGroup.id === group.id;
 								});
 
 							return (
 								<li
 									className={styles["checkbox-item"]}
-									key={`${group?.id}${permission.id}`}
+									key={`${group.id}${permission.id}`}
 								>
 									<EditCheckbox
 										isChecked={isChecked}
