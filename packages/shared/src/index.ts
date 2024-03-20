@@ -161,6 +161,7 @@ export {
 	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
+	type FriendListRequestQueryDto,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,

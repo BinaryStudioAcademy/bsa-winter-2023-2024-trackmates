@@ -145,15 +145,18 @@ class FriendService {
 		count,
 		id,
 		page,
+		search,
 	}: {
 		count: number;
 		id: number;
 		page: number;
+		search: string;
 	}): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const { items, total } = await this.friendRepository.getPotentialFollowers({
 			count,
 			id,
 			page: convertPageToZeroIndexed(page),
+			search,
 		});
 
 		return {
@@ -166,15 +169,18 @@ class FriendService {
 		count,
 		id,
 		page,
+		search,
 	}: {
 		count: number;
 		id: number;
 		page: number;
+		search: string;
 	}): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const { items, total } = await this.friendRepository.getUserFollowers({
 			count,
 			id,
 			page: convertPageToZeroIndexed(page),
+			search,
 		});
 
 		return {
@@ -187,15 +193,18 @@ class FriendService {
 		count,
 		id,
 		page,
+		search,
 	}: {
 		count: number;
 		id: number;
 		page: number;
+		search: string;
 	}): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const { items, total } = await this.friendRepository.getUserFollowings({
 			count,
 			id,
 			page: convertPageToZeroIndexed(page),
+			search,
 		});
 
 		return {
