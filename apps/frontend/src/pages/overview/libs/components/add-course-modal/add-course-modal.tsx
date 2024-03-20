@@ -16,6 +16,7 @@ import {
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
@@ -44,16 +45,18 @@ const AddCourseModal: React.FC<Properties> = ({
 	onClose,
 }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { courses, isLoading, recommendedCourses, vendors } = useAppSelector(
-		(state) => {
+	const { courses, hasSubscription, isLoading, recommendedCourses, vendors } =
+		useAppSelector((state) => {
 			return {
 				courses: state.courses.searchedCourses,
+				hasSubscription: Boolean(
+					(state.auth.user as UserAuthResponseDto).subscription,
+				),
 				isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
 				recommendedCourses: state.courses.recommendedCourses,
 				vendors: state.vendors.vendors,
 			};
-		},
-	);
+		});
 	const { control, errors, getValues, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
@@ -83,13 +86,16 @@ const AddCourseModal: React.FC<Properties> = ({
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),
 		);
-		void dispatch(
-			courseActions.getRecommended({
-				page: PaginationValue.DEFAULT_PAGE,
-				search: filterFormData.search,
-				vendorsKey: getVendorsFromForm(filterFormData.vendors),
-			}),
-		);
+
+		if (hasSubscription) {
+			void dispatch(
+				courseActions.getRecommended({
+					page: PaginationValue.DEFAULT_PAGE,
+					search: filterFormData.search,
+					vendorsKey: getVendorsFromForm(filterFormData.vendors),
+				}),
+			);
+		}
 	};
 
 	const handleFormSubmit = useCallback(
@@ -198,16 +204,18 @@ const AddCourseModal: React.FC<Properties> = ({
 											onClick={handleLoadMore}
 											size="small"
 										/>
-										<div className={styles["recommended-courses"]}>
-											<h2 className={styles["courses-title"]}>
-												Recommended Courses
-											</h2>
+										{hasSubscription && (
+											<div className={styles["recommended-courses"]}>
+												<h2 className={styles["courses-title"]}>
+													Recommended Courses
+												</h2>
 
-											<Courses
-												courses={recommendedCourses}
-												onAddCourse={handleAddCourse}
-											/>
-										</div>
+												<Courses
+													courses={recommendedCourses}
+													onAddCourse={handleAddCourse}
+												/>
+											</div>
+										)}
 									</>
 								)}
 							</>
