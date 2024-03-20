@@ -105,7 +105,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.icon-button:hover {
 		padding: 0;
 		color: var(--main-orange);
