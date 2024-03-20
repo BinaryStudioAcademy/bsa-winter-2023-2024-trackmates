@@ -36,9 +36,10 @@
 
 .fullName {
 	margin: 17px 0 12px;
+	overflow: hidden;
 	font-size: var(--font-size-300);
 	font-weight: 500;
-	line-height: 1;
+	line-height: 1.1;
 	color: var(--color-text-300);
 	text-overflow: ellipsis;
 }
