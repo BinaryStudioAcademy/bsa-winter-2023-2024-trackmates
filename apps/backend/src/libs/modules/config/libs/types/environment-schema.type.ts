@@ -13,6 +13,9 @@ type EnvironmentSchema = {
 		S3_BUCKET: string;
 		S3_REGION: string;
 	};
+	AWS_SES: {
+		SES_SENDER: string;
+	};
 	DB: {
 		CONNECTION_STRING: string;
 		DIALECT: string;
@@ -26,15 +29,6 @@ type EnvironmentSchema = {
 		ALGORITHM: string;
 		EXPIRES_IN: string;
 		SECRET: string;
-	};
-	MAIL: {
-		IS_LOGGED: boolean;
-		IS_REQUIRE_TLS: boolean;
-		IS_SECURE: boolean;
-		SERVICE: string;
-		USER_EMAIL: string;
-		USER_NAME: string;
-		USER_PASSWORD: string;
 	};
 	OPENAI: {
 		API_KEY: string;

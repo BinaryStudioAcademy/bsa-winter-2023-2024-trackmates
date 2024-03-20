@@ -76,6 +76,12 @@ class BaseConfig implements Config {
 					format: String,
 				},
 			},
+			AWS_SES: {
+				default: null,
+				doc: "AWS SES sender info",
+				env: "AWS_SES_SENDER",
+				format: String,
+			},
 			DB: {
 				CONNECTION_STRING: {
 					default: null,
@@ -127,50 +133,6 @@ class BaseConfig implements Config {
 					default: null,
 					doc: "Secret key for token generation",
 					env: "SECRET_KEY",
-					format: String,
-				},
-			},
-			MAIL: {
-				IS_LOGGED: {
-					default: false,
-					doc: "If set to true then logs to console",
-					env: "MAIL_IS_LOGGED",
-					format: Boolean,
-				},
-				IS_REQUIRE_TLS: {
-					default: false,
-					doc: "Forces the client to use STARTTLS",
-					env: "MAIL_IS_REQUIRE_TLS",
-					format: Boolean,
-				},
-				IS_SECURE: {
-					default: true,
-					doc: "Defines if the connection should use SSL",
-					env: "MAIL_IS_SECURE",
-					format: Boolean,
-				},
-				SERVICE: {
-					default: null,
-					doc: "Service for sending mails",
-					env: "MAIL_SERVICE",
-					format: String,
-				},
-				USER_EMAIL: {
-					default: null,
-					doc: "Email of sender user",
-					env: "MAIL_USER_EMAIL",
-					format: String,
-				},
-				USER_NAME: {
-					default: null,
-					doc: "Name of sender user",
-					env: "MAIL_USER_NAME",
-					format: String,
-				},
-				USER_PASSWORD: {
-					default: null,
-					doc: "Password of sender user",
-					env: "MAIL_USER_PASSWORD",
 					format: String,
 				},
 			},

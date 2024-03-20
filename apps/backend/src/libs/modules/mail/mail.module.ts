@@ -1,4 +1,4 @@
-import nodemailer, { type Transporter } from "nodemailer";
+import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
 import { HTTPCode } from "../http/http.js";
 import { type Logger } from "../logger/logger.js";
@@ -7,49 +7,32 @@ import { MailError } from "./libs/exceptions/exceptions.js";
 
 type Constructor = {
 	config: {
-		isLogged: boolean;
-		isRequireTLS: boolean;
-		isSecure: boolean;
-		senderEmail: string;
-		senderName: string;
-		senderPassword: string;
-		service: string;
+		accessKeyId: string;
+		region: string;
+		secretAccessKey: string;
+		sender: string;
 	};
 	logger: Logger;
 };
 
 class Mail {
 	private logger: Logger;
-	private senderEmail: string;
-	private senderName: string;
-
-	private transporter: Transporter;
+	private sender: string;
+	private sesClient: SESClient;
 
 	public constructor({
-		config: {
-			isLogged,
-			isRequireTLS,
-			isSecure,
-			senderEmail,
-			senderName,
-			senderPassword,
-			service,
-		},
+		config: { accessKeyId, region, secretAccessKey, sender },
 		logger,
 	}: Constructor) {
 		this.logger = logger;
-		this.senderEmail = senderEmail;
-		this.senderName = senderName;
+		this.sender = sender;
 
-		this.transporter = nodemailer.createTransport({
-			auth: {
-				pass: senderPassword,
-				user: senderEmail,
+		this.sesClient = new SESClient({
+			credentials: {
+				accessKeyId,
+				secretAccessKey,
 			},
-			logger: isLogged,
-			requireTLS: isRequireTLS,
-			secure: isSecure,
-			service,
+			region,
 		});
 	}
 
@@ -62,10 +45,27 @@ class Mail {
 		subject: string;
 		text: string;
 	}): Promise<boolean> {
-		const from = `${this.senderName} <${this.senderEmail}>`;
+		const parameters = {
+			Destination: {
+				ToAddresses: [to],
+			},
+			Message: {
+				Body: {
+					Text: {
+						Data: text,
+					},
+				},
+				Subject: {
+					Data: subject,
+				},
+			},
+			Source: this.sender,
+		};
+
+		const sendEmainCommand = new SendEmailCommand(parameters);
 
 		try {
-			await this.transporter.sendMail({ from, subject, text, to });
+			await this.sesClient.send(sendEmainCommand);
 		} catch (error) {
 			this.logger.error(
 				`${MailErrorMessage.SENDING_MAIL_FAILED} ${(error as Error).message}`,
