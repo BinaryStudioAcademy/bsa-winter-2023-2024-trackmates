@@ -59,11 +59,13 @@ const EditUserModal: React.FC<Properties> = ({
 							);
 
 							return (
-								<li className={styles["checkbox-item"]} key={group.id}>
+								<li
+									className={styles["checkbox-item"]}
+									key={`${user?.id}${group.id}`}
+								>
 									<EditCheckbox
 										isChecked={isChecked}
 										itemId={group.id}
-										key={group.id}
 										name={group.name}
 										onToggle={handleToggleCheckbox}
 									/>
