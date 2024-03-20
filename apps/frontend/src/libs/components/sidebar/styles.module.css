@@ -197,8 +197,8 @@
 		flex-direction: row;
 		gap: 0;
 		height: fit-content;
-		padding-top: 20px;
-		padding-bottom: 5px;
+		padding-top: 15px;
+		padding-bottom: 11px;
 	}
 
 	.sidebar.close {
@@ -214,7 +214,6 @@
 	.menu {
 		display: flex;
 		flex-flow: nowrap;
-		flex-grow: 3;
 		justify-content: space-around;
 		width: unset;
 	}
@@ -239,13 +238,17 @@
 	}
 
 	.log-out-btn > :last-child {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		justify-content: center;
 	}
 
 	.log-out-btn {
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
+		flex-shrink: 1;
 		border: 0;
 	}
 
@@ -257,6 +260,7 @@
 	.menu-item,
 	.log-out-btn {
 		padding: 0;
+		font-size: var(--font-size-50);
 	}
 
 	.sidebar.close .menu-item {
@@ -264,7 +268,7 @@
 	}
 
 	.content-container {
-		flex-grow: 3;
+		flex-grow: var(--number-of-menu-items);
 	}
 
 	.link-title {

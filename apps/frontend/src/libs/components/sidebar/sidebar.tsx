@@ -53,7 +53,9 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		[user],
 	);
 
-	const isPWASidebar = window.matchMedia("(display-mode: standalone)").matches;
+	const numberOfMenuItems = menuItems.filter(({ pagePermissions }) => {
+		return handleCheckPermissions(pagePermissions);
+	}).length;
 
 	return (
 		<>
@@ -74,7 +76,14 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 					styles[isOpen ? "open" : "close"],
 				)}
 			>
-				<div className={styles["content-container"]}>
+				<div
+					className={styles["content-container"]}
+					style={
+						{
+							"--number-of-menu-items": numberOfMenuItems,
+						} as React.CSSProperties
+					}
+				>
 					<Link className={styles["title-container"]} to="/">
 						<Image alt="website logo" className={styles["logo"]} src={logo} />
 					</Link>
@@ -92,14 +101,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 										to={href}
 									>
 										<Icon className={styles["link-icon"]} name={icon} />
-										<span
-											className={getValidClassNames(
-												styles["link-title"],
-												isPWASidebar && "visually-hidden",
-											)}
-										>
-											{label}
-										</span>
+										<span className={styles["link-title"]}>{label}</span>
 									</Link>
 								)
 							);
@@ -108,7 +110,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 				</div>
 				<Button
 					className={styles["log-out-btn"]}
-					hasVisuallyHiddenLabel={isPWASidebar}
 					iconName="logOut"
 					label="Log Out"
 					onClick={handleLogOut}
