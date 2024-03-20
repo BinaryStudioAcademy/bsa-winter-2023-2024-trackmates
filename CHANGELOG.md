@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.80.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.80.0...v1.80.1) (2024-03-20)
+
+
+### Bug Fixes
+
+* **frontend:** change vendors title to logo tm-558 ([#654](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/654)) ([50a4a9b](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/50a4a9b19676bc820c8404023f52f33fcc9aa0ce))
+
 ## [1.80.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.79.0...v1.80.0) (2024-03-20)
 
 
