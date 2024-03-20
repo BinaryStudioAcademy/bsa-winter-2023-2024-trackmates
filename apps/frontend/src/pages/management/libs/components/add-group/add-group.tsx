@@ -28,7 +28,6 @@ const AddGroup: React.FC<Properties> = ({
 	onCreate,
 	permissions,
 }: Properties) => {
-	const title = "Add new group";
 	const { control, errors, handleSubmit, reset } =
 		useAppForm<GroupCreateRequestDto>({
 			defaultValues: DEFAULT_GROUP_CREATE_IN_PAYLOAD,
@@ -56,7 +55,7 @@ const AddGroup: React.FC<Properties> = ({
 			setIsModalOpen(false);
 			reset(DEFAULT_GROUP_CREATE_IN_PAYLOAD);
 		},
-		[onCreate, setIsModalOpen, reset],
+		[onCreate, reset],
 	);
 
 	const handleFormSubmit = useCallback(
@@ -81,7 +80,7 @@ const AddGroup: React.FC<Properties> = ({
 				isOpen={isModalOpen}
 				onClose={handleModalClose}
 			>
-				<span className={styles["modal-title"]}>{title}</span>
+				<span className={styles["modal-title"]}>Add new group</span>
 				<form className={styles["form"]} onSubmit={handleFormSubmit}>
 					<div className={styles["form-content"]}>
 						<Input
