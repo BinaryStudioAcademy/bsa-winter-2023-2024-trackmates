@@ -49,15 +49,6 @@ const GroupsTab: React.FC = () => {
 		void dispatch(permissionsActions.getAllPermissions());
 	}, [dispatch]);
 
-	// const handleCreateGroup = useCallback(
-	// 	({ name }: { name: string }) => {
-	// 		const key = name.trim().replace(" ", "-").toLowerCase();
-	// 		void dispatch(groupsActions.createGroup({ key, name }));
-	// 		reset();
-	// 	},
-	// 	[dispatch, reset],
-	// );
-
 	const handleCreateGroup = useCallback(
 		(payload: GroupCreateRequestDto) => {
 			void dispatch(groupsActions.createGroup(payload));

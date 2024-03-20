@@ -39,7 +39,9 @@ class GroupService implements Service {
 	}
 
 	public async create(group: GroupCreateRequestDto): Promise<GroupResponseDto> {
-		const { key, name, permissions: permissionKeys } = group;
+		const { name, permissions: permissionKeys } = group;
+		const key = name.trim().replace(" ", "-").toLowerCase();
+
 		const groupByKey = await this.groupRepository.findByKey(key);
 		const groupByName = await this.groupRepository.findByName(name);
 

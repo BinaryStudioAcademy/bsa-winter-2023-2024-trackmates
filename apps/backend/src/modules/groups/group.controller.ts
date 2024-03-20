@@ -20,6 +20,7 @@ import {
 	type GroupRequestDto,
 } from "./libs/types/types.js";
 import {
+	groupCreateRequestValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
@@ -67,7 +68,7 @@ class GroupController extends BaseController {
 				checkUserPermissions([PermissionKey.MANAGE_UAM], PermissionMode.ALL_OF),
 			],
 			validation: {
-				body: groupRequestBodyValidationSchema,
+				body: groupCreateRequestValidationSchema,
 			},
 		});
 

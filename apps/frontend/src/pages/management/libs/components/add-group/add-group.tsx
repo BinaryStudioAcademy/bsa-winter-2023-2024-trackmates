@@ -50,13 +50,20 @@ const AddGroup: React.FC<Properties> = ({
 		[permissions],
 	);
 
-	const handleFormSubmit = useCallback(
-		(event_: React.BaseSyntheticEvent): void => {
-			void handleSubmit(onCreate)(event_);
+	const handleCreate = useCallback(
+		(data: GroupCreateRequestDto): void => {
+			onCreate(data);
 			setIsModalOpen(false);
 			reset(DEFAULT_GROUP_CREATE_IN_PAYLOAD);
 		},
-		[handleSubmit, onCreate, reset],
+		[onCreate, setIsModalOpen, reset],
+	);
+
+	const handleFormSubmit = useCallback(
+		(event_: React.BaseSyntheticEvent): void => {
+			void handleSubmit(handleCreate)(event_);
+		},
+		[handleSubmit, handleCreate],
 	);
 
 	return (
@@ -77,15 +84,6 @@ const AddGroup: React.FC<Properties> = ({
 				<span className={styles["modal-title"]}>{title}</span>
 				<form className={styles["form"]} onSubmit={handleFormSubmit}>
 					<div className={styles["form-content"]}>
-						<Input
-							color="light"
-							control={control}
-							errors={errors}
-							label="Key"
-							name="key"
-							placeholder="Group key"
-							type="text"
-						/>
 						<Input
 							color="light"
 							control={control}

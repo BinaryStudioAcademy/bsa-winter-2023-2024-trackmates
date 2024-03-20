@@ -1,5 +1,4 @@
 type GroupCreateRequestDto = {
-	key: string;
 	name: string;
 	permissions: string[];
 };
