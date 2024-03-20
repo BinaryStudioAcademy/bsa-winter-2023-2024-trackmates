@@ -1,5 +1,5 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image, Link } from "~/libs/components/components.js";
+import { Icon, Image, Link } from "~/libs/components/components.js";
 import { AppRoute, DateValue, FormatDateType } from "~/libs/enums/enums.js";
 import {
 	configureString,
@@ -33,6 +33,7 @@ const ChatLink: React.FC<Properties> = ({ chat, isReducible }: Properties) => {
 			: getFormattedDate(lastMessage.createdAt, FormatDateType.DD_MM_YYYY);
 
 	const isCurrentChat = currentChat?.id === id;
+	const hasSubscription = Boolean(interlocutor.subscription);
 
 	return (
 		<Link
@@ -43,13 +44,19 @@ const ChatLink: React.FC<Properties> = ({ chat, isReducible }: Properties) => {
 			)}
 			to={chatRouteById}
 		>
-			<Image
-				alt="User avatar"
-				height="48"
-				shape="circle"
-				src={interlocutor.avatarUrl ?? defaultAvatar}
-				width="48"
-			/>
+			<div className={styles["avatar"]}>
+				<Image
+					alt="User avatar"
+					className={getValidClassNames(hasSubscription && styles["premium"])}
+					height="48"
+					shape="circle"
+					src={interlocutor.avatarUrl ?? defaultAvatar}
+					width="48"
+				/>
+				{hasSubscription && (
+					<Icon className={styles["premium-icon"]} name="crown" />
+				)}
+			</div>
 			<div className={styles["text-container"]}>
 				<div className={styles["message-container"]}>
 					<span
