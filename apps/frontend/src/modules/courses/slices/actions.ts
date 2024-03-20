@@ -11,14 +11,14 @@ import {
 } from "../libs/types/types.js";
 import { name as sliceName } from "./courses.slice.js";
 
-const getAllByFilter = createAsyncThunk<
+const getAllByVendor = createAsyncThunk<
 	CourseSearchGetAllResponseDto,
 	CourseSearchFilterDto,
 	AsyncThunkConfig
->(`${sliceName}/get-all-by-filter`, (filterPayload, { extra }) => {
+>(`${sliceName}/get-all-by-vendor`, (filterPayload, { extra }) => {
 	const { courseApi } = extra;
 
-	return courseApi.getAllByFilter(filterPayload);
+	return courseApi.getAllByVendor(filterPayload);
 });
 
 const getById = createAsyncThunk<CourseDto, { id: string }, AsyncThunkConfig>(
@@ -82,4 +82,4 @@ const update = createAsyncThunk<
 	return updatedCourse;
 });
 
-export { deleteById, getAll, getAllByFilter, getById, getRecommended, update };
+export { deleteById, getAll, getAllByVendor, getById, getRecommended, update };

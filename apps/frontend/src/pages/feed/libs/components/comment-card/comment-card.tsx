@@ -1,17 +1,29 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Image, Link } from "~/libs/components/components.js";
+import { Button, Image, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
+import { useAppSelector, useCallback } from "~/libs/hooks/hooks.js";
 import { type CommentWithRelationsResponseDto } from "~/modules/comments/comments.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import styles from "./styles.module.css";
 
 type Properties = {
 	comment: CommentWithRelationsResponseDto;
+	onDelete: (activityId: number, commentId: number) => void;
 };
 
-const CommentCard: React.FC<Properties> = ({ comment }: Properties) => {
-	const { author, text, userId } = comment;
+const CommentCard: React.FC<Properties> = ({
+	comment,
+	onDelete,
+}: Properties) => {
+	const { user } = useAppSelector(({ auth }) => {
+		return {
+			user: auth.user as UserAuthResponseDto,
+		};
+	});
+
+	const { activityId, author, id: commentId, text, userId } = comment;
 
 	const authorName =
 		author.nickname ?? `${author.firstName} ${author.lastName}`;
@@ -19,6 +31,12 @@ const CommentCard: React.FC<Properties> = ({ comment }: Properties) => {
 	const userLink = configureString(AppRoute.USERS_$ID, {
 		id: String(userId),
 	}) as typeof AppRoute.USERS_$ID;
+
+	const handleDeleteComment = useCallback(() => {
+		onDelete(activityId, commentId);
+	}, [activityId, commentId, onDelete]);
+
+	const isCreator = user.id === userId;
 
 	return (
 		<div className={styles["comment-card"]}>
@@ -37,6 +55,17 @@ const CommentCard: React.FC<Properties> = ({ comment }: Properties) => {
 				</Link>
 				<p className={styles["text"]}>{text}</p>
 			</div>
+			{isCreator && (
+				<Button
+					className={styles["delete-button"]}
+					hasVisuallyHiddenLabel
+					iconName="cross"
+					label="Delete"
+					onClick={handleDeleteComment}
+					size="small"
+					style="plain"
+				/>
+			)}
 		</div>
 	);
 };

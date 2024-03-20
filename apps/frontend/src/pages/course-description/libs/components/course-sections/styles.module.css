@@ -7,11 +7,12 @@
 .list {
 	display: flex;
 	flex-direction: column;
-	gap: 11px;
+	gap: 14px;
 	height: 400px;
 	padding: 0;
+	padding: 5px;
 	margin-top: 6px;
-	overflow-y: auto;
+	overflow: hidden auto;
 	list-style: none;
 }
 
@@ -28,6 +29,7 @@
 	color: var(--color-text-300);
 	background-color: var(--main-white);
 	border-radius: 10px;
+	box-shadow: 0 0 5px 1px var(--shadow-color);
 }
 
 @media screen and (width <= 1280px) {

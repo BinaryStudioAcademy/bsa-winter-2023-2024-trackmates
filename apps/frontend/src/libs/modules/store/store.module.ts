@@ -20,7 +20,10 @@ import {
 	reducer as chatMessagesReducer,
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
-import { commentApi } from "~/modules/comments/comments.js";
+import {
+	commentApi,
+	reducer as commentsReducer,
+} from "~/modules/comments/comments.js";
 import {
 	courseSectionsApi,
 	reducer as courseSectionsReducer,
@@ -72,6 +75,7 @@ type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	chatMessages: ReturnType<typeof chatMessagesReducer>;
 	chats: ReturnType<typeof chatsReducer>;
+	comments: ReturnType<typeof commentsReducer>;
 	course: ReturnType<typeof courseSectionsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
@@ -136,6 +140,7 @@ class Store {
 				auth: authReducer,
 				chatMessages: chatMessagesReducer,
 				chats: chatsReducer,
+				comments: commentsReducer,
 				course: courseSectionsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,

@@ -1,7 +1,7 @@
 import {
 	deleteById,
 	getAll,
-	getAllByFilter,
+	getAllByVendor,
 	getById,
 	getRecommended,
 	update,
@@ -12,7 +12,7 @@ const allActions = {
 	...actions,
 	deleteById,
 	getAll,
-	getAllByFilter,
+	getAllByVendor,
 	getById,
 	getRecommended,
 	update,

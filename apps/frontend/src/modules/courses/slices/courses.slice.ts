@@ -11,7 +11,7 @@ import {
 import {
 	deleteById,
 	getAll,
-	getAllByFilter,
+	getAllByVendor,
 	getById,
 	getRecommended,
 	update,
@@ -21,6 +21,7 @@ type State = {
 	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
 	allCourses: CourseDto[];
 	allCoursesDataStatus: ValueOf<typeof DataStatus>;
+	courseToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
 	currentCourse: CourseDto | null;
 	recommendedCourses: CourseSearchResponseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
@@ -31,6 +32,7 @@ const initialState: State = {
 	addedVendorCourseDataStatuses: {},
 	allCourses: [],
 	allCoursesDataStatus: DataStatus.IDLE,
+	courseToDataStatus: {},
 	currentCourse: null,
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
@@ -39,17 +41,17 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(getAllByFilter.fulfilled, (state, action) => {
+		builder.addCase(getAllByVendor.fulfilled, (state, action) => {
 			state.searchedCourses = [
 				...state.searchedCourses,
 				...action.payload.courses,
 			];
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getAllByFilter.pending, (state) => {
+		builder.addCase(getAllByVendor.pending, (state) => {
 			state.searchDataStatus = DataStatus.PENDING;
 		});
-		builder.addCase(getAllByFilter.rejected, (state) => {
+		builder.addCase(getAllByVendor.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getById.fulfilled, (state, action) => {
@@ -118,9 +120,23 @@ const { actions, name, reducer } = createSlice({
 					state.allCourses = state.allCourses.filter((course) => {
 						return course.id !== courseId;
 					});
+					state.courseToDataStatus[courseId] = DataStatus.FULFILLED;
 				}
 			},
 		);
+		builder.addCase(
+			deleteById.pending,
+			(state, { meta: { arg: courseId } }) => {
+				state.courseToDataStatus[courseId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			deleteById.rejected,
+			(state, { meta: { arg: courseId } }) => {
+				state.courseToDataStatus[courseId] = DataStatus.REJECTED;
+			},
+		);
+
 		builder.addCase(
 			update.fulfilled,
 			(
@@ -135,6 +151,34 @@ const { actions, name, reducer } = createSlice({
 				state.allCourses = state.allCourses.map((course) => {
 					return course.id === courseId ? payload : course;
 				});
+				state.courseToDataStatus[courseId] = DataStatus.FULFILLED;
+			},
+		);
+
+		builder.addCase(
+			update.pending,
+			(
+				state,
+				{
+					meta: {
+						arg: { id: courseId },
+					},
+				},
+			) => {
+				state.courseToDataStatus[courseId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			update.rejected,
+			(
+				state,
+				{
+					meta: {
+						arg: { id: courseId },
+					},
+				},
+			) => {
+				state.courseToDataStatus[courseId] = DataStatus.REJECTED;
 			},
 		);
 	},

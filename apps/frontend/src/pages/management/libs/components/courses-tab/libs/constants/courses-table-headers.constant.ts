@@ -5,7 +5,7 @@ const COURSES_TABLE_HEADERS = [
 	CoursesTableHeader.TITLE,
 	CoursesTableHeader.VENDOR,
 	CoursesTableHeader.DESCRIPTION,
-	CoursesTableHeader.BUTTONS,
+	CoursesTableHeader.ACTIONS,
 ];
 
 export { COURSES_TABLE_HEADERS };

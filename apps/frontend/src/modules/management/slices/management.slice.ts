@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { actions as coursesActions } from "~/modules/courses/courses.js";
 import {
 	type GroupResponseDto,
 	actions as groupsActions,
@@ -17,27 +16,21 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
-	courseToDataStatus: Record<
-		number,
-		{
-			deleteDataStatus?: ValueOf<typeof DataStatus>;
-			updateDataStatus?: ValueOf<typeof DataStatus>;
-		}
-	>;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
+	userToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
 	users: UserAuthResponseDto[];
 	usersDataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
-	courseToDataStatus: {},
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
 	permissionsDataStatus: DataStatus.IDLE,
+	userToDataStatus: {},
 	users: [],
 	usersDataStatus: DataStatus.IDLE,
 };
@@ -160,73 +153,25 @@ const { reducer } = createSlice({
 		});
 
 		builder.addCase(
-			coursesActions.deleteById.fulfilled,
-			(state, { meta: { arg: courseId } }) => {
-				state.courseToDataStatus[courseId] = {
-					deleteDataStatus: DataStatus.FULFILLED,
-				};
-			},
-		);
-		builder.addCase(
-			coursesActions.deleteById.pending,
-			(state, { meta: { arg: courseId } }) => {
-				state.courseToDataStatus[courseId] = {
-					deleteDataStatus: DataStatus.PENDING,
-				};
-			},
-		);
-		builder.addCase(
-			coursesActions.deleteById.rejected,
-			(state, { meta: { arg: courseId } }) => {
-				state.courseToDataStatus[courseId] = {
-					deleteDataStatus: DataStatus.REJECTED,
-				};
-			},
-		);
+			usersActions.remove.fulfilled,
+			(state, { meta: { arg: userId }, payload }) => {
+				if (payload) {
+					state.users = state.users.filter(({ id }) => id !== userId);
+				}
 
-		builder.addCase(
-			coursesActions.update.fulfilled,
-			(
-				state,
-				{
-					meta: {
-						arg: { id: courseId },
-					},
-				},
-			) => {
-				state.courseToDataStatus[courseId] = {
-					updateDataStatus: DataStatus.FULFILLED,
-				};
+				state.userToDataStatus[userId] = DataStatus.FULFILLED;
 			},
 		);
 		builder.addCase(
-			coursesActions.update.pending,
-			(
-				state,
-				{
-					meta: {
-						arg: { id: courseId },
-					},
-				},
-			) => {
-				state.courseToDataStatus[courseId] = {
-					updateDataStatus: DataStatus.PENDING,
-				};
+			usersActions.remove.pending,
+			(state, { meta: { arg: userId } }) => {
+				state.userToDataStatus[userId] = DataStatus.PENDING;
 			},
 		);
 		builder.addCase(
-			coursesActions.update.rejected,
-			(
-				state,
-				{
-					meta: {
-						arg: { id: courseId },
-					},
-				},
-			) => {
-				state.courseToDataStatus[courseId] = {
-					updateDataStatus: DataStatus.REJECTED,
-				};
+			usersActions.remove.rejected,
+			(state, { meta: { arg: userId } }) => {
+				state.userToDataStatus[userId] = DataStatus.REJECTED;
 			},
 		);
 	},

@@ -55,24 +55,12 @@
 	outline: 3px solid var(--main-white);
 }
 
-.counter:hover {
-	cursor: default;
-}
-
 .icon-button {
 	position: relative;
 	gap: 0;
 	min-height: unset;
 	padding: 0;
 	color: var(--color-text-200);
-	border: unset;
-	fill: currentcolor;
-}
-
-.icon-button:hover {
-	padding: 0;
-	color: var(--main-orange);
-	background-color: var(--main-white);
 	border: unset;
 	fill: currentcolor;
 }
@@ -114,5 +102,19 @@
 
 	.toolbar {
 		column-gap: 15px;
+	}
+}
+
+@media (--hover-active) {
+	.icon-button:hover {
+		padding: 0;
+		color: var(--main-orange);
+		background-color: var(--main-white);
+		border: unset;
+		fill: currentcolor;
+	}
+
+	.counter:hover {
+		cursor: default;
 	}
 }

@@ -47,7 +47,7 @@ class CourseApi extends BaseHTTPApi {
 		return await response.json<CourseSearchGetAllResponseDto>();
 	}
 
-	public async getAllByFilter(
+	public async getAllByVendor(
 		filter: CourseSearchFilterDto,
 	): Promise<CourseSearchGetAllResponseDto> {
 		const response = await this.load(

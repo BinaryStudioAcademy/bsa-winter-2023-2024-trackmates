@@ -74,6 +74,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.SIGN_UP,
 							},
 							{
+								element: <Auth />,
+								path: AppRoute.FORGOT_PASSWORD,
+							},
+							{
+								element: <Auth />,
+								path: AppRoute.UPDATE_PASSWORD,
+							},
+							{
 								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.PROFILE,
 							},

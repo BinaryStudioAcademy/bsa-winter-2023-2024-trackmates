@@ -7,8 +7,9 @@
 .content {
 	display: flex;
 	flex-direction: column;
-	gap: 12px;
+	gap: 14px;
 	height: 400px;
+	padding: 5px;
 	overflow-y: auto;
 }
 
@@ -34,6 +35,7 @@
 	font-size: var(--font-size-300);
 	background-color: var(--main-white);
 	border-radius: 10px;
+	box-shadow: 0 0 5px 1px var(--shadow-color);
 }
 
 .row-item {
