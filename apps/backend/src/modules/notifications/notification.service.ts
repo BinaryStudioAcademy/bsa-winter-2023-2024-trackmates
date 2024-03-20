@@ -82,6 +82,19 @@ class NotificationService implements Service {
 		userId: number,
 		type: string,
 	): Promise<boolean> {
+		const notification = await this.notificationRepository.findByParameters(
+			id,
+			userId,
+			type,
+		);
+
+		this.socketService.emitMessage({
+			event: SocketEvent.NOTIFICATIONS_DELETE,
+			payload: notification,
+			receiversIds: [String(userId)],
+			targetNamespace: SocketNamespace.NOTIFICATIONS,
+		});
+
 		return await this.notificationRepository.deleteAllNotificationsByParameters(
 			id,
 			userId,
