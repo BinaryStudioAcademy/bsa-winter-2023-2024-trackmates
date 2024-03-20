@@ -82,6 +82,18 @@
 	align-items: center;
 }
 
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: 4px;
+	bottom: 1px;
+	width: 18px;
+	aspect-ratio: 1;
+}
+
 @media screen and (--medium-screen) {
 	.text-content {
 		gap: 10px;
