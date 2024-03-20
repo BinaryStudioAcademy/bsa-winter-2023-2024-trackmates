@@ -8,10 +8,10 @@ type GetFieldType<TData, TPath> = TPath extends `${infer Left}.${infer Right}`
 		? TData[TPath]
 		: undefined;
 
-function getValueByPath<TData, TPath extends string>(
+const getValueByPath = <TData, TPath extends string>(
 	data: TData,
 	path: TPath,
-): GetFieldType<TData, TPath> {
+): GetFieldType<TData, TPath> => {
 	const pathArray = path.split(".");
 
 	let result: unknown = data;
@@ -25,6 +25,6 @@ function getValueByPath<TData, TPath extends string>(
 	}
 
 	return result as GetFieldType<TData, TPath>;
-}
+};
 
 export { getValueByPath };

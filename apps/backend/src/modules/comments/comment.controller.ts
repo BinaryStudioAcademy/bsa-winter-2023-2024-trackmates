@@ -1,7 +1,7 @@
 import { type FastifyRequest } from "fastify";
 
 import { APIPath } from "~/libs/enums/enums.js";
-import { checkIsEqual } from "~/libs/hooks/hooks.js";
+import { checkIdEquality } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -136,7 +136,7 @@ class CommentController extends BaseController {
 			method: "DELETE",
 			path: CommentsApiPath.$ID,
 			preHandlers: [
-				checkIsEqual<
+				checkIdEquality<
 					CommentWithRelationsResponseDto,
 					FastifyRequest & {
 						params: Record<"id", number>;
