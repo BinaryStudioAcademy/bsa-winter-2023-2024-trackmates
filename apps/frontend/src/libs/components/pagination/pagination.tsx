@@ -1,4 +1,4 @@
-import { type AppRoute } from "~/libs/enums/enums.js";
+import { type AppRoute, QueryParameterName } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
 import { PaginationItem } from "./libs/components/components.js";
@@ -8,6 +8,7 @@ type Properties = {
 	currentPage: number;
 	pages: number[];
 	pagesCount: number;
+	searchQuery?: null | string;
 };
 
 const ONE_ITEM_COUNT = 1;
@@ -17,6 +18,7 @@ const Pagination: React.FC<Properties> = ({
 	currentPage,
 	pages,
 	pagesCount,
+	searchQuery,
 }: Properties) => {
 	const isFirstPage = currentPage === ONE_ITEM_COUNT;
 	const isLastPage =
@@ -26,6 +28,10 @@ const Pagination: React.FC<Properties> = ({
 		return null;
 	}
 
+	const queryString = new URLSearchParams({
+		[QueryParameterName.SEARCH]: searchQuery ?? "",
+	}).toString();
+
 	return (
 		<nav
 			aria-label="pagination"
@@ -34,14 +40,18 @@ const Pagination: React.FC<Properties> = ({
 		>
 			<ul className={styles["content"]}>
 				<PaginationItem
-					href={`?page=${ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>}
+					href={
+						`?page=${ONE_ITEM_COUNT}&${queryString}` as ValueOf<typeof AppRoute>
+					}
 					iconName="navFirst"
 					isDisabled={isFirstPage}
 					label=""
 				/>
 				<PaginationItem
 					href={
-						`?page=${currentPage - ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
+						`?page=${currentPage - ONE_ITEM_COUNT}&${queryString}` as ValueOf<
+							typeof AppRoute
+						>
 					}
 					iconName="navPrev"
 					isDisabled={isFirstPage}
@@ -49,7 +59,7 @@ const Pagination: React.FC<Properties> = ({
 				/>
 				{pages.map((page) => (
 					<PaginationItem
-						href={`?page=${page}` as ValueOf<typeof AppRoute>}
+						href={`?page=${page}&${queryString}` as ValueOf<typeof AppRoute>}
 						isActive={currentPage === page}
 						isDisabled={false}
 						key={page}
@@ -58,14 +68,18 @@ const Pagination: React.FC<Properties> = ({
 				))}
 				<PaginationItem
 					href={
-						`?page=${currentPage + ONE_ITEM_COUNT}` as ValueOf<typeof AppRoute>
+						`?page=${currentPage + ONE_ITEM_COUNT}&${queryString}` as ValueOf<
+							typeof AppRoute
+						>
 					}
 					iconName="navNext"
 					isDisabled={isLastPage}
 					label=""
 				/>
 				<PaginationItem
-					href={`?page=${pagesCount}` as ValueOf<typeof AppRoute>}
+					href={
+						`?page=${pagesCount}&${queryString}` as ValueOf<typeof AppRoute>
+					}
 					iconName="navLast"
 					isDisabled={isLastPage}
 					label=""
