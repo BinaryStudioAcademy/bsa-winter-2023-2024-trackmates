@@ -1,0 +1,42 @@
+.edit-modal {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	max-width: 500px;
+	min-height: 300px;
+}
+
+.title {
+	padding: 50px 50px 20px;
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	text-align: center;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.modal-footer {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+	width: 100%;
+	height: 60px;
+	padding: 14px;
+	margin-top: 30px;
+	background-color: var(--color-menu);
+}
+
+.button {
+	width: 80px;
+}
+
+.input-fields {
+	width: 80%;
+}

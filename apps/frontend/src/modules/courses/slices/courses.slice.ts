@@ -8,10 +8,20 @@ import {
 	type CourseDto,
 	type CourseSearchResponseDto,
 } from "../libs/types/types.js";
-import { getAll, getById, getRecommended } from "./actions.js";
+import {
+	deleteById,
+	getAll,
+	getAllByVendor,
+	getById,
+	getRecommended,
+	update,
+} from "./actions.js";
 
 type State = {
 	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
+	allCourses: CourseDto[];
+	allCoursesDataStatus: ValueOf<typeof DataStatus>;
+	courseToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
 	currentCourse: CourseDto | null;
 	recommendedCourses: CourseSearchResponseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
@@ -20,6 +30,9 @@ type State = {
 
 const initialState: State = {
 	addedVendorCourseDataStatuses: {},
+	allCourses: [],
+	allCoursesDataStatus: DataStatus.IDLE,
+	courseToDataStatus: {},
 	currentCourse: null,
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
@@ -28,17 +41,17 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(getAll.fulfilled, (state, action) => {
+		builder.addCase(getAllByVendor.fulfilled, (state, action) => {
 			state.searchedCourses = [
 				...state.searchedCourses,
 				...action.payload.courses,
 			];
 			state.searchDataStatus = DataStatus.FULFILLED;
 		});
-		builder.addCase(getAll.pending, (state) => {
+		builder.addCase(getAllByVendor.pending, (state) => {
 			state.searchDataStatus = DataStatus.PENDING;
 		});
-		builder.addCase(getAll.rejected, (state) => {
+		builder.addCase(getAllByVendor.rejected, (state) => {
 			state.searchDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(getById.fulfilled, (state, action) => {
@@ -89,6 +102,85 @@ const { actions, name, reducer } = createSlice({
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;
 		});
+		builder.addCase(getAll.fulfilled, (state, action) => {
+			state.allCourses = action.payload;
+			state.allCoursesDataStatus = DataStatus.FULFILLED;
+		});
+		builder.addCase(getAll.pending, (state) => {
+			state.allCoursesDataStatus = DataStatus.PENDING;
+		});
+		builder.addCase(getAll.rejected, (state) => {
+			state.allCoursesDataStatus = DataStatus.REJECTED;
+		});
+
+		builder.addCase(
+			deleteById.fulfilled,
+			(state, { meta: { arg: courseId }, payload }) => {
+				if (payload) {
+					state.allCourses = state.allCourses.filter((course) => {
+						return course.id !== courseId;
+					});
+					state.courseToDataStatus[courseId] = DataStatus.FULFILLED;
+				}
+			},
+		);
+		builder.addCase(
+			deleteById.pending,
+			(state, { meta: { arg: courseId } }) => {
+				state.courseToDataStatus[courseId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			deleteById.rejected,
+			(state, { meta: { arg: courseId } }) => {
+				state.courseToDataStatus[courseId] = DataStatus.REJECTED;
+			},
+		);
+
+		builder.addCase(
+			update.fulfilled,
+			(
+				state,
+				{
+					meta: {
+						arg: { id: courseId },
+					},
+					payload,
+				},
+			) => {
+				state.allCourses = state.allCourses.map((course) => {
+					return course.id === courseId ? payload : course;
+				});
+				state.courseToDataStatus[courseId] = DataStatus.FULFILLED;
+			},
+		);
+
+		builder.addCase(
+			update.pending,
+			(
+				state,
+				{
+					meta: {
+						arg: { id: courseId },
+					},
+				},
+			) => {
+				state.courseToDataStatus[courseId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			update.rejected,
+			(
+				state,
+				{
+					meta: {
+						arg: { id: courseId },
+					},
+				},
+			) => {
+				state.courseToDataStatus[courseId] = DataStatus.REJECTED;
+			},
+		);
 	},
 	initialState,
 	name: "courses",

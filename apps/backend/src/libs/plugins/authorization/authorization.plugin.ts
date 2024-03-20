@@ -4,7 +4,7 @@ import { JWTExpired } from "jose/errors";
 
 import { ExceptionMessage, FastifyHook } from "~/libs/enums/enums.js";
 import { HTTPCode, HTTPHeader } from "~/libs/modules/http/http.js";
-import { type Token } from "~/libs/modules/token/token.js";
+import { type Token, type TokenPayload } from "~/libs/modules/token/token.js";
 import { AuthError } from "~/modules/auth/auth.js";
 import { type UserService } from "~/modules/users/users.js";
 
@@ -14,7 +14,7 @@ type Options = {
 	services: {
 		userService: UserService;
 	};
-	token: Token;
+	token: Token<TokenPayload>;
 	whiteRoutes: string[];
 };
 

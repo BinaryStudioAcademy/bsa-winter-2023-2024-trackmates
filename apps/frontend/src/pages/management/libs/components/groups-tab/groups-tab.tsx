@@ -130,13 +130,13 @@ const GroupsTab: React.FC = () => {
 		});
 
 		return {
-			buttons: (
+			actions: (
 				<div className={styles["column-buttons"]}>
 					<Button
 						className={styles["icon-button"]}
 						hasVisuallyHiddenLabel
 						iconName="edit"
-						label={GroupsTableHeader.BUTTONS}
+						label={GroupsTableHeader.ACTIONS}
 						onClick={handleOpenEditModal(group)}
 					/>
 					<Button
@@ -144,7 +144,7 @@ const GroupsTab: React.FC = () => {
 						hasVisuallyHiddenLabel
 						iconName="delete"
 						isDisabled={hasGroup}
-						label={GroupsTableHeader.BUTTONS}
+						label={GroupsTableHeader.ACTIONS}
 						onClick={handleOpenConfirmationModal(group)}
 					/>
 				</div>
@@ -203,7 +203,7 @@ const GroupsTab: React.FC = () => {
 									<TableCell isCentered width="narrow">
 										{
 											data[
-												groupsHeaderToPropertyName[GroupsTableHeader.BUTTONS]
+												groupsHeaderToPropertyName[GroupsTableHeader.ACTIONS]
 											]
 										}
 									</TableCell>

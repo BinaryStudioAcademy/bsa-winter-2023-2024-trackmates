@@ -51,6 +51,7 @@ export {
 	type ServerErrorResponse,
 	type ServerValidationErrorResponse,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
@@ -59,6 +60,8 @@ export {
 	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
+	type ActivityFinishCourseResponseDto,
+	type ActivityFinishSectionResponseDto,
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
@@ -71,7 +74,17 @@ export {
 	type ActivityLikeRequestDto,
 	activityLikeChangeValidationSchema,
 } from "./modules/activity-likes/activity-likes.js";
-export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	AuthApiPath,
+	AuthError,
+	AuthErrorMessage,
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+	type AuthUpdatePasswordResponseDto,
+	authForgotPasswordValidationSchema,
+	authPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
@@ -132,9 +145,11 @@ export {
 	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
 	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 	CoursesApiPath,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./modules/courses/courses.js";
 export {
 	FileError,
@@ -146,6 +161,7 @@ export {
 	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
+	type FriendListRequestQueryDto,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,
@@ -230,6 +246,7 @@ export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,
 	UserError,
+	UserErrorMessage,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,

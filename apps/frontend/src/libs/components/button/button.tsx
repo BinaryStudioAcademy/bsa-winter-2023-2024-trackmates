@@ -12,10 +12,11 @@ type Properties = {
 	hasVisuallyHiddenLabel?: boolean;
 	href?: ValueOf<typeof AppRoute>;
 	iconClassName?: string | undefined;
-	iconName?: IconName;
+	iconName?: IconName | undefined;
 	isDisabled?: boolean;
 	isLoading?: boolean;
 	label: string;
+	loaderColor?: React.ComponentProps<typeof Loader>["color"];
 	onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 	size?: "regular" | "small";
 	style?: "plain" | "primary" | "secondary";
@@ -31,6 +32,7 @@ const Button: React.FC<Properties> = ({
 	isDisabled = false,
 	isLoading,
 	label,
+	loaderColor = "white",
 	onClick,
 	size = "regular",
 	style = "primary",
@@ -59,7 +61,7 @@ const Button: React.FC<Properties> = ({
 	return (
 		<>
 			{href ? (
-				<Link className={buttonStyles} to={href}>
+				<Link className={buttonStyles} isDisabled={isDisabled} to={href}>
 					{icon}
 					<span className={labelStyle}>{label}</span>
 				</Link>
@@ -73,7 +75,7 @@ const Button: React.FC<Properties> = ({
 					{isLoading && (
 						<Loader
 							className={getValidClassNames(styles["button-loader"])}
-							color="white"
+							color={loaderColor}
 							size="small"
 						/>
 					)}

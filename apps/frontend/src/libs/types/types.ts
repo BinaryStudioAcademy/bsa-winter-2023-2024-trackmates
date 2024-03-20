@@ -7,7 +7,6 @@ export { type RootState } from "./root-state.type.js";
 export { type SelectOption } from "./select-option.type.js";
 export { type ValueOf } from "./value-of.type.js";
 export {
-	type PaginationRequestDto,
 	type PaginationResponseDto,
 	type ServerErrorDetail,
 	type ServerErrorResponse,

@@ -11,6 +11,7 @@ type Properties = {
 	activeClassName?: string | undefined;
 	children: React.ReactNode;
 	className?: string | undefined;
+	isDisabled?: boolean;
 	to: ValueOf<typeof AppRoute>;
 };
 
@@ -18,6 +19,7 @@ const Link: React.FC<Properties> = ({
 	activeClassName,
 	children,
 	className,
+	isDisabled,
 	to,
 }: Properties) => {
 	const handleLinkStyles = useCallback(
@@ -31,7 +33,9 @@ const Link: React.FC<Properties> = ({
 		[activeClassName, className],
 	);
 
-	return (
+	return isDisabled ? (
+		<span className={className}>{children}</span>
+	) : (
 		<NavLink className={handleLinkStyles} to={to}>
 			{children}
 		</NavLink>
