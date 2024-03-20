@@ -233,13 +233,13 @@ class NotificationRepository implements Repository<NotificationEntity> {
 	}
 
 	public async findByParameters(
-		id: number,
+		userId: number,
 		receiverUserId: number,
-		type: string,
+		type: ValueOf<typeof NotificationType>,
 	): Promise<NotificationEntity | null> {
 		const notification = await this.notificationModel
 			.query()
-			.findOne({ receiverUserId, type, userId: id })
+			.findOne({ receiverUserId, type, userId })
 			.withGraphFetched(
 				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
 			)

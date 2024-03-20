@@ -80,7 +80,7 @@ class NotificationService implements Service {
 	public async deleteAllNotificationsByParameters(
 		id: number,
 		userId: number,
-		type: string,
+		type: ValueOf<typeof NotificationType>,
 	): Promise<boolean> {
 		const notification = await this.notificationRepository.findByParameters(
 			id,
