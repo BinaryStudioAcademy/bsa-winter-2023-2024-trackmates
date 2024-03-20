@@ -1,1 +1,4 @@
-export { type FriendFollowRequestDto } from "@trackmates/shared";
+export {
+	type FriendFollowRequestDto,
+	type FriendListRequestQueryDto,
+} from "@trackmates/shared";
