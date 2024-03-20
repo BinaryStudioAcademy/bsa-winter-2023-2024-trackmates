@@ -62,10 +62,10 @@ class Mail {
 			Source: this.sender,
 		};
 
-		const sendEmainCommand = new SendEmailCommand(parameters);
+		const sendEmailCommand = new SendEmailCommand(parameters);
 
 		try {
-			await this.sesClient.send(sendEmainCommand);
+			await this.sesClient.send(sendEmailCommand);
 		} catch (error) {
 			this.logger.error(
 				`${MailErrorMessage.SENDING_MAIL_FAILED} ${(error as Error).message}`,
