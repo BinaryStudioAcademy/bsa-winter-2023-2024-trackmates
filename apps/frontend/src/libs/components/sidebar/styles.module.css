@@ -309,7 +309,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.menu-item:hover {
 		color: var(--color-button);
 		background-color: transparent;

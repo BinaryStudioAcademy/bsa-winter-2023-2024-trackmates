@@ -3,7 +3,7 @@
 .add-course-modal {
 	display: flex;
 	flex-direction: column;
-	width: min(1150px, calc(100vw - 28px));
+	width: min(1150px, calc(100vw - 33px));
 	height: calc(100vh - 28px);
 	background-color: var(--color-background);
 }
