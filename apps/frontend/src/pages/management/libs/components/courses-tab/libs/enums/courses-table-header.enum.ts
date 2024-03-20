@@ -1,5 +1,5 @@
 const CoursesTableHeader = {
-	BUTTONS: "",
+	ACTIONS: "Actions",
 	DESCRIPTION: "Description",
 	ID: "ID",
 	TITLE: "Title",
