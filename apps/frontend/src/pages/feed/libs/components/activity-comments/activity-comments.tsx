@@ -7,7 +7,7 @@ import {
 	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
-import { actions as activityActions } from "~/modules/activities/activities.js";
+import { actions as commentActions } from "~/modules/comments/comments.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 
 import { ActivityCommentForm } from "../activity-comment-form/activity-comment-form.js";
@@ -22,17 +22,16 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { comments, isLoadingComments } = useAppSelector((state) => {
 		return {
-			comments: state.activities.commentsByActivity[activityId] ?? [],
+			comments: state.comments.commentsByActivity[activityId] ?? [],
 			isLoadingComments:
-				state.activities.commentsDataStatuses[activityId] ===
-				DataStatus.PENDING,
+				state.comments.commentsDataStatuses[activityId] === DataStatus.PENDING,
 		};
 	});
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
 			void dispatch(
-				activityActions.createComment({
+				commentActions.createComment({
 					activityId,
 					text: payload.text,
 				}),
@@ -44,7 +43,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const handleDeleteComment = useCallback(
 		(activityId: number, commentId: number): void => {
 			void dispatch(
-				activityActions.deleteComment({
+				commentActions.deleteComment({
 					activityId,
 					commentId,
 				}),
@@ -54,7 +53,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	);
 
 	useEffect(() => {
-		void dispatch(activityActions.getAllCommentsToActivity(activityId));
+		void dispatch(commentActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
 
 	const hasComments = comments.length > EMPTY_LENGTH;
