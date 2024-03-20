@@ -1,6 +1,7 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Button, Image, Link } from "~/libs/components/components.js";
+import { Button, Icon, Image, Link } from "~/libs/components/components.js";
 import { type AppRoute } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -57,17 +58,28 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 			});
 	}, [dispatch, friend.id]);
 
+	const hasSubscription = Boolean(friend.subscription);
+
 	return (
 		<article className={styles["card"]}>
 			<Link
 				className={styles["card-content"]}
 				to={`/users/${friend.id}` as ValueOf<typeof AppRoute>}
 			>
-				<Image
-					alt="User avatar"
-					className={styles["portrait"]}
-					src={friend.avatarUrl ?? defaultAvatar}
-				/>
+				{" "}
+				<div className={styles["avatar"]}>
+					<Image
+						alt="User avatar"
+						className={getValidClassNames(
+							styles["portrait"],
+							hasSubscription && styles["premium"],
+						)}
+						src={friend.avatarUrl ?? defaultAvatar}
+					/>
+					{hasSubscription && (
+						<Icon className={styles["premium-icon"]} name="crown" />
+					)}
+				</div>
 				<p
 					className={styles["fullName"]}
 				>{`${friend.firstName} ${friend.lastName}`}</p>
