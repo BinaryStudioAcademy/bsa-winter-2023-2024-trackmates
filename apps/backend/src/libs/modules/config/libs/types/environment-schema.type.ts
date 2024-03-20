@@ -8,10 +8,10 @@ type EnvironmentSchema = {
 		PORT: number;
 	};
 	AWS: {
-		AWS_ACCESS_KEY_ID: string;
-		AWS_SECRET_ACCESS_KEY: string;
+		ACCESS_KEY: string;
+		REGION: string;
 		S3_BUCKET: string;
-		S3_REGION: string;
+		SECRET_KEY: string;
 		SES_SENDER: string;
 	};
 	DB: {

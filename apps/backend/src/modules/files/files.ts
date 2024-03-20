@@ -10,10 +10,10 @@ import { FileService } from "./file.service.js";
 const fileRepository = new FileRepository(FileModel);
 const fileService = new FileService({
 	credentials: {
-		accessKeyId: config.ENV.AWS.AWS_ACCESS_KEY_ID,
+		accessKeyId: config.ENV.AWS.ACCESS_KEY,
 		bucket: config.ENV.AWS.S3_BUCKET,
-		region: config.ENV.AWS.S3_REGION,
-		secretAccessKey: config.ENV.AWS.AWS_SECRET_ACCESS_KEY,
+		region: config.ENV.AWS.REGION,
+		secretAccessKey: config.ENV.AWS.SECRET_KEY,
 	},
 	fileRepository,
 	userService,

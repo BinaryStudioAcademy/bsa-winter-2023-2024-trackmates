@@ -51,33 +51,33 @@ class BaseConfig implements Config {
 				},
 			},
 			AWS: {
-				AWS_ACCESS_KEY_ID: {
+				ACCESS_KEY: {
 					default: null,
-					doc: "AWS access key id",
-					env: "AWS_ACCESS_KEY_ID",
+					doc: "AWS access key",
+					env: "AWS_ACCESS_KEY",
 					format: String,
 				},
-				AWS_SECRET_ACCESS_KEY: {
+				REGION: {
 					default: null,
-					doc: "AWS secret access key",
-					env: "AWS_SECRET_ACCESS_KEY",
+					doc: "AWS region",
+					env: "AWS_REGION",
 					format: String,
 				},
 				S3_BUCKET: {
 					default: null,
-					doc: "S3 bucket",
+					doc: "AWS S3 bucket",
 					env: "S3_BUCKET",
 					format: String,
 				},
-				S3_REGION: {
+				SECRET_KEY: {
 					default: null,
-					doc: "S3 region",
-					env: "S3_REGION",
+					doc: "AWS secret key",
+					env: "AWS_SECRET_KEY",
 					format: String,
 				},
 				SES_SENDER: {
 					default: null,
-					doc: "AWS SES sender info",
+					doc: "AWS SES sender",
 					env: "SES_SENDER",
 					format: String,
 				},

@@ -4,9 +4,9 @@ import { Mail } from "./mail.module.js";
 
 const mail = new Mail({
 	config: {
-		accessKeyId: config.ENV.AWS.AWS_ACCESS_KEY_ID,
-		region: config.ENV.AWS.S3_REGION,
-		secretAccessKey: config.ENV.AWS.AWS_SECRET_ACCESS_KEY,
+		accessKeyId: config.ENV.AWS.ACCESS_KEY,
+		region: config.ENV.AWS.REGION,
+		secretAccessKey: config.ENV.AWS.SECRET_KEY,
 		sender: config.ENV.AWS.SES_SENDER,
 	},
 	logger,
