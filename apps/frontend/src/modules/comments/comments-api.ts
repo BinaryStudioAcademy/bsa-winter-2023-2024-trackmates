@@ -38,6 +38,17 @@ class CommentApi extends BaseHTTPApi {
 		return await response.json<CommentWithRelationsResponseDto>();
 	}
 
+	public async delete(id: number): Promise<boolean> {
+		const response = await this.load(
+			this.getFullEndpoint(CommentsApiPath.$ID, { id: String(id) }),
+			{
+				hasAuth: true,
+				method: "DELETE",
+			},
+		);
+
+		return await response.json<boolean>();
+	}
 	public async getAllByActivityId(
 		query: CommentGetAllRequestDto,
 	): Promise<CommentGetAllResponseDto> {
