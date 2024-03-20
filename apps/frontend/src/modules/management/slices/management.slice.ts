@@ -16,6 +16,7 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
+	groupToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
@@ -26,6 +27,7 @@ type State = {
 };
 
 const initialState: State = {
+	groupToDataStatus: {},
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
@@ -89,15 +91,35 @@ const { reducer } = createSlice({
 						? { ...group, permissions: payload }
 						: group;
 				});
-				state.groupsDataStatus = DataStatus.FULFILLED;
+				state.groupToDataStatus[groupId] = DataStatus.FULFILLED;
 			},
 		);
-		builder.addCase(groupsActions.updateGroupPermissions.pending, (state) => {
-			state.groupsDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(groupsActions.updateGroupPermissions.rejected, (state) => {
-			state.groupsDataStatus = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			groupsActions.updateGroupPermissions.pending,
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+				},
+			) => {
+				state.groupToDataStatus[groupId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			groupsActions.updateGroupPermissions.rejected,
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+				},
+			) => {
+				state.groupToDataStatus[groupId] = DataStatus.REJECTED;
+			},
+		);
 
 		builder.addCase(
 			groupsActions.updateUserGroups.fulfilled,
@@ -131,15 +153,21 @@ const { reducer } = createSlice({
 					});
 				}
 
-				state.groupsDataStatus = DataStatus.FULFILLED;
+				state.groupToDataStatus[groupId] = DataStatus.FULFILLED;
 			},
 		);
-		builder.addCase(groupsActions.deleteGroup.pending, (state) => {
-			state.groupsDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(groupsActions.deleteGroup.rejected, (state) => {
-			state.groupsDataStatus = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			groupsActions.deleteGroup.pending,
+			(state, { meta: { arg: groupId } }) => {
+				state.groupToDataStatus[groupId] = DataStatus.PENDING;
+			},
+		);
+		builder.addCase(
+			groupsActions.deleteGroup.rejected,
+			(state, { meta: { arg: groupId } }) => {
+				state.groupToDataStatus[groupId] = DataStatus.REJECTED;
+			},
+		);
 
 		builder.addCase(usersActions.getAll.fulfilled, (state, action) => {
 			state.users = action.payload;
