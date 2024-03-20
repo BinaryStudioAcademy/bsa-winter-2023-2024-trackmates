@@ -50,7 +50,7 @@ class BaseConfig implements Config {
 					format: Number,
 				},
 			},
-			AWS_S3: {
+			AWS: {
 				AWS_ACCESS_KEY_ID: {
 					default: null,
 					doc: "AWS access key id",
@@ -75,8 +75,6 @@ class BaseConfig implements Config {
 					env: "S3_REGION",
 					format: String,
 				},
-			},
-			AWS_SES: {
 				SES_SENDER: {
 					default: null,
 					doc: "AWS SES sender info",

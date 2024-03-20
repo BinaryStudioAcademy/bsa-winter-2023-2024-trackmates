@@ -7,13 +7,11 @@ type EnvironmentSchema = {
 		HOST: string;
 		PORT: number;
 	};
-	AWS_S3: {
+	AWS: {
 		AWS_ACCESS_KEY_ID: string;
 		AWS_SECRET_ACCESS_KEY: string;
 		S3_BUCKET: string;
 		S3_REGION: string;
-	};
-	AWS_SES: {
 		SES_SENDER: string;
 	};
 	DB: {
