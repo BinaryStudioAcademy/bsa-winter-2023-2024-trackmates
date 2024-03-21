@@ -2,17 +2,18 @@ import { type CellProps } from "react-table";
 
 import { Button } from "~/libs/components/components.js";
 
+import { type CoursesTableRow } from "../courses-tab/libs/components/courses-table/libs/types/types.js";
 import { type GroupsTableRow } from "../groups-tab/libs/components/groups-table/libs/types/types.js";
 import { type UsersTableRow } from "../users-tab/libs/components/users-table/libs/types/types.js";
 import { type ActionsCellProperties } from "./libs/types/types.js";
 import styles from "./styles.module.css";
 
-type Properties<T extends GroupsTableRow | UsersTableRow> = CellProps<
-	T,
-	ActionsCellProperties
->;
+type Properties<T extends CoursesTableRow | GroupsTableRow | UsersTableRow> =
+	CellProps<T, ActionsCellProperties>;
 
-const ActionsCell = <T extends GroupsTableRow | UsersTableRow>({
+const ActionsCell = <
+	T extends CoursesTableRow | GroupsTableRow | UsersTableRow,
+>({
 	value: {
 		isDeleteDisabled,
 		isDeleteLoading,
