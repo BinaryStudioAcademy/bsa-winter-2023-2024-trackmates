@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.64.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.2...frontend-v1.64.3) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend/backend/shared:** fixes after testing tm-499 ([#663](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/663)) ([cbc86e8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cbc86e8ffd4ae95a7666ee88f94ae45babccedcc))
+* **frontend/backend:** UAM (User Access Management) - Groups tm-230 ([#619](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/619)) ([f4b1749](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f4b1749885534e6d2794dd267f9dd838287d61d5))
+* **frontend:** PWA sidebar mobile responsiveness tm-563 ([#607](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/607)) ([80fd118](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/80fd1183e248d9f387506154d45ecf2cec4f2a6b))
+
 ## [1.64.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.1...frontend-v1.64.2) (2024-03-21)
 
 
