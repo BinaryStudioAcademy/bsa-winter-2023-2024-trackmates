@@ -27,6 +27,6 @@
 
 @media (display-mode: standalone) and (--small-screen) {
 	.page-layout {
-		padding-bottom: 99px;
+		padding-bottom: 83px;
 	}
 }
