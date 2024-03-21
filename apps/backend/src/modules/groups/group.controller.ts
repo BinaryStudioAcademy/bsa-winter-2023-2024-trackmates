@@ -398,7 +398,7 @@ class GroupController extends BaseController {
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
-	 *                      $ref: "#/components/schemas/Group"
+	 *                      $ref: "#/components/schemas/Permission"
 	 */
 	private async findAllPermissionsInGroup({
 		params,
