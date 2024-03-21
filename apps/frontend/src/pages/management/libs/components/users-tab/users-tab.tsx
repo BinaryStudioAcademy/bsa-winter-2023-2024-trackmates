@@ -23,10 +23,7 @@ import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
 import { EditUserModal } from "./libs/components/components.js";
-import {
-	DEFAULT_USER,
-	USERS_TABLE_HEADERS,
-} from "./libs/constants/constants.js";
+import { USERS_TABLE_HEADERS } from "./libs/constants/constants.js";
 import { UsersTableHeader } from "./libs/enums/enums.js";
 import { usersHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
@@ -144,13 +141,15 @@ const UsersTab: React.FC = () => {
 					})}
 				</Table>
 			</div>
-			<EditUserModal
-				groups={groups}
-				isOpen={isEditModalOpen}
-				onClose={handleCloseEditModal}
-				title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
-				user={currentUser ?? DEFAULT_USER}
-			/>
+			{currentUser && (
+				<EditUserModal
+					groups={groups}
+					isOpen={isEditModalOpen}
+					onClose={handleCloseEditModal}
+					title={`Edit ${currentUser.firstName} ${currentUser.lastName}'s groups:`}
+					user={currentUser}
+				/>
+			)}
 			<ConfirmationModal
 				isOpen={isDeleteModalOpen}
 				onCancel={handleCloseDeleteModal}

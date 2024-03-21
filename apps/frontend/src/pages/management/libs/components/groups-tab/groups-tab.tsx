@@ -21,7 +21,6 @@ import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { Table, TableCell, TableRow } from "../table/table.js";
 import { EditGroupModal } from "./libs/components/components.js";
 import {
-	DEFAULT_GROUP,
 	GROUPS_TABLE_HEADERS,
 	INPUT_DEFAULT_VALUE,
 } from "./libs/constants/constants.js";
@@ -196,14 +195,16 @@ const GroupsTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
-			<EditGroupModal
-				group={currentGroup ?? DEFAULT_GROUP}
-				isOpen={isEditModalOpen}
-				onClose={handleCloseEditModal}
-				permissions={permissions}
-				title={`Edit permissions of the "${currentGroup?.name}" group:`}
-				user={authUser}
-			/>
+			{currentGroup && (
+				<EditGroupModal
+					group={currentGroup}
+					isOpen={isEditModalOpen}
+					onClose={handleCloseEditModal}
+					permissions={permissions}
+					title={`Edit permissions of the "${currentGroup.name}" group:`}
+					user={authUser}
+				/>
+			)}
 			<ConfirmationModal
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseConfirmationModal}
