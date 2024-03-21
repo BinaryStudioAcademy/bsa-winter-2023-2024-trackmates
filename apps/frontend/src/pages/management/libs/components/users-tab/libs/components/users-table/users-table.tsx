@@ -8,6 +8,7 @@ import { UsersTableColumnAlign } from "./libs/enums/enums.js";
 import { getUserColumns, getUserData } from "./libs/helpers/helpers.js";
 
 type Properties = {
+	checkIfSameUser: (userId: number) => boolean;
 	hasPermissionToDelete: boolean;
 	hasPermissionToEdit: boolean;
 	onDelete: (userId: number) => void;
@@ -23,6 +24,7 @@ type Properties = {
 };
 
 const UsersTable: React.FC<Properties> = ({
+	checkIfSameUser,
 	hasPermissionToDelete,
 	hasPermissionToEdit,
 	onDelete,
@@ -36,6 +38,7 @@ const UsersTable: React.FC<Properties> = ({
 
 	const userColumns = useMemo(() => {
 		return getUserColumns({
+			checkIfSameUser,
 			hasPermissionToDelete,
 			hasPermissionToEdit,
 			onDelete,
@@ -43,6 +46,7 @@ const UsersTable: React.FC<Properties> = ({
 			userToDataStatus,
 		});
 	}, [
+		checkIfSameUser,
 		userToDataStatus,
 		onDelete,
 		onEdit,

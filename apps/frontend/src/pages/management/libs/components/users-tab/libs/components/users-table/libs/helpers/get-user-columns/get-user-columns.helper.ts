@@ -13,12 +13,14 @@ import { UsersTableAccessor, UsersTableHeader } from "../../enums/enums.js";
 import { type UsersTableRow } from "../../types/types.js";
 
 const getUserColumns = ({
+	checkIfSameUser,
 	hasPermissionToDelete,
 	hasPermissionToEdit,
 	onDelete,
 	onEdit,
 	userToDataStatus,
 }: {
+	checkIfSameUser: (userId: number) => boolean;
 	hasPermissionToDelete: boolean;
 	hasPermissionToEdit: boolean;
 	onDelete: (userId: number) => void;
@@ -66,10 +68,10 @@ const getUserColumns = ({
 			Header: UsersTableHeader.ACTIONS,
 			accessor: ({ id }): ActionsCellProperties => {
 				return {
-					isDeleteDisabled: !hasPermissionToDelete,
+					isDeleteDisabled: !hasPermissionToDelete || checkIfSameUser(id),
 					isDeleteLoading:
 						userToDataStatus[id]?.deleteDataStatus === DataStatus.PENDING,
-					isEditDisabled: !hasPermissionToEdit,
+					isEditDisabled: !hasPermissionToEdit || checkIfSameUser(id),
 					isEditLoading:
 						userToDataStatus[id]?.updateDataStatus === DataStatus.PENDING,
 					onDelete: (): void => {

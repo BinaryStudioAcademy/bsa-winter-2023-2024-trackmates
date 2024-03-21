@@ -122,6 +122,13 @@ const UsersTab: React.FC = () => {
 		[users],
 	);
 
+	const checkIfSameUser = useCallback(
+		(userId: number) => {
+			return authUser.id === userId;
+		},
+		[authUser],
+	);
+
 	return (
 		<>
 			{isUsersLoading ? (
@@ -129,6 +136,7 @@ const UsersTab: React.FC = () => {
 			) : (
 				<div className={styles["table-container"]}>
 					<UsersTable
+						checkIfSameUser={checkIfSameUser}
 						hasPermissionToDelete={hasPermissionToDelete}
 						hasPermissionToEdit={hasPermissionToEdit}
 						onDelete={onDeleteUser}
