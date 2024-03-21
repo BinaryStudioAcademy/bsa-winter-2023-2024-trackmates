@@ -8,6 +8,7 @@ import {
 	useCallback,
 	useEffect,
 	useNavigate,
+	useRef,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import {
@@ -44,12 +45,12 @@ const Chat: React.FC<Properties> = ({
 	onSubmit,
 }: Properties) => {
 	const { id, interlocutor, messages } = chat;
-
 	const [readChatMessageIds, setChatMessageIds] = useState<Set<number>>(
 		new Set<number>(),
 	);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const lastMessageReference = useRef<HTMLDivElement | null>(null);
 
 	const handleRead = useCallback(
 		(chatMessageId: number): void => {
@@ -91,6 +92,12 @@ const Chat: React.FC<Properties> = ({
 		dispatch(chatActions.leaveChat());
 	}, [navigate, dispatch]);
 
+	useEffect(() => {
+		lastMessageReference.current?.scrollIntoView({
+			behavior: "smooth",
+		});
+	}, [messages.length, lastMessageReference]);
+
 	const chatsStyles = getValidClassNames(styles["container"], className);
 
 	return (
@@ -122,6 +129,8 @@ const Chat: React.FC<Properties> = ({
 				</div>
 			</div>
 			<ul className={styles["chat-container"]}>
+				<span ref={lastMessageReference} />
+
 				{prepareMessageItems(messages).map((item, index) => {
 					const message = item.value as ChatMessageItemResponseDto;
 
