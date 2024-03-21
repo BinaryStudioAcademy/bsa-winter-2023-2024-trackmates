@@ -6,6 +6,7 @@ import {
 
 import { ExceptionMessage, HTTPCode } from "~/libs/enums/enums.js";
 import { SubscriptionError } from "~/modules/subscriptions/subscriptions.js";
+import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 const checkUserSubscription = (
 	request: FastifyRequest,
@@ -13,16 +14,10 @@ const checkUserSubscription = (
 	done: HookHandlerDoneFunction,
 ): void => {
 	const { user } = request;
-	const hasUser = Boolean(user);
 
-	if (!hasUser) {
-		throw new SubscriptionError({
-			message: ExceptionMessage.USER_NOT_FOUND,
-			status: HTTPCode.NOT_FOUND,
-		});
-	}
+	const hasSubscription = Boolean((user as UserAuthResponseDto).subscription);
 
-	if (!user?.subscription) {
+	if (!hasSubscription) {
 		throw new SubscriptionError({
 			message: ExceptionMessage.NO_SUBSCRIPTION,
 			status: HTTPCode.FORBIDDEN,
