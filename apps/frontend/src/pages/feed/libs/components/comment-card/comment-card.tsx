@@ -10,13 +10,11 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	comment: CommentWithRelationsResponseDto;
-	hasSubscription: boolean;
 	onDelete: (activityId: number, commentId: number) => void;
 };
 
 const CommentCard: React.FC<Properties> = ({
 	comment,
-	hasSubscription,
 	onDelete,
 }: Properties) => {
 	const { user } = useAppSelector(({ auth }) => {
@@ -39,6 +37,8 @@ const CommentCard: React.FC<Properties> = ({
 	}, [activityId, commentId, onDelete]);
 
 	const isCreator = user.id === userId;
+
+	const hasSubscription = Boolean(author.subscription);
 
 	return (
 		<div className={styles["comment-card"]}>

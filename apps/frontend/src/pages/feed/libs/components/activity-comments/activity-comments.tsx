@@ -6,13 +6,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
-	useMemo,
 } from "~/libs/hooks/hooks.js";
-import { type ValueOf } from "~/libs/types/types.js";
-import {
-	type ActivityResponseDto,
-	type ActivityType,
-} from "~/modules/activities/activities.js";
 import { actions as commentActions } from "~/modules/comments/comments.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 
@@ -26,30 +20,13 @@ type Properties = {
 
 const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { activities, comments, isLoadingComments } = useAppSelector(
-		(state) => {
-			return {
-				activities: state.activities.activities,
-				comments: state.comments.commentsByActivity[activityId] ?? [],
-				isLoadingComments:
-					state.comments.commentsDataStatuses[activityId] ===
-					DataStatus.PENDING,
-			};
-		},
-	);
-
-	const usersMap = useMemo(() => {
-		const map = new Map<
-			number,
-			ActivityResponseDto<ValueOf<typeof ActivityType>>
-		>();
-
-		for (const activity of activities) {
-			map.set(activity.user.id, activity);
-		}
-
-		return map;
-	}, [activities]);
+	const { comments, isLoadingComments } = useAppSelector((state) => {
+		return {
+			comments: state.comments.commentsByActivity[activityId] ?? [],
+			isLoadingComments:
+				state.comments.commentsDataStatuses[activityId] === DataStatus.PENDING,
+		};
+	});
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
@@ -94,16 +71,9 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 					{hasComments ? (
 						<div className={styles["comments-container"]}>
 							{comments.map((comment) => {
-								const commentAuthor = usersMap.get(comment.userId);
-
-								const hasSubscription = Boolean(
-									commentAuthor?.user.subscription,
-								);
-
 								return (
 									<CommentCard
 										comment={comment}
-										hasSubscription={hasSubscription}
 										key={comment.id}
 										onDelete={handleDeleteComment}
 									/>
