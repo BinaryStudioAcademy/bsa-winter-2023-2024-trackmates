@@ -1,5 +1,8 @@
 import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
-import { checkUserPermissions } from "~/libs/hooks/hooks.js";
+import {
+	checkUserPermissions,
+	checkUserSubscription,
+} from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -135,6 +138,7 @@ class CourseController extends BaseController {
 			},
 			method: "GET",
 			path: CoursesApiPath.RECOMMENDED,
+			preHandlers: [checkUserSubscription],
 		});
 		this.addRoute({
 			handler: (options) => {

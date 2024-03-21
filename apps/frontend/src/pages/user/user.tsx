@@ -47,6 +47,7 @@ const User: React.FC = () => {
 		commonCourses,
 		courses,
 		currentUserId,
+		hasSubscription,
 		isCoursesLoading,
 		isFollowing,
 		isUserNotFound,
@@ -57,6 +58,9 @@ const User: React.FC = () => {
 			commonCourses: state.userCourses.commonCourses,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
+			hasSubscription: Boolean(
+				(state.auth.user as UserAuthResponseDto).subscription,
+			),
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			isFollowing: state.friends.isFollowing,
 			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
@@ -95,7 +99,11 @@ const User: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
-		void dispatch(userCoursesActions.loadCommonCourses(userId));
+
+		if (hasSubscription) {
+			void dispatch(userCoursesActions.loadCommonCourses(userId));
+		}
+
 		void dispatch(friendsActions.getIsFollowing(userId));
 
 		return () => {
@@ -103,7 +111,7 @@ const User: React.FC = () => {
 			dispatch(userCoursesActions.reset());
 			dispatch(friendsActions.resetIsFollowing());
 		};
-	}, [dispatch, userId]);
+	}, [dispatch, userId, hasSubscription]);
 
 	useEffect(() => {
 		void dispatch(
