@@ -25,10 +25,10 @@ const loadActivities = createAsyncThunk<
 	PaginationResponseDto<ActivityResponseDto<ValueOf<typeof ActivityType>>>,
 	PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/load-activities`, (payload, { extra }) => {
+>(`${sliceName}/load-activities`, (loadActivitiesPayload, { extra }) => {
 	const { activitiesApi } = extra;
 
-	return activitiesApi.getActivities(payload);
+	return activitiesApi.getActivities(loadActivitiesPayload);
 });
 
 export { likeActivity, loadActivities };
