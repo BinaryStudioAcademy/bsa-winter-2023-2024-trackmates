@@ -72,38 +72,40 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 					styles[isOpen ? "open" : "close"],
 				)}
 			>
-				<div className={styles["content-container"]}>
-					<Link className={styles["title-container"]} to="/">
-						<Image alt="website logo" className={styles["logo"]} src={logo} />
-					</Link>
-					<nav className={styles["menu"]}>
-						{menuItems.map(({ href, icon, label, pagePermissions }) => {
-							return (
-								handleCheckPermissions(pagePermissions) && (
-									<Link
-										activeClassName={styles["active"]}
-										className={getValidClassNames(
-											styles["bottom-menu"],
-											styles["menu-item"],
-										)}
-										key={label}
-										to={href}
-									>
-										<Icon name={icon} />
-										<span className={styles["link-title"]}>{label}</span>
-									</Link>
-								)
-							);
-						})}
-					</nav>
+				<div className={styles["content-wrapper"]}>
+					<div className={styles["content-container"]}>
+						<Link className={styles["title-container"]} to="/">
+							<Image alt="website logo" className={styles["logo"]} src={logo} />
+						</Link>
+						<nav className={styles["menu"]}>
+							{menuItems.map(({ href, icon, label, pagePermissions }) => {
+								return (
+									handleCheckPermissions(pagePermissions) && (
+										<Link
+											activeClassName={styles["active"]}
+											className={getValidClassNames(
+												styles["bottom-menu"],
+												styles["menu-item"],
+											)}
+											key={label}
+											to={href}
+										>
+											<Icon className={styles["link-icon"]} name={icon} />
+											<span className={styles["link-title"]}>{label}</span>
+										</Link>
+									)
+								);
+							})}
+						</nav>
+					</div>
+					<Button
+						className={styles["log-out-btn"]}
+						iconName="logOut"
+						label="Log Out"
+						onClick={handleLogOut}
+						style="plain"
+					/>
 				</div>
-				<Button
-					className={styles["log-out-btn"]}
-					iconName="logOut"
-					label="Log Out"
-					onClick={handleLogOut}
-					style="plain"
-				/>
 			</div>
 			<BlurredBackground
 				className={styles["blurred-background"]}
