@@ -75,7 +75,16 @@ class CommentService implements Service {
 	}
 
 	public async delete(id: number): Promise<boolean> {
-		return await this.commentRepository.delete(id);
+		const isDeletionSucceed = await this.commentRepository.delete(id);
+
+		if (isDeletionSucceed) {
+			void this.notificationService.deleteByActionId(
+				id,
+				NotificationType.NEW_COMMENT,
+			);
+		}
+
+		return isDeletionSucceed;
 	}
 
 	public async find(id: number): Promise<CommentWithRelationsResponseDto> {

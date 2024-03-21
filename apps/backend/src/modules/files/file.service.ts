@@ -16,21 +16,21 @@ import {
 
 type Constructor = {
 	credentials: {
-		accessKeyId: string;
+		accessKey: string;
 		bucket: string;
 		region: string;
-		secretAccessKey: string;
+		secretKey: string;
 	};
 	fileRepository: FileRepository;
 	userService: UserService;
 };
 
 class FileService implements Service {
-	private accessKeyId: string;
+	private accessKey: string;
 	private bucket: string;
 	private fileRepository: FileRepository;
 	private region: string;
-	private secretAccessKey: string;
+	private secretKey: string;
 	private userService: UserService;
 
 	public constructor({
@@ -38,11 +38,11 @@ class FileService implements Service {
 		fileRepository,
 		userService,
 	}: Constructor) {
-		this.accessKeyId = credentials.accessKeyId;
+		this.accessKey = credentials.accessKey;
 		this.bucket = credentials.bucket;
 		this.fileRepository = fileRepository;
 		this.region = credentials.region;
-		this.secretAccessKey = credentials.secretAccessKey;
+		this.secretKey = credentials.secretKey;
 		this.userService = userService;
 	}
 
@@ -50,8 +50,8 @@ class FileService implements Service {
 		return await new Upload({
 			client: new S3Client({
 				credentials: {
-					accessKeyId: this.accessKeyId,
-					secretAccessKey: this.secretAccessKey,
+					accessKeyId: this.accessKey,
+					secretAccessKey: this.secretKey,
 				},
 				region: this.region,
 			}),
