@@ -64,13 +64,13 @@ export {
 	type ActivityDeleteRequestDto,
 	type ActivityFinishCourseResponseDto,
 	type ActivityFinishSectionResponseDto,
-	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
 	ActivityType,
 	activityActionIdParameterValidationSchema,
 	activityCreateFinishSectionValidationSchema,
 	activityDeleteFinishSectionValidationSchema,
+	activityGetAllQueryValidationSchema,
 } from "./modules/activities/activities.js";
 export {
 	type ActivityLikeRequestDto,

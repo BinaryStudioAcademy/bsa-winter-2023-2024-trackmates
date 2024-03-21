@@ -1,8 +1,13 @@
-import { type QueryBuilder } from "objection";
+import { type Page, type QueryBuilder } from "objection";
 
 import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
-import { type Repository, type ValueOf } from "~/libs/types/types.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type Repository,
+	type ValueOf,
+} from "~/libs/types/types.js";
 import { type ActivityLikeModel } from "~/modules/activity-likes/activity-likes.js";
 import { type CommentModel } from "~/modules/comments/comments.js";
 import { GroupEntity } from "~/modules/groups/groups.js";
@@ -240,6 +245,78 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				userId: activity.userId,
 			});
 		});
+	}
+
+	public async findAllWithPagination({
+		count,
+		page,
+		userId,
+	}: {
+		userId: number;
+	} & PaginationRequestDto): Promise<PaginationResponseDto<ActivityEntity>> {
+		const { results, total } = await this.activityModel
+			.query()
+			.select(
+				`${DatabaseTableName.ACTIVITIES}.*`,
+				this.getLikesCountQuery(),
+				this.getCommentsCountQuery(),
+				this.getUserLikesCountQuery(userId),
+			)
+			.whereIn(
+				`${DatabaseTableName.ACTIVITIES}.userId`,
+				this.activityModel
+					.query()
+					.from(DatabaseTableName.FRIENDS)
+					.select("followingId")
+					.where({ followerId: userId }),
+			)
+			.orWhere(`${DatabaseTableName.ACTIVITIES}.userId`, userId)
+			.withGraphJoined(
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]]`,
+			)
+			.orderBy("updatedAt", SortOrder.DESC)
+			.page(page, count)
+			.castTo<Page<ActivityModel & ActivityCounts>>()
+			.execute();
+
+		return {
+			items: results.map((activity) => {
+				return ActivityEntity.initialize({
+					actionId: activity.actionId,
+					commentCount: activity.commentCount,
+					id: activity.id,
+					isLikedByUser: Boolean(Number(activity.userLikesCount)),
+					likesCount: activity.likesCount,
+					payload: activity.payload,
+					type: activity.type,
+					updatedAt: activity.updatedAt,
+					user: UserEntity.initialize({
+						avatarUrl: activity.user.userDetails.avatarFile?.url || null,
+						createdAt: activity.user.createdAt,
+						email: activity.user.email,
+						firstName: activity.user.userDetails.firstName,
+						groups: [],
+						id: activity.user.id,
+						lastName: activity.user.userDetails.lastName,
+						nickname: activity.user.userDetails.nickname,
+						passwordHash: "",
+						passwordSalt: "",
+						sex: activity.user.userDetails.sex,
+						subscription: activity.user.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt: activity.user.userDetails.subscription.createdAt,
+									expiresAt: activity.user.userDetails.subscription.expiresAt,
+									id: activity.user.userDetails.subscription.id,
+									updatedAt: activity.user.userDetails.subscription.updatedAt,
+								})
+							: null,
+						updatedAt: activity.user.updatedAt,
+					}),
+					userId: activity.userId,
+				});
+			}),
+			total,
+		};
 	}
 
 	public async findByKeyFields({

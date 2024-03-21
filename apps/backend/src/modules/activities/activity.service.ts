@@ -1,4 +1,10 @@
-import { type Service, type ValueOf } from "~/libs/types/types.js";
+import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type Service,
+	type ValueOf,
+} from "~/libs/types/types.js";
 import {
 	ActivityLikeEntity,
 	type ActivityLikeRepository,
@@ -12,7 +18,6 @@ import { ActivityEntity } from "./activity.entity.js";
 import { type ActivityRepository } from "./activity.repository.js";
 import { type ActivityType } from "./libs/enums/enums.js";
 import {
-	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
 } from "./libs/types/types.js";
@@ -155,15 +160,29 @@ class ActivityService implements Service {
 			: null;
 	}
 
-	public async findAll(userId: number): Promise<ActivityGetAllResponseDto> {
-		const friendsActivities = await this.activityRepository.findAll(userId);
-		const items = friendsActivities.map((entity) => {
-			return entity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
-				ValueOf<typeof ActivityType>
-			>;
+	public async findAll({
+		count,
+		page,
+		userId,
+	}: {
+		userId: number;
+	} & PaginationRequestDto): Promise<
+		PaginationResponseDto<ActivityResponseDto<ValueOf<typeof ActivityType>>>
+	> {
+		const result = await this.activityRepository.findAllWithPagination({
+			count,
+			page: convertPageToZeroIndexed(page),
+			userId,
 		});
 
-		return { items };
+		return {
+			items: result.items.map((entity) => {
+				return entity.toObjectWithRelationsAndCounts() as ActivityResponseDto<
+					ValueOf<typeof ActivityType>
+				>;
+			}),
+			total: result.total,
+		};
 	}
 
 	public async update(

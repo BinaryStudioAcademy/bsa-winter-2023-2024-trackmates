@@ -24,6 +24,13 @@
 	background-size: 200px auto;
 }
 
+.content-container {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	overflow-y: hidden;
+}
+
 @media screen and (--large-screen) {
 	.wrapper {
 		grid-template-columns: 1fr;
@@ -37,6 +44,10 @@
 
 	.background {
 		display: none;
+	}
+
+	.content-container {
+		overflow: unset;
 	}
 }
 
