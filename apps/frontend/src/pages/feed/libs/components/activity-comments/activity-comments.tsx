@@ -70,15 +70,13 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 				<>
 					{hasComments ? (
 						<div className={styles["comments-container"]}>
-							{comments.map((comment) => {
-								return (
-									<CommentCard
-										comment={comment}
-										key={comment.id}
-										onDelete={handleDeleteComment}
-									/>
-								);
-							})}
+							{comments.map((comment) => (
+								<CommentCard
+									comment={comment}
+									key={comment.id}
+									onDelete={handleDeleteComment}
+								/>
+							))}
 						</div>
 					) : (
 						<EmptyPagePlaceholder
