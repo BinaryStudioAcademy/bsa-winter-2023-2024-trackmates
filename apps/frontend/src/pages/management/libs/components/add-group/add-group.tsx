@@ -45,7 +45,7 @@ const AddGroup: React.FC<Properties> = ({
 	}, []);
 
 	const items = useMemo(
-		() => permissions.map(({ key, name }) => ({ key, label: name })),
+		() => permissions.map(({ key, name }) => ({ label: name, value: key })),
 		[permissions],
 	);
 

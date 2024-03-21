@@ -7,30 +7,21 @@ import {
 
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useFormController } from "~/libs/hooks/hooks.js";
+import { type SelectOption } from "~/libs/types/types.js";
 
 import styles from "./styles.module.css";
 
-type CheckboxItem = {
-	isDisabled?: boolean;
-	key: string;
-	label: string;
-};
-
 type Properties<T extends FieldValues> = {
-	checkboxClassName?: string | undefined;
-	checkboxLabelClassName?: string | undefined;
 	control: Control<T, null>;
 	errors: FieldErrors<T>;
 	hasVisuallyHiddenLabel?: boolean;
-	items: CheckboxItem[];
+	items: SelectOption[];
 	label: string;
 	labelClassName?: string | undefined;
 	name: FieldPath<T>;
 };
 
 const CheckboxesGroup = <T extends FieldValues>({
-	checkboxClassName,
-	checkboxLabelClassName,
 	control,
 	errors,
 	hasVisuallyHiddenLabel,
@@ -66,30 +57,18 @@ const CheckboxesGroup = <T extends FieldValues>({
 		hasVisuallyHiddenLabel && "visually-hidden",
 	);
 
-	const checkboxLabelClasses = getValidClassNames(
-		checkboxLabelClassName,
-		styles["checkbox-label"],
-	);
-
-	const checkboxClasses = getValidClassNames(
-		checkboxClassName,
-		styles["checkbox"],
-	);
-
 	return (
 		<div className={styles["group-container"]}>
 			<span className={labelClasses}>{label}</span>
-			{items.map(({ isDisabled, key, label }) => {
+			{items.map(({ label, value }) => {
 				return (
-					<label className={styles["checkbox-container"]} key={key}>
-						<span className={checkboxLabelClasses}>{label}</span>
+					<label className={styles["checkbox-container"]} key={value}>
+						<span className={styles["checkbox-label"]}>{label}</span>
 						<input
-							checked={currentValue.includes(key)}
-							id={key}
-							value={key}
+							checked={currentValue.includes(value)}
+							value={value}
 							{...inputProperties}
-							className={checkboxClasses}
-							disabled={isDisabled}
+							className={styles["checkbox"]}
 							onChange={handleChange}
 							type="checkbox"
 						/>

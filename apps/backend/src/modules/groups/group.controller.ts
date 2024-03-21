@@ -226,6 +226,7 @@ class GroupController extends BaseController {
 	 *                  type: array
 	 *                  items:
 	 *                    type: string
+	 *                    minimum: 1
 	 *      responses:
 	 *        201:
 	 *          description: Successful operation

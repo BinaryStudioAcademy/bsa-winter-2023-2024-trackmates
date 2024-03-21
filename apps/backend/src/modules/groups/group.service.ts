@@ -56,13 +56,6 @@ class GroupService implements Service {
 			keys: permissionKeys,
 		});
 
-		if (permissions.length < permissionKeys.length) {
-			throw new GroupError({
-				message: GroupErrorMessage.PERMISSION_NOT_FOUND,
-				status: HTTPCode.BAD_REQUEST,
-			});
-		}
-
 		const createdGroup = await this.groupRepository.create(
 			GroupEntity.initializeNew({ key, name, permissions }),
 		);
