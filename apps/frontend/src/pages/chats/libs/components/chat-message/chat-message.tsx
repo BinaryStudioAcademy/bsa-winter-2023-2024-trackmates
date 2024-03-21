@@ -8,7 +8,7 @@ import {
 	getFormattedDate,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import { useEffect, useInView, useWindowHasFocus } from "~/libs/hooks/hooks.js";
+import { useEffect, useInView } from "~/libs/hooks/hooks.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
 
 import styles from "./styles.module.css";
@@ -27,15 +27,14 @@ const ChatMessage: React.FC<Properties> = ({
 	const { createdAt, id, senderUser, status, text } = message;
 
 	const { inView, ref } = useInView();
-	const isWindowInFocus = useWindowHasFocus();
 	const isRead = status === MessageStatus.READ;
 	const isUnread = status === MessageStatus.UNREAD;
 
 	useEffect(() => {
-		if (!isRead && !isCurrentUserSender && inView && isWindowInFocus) {
+		if (!isRead && !isCurrentUserSender && inView) {
 			onRead(id);
 		}
-	}, [inView, isCurrentUserSender, isRead, onRead, id, isWindowInFocus]);
+	}, [inView, isCurrentUserSender, isRead, onRead, id]);
 
 	const containerClassNames = getValidClassNames(
 		styles["container"],
