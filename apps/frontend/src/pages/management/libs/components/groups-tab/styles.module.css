@@ -47,14 +47,6 @@
 	column-gap: 10px;
 }
 
-.add-group {
-	position: absolute;
-	top: -60px;
-	right: 20px;
-	display: flex;
-	justify-content: flex-end;
-}
-
 .icon-button {
 	min-height: unset;
 	padding: 0;
