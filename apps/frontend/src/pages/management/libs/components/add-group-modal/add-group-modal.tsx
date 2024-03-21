@@ -65,7 +65,6 @@ const AddGroupModal: React.FC<Properties> = ({
 			<form className={styles["form"]} onSubmit={handleFormSubmit}>
 				<div className={styles["form-content"]}>
 					<Input
-						color="light"
 						control={control}
 						errors={errors}
 						label="Name"
@@ -93,7 +92,6 @@ const AddGroupModal: React.FC<Properties> = ({
 						className={styles["button"]}
 						label="Save"
 						size="small"
-						style="primary"
 						type="submit"
 					/>
 				</div>
