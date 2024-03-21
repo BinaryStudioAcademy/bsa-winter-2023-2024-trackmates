@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.81.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.80.1...v1.81.0) (2024-03-21)
+
+
+### Features
+
+* **backend:** aws ses for mails tm-611 ([#641](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/641)) ([5effe30](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5effe305c264b63f52993ba169541911a0f3ff4e))
+* **backend:** the previously send notification should not display if user refollow that user tm-608 ([#650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/650)) ([3f6d8ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3f6d8ae5810738fed728847d9c05e3e118c57e18))
+
+
+### Bug Fixes
+
+* **frontend:** The "Log Out" button can't be reached on the sidebar in landscape mode [Mobile] tm-567 ([#640](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/640)) ([c7cccf8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c7cccf802dea7ea07b9f321c0e714a0ba7cb91cc))
+
 ## [1.80.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.80.0...v1.80.1) (2024-03-20)
 
 
