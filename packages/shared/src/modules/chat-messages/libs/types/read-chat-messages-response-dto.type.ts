@@ -3,8 +3,7 @@ import { type ChatMessageItemResponseDto } from "./chat-message-item-response-dt
 type ReadChatMessagesResponseDto = {
 	chatId: number;
 	items: ChatMessageItemResponseDto[];
-	unreadMessageCount: number;
-	unreadMessageCountTotal: number;
+	readerId: number;
 };
 
 export { type ReadChatMessagesResponseDto };

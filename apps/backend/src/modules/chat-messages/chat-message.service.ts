@@ -135,48 +135,16 @@ class ChatMessageService implements Service {
 		const readChatMessages =
 			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
 
-		const unreadMessageCount = await this.chatService.getUnreadMessagesCount({
-			chatId,
-			userId,
-		});
-
-		const unreadMessageCountTotal =
-			await this.chatService.getUnreadMessagesCountTotal(userId);
-
 		const { firstUser, secondUser } = await this.chatService.find(chatId);
-		const interlocutorId =
-			firstUser.id === userId ? secondUser.id : firstUser.id;
-
-		const interlocutorUnreadMessageCountTotal =
-			await this.chatService.getUnreadMessagesCountTotal(interlocutorId);
-
-		const interlocutorUnreadMessageCount =
-			await this.chatService.getUnreadMessagesCount({
-				chatId,
-				userId: interlocutorId,
-			});
 
 		socketService.emitMessage({
 			event: SocketEvent.CHAT_READ_MESSAGES,
 			payload: {
 				chatId,
 				items: readChatMessages,
-				unreadMessageCount,
-				unreadMessageCountTotal,
+				readerId: userId,
 			},
-			receiversIds: [String(userId)],
-			targetNamespace: SocketNamespace.CHAT,
-		});
-
-		socketService.emitMessage({
-			event: SocketEvent.CHAT_READ_MESSAGES,
-			payload: {
-				chatId,
-				interlocutorUnreadMessageCount,
-				interlocutorUnreadMessageCountTotal,
-				items: readChatMessages,
-			},
-			receiversIds: [String(interlocutorId)],
+			receiversIds: [String(firstUser.id), String(secondUser.id)],
 			targetNamespace: SocketNamespace.CHAT,
 		});
 
@@ -185,8 +153,7 @@ class ChatMessageService implements Service {
 			items: readChatMessages.map((chatMessage) => {
 				return chatMessage.toObject();
 			}),
-			unreadMessageCount,
-			unreadMessageCountTotal,
+			readerId: userId,
 		};
 	}
 
