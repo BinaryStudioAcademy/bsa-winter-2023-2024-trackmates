@@ -1,3 +1,4 @@
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import {
 	type CourseDto,
 	type CourseSearchResponseDto,
@@ -18,6 +19,7 @@ type Properties = {
 };
 
 const Courses: React.FC<Properties> = ({
+	commonCourses = [],
 	courses,
 	onAddCourse,
 	userId,
@@ -25,9 +27,18 @@ const Courses: React.FC<Properties> = ({
 	return (
 		<ul className={styles["list"]}>
 			{courses.map((course) => {
+				const isCommon =
+					commonCourses.length > EMPTY_LENGTH &&
+					commonCourses.includes(course.id as number);
+
 				return (
 					<li className={styles["item"]} key={course.vendorCourseId}>
-						<Course course={course} onAddCourse={onAddCourse} userId={userId} />
+						<Course
+							course={course}
+							isCommon={isCommon}
+							onAddCourse={onAddCourse}
+							userId={userId}
+						/>
 					</li>
 				);
 			})}
