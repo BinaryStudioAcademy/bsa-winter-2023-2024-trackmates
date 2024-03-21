@@ -32,6 +32,8 @@ const Pagination: React.FC<Properties> = ({
 		[QueryParameterName.SEARCH]: searchQuery ?? "",
 	}).toString();
 
+	const querySuffix = searchQuery ? `&${queryString}` : "";
+
 	return (
 		<nav
 			aria-label="pagination"
@@ -41,7 +43,7 @@ const Pagination: React.FC<Properties> = ({
 			<ul className={styles["content"]}>
 				<PaginationItem
 					href={
-						`?page=${ONE_ITEM_COUNT}&${queryString}` as ValueOf<typeof AppRoute>
+						`?page=${ONE_ITEM_COUNT}${querySuffix}` as ValueOf<typeof AppRoute>
 					}
 					iconName="navFirst"
 					isDisabled={isFirstPage}
@@ -49,7 +51,7 @@ const Pagination: React.FC<Properties> = ({
 				/>
 				<PaginationItem
 					href={
-						`?page=${currentPage - ONE_ITEM_COUNT}&${queryString}` as ValueOf<
+						`?page=${currentPage - ONE_ITEM_COUNT}${querySuffix}` as ValueOf<
 							typeof AppRoute
 						>
 					}
@@ -59,7 +61,7 @@ const Pagination: React.FC<Properties> = ({
 				/>
 				{pages.map((page) => (
 					<PaginationItem
-						href={`?page=${page}&${queryString}` as ValueOf<typeof AppRoute>}
+						href={`?page=${page}${querySuffix}` as ValueOf<typeof AppRoute>}
 						isActive={currentPage === page}
 						isDisabled={false}
 						key={page}
@@ -68,7 +70,7 @@ const Pagination: React.FC<Properties> = ({
 				))}
 				<PaginationItem
 					href={
-						`?page=${currentPage + ONE_ITEM_COUNT}&${queryString}` as ValueOf<
+						`?page=${currentPage + ONE_ITEM_COUNT}${querySuffix}` as ValueOf<
 							typeof AppRoute
 						>
 					}
@@ -77,9 +79,7 @@ const Pagination: React.FC<Properties> = ({
 					label=""
 				/>
 				<PaginationItem
-					href={
-						`?page=${pagesCount}&${queryString}` as ValueOf<typeof AppRoute>
-					}
+					href={`?page=${pagesCount}${querySuffix}` as ValueOf<typeof AppRoute>}
 					iconName="navLast"
 					isDisabled={isLastPage}
 					label=""
