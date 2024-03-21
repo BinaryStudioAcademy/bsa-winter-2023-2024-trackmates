@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.46.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.45.0...backend-v1.46.0) (2024-03-21)
+
+
+### Features
+
+* **backend:** aws ses for mails tm-611 ([#641](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/641)) ([5effe30](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5effe305c264b63f52993ba169541911a0f3ff4e))
+* **backend:** the previously send notification should not display if user refollow that user tm-608 ([#650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/650)) ([3f6d8ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3f6d8ae5810738fed728847d9c05e3e118c57e18))
+
 ## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.44.0...backend-v1.45.0) (2024-03-20)
 
 
