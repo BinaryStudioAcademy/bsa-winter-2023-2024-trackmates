@@ -367,8 +367,6 @@ As we are already using js on both frontend and backend it would be useful to sh
 
 You should use .env.example files as a reference.
 
-In order to set up sending emails you need specify `MAIL_USER_EMAIL` and `MAIL_USER_PASSWORD`. Here is [instruction for generating gmail app password](https://support.google.com/mail/answer/185833?hl=en)
-
 1. Install dependencies: `npm install`.
 
 2. Install pre-commit hooks: `npx simple-git-hooks`. This hook is used to verify code style on commit.
