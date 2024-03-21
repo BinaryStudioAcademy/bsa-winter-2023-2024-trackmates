@@ -13,10 +13,16 @@ import {
 	EMPTY_LENGTH,
 	PAGINATION_PAGES_CUT_COUNT,
 } from "~/libs/constants/constants.js";
-import { AppRoute, DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+import {
+	AppRoute,
+	AppTitle,
+	DataStatus,
+	PaginationValue,
+} from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
+	useAppTitle,
 	useCallback,
 	useEffect,
 	useNavigate,
@@ -33,6 +39,7 @@ import {
 import styles from "./styles.module.css";
 
 const User: React.FC = () => {
+	useAppTitle(AppTitle.FRIEND);
 	const dispatch = useAppDispatch();
 	const { id } = useParams();
 	const userId = Number(id);
@@ -58,7 +65,7 @@ const User: React.FC = () => {
 		};
 	});
 
-	const { handlePageChange, page, pages, pagesCount } = usePagination({
+	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
 		totalCount,
@@ -90,6 +97,12 @@ const User: React.FC = () => {
 		void dispatch(usersActions.getById(userId));
 		void dispatch(userCoursesActions.loadCommonCourses(userId));
 		void dispatch(friendsActions.getIsFollowing(userId));
+
+		return () => {
+			dispatch(usersActions.reset());
+			dispatch(userCoursesActions.reset());
+			dispatch(friendsActions.resetIsFollowing());
+		};
 	}, [dispatch, userId]);
 
 	useEffect(() => {
@@ -164,13 +177,13 @@ const User: React.FC = () => {
 								<Courses courses={courses} userId={userId} />
 								<Pagination
 									currentPage={page}
-									onPageChange={handlePageChange}
 									pages={pages}
 									pagesCount={pagesCount}
 								/>
 							</div>
 						) : (
 							<EmptyPagePlaceholder
+								size="large"
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}

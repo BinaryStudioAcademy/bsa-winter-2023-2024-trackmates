@@ -1,5 +1,5 @@
 const UsersTableHeader = {
-	BUTTONS: "",
+	ACTIONS: "Actions",
 	EMAIL: "Email",
 	FIRST_NAME: "First name",
 	GROUPS: "Groups",

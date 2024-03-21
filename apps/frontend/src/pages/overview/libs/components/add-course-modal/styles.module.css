@@ -3,7 +3,7 @@
 .add-course-modal {
 	display: flex;
 	flex-direction: column;
-	width: min(1150px, calc(100vw - 28px));
+	width: min(1150px, calc(100vw - 33px));
 	height: calc(100vh - 28px);
 	background-color: var(--color-background);
 }
@@ -57,7 +57,7 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	padding: 0 32px 32px;
+	padding: 5px 32px 32px;
 	overflow-y: auto;
 }
 
@@ -71,9 +71,18 @@
 	margin-top: 32px;
 }
 
+.load-more-button {
+	width: 150px;
+	margin: 30px auto 0;
+}
+
 @media screen and (width <= 865px) {
 	.add-course-modal {
 		width: 100vw;
 		height: 100dvh;
+	}
+
+	.load-more-button {
+		font-size: var(--font-size-200);
 	}
 }

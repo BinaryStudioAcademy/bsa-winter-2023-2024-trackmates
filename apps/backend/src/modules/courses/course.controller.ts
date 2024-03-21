@@ -1,4 +1,5 @@
-import { APIPath } from "~/libs/enums/enums.js";
+import { APIPath, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
+import { checkUserPermissions } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -13,10 +14,12 @@ import { CoursesApiPath } from "./libs/enums/enums.js";
 import {
 	type AddCourseRequestDto,
 	type CourseSearchRequestDto,
+	type CourseUpdateRequestDto,
 } from "./libs/types/types.js";
 import {
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -43,6 +46,15 @@ import {
  *            $ref: "#/components/schemas/Vendor"
  *          vendorCourseId:
  *            type: string
+ *
+ *      CourseWithOwnership:
+ *        allOf:
+ *          - $ref: "#/components/schemas/Course"
+ *          - type: object
+ *            properties:
+ *              isUserHasCourse:
+ *                type: boolean
+ *                description: Indicates whether the user has the course or not
  */
 class CourseController extends BaseController {
 	private courseService: CourseService;
@@ -76,6 +88,12 @@ class CourseController extends BaseController {
 			},
 			method: "DELETE",
 			path: CoursesApiPath.$COURSE_ID,
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+			],
 			validation: {
 				params: courseIdParameterValidationSchema,
 			},
@@ -104,7 +122,7 @@ class CourseController extends BaseController {
 				);
 			},
 			method: "GET",
-			path: CoursesApiPath.ROOT,
+			path: CoursesApiPath.FROM_VENDORS,
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -120,15 +138,50 @@ class CourseController extends BaseController {
 		});
 		this.addRoute({
 			handler: (options) => {
-				return this.update(
+				return this.updateFromVendor(
 					options as APIHandlerOptions<{
 						params: { courseId: string };
 					}>,
 				);
 			},
 			method: "PUT",
-			path: CoursesApiPath.$COURSE_ID,
+			path: CoursesApiPath.FROM_VENDORS_$COURSE_ID,
 			validation: {
+				params: courseIdParameterValidationSchema,
+			},
+		});
+		this.addRoute({
+			handler: () => {
+				return this.findAll();
+			},
+			method: "GET",
+			path: CoursesApiPath.ROOT,
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+			],
+		});
+		this.addRoute({
+			handler: (options) => {
+				return this.update(
+					options as APIHandlerOptions<{
+						body: CourseUpdateRequestDto;
+						params: { courseId: string };
+					}>,
+				);
+			},
+			method: "PUT",
+			path: CoursesApiPath.$COURSE_ID,
+			preHandlers: [
+				checkUserPermissions(
+					[PermissionKey.MANAGE_COURSES],
+					PermissionMode.ALL_OF,
+				),
+			],
+			validation: {
+				body: courseUpdateValidationSchema,
 				params: courseIdParameterValidationSchema,
 			},
 		});
@@ -188,7 +241,7 @@ class CourseController extends BaseController {
 	 *      parameters:
 	 *        - name: id
 	 *          in: path
-	 *          description: The vendor ID
+	 *          description: The course ID
 	 *          required: true
 	 *          schema:
 	 *            type: integer
@@ -260,6 +313,36 @@ class CourseController extends BaseController {
 	 *    get:
 	 *      tags:
 	 *        - Courses
+	 *      description: Return all courses from database
+	 *      security:
+	 *        - bearerAuth: []
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                properties:
+	 *                  courses:
+	 *                    type: array
+	 *                    items:
+	 *                      type: object
+	 *                      $ref: "#/components/schemas/Course"
+	 */
+	private async findAll(): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.findAll(),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/from-vendors:
+	 *    get:
+	 *      tags:
+	 *        - Courses
 	 *      description: Return courses from vendors APIs
 	 *      security:
 	 *        - bearerAuth: []
@@ -283,7 +366,7 @@ class CourseController extends BaseController {
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
-	 *                      $ref: "#/components/schemas/Course"
+	 *                      $ref: "#/components/schemas/CourseWithOwnership"
 	 */
 	private async findAllByVendors({
 		query,
@@ -292,10 +375,11 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKey } = query;
+		const { page, search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.findAllByVendors({
+				page,
 				search,
 				userId: user.id,
 				vendorsKey,
@@ -333,7 +417,7 @@ class CourseController extends BaseController {
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
-	 *                      $ref: "#/components/schemas/Course"
+	 *                      $ref: "#/components/schemas/CourseWithOwnership"
 	 */
 	private async getRecommendedCoursesByAI({
 		query,
@@ -342,10 +426,11 @@ class CourseController extends BaseController {
 		query: CourseSearchRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
-		const { search, vendorsKey } = query;
+		const { page, search, vendorsKey } = query;
 
 		return {
 			payload: await this.courseService.getRecommendedCoursesByAI({
+				page,
 				search,
 				userId: user.id,
 				vendorsKey,
@@ -357,6 +442,55 @@ class CourseController extends BaseController {
 	/**
 	 * @swagger
 	 * /courses/{id}:
+	 *    put:
+	 *      tags:
+	 *        - Courses
+	 *      description: Update course title
+	 *      security:
+	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: id
+	 *          in: path
+	 *          description: The course ID
+	 *          required: true
+	 *          schema:
+	 *            type: integer
+	 *            minimum: 1
+	 *      requestBody:
+	 *        required: true
+	 *        content:
+	 *          application/json:
+	 *            schema:
+	 *              type: object
+	 *              properties:
+	 *                title:
+	 *                  type: string
+	 *                  minLength: 1
+	 *      responses:
+	 *        200:
+	 *          description: Successful operation
+	 *          content:
+	 *            application/json:
+	 *              schema:
+	 *                type: object
+	 *                $ref: "#/components/schemas/Course"
+	 */
+	private async update({
+		body,
+		params: { courseId },
+	}: APIHandlerOptions<{
+		body: CourseUpdateRequestDto;
+		params: { courseId: string };
+	}>): Promise<APIHandlerResponse> {
+		return {
+			payload: await this.courseService.update(Number(courseId), body),
+			status: HTTPCode.OK,
+		};
+	}
+
+	/**
+	 * @swagger
+	 * /courses/from-vendor/{id}:
 	 *    put:
 	 *      tags:
 	 *        - Courses
@@ -380,13 +514,13 @@ class CourseController extends BaseController {
 	 *                type: object
 	 *                $ref: "#/components/schemas/Course"
 	 */
-	private async update({
+	private async updateFromVendor({
 		params: { courseId },
 	}: APIHandlerOptions<{
 		params: { courseId: string };
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.courseService.update(Number(courseId)),
+			payload: await this.courseService.updateFromVendor(Number(courseId)),
 			status: HTTPCode.OK,
 		};
 	}

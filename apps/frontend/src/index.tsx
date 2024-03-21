@@ -74,6 +74,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.SIGN_UP,
 							},
 							{
+								element: <Auth />,
+								path: AppRoute.FORGOT_PASSWORD,
+							},
+							{
+								element: <Auth />,
+								path: AppRoute.UPDATE_PASSWORD,
+							},
+							{
 								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.PROFILE,
 							},
@@ -111,6 +119,18 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 									<ProtectedRoute
 										component={<Management />}
 										pagePermissions={{
+											mode: PermissionMode.ALL_OF,
+											permissions: [PermissionKey.MANAGE_COURSES],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT_COURSES,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
 											mode: PermissionMode.ONE_OF,
 											permissions: [
 												PermissionKey.MANAGE_UAM,
@@ -132,6 +152,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 									/>
 								),
 								path: AppRoute.MANAGEMENT_GROUPS,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.SUBSCRIPTION,
+							},
+							{
+								element: <ProtectedRoute component={<Profile />} />,
+								path: AppRoute.SUBSCRIPTION_CHECKOUT,
 							},
 						],
 						element: <App />,

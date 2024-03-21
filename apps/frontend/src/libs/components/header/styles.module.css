@@ -55,10 +55,6 @@
 	outline: 3px solid var(--main-white);
 }
 
-.counter:hover {
-	cursor: default;
-}
-
 .icon-button {
 	position: relative;
 	gap: 0;
@@ -69,12 +65,20 @@
 	fill: currentcolor;
 }
 
-.icon-button:hover {
-	padding: 0;
-	color: var(--main-orange);
-	background-color: var(--main-white);
-	border: unset;
-	fill: currentcolor;
+.avatar {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	top: -36%;
+	left: 24%;
+	width: 24px;
+	aspect-ratio: 1;
 }
 
 @media screen and (--medium-screen) {
@@ -98,5 +102,19 @@
 
 	.toolbar {
 		column-gap: 15px;
+	}
+}
+
+@media (--hover-active) {
+	.icon-button:hover {
+		padding: 0;
+		color: var(--main-orange);
+		background-color: var(--main-white);
+		border: unset;
+		fill: currentcolor;
+	}
+
+	.counter:hover {
+		cursor: default;
 	}
 }

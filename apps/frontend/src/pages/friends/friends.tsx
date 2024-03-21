@@ -5,6 +5,7 @@ import {
 	AppTitle,
 	DataStatus,
 	PaginationValue,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -14,7 +15,9 @@ import {
 	useEffect,
 	useLocation,
 	usePagination,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
 import { FriendsTab } from "./libs/components/components.js";
@@ -28,46 +31,44 @@ const Friends: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
+
 	const { isLoading } = useAppSelector((state) => {
 		return {
 			isLoading: state.friends.dataStatus === DataStatus.PENDING,
 		};
 	});
 
-	const potentialFriendsData = useAppSelector((state) => {
-		return {
-			items: state.friends.potentialFriends,
-			total: state.friends.potentialFriendsTotalCount,
-		};
-	});
-	const potentialFriendsPagination = usePagination({
-		pageSize: PaginationValue.DEFAULT_COUNT,
-		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount: potentialFriendsData.total,
+	const friendsData = useAppSelector((state) => {
+		switch (pathname) {
+			case AppRoute.FRIENDS_FOLLOWERS: {
+				return {
+					items: state.friends.followers,
+					total: state.friends.followersTotalCount,
+				};
+			}
+
+			case AppRoute.FRIENDS_FOLLOWINGS: {
+				return {
+					items: state.friends.followings,
+					total: state.friends.followingsTotalCount,
+				};
+			}
+
+			default: {
+				return {
+					items: state.friends.potentialFriends,
+					total: state.friends.potentialFriendsTotalCount,
+				};
+			}
+		}
 	});
 
-	const followersData = useAppSelector((state) => {
-		return {
-			items: state.friends.followers,
-			total: state.friends.followersTotalCount,
-		};
-	});
-	const followersPagination = usePagination({
+	const pagination = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
 		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount: followersData.total,
-	});
-
-	const followingsData = useAppSelector((state) => {
-		return {
-			items: state.friends.followings,
-			total: state.friends.followingsTotalCount,
-		};
-	});
-	const followingsPagination = usePagination({
-		pageSize: PaginationValue.DEFAULT_COUNT,
-		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount: followingsData.total,
+		totalCount: friendsData.total,
 	});
 
 	useEffect(() => {
@@ -76,7 +77,8 @@ const Friends: React.FC = () => {
 				void dispatch(
 					actions.getPotentialFriends({
 						count: PaginationValue.DEFAULT_COUNT,
-						page: potentialFriendsPagination.page,
+						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
@@ -87,7 +89,8 @@ const Friends: React.FC = () => {
 				void dispatch(
 					actions.getFollowers({
 						count: PaginationValue.DEFAULT_COUNT,
-						page: followersPagination.page,
+						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
@@ -98,24 +101,19 @@ const Friends: React.FC = () => {
 				void dispatch(
 					actions.getFollowings({
 						count: PaginationValue.DEFAULT_COUNT,
-						page: followingsPagination.page,
+						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
 				break;
 			}
 		}
-	}, [
-		dispatch,
-		pathname,
-		potentialFriendsPagination.page,
-		followersPagination.page,
-		followingsPagination.page,
-	]);
+	}, [dispatch, pathname, pagination.page, searchQuery]);
 
 	useEffect(() => {
 		void dispatch(actions.getAllFollowingsIds());
-	}, [dispatch, followingsPagination.page]);
+	}, [dispatch, pagination.page]);
 
 	const handleScreenRender = (screen: string): React.ReactNode => {
 		switch (screen) {
@@ -123,8 +121,8 @@ const Friends: React.FC = () => {
 				return (
 					<FriendsTab
 						emptyPlaceholder="There aren't any potential friends"
-						items={potentialFriendsData.items}
-						pagination={potentialFriendsPagination}
+						items={friendsData.items}
+						pagination={pagination}
 					/>
 				);
 			}
@@ -133,8 +131,8 @@ const Friends: React.FC = () => {
 				return (
 					<FriendsTab
 						emptyPlaceholder="You don't have any followers yet"
-						items={followersData.items}
-						pagination={followersPagination}
+						items={friendsData.items}
+						pagination={pagination}
 					/>
 				);
 			}
@@ -143,32 +141,41 @@ const Friends: React.FC = () => {
 				return (
 					<FriendsTab
 						emptyPlaceholder="You aren't following anyone yet"
-						items={followingsData.items}
-						pagination={followingsPagination}
+						items={friendsData.items}
+						pagination={pagination}
 					/>
 				);
 			}
 		}
-
-		return null;
 	};
 
 	return (
 		<div className={styles["wrapper"]}>
 			<ul className={styles["link-list"]}>
-				{LINKS.map((link, index) => (
-					<li
-						className={getValidClassNames(
-							styles["link-item"],
-							link.to === pathname && styles["active"],
-						)}
-						key={index}
-					>
-						<Link className={styles["link"]} to={link.to}>
-							{link.title}
-						</Link>
-					</li>
-				))}
+				{LINKS.map((link, index) => {
+					const queryString = new URLSearchParams({
+						[QueryParameterName.SEARCH]: searchQuery ?? "",
+					}).toString();
+
+					const currentLink = link.to + `?${queryString}`;
+
+					return (
+						<li
+							className={getValidClassNames(
+								styles["link-item"],
+								link.to === pathname && styles["active"],
+							)}
+							key={index}
+						>
+							<Link
+								className={styles["link"]}
+								to={currentLink as ValueOf<typeof AppRoute>}
+							>
+								{link.title}
+							</Link>
+						</li>
+					);
+				})}
 			</ul>
 			{isLoading ? (
 				<Loader color="orange" size="large" />

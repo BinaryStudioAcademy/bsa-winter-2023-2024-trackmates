@@ -20,7 +20,10 @@ import {
 	reducer as chatMessagesReducer,
 } from "~/modules/chat-messages/chat-messages.js";
 import { chatsApi, reducer as chatsReducer } from "~/modules/chats/chats.js";
-import { commentApi } from "~/modules/comments/comments.js";
+import {
+	commentApi,
+	reducer as commentsReducer,
+} from "~/modules/comments/comments.js";
 import {
 	courseSectionsApi,
 	reducer as courseSectionsReducer,
@@ -41,6 +44,10 @@ import {
 	sectionStatusApi,
 	reducer as sectionStatusesReducer,
 } from "~/modules/section-statuses/section-statuses.js";
+import {
+	subscriptionApi,
+	reducer as subscriptionReducer,
+} from "~/modules/subscriptions/subscriptions.js";
 import {
 	userCourseApi,
 	reducer as userCoursesReducer,
@@ -68,11 +75,13 @@ type RootReducer = {
 	auth: ReturnType<typeof authReducer>;
 	chatMessages: ReturnType<typeof chatMessagesReducer>;
 	chats: ReturnType<typeof chatsReducer>;
+	comments: ReturnType<typeof commentsReducer>;
 	course: ReturnType<typeof courseSectionsReducer>;
 	courses: ReturnType<typeof coursesReducer>;
 	friends: ReturnType<typeof friendsReducer>;
 	management: ReturnType<typeof managementReducer>;
 	sectionStatuses: ReturnType<typeof sectionStatusesReducer>;
+	subscription: ReturnType<typeof subscriptionReducer>;
 	userCourses: ReturnType<typeof userCoursesReducer>;
 	userNotifications: ReturnType<typeof userNotificationsReducer>;
 	users: ReturnType<typeof usersReducer>;
@@ -95,6 +104,7 @@ type ExtraArguments = {
 	sectionStatusApi: typeof sectionStatusApi;
 	socket: typeof socket;
 	storage: typeof storage;
+	subscriptionApi: typeof subscriptionApi;
 	userApi: typeof userApi;
 	userCourseApi: typeof userCourseApi;
 	userNotificationsApi: typeof userNotificationsApi;
@@ -130,11 +140,13 @@ class Store {
 				auth: authReducer,
 				chatMessages: chatMessagesReducer,
 				chats: chatsReducer,
+				comments: commentsReducer,
 				course: courseSectionsReducer,
 				courses: coursesReducer,
 				friends: friendsReducer,
 				management: managementReducer,
 				sectionStatuses: sectionStatusesReducer,
+				subscription: subscriptionReducer,
 				userCourses: userCoursesReducer,
 				userNotifications: userNotificationsReducer,
 				users: usersReducer,
@@ -160,6 +172,7 @@ class Store {
 			sectionStatusApi,
 			socket,
 			storage,
+			subscriptionApi,
 			userApi,
 			userCourseApi,
 			userNotificationsApi,

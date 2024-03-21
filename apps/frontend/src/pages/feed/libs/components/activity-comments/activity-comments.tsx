@@ -1,4 +1,5 @@
-import { Loader } from "~/libs/components/components.js";
+import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { DataStatus } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
@@ -6,7 +7,7 @@ import {
 	useCallback,
 	useEffect,
 } from "~/libs/hooks/hooks.js";
-import { actions as activityActions } from "~/modules/activities/activities.js";
+import { actions as commentActions } from "~/modules/comments/comments.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 
 import { ActivityCommentForm } from "../activity-comment-form/activity-comment-form.js";
@@ -21,17 +22,16 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const dispatch = useAppDispatch();
 	const { comments, isLoadingComments } = useAppSelector((state) => {
 		return {
-			comments: state.activities.commentsByActivity[activityId] ?? [],
+			comments: state.comments.commentsByActivity[activityId] ?? [],
 			isLoadingComments:
-				state.activities.commentsDataStatuses[activityId] ===
-				DataStatus.PENDING,
+				state.comments.commentsDataStatuses[activityId] === DataStatus.PENDING,
 		};
 	});
 
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
 			void dispatch(
-				activityActions.createComment({
+				commentActions.createComment({
 					activityId,
 					text: payload.text,
 				}),
@@ -40,25 +40,52 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 		[activityId, dispatch],
 	);
 
+	const handleDeleteComment = useCallback(
+		(activityId: number, commentId: number): void => {
+			void dispatch(
+				commentActions.deleteComment({
+					activityId,
+					commentId,
+				}),
+			);
+		},
+		[dispatch],
+	);
+
 	useEffect(() => {
-		void dispatch(activityActions.getAllCommentsToActivity(activityId));
+		void dispatch(commentActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
+
+	const hasComments = comments.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["container"]}>
-			{isLoadingComments ? (
-				<Loader color="orange" size="large" />
-			) : (
-				<div className={styles["comments-container"]}>
-					{comments.map((comment) => (
-						<CommentCard comment={comment} key={comment.id} />
-					))}
-				</div>
-			)}
 			<ActivityCommentForm
 				isLoading={isLoadingComments}
 				onSubmit={handleCreateComment}
 			/>
+			{isLoadingComments ? (
+				<Loader className={styles["loader"]} color="orange" size="small" />
+			) : (
+				<>
+					{hasComments ? (
+						<div className={styles["comments-container"]}>
+							{comments.map((comment) => (
+								<CommentCard
+									comment={comment}
+									key={comment.id}
+									onDelete={handleDeleteComment}
+								/>
+							))}
+						</div>
+					) : (
+						<EmptyPagePlaceholder
+							size="small"
+							title="There are no comments yet"
+						/>
+					)}
+				</>
+			)}
 		</div>
 	);
 };

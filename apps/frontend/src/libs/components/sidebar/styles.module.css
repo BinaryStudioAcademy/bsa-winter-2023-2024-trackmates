@@ -5,7 +5,6 @@
 	z-index: var(--z-index-medium);
 	display: flex;
 	flex-direction: column;
-	gap: 76px;
 	height: 100%;
 	padding: 19px;
 	overflow: hidden;
@@ -18,6 +17,12 @@
 	flex-direction: column;
 	flex-grow: 1;
 	width: 100%;
+}
+
+.content-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 
 .burger-button {
@@ -50,19 +55,14 @@
 	transition: 0.3s ease;
 }
 
-.menu-item:hover {
-	color: var(--color-button);
-	background-color: transparent;
-	border-color: var(--color-button);
-	opacity: 1;
-}
-
 .link-title {
 	line-height: normal;
 }
 
 .title-container {
-	min-height: 50px;
+	height: 100%;
+	min-height: 60px;
+	max-height: 126px;
 }
 
 .title {
@@ -80,15 +80,13 @@
 	opacity: 1;
 }
 
-.active:hover {
-	color: var(--main-white);
-	background-color: var(--color-button);
-	border-color: var(--color-button);
-}
-
 .log-out-btn {
 	justify-content: flex-start;
 	font-weight: 700;
+}
+
+.log-out-btn :last-child {
+	gap: 14px;
 }
 
 @media screen and (--large-screen) {
@@ -194,8 +192,8 @@
 		flex-direction: row;
 		gap: 0;
 		height: fit-content;
-		padding-top: 13px;
-		padding-bottom: 30px;
+		padding-top: 20px;
+		padding-bottom: 21px;
 	}
 
 	.sidebar.close {
@@ -210,9 +208,10 @@
 
 	.menu {
 		display: flex;
-		flex: 2;
 		flex-flow: nowrap;
+		flex-grow: 3;
 		justify-content: space-around;
+		width: unset;
 	}
 
 	.active {
@@ -234,6 +233,10 @@
 		visibility: hidden;
 	}
 
+	.link-title {
+		line-height: unset;
+	}
+
 	.close .link-title {
 		display: block;
 	}
@@ -244,10 +247,48 @@
 
 	.log-out-btn {
 		display: flex;
-		flex: 1;
 		flex-direction: column;
-		gap: 9px;
-		padding: 9px 0;
+		flex-grow: 1;
 		border: 0;
+	}
+
+	.log-out-btn :not(:first-child) {
+		display: block;
+		white-space: nowrap;
+	}
+
+	.menu-item,
+	.log-out-btn {
+		padding: 0;
+	}
+
+	.sidebar.close .menu-item {
+		overflow: unset;
+	}
+
+	.content-container {
+		flex-grow: 3;
+	}
+
+	.log-out-btn :last-child {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		line-height: 24px;
+	}
+}
+
+@media (--hover-active) {
+	.menu-item:hover {
+		color: var(--color-button);
+		background-color: transparent;
+		border-color: var(--color-button);
+		opacity: 1;
+	}
+
+	.active:hover {
+		color: var(--main-white);
+		background-color: var(--color-button);
+		border-color: var(--color-button);
 	}
 }

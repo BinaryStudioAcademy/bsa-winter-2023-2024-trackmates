@@ -53,7 +53,8 @@ const Notifications: React.FC = () => {
 	useEffect(() => {
 		void dispatch(
 			actions.setNotificationType(
-				notificationType as ValueOf<typeof NotificationFilter>,
+				(notificationType as ValueOf<typeof NotificationFilter> | null) ??
+					NotificationFilter.ALL,
 			),
 		);
 	}, [dispatch, notificationType]);
@@ -84,6 +85,9 @@ const Notifications: React.FC = () => {
 	}, [dispatch, notificationType, navigate, possibleTypeValues, searchQuery]);
 
 	const hasNotifications = notifications.length > EMPTY_LENGTH;
+
+	const hasIcon =
+		notificationType === null || notificationType === NotificationFilter.ALL;
 
 	return (
 		<div className={styles["page"]}>
@@ -124,9 +128,15 @@ const Notifications: React.FC = () => {
 					) : (
 						<>
 							{hasNotifications ? (
-								<NotificationList notifications={notifications} />
+								<NotificationList
+									hasIcon={hasIcon}
+									notifications={notifications}
+								/>
 							) : (
-								<EmptyPagePlaceholder title="You don't have any notifications yet" />
+								<EmptyPagePlaceholder
+									size="large"
+									title="You don't have any notifications yet"
+								/>
 							)}
 						</>
 					)}

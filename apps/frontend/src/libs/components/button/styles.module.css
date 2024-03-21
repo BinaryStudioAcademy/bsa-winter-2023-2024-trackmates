@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .button {
 	position: relative;
 	display: flex;
@@ -46,21 +48,10 @@
 	border-color: var(--main-white);
 }
 
-.primary:hover {
-	color: var(--main-white);
-	background-color: var(--color-button);
-	border-color: var(--color-button);
-}
-
 .secondary {
 	color: var(--main-white);
 	background-color: transparent;
 	border-color: var(--main-white);
-}
-
-.secondary:hover {
-	color: var(--color-button);
-	border-color: var(--color-button);
 }
 
 .plain {
@@ -70,14 +61,7 @@
 	opacity: 0.6;
 }
 
-.plain:hover {
-	color: var(--color-button);
-	background-color: transparent;
-	opacity: 1;
-}
-
 .primary.disabled,
-.primary.disabled:hover,
 .primary.disabled:focus {
 	color: var(--main-white);
 	cursor: default;
@@ -86,7 +70,6 @@
 }
 
 .secondary.disabled,
-.secondary.disabled:hover,
 .secondary.disabled:focus {
 	border-color: var(--color-text-100);
 }
@@ -100,4 +83,34 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+@media (--hover-active) {
+	.secondary.disabled:hover {
+		border-color: var(--color-text-100);
+	}
+
+	.primary.disabled:hover {
+		color: var(--main-white);
+		cursor: default;
+		background-color: var(--color-text-100);
+		border-color: var(--color-text-100);
+	}
+
+	.plain:hover {
+		color: var(--color-button);
+		background-color: transparent;
+		opacity: 1;
+	}
+
+	.secondary:hover {
+		color: var(--color-button);
+		border-color: var(--color-button);
+	}
+
+	.primary:hover {
+		color: var(--main-white);
+		background-color: var(--color-button);
+		border-color: var(--color-button);
+	}
 }

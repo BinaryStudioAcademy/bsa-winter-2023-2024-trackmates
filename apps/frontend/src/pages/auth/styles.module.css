@@ -61,6 +61,17 @@
 	content: url("~/assets/img/tail.svg");
 }
 
+.forgot-password::before {
+	position: absolute;
+	bottom: -20px;
+	left: -185px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	content: url("~/assets/img/forgot-password-character.svg");
+	background-size: cover;
+}
+
 .sign-in::before {
 	position: absolute;
 	bottom: -20px;
@@ -69,6 +80,17 @@
 	height: 283px;
 	content: "";
 	background-image: url("~/assets/img/sign-in-character.svg");
+	background-size: cover;
+}
+
+.update-password::before {
+	position: absolute;
+	bottom: -20px;
+	left: -145px;
+	width: 283px;
+	height: 283px;
+	content: "";
+	content: url("~/assets/img/update-password-character.svg");
 	background-size: cover;
 }
 

@@ -58,8 +58,10 @@ const SearchBar: React.FC<Properties> = ({
 	);
 
 	useEffect(() => {
-		reset();
-	}, [pathname, reset]);
+		const updatedSearchQuery =
+			searchParameters.get(QueryParameterName.SEARCH) ?? "";
+		reset({ search: updatedSearchQuery });
+	}, [pathname, searchParameters, reset]);
 
 	return (
 		<form

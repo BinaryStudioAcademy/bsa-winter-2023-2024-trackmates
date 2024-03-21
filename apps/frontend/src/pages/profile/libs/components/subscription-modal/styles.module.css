@@ -1,0 +1,12 @@
+.subscription-modal {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: space-between;
+	max-width: 750px;
+}
+
+.content {
+	display: flex;
+	min-height: 350px;
+}

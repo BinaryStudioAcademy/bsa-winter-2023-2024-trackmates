@@ -1,20 +1,25 @@
 .form {
-	display: grid;
-	grid-template-columns: 20fr 1fr;
-	gap: 12px;
+	position: relative;
 	align-items: center;
 }
 
-.input {
+.textarea {
 	max-height: none;
+	padding-right: 48px;
+	background-color: var(--color-background);
 	border-radius: 8px;
 }
 
 .icon {
-	justify-self: end;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 	width: 40px;
-	height: 40px;
+	height: 46px;
 	min-height: 30px;
 	padding: 0;
-	border-radius: 50%;
+	background-color: transparent;
+	border: none;
+	border-radius: 0 8px 8px 0;
+	fill: currentcolor;
 }

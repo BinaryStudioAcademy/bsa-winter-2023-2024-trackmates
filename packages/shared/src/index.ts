@@ -8,6 +8,7 @@ export {
 	APIPath,
 	AppEnvironment,
 	ContentType,
+	Currency,
 	DateValue,
 	ExceptionMessage,
 	FormatDateType,
@@ -26,8 +27,10 @@ export {
 	getFormattedDate,
 	getPercentage,
 	getSanitizedHtml,
+	getShiftedDate,
 	getSizeInBytes,
 	getTimeDistanceFormatDate,
+	getValueByPath,
 	initDebounce,
 } from "./libs/helpers/helpers.js";
 export { type Config } from "./libs/modules/config/config.js";
@@ -42,6 +45,7 @@ export {
 export { SocketEvent, SocketNamespace } from "./libs/modules/socket/socket.js";
 export { type Storage } from "./libs/modules/storage/storage.js";
 export {
+	type ExtractPath,
 	type PaginationRequestDto,
 	type PaginationResponseDto,
 	type ServerCommonErrorResponse,
@@ -49,6 +53,7 @@ export {
 	type ServerErrorResponse,
 	type ServerValidationErrorResponse,
 	type TokenPayload,
+	type UpdatePasswordTokenPayload,
 	type ValidationSchema,
 	type ValueOf,
 } from "./libs/types/types.js";
@@ -57,6 +62,8 @@ export {
 	type ActivityCounts,
 	type ActivityCreateRequestDto,
 	type ActivityDeleteRequestDto,
+	type ActivityFinishCourseResponseDto,
+	type ActivityFinishSectionResponseDto,
 	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
@@ -69,7 +76,17 @@ export {
 	type ActivityLikeRequestDto,
 	activityLikeChangeValidationSchema,
 } from "./modules/activity-likes/activity-likes.js";
-export { AuthApiPath, AuthError } from "./modules/auth/auth.js";
+export {
+	AuthApiPath,
+	AuthError,
+	AuthErrorMessage,
+	type AuthForgotPasswordRequestDto,
+	type AuthUpdatePasswordRequestDto,
+	type AuthUpdatePasswordResponseDto,
+	authForgotPasswordValidationSchema,
+	authPasswordValidationSchema,
+	authUpdatePasswordValidationSchema,
+} from "./modules/auth/auth.js";
 export {
 	type ChatMessageCreateRequestDto,
 	type ChatMessageItemResponseDto,
@@ -127,11 +144,14 @@ export {
 	CourseErrorMessage,
 	type CourseGetAllByUserRequestDto,
 	type CourseSearchFilterDto,
+	type CourseSearchGetAllResponseDto,
 	type CourseSearchRequestDto,
+	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 	CoursesApiPath,
-	type CoursesResponseDto,
 	addCourseValidationSchema,
 	courseIdParameterValidationSchema,
+	courseUpdateValidationSchema,
 } from "./modules/courses/courses.js";
 export {
 	FileError,
@@ -143,6 +163,7 @@ export {
 	FriendErrorMessage,
 	type FriendFollowRequestDto,
 	type FriendFollowResponseDto,
+	type FriendListRequestQueryDto,
 	type FriendUnfollowRequestDto,
 	FriendsApiPath,
 	addFriendValidationSchema,
@@ -199,6 +220,17 @@ export {
 	sectionStatusUpdateQueryValidationSchema,
 } from "./modules/section-statuses/section-statuses.js";
 export {
+	SubscriptionApiPath,
+	SubscriptionError,
+	type SubscriptionPaymentIntentCancelRequestDto,
+	type SubscriptionPaymentIntentCreateRequestDto,
+	type SubscriptionPaymentIntentCreateResponseDto,
+	SubscriptionPlan,
+	type SubscriptionResponseDto,
+	cancelPaymentIntentValidationSchema,
+	createPaymentIntentValidationSchema,
+} from "./modules/subscriptions/subscriptions.js";
+export {
 	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,
@@ -216,6 +248,7 @@ export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,
 	UserError,
+	UserErrorMessage,
 	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,

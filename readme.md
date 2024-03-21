@@ -25,7 +25,7 @@ The product helps the users to track the progress in all their courses from diff
 
 - [NodeJS](https://nodejs.org/en) (18.x.x);
 - [npm](https://www.npmjs.com/) (>=9.x.x);
-- [PostgreSQL](https://www.postgresql.org/) (15.4)
+- [PostgreSQL](https://www.postgresql.org/) (15.5)
 
 ## 4. Database Schema
 
@@ -202,8 +202,16 @@ erDiagram
     int user_id FK
   }
 
+  subscriptions {
+    int id PK
+    dateTime created_at
+    dateTime updated_at
+    dateTime expires_at
+  }
+
    users ||--|| user_details : user_id
    user_details ||--|| files : avatar_file_id
+   user_details ||--|| subscriptions : subscription_id
 
    users ||--|{ friends : follower_id
    users ||--|{ friends : following_id
@@ -243,7 +251,41 @@ erDiagram
 
 ## 5. Architecture
 
-TODO: add application schema
+```mermaid
+
+graph TD
+
+   User
+
+   WebApp["Web App"]
+   PWA
+
+   Route53
+
+   ELB["Elastic Load Balancer (ELB)"]
+
+   EC2["Amazon EC2 Instance (NodeJS)"]
+
+   DB["Database (Amazon RDS)"]
+   S3["Amazon S3"]
+   NodeJS["NodeJS API"]
+   OpenAI["OpenAI API"]
+   Udemy["Udemy API"]
+   Stripe["Stripe API"]
+
+   User -->|Connects to| WebApp
+   User -->|Connects to| PWA
+   WebApp -->|Connects to| Route53
+   PWA -->|Connects to| Route53
+   Route53 -->|Sends traffic to| ELB
+   ELB -->|Sends traffic to| EC2
+   EC2 -->|Connects to| DB
+   EC2 -->|Connects to| S3
+   EC2 -->|Uses| NodeJS
+   EC2 -->|Connects to| OpenAI
+   EC2 -->|Connects to| Udemy
+   EC2 -->|Connects to| Stripe
+```
 
 ### 5.1 Global
 
@@ -324,6 +366,8 @@ As we are already using js on both frontend and backend it would be useful to sh
 - apps/backend/.env
 
 You should use .env.example files as a reference.
+
+In order to set up sending emails you need specify `MAIL_USER_EMAIL` and `MAIL_USER_PASSWORD`. Here is [instruction for generating gmail app password](https://support.google.com/mail/answer/185833?hl=en)
 
 1. Install dependencies: `npm install`.
 

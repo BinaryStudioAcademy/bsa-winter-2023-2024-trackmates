@@ -7,6 +7,8 @@ export { getDifferenceInHours } from "./get-difference-in-hours/get-difference-i
 export { getFormattedDate } from "./get-formatted-date/get-formatted-date.helper.js";
 export { getPercentage } from "./get-percentage/get-percentage.helper.js";
 export { getSanitizedHtml } from "./get-sanitized-html/get-sanitized-html.helper.js";
+export { getShiftedDate } from "./get-shifted-date/get-shifted-date.helper.js";
 export { getSizeInBytes } from "./get-size-in-bytes/get-size-in-bytes.helper.js";
 export { getTimeDistanceFormatDate } from "./get-time-distance-format-date/get-time-distance-format-date.helper.js";
+export { getValueByPath } from "./get-value-by-path/get-value-by-path.helper.js";
 export { initDebounce } from "./init-debounce/init-debounce.helper.js";

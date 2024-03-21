@@ -18,5 +18,8 @@ export {
 export {
 	type CourseDto,
 	type CourseSearchFilterDto,
+	type CourseSearchResponseDto,
+	type CourseUpdateRequestDto,
 } from "./libs/types/types.js";
+export { courseUpdateValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
 export { actions, reducer } from "./slices/courses.js";

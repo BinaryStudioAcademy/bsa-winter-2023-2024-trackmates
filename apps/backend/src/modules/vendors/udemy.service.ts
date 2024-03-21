@@ -1,3 +1,4 @@
+import { PaginationValue } from "~/libs/enums/enums.js";
 import {
 	ContentType,
 	type HTTP,
@@ -9,7 +10,6 @@ import {
 	CourseField,
 	CourseSectionField,
 	UdemyApiPath,
-	UdemyDefaultSearchPageParameter,
 	UdemyPageParameter,
 	VendorErrorMessage,
 } from "./libs/enums/enums.js";
@@ -79,7 +79,7 @@ class UdemyService implements VendorService {
 				page_size: UdemyPageParameter.SIZE,
 			});
 			items = [...items, ...results];
-		} while (results.length == UdemyPageParameter.SIZE);
+		} while (results.length === UdemyPageParameter.SIZE);
 
 		return items;
 	}
@@ -163,11 +163,11 @@ class UdemyService implements VendorService {
 			.map((item) => this.mapToCourseSection(item));
 	}
 
-	public async getCourses(search: string): Promise<Course[]> {
+	public async getCourses(page: number, search: string): Promise<Course[]> {
 		const query: Record<string, unknown> = {
 			"fields[course]": Object.values(CourseField).join(","),
-			page: UdemyDefaultSearchPageParameter.PAGE,
-			page_size: UdemyDefaultSearchPageParameter.PAGE_SIZE,
+			page,
+			page_size: PaginationValue.DEFAULT_COUNT,
 		};
 
 		if (search) {
