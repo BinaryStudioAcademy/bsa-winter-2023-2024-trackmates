@@ -1,4 +1,4 @@
-import { Link, Navigate } from "~/libs/components/components.js";
+import { Button, Link, Navigate } from "~/libs/components/components.js";
 import { AppRoute, AppTitle } from "~/libs/enums/enums.js";
 import {
 	checkIfUserHasPermissions,
@@ -7,8 +7,10 @@ import {
 import {
 	useAppSelector,
 	useAppTitle,
+	useCallback,
 	useLocation,
 	useMemo,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
@@ -29,6 +31,15 @@ const Management: React.FC = () => {
 			user: state.auth.user as UserAuthResponseDto,
 		};
 	});
+
+	const [isAddGroupModalOpen, setIsAddGroupModalOpen] =
+		useState<boolean>(false);
+	const handleAddGroupModalOpen = useCallback(() => {
+		setIsAddGroupModalOpen(true);
+	}, []);
+	const handleAddGroupModalClose = useCallback(() => {
+		setIsAddGroupModalOpen(false);
+	}, []);
 
 	const hasAccessToTabs = useMemo(() => {
 		const map = new Map<ValueOf<typeof AppRoute>, boolean>();
@@ -71,7 +82,12 @@ const Management: React.FC = () => {
 			}
 
 			case AppRoute.MANAGEMENT_GROUPS: {
-				return <GroupsTab />;
+				return (
+					<GroupsTab
+						isAddGroupModalOpen={isAddGroupModalOpen}
+						onAddGroupModalClose={handleAddGroupModalClose}
+					/>
+				);
 			}
 
 			default: {
@@ -83,31 +99,42 @@ const Management: React.FC = () => {
 	return (
 		<div className={styles["wrapper"]}>
 			<span className={styles["title"]}>Management</span>
-			<ul className={styles["link-list"]}>
-				{LINKS.map((link) => {
-					const hasAccess = hasAccessToTabs.get(link.to);
+			<div className={styles["buttons-container"]}>
+				<ul className={styles["link-list"]}>
+					{LINKS.map((link) => {
+						const hasAccess = hasAccessToTabs.get(link.to);
 
-					return (
-						<li
-							className={getValidClassNames(
-								styles["link-item"],
-								link.to === pathname && styles["active"],
-							)}
-							key={link.title}
-						>
-							<Link
+						return (
+							<li
 								className={getValidClassNames(
-									styles["link"],
-									!hasAccess && styles["disabled"],
+									styles["link-item"],
+									link.to === pathname && styles["active"],
 								)}
-								to={link.to}
+								key={link.title}
 							>
-								{link.title}
-							</Link>
-						</li>
-					);
-				})}
-			</ul>
+								<Link
+									className={getValidClassNames(
+										styles["link"],
+										!hasAccess && styles["disabled"],
+									)}
+									to={link.to}
+								>
+									{link.title}
+								</Link>
+							</li>
+						);
+					})}
+				</ul>
+				{pathname === AppRoute.MANAGEMENT_GROUPS && (
+					<Button
+						className={styles["add-group-button"]}
+						label="+ New group"
+						onClick={handleAddGroupModalOpen}
+						size="small"
+						style="primary"
+					/>
+				)}
+			</div>
 			{handleScreenRender(pathname)}
 		</div>
 	);

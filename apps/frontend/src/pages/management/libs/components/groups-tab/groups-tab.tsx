@@ -16,7 +16,7 @@ import {
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
-import { AddGroup } from "../add-group/add-group.js";
+import { AddGroupModal } from "../add-group-modal/add-group-modal.js";
 import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
@@ -27,7 +27,15 @@ import { GroupsTableHeader } from "./libs/enums/enums.js";
 import { groupsHeaderToPropertyName } from "./libs/maps/maps.js";
 import styles from "./styles.module.css";
 
-const GroupsTab: React.FC = () => {
+type Properties = {
+	isAddGroupModalOpen: boolean;
+	onAddGroupModalClose: () => void;
+};
+
+const GroupsTab: React.FC<Properties> = ({
+	isAddGroupModalOpen,
+	onAddGroupModalClose,
+}: Properties) => {
 	const dispatch = useAppDispatch();
 	const { authUser, groups, permissions } = useAppSelector((state) => {
 		return {
@@ -142,9 +150,6 @@ const GroupsTab: React.FC = () => {
 	return (
 		<>
 			<div className={styles["container"]}>
-				<div className={styles["add-group"]}>
-					<AddGroup onCreate={handleCreateGroup} permissions={permissions} />
-				</div>
 				<div className={styles["table-container"]}>
 					<Table headers={GROUPS_TABLE_HEADERS}>
 						{tableData.map((data) => {
@@ -178,6 +183,12 @@ const GroupsTab: React.FC = () => {
 					</Table>
 				</div>
 			</div>
+			<AddGroupModal
+				isOpen={isAddGroupModalOpen}
+				onClose={onAddGroupModalClose}
+				onCreate={handleCreateGroup}
+				permissions={permissions}
+			/>
 			<EditModal
 				isOpen={isEditModalOpen}
 				onClose={handleCloseEditModal}
