@@ -276,6 +276,8 @@
 		flex: 1;
 		padding: 0;
 		font-size: var(--font-size-50);
+		color: var(--main-white);
+		fill: var(--main-white);
 	}
 
 	.sidebar.close .menu-item {
