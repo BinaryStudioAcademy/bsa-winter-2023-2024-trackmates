@@ -46,24 +46,24 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 			screenshots: [
 				{
 					form_factor: "wide",
-					sizes: "1274x810",
+					sizes: "1232x810",
 					src: "/assets/screen-desk-first.jpg",
 					type: "image/jpg",
 				},
 				{
 					form_factor: "wide",
-					sizes: "1274x810",
+					sizes: "1232x810",
 					src: "/assets/screen-desk-second.jpg",
 					type: "image/jpg",
 				},
 				{
 					form_factor: "wide",
-					sizes: "1274x810",
+					sizes: "1232x810",
 					src: "/assets/screen-desk-third.jpg",
 					type: "image/jpg",
 				},
 				{
-					sizes: "768x488",
+					sizes: "768x504",
 					src: "/assets/screen-desk-fourth.jpg",
 					type: "image/jpg",
 				},
