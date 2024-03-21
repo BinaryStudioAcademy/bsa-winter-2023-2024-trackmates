@@ -121,12 +121,14 @@ const CoursesTab: React.FC = () => {
 					</div>
 				)}
 			</div>
-			<EditCourseModal
-				course={currentCourse}
-				isOpen={isEditModalOpen}
-				onClose={handleCloseEditModal}
-				onConfirm={handleConfirmUpdate}
-			/>
+			{currentCourse && (
+				<EditCourseModal
+					course={currentCourse}
+					isOpen={isEditModalOpen}
+					onClose={handleCloseEditModal}
+					onConfirm={handleConfirmUpdate}
+				/>
+			)}
 			<ConfirmationModal
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseConfirmationModal}
