@@ -3,7 +3,7 @@ import {
 	checkIfUserHasPermissions,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useScrollDisabled, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
@@ -52,6 +52,8 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		},
 		[user],
 	);
+
+	useScrollDisabled(isOpen);
 
 	return (
 		<>
