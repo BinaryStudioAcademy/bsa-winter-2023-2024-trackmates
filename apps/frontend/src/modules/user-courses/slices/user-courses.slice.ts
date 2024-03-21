@@ -16,7 +16,6 @@ type State = {
 	addCourseDataStatus: ValueOf<typeof DataStatus>;
 	commonCourses: CourseDto[];
 	commonDataStatus: ValueOf<typeof DataStatus>;
-	currentPage: number;
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];
 	totalMyCoursesCount: number;
@@ -28,7 +27,6 @@ const initialState: State = {
 	addCourseDataStatus: DataStatus.IDLE,
 	commonCourses: [],
 	commonDataStatus: DataStatus.IDLE,
-	currentPage: 1,
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
 	totalMyCoursesCount: 0,
