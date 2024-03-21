@@ -4,6 +4,7 @@ import {
 	Courses,
 	EmptyPagePlaceholder,
 	Image,
+	Link,
 	Loader,
 	Navigate,
 	Pagination,
@@ -174,7 +175,18 @@ const User: React.FC = () => {
 			</div>
 
 			<div className={styles["courses-container"]}>
-				<h2 className={styles["courses-title"]}>Courses</h2>
+				<div className={styles["title-container"]}>
+					<h2 className={styles["courses-title"]}>Courses</h2>
+					{!hasSubscription && (
+						<p className={styles["courses-subtitle"]}>
+							Want to compare your progress with your friend? Then{" "}
+							<Link className={styles["link"]} to={AppRoute.PROFILE}>
+								subscribe
+							</Link>
+							!
+						</p>
+					)}
+				</div>
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
