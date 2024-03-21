@@ -1,12 +1,12 @@
-import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
+import { ONE_UNREAD_MESSAGE } from "../libs/constants/constants.js";
 import {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
-	type ReadChatMessagesResponseDto,
 } from "../libs/types/types.js";
 import {
 	addMessageToCurrentChat,
@@ -15,6 +15,7 @@ import {
 	getChat,
 	getUnreadMessagesCount,
 	updateChats,
+	updateMessagesStatus,
 } from "./actions.js";
 
 type State = {
@@ -74,30 +75,54 @@ const { actions, name, reducer } = createSlice({
 			state.dataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(addMessageToCurrentChat.fulfilled, (state, action) => {
-			state.currentChat = action.payload;
-		});
-		builder.addCase(updateChats.fulfilled, (state, action) => {
-			state.chats = action.payload;
-		});
-	},
-	initialState,
-	name: "chats",
-	reducers: {
-		leaveChat: (state) => {
-			state.currentChat = null;
-		},
-		updateReadChatMessages(
-			state,
-			action: PayloadAction<ReadChatMessagesResponseDto>,
-		) {
-			const { chatId, items, unreadMessageCount, unreadMessageCountTotal } =
-				action.payload;
+		builder.addCase(
+			addMessageToCurrentChat.fulfilled,
+			(state, { payload: { isMessageInCurrentChat, newMessage } }) => {
+				if (isMessageInCurrentChat && state.currentChat) {
+					state.currentChat = {
+						...state.currentChat,
+						messages: [newMessage, ...state.currentChat.messages],
+					};
+				}
+			},
+		);
 
-			state.unreadMessagesCount = unreadMessageCountTotal;
-			state.chats = state.chats.map((chat) => {
-				return chat.id === chatId ? { ...chat, unreadMessageCount } : chat;
-			});
+		builder.addCase(updateChats.fulfilled, (state, { payload: newMessage }) => {
+			state.chats = state.chats
+				.map((chat) => {
+					return chat.id === newMessage.chatId
+						? {
+								...chat,
+								lastMessage: newMessage,
+								unreadMessageCount:
+									chat.interlocutor.id === newMessage.senderUser.id
+										? Number(chat.unreadMessageCount) + ONE_UNREAD_MESSAGE
+										: chat.unreadMessageCount,
+							}
+						: chat;
+				})
+				.sort((a, b) => {
+					return (
+						new Date(b.lastMessage.createdAt).getTime() -
+						new Date(a.lastMessage.createdAt).getTime()
+					);
+				});
+		});
+
+		builder.addCase(updateMessagesStatus.fulfilled, (state, action) => {
+			const { chatId, isUpdateUnreadCounts, items } = action.payload;
+
+			if (isUpdateUnreadCounts) {
+				state.chats = state.chats.map((chat) => {
+					return chat.id === chatId
+						? {
+								...chat,
+								unreadMessageCount: chat.unreadMessageCount - items.length,
+							}
+						: chat;
+				});
+				state.unreadMessagesCount -= items.length;
+			}
 
 			if (state.currentChat) {
 				state.currentChat.messages = state.currentChat.messages.map((value) => {
@@ -108,6 +133,16 @@ const { actions, name, reducer } = createSlice({
 					return updatedMessage ?? value;
 				});
 			}
+		});
+	},
+	initialState,
+	name: "chats",
+	reducers: {
+		increaseUnreadMessageCount(state) {
+			state.unreadMessagesCount += ONE_UNREAD_MESSAGE;
+		},
+		leaveChat: (state) => {
+			state.currentChat = null;
 		},
 	},
 });
