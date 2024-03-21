@@ -55,6 +55,11 @@
 	transition: 0.3s ease;
 }
 
+.link-icon {
+	width: 20px;
+	height: 21px;
+}
+
 .link-title {
 	line-height: normal;
 }
@@ -199,8 +204,8 @@
 		flex-direction: row;
 		gap: 0;
 		height: fit-content;
-		padding-top: 20px;
-		padding-bottom: 21px;
+		padding-top: 15px;
+		padding-bottom: 11px;
 	}
 
 	.content-wrapper {
@@ -218,11 +223,7 @@
 	}
 
 	.menu {
-		display: flex;
-		flex-flow: nowrap;
-		flex-grow: 3;
-		justify-content: space-around;
-		width: unset;
+		display: contents;
 	}
 
 	.active {
@@ -253,13 +254,15 @@
 	}
 
 	.log-out-btn > :last-child {
-		display: block;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		justify-content: center;
 	}
 
 	.log-out-btn {
 		display: flex;
 		flex-direction: column;
-		flex-grow: 1;
 		border: 0;
 	}
 
@@ -270,7 +273,11 @@
 
 	.menu-item,
 	.log-out-btn {
+		flex: 1;
 		padding: 0;
+		font-size: var(--font-size-50);
+		color: var(--main-white);
+		fill: var(--main-white);
 	}
 
 	.sidebar.close .menu-item {
@@ -278,14 +285,7 @@
 	}
 
 	.content-container {
-		flex-grow: 3;
-	}
-
-	.log-out-btn :last-child {
-		display: flex;
-		flex-direction: column;
-		gap: 0;
-		line-height: 24px;
+		display: contents;
 	}
 }
 

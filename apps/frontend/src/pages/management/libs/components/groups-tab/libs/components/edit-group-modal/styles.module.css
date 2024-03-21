@@ -20,13 +20,25 @@
 	text-align: center;
 }
 
-.checkbox-list {
+.list-container {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	max-height: 160px;
 	padding: 0 50px;
 	overflow-y: auto;
+}
+
+.checkbox-list {
+	display: flex;
+	flex-direction: column;
+	row-gap: 20px;
+	padding: 0;
+}
+
+.checkbox-item {
+	display: flex;
+	column-gap: 10px;
 }
 
 .modal-footer {
