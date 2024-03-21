@@ -187,6 +187,7 @@ const AddCourseModal: React.FC<Properties> = ({
 				</header>
 				<div className={styles["content"]}>
 					<div className={styles["course-container"]}>
+						{isLoadFirstPage && <Loader color="orange" size="large" />}
 						{hasCourses && (
 							<>
 								<div>
@@ -207,24 +208,16 @@ const AddCourseModal: React.FC<Properties> = ({
 									<p className={styles["results-count"]}>
 										{courses.length} results
 									</p>
-									{isLoadFirstPage ? (
-										<Loader color="orange" size="large" />
-									) : (
-										<>
-											<Courses
-												courses={courses}
-												onAddCourse={handleAddCourse}
-											/>
-											<Button
-												className={styles["load-more-button"]}
-												isDisabled={isLoadMore}
-												isLoading={isLoadMore}
-												label="Load more"
-												onClick={handleLoadMore}
-												size="small"
-											/>
-										</>
-									)}
+
+									<Courses courses={courses} onAddCourse={handleAddCourse} />
+									<Button
+										className={styles["load-more-button"]}
+										isDisabled={isLoadMore}
+										isLoading={isLoadMore}
+										label="Load more"
+										onClick={handleLoadMore}
+										size="small"
+									/>
 								</div>
 							</>
 						)}
