@@ -1,7 +1,6 @@
 @import url("~/assets/css/media.css");
 
 .container {
-	position: relative;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
