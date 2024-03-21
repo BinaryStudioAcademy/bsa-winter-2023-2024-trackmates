@@ -1,5 +1,5 @@
 import { Button, Input, Loader } from "~/libs/components/components.js";
-import { DataStatus, PermissionKey } from "~/libs/enums/enums.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import { findItemById } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
@@ -19,9 +19,7 @@ import { actions as permissionsActions } from "~/modules/permissions/permissions
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
-import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
-import { EditModal } from "../edit-modal/edit-modal.js";
-import { GroupsTable } from "./libs/components/components.js";
+import { EditGroupModal, GroupsTable } from "./libs/components/components.js";
 import { INPUT_DEFAULT_VALUE } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
@@ -82,22 +80,6 @@ const GroupsTab: React.FC = () => {
 		setIsConfirmationModalOpen(false);
 		setCurrentGroup(null);
 	}, []);
-
-	const handleChangeGroupPermissions = useCallback(
-		(groupId: number, permissionId: number) => {
-			void dispatch(
-				groupsActions.updateGroupPermissions({ groupId, permissionId }),
-			);
-		},
-		[dispatch],
-	);
-
-	const handleToggleCheckbox = useCallback(
-		(permissionId: number) => {
-			handleChangeGroupPermissions(currentGroup?.id as number, permissionId);
-		},
-		[currentGroup, handleChangeGroupPermissions],
-	);
 
 	const handleDeleteGroup = useCallback(
 		(groupId: number) => {
@@ -183,41 +165,16 @@ const GroupsTab: React.FC = () => {
 					</div>
 				)}
 			</div>
-			<EditModal
-				isOpen={isEditModalOpen}
-				onClose={handleCloseEditModal}
-				title={`Edit permissions of the "${currentGroup?.name}" group:`}
-			>
-				<ul className={styles["modal-list"]}>
-					{permissions.map((permission) => {
-						const isChecked = Boolean(
-							currentGroup?.permissions.some((permissionInGroup) => {
-								return permissionInGroup.id === permission.id;
-							}),
-						);
-
-						const isDisabled =
-							permission.key === PermissionKey.MANAGE_UAM &&
-							authUser.groups.some((group) => {
-								return group.id === currentGroup?.id;
-							});
-
-						return (
-							<li className={styles["modal-item"]} key={permission.id}>
-								<EditCheckbox
-									isChecked={isChecked}
-									isDisabled={isDisabled}
-									itemId={permission.id}
-									key={permission.id}
-									name={permission.name}
-									onToggle={handleToggleCheckbox}
-								/>
-								{permission.name}
-							</li>
-						);
-					})}
-				</ul>
-			</EditModal>
+			{currentGroup && (
+				<EditGroupModal
+					group={currentGroup}
+					isOpen={isEditModalOpen}
+					onClose={handleCloseEditModal}
+					permissions={permissions}
+					title={`Edit permissions of the "${currentGroup.name}" group:`}
+					user={authUser}
+				/>
+			)}
 			<ConfirmationModal
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseConfirmationModal}

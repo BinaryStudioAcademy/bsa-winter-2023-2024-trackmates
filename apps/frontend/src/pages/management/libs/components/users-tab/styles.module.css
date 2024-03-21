@@ -5,15 +5,3 @@
 	background-color: var(--main-white);
 	border-radius: 16px 16px 0 0;
 }
-
-.modal-list {
-	display: flex;
-	flex-direction: column;
-	row-gap: 20px;
-	padding: 0;
-}
-
-.modal-item {
-	display: flex;
-	column-gap: 10px;
-}

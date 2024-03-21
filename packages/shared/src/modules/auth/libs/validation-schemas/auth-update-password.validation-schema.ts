@@ -18,6 +18,9 @@ const authUpdatePassword = z
 			.min(UserValidationRule.FIELD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.FIELD_REQUIRE,
 			})
+			.regex(/^[\w!"#$%&'()*+,-./:;<=>?@[\\\]^`{|}~]*$/, {
+				message: UserValidationMessage.PASSWORD_INVALID_FORMAT,
+			})
 			.min(UserValidationRule.PASSWORD_MINIMUM_LENGTH, {
 				message: UserValidationMessage.PASSWORD_MINIMUM_LENGTH,
 			})

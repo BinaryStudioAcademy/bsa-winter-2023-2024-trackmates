@@ -41,18 +41,6 @@
 	column-gap: 30px;
 }
 
-.modal-list {
-	display: flex;
-	flex-direction: column;
-	row-gap: 20px;
-	padding: 0;
-}
-
-.modal-item {
-	display: flex;
-	column-gap: 10px;
-}
-
 @media screen and (--medium-screen) {
 	.button,
 	.input {

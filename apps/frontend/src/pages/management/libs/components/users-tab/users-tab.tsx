@@ -23,9 +23,7 @@ import {
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
-import { EditCheckbox } from "../edit-checkbox/edit-checkbox.js";
-import { EditModal } from "../edit-modal/edit-modal.js";
-import { UsersTable } from "./libs/components/components.js";
+import { EditUserModal, UsersTable } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
@@ -67,20 +65,6 @@ const UsersTab: React.FC = () => {
 		setIsEditModalOpen(false);
 		setCurrentUser(null);
 	}, []);
-
-	const handleChangeUserGroups = useCallback(
-		(groupId: number, userId: number) => {
-			void dispatch(groupsActions.updateUserGroups({ groupId, userId }));
-		},
-		[dispatch],
-	);
-
-	const handleToggleCheckbox = useCallback(
-		(groupId: number) => {
-			handleChangeUserGroups(groupId, currentUser?.id as number);
-		},
-		[currentUser, handleChangeUserGroups],
-	);
 
 	const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
 		useState<boolean>(false);
@@ -147,34 +131,15 @@ const UsersTab: React.FC = () => {
 					/>
 				</div>
 			)}
-			<EditModal
-				isOpen={isEditModalOpen}
-				onClose={handleCloseEditModal}
-				title={`Edit ${currentUser?.firstName} ${currentUser?.lastName}'s groups:`}
-			>
-				<ul className={styles["modal-list"]}>
-					{groups.map((group) => {
-						const isChecked = Boolean(
-							currentUser?.groups.some((userGroup) => {
-								return userGroup.id === group.id;
-							}),
-						);
-
-						return (
-							<li className={styles["modal-item"]} key={group.id}>
-								<EditCheckbox
-									isChecked={isChecked}
-									itemId={group.id}
-									key={group.id}
-									name={group.name}
-									onToggle={handleToggleCheckbox}
-								/>
-								{group.name}
-							</li>
-						);
-					})}
-				</ul>
-			</EditModal>
+			{currentUser && (
+				<EditUserModal
+					groups={groups}
+					isOpen={isEditModalOpen}
+					onClose={handleCloseEditModal}
+					title={`Edit ${currentUser.firstName} ${currentUser.lastName}'s groups:`}
+					user={currentUser}
+				/>
+			)}
 			<ConfirmationModal
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseDeleteModal}
