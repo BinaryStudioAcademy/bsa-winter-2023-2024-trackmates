@@ -11,7 +11,7 @@ type Properties = {
 	searchQuery?: null | string;
 };
 
-const ONE_ITEM_COUNT = 1;
+const DEFAULT_PAGE_NUMBER = 1;
 const NO_ITEMS_PAGE_COUNT = 0;
 
 const Pagination: React.FC<Properties> = ({
@@ -20,11 +20,11 @@ const Pagination: React.FC<Properties> = ({
 	pagesCount,
 	searchQuery,
 }: Properties) => {
-	const isFirstPage = currentPage === ONE_ITEM_COUNT;
+	const isFirstPage = currentPage === DEFAULT_PAGE_NUMBER;
 	const isLastPage =
 		currentPage === pagesCount || pagesCount === NO_ITEMS_PAGE_COUNT;
 
-	if (pagesCount === ONE_ITEM_COUNT) {
+	if (pagesCount === DEFAULT_PAGE_NUMBER) {
 		return null;
 	}
 
@@ -43,7 +43,9 @@ const Pagination: React.FC<Properties> = ({
 			<ul className={styles["content"]}>
 				<PaginationItem
 					href={
-						`?page=${ONE_ITEM_COUNT}${querySuffix}` as ValueOf<typeof AppRoute>
+						`?page=${DEFAULT_PAGE_NUMBER}${querySuffix}` as ValueOf<
+							typeof AppRoute
+						>
 					}
 					iconName="navFirst"
 					isDisabled={isFirstPage}
@@ -51,7 +53,7 @@ const Pagination: React.FC<Properties> = ({
 				/>
 				<PaginationItem
 					href={
-						`?page=${currentPage - ONE_ITEM_COUNT}${querySuffix}` as ValueOf<
+						`?page=${currentPage - DEFAULT_PAGE_NUMBER}${querySuffix}` as ValueOf<
 							typeof AppRoute
 						>
 					}
@@ -70,7 +72,7 @@ const Pagination: React.FC<Properties> = ({
 				))}
 				<PaginationItem
 					href={
-						`?page=${currentPage + ONE_ITEM_COUNT}${querySuffix}` as ValueOf<
+						`?page=${currentPage + DEFAULT_PAGE_NUMBER}${querySuffix}` as ValueOf<
 							typeof AppRoute
 						>
 					}
