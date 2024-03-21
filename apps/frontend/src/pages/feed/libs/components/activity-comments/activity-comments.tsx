@@ -12,8 +12,8 @@ import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
 	type ActivityType,
-	actions as activityActions,
 } from "~/modules/activities/activities.js";
+import { actions as commentActions } from "~/modules/comments/comments.js";
 import { type CommentCreateRequestDto } from "~/modules/comments/comments.js";
 
 import { ActivityCommentForm } from "../activity-comment-form/activity-comment-form.js";
@@ -30,9 +30,9 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 		(state) => {
 			return {
 				activities: state.activities.activities,
-				comments: state.activities.commentsByActivity[activityId] ?? [],
+				comments: state.comments.commentsByActivity[activityId] ?? [],
 				isLoadingComments:
-					state.activities.commentsDataStatuses[activityId] ===
+					state.comments.commentsDataStatuses[activityId] ===
 					DataStatus.PENDING,
 			};
 		},
@@ -54,7 +54,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 	const handleCreateComment = useCallback(
 		(payload: Pick<CommentCreateRequestDto, "text">): void => {
 			void dispatch(
-				activityActions.createComment({
+				commentActions.createComment({
 					activityId,
 					text: payload.text,
 				}),
@@ -63,8 +63,20 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 		[activityId, dispatch],
 	);
 
+	const handleDeleteComment = useCallback(
+		(activityId: number, commentId: number): void => {
+			void dispatch(
+				commentActions.deleteComment({
+					activityId,
+					commentId,
+				}),
+			);
+		},
+		[dispatch],
+	);
+
 	useEffect(() => {
-		void dispatch(activityActions.getAllCommentsToActivity(activityId));
+		void dispatch(commentActions.getAllCommentsToActivity(activityId));
 	}, [activityId, dispatch]);
 
 	const hasComments = comments.length > EMPTY_LENGTH;
@@ -93,6 +105,7 @@ const ActivityComments: React.FC<Properties> = ({ activityId }: Properties) => {
 										comment={comment}
 										hasSubscription={hasSubscription}
 										key={comment.id}
+										onDelete={handleDeleteComment}
 									/>
 								);
 							})}

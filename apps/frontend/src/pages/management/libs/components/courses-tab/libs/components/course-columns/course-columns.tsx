@@ -37,6 +37,7 @@ const CourseColumns: React.FC<Properties> = ({
 			<TableCell isCentered>
 				<Image
 					alt="Course source logo"
+					className={styles["source-logo"]}
 					src={`/vendors/${course.vendor.key}.svg`}
 				/>
 			</TableCell>

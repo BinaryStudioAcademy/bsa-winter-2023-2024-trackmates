@@ -90,7 +90,7 @@
 	}
 }
 
-@media (hover: hover) {
+@media (--hover-active) {
 	.container:hover {
 		background-color: var(--color-background);
 	}

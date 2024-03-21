@@ -1,5 +1,28 @@
 # Changelog
 
+## [1.46.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.45.0...backend-v1.46.0) (2024-03-21)
+
+
+### Features
+
+* **backend:** aws ses for mails tm-611 ([#641](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/641)) ([5effe30](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5effe305c264b63f52993ba169541911a0f3ff4e))
+* **backend:** the previously send notification should not display if user refollow that user tm-608 ([#650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/650)) ([3f6d8ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3f6d8ae5810738fed728847d9c05e3e118c57e18))
+
+## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.44.0...backend-v1.45.0) (2024-03-20)
+
+
+### Features
+
+* **frontend/backend:** add possibility to delete own comments tm-489 ([#599](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/599)) ([9fdd82a](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/9fdd82ade65d7c0737a8d9ff61758dc3dde78031))
+
+## [1.44.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.43.0...backend-v1.44.0) (2024-03-20)
+
+
+### Features
+
+* **backend/frontend/shared:** add search functionality to friends page tm-561 ([#618](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/618)) ([b20a52c](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/b20a52c9c6229a9c7f1b28621f213db7b9cce7bb))
+* **backend:** delete notification when user unffollow current user tm-608 ([#628](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/628)) ([2261b2d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/2261b2db95cfcba3155298e381e507e29b4779b6))
+
 ## [1.43.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.42.0...backend-v1.43.0) (2024-03-19)
 
 

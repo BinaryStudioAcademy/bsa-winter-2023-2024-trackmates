@@ -1,5 +1,11 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Button, Icon, Image, Loader } from "~/libs/components/components.js";
+import {
+	Button,
+	Icon,
+	Image,
+	Link,
+	Loader,
+} from "~/libs/components/components.js";
 import { EMPTY_LENGTH, LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
@@ -10,6 +16,7 @@ import {
 	useNavigate,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ChatMessageItemResponseDto,
 	actions as chatMessageActions,
@@ -105,7 +112,10 @@ const Chat: React.FC<Properties> = ({
 				/>
 
 				<div className={styles["user-container"]}>
-					<div className={styles["image-container"]}>
+					<Link
+						className={styles["image-container"]}
+						to={`/users/${receiver.id}` as ValueOf<typeof AppRoute>}
+					>
 						<Image
 							alt="User avatar"
 							className={getValidClassNames(
@@ -119,7 +129,7 @@ const Chat: React.FC<Properties> = ({
 						{hasSubscription && (
 							<Icon className={styles["premium-icon"]} name="crown" />
 						)}
-					</div>
+					</Link>
 					<span className={styles["full-name"]}>
 						{receiver.firstName} {receiver.lastName}
 					</span>
