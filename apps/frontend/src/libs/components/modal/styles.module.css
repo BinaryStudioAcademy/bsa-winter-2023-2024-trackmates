@@ -54,6 +54,10 @@
 	border: none;
 }
 
+.no-overflow {
+	overflow: hidden;
+}
+
 @media screen and (width <= 865px) {
 	.modal {
 		padding: 0;

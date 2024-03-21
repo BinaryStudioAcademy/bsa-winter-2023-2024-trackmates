@@ -1,5 +1,6 @@
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
+	useEffect,
 	useHandleClickOutside,
 	useHandleEscPress,
 	useRef,
@@ -16,6 +17,8 @@ type Properties = {
 	isOpen: boolean;
 	onClose: () => void;
 };
+
+const NO_OVERFLOW_CLASS = styles["no-overflow"] as string;
 
 const Modal: React.FC<Properties> = ({
 	children,
@@ -39,6 +42,14 @@ const Modal: React.FC<Properties> = ({
 		isCentered && styles["centered"],
 		isOpen && styles["active"],
 	);
+
+	useEffect(() => {
+		if (isOpen) {
+			document.body.classList.add(NO_OVERFLOW_CLASS);
+		} else {
+			document.body.classList.remove(NO_OVERFLOW_CLASS);
+		}
+	}, [isOpen]);
 
 	return (
 		<Portal>
