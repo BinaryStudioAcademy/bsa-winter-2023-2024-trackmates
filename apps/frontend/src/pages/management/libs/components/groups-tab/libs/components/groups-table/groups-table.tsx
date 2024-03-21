@@ -4,7 +4,7 @@ import { useMemo } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type GroupResponseDto } from "~/modules/groups/groups.js";
 
-import { GroupTableColumnAlign } from "./libs/enums/enums.js";
+import { GroupsTableColumnAlign } from "./libs/enums/enums.js";
 import { getGroupColumns, getGroupData } from "./libs/helpers/helpers.js";
 
 type Properties = {
@@ -43,7 +43,7 @@ const GroupsTable: React.FC<Properties> = ({
 
 	return (
 		<Table
-			columnAlign={GroupTableColumnAlign}
+			columnAlign={GroupsTableColumnAlign}
 			columns={groupColumns}
 			data={groupData}
 		/>
