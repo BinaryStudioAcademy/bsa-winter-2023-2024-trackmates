@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { type CourseDto } from "~/modules/courses/courses.js";
 
 import { type UserCourseResponseDto } from "../libs/types/types.js";
 import {
@@ -14,7 +13,7 @@ import {
 
 type State = {
 	addCourseDataStatus: ValueOf<typeof DataStatus>;
-	commonCourses: CourseDto[];
+	commonCourses: number[];
 	commonDataStatus: ValueOf<typeof DataStatus>;
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];

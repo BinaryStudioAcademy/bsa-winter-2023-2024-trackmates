@@ -231,6 +231,7 @@ export {
 	createPaymentIntentValidationSchema,
 } from "./modules/subscriptions/subscriptions.js";
 export {
+	type CommonCoursesResponseDto,
 	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,

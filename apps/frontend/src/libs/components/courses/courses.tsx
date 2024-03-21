@@ -11,6 +11,7 @@ import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	commonCourses?: number[];
 	courses: (CourseDto | CourseSearchResponseDto | UserCourseResponseDto)[];
 	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
 	userId?: number;

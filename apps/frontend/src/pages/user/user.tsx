@@ -117,7 +117,6 @@ const User: React.FC = () => {
 	}, [dispatch, userId, page]);
 
 	const hasUser = Boolean(profileUser);
-	const hasCommonCourses = commonCourses.length > EMPTY_LENGTH;
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
@@ -174,7 +173,11 @@ const User: React.FC = () => {
 					<>
 						{hasCourses ? (
 							<div className={styles["courses-container-content"]}>
-								<Courses courses={courses} userId={userId} />
+								<Courses
+									commonCourses={commonCourses}
+									courses={courses}
+									userId={userId}
+								/>
 								<Pagination
 									currentPage={page}
 									pages={pages}
@@ -187,12 +190,6 @@ const User: React.FC = () => {
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}
-					</>
-				)}
-				{hasCommonCourses && (
-					<>
-						<h2 className={styles["courses-title"]}>Common courses</h2>
-						<Courses courses={commonCourses} userId={userId} />
 					</>
 				)}
 			</div>
