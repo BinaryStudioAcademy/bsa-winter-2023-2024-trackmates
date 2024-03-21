@@ -1,19 +1,13 @@
-import {
-	EmptyPagePlaceholder,
-	Loader,
-	Pagination,
-} from "~/libs/components/components.js";
-import {
-	EMPTY_LENGTH,
-	PAGINATION_PAGES_CUT_COUNT,
-} from "~/libs/constants/constants.js";
+import { EmptyPagePlaceholder, Loader } from "~/libs/components/components.js";
+import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { AppTitle, DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useAppTitle,
+	useCallback,
 	useEffect,
-	usePagination,
+	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions } from "~/modules/activities/activities.js";
 
@@ -23,6 +17,7 @@ import styles from "./styles.module.css";
 const Feed: React.FC = () => {
 	useAppTitle(AppTitle.ACTIVITIES);
 
+	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
 	const { activities, dataStatus, totalCount } = useAppSelector((state) => {
 		return {
 			activities: state.activities.activities,
@@ -31,12 +26,6 @@ const Feed: React.FC = () => {
 		};
 	});
 	const dispatch = useAppDispatch();
-
-	const { page, pages, pagesCount } = usePagination({
-		pageSize: PaginationValue.DEFAULT_COUNT,
-		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
-		totalCount,
-	});
 
 	useEffect(() => {
 		void dispatch(
@@ -47,8 +36,15 @@ const Feed: React.FC = () => {
 		);
 	}, [dispatch, page]);
 
-	const isLoading = dataStatus === DataStatus.PENDING;
+	const isLoading =
+		dataStatus === DataStatus.PENDING && page === PaginationValue.DEFAULT_PAGE;
+	const isLoadingMore =
+		dataStatus === DataStatus.PENDING && page !== PaginationValue.DEFAULT_PAGE;
 	const hasActivities = activities.length > EMPTY_LENGTH;
+
+	const handleIncreasePage = useCallback(() => {
+		setPage((previous) => previous + PaginationValue.DEFAULT_STEP);
+	}, []);
 
 	return (
 		<div className={styles["wrapper"]}>
@@ -58,14 +54,12 @@ const Feed: React.FC = () => {
 			) : (
 				<>
 					{hasActivities ? (
-						<div className={styles["content-container"]}>
-							<FeedActivityList activities={activities} />
-							<Pagination
-								currentPage={page}
-								pages={pages}
-								pagesCount={pagesCount}
-							/>
-						</div>
+						<FeedActivityList
+							activities={activities}
+							handleIncreasePage={handleIncreasePage}
+							isLoadingMore={isLoadingMore}
+							totalCount={totalCount}
+						/>
 					) : (
 						<EmptyPagePlaceholder
 							size="large"

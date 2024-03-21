@@ -37,7 +37,14 @@ const { actions, name, reducer } = createSlice({
 			state.likeDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadActivities.fulfilled, (state, action) => {
-			state.activities = action.payload.items;
+			state.activities = [
+				...state.activities,
+				...action.payload.items.filter((newItem) => {
+					return !state.activities.some(
+						(existingItem) => existingItem.id === newItem.id,
+					);
+				}),
+			];
 			state.totalCount = action.payload.total;
 
 			state.dataStatus = DataStatus.FULFILLED;
