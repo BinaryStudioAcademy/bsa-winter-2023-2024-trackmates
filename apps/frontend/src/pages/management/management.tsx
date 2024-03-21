@@ -96,6 +96,20 @@ const Management: React.FC = () => {
 		}
 	};
 
+	const handleActionsRender = (screen: string): React.ReactNode => {
+		if (screen === AppRoute.MANAGEMENT_GROUPS) {
+			return (
+				<Button
+					className={styles["add-group-button"]}
+					label="+ New group"
+					onClick={handleAddGroupModalOpen}
+					size="small"
+					style="primary"
+				/>
+			);
+		}
+	};
+
 	return (
 		<div className={styles["wrapper"]}>
 			<span className={styles["title"]}>Management</span>
@@ -125,15 +139,7 @@ const Management: React.FC = () => {
 						);
 					})}
 				</ul>
-				{pathname === AppRoute.MANAGEMENT_GROUPS && (
-					<Button
-						className={styles["add-group-button"]}
-						label="+ New group"
-						onClick={handleAddGroupModalOpen}
-						size="small"
-						style="primary"
-					/>
-				)}
+				{handleActionsRender(pathname)}
 			</div>
 			{handleScreenRender(pathname)}
 		</div>
