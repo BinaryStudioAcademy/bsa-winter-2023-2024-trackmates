@@ -2,7 +2,6 @@
 
 .forgot-password-link {
 	position: absolute;
-	top: -2px;
 	right: 0;
 	z-index: var(--z-index-medium);
 	font-size: var(--font-size-100);
