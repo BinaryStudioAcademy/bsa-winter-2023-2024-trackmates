@@ -406,9 +406,6 @@ class ChatMessageController extends BaseController {
 	 *                  items:
 	 *                    type: number
 	 *                    minimum: 1
-	 *                userId:
-	 *                  type: number
-	 *                  minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
