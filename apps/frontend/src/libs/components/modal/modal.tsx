@@ -3,7 +3,7 @@ import {
 	useHandleClickOutside,
 	useHandleEscPress,
 	useRef,
-	useScrollDisabled,
+	useToggleScroll,
 } from "~/libs/hooks/hooks.js";
 
 import { Button } from "../button/button.js";
@@ -41,7 +41,7 @@ const Modal: React.FC<Properties> = ({
 		isOpen && styles["active"],
 	);
 
-	useScrollDisabled(isOpen);
+	useToggleScroll(isOpen);
 
 	return (
 		<Portal>
