@@ -68,7 +68,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 					type: "image/jpg",
 				},
 			],
-			short_name: "Trackmates",
+			short_name: "TrackMates",
 			theme_color: "#0b372f",
 		},
 		outDir: "build",
