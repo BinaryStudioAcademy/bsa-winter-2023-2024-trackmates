@@ -14,7 +14,6 @@ const getCellProperties = <T extends Record<string, unknown>>(
 				properties,
 				{
 					style: {
-						display: "flex",
 						justifyContent:
 							columnAlign[cell.column.Header?.toString() ?? ""] ??
 							TableColumnAlign.CENTER,
