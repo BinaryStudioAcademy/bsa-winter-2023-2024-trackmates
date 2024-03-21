@@ -44,6 +44,7 @@ body {
 ::-webkit-scrollbar {
 	width: 5px;
 	height: 5px;
+	background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -53,4 +54,5 @@ body {
 
 ::-webkit-scrollbar-track {
 	background-color: var(--main-white);
+	background-color: transparent;
 }

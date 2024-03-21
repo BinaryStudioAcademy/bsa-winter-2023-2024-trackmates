@@ -29,6 +29,8 @@
 	width: 100%;
 	max-width: 637px;
 	height: calc(100% - 100px);
+	border-radius: 20px;
+	box-shadow: 0 0 8px 1px var(--shadow-color);
 }
 
 .divider {
@@ -92,7 +94,6 @@
 	transition: 0.3s ease;
 }
 
-.filter-item:hover,
 .filter-item.active {
 	color: unset;
 	background-color: var(--main-white);
@@ -143,6 +144,10 @@
 		display: none;
 	}
 
+	.notifications-container {
+		box-shadow: none;
+	}
+
 	.page {
 		max-height: calc(100vh - 84px);
 		padding: 0;
@@ -163,5 +168,12 @@
 		width: 100%;
 		max-width: unset;
 		padding: 0 40px;
+	}
+}
+
+@media (--hover-active) {
+	.filter-item:hover {
+		color: unset;
+		background-color: var(--main-white);
 	}
 }

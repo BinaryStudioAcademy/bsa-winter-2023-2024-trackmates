@@ -2,9 +2,9 @@ import { type Column } from "react-table";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
-import { type ActionCellProperties } from "~/pages/management/libs/components/action-cell/libs/types/types.js";
+import { type ActionsCellProperties } from "~/pages/management/libs/components/actions-cell/libs/types/types.js";
 import {
-	ActionCell,
+	ActionsCell,
 	Chips,
 } from "~/pages/management/libs/components/components.js";
 
@@ -46,9 +46,9 @@ const getGroupColumns = ({
 			width: 165,
 		},
 		{
-			Cell: ActionCell,
+			Cell: ActionsCell,
 			Header: GroupsTableHeader.ACTIONS,
-			accessor: ({ id }): ActionCellProperties => {
+			accessor: ({ id }): ActionsCellProperties => {
 				return {
 					isDeleteDisabled: checkIfCurrentUserHasGroup(id),
 					isDeleteLoading:

@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	position: relative;
 	display: flex;
@@ -9,12 +11,8 @@
 	background-color: var(--main-white);
 	border: 1px solid var(--main-white);
 	border-radius: 16px;
+	box-shadow: 0 0 8px 1px var(--shadow-color);
 	transition: 0.3s ease;
-}
-
-.container:hover {
-	border: 1px solid var(--color-menu);
-	box-shadow: 3px 11px 22px -14px var(--color-container-hover-border);
 }
 
 .link {
@@ -48,12 +46,18 @@
 	transition: 0.3s ease;
 }
 
-.course-details-link:hover {
-	color: var(--color-button);
-	border-color: var(--color-button);
-}
-
 .course-add-button,
 .compare-progress-button {
 	flex-grow: 1;
+}
+
+@media (--hover-active) {
+	.container:hover {
+		border: 1px solid var(--color-menu);
+	}
+
+	.course-details-link:hover {
+		color: var(--color-button);
+		border-color: var(--color-button);
+	}
 }

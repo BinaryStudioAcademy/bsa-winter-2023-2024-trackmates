@@ -25,4 +25,4 @@ const Table: React.FC<Properties> = ({ children, headers }: Properties) => {
 };
 
 export { Table };
-export { TableCell, TableRow } from "./libs/components/components.js";
+export { TableCell } from "./libs/components/components.js";

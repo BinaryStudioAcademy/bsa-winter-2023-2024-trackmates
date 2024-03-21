@@ -77,6 +77,18 @@ class NotificationService implements Service {
 		return await this.notificationRepository.delete(notificationId);
 	}
 
+	public async deleteAllNotificationsByParameters(
+		id: number,
+		userId: number,
+		type: string,
+	): Promise<boolean> {
+		return await this.notificationRepository.deleteAllNotificationsByParameters(
+			id,
+			userId,
+			type,
+		);
+	}
+
 	public async deleteByActionId(
 		actionId: number,
 		type: ValueOf<typeof NotificationType>,
@@ -87,10 +99,7 @@ class NotificationService implements Service {
 		);
 
 		if (!notification) {
-			throw new NotificationError({
-				message: ExceptionMessage.NOTIFICATION_NOT_FOUND,
-				status: HTTPCode.NOT_FOUND,
-			});
+			return false;
 		}
 
 		const notificationObject = notification.toObject();

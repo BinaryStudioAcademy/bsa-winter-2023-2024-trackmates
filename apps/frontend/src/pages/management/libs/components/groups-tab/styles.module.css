@@ -59,3 +59,15 @@
 		flex-grow: 1;
 	}
 }
+
+@media (--hover-active) {
+	.icon-button:hover {
+		color: var(--main-orange);
+		background-color: transparent;
+	}
+
+	.icon-button:disabled:hover {
+		color: var(--color-text-100);
+		background-color: transparent;
+	}
+}

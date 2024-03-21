@@ -5,6 +5,7 @@ import {
 	AppTitle,
 	DataStatus,
 	PaginationValue,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -14,7 +15,9 @@ import {
 	useEffect,
 	useLocation,
 	usePagination,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
+import { type ValueOf } from "~/libs/types/types.js";
 import { actions } from "~/modules/friends/friends.js";
 
 import { FriendsTab } from "./libs/components/components.js";
@@ -27,6 +30,9 @@ const Friends: React.FC = () => {
 	const { pathname } = useLocation();
 
 	const dispatch = useAppDispatch();
+
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const { isLoading } = useAppSelector((state) => {
 		return {
@@ -72,6 +78,7 @@ const Friends: React.FC = () => {
 					actions.getPotentialFriends({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
@@ -83,6 +90,7 @@ const Friends: React.FC = () => {
 					actions.getFollowers({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
@@ -94,13 +102,14 @@ const Friends: React.FC = () => {
 					actions.getFollowings({
 						count: PaginationValue.DEFAULT_COUNT,
 						page: pagination.page,
+						search: searchQuery ?? "",
 					}),
 				);
 				dispatch(actions.clearFollowings());
 				break;
 			}
 		}
-	}, [dispatch, pathname, pagination.page]);
+	}, [dispatch, pathname, pagination.page, searchQuery]);
 
 	useEffect(() => {
 		void dispatch(actions.getAllFollowingsIds());
@@ -143,19 +152,30 @@ const Friends: React.FC = () => {
 	return (
 		<div className={styles["wrapper"]}>
 			<ul className={styles["link-list"]}>
-				{LINKS.map((link, index) => (
-					<li
-						className={getValidClassNames(
-							styles["link-item"],
-							link.to === pathname && styles["active"],
-						)}
-						key={index}
-					>
-						<Link className={styles["link"]} to={link.to}>
-							{link.title}
-						</Link>
-					</li>
-				))}
+				{LINKS.map((link, index) => {
+					const queryString = new URLSearchParams({
+						[QueryParameterName.SEARCH]: searchQuery ?? "",
+					}).toString();
+
+					const currentLink = link.to + `?${queryString}`;
+
+					return (
+						<li
+							className={getValidClassNames(
+								styles["link-item"],
+								link.to === pathname && styles["active"],
+							)}
+							key={index}
+						>
+							<Link
+								className={styles["link"]}
+								to={currentLink as ValueOf<typeof AppRoute>}
+							>
+								{link.title}
+							</Link>
+						</li>
+					);
+				})}
 			</ul>
 			{isLoading ? (
 				<Loader color="orange" size="large" />

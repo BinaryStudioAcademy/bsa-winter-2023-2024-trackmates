@@ -5,6 +5,7 @@
 	grid-template-columns: repeat(4, 1fr);
 	gap: 16px;
 	padding: 0;
+	overflow: visible;
 }
 
 .friend-item {
@@ -13,10 +14,8 @@
 	list-style: none;
 	cursor: pointer;
 	border-radius: 12px;
-}
-
-.friend-item:hover {
-	box-shadow: 3px 11px 22px -14px #00000080;
+	box-shadow: 0 0 8px 1px var(--shadow-color);
+	transition: 0.3s ease;
 }
 
 @media screen and (--large-screen) {

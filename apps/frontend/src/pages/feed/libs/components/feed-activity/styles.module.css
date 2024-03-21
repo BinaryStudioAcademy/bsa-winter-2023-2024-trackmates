@@ -10,7 +10,7 @@
 	background-color: var(--main-white);
 	border: 1px solid transparent;
 	border-radius: 12px;
-	box-shadow: 0 0 8px 1px rgb(0 0 0 / 15%);
+	box-shadow: 0 0 8px 1px var(--shadow-color);
 	transition: 0.3s ease;
 }
 
@@ -78,14 +78,6 @@
 	min-height: unset;
 	padding: 0;
 	color: var(--color-text-200);
-	border: unset;
-	fill: currentcolor;
-}
-
-.tool-button:hover {
-	padding: 0;
-	color: var(--main-orange);
-	background-color: var(--main-white);
 	border: unset;
 	fill: currentcolor;
 }
@@ -176,5 +168,15 @@
 
 	.tool-count {
 		font-size: var(--font-size-100);
+	}
+}
+
+@media (--hover-active) {
+	.tool-button:hover {
+		padding: 0;
+		color: var(--main-orange);
+		background-color: var(--main-white);
+		border: unset;
+		fill: currentcolor;
 	}
 }

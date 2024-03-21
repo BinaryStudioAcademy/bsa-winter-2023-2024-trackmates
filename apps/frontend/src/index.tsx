@@ -74,6 +74,14 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 								path: AppRoute.SIGN_UP,
 							},
 							{
+								element: <Auth />,
+								path: AppRoute.FORGOT_PASSWORD,
+							},
+							{
+								element: <Auth />,
+								path: AppRoute.UPDATE_PASSWORD,
+							},
+							{
 								element: <ProtectedRoute component={<Profile />} />,
 								path: AppRoute.PROFILE,
 							},
@@ -105,6 +113,18 @@ createRoot(document.querySelector("#root") as HTMLElement).render(
 									/>
 								),
 								path: AppRoute.MANAGEMENT,
+							},
+							{
+								element: (
+									<ProtectedRoute
+										component={<Management />}
+										pagePermissions={{
+											mode: PermissionMode.ALL_OF,
+											permissions: [PermissionKey.MANAGE_COURSES],
+										}}
+									/>
+								),
+								path: AppRoute.MANAGEMENT_COURSES,
 							},
 							{
 								element: (

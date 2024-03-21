@@ -3,6 +3,14 @@ import { AppRoute, PermissionKey, PermissionMode } from "~/libs/enums/enums.js";
 const LINKS = [
 	{
 		permissions: {
+			key: [PermissionKey.MANAGE_COURSES],
+			mode: PermissionMode.ALL_OF,
+		},
+		title: "Courses",
+		to: AppRoute.MANAGEMENT_COURSES,
+	},
+	{
+		permissions: {
 			key: [PermissionKey.MANAGE_UAM, PermissionKey.MANAGE_USERS],
 			mode: PermissionMode.ONE_OF,
 		},

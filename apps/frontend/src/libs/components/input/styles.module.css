@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .container {
 	position: relative;
 	display: flex;
@@ -52,7 +54,6 @@
 }
 
 .dark:-webkit-autofill,
-.dark:-webkit-autofill:hover,
 .dark:-webkit-autofill:focus,
 .dark:-webkit-autofill:active {
 	transition: background-color 1s 5000s;
@@ -74,7 +75,6 @@
 }
 
 .light:-webkit-autofill,
-.light:-webkit-autofill:hover,
 .light:-webkit-autofill:focus {
 	box-shadow: 0 0 0 1000px var(--color-background) inset;
 }
@@ -103,4 +103,14 @@
 
 .input-with-icon {
 	padding-left: 42px;
+}
+
+@media (--hover-active) {
+	.light:-webkit-autofill:hover {
+		box-shadow: 0 0 0 1000px var(--color-background) inset;
+	}
+
+	.dark:-webkit-autofill:hover {
+		transition: background-color 1s 5000s;
+	}
 }
