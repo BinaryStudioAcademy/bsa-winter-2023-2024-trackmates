@@ -1,4 +1,5 @@
 import { HTTPCode, PermissionKey } from "~/libs/enums/enums.js";
+import { changeCase } from "~/libs/helpers/helpers.js";
 import { type Service } from "~/libs/types/types.js";
 
 import {
@@ -40,7 +41,7 @@ class GroupService implements Service {
 
 	public async create(group: GroupCreateRequestDto): Promise<GroupResponseDto> {
 		const { name, permissions: permissionKeys } = group;
-		const key = name.trim().replace(" ", "-").toLowerCase();
+		const key = changeCase(name, "kebab");
 
 		const groupByKey = await this.groupRepository.findByKey(key);
 		const groupByName = await this.groupRepository.findByName(name);
