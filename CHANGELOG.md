@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.81.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.81.2...v1.81.3) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend:** make counters clickable tm-658 ([#677](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/677)) ([68eedb6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/68eedb689627112da3f63d0a68cc0c49c22c2389))
+
 ## [1.81.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.81.1...v1.81.2) (2024-03-21)
 
 
