@@ -37,7 +37,7 @@ class Mail {
 	}
 
 	public async send({
-		email: to,
+		email,
 		subject,
 		text,
 	}: {
@@ -47,7 +47,7 @@ class Mail {
 	}): Promise<boolean> {
 		const sendEmailCommand = new SendEmailCommand({
 			Destination: {
-				ToAddresses: [to],
+				ToAddresses: [email],
 			},
 			Message: {
 				Body: {
