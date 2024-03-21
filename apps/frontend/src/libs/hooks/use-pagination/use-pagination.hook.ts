@@ -52,15 +52,13 @@ const usePagination: UsePagination = ({
 		} else if (isInvalidPage) {
 			setPage(PaginationValue.DEFAULT_PAGE);
 
-			const queryString = new URLSearchParams({
-				[QueryParameterName.SEARCH]: searchQuery ?? "",
-			}).toString();
+			const url = new URL(window.location.origin);
+			url.pathname = window.location.pathname;
 
-			const url = new URL(
-				window.location.origin +
-					window.location.pathname +
-					(searchQuery ? `?${queryString}` : ""),
-			);
+			if (searchQuery) {
+				url.searchParams.set("search", searchQuery);
+			}
+
 			window.history.replaceState(null, "", url.toString());
 		}
 	}, [pageFromQuery, pagesCount, location.pathname]);
