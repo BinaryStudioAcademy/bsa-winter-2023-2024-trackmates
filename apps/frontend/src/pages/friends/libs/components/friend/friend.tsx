@@ -66,7 +66,6 @@ const Friend: React.FC<Properties> = ({ friend }: Properties) => {
 				className={styles["card-content"]}
 				to={`/users/${friend.id}` as ValueOf<typeof AppRoute>}
 			>
-				{" "}
 				<div className={styles["avatar"]}>
 					<Image
 						alt="User avatar"
