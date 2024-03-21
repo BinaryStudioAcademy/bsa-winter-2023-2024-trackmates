@@ -1,9 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
+import { checkWhetherAddCourse } from "../libs/helpers/helpers.js";
 import { type UserCourseResponseDto } from "../libs/types/types.js";
 import {
 	add,
@@ -16,6 +17,7 @@ type State = {
 	addCourseDataStatus: ValueOf<typeof DataStatus>;
 	commonCourses: CourseDto[];
 	commonDataStatus: ValueOf<typeof DataStatus>;
+	currentPage: number;
 	dataStatus: ValueOf<typeof DataStatus>;
 	myCourses: UserCourseResponseDto[];
 	totalMyCoursesCount: number;
@@ -27,6 +29,7 @@ const initialState: State = {
 	addCourseDataStatus: DataStatus.IDLE,
 	commonCourses: [],
 	commonDataStatus: DataStatus.IDLE,
+	currentPage: 1,
 	dataStatus: DataStatus.IDLE,
 	myCourses: [],
 	totalMyCoursesCount: 0,
@@ -37,8 +40,8 @@ const initialState: State = {
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
 		builder.addCase(add.fulfilled, (state, action) => {
-			if (state.totalMyCoursesCount < PaginationValue.DEFAULT_COUNT) {
-				state.myCourses.unshift(action.payload);
+			if (checkWhetherAddCourse(state.totalMyCoursesCount, state.currentPage)) {
+				state.myCourses.push(action.payload);
 			}
 
 			state.totalMyCoursesCount++;
@@ -88,6 +91,9 @@ const { actions, name, reducer } = createSlice({
 	reducers: {
 		reset() {
 			return initialState;
+		},
+		setCurrentPage(state, action: PayloadAction<number>) {
+			state.currentPage = action.payload;
 		},
 	},
 });

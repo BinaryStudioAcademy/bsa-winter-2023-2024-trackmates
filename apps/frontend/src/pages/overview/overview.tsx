@@ -69,6 +69,10 @@ const Overview: React.FC = () => {
 		);
 	}, [dispatch, user, page, searchQuery]);
 
+	useEffect(() => {
+		dispatch(userCourseActions.setCurrentPage(page));
+	}, [dispatch, page]);
+
 	const hasCourses = courses.length > EMPTY_LENGTH;
 
 	return (
