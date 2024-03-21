@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 
-import { ONE_UNREAD_MESSAGE } from "../libs/constants/constants.js";
+import { NEW_MESSAGE_COUNT } from "../libs/constants/constants.js";
 import {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
@@ -96,7 +96,7 @@ const { actions, name, reducer } = createSlice({
 								lastMessage: newMessage,
 								unreadMessageCount:
 									chat.interlocutor.id === newMessage.senderUser.id
-										? Number(chat.unreadMessageCount) + ONE_UNREAD_MESSAGE
+										? Number(chat.unreadMessageCount) + NEW_MESSAGE_COUNT
 										: chat.unreadMessageCount,
 							}
 						: chat;
@@ -139,7 +139,7 @@ const { actions, name, reducer } = createSlice({
 	name: "chats",
 	reducers: {
 		increaseUnreadMessageCount(state) {
-			state.unreadMessagesCount += ONE_UNREAD_MESSAGE;
+			state.unreadMessagesCount += NEW_MESSAGE_COUNT;
 		},
 		leaveChat: (state) => {
 			state.currentChat = null;

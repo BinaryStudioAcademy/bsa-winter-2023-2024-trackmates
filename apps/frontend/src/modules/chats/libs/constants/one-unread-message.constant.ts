@@ -1,3 +1,0 @@
-const ONE_UNREAD_MESSAGE = 1;
-
-export { ONE_UNREAD_MESSAGE };
