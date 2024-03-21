@@ -1,6 +1,6 @@
 import { useEffect } from "~/libs/hooks/hooks.js";
 
-function useToggleScroll(isOpen: boolean): void {
+const useToggleScroll = (isOpen: boolean): void => {
 	useEffect(() => {
 		if (isOpen) {
 			document.body.classList.add("no-overflow");
@@ -8,6 +8,6 @@ function useToggleScroll(isOpen: boolean): void {
 			document.body.classList.remove("no-overflow");
 		}
 	}, [isOpen]);
-}
+};
 
 export { useToggleScroll };
