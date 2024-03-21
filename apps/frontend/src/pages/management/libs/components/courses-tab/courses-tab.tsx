@@ -1,5 +1,6 @@
 import { Loader } from "~/libs/components/components.js";
 import { DataStatus } from "~/libs/enums/enums.js";
+import { findItemById } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -15,13 +16,7 @@ import {
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
-import { TableRow } from "../table/libs/components/components.js";
-import { Table } from "../table/table.js";
-import {
-	CourseColumns,
-	EditCourseModal,
-} from "./libs/components/components.js";
-import { COURSES_TABLE_HEADERS } from "./libs/constants/constants.js";
+import { CoursesTable, EditCourseModal } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const CoursesTab: React.FC = () => {
@@ -82,6 +77,34 @@ const CoursesTab: React.FC = () => {
 		[currentCourse, dispatch, handleCloseEditModal],
 	);
 
+	const onEditCourse = useCallback(
+		(courseId: number) => {
+			const courseById = findItemById(courses as { id: number }[], courseId);
+
+			if (!courseById) {
+				return;
+			}
+
+			setCurrentCourse(courseById as CourseDto);
+			setIsEditModalOpen(true);
+		},
+		[courses],
+	);
+
+	const onDeleteCourse = useCallback(
+		(courseId: number) => {
+			const courseById = findItemById(courses as { id: number }[], courseId);
+
+			if (!courseById) {
+				return;
+			}
+
+			setCurrentCourse(courseById as CourseDto);
+			setIsConfirmationModalOpen(true);
+		},
+		[courses],
+	);
+
 	return (
 		<>
 			<div className={styles["container"]}>
@@ -89,24 +112,12 @@ const CoursesTab: React.FC = () => {
 					<Loader color="orange" size="large" />
 				) : (
 					<div className={styles["table-container"]}>
-						<Table headers={COURSES_TABLE_HEADERS}>
-							{courses.map((course) => {
-								return (
-									<TableRow key={course.id}>
-										<CourseColumns
-											course={course}
-											isLoading={
-												courseToDataStatus[course.id as number] ===
-												DataStatus.PENDING
-											}
-											onSetCurrentCourse={setCurrentCourse}
-											onSetIsConfirmationModalOpen={setIsConfirmationModalOpen}
-											onSetIsEditModalOpen={setIsEditModalOpen}
-										/>
-									</TableRow>
-								);
-							})}
-						</Table>
+						<CoursesTable
+							courseToDataStatus={courseToDataStatus}
+							courses={courses}
+							onDelete={onDeleteCourse}
+							onEdit={onEditCourse}
+						/>
 					</div>
 				)}
 			</div>
