@@ -5,6 +5,7 @@
 	top: -2px;
 	right: 0;
 	z-index: var(--z-index-medium);
+	font-size: var(--font-size-100);
 	color: #7eaa9a;
 	text-decoration: none;
 	transition: 0.1s color ease;
