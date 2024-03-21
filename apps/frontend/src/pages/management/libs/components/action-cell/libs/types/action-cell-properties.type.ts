@@ -1,6 +1,8 @@
 type ActionCellProperties = {
-	isDisabled: boolean;
-	isLoading: boolean;
+	isDeleteDisabled: boolean;
+	isDeleteLoading: boolean;
+	isEditDisabled: boolean;
+	isEditLoading: boolean;
 	onDelete: () => void;
 	onEdit: () => void;
 };

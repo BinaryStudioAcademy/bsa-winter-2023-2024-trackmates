@@ -18,7 +18,13 @@ const getGroupColumns = ({
 	onEdit,
 }: {
 	checkIfCurrentUserHasGroup: (groupId: number) => boolean;
-	groupToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
+	groupToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	onDelete: (groupId: number) => void;
 	onEdit: (groupId: number) => void;
 }): Column<GroupsTableRow>[] => {
@@ -44,8 +50,12 @@ const getGroupColumns = ({
 			Header: GroupsTableHeader.ACTIONS,
 			accessor: ({ id }): ActionCellProperties => {
 				return {
-					isDisabled: checkIfCurrentUserHasGroup(id),
-					isLoading: groupToDataStatus[id] === DataStatus.PENDING,
+					isDeleteDisabled: checkIfCurrentUserHasGroup(id),
+					isDeleteLoading:
+						groupToDataStatus[id]?.deleteDataStatus === DataStatus.PENDING,
+					isEditDisabled: false,
+					isEditLoading:
+						groupToDataStatus[id]?.updateDataStatus === DataStatus.PENDING,
 					onDelete: (): void => {
 						onDelete(id);
 					},

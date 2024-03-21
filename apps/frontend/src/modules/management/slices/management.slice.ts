@@ -16,7 +16,13 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
-	groupToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
+	groupToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
@@ -91,7 +97,9 @@ const { reducer } = createSlice({
 						? { ...group, permissions: payload }
 						: group;
 				});
-				state.groupToDataStatus[groupId] = DataStatus.FULFILLED;
+				state.groupToDataStatus[groupId] = {
+					updateDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
 		builder.addCase(
@@ -104,7 +112,9 @@ const { reducer } = createSlice({
 					},
 				},
 			) => {
-				state.groupToDataStatus[groupId] = DataStatus.PENDING;
+				state.groupToDataStatus[groupId] = {
+					updateDataStatus: DataStatus.PENDING,
+				};
 			},
 		);
 		builder.addCase(
@@ -117,7 +127,9 @@ const { reducer } = createSlice({
 					},
 				},
 			) => {
-				state.groupToDataStatus[groupId] = DataStatus.REJECTED;
+				state.groupToDataStatus[groupId] = {
+					updateDataStatus: DataStatus.REJECTED,
+				};
 			},
 		);
 
@@ -153,19 +165,25 @@ const { reducer } = createSlice({
 					});
 				}
 
-				state.groupToDataStatus[groupId] = DataStatus.FULFILLED;
+				state.groupToDataStatus[groupId] = {
+					deleteDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
 		builder.addCase(
 			groupsActions.deleteGroup.pending,
 			(state, { meta: { arg: groupId } }) => {
-				state.groupToDataStatus[groupId] = DataStatus.PENDING;
+				state.groupToDataStatus[groupId] = {
+					deleteDataStatus: DataStatus.PENDING,
+				};
 			},
 		);
 		builder.addCase(
 			groupsActions.deleteGroup.rejected,
 			(state, { meta: { arg: groupId } }) => {
-				state.groupToDataStatus[groupId] = DataStatus.REJECTED;
+				state.groupToDataStatus[groupId] = {
+					deleteDataStatus: DataStatus.REJECTED,
+				};
 			},
 		);
 

@@ -9,7 +9,13 @@ import { getGroupColumns, getGroupData } from "./libs/helpers/helpers.js";
 
 type Properties = {
 	checkIfCurrentUserHasGroup: (groupId: number) => boolean;
-	groupToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
+	groupToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	groups: GroupResponseDto[];
 	onDelete: (groupId: number) => void;
 	onEdit: (groupId: number) => void;
