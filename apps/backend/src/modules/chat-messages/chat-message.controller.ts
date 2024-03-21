@@ -406,6 +406,9 @@ class ChatMessageController extends BaseController {
 	 *                  items:
 	 *                    type: number
 	 *                    minimum: 1
+	 *                userId:
+	 *                  type: number
+	 *                  minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -414,11 +417,17 @@ class ChatMessageController extends BaseController {
 	 *              schema:
 	 *                type: object
 	 *                properties:
+	 *                  chatId:
+	 *                    type: number
+	 *                    minimum: 1
 	 *                  items:
 	 *                    type: array
 	 *                    items:
 	 *                      type: object
 	 *                      $ref: "#/components/schemas/ChatMessage"
+	 *                  readerId:
+	 *                    type: number
+	 *                    minimum: 1
 	 */
 	public async setReadChatMessages(
 		options: APIHandlerOptions<{
