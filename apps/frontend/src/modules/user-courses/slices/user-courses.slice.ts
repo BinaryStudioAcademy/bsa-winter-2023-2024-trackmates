@@ -1,10 +1,9 @@
-import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
-import { checkWhetherAddCourse } from "../libs/helpers/helpers.js";
 import { type UserCourseResponseDto } from "../libs/types/types.js";
 import {
 	add,
@@ -39,11 +38,7 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(add.fulfilled, (state, action) => {
-			if (checkWhetherAddCourse(state.totalMyCoursesCount, state.currentPage)) {
-				state.myCourses.push(action.payload);
-			}
-
+		builder.addCase(add.fulfilled, (state) => {
 			state.totalMyCoursesCount++;
 			state.addCourseDataStatus = DataStatus.FULFILLED;
 		});
@@ -91,9 +86,6 @@ const { actions, name, reducer } = createSlice({
 	reducers: {
 		reset() {
 			return initialState;
-		},
-		setCurrentPage(state, action: PayloadAction<number>) {
-			state.currentPage = action.payload;
 		},
 	},
 });

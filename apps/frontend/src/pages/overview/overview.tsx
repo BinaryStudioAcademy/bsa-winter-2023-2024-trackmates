@@ -54,7 +54,15 @@ const Overview: React.FC = () => {
 	}, [setIsAddCourseModalOpen]);
 	const handleModalClose = useCallback(() => {
 		setIsAddCourseModalOpen(false);
-	}, [setIsAddCourseModalOpen]);
+		void dispatch(
+			userCourseActions.loadMyCourses({
+				count: PaginationValue.DEFAULT_COUNT,
+				page,
+				search: searchQuery ?? "",
+				userId: user.id,
+			}),
+		);
+	}, [setIsAddCourseModalOpen, dispatch, page, user.id, searchQuery]);
 
 	useAppTitle();
 
@@ -68,10 +76,6 @@ const Overview: React.FC = () => {
 			}),
 		);
 	}, [dispatch, user, page, searchQuery]);
-
-	useEffect(() => {
-		dispatch(userCourseActions.setCurrentPage(page));
-	}, [dispatch, page]);
 
 	const hasCourses = courses.length > EMPTY_LENGTH;
 
