@@ -4,13 +4,10 @@ import { Mail } from "./mail.module.js";
 
 const mail = new Mail({
 	config: {
-		isLogged: config.ENV.MAIL.IS_LOGGED,
-		isRequireTLS: config.ENV.MAIL.IS_REQUIRE_TLS,
-		isSecure: config.ENV.MAIL.IS_SECURE,
-		senderEmail: config.ENV.MAIL.USER_EMAIL,
-		senderName: config.ENV.MAIL.USER_NAME,
-		senderPassword: config.ENV.MAIL.USER_PASSWORD,
-		service: config.ENV.MAIL.SERVICE,
+		accessKey: config.ENV.AWS.ACCESS_KEY,
+		region: config.ENV.AWS.REGION,
+		secretKey: config.ENV.AWS.SECRET_KEY,
+		sender: config.ENV.AWS.SES_SENDER,
 	},
 	logger,
 });

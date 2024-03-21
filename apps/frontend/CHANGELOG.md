@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.64.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.1...frontend-v1.64.2) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend:** The "Log Out" button can't be reached on the sidebar in landscape mode [Mobile] tm-567 ([#640](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/640)) ([c7cccf8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c7cccf802dea7ea07b9f321c0e714a0ba7cb91cc))
+
 ## [1.64.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.0...frontend-v1.64.1) (2024-03-20)
 
 
