@@ -3,12 +3,16 @@ import { type CellProps } from "react-table";
 import { Button } from "~/libs/components/components.js";
 
 import { type GroupsTableRow } from "../groups-tab/libs/components/groups-table/libs/types/types.js";
+import { type UsersTableRow } from "../users-tab/libs/components/users-table/libs/types/types.js";
 import { type ActionCellProperties } from "./libs/types/types.js";
 import styles from "./styles.module.css";
 
-type Properties<T extends GroupsTableRow> = CellProps<T, ActionCellProperties>;
+type Properties<T extends GroupsTableRow | UsersTableRow> = CellProps<
+	T,
+	ActionCellProperties
+>;
 
-const ActionCell = <T extends GroupsTableRow>({
+const ActionCell = <T extends GroupsTableRow | UsersTableRow>({
 	value: {
 		isDeleteDisabled,
 		isDeleteLoading,
