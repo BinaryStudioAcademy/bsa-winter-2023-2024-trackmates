@@ -232,6 +232,37 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			: null;
 	}
 
+	public async findByParameters(
+		userId: number,
+		receiverUserId: number,
+		type: ValueOf<typeof NotificationType>,
+	): Promise<NotificationEntity | null> {
+		const notification = await this.notificationModel
+			.query()
+			.findOne({ receiverUserId, type, userId })
+			.withGraphFetched(
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+			)
+			.execute();
+
+		return notification
+			? NotificationEntity.initialize({
+					actionId: notification.actionId,
+					createdAt: notification.createdAt,
+					id: notification.id,
+					message: this.getMessageByType(notification.type, notification.user),
+					receiverUserId: notification.receiverUserId,
+					status: notification.status,
+					type: notification.type,
+					updatedAt: notification.updatedAt,
+					userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+					userFirstName: notification.user.userDetails.firstName,
+					userId: notification.userId,
+					userLastName: notification.user.userDetails.lastName,
+				})
+			: null;
+	}
+
 	public async getUnreadNotificationsCount(userId: number): Promise<number> {
 		const { count } = await this.notificationModel
 			.query()
