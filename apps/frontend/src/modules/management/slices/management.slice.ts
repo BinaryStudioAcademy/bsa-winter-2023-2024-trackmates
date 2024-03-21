@@ -27,7 +27,13 @@ type State = {
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
-	userToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
+	userToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	users: UserAuthResponseDto[];
 	usersDataStatus: ValueOf<typeof DataStatus>;
 };
@@ -147,14 +153,41 @@ const { reducer } = createSlice({
 				state.users = state.users.map((user) => {
 					return user.id === userId ? { ...user, groups: payload } : user;
 				});
+				state.userToDataStatus[userId] = {
+					updateDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
-		builder.addCase(groupsActions.updateUserGroups.pending, (state) => {
-			state.groupsDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(groupsActions.updateUserGroups.rejected, (state) => {
-			state.groupsDataStatus = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			groupsActions.updateUserGroups.pending,
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+				},
+			) => {
+				state.userToDataStatus[userId] = {
+					updateDataStatus: DataStatus.PENDING,
+				};
+			},
+		);
+		builder.addCase(
+			groupsActions.updateUserGroups.rejected,
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+				},
+			) => {
+				state.userToDataStatus[userId] = {
+					updateDataStatus: DataStatus.REJECTED,
+				};
+			},
+		);
 
 		builder.addCase(
 			groupsActions.deleteGroup.fulfilled,
@@ -205,19 +238,25 @@ const { reducer } = createSlice({
 					state.users = state.users.filter(({ id }) => id !== userId);
 				}
 
-				state.userToDataStatus[userId] = DataStatus.FULFILLED;
+				state.userToDataStatus[userId] = {
+					deleteDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
 		builder.addCase(
 			usersActions.remove.pending,
 			(state, { meta: { arg: userId } }) => {
-				state.userToDataStatus[userId] = DataStatus.PENDING;
+				state.userToDataStatus[userId] = {
+					deleteDataStatus: DataStatus.PENDING,
+				};
 			},
 		);
 		builder.addCase(
 			usersActions.remove.rejected,
 			(state, { meta: { arg: userId } }) => {
-				state.userToDataStatus[userId] = DataStatus.REJECTED;
+				state.userToDataStatus[userId] = {
+					deleteDataStatus: DataStatus.REJECTED,
+				};
 			},
 		);
 	},
