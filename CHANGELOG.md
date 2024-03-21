@@ -1,5 +1,35 @@
 # Changelog
 
+## [1.81.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.81.1...v1.81.2) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend:** Courses on the "Overview" page disappear and reappear, when a new course is being added on the "Add course" pop-up window tm-610 ([#670](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/670)) ([ed5d454](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ed5d45427ed1f1a815ab885dcc5ab7253d061094))
+* **frontend:** sidebar-apperance-after-turning-device-with-active-sidebar tm-653 ([#675](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/675)) ([a62e04e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a62e04e3bc61e5426e5790f2e16a12927730d94c))
+
+## [1.81.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.81.0...v1.81.1) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend/backend/shared:** fixes after testing tm-499 ([#663](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/663)) ([cbc86e8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/cbc86e8ffd4ae95a7666ee88f94ae45babccedcc))
+* **frontend/backend:** UAM (User Access Management) - Groups tm-230 ([#619](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/619)) ([f4b1749](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/f4b1749885534e6d2794dd267f9dd838287d61d5))
+* **frontend:** PWA sidebar mobile responsiveness tm-563 ([#607](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/607)) ([80fd118](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/80fd1183e248d9f387506154d45ecf2cec4f2a6b))
+
+## [1.81.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.80.1...v1.81.0) (2024-03-21)
+
+
+### Features
+
+* **backend:** aws ses for mails tm-611 ([#641](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/641)) ([5effe30](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/5effe305c264b63f52993ba169541911a0f3ff4e))
+* **backend:** the previously send notification should not display if user refollow that user tm-608 ([#650](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/650)) ([3f6d8ae](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3f6d8ae5810738fed728847d9c05e3e118c57e18))
+
+
+### Bug Fixes
+
+* **frontend:** The "Log Out" button can't be reached on the sidebar in landscape mode [Mobile] tm-567 ([#640](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/640)) ([c7cccf8](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/c7cccf802dea7ea07b9f321c0e714a0ba7cb91cc))
+
 ## [1.80.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.80.0...v1.80.1) (2024-03-20)
 
 

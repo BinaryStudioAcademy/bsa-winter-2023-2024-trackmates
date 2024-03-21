@@ -7,11 +7,12 @@ type EnvironmentSchema = {
 		HOST: string;
 		PORT: number;
 	};
-	AWS_S3: {
-		AWS_ACCESS_KEY_ID: string;
-		AWS_SECRET_ACCESS_KEY: string;
+	AWS: {
+		ACCESS_KEY: string;
+		REGION: string;
 		S3_BUCKET: string;
-		S3_REGION: string;
+		SECRET_KEY: string;
+		SES_SENDER: string;
 	};
 	DB: {
 		CONNECTION_STRING: string;
@@ -26,15 +27,6 @@ type EnvironmentSchema = {
 		ALGORITHM: string;
 		EXPIRES_IN: string;
 		SECRET: string;
-	};
-	MAIL: {
-		IS_LOGGED: boolean;
-		IS_REQUIRE_TLS: boolean;
-		IS_SECURE: boolean;
-		SERVICE: string;
-		USER_EMAIL: string;
-		USER_NAME: string;
-		USER_PASSWORD: string;
 	};
 	OPENAI: {
 		API_KEY: string;

@@ -15,7 +15,7 @@ const MENU_ITEMS: MenuItem[] = [
 	},
 	{
 		href: AppRoute.FRIENDS,
-		icon: "pie",
+		icon: "follower",
 		label: "Friends",
 	},
 	{
