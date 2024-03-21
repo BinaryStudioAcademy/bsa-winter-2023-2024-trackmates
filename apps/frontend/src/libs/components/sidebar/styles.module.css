@@ -217,6 +217,10 @@
 		transform: none;
 	}
 
+	.sidebar.open {
+		width: 100%;
+	}
+
 	.bottom-menu {
 		flex-direction: column;
 		gap: 0;
