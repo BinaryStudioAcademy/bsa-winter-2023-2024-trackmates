@@ -331,9 +331,7 @@ class ChatController extends BaseController {
 		}>,
 	): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.chatService.getUnreadMessagesCountTotal(
-				options.user.id,
-			),
+			payload: await this.chatService.getUnreadMessagesCount(options.user.id),
 			status: HTTPCode.OK,
 		};
 	}

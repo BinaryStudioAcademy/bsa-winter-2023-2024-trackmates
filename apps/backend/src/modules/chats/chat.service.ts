@@ -134,18 +134,8 @@ class ChatService implements Service {
 		return chatById.toObjectWithMessages(userId);
 	}
 
-	public async getUnreadMessagesCount({
-		chatId,
-		userId,
-	}: {
-		chatId: number;
-		userId: number;
-	}): Promise<number> {
-		return await this.chatRepository.getUnreadMessagesCount({ chatId, userId });
-	}
-
-	public async getUnreadMessagesCountTotal(userId: number): Promise<number> {
-		return await this.chatRepository.getUnreadMessagesCountTotal(userId);
+	public async getUnreadMessagesCount(userId: number): Promise<number> {
+		return await this.chatRepository.getUnreadMessagesCount(userId);
 	}
 
 	public async update(
