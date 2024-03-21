@@ -82,10 +82,11 @@ const UsersTab: React.FC = () => {
 		[currentUser, handleChangeUserGroups],
 	);
 
-	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+	const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
+		useState<boolean>(false);
 
 	const handleCloseDeleteModal = useCallback(() => {
-		setIsDeleteModalOpen(false);
+		setIsConfirmationModalOpen(false);
 		setCurrentUser(null);
 	}, []);
 
@@ -94,7 +95,7 @@ const UsersTab: React.FC = () => {
 		handleCloseDeleteModal();
 	}, [currentUser, dispatch, handleCloseDeleteModal]);
 
-	const onEditUser = useCallback(
+	const handleOpenEditModal = useCallback(
 		(userId: number) => {
 			const userById = findItemById(users, userId);
 
@@ -108,7 +109,7 @@ const UsersTab: React.FC = () => {
 		[users],
 	);
 
-	const onDeleteUser = useCallback(
+	const handleOpenConfirmationModal = useCallback(
 		(userId: number) => {
 			const userById = findItemById(users, userId);
 
@@ -117,7 +118,7 @@ const UsersTab: React.FC = () => {
 			}
 
 			setCurrentUser(userById);
-			setIsDeleteModalOpen(true);
+			setIsConfirmationModalOpen(true);
 		},
 		[users],
 	);
@@ -139,8 +140,8 @@ const UsersTab: React.FC = () => {
 						checkIfSameUser={checkIfSameUser}
 						hasPermissionToDelete={hasPermissionToDelete}
 						hasPermissionToEdit={hasPermissionToEdit}
-						onDelete={onDeleteUser}
-						onEdit={onEditUser}
+						onDelete={handleOpenConfirmationModal}
+						onEdit={handleOpenEditModal}
 						userToDataStatus={userToDataStatus}
 						users={users}
 					/>
@@ -175,7 +176,7 @@ const UsersTab: React.FC = () => {
 				</ul>
 			</EditModal>
 			<ConfirmationModal
-				isOpen={isDeleteModalOpen}
+				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseDeleteModal}
 				onClose={handleCloseDeleteModal}
 				onConfirm={handleDeleteUser}

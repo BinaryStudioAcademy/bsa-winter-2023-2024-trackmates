@@ -109,7 +109,7 @@ const GroupsTab: React.FC = () => {
 		[dispatch, handleCloseConfirmationModal],
 	);
 
-	const onEditGroup = useCallback(
+	const handleEditModalOpen = useCallback(
 		(groupId: number) => {
 			const groupById = findItemById(groups, groupId);
 
@@ -123,7 +123,7 @@ const GroupsTab: React.FC = () => {
 		[groups],
 	);
 
-	const onDeleteGroup = useCallback(
+	const handleConfirmationModalOpen = useCallback(
 		(groupId: number) => {
 			const groupById = findItemById(groups, groupId);
 
@@ -177,8 +177,8 @@ const GroupsTab: React.FC = () => {
 							checkIfCurrentUserHasGroup={checkIfCurrentUserHasGroup}
 							groupToDataStatus={groupToDataStatus}
 							groups={groups}
-							onDelete={onDeleteGroup}
-							onEdit={onEditGroup}
+							onDelete={handleConfirmationModalOpen}
+							onEdit={handleEditModalOpen}
 						/>
 					</div>
 				)}

@@ -77,7 +77,7 @@ const CoursesTab: React.FC = () => {
 		[currentCourse, dispatch, handleCloseEditModal],
 	);
 
-	const onEditCourse = useCallback(
+	const handleEditModalOpen = useCallback(
 		(courseId: number) => {
 			const courseById = findItemById(courses as { id: number }[], courseId);
 
@@ -91,7 +91,7 @@ const CoursesTab: React.FC = () => {
 		[courses],
 	);
 
-	const onDeleteCourse = useCallback(
+	const handleConfirmationModalOpen = useCallback(
 		(courseId: number) => {
 			const courseById = findItemById(courses as { id: number }[], courseId);
 
@@ -115,8 +115,8 @@ const CoursesTab: React.FC = () => {
 						<CoursesTable
 							courseToDataStatus={courseToDataStatus}
 							courses={courses}
-							onDelete={onDeleteCourse}
-							onEdit={onEditCourse}
+							onDelete={handleConfirmationModalOpen}
+							onEdit={handleEditModalOpen}
 						/>
 					</div>
 				)}
