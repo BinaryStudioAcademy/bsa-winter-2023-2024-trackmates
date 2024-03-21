@@ -3,12 +3,7 @@ import {
 	checkIfUserHasPermissions,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import {
-	useAppDispatch,
-	useCallback,
-	useMemo,
-	useState,
-} from "~/libs/hooks/hooks.js";
+import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
@@ -58,12 +53,6 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		[user],
 	);
 
-	const numberOfMenuItems = useMemo(() => {
-		return menuItems.filter(({ pagePermissions }) => {
-			return handleCheckPermissions(pagePermissions);
-		}).length;
-	}, [menuItems, handleCheckPermissions]);
-
 	return (
 		<>
 			<Button
@@ -84,14 +73,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 				)}
 			>
 				<div className={styles["content-wrapper"]}>
-					<div
-						className={styles["content-container"]}
-						style={
-							{
-								"--number-of-menu-items": numberOfMenuItems,
-							} as React.CSSProperties
-						}
-					>
+					<div className={styles["content-container"]}>
 						<Link className={styles["title-container"]} to="/">
 							<Image alt="website logo" className={styles["logo"]} src={logo} />
 						</Link>
@@ -115,14 +97,14 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 								);
 							})}
 						</nav>
-						<Button
-							className={styles["log-out-btn"]}
-							iconName="logOut"
-							label="Log Out"
-							onClick={handleLogOut}
-							style="plain"
-						/>
 					</div>
+					<Button
+						className={styles["log-out-btn"]}
+						iconName="logOut"
+						label="Log Out"
+						onClick={handleLogOut}
+						style="plain"
+					/>
 				</div>
 			</div>
 			<BlurredBackground

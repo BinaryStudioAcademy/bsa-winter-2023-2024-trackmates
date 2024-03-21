@@ -223,10 +223,7 @@
 	}
 
 	.menu {
-		display: flex;
-		flex-flow: nowrap;
-		justify-content: space-around;
-		width: unset;
+		display: contents;
 	}
 
 	.active {
@@ -278,6 +275,7 @@
 
 	.menu-item,
 	.log-out-btn {
+		flex: 1;
 		padding: 0;
 		font-size: var(--font-size-50);
 	}
@@ -287,7 +285,7 @@
 	}
 
 	.content-container {
-		flex-grow: var(--number-of-menu-items);
+		display: contents;
 	}
 }
 

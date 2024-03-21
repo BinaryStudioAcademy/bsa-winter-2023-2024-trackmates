@@ -98,6 +98,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 			],
 		},
 		server: {
+			host: "192.168.0.107",
 			port: Number(VITE_APP_DEVELOPMENT_PORT),
 			proxy: {
 				[VITE_APP_API_ORIGIN_URL as string]: {
