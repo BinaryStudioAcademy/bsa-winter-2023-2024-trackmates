@@ -285,7 +285,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 				this.getUserLikesCountQuery(userId),
 			)
 			.withGraphJoined(
-				`${RelationName.USER}.[${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}, ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
+				`${RelationName.USER}.[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.castTo<(ActivityModel & ActivityCounts) | undefined>()
 			.execute();
