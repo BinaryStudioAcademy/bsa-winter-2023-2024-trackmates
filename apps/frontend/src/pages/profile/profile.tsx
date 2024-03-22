@@ -1,6 +1,12 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import profileCharacter from "~/assets/img/profile-character.svg";
-import { Button, Image, Input, Select } from "~/libs/components/components.js";
+import {
+	Button,
+	Icon,
+	Image,
+	Input,
+	Select,
+} from "~/libs/components/components.js";
 import { AppRoute, AppTitle, DataStatus } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -107,6 +113,7 @@ const Profile: React.FC = () => {
 
 	const isFileUploadLoading = avatarUploadDataStatus === DataStatus.PENDING;
 	const isUpdateUserLoading = updateUserDataStatus === DataStatus.PENDING;
+	const hasSubscription = Boolean(user.subscription);
 
 	return (
 		<>
@@ -119,12 +126,20 @@ const Profile: React.FC = () => {
 				>
 					<div className={styles["avatar-container"]}>
 						<div className={styles["profile-image-wrapper"]}>
-							<Image
-								alt="avatar"
-								className={styles["profile-image"]}
-								shape="circle"
-								src={user.avatarUrl ?? defaultAvatar}
-							/>
+							<div className={styles["avatar"]}>
+								<Image
+									alt="avatar"
+									className={getValidClassNames(
+										styles["profile-image"],
+										hasSubscription && styles["premium"],
+									)}
+									shape="circle"
+									src={user.avatarUrl ?? defaultAvatar}
+								/>
+								{hasSubscription && (
+									<Icon className={styles["premium-icon"]} name="crown" />
+								)}
+							</div>
 							<div className={styles["profile-buttons-container"]}>
 								<Button
 									className={getValidClassNames(
@@ -132,7 +147,6 @@ const Profile: React.FC = () => {
 										styles["button"],
 									)}
 									href={AppRoute.SUBSCRIPTION}
-									iconName="diamond"
 									label="Premium"
 									size="small"
 									style="secondary"

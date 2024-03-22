@@ -13,12 +13,14 @@ type Properties = {
 	emptyPlaceholder: string;
 	items: UserAuthResponseDto[];
 	pagination: ReturnType<typeof usePagination> | null;
+	searchQuery: null | string;
 };
 
 const FriendsTab: React.FC<Properties> = ({
 	emptyPlaceholder,
 	items,
 	pagination,
+	searchQuery,
 }: Properties) => {
 	const hasPages = items.length > EMPTY_LENGTH;
 
@@ -31,7 +33,12 @@ const FriendsTab: React.FC<Properties> = ({
 	return (
 		<div className={styles["friends-tab"]}>
 			<FriendList friends={items} />
-			<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
+			<Pagination
+				currentPage={page}
+				pages={pages}
+				pagesCount={pagesCount}
+				searchQuery={searchQuery}
+			/>
 		</div>
 	);
 };

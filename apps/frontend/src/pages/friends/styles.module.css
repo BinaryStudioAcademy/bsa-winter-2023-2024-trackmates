@@ -20,7 +20,6 @@
 
 .link-item {
 	width: max-content;
-	padding: 8px 36px;
 	font: inherit;
 	font-size: var(--font-size-300);
 	color: var(--color-text-200);
@@ -33,8 +32,11 @@
 }
 
 .link {
+	display: flex;
+	padding: 8px 36px;
 	color: inherit;
 	text-decoration: none;
+	border-radius: inherit;
 }
 
 .active {
@@ -43,15 +45,18 @@
 }
 
 @media screen and (--medium-screen) {
-	.link-item {
-		padding-inline: 18px;
+	.link {
+		padding: 8px 18px;
 	}
 }
 
 @media screen and (--small-screen) {
+	.link {
+		justify-content: center;
+	}
+
 	.link-item {
 		width: 100%;
-		padding-inline: 13px;
 		font-size: var(--font-size-200);
 	}
 

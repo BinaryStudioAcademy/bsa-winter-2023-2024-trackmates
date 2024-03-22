@@ -1,7 +1,7 @@
 {
 	"name": "@trackmates/backend",
 	"type": "module",
-	"version": "1.46.1",
+	"version": "1.47.0",
 	"engines": {
 		"node": "18.x.x",
 		"npm": ">=9.x.x"
@@ -31,6 +31,7 @@
 		"@fastify/swagger-ui": "2.1.0",
 		"@trackmates/shared": "*",
 		"bcrypt": "5.1.1",
+		"change-case": "5.4.3",
 		"convict": "6.2.4",
 		"dotenv": "16.4.1",
 		"fastify": "4.25.2",

@@ -1,0 +1,3 @@
+const NEW_MESSAGE_COUNT = 1;
+
+export { NEW_MESSAGE_COUNT };

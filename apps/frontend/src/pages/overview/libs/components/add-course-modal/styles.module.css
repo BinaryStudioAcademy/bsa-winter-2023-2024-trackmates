@@ -32,7 +32,7 @@
 
 .toolbar {
 	display: flex;
-	justify-content: space-between;
+	justify-content: end;
 	width: 100%;
 	padding: 8px 32px;
 	background-color: var(--color-background);
@@ -41,7 +41,7 @@
 .results-count {
 	display: inline-flex;
 	align-self: flex-end;
-	margin: 0;
+	margin: 0 0 10px;
 	color: var(--color-text-200);
 }
 
@@ -67,13 +67,39 @@
 	font-size: var(--font-size-400);
 }
 
-.recommended-courses {
+.searched-courses {
 	margin-top: 32px;
 }
 
 .load-more-button {
 	width: 150px;
 	margin: 30px auto 0;
+}
+
+.placeholder-container {
+	position: relative;
+	margin: auto 0;
+	font-weight: 500;
+	transform: translateY(50px);
+}
+
+.placeholder-title {
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	color: var(--color-text-100);
+	text-align: center;
+}
+
+.character {
+	position: absolute;
+	top: -193px;
+	left: 50%;
+	width: 208px;
+	height: 208px;
+	background-image: url("~/assets/img/add-course-character.svg");
+	background-position: center;
+	background-size: cover;
+	transform: translateX(-50%);
 }
 
 @media screen and (width <= 865px) {

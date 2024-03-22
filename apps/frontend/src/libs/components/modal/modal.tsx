@@ -3,6 +3,7 @@ import {
 	useHandleClickOutside,
 	useHandleEscPress,
 	useRef,
+	useToggleScroll,
 } from "~/libs/hooks/hooks.js";
 
 import { Button } from "../button/button.js";
@@ -39,6 +40,8 @@ const Modal: React.FC<Properties> = ({
 		isCentered && styles["centered"],
 		isOpen && styles["active"],
 	);
+
+	useToggleScroll(isOpen);
 
 	return (
 		<Portal>

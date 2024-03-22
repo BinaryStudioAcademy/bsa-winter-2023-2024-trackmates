@@ -50,6 +50,7 @@
 	font-size: 8px;
 	font-weight: 700;
 	color: var(--main-white);
+	pointer-events: none;
 	background-color: var(--main-orange);
 	border-radius: 50%;
 	outline: 3px solid var(--main-white);
@@ -75,8 +76,8 @@
 
 .premium-icon {
 	position: absolute;
-	top: -36%;
-	left: 24%;
+	right: -10%;
+	bottom: -5%;
 	width: 24px;
 	aspect-ratio: 1;
 }

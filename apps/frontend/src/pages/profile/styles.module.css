@@ -107,6 +107,22 @@
 	gap: 16px;
 }
 
+.avatar {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: 5%;
+	bottom: 1%;
+	width: 34px;
+	aspect-ratio: 1;
+}
+
 @media screen and (--large-screen) {
 	.profile-character {
 		left: 11%;
@@ -130,6 +146,10 @@
 
 	.profile-image-wrapper {
 		gap: 10px;
+	}
+
+	.premium-icon {
+		width: 26px;
 	}
 }
 
@@ -166,5 +186,9 @@
 		padding-left: 4px;
 		font-weight: 600;
 		line-height: 23.5px;
+	}
+
+	.premium-icon {
+		width: 24px;
 	}
 }

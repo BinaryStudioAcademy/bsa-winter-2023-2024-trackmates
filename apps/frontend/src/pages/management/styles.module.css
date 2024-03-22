@@ -27,7 +27,6 @@
 
 .link-item {
 	width: max-content;
-	padding: 8px 36px;
 	font: inherit;
 	font-size: var(--font-size-300);
 	color: var(--color-text-200);
@@ -40,8 +39,11 @@
 }
 
 .link {
+	display: flex;
+	padding: 8px 36px;
 	color: inherit;
 	text-decoration: none;
+	border-radius: inherit;
 }
 
 .active {
@@ -53,4 +55,15 @@
 	color: var(--color-text-100);
 	pointer-events: none;
 	cursor: default;
+}
+
+.buttons-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.add-group-button {
+	width: 120px;
+	height: 32px;
+	margin-top: 16px;
 }
