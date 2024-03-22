@@ -1,5 +1,7 @@
 import { HTTPCode } from "~/libs/enums/enums.js";
+import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
 import { type OpenAI } from "~/libs/modules/open-ai/open-ai.js";
+import { type PaginationResponseDto } from "~/libs/types/types.js";
 import {
 	CourseSectionEntity,
 	type CourseSectionRepository,
@@ -220,15 +222,25 @@ class CourseService {
 		return entity.toObject();
 	}
 
-	public async findAll(): Promise<CourseSearchGetAllResponseDto> {
-		const entities = await this.courseRepository.findAll();
+	public async findAll({
+		count,
+		page,
+	}: {
+		count: number;
+		page: number;
+	}): Promise<PaginationResponseDto<CourseDto>> {
+		const { items: courses, total } = await this.courseRepository.findAll({
+			count,
+			page: convertPageToZeroIndexed(page),
+		});
 
-		const courses = entities.map((entity) => ({
-			...entity.toObject(),
-			hasUserCourse: false,
-		}));
-
-		return { courses };
+		return {
+			items: courses.map((entity) => ({
+				...entity.toObject(),
+				hasUserCourse: false,
+			})),
+			total,
+		};
 	}
 
 	public async findAllByVendor(
