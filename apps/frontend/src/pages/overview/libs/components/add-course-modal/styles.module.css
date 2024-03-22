@@ -27,7 +27,8 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	overflow: hidden;
+	padding: 5px 32px 32px;
+	overflow: hidden auto;
 }
 
 .toolbar {
@@ -59,14 +60,12 @@
 	flex-direction: column;
 	flex-grow: 1;
 	gap: 32px;
-	padding: 5px 32px 32px;
-	overflow-y: auto;
 }
 
 .courses-title {
-	padding: 8px 0;
-	margin: 0;
+	margin: 0 10px 0 0;
 	font-size: var(--font-size-400);
+	line-height: 1;
 }
 
 .load-more-button {
@@ -75,26 +74,28 @@
 }
 
 .subscription-ad {
-	display: inline;
-	margin: 0 auto 0 0;
+	position: relative;
+	width: 100%;
+	padding: 20px 170px 20px 40px;
+	margin-block: 20px;
 	font-size: var(--font-size-300);
-	color: var(--color-text-100);
+	color: var(--main-white);
+	background-color: var(--color-menu);
+	background-image: url("~/assets/img/premium-background.svg");
+	border-radius: 15px;
+}
+
+.premium-character {
+	position: absolute;
+	top: 50%;
+	right: 40px;
+	width: 120px;
+	transform: translateY(-50%);
 }
 
 .link {
-	display: inline;
-	min-height: unset;
-	padding: 0;
-	color: var(--color-button);
+	color: var(--color-premium);
 	text-decoration: none;
-	background-color: transparent;
-	border: none;
-	transition: 0.1s color ease;
-}
-
-.link:hover {
-	color: var(--color-button);
-	background-color: transparent;
 }
 
 .placeholder-container {
@@ -123,14 +124,20 @@
 	transform: translateX(-50%);
 }
 
-@media screen and (--large-screen) {
-	.subscription-ad {
-		font-size: var(--font-size-200);
-	}
+.premium-label {
+	padding: 5px 15px;
+	font-size: var(--font-size-200);
+	font-weight: normal;
+	color: var(--main-white);
+	background-color: var(--color-premium);
+	border-radius: 100vh;
+}
 
-	.link {
-		font-size: var(--font-size-200);
-	}
+.courses-title-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
 @media screen and (width <= 865px) {
@@ -149,5 +156,33 @@
 		flex-direction: column-reverse;
 		gap: 10px;
 		align-items: flex-start;
+	}
+}
+
+@media screen and (--small-screen) {
+	.courses-title {
+		font-size: var(--font-size-350);
+	}
+
+	.subscription-ad {
+		padding-inline: 15px;
+	}
+
+	.link {
+		padding: 5px 15px;
+		margin: 5px;
+		line-height: 1;
+		color: var(--color-premium);
+		border: 1px solid var(--color-premium);
+		border-radius: 100vh;
+	}
+
+	.premium-character {
+		right: 15px;
+		width: 80px;
+	}
+
+	.sub-content {
+		display: none;
 	}
 }
