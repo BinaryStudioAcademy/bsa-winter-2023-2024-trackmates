@@ -28,6 +28,7 @@ type State = {
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
 	totalGroupsCount: number;
+	totalUsersCount: number;
 	userToDataStatus: Record<
 		number,
 		{
@@ -46,6 +47,7 @@ const initialState: State = {
 	permissions: [],
 	permissionsDataStatus: DataStatus.IDLE,
 	totalGroupsCount: 0,
+	totalUsersCount: 0,
 	userToDataStatus: {},
 	users: [],
 	usersDataStatus: DataStatus.IDLE,
@@ -248,10 +250,14 @@ const { reducer } = createSlice({
 			},
 		);
 
-		builder.addCase(usersActions.getAll.fulfilled, (state, action) => {
-			state.users = action.payload;
-			state.usersDataStatus = DataStatus.FULFILLED;
-		});
+		builder.addCase(
+			usersActions.getAll.fulfilled,
+			(state, { payload: { items, total } }) => {
+				state.users = items;
+				state.usersDataStatus = DataStatus.FULFILLED;
+				state.totalUsersCount = total;
+			},
+		);
 		builder.addCase(usersActions.getAll.pending, (state) => {
 			state.usersDataStatus = DataStatus.PENDING;
 		});
@@ -261,7 +267,15 @@ const { reducer } = createSlice({
 
 		builder.addCase(
 			usersActions.remove.fulfilled,
-			(state, { meta: { arg: userId }, payload }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+					payload,
+				},
+			) => {
 				if (payload) {
 					state.users = state.users.filter(({ id }) => id !== userId);
 				}
@@ -273,7 +287,14 @@ const { reducer } = createSlice({
 		);
 		builder.addCase(
 			usersActions.remove.pending,
-			(state, { meta: { arg: userId } }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+				},
+			) => {
 				state.userToDataStatus[userId] = {
 					deleteDataStatus: DataStatus.PENDING,
 				};
@@ -281,7 +302,14 @@ const { reducer } = createSlice({
 		);
 		builder.addCase(
 			usersActions.remove.rejected,
-			(state, { meta: { arg: userId } }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+				},
+			) => {
 				state.userToDataStatus[userId] = {
 					deleteDataStatus: DataStatus.REJECTED,
 				};

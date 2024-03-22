@@ -2,11 +2,14 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 
 import { UsersApiPath } from "./libs/enums/enums.js";
 import {
 	type UserAuthResponseDto,
-	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 } from "./libs/types/types.js";
 
@@ -21,17 +24,20 @@ class UserApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.USERS, storage });
 	}
 
-	public async getAll(): Promise<UserGetAllResponseDto> {
+	public async getAll(
+		query: PaginationRequestDto,
+	): Promise<PaginationResponseDto<UserAuthResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(UsersApiPath.ROOT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
+				query,
 			},
 		);
 
-		return await response.json<UserGetAllResponseDto>();
+		return await response.json<PaginationResponseDto<UserAuthResponseDto>>();
 	}
 
 	public async getById(id: number): Promise<UserAuthResponseDto> {

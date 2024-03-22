@@ -1,6 +1,8 @@
-import { Loader } from "~/libs/components/components.js";
+import { Loader, Pagination } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
 import {
 	DataStatus,
+	PaginationValue,
 	PermissionKey,
 	PermissionMode,
 } from "~/libs/enums/enums.js";
@@ -13,6 +15,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	usePagination,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { actions as groupsActions } from "~/modules/groups/groups.js";
@@ -28,16 +31,23 @@ import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { authUser, groups, isUsersLoading, userToDataStatus, users } =
+	const { authUser, groups, isUsersLoading, total, userToDataStatus, users } =
 		useAppSelector((state) => {
 			return {
 				authUser: state.auth.user as UserAuthResponseDto,
 				groups: state.management.groups,
 				isUsersLoading: state.management.usersDataStatus === DataStatus.PENDING,
+				total: state.management.totalUsersCount,
 				userToDataStatus: state.management.userToDataStatus,
 				users: state.management.users,
 			};
 		});
+
+	const { page, pages, pagesCount } = usePagination({
+		pageSize: PaginationValue.DEFAULT_COUNT,
+		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		totalCount: total,
+	});
 
 	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
 		null,
@@ -57,9 +67,11 @@ const UsersTab: React.FC = () => {
 	);
 
 	useEffect(() => {
-		void dispatch(usersActions.getAll());
+		void dispatch(
+			usersActions.getAll({ count: PaginationValue.DEFAULT_COUNT, page }),
+		);
 		void dispatch(groupsActions.getAllGroups());
-	}, [dispatch]);
+	}, [dispatch, page]);
 
 	const handleCloseEditModal = useCallback(() => {
 		setIsEditModalOpen(false);
@@ -75,9 +87,11 @@ const UsersTab: React.FC = () => {
 	}, []);
 
 	const handleDeleteUser = useCallback(() => {
-		void dispatch(usersActions.remove(currentUser?.id as number));
+		void dispatch(
+			usersActions.remove({ page, userId: currentUser?.id as number }),
+		);
 		handleCloseDeleteModal();
-	}, [currentUser, dispatch, handleCloseDeleteModal]);
+	}, [currentUser, dispatch, handleCloseDeleteModal, page]);
 
 	const handleOpenEditModal = useCallback(
 		(userId: number) => {
@@ -116,21 +130,24 @@ const UsersTab: React.FC = () => {
 
 	return (
 		<>
-			{isUsersLoading ? (
-				<Loader color="orange" size="large" />
-			) : (
-				<div className={styles["table-container"]}>
-					<UsersTable
-						checkIfSameUser={checkIfSameUser}
-						hasPermissionToDelete={hasPermissionToDelete}
-						hasPermissionToEdit={hasPermissionToEdit}
-						onDelete={handleOpenConfirmationModal}
-						onEdit={handleOpenEditModal}
-						userToDataStatus={userToDataStatus}
-						users={users}
-					/>
-				</div>
-			)}
+			<div className={styles["container"]}>
+				{isUsersLoading ? (
+					<Loader color="orange" size="large" />
+				) : (
+					<div className={styles["table-container"]}>
+						<UsersTable
+							checkIfSameUser={checkIfSameUser}
+							hasPermissionToDelete={hasPermissionToDelete}
+							hasPermissionToEdit={hasPermissionToEdit}
+							onDelete={handleOpenConfirmationModal}
+							onEdit={handleOpenEditModal}
+							userToDataStatus={userToDataStatus}
+							users={users}
+						/>
+					</div>
+				)}
+			</div>
+			<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
 			{currentUser && (
 				<EditUserModal
 					groups={groups}
