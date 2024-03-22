@@ -128,29 +128,32 @@ class ChatMessageService implements Service {
 	}
 
 	public async setReadChatMessages(
+		chatId: number,
 		chatMessageIds: number[],
 		userId: number,
 	): Promise<ReadChatMessagesResponseDto> {
 		const readChatMessages =
 			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
-		const unreadMessagesCount =
-			await this.chatService.getUnreadMessagesCount(userId);
+
+		const { firstUser, secondUser } = await this.chatService.find(chatId);
 
 		socketService.emitMessage({
 			event: SocketEvent.CHAT_READ_MESSAGES,
 			payload: {
+				chatId,
 				items: readChatMessages,
-				unreadMessagesCount,
+				readerId: userId,
 			},
-			receiversIds: [String(userId)],
+			receiversIds: [String(firstUser.id), String(secondUser.id)],
 			targetNamespace: SocketNamespace.CHAT,
 		});
 
 		return {
+			chatId,
 			items: readChatMessages.map((chatMessage) => {
 				return chatMessage.toObject();
 			}),
-			unreadMessagesCount,
+			readerId: userId,
 		};
 	}
 

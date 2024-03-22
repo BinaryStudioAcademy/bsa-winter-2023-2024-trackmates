@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.64.5](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.4...frontend-v1.64.5) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend:** make counters clickable tm-658 ([#677](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/677)) ([68eedb6](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/68eedb689627112da3f63d0a68cc0c49c22c2389))
+
+## [1.64.4](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.3...frontend-v1.64.4) (2024-03-21)
+
+
+### Bug Fixes
+
+* **frontend:** Courses on the "Overview" page disappear and reappear, when a new course is being added on the "Add course" pop-up window tm-610 ([#670](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/670)) ([ed5d454](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/ed5d45427ed1f1a815ab885dcc5ab7253d061094))
+* **frontend:** sidebar-apperance-after-turning-device-with-active-sidebar tm-653 ([#675](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/675)) ([a62e04e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a62e04e3bc61e5426e5790f2e16a12927730d94c))
+
 ## [1.64.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.64.2...frontend-v1.64.3) (2024-03-21)
 
 
