@@ -5,14 +5,14 @@ import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type PermissionResponseDto } from "~/modules/permissions/permissions.js";
 
 import {
-	type GroupRequestDto,
+	type GroupCreateRequestDto,
 	type GroupResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./groups.slice.js";
 
 const createGroup = createAsyncThunk<
 	GroupResponseDto,
-	GroupRequestDto,
+	GroupCreateRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/create-group`, async (createPayload, { extra }) => {
 	const { groupsApi, notification } = extra;
