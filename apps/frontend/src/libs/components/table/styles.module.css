@@ -1,0 +1,61 @@
+@import url("~/assets/css/media.css");
+
+.table {
+	width: 100%;
+	border-collapse: collapse;
+	border: none;
+}
+
+.table-header {
+	display: flex;
+	justify-content: center;
+	padding: 25px 0;
+	color: var(--main-white);
+	background-color: var(--color-menu);
+}
+
+.table-header:first-child {
+	border-top-left-radius: 16px;
+}
+
+.table-header:last-child {
+	border-top-right-radius: 16px;
+}
+
+.table-cell {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	align-items: center;
+	padding: 15px;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background-color: var(--main-white);
+	border-right: 1px solid rgba(174 180 187 / 30%);
+}
+
+.table-cell:last-child {
+	border-right: unset;
+}
+
+.table-row {
+	display: flex;
+	min-height: 62px;
+	border-bottom: 1px solid rgba(174 180 187 / 30%);
+}
+
+.table-row:last-child {
+	border-bottom: unset;
+}
+
+@media screen and (--medium-screen) {
+	.table-cell {
+		padding: 15px 5px;
+	}
+
+	.table {
+		font-size: var(--font-size-100);
+	}
+}

@@ -1,4 +1,4 @@
-import { RelationName } from "~/libs/enums/enums.js";
+import { RelationName, SortOrder } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
@@ -137,6 +137,7 @@ class UserRepository implements Repository<UserEntity> {
 			.withGraphJoined(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
+			.orderBy("id", SortOrder.ASC)
 			.execute();
 
 		return {

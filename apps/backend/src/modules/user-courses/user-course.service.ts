@@ -7,7 +7,10 @@ import {
 } from "~/modules/courses/courses.js";
 
 import { type CourseRepository } from "../courses/course.repository.js";
-import { type UserCourseResponseDto } from "./libs/types/types.js";
+import {
+	type CommonCoursesResponseDto,
+	type UserCourseResponseDto,
+} from "./libs/types/types.js";
 
 type Constructor = {
 	courseRepository: CourseRepository;
@@ -64,14 +67,14 @@ class UserCourseService {
 	}: {
 		currentUserId: number;
 		userId: number;
-	}): Promise<{ items: CourseDto[] }> {
+	}): Promise<CommonCoursesResponseDto> {
 		const courses = await this.courseRepository.findCommonCourses(
 			userId,
 			currentUserId,
 		);
 
 		return {
-			items: courses.map((course) => course.toObject()),
+			coursesIds: courses.map((course) => course.toObject().id),
 		};
 	}
 }

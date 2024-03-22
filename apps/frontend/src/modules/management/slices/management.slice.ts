@@ -16,16 +16,30 @@ import {
 } from "~/modules/users/users.js";
 
 type State = {
+	groupToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	groups: GroupResponseDto[];
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
-	userToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
+	userToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	users: UserAuthResponseDto[];
 	usersDataStatus: ValueOf<typeof DataStatus>;
 };
 
 const initialState: State = {
+	groupToDataStatus: {},
 	groups: [],
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
@@ -89,15 +103,41 @@ const { reducer } = createSlice({
 						? { ...group, permissions: payload }
 						: group;
 				});
-				state.groupsDataStatus = DataStatus.FULFILLED;
+				state.groupToDataStatus[groupId] = {
+					updateDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
-		builder.addCase(groupsActions.updateGroupPermissions.pending, (state) => {
-			state.groupsDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(groupsActions.updateGroupPermissions.rejected, (state) => {
-			state.groupsDataStatus = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			groupsActions.updateGroupPermissions.pending,
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+				},
+			) => {
+				state.groupToDataStatus[groupId] = {
+					updateDataStatus: DataStatus.PENDING,
+				};
+			},
+		);
+		builder.addCase(
+			groupsActions.updateGroupPermissions.rejected,
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+				},
+			) => {
+				state.groupToDataStatus[groupId] = {
+					updateDataStatus: DataStatus.REJECTED,
+				};
+			},
+		);
 
 		builder.addCase(
 			groupsActions.updateUserGroups.fulfilled,
@@ -113,14 +153,41 @@ const { reducer } = createSlice({
 				state.users = state.users.map((user) => {
 					return user.id === userId ? { ...user, groups: payload } : user;
 				});
+				state.userToDataStatus[userId] = {
+					updateDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
-		builder.addCase(groupsActions.updateUserGroups.pending, (state) => {
-			state.groupsDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(groupsActions.updateUserGroups.rejected, (state) => {
-			state.groupsDataStatus = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			groupsActions.updateUserGroups.pending,
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+				},
+			) => {
+				state.userToDataStatus[userId] = {
+					updateDataStatus: DataStatus.PENDING,
+				};
+			},
+		);
+		builder.addCase(
+			groupsActions.updateUserGroups.rejected,
+			(
+				state,
+				{
+					meta: {
+						arg: { userId },
+					},
+				},
+			) => {
+				state.userToDataStatus[userId] = {
+					updateDataStatus: DataStatus.REJECTED,
+				};
+			},
+		);
 
 		builder.addCase(
 			groupsActions.deleteGroup.fulfilled,
@@ -131,15 +198,27 @@ const { reducer } = createSlice({
 					});
 				}
 
-				state.groupsDataStatus = DataStatus.FULFILLED;
+				state.groupToDataStatus[groupId] = {
+					deleteDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
-		builder.addCase(groupsActions.deleteGroup.pending, (state) => {
-			state.groupsDataStatus = DataStatus.PENDING;
-		});
-		builder.addCase(groupsActions.deleteGroup.rejected, (state) => {
-			state.groupsDataStatus = DataStatus.REJECTED;
-		});
+		builder.addCase(
+			groupsActions.deleteGroup.pending,
+			(state, { meta: { arg: groupId } }) => {
+				state.groupToDataStatus[groupId] = {
+					deleteDataStatus: DataStatus.PENDING,
+				};
+			},
+		);
+		builder.addCase(
+			groupsActions.deleteGroup.rejected,
+			(state, { meta: { arg: groupId } }) => {
+				state.groupToDataStatus[groupId] = {
+					deleteDataStatus: DataStatus.REJECTED,
+				};
+			},
+		);
 
 		builder.addCase(usersActions.getAll.fulfilled, (state, action) => {
 			state.users = action.payload;
@@ -159,19 +238,25 @@ const { reducer } = createSlice({
 					state.users = state.users.filter(({ id }) => id !== userId);
 				}
 
-				state.userToDataStatus[userId] = DataStatus.FULFILLED;
+				state.userToDataStatus[userId] = {
+					deleteDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
 		builder.addCase(
 			usersActions.remove.pending,
 			(state, { meta: { arg: userId } }) => {
-				state.userToDataStatus[userId] = DataStatus.PENDING;
+				state.userToDataStatus[userId] = {
+					deleteDataStatus: DataStatus.PENDING,
+				};
 			},
 		);
 		builder.addCase(
 			usersActions.remove.rejected,
 			(state, { meta: { arg: userId } }) => {
-				state.userToDataStatus[userId] = DataStatus.REJECTED;
+				state.userToDataStatus[userId] = {
+					deleteDataStatus: DataStatus.REJECTED,
+				};
 			},
 		);
 	},

@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.49.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.48.0...backend-v1.49.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** implement subscription features tm-630 ([#657](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/657)) ([66c6c78](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/66c6c78e3f30798905eb9e418f8fbb02a58ec3f8))
+* **frontend/backend/shared:** compare button tm-622 ([#680](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/680)) ([8e03bd0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e03bd00723dc2d03410d7e09dc2448827e74d06))
+
+## [1.48.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.47.0...backend-v1.48.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend:** Use react-table for tables in UAM view tm-542 ([#681](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/681)) ([278d152](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/278d152861a68fa0a6b1946e70eb855f313d712f))
+
 ## [1.47.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.46.1...backend-v1.47.0) (2024-03-22)
 
 

@@ -23,6 +23,7 @@ import {
 	useSearchParams,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { actions as courseActions } from "~/modules/courses/courses.js";
 import { actions as userCourseActions } from "~/modules/user-courses/user-courses.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
@@ -50,8 +51,10 @@ const Overview: React.FC = () => {
 	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const handleModalOpen = useCallback(() => {
+		dispatch(courseActions.clearCourses());
 		setIsAddCourseModalOpen(true);
-	}, [setIsAddCourseModalOpen]);
+	}, [setIsAddCourseModalOpen, dispatch]);
+
 	const handleModalClose = useCallback(() => {
 		setIsAddCourseModalOpen(false);
 		void dispatch(
@@ -95,6 +98,7 @@ const Overview: React.FC = () => {
 									currentPage={page}
 									pages={pages}
 									pagesCount={pagesCount}
+									searchQuery={searchQuery}
 								/>
 							</div>
 						) : (

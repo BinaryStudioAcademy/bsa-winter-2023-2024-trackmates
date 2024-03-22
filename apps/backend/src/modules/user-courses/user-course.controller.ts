@@ -1,4 +1,5 @@
 import { APIPath } from "~/libs/enums/enums.js";
+import { checkUserSubscription } from "~/libs/hooks/hooks.js";
 import {
 	type APIHandlerOptions,
 	type APIHandlerResponse,
@@ -68,6 +69,7 @@ class UserCourseController extends BaseController {
 			},
 			method: "GET",
 			path: UserCoursesApiPath.$USER_ID_COMMON,
+			preHandlers: [checkUserSubscription],
 			validation: {
 				params: userIdParameterValidationSchema,
 			},
@@ -191,7 +193,7 @@ class UserCourseController extends BaseController {
 	 *   get:
 	 *     tags:
 	 *       - User courses
-	 *     description: Return all common courses
+	 *     description: Return all common courses IDs
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
@@ -210,11 +212,10 @@ class UserCourseController extends BaseController {
 	 *             schema:
 	 *               type: object
 	 *               properties:
-	 *                 courses:
+	 *                 coursesIds:
 	 *                   type: array
 	 *                   items:
-	 *                     type: object
-	 *                     $ref: '#/components/schemas/Course'
+	 *                     type: number
 	 */
 	private async findCommon({
 		params: { userId },

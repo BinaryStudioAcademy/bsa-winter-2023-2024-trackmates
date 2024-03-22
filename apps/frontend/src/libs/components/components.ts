@@ -18,5 +18,6 @@ export { ProtectedRoute } from "./protected-route/protected-route.js";
 export { RouterProvider } from "./router-provider/router-provider.js";
 export { SectionStatusCheckbox } from "./section-status-checkbox/section-status-checkbox.js";
 export { Select } from "./select/select.js";
+export { Table } from "./table/table.js";
 export { Provider as StoreProvider } from "react-redux";
 export { Navigate, Outlet as RouterOutlet } from "react-router-dom";

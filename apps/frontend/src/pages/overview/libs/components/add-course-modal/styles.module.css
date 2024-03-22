@@ -27,12 +27,14 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	overflow: hidden;
+	padding: 5px 32px 32px;
+	overflow: hidden auto;
 }
 
 .toolbar {
 	display: flex;
-	justify-content: end;
+	align-items: center;
+	justify-content: flex-end;
 	width: 100%;
 	padding: 8px 32px;
 	background-color: var(--color-background);
@@ -57,23 +59,85 @@
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	padding: 5px 32px 32px;
-	overflow-y: auto;
+	gap: 32px;
 }
 
 .courses-title {
-	padding: 8px 0;
-	margin: 0;
+	margin: 0 10px 0 0;
 	font-size: var(--font-size-400);
-}
-
-.searched-courses {
-	margin-top: 32px;
+	line-height: 1;
 }
 
 .load-more-button {
 	width: 150px;
 	margin: 30px auto 0;
+}
+
+.subscription-ad {
+	position: relative;
+	width: 100%;
+	padding: 20px 170px 20px 40px;
+	margin-block: 20px;
+	font-size: var(--font-size-300);
+	color: var(--main-white);
+	background-color: var(--color-menu);
+	background-image: url("~/assets/img/premium-background.svg");
+	border-radius: 15px;
+}
+
+.premium-character {
+	position: absolute;
+	top: 50%;
+	right: 40px;
+	width: 120px;
+	transform: translateY(-50%);
+}
+
+.link {
+	color: var(--color-premium);
+	text-decoration: none;
+}
+
+.placeholder-container {
+	position: relative;
+	margin: auto 0;
+	font-weight: 500;
+	transform: translateY(50px);
+}
+
+.placeholder-title {
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	color: var(--color-text-100);
+	text-align: center;
+}
+
+.character {
+	position: absolute;
+	top: -193px;
+	left: 50%;
+	width: 208px;
+	height: 208px;
+	background-image: url("~/assets/img/add-course-character.svg");
+	background-position: center;
+	background-size: cover;
+	transform: translateX(-50%);
+}
+
+.premium-label {
+	padding: 5px 15px;
+	font-size: var(--font-size-200);
+	font-weight: normal;
+	color: var(--main-white);
+	background-color: var(--color-premium);
+	border-radius: 100vh;
+}
+
+.courses-title-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
 @media screen and (width <= 865px) {
@@ -84,5 +148,41 @@
 
 	.load-more-button {
 		font-size: var(--font-size-200);
+	}
+}
+
+@media screen and (--medium-screen) {
+	.toolbar {
+		flex-direction: column-reverse;
+		gap: 10px;
+		align-items: flex-start;
+	}
+}
+
+@media screen and (--small-screen) {
+	.courses-title {
+		font-size: var(--font-size-350);
+	}
+
+	.subscription-ad {
+		padding-inline: 15px;
+	}
+
+	.link {
+		padding: 5px 15px;
+		margin: 5px;
+		line-height: 1;
+		color: var(--color-premium);
+		border: 1px solid var(--color-premium);
+		border-radius: 100vh;
+	}
+
+	.premium-character {
+		right: 15px;
+		width: 80px;
+	}
+
+	.sub-content {
+		display: none;
 	}
 }
