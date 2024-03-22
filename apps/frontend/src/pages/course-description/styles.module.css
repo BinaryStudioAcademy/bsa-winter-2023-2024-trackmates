@@ -5,7 +5,7 @@
 	flex-grow: 1;
 	grid-template-rows: min-content 1fr;
 	grid-template-columns: minmax(auto, 1500px);
-	padding: 15px 40px;
+	padding: 16px 40px;
 	margin: 0 auto;
 }
 
@@ -25,20 +25,11 @@
 }
 
 @media screen and (--large-screen) {
+	.container {
+		padding: 16px 24px;
+	}
+
 	.wrapper {
 		flex-direction: column;
-	}
-}
-
-@media screen and (--medium-screen) {
-	.wrapper {
-		flex-direction: column;
-		padding: 27px 30px 10px;
-	}
-}
-
-@media screen and (--small-screen) {
-	.wrapper {
-		padding: 27px 20px 10px;
 	}
 }

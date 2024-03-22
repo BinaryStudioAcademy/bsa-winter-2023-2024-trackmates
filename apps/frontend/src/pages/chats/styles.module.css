@@ -7,7 +7,7 @@
 	flex-grow: 1;
 	grid-template-rows: min-content 1fr;
 	grid-template-columns: minmax(auto, 1500px);
-	padding: 16px 40px;
+	padding: 33px 40px;
 	margin: 0 auto;
 	overflow: hidden;
 	font-family: Roboto, sans-serif;
@@ -31,6 +31,7 @@
 
 @media screen and (--medium-screen) {
 	.container {
+		padding: 0;
 		margin: 15px 0 0;
 	}
 

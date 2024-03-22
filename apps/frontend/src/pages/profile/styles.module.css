@@ -7,7 +7,7 @@
 	grid-template-rows: min-content 1fr;
 	grid-template-columns: minmax(auto, 1500px);
 	gap: 17px;
-	padding: 16px 41px 21px;
+	padding: 33px 41px 21px;
 	margin: 0 auto;
 	background-color: var(--color-background);
 }

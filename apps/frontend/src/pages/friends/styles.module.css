@@ -44,6 +44,12 @@
 	background-color: var(--main-orange);
 }
 
+@media screen and (--large-screen) {
+	.wrapper {
+		padding: 16px 24px;
+	}
+}
+
 @media screen and (--medium-screen) {
 	.link {
 		padding: 8px 18px;
