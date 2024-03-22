@@ -14,6 +14,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useNavigate,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
@@ -45,26 +46,38 @@ const AddCourseModal: React.FC<Properties> = ({
 	onClose,
 }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { courses, hasSubscription, isLoading, recommendedCourses, vendors } =
-		useAppSelector((state) => {
-			return {
-				courses: state.courses.searchedCourses,
-				hasSubscription: Boolean(
-					(state.auth.user as UserAuthResponseDto).subscription,
-				),
-				isLoading: state.courses.searchDataStatus === DataStatus.PENDING,
-				recommendedCourses: state.courses.recommendedCourses,
-				vendors: state.vendors.vendors,
-			};
-		});
+	const {
+		courses,
+		hasSubscription,
+		isRecommendedLoading,
+		isSearchLoading,
+		recommendedCourses,
+		vendors,
+	} = useAppSelector((state) => {
+		return {
+			courses: state.courses.searchedCourses,
+			hasSubscription: Boolean(
+				(state.auth.user as UserAuthResponseDto).subscription,
+			),
+			isRecommendedLoading:
+				state.courses.recommendedDataStatus === DataStatus.PENDING,
+			isSearchLoading: state.courses.searchDataStatus === DataStatus.PENDING,
+			recommendedCourses: state.courses.recommendedCourses,
+			vendors: state.vendors.vendors,
+		};
+	});
+
 	const { control, errors, getValues, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
 	});
 
 	const [page, setPage] = useState<number>(PaginationValue.DEFAULT_PAGE);
-	const isLoadFirstPage = isLoading && page === PaginationValue.DEFAULT_PAGE;
-	const isLoadMore = isLoading && page !== PaginationValue.DEFAULT_PAGE;
+	const isLoadFirstPage =
+		isSearchLoading && page === PaginationValue.DEFAULT_PAGE;
+	const isLoadMore = isSearchLoading && page !== PaginationValue.DEFAULT_PAGE;
+
+	const navigate = useNavigate();
 
 	const handleAddCourse = useCallback(
 		(payload: AddCourseRequestDto) => {
@@ -149,6 +162,11 @@ const AddCourseModal: React.FC<Properties> = ({
 		onClose();
 	}, [dispatch, onClose, setPage, setValue]);
 
+	const handleNavigateToSubscriptionModal = useCallback((): void => {
+		handleClose();
+		navigate("/subscription");
+	}, [navigate, handleClose]);
+
 	return (
 		<Modal isOpen={isOpen} onClose={handleClose}>
 			<div className={styles["add-course-modal"]}>
@@ -171,9 +189,17 @@ const AddCourseModal: React.FC<Properties> = ({
 							/>
 						</div>
 						<div className={styles["toolbar"]}>
-							<p className={styles["results-count"]}>
-								{courses.length} results
-							</p>
+							{!hasSubscription && (
+								<p className={styles["subscription-ad"]}>
+									Want to get recommended courses by AI? Then{" "}
+									<Button
+										className={styles["link"]}
+										label="subscribe"
+										onClick={handleNavigateToSubscriptionModal}
+									/>
+									!
+								</p>
+							)}
 							<fieldset className={styles["vendors-container"]}>
 								{vendors.map((vendor) => (
 									<VendorBadge
@@ -189,36 +215,50 @@ const AddCourseModal: React.FC<Properties> = ({
 				</header>
 				<div className={styles["content"]}>
 					<div className={styles["course-container"]}>
-						{isLoadFirstPage ? (
-							<Loader color="orange" size="large" />
-						) : (
+						{isLoadFirstPage && <Loader color="orange" size="large" />}
+						{hasCourses ? (
 							<>
-								<Courses courses={courses} onAddCourse={handleAddCourse} />
-								{hasCourses && (
-									<>
-										<Button
-											className={styles["load-more-button"]}
-											isDisabled={isLoadMore}
-											isLoading={isLoadMore}
-											label="Load more"
-											onClick={handleLoadMore}
-											size="small"
-										/>
-										{hasSubscription && (
-											<div className={styles["recommended-courses"]}>
-												<h2 className={styles["courses-title"]}>
-													Recommended Courses
-												</h2>
-
-												<Courses
-													courses={recommendedCourses}
-													onAddCourse={handleAddCourse}
-												/>
-											</div>
+								{hasSubscription && (
+									<div>
+										<h2 className={styles["courses-title"]}>
+											Recommended Courses
+										</h2>
+										{isRecommendedLoading ? (
+											<Loader color="orange" size="large" />
+										) : (
+											<Courses
+												courses={recommendedCourses}
+												onAddCourse={handleAddCourse}
+											/>
 										)}
-									</>
+									</div>
 								)}
+
+								<div className={styles["searched-courses"]}>
+									<p className={styles["results-count"]}>
+										{courses.length} results
+									</p>
+
+									<Courses courses={courses} onAddCourse={handleAddCourse} />
+									<Button
+										className={styles["load-more-button"]}
+										isDisabled={isLoadMore}
+										isLoading={isLoadMore}
+										label="Load more"
+										onClick={handleLoadMore}
+										size="small"
+									/>
+								</div>
 							</>
+						) : (
+							!isLoadFirstPage && (
+								<div className={styles["placeholder-container"]}>
+									<p className={styles["placeholder-title"]}>
+										Let&apos;s search for something...
+									</p>
+									<div className={styles["character"]} />
+								</div>
+							)
 						)}
 					</div>
 				</div>

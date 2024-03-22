@@ -86,6 +86,22 @@
 	max-width: 120px;
 }
 
+.avatar {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: 5%;
+	bottom: 1%;
+	width: 34px;
+	aspect-ratio: 1;
+}
+
 .title-container {
 	display: flex;
 	align-items: center;
@@ -128,6 +144,10 @@
 	.user-content {
 		gap: 10px;
 	}
+
+	.premium-icon {
+		width: 26px;
+	}
 }
 
 @media screen and (--small-screen) {
@@ -148,5 +168,9 @@
 	.courses-title {
 		padding-left: 4px;
 		font-size: var(--font-size-300);
+	}
+
+	.premium-icon {
+		width: 24px;
 	}
 }

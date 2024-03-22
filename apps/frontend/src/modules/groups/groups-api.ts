@@ -6,7 +6,7 @@ import { type PermissionsGetAllResponseDto } from "~/modules/permissions/permiss
 
 import { GroupsApiPath } from "./libs/enums/enums.js";
 import {
-	type GroupRequestDto,
+	type GroupCreateRequestDto,
 	type GroupResponseDto,
 	type GroupsGetAllResponseDto,
 } from "./libs/types/types.js";
@@ -23,7 +23,7 @@ class GroupsApi extends BaseHTTPApi {
 	}
 
 	public async createGroup(
-		payload: GroupRequestDto,
+		payload: GroupCreateRequestDto,
 	): Promise<GroupResponseDto> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.ROOT, {}),

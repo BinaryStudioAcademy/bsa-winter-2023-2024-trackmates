@@ -5,6 +5,7 @@ const GroupErrorMessage = {
 	GROUP_DELETION_FORBIDDEN: "Group deletion forbidden.",
 	GROUP_NOT_FOUND: "Group not found.",
 	PERMISSION_CHANGE_FORBIDDEN: "Permission change forbidden.",
+	PERMISSION_NOT_FOUND: "Permission not found.",
 	USER_ALREADY_IN_GROUP: "User already in group.",
 } as const;
 

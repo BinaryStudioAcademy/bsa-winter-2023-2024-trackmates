@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
-import { actions as chatsActions } from "~/modules/chats/chats.js";
 
 import {
 	type ChatMessageCreateRequestDto,
@@ -15,32 +14,20 @@ const sendMessage = createAsyncThunk<
 	ChatMessageItemResponseDto,
 	ChatMessageCreateRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/send-message`, async (messagePayload, { dispatch, extra }) => {
+>(`${sliceName}/send-message`, async (messagePayload, { extra }) => {
 	const { chatMessagesApi } = extra;
 
-	const newMessage = await chatMessagesApi.sendMessage(messagePayload);
-
-	void dispatch(chatsActions.addMessageToCurrentChat(newMessage));
-
-	return newMessage;
+	return await chatMessagesApi.sendMessage(messagePayload);
 });
 
 const setReadChatMessages = createAsyncThunk<
 	ReadChatMessagesResponseDto,
 	ReadChatMessagesRequestDto,
 	AsyncThunkConfig
->(
-	`${sliceName}/set-read-chat-messages`,
-	async (messagePayload, { dispatch, extra }) => {
-		const { chatMessagesApi } = extra;
+>(`${sliceName}/set-read-chat-messages`, async (messagePayload, { extra }) => {
+	const { chatMessagesApi } = extra;
 
-		const updatedMessages =
-			await chatMessagesApi.setReadChatMessages(messagePayload);
-
-		void dispatch(chatsActions.updateReadChatMessages(updatedMessages));
-
-		return updatedMessages;
-	},
-);
+	return await chatMessagesApi.setReadChatMessages(messagePayload);
+});
 
 export { sendMessage, setReadChatMessages };

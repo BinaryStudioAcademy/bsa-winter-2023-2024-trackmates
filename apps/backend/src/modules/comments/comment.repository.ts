@@ -6,7 +6,7 @@ import { type CommentModel } from "./comment.model.js";
 import { RelationName } from "./libs/enums/enums.js";
 
 class CommentRepository implements Repository<CommentEntity> {
-	private authorWithAvatarRelation = `[${RelationName.AUTHOR}.${RelationName.AVATAR_FILE}]`;
+	private authorWithAvatarRelation = `[${RelationName.AUTHOR}.[${RelationName.AVATAR_FILE}, ${RelationName.SUBSCRIPTION}]]`;
 
 	private commentModel: typeof CommentModel;
 
@@ -35,6 +35,7 @@ class CommentRepository implements Repository<CommentEntity> {
 				firstName: comment.author.firstName,
 				lastName: comment.author.lastName,
 				nickname: comment.author.nickname,
+				subscription: comment.author.subscription ?? null,
 			},
 			createdAt: comment.createdAt,
 			id: comment.id,
@@ -71,6 +72,7 @@ class CommentRepository implements Repository<CommentEntity> {
 				firstName: comment.author.firstName,
 				lastName: comment.author.lastName,
 				nickname: comment.author.nickname,
+				subscription: comment.author.subscription ?? null,
 			},
 			createdAt: comment.createdAt,
 			id: comment.id,
@@ -91,6 +93,7 @@ class CommentRepository implements Repository<CommentEntity> {
 					firstName: comment.author.firstName,
 					lastName: comment.author.lastName,
 					nickname: comment.author.nickname,
+					subscription: comment.author.subscription ?? null,
 				},
 				createdAt: comment.createdAt,
 				id: comment.id,
@@ -119,6 +122,7 @@ class CommentRepository implements Repository<CommentEntity> {
 					firstName: comment.author.firstName,
 					lastName: comment.author.lastName,
 					nickname: comment.author.nickname,
+					subscription: comment.author.subscription ?? null,
 				},
 				createdAt: comment.createdAt,
 				id: comment.id,
@@ -152,6 +156,7 @@ class CommentRepository implements Repository<CommentEntity> {
 				firstName: comment.author.firstName,
 				lastName: comment.author.lastName,
 				nickname: comment.author.nickname,
+				subscription: comment.author.subscription ?? null,
 			},
 			createdAt: comment.createdAt,
 			id: comment.id,

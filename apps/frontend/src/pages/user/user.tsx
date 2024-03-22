@@ -3,6 +3,7 @@ import {
 	Button,
 	Courses,
 	EmptyPagePlaceholder,
+	Icon,
 	Image,
 	Link,
 	Loader,
@@ -19,7 +20,9 @@ import {
 	AppTitle,
 	DataStatus,
 	PaginationValue,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -29,6 +32,7 @@ import {
 	useNavigate,
 	usePagination,
 	useParams,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
@@ -69,6 +73,8 @@ const User: React.FC = () => {
 			totalCount: state.userCourses.totalUserCoursesCount,
 		};
 	});
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
@@ -119,11 +125,11 @@ const User: React.FC = () => {
 			userCoursesActions.loadUserCourses({
 				count: PaginationValue.DEFAULT_COUNT,
 				page,
-				search: "",
+				search: searchQuery ?? "",
 				userId,
 			}),
 		);
-	}, [dispatch, userId, page]);
+	}, [dispatch, userId, page, searchQuery]);
 
 	const hasUser = Boolean(profileUser);
 
@@ -139,6 +145,10 @@ const User: React.FC = () => {
 
 	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
 
+	const isPremiumUser = Boolean(
+		(profileUser as UserAuthResponseDto).subscription,
+	);
+
 	return (
 		<div className={styles["container"]}>
 			<Button
@@ -151,16 +161,25 @@ const User: React.FC = () => {
 			/>
 
 			<div className={styles["user-content"]}>
-				<div className={styles["profile-image-wrapper"]}>
-					<Image
-						alt="avatar"
-						className={styles["profile-image"]}
-						src={
-							(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
-						}
-					/>
+				<div className={styles["avatar"]}>
+					<div
+						className={getValidClassNames(
+							styles["profile-image-wrapper"],
+							isPremiumUser && styles["premium"],
+						)}
+					>
+						<Image
+							alt="avatar"
+							className={styles["profile-image"]}
+							src={
+								(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
+							}
+						/>
+					</div>
+					{isPremiumUser && (
+						<Icon className={styles["premium-icon"]} name="crown" />
+					)}
 				</div>
-
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>{fullName}</p>
 					<Button
@@ -202,6 +221,7 @@ const User: React.FC = () => {
 									currentPage={page}
 									pages={pages}
 									pagesCount={pagesCount}
+									searchQuery={searchQuery}
 								/>
 							</div>
 						) : (
