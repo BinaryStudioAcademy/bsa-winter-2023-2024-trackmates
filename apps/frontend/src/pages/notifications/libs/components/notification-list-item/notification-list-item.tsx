@@ -41,6 +41,8 @@ const NotificationListItem: React.FC<Properties> = ({
 
 	const iconName = notificationTypeToIconName[notification.type] as IconName;
 
+	const hasSubscription = Boolean(notification.userSubscription);
+
 	return (
 		<li
 			className={getValidClassNames(
@@ -57,13 +59,19 @@ const NotificationListItem: React.FC<Properties> = ({
 			>
 				<Image
 					alt="avatar"
-					className={styles["notification-source-user-avatar"]}
+					className={getValidClassNames(
+						styles["notification-source-user-avatar"],
+						hasSubscription && styles["premium"],
+					)}
 					src={notification.userAvatarUrl ?? defaultAvatar}
 				/>
 				{hasIcon && (
 					<span className={styles["icon-container"]}>
 						<Icon className={styles["icon"]} name={iconName} />
 					</span>
+				)}
+				{hasSubscription && !hasIcon && (
+					<Icon className={styles["premium-icon"]} name="crown" />
 				)}
 			</Link>
 			<div className={styles["text-content"]}>

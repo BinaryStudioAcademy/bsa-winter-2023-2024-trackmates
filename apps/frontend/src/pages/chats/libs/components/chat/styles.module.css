@@ -67,3 +67,19 @@
 	width: 8px;
 	margin-right: 1px;
 }
+
+.image-container {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: -10%;
+	bottom: -5%;
+	width: 24px;
+	aspect-ratio: 1;
+}
