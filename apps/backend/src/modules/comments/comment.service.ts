@@ -101,10 +101,10 @@ class CommentService implements Service {
 	}
 
 	public async findAll(): Promise<CommentGetAllResponseDto> {
-		const comments = await this.commentRepository.findAll();
+		const { items } = await this.commentRepository.findAll();
 
 		return {
-			items: comments.map((comment) => comment.toObjectWithRelations()),
+			items: items.map((comment) => comment.toObjectWithRelations()),
 		};
 	}
 

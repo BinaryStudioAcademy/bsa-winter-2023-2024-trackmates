@@ -15,6 +15,7 @@
 }
 
 .avatar {
+	position: relative;
 	flex-shrink: 0;
 }
 
@@ -35,4 +36,16 @@
 	align-self: flex-start;
 	padding: 0 10px;
 	color: var(--color-text-300);
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: -4%;
+	bottom: 22%;
+	width: 14px;
+	aspect-ratio: 1;
 }

@@ -56,18 +56,20 @@ class ActivityLikeRepository implements Repository<ActivityLikeEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<ActivityLikeEntity[]> {
-		const actinityLikes = await this.activityLikeModel.query().execute();
+	public async findAll(): Promise<{ items: ActivityLikeEntity[] }> {
+		const activityLikes = await this.activityLikeModel.query().execute();
 
-		return actinityLikes.map((activityLike) => {
-			return ActivityLikeEntity.initialize({
-				activityId: activityLike.activityId,
-				createdAt: activityLike.createdAt,
-				id: activityLike.id,
-				updatedAt: activityLike.updatedAt,
-				userId: activityLike.userId,
-			});
-		});
+		return {
+			items: activityLikes.map((activityLike) => {
+				return ActivityLikeEntity.initialize({
+					activityId: activityLike.activityId,
+					createdAt: activityLike.createdAt,
+					id: activityLike.id,
+					updatedAt: activityLike.updatedAt,
+					userId: activityLike.userId,
+				});
+			}),
+		};
 	}
 
 	public async findByUserIdPostId(

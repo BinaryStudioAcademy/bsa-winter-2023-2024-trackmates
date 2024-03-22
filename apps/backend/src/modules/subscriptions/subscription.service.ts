@@ -100,10 +100,10 @@ class SubscriptionService implements Service {
 	}
 
 	public async findAll(): Promise<{ items: SubscriptionResponseDto[] }> {
-		const subscriptions = await this.subscriptionRepository.findAll();
+		const { items } = await this.subscriptionRepository.findAll();
 
 		return {
-			items: subscriptions.map((subscription) => subscription.toObject()),
+			items: items.map((subscription) => subscription.toObject()),
 		};
 	}
 

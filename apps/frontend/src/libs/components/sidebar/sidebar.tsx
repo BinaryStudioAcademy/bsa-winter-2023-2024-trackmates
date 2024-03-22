@@ -7,6 +7,7 @@ import {
 	useAppDispatch,
 	useCallback,
 	useState,
+	useToggleScroll,
 	useWindowWidth,
 } from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
@@ -75,6 +76,7 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 			style="secondary"
 		/>
 	);
+	useToggleScroll(isOpen);
 
 	return (
 		<>

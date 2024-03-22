@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.45.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.44.0...shared-v1.45.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** implement subscription features tm-630 ([#657](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/657)) ([66c6c78](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/66c6c78e3f30798905eb9e418f8fbb02a58ec3f8))
+* **frontend/backend/shared:** compare button tm-622 ([#680](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/680)) ([8e03bd0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e03bd00723dc2d03410d7e09dc2448827e74d06))
+
+## [1.44.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.43.1...shared-v1.44.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** indicate premium users tm-631 ([#673](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/673)) ([e50ad52](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e50ad523f538e8958e92494740ac057b905e18d9))
+* **frontend/backend/shared:** read/unread messages tm-501 ([#660](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/660)) ([a462850](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a462850147b4354c16ed00b77bb785eb232a7687))
+* **frontend/backend/shared:** uam group creation in popup tm-543 ([#656](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/656)) ([3e3cf02](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3e3cf02a523ea0b8e6d51343a2213b1b4c80cd45))
+
 ## [1.43.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/shared-v1.43.0...shared-v1.43.1) (2024-03-21)
 
 

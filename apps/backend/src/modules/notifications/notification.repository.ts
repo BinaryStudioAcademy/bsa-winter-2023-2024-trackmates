@@ -40,7 +40,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.insert({ actionId, receiverUserId, type, userId })
 			.returning("*")
 			.withGraphFetched(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]`,
 			)
 			.execute();
 
@@ -61,6 +61,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			userFirstName: createdNotification.user.userDetails.firstName,
 			userId: createdNotification.userId,
 			userLastName: createdNotification.user.userDetails.lastName,
+			userSubscription:
+				createdNotification.user.userDetails.subscription ?? null,
 		});
 	}
 
@@ -106,7 +108,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.query()
 			.findById(notificationId)
 			.withGraphFetched(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]`,
 			)
 			.execute();
 
@@ -124,34 +126,38 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					userFirstName: notification.user.userDetails.firstName,
 					userId: notification.userId,
 					userLastName: notification.user.userDetails.lastName,
+					userSubscription: notification.user.userDetails.subscription ?? null,
 				})
 			: null;
 	}
 
-	public async findAll(): Promise<NotificationEntity[]> {
+	public async findAll(): Promise<{ items: NotificationEntity[] }> {
 		const notifications = await this.notificationModel
 			.query()
 			.withGraphFetched(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]`,
 			)
 			.execute();
 
-		return notifications.map((notification) => {
-			return NotificationEntity.initialize({
-				actionId: notification.actionId,
-				createdAt: notification.createdAt,
-				id: notification.id,
-				message: this.getMessageByType(notification.type, notification.user),
-				receiverUserId: notification.receiverUserId,
-				status: notification.status,
-				type: notification.type,
-				updatedAt: notification.updatedAt,
-				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
-				userFirstName: notification.user.userDetails.firstName,
-				userId: notification.userId,
-				userLastName: notification.user.userDetails.lastName,
-			});
-		});
+		return {
+			items: notifications.map((notification) => {
+				return NotificationEntity.initialize({
+					actionId: notification.actionId,
+					createdAt: notification.createdAt,
+					id: notification.id,
+					message: this.getMessageByType(notification.type, notification.user),
+					receiverUserId: notification.receiverUserId,
+					status: notification.status,
+					type: notification.type,
+					updatedAt: notification.updatedAt,
+					userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+					userFirstName: notification.user.userDetails.firstName,
+					userId: notification.userId,
+					userLastName: notification.user.userDetails.lastName,
+					userSubscription: notification.user.userDetails.subscription ?? null,
+				});
+			}),
+		};
 	}
 
 	public async findAllByReceiverUserId(
@@ -178,7 +184,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					]);
 			})
 			.withGraphJoined(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]`,
 			)
 			.orderBy("notifications.createdAt", SortOrder.DESC)
 			.returning("*")
@@ -198,6 +204,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userFirstName: notification.user.userDetails.firstName,
 				userId: notification.userId,
 				userLastName: notification.user.userDetails.lastName,
+				userSubscription: notification.user.userDetails.subscription ?? null,
 			});
 		});
 	}
@@ -210,7 +217,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.query()
 			.where({ actionId, type })
 			.withGraphFetched(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]`,
 			)
 			.first();
 
@@ -228,6 +235,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					userFirstName: notification.user.userDetails.firstName,
 					userId: notification.userId,
 					userLastName: notification.user.userDetails.lastName,
+					userSubscription: notification.user.userDetails.subscription ?? null,
 				})
 			: null;
 	}
@@ -259,6 +267,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 					userFirstName: notification.user.userDetails.firstName,
 					userId: notification.userId,
 					userLastName: notification.user.userDetails.lastName,
+					userSubscription: notification.user.userDetails.subscription ?? null,
 				})
 			: null;
 	}
@@ -283,7 +292,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			.whereIn("id", notifactionIds)
 			.update({ status: NotificationStatus.READ })
 			.withGraphFetched(
-				`${RelationName.USER}.${RelationName.USER_DETAILS}.${RelationName.AVATAR_FILE}`,
+				`${RelationName.USER}.${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}]`,
 			)
 			.returning("*")
 			.execute();
@@ -302,6 +311,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 				userFirstName: notification.user.userDetails.firstName,
 				userId: notification.userId,
 				userLastName: notification.user.userDetails.lastName,
+				userSubscription: notification.user.userDetails.subscription ?? null,
 			});
 		});
 	}
@@ -336,6 +346,8 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			userFirstName: updatedNotification.user.userDetails.firstName,
 			userId: updatedNotification.userId,
 			userLastName: updatedNotification.user.userDetails.lastName,
+			userSubscription:
+				updatedNotification.user.userDetails.subscription ?? null,
 		});
 	}
 }

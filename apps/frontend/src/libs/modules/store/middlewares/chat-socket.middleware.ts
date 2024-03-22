@@ -25,14 +25,13 @@ const chatSocket = ({
 			SocketEvent.CHAT_ADD_NEW_MESSAGE,
 			(message: ChatMessageItemResponseDto) => {
 				void dispatch(chatsActions.addMessageToCurrentChat(message));
-				void dispatch(chatsActions.getUnreadMessagesCount());
 			},
 		);
 
 		chatSocketInstance.on(
 			SocketEvent.CHAT_READ_MESSAGES,
 			(response: ReadChatMessagesResponseDto) => {
-				void dispatch(chatsActions.updateReadChatMessages(response));
+				void dispatch(chatsActions.updateMessagesStatus(response));
 			},
 		);
 

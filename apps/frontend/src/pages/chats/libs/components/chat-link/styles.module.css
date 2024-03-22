@@ -68,6 +68,43 @@
 	background-color: var(--color-background);
 }
 
+.date-and-counter-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.counter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 20px;
+	height: 20px;
+	padding: 5px;
+	font-size: var(--font-size-50);
+	line-height: 0;
+	color: var(--main-white);
+	background-color: var(--main-orange);
+	border-radius: 12px;
+}
+
+.avatar {
+	position: relative;
+}
+
+.premium {
+	border: 2px solid var(--color-premium);
+}
+
+.premium-icon {
+	position: absolute;
+	right: -10%;
+	bottom: -5%;
+	width: 24px;
+	aspect-ratio: 1;
+}
+
 @media screen and (--medium-screen) {
 	.reducible .text-container {
 		display: none;

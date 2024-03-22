@@ -64,13 +64,13 @@ export {
 	type ActivityDeleteRequestDto,
 	type ActivityFinishCourseResponseDto,
 	type ActivityFinishSectionResponseDto,
-	type ActivityGetAllResponseDto,
 	type ActivityPayloadMap,
 	type ActivityResponseDto,
 	ActivityType,
 	activityActionIdParameterValidationSchema,
 	activityCreateFinishSectionValidationSchema,
 	activityDeleteFinishSectionValidationSchema,
+	activityGetAllQueryValidationSchema,
 } from "./modules/activities/activities.js";
 export {
 	type ActivityLikeRequestDto,
@@ -171,16 +171,17 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	type GroupCreateRequestDto,
 	GroupError,
 	GroupErrorMessage,
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
 	type GroupsGetAllResponseDto,
+	groupCreateRequestValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
-	groupNameFieldValidationSchema,
 	groupRequestBodyValidationSchema,
 } from "./modules/groups/groups.js";
 export {
@@ -231,6 +232,7 @@ export {
 	createPaymentIntentValidationSchema,
 } from "./modules/subscriptions/subscriptions.js";
 export {
+	type CommonCoursesResponseDto,
 	type UserCourseResponseDto,
 	UserCoursesApiPath,
 	userCourseGetAllQueryValidationSchema,

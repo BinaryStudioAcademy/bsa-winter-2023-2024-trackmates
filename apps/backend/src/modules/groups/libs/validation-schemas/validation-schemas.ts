@@ -1,4 +1,5 @@
 export {
+	groupCreateRequestValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,

@@ -76,11 +76,10 @@ const Chats: React.FC = () => {
 				/>
 				{id && currentChat ? (
 					<Chat
+						chat={currentChat}
 						className={styles["current-chat"]}
 						isMessageLoading={isMessageLoading}
-						messages={currentChat.messages}
 						onSubmit={onSubmit}
-						receiver={currentChat.interlocutor}
 					/>
 				) : (
 					<EmptyChat className={styles["empty-chat"]} />

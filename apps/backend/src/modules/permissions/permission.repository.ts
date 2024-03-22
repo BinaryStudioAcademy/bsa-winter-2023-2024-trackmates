@@ -53,18 +53,29 @@ class PermissionRepository implements Repository<PermissionEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<PermissionEntity[]> {
-		const permissions = await this.permissionModel.query().execute();
+	public async findAll(search?: {
+		keys?: string[];
+	}): Promise<{ items: PermissionEntity[] }> {
+		const permissions = await this.permissionModel
+			.query()
+			.where((builder) => {
+				if (search?.keys) {
+					void builder.whereIn("key", search.keys);
+				}
+			})
+			.execute();
 
-		return permissions.map((permission) => {
-			return PermissionEntity.initialize({
-				createdAt: permission.createdAt,
-				id: permission.id,
-				key: permission.key,
-				name: permission.name,
-				updatedAt: permission.updatedAt,
-			});
-		});
+		return {
+			items: permissions.map((permission) => {
+				return PermissionEntity.initialize({
+					createdAt: permission.createdAt,
+					id: permission.id,
+					key: permission.key,
+					name: permission.name,
+					updatedAt: permission.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async findByKey(key: string): Promise<PermissionEntity | null> {

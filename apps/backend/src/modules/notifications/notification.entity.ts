@@ -1,4 +1,5 @@
 import { type Entity, type ValueOf } from "~/libs/types/types.js";
+import { type SubscriptionResponseDto } from "~/modules/subscriptions/subscriptions.js";
 
 import {
 	type NotificationStatus,
@@ -30,6 +31,8 @@ class NotificationEntity implements Entity {
 
 	private userLastName: null | string;
 
+	private userSubscription: SubscriptionResponseDto | null;
+
 	private constructor({
 		actionId,
 		createdAt,
@@ -43,6 +46,7 @@ class NotificationEntity implements Entity {
 		userFirstName,
 		userId,
 		userLastName,
+		userSubscription,
 	}: {
 		actionId: null | number;
 		createdAt: string;
@@ -56,6 +60,7 @@ class NotificationEntity implements Entity {
 		userFirstName: null | string;
 		userId: number;
 		userLastName: null | string;
+		userSubscription: SubscriptionResponseDto | null;
 	}) {
 		this.actionId = actionId;
 		this.createdAt = createdAt;
@@ -69,6 +74,7 @@ class NotificationEntity implements Entity {
 		this.userFirstName = userFirstName;
 		this.userId = userId;
 		this.userLastName = userLastName;
+		this.userSubscription = userSubscription;
 	}
 
 	public static initialize({
@@ -84,6 +90,7 @@ class NotificationEntity implements Entity {
 		userFirstName,
 		userId,
 		userLastName,
+		userSubscription,
 	}: {
 		actionId: null | number;
 		createdAt: string;
@@ -97,6 +104,7 @@ class NotificationEntity implements Entity {
 		userFirstName: string;
 		userId: number;
 		userLastName: string;
+		userSubscription: SubscriptionResponseDto | null;
 	}): NotificationEntity {
 		return new NotificationEntity({
 			actionId,
@@ -111,6 +119,7 @@ class NotificationEntity implements Entity {
 			userFirstName,
 			userId,
 			userLastName,
+			userSubscription,
 		});
 	}
 
@@ -140,6 +149,7 @@ class NotificationEntity implements Entity {
 			userFirstName: null,
 			userId,
 			userLastName: null,
+			userSubscription: null,
 		});
 	}
 
@@ -174,6 +184,7 @@ class NotificationEntity implements Entity {
 		userFirstName: string;
 		userId: number;
 		userLastName: string;
+		userSubscription: SubscriptionResponseDto | null;
 	} {
 		return {
 			actionId: this.actionId,
@@ -188,6 +199,7 @@ class NotificationEntity implements Entity {
 			userFirstName: this.userFirstName as string,
 			userId: this.userId,
 			userLastName: this.userLastName as string,
+			userSubscription: this.userSubscription as SubscriptionResponseDto,
 		};
 	}
 

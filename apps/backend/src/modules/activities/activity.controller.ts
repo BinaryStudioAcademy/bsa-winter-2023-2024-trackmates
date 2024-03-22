@@ -6,6 +6,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type PaginationRequestDto } from "~/libs/types/types.js";
 import {
 	type ActivityLikeRequestDto,
 	activityLikeChangeValidationSchema,
@@ -23,6 +24,7 @@ import {
 	activityActionIdParameterValidationSchema,
 	activityCreateFinishSectionValidationSchema,
 	activityDeleteFinishSectionValidationSchema,
+	activityGetAllQueryValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
 
 /**
@@ -72,12 +74,16 @@ class ActivityController extends BaseController {
 			handler: (options) => {
 				return this.getAll(
 					options as APIHandlerOptions<{
+						query: PaginationRequestDto;
 						user: UserAuthResponseDto;
 					}>,
 				);
 			},
 			method: "GET",
 			path: ActivitiesApiPath.ROOT,
+			validation: {
+				query: activityGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -272,6 +278,16 @@ class ActivityController extends BaseController {
 	 *        - Activities
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: count
+	 *          in: query
+	 *          schema:
+	 *            type: integer
+	 *        - name: page
+	 *          in: query
+	 *          schema:
+	 *            type: string
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -287,12 +303,20 @@ class ActivityController extends BaseController {
 	 *                      $ref: "#/components/schemas/Activity"
 	 */
 	private async getAll({
+		query: { count, page },
 		user,
 	}: APIHandlerOptions<{
+		query: PaginationRequestDto;
 		user: UserAuthResponseDto;
 	}>): Promise<APIHandlerResponse> {
+		const { items, total } = await this.activityService.findAll({
+			count,
+			page,
+			userId: Number(user.id),
+		});
+
 		return {
-			payload: await this.activityService.findAll(user.id),
+			payload: { items, total },
 			status: HTTPCode.OK,
 		};
 	}

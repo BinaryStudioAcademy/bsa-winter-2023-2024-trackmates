@@ -83,19 +83,21 @@ class CourseSectionRepository implements Repository<CourseSectionEntity> {
 		});
 	}
 
-	public async findAll(): Promise<CourseSectionEntity[]> {
+	public async findAll(): Promise<{ items: CourseSectionEntity[] }> {
 		const courseSections = await this.courseSectionModel.query().execute();
 
-		return courseSections.map((courseSection) => {
-			return CourseSectionEntity.initialize({
-				course: null,
-				courseId: courseSection.courseId,
-				createdAt: courseSection.createdAt,
-				id: courseSection.id,
-				title: courseSection.title,
-				updatedAt: courseSection.updatedAt,
-			});
-		});
+		return {
+			items: courseSections.map((courseSection) => {
+				return CourseSectionEntity.initialize({
+					course: null,
+					courseId: courseSection.courseId,
+					createdAt: courseSection.createdAt,
+					id: courseSection.id,
+					title: courseSection.title,
+					updatedAt: courseSection.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async findCourseSections(
