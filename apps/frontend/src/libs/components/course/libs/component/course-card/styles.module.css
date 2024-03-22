@@ -9,6 +9,7 @@
 .image-container {
 	width: 100%;
 	height: auto;
+	aspect-ratio: 16/9;
 	margin-bottom: 10px;
 	overflow: hidden;
 	border-radius: 12px;
