@@ -1,3 +1,4 @@
+import defaultCourseImage from "~/assets/img/mock-course-background.png";
 import { Button } from "~/libs/components/button/button.jsx";
 import { Image } from "~/libs/components/image/image.jsx";
 import { LinearProgress } from "~/libs/components/linear-progress/linear-progress.jsx";
@@ -32,7 +33,7 @@ const CourseCard: React.FC<Properties> = ({
 				<Image alt="Course source logo" src={`/vendors/${vendor.key}.svg`} />
 			</div>
 			<div className={styles["image-container"]}>
-				<Image alt="Course" src={image} />
+				<Image alt="Course" defaultSrc={defaultCourseImage} src={image} />
 				{isCommon && (
 					<Button
 						className={styles["compare-progress-button"]}
