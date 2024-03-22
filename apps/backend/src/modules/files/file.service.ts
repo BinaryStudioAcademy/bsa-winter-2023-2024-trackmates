@@ -114,7 +114,9 @@ class FileService implements Service {
 	}
 
 	public async findAll(): Promise<{ items: FileEntity[] }> {
-		return { items: await this.fileRepository.findAll() };
+		const { items } = await this.fileRepository.findAll();
+
+		return { items };
 	}
 
 	public async update(

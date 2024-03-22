@@ -240,7 +240,7 @@ class ChatRepository implements Repository<ChatEntity> {
 	}: {
 		search: string;
 		userId: number;
-	}): Promise<ChatEntity[]> {
+	}): Promise<{ items: ChatEntity[] }> {
 		const chatsByUserId = await this.chatModel
 			.query()
 			.select(
@@ -289,65 +289,17 @@ class ChatRepository implements Repository<ChatEntity> {
 			>()
 			.execute();
 
-		return chatsByUserId.map((chatByUserId) => {
-			return ChatEntity.initializeWithLastMessage({
-				createdAt: chatByUserId.createdAt,
-				firstUser: UserEntity.initialize({
-					avatarUrl: chatByUserId.firstUser.userDetails.avatarFile?.url ?? null,
-					createdAt: chatByUserId.firstUser.createdAt,
-					email: chatByUserId.firstUser.email,
-					firstName: chatByUserId.firstUser.userDetails.firstName,
-					groups: chatByUserId.firstUser.groups.map((group) => {
-						return GroupEntity.initialize({
-							createdAt: group.createdAt,
-							id: group.id,
-							key: group.key,
-							name: group.name,
-							permissions: group.permissions.map((permission) => {
-								return PermissionEntity.initialize({
-									createdAt: permission.createdAt,
-									id: permission.id,
-									key: permission.key,
-									name: permission.name,
-									updatedAt: permission.updatedAt,
-								});
-							}),
-							updatedAt: group.updatedAt,
-						});
-					}),
-					id: chatByUserId.firstUser.id,
-					lastName: chatByUserId.firstUser.userDetails.lastName,
-					nickname: chatByUserId.firstUser.userDetails.nickname,
-					passwordHash: chatByUserId.firstUser.passwordHash,
-					passwordSalt: chatByUserId.firstUser.passwordSalt,
-					sex: chatByUserId.firstUser.userDetails.sex,
-					subscription: chatByUserId.firstUser.userDetails.subscription
-						? SubscriptionEntity.initialize({
-								createdAt:
-									chatByUserId.firstUser.userDetails.subscription.createdAt,
-								expiresAt:
-									chatByUserId.firstUser.userDetails.subscription.expiresAt,
-								id: chatByUserId.firstUser.userDetails.subscription.id,
-								updatedAt:
-									chatByUserId.firstUser.userDetails.subscription.updatedAt,
-							})
-						: null,
-					updatedAt: chatByUserId.firstUser.updatedAt,
-				}),
-				id: chatByUserId.id,
-				lastMessage: ChatMessageEntity.initialize({
-					chatId: chatByUserId.lastMessage.chatId,
-					createdAt: chatByUserId.lastMessage.createdAt,
-					id: chatByUserId.lastMessage.id,
-					senderUser: UserEntity.initialize({
+		return {
+			items: chatsByUserId.map((chatByUserId) => {
+				return ChatEntity.initializeWithLastMessage({
+					createdAt: chatByUserId.createdAt,
+					firstUser: UserEntity.initialize({
 						avatarUrl:
-							chatByUserId.lastMessage.senderUser.userDetails.avatarFile?.url ??
-							null,
-						createdAt: chatByUserId.lastMessage.senderUser.createdAt,
-						email: chatByUserId.lastMessage.senderUser.email,
-						firstName:
-							chatByUserId.lastMessage.senderUser.userDetails.firstName,
-						groups: chatByUserId.lastMessage.senderUser.groups.map((group) => {
+							chatByUserId.firstUser.userDetails.avatarFile?.url ?? null,
+						createdAt: chatByUserId.firstUser.createdAt,
+						email: chatByUserId.firstUser.email,
+						firstName: chatByUserId.firstUser.userDetails.firstName,
+						groups: chatByUserId.firstUser.groups.map((group) => {
 							return GroupEntity.initialize({
 								createdAt: group.createdAt,
 								id: group.id,
@@ -365,81 +317,136 @@ class ChatRepository implements Repository<ChatEntity> {
 								updatedAt: group.updatedAt,
 							});
 						}),
-						id: chatByUserId.lastMessage.senderUser.id,
-						lastName: chatByUserId.lastMessage.senderUser.userDetails.lastName,
-						nickname: chatByUserId.lastMessage.senderUser.userDetails.nickname,
-						passwordHash: chatByUserId.lastMessage.senderUser.passwordHash,
-						passwordSalt: chatByUserId.lastMessage.senderUser.passwordSalt,
-						sex: chatByUserId.lastMessage.senderUser.userDetails.sex,
-						subscription: chatByUserId.lastMessage.senderUser.userDetails
-							.subscription
+						id: chatByUserId.firstUser.id,
+						lastName: chatByUserId.firstUser.userDetails.lastName,
+						nickname: chatByUserId.firstUser.userDetails.nickname,
+						passwordHash: chatByUserId.firstUser.passwordHash,
+						passwordSalt: chatByUserId.firstUser.passwordSalt,
+						sex: chatByUserId.firstUser.userDetails.sex,
+						subscription: chatByUserId.firstUser.userDetails.subscription
 							? SubscriptionEntity.initialize({
 									createdAt:
-										chatByUserId.lastMessage.senderUser.userDetails.subscription
-											.createdAt,
+										chatByUserId.firstUser.userDetails.subscription.createdAt,
 									expiresAt:
-										chatByUserId.lastMessage.senderUser.userDetails.subscription
-											.expiresAt,
-									id: chatByUserId.lastMessage.senderUser.userDetails
-										.subscription.id,
+										chatByUserId.firstUser.userDetails.subscription.expiresAt,
+									id: chatByUserId.firstUser.userDetails.subscription.id,
 									updatedAt:
-										chatByUserId.lastMessage.senderUser.userDetails.subscription
-											.updatedAt,
+										chatByUserId.firstUser.userDetails.subscription.updatedAt,
 								})
 							: null,
-						updatedAt: chatByUserId.lastMessage.senderUser.updatedAt,
+						updatedAt: chatByUserId.firstUser.updatedAt,
 					}),
-					status: chatByUserId.lastMessage.status,
-					text: chatByUserId.lastMessage.text,
-					updatedAt: chatByUserId.lastMessage.updatedAt,
-				}),
-				secondUser: UserEntity.initialize({
-					avatarUrl:
-						chatByUserId.secondUser.userDetails.avatarFile?.url ?? null,
-					createdAt: chatByUserId.secondUser.createdAt,
-					email: chatByUserId.secondUser.email,
-					firstName: chatByUserId.secondUser.userDetails.firstName,
-					groups: chatByUserId.secondUser.groups.map((group) => {
-						return GroupEntity.initialize({
-							createdAt: group.createdAt,
-							id: group.id,
-							key: group.key,
-							name: group.name,
-							permissions: group.permissions.map((permission) => {
-								return PermissionEntity.initialize({
-									createdAt: permission.createdAt,
-									id: permission.id,
-									key: permission.key,
-									name: permission.name,
-									updatedAt: permission.updatedAt,
-								});
-							}),
-							updatedAt: group.updatedAt,
-						});
+					id: chatByUserId.id,
+					lastMessage: ChatMessageEntity.initialize({
+						chatId: chatByUserId.lastMessage.chatId,
+						createdAt: chatByUserId.lastMessage.createdAt,
+						id: chatByUserId.lastMessage.id,
+						senderUser: UserEntity.initialize({
+							avatarUrl:
+								chatByUserId.lastMessage.senderUser.userDetails.avatarFile
+									?.url ?? null,
+							createdAt: chatByUserId.lastMessage.senderUser.createdAt,
+							email: chatByUserId.lastMessage.senderUser.email,
+							firstName:
+								chatByUserId.lastMessage.senderUser.userDetails.firstName,
+							groups: chatByUserId.lastMessage.senderUser.groups.map(
+								(group) => {
+									return GroupEntity.initialize({
+										createdAt: group.createdAt,
+										id: group.id,
+										key: group.key,
+										name: group.name,
+										permissions: group.permissions.map((permission) => {
+											return PermissionEntity.initialize({
+												createdAt: permission.createdAt,
+												id: permission.id,
+												key: permission.key,
+												name: permission.name,
+												updatedAt: permission.updatedAt,
+											});
+										}),
+										updatedAt: group.updatedAt,
+									});
+								},
+							),
+							id: chatByUserId.lastMessage.senderUser.id,
+							lastName:
+								chatByUserId.lastMessage.senderUser.userDetails.lastName,
+							nickname:
+								chatByUserId.lastMessage.senderUser.userDetails.nickname,
+							passwordHash: chatByUserId.lastMessage.senderUser.passwordHash,
+							passwordSalt: chatByUserId.lastMessage.senderUser.passwordSalt,
+							sex: chatByUserId.lastMessage.senderUser.userDetails.sex,
+							subscription: chatByUserId.lastMessage.senderUser.userDetails
+								.subscription
+								? SubscriptionEntity.initialize({
+										createdAt:
+											chatByUserId.lastMessage.senderUser.userDetails
+												.subscription.createdAt,
+										expiresAt:
+											chatByUserId.lastMessage.senderUser.userDetails
+												.subscription.expiresAt,
+										id: chatByUserId.lastMessage.senderUser.userDetails
+											.subscription.id,
+										updatedAt:
+											chatByUserId.lastMessage.senderUser.userDetails
+												.subscription.updatedAt,
+									})
+								: null,
+							updatedAt: chatByUserId.lastMessage.senderUser.updatedAt,
+						}),
+						status: chatByUserId.lastMessage.status,
+						text: chatByUserId.lastMessage.text,
+						updatedAt: chatByUserId.lastMessage.updatedAt,
 					}),
-					id: chatByUserId.secondUser.id,
-					lastName: chatByUserId.secondUser.userDetails.lastName,
-					nickname: chatByUserId.secondUser.userDetails.nickname,
-					passwordHash: chatByUserId.secondUser.passwordHash,
-					passwordSalt: chatByUserId.secondUser.passwordSalt,
-					sex: chatByUserId.secondUser.userDetails.sex,
-					subscription: chatByUserId.secondUser.userDetails.subscription
-						? SubscriptionEntity.initialize({
-								createdAt:
-									chatByUserId.secondUser.userDetails.subscription.createdAt,
-								expiresAt:
-									chatByUserId.secondUser.userDetails.subscription.expiresAt,
-								id: chatByUserId.secondUser.userDetails.subscription.id,
-								updatedAt:
-									chatByUserId.secondUser.userDetails.subscription.updatedAt,
-							})
-						: null,
-					updatedAt: chatByUserId.secondUser.updatedAt,
-				}),
-				unreadMessageCount: chatByUserId.unreadMessageCount,
-				updatedAt: chatByUserId.updatedAt,
-			});
-		});
+					secondUser: UserEntity.initialize({
+						avatarUrl:
+							chatByUserId.secondUser.userDetails.avatarFile?.url ?? null,
+						createdAt: chatByUserId.secondUser.createdAt,
+						email: chatByUserId.secondUser.email,
+						firstName: chatByUserId.secondUser.userDetails.firstName,
+						groups: chatByUserId.secondUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
+						id: chatByUserId.secondUser.id,
+						lastName: chatByUserId.secondUser.userDetails.lastName,
+						nickname: chatByUserId.secondUser.userDetails.nickname,
+						passwordHash: chatByUserId.secondUser.passwordHash,
+						passwordSalt: chatByUserId.secondUser.passwordSalt,
+						sex: chatByUserId.secondUser.userDetails.sex,
+						subscription: chatByUserId.secondUser.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt:
+										chatByUserId.secondUser.userDetails.subscription.createdAt,
+									expiresAt:
+										chatByUserId.secondUser.userDetails.subscription.expiresAt,
+									id: chatByUserId.secondUser.userDetails.subscription.id,
+									updatedAt:
+										chatByUserId.secondUser.userDetails.subscription.updatedAt,
+								})
+							: null,
+						updatedAt: chatByUserId.secondUser.updatedAt,
+					}),
+					unreadMessageCount: chatByUserId.unreadMessageCount,
+					updatedAt: chatByUserId.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async findByMembersIds(

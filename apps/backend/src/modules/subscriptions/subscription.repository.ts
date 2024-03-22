@@ -69,17 +69,19 @@ class SubscriptionRepository implements Repository<SubscriptionEntity> {
 		});
 	}
 
-	public async findAll(): Promise<SubscriptionEntity[]> {
+	public async findAll(): Promise<{ items: SubscriptionEntity[] }> {
 		const subscriptions = await this.subscriptionModel.query().execute();
 
-		return subscriptions.map((subscription) => {
-			return SubscriptionEntity.initialize({
-				createdAt: subscription.createdAt,
-				expiresAt: subscription.expiresAt,
-				id: subscription.id,
-				updatedAt: subscription.updatedAt,
-			});
-		});
+		return {
+			items: subscriptions.map((subscription) => {
+				return SubscriptionEntity.initialize({
+					createdAt: subscription.createdAt,
+					expiresAt: subscription.expiresAt,
+					id: subscription.id,
+					updatedAt: subscription.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async update(

@@ -143,31 +143,33 @@ class GroupRepository implements Repository<GroupEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<GroupEntity[]> {
+	public async findAll(): Promise<{ items: GroupEntity[] }> {
 		const groups = await this.groupModel
 			.query()
 			.withGraphJoined(RelationName.PERMISSIONS)
 			.orderBy("id", SortOrder.ASC)
 			.execute();
 
-		return groups.map((group) => {
-			return GroupEntity.initialize({
-				createdAt: group.createdAt,
-				id: group.id,
-				key: group.key,
-				name: group.name,
-				permissions: group.permissions.map((permission) => {
-					return PermissionEntity.initialize({
-						createdAt: permission.createdAt,
-						id: permission.id,
-						key: permission.key,
-						name: permission.name,
-						updatedAt: permission.updatedAt,
-					});
-				}),
-				updatedAt: group.updatedAt,
-			});
-		});
+		return {
+			items: groups.map((group) => {
+				return GroupEntity.initialize({
+					createdAt: group.createdAt,
+					id: group.id,
+					key: group.key,
+					name: group.name,
+					permissions: group.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
+					updatedAt: group.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async findAllPermissionsInGroup(

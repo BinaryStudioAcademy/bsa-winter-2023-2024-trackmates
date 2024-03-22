@@ -62,9 +62,9 @@ class CourseSectionService implements Service {
 	}
 
 	public async findAll(): Promise<CourseSectionGetAllResponseDto> {
-		const sections = await this.courseSectionRepository.findAll();
+		const { items } = await this.courseSectionRepository.findAll();
 
-		return { items: sections.map((section) => section.toObject()) };
+		return { items: items.map((section) => section.toObject()) };
 	}
 
 	public async findCourseSections(

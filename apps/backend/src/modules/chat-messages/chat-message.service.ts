@@ -118,10 +118,10 @@ class ChatMessageService implements Service {
 	public async findAll(
 		userId: number,
 	): Promise<{ items: ChatMessageItemResponseDto[] }> {
-		const messagesByUserId = await this.chatMessageRepository.findAll(userId);
+		const { items } = await this.chatMessageRepository.findAll(userId);
 
 		return {
-			items: messagesByUserId.map((messageByUserId) => {
+			items: items.map((messageByUserId) => {
 				return messageByUserId.toObject();
 			}),
 		};

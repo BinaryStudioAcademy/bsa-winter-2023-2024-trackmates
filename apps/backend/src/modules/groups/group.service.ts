@@ -53,7 +53,7 @@ class GroupService implements Service {
 			});
 		}
 
-		const permissions = await this.permissionRepository.findAll({
+		const { items: permissions } = await this.permissionRepository.findAll({
 			keys: permissionKeys,
 		});
 
@@ -119,10 +119,10 @@ class GroupService implements Service {
 	}
 
 	public async findAll(): Promise<GroupsGetAllResponseDto> {
-		const groups = await this.groupRepository.findAll();
+		const { items } = await this.groupRepository.findAll();
 
 		return {
-			items: groups.map((group) => {
+			items: items.map((group) => {
 				return group.toObject();
 			}),
 		};

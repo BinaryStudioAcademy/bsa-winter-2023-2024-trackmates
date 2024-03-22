@@ -141,10 +141,10 @@ class NotificationService implements Service {
 	}
 
 	public async findAll(): Promise<AllNotificationsResponseDto> {
-		const notifications = await this.notificationRepository.findAll();
+		const { items } = await this.notificationRepository.findAll();
 
 		return {
-			items: notifications.map((notification) => notification.toObject()),
+			items: items.map((notification) => notification.toObject()),
 		};
 	}
 

@@ -12,12 +12,14 @@ type State = {
 	activities: ActivityResponseDto<ValueOf<typeof ActivityType>>[];
 	dataStatus: ValueOf<typeof DataStatus>;
 	likeDataStatus: ValueOf<typeof DataStatus>;
+	totalCount: number;
 };
 
 const initialState: State = {
 	activities: [],
 	dataStatus: DataStatus.IDLE,
 	likeDataStatus: DataStatus.IDLE,
+	totalCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -35,7 +37,16 @@ const { actions, name, reducer } = createSlice({
 			state.likeDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(loadActivities.fulfilled, (state, action) => {
-			state.activities = action.payload.items;
+			state.activities = [
+				...state.activities,
+				...action.payload.items.filter((newItem) => {
+					return !state.activities.some(
+						(existingItem) => existingItem.id === newItem.id,
+					);
+				}),
+			];
+			state.totalCount = action.payload.total;
+
 			state.dataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(loadActivities.pending, (state) => {
