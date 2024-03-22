@@ -4,8 +4,8 @@ import { useMemo } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
-import { UsersTableColumnAlign } from "./libs/enums/enums.js";
 import { getUserColumns, getUserData } from "./libs/helpers/helpers.js";
+import { usersTableColumnToColumnAlign } from "./libs/maps/maps.js";
 
 type Properties = {
 	checkIfSameUser: (userId: number) => boolean;
@@ -56,7 +56,7 @@ const UsersTable: React.FC<Properties> = ({
 
 	return (
 		<Table
-			columnAlign={UsersTableColumnAlign}
+			columnAlign={usersTableColumnToColumnAlign}
 			columns={userColumns}
 			data={userData}
 		/>

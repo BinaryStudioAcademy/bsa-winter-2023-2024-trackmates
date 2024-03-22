@@ -1,8 +1,8 @@
 import { TableColumnAlign } from "~/libs/components/table/libs/enums/enums.js";
 
-import { UsersTableHeader } from "./users-table-header.enum.js";
+import { UsersTableHeader } from "../enums/users-table-header.enum.js";
 
-const UsersTableColumnAlign = {
+const usersTableColumnToColumnAlign = {
 	[UsersTableHeader.ACTIONS]: TableColumnAlign.CENTER,
 	[UsersTableHeader.EMAIL]: TableColumnAlign.START,
 	[UsersTableHeader.FIRST_NAME]: TableColumnAlign.START,
@@ -11,4 +11,4 @@ const UsersTableColumnAlign = {
 	[UsersTableHeader.LAST_NAME]: TableColumnAlign.START,
 } as const;
 
-export { UsersTableColumnAlign };
+export { usersTableColumnToColumnAlign };

@@ -1,8 +1,8 @@
 import { TableColumnAlign } from "~/libs/components/table/libs/enums/enums.js";
 
-import { CoursesTableHeader } from "./courses-table-header.enum.js";
+import { CoursesTableHeader } from "../enums/courses-table-header.enum.js";
 
-const CoursesTableColumnAlign = {
+const coursesTableColumnToColumnAlign = {
 	[CoursesTableHeader.ACTIONS]: TableColumnAlign.CENTER,
 	[CoursesTableHeader.DESCRIPTION]: TableColumnAlign.START,
 	[CoursesTableHeader.ID]: TableColumnAlign.CENTER,
@@ -10,4 +10,4 @@ const CoursesTableColumnAlign = {
 	[CoursesTableHeader.VENDOR]: TableColumnAlign.CENTER,
 } as const;
 
-export { CoursesTableColumnAlign };
+export { coursesTableColumnToColumnAlign };

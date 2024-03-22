@@ -4,8 +4,8 @@ import { useMemo } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type GroupResponseDto } from "~/modules/groups/groups.js";
 
-import { GroupsTableColumnAlign } from "./libs/enums/enums.js";
 import { getGroupColumns, getGroupData } from "./libs/helpers/helpers.js";
+import { groupsTableColumnToColumnAlign } from "./libs/maps/maps.js";
 
 type Properties = {
 	checkIfCurrentUserHasGroup: (groupId: number) => boolean;
@@ -43,7 +43,7 @@ const GroupsTable: React.FC<Properties> = ({
 
 	return (
 		<Table
-			columnAlign={GroupsTableColumnAlign}
+			columnAlign={groupsTableColumnToColumnAlign}
 			columns={groupColumns}
 			data={groupData}
 		/>
