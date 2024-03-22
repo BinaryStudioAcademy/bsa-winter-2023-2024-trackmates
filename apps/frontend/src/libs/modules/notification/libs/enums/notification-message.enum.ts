@@ -8,6 +8,7 @@ const NotificationMessage = {
 	GROUP_CREATED: "Group was created.",
 	GROUP_DELETED: "Group was deleted.",
 	GROUP_PERMISSIONS_CHANGED: "Group permissions were changed.",
+	NEW_MESSAGE: "sent you a message!",
 	PASSWORD_WAS_UPDATED: "Your password was updated.",
 	PROFILE_CHANGES_SAVED: "Changes are saved.",
 	SUBSCRIPTION_SUCCESS: "Congratulations! You are now a Premium Member 🎉",

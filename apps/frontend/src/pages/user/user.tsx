@@ -3,6 +3,7 @@ import {
 	Button,
 	Courses,
 	EmptyPagePlaceholder,
+	Icon,
 	Image,
 	Loader,
 	Navigate,
@@ -19,6 +20,7 @@ import {
 	DataStatus,
 	PaginationValue,
 } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -138,6 +140,10 @@ const User: React.FC = () => {
 
 	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
 
+	const isPremiumUser = Boolean(
+		(profileUser as UserAuthResponseDto).subscription,
+	);
+
 	const isCommonCoursesShown =
 		hasSubscription && commonCourses.length > EMPTY_LENGTH;
 
@@ -153,16 +159,25 @@ const User: React.FC = () => {
 			/>
 
 			<div className={styles["user-content"]}>
-				<div className={styles["profile-image-wrapper"]}>
-					<Image
-						alt="avatar"
-						className={styles["profile-image"]}
-						src={
-							(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
-						}
-					/>
+				<div className={styles["avatar"]}>
+					<div
+						className={getValidClassNames(
+							styles["profile-image-wrapper"],
+							isPremiumUser && styles["premium"],
+						)}
+					>
+						<Image
+							alt="avatar"
+							className={styles["profile-image"]}
+							src={
+								(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
+							}
+						/>
+					</div>
+					{isPremiumUser && (
+						<Icon className={styles["premium-icon"]} name="crown" />
+					)}
 				</div>
-
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>{fullName}</p>
 					<Button

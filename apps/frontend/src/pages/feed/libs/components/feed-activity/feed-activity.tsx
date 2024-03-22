@@ -1,5 +1,5 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Button, Image, Link } from "~/libs/components/components.js";
+import { Button, Icon, Image, Link } from "~/libs/components/components.js";
 import { type AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
@@ -46,27 +46,46 @@ const FeedActivity: React.FC<Properties> = ({
 
 	const avatarLink =
 		activity.user.id === userId ? "/" : `/users/${activity.user.id}`;
+	const hasSubscription = Boolean(activity.user.subscription);
 
 	return (
 		<article className={styles["card"]}>
 			<div className={styles["card-content-wrapper"]}>
-				<Link to={avatarLink as ValueOf<typeof AppRoute>}>
+				<Link
+					className={styles["avatar"]}
+					to={avatarLink as ValueOf<typeof AppRoute>}
+				>
 					<Image
 						alt="User avatar"
-						className={styles["card-photo"]}
+						className={getValidClassNames(
+							styles["card-photo"],
+							hasSubscription && styles["premium"],
+						)}
 						src={activity.user.avatarUrl ?? defaultAvatar}
 					/>
+					{hasSubscription && (
+						<Icon className={styles["premium-icon"]} name="crown" />
+					)}
 				</Link>
 			</div>
 			<div className={styles["card-content"]}>
 				<div>
 					<div className={styles["activity-title-container"]}>
-						<Link to={avatarLink as ValueOf<typeof AppRoute>}>
+						<Link
+							className={styles["avatar"]}
+							to={avatarLink as ValueOf<typeof AppRoute>}
+						>
 							<Image
 								alt="User avatar"
-								className={styles["small-photo"]}
+								className={getValidClassNames(
+									styles["small-photo"],
+									hasSubscription && styles["premium"],
+								)}
 								src={activity.user.avatarUrl ?? defaultAvatar}
 							/>
+							{hasSubscription && (
+								<Icon className={styles["small-premium-icon"]} name="crown" />
+							)}
 						</Link>
 						<h3 className={styles["activity-title"]}>
 							{activity.user.firstName} {activity.user.lastName}
