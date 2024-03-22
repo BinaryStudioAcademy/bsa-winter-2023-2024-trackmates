@@ -28,7 +28,7 @@ const loadActivities = createAsyncThunk<
 >(`${sliceName}/load-activities`, (loadActivitiesPayload, { extra }) => {
 	const { activitiesApi } = extra;
 
-	return activitiesApi.getActivities(loadActivitiesPayload);
+	return activitiesApi.getAll(loadActivitiesPayload);
 });
 
 export { likeActivity, loadActivities };

@@ -56,13 +56,15 @@ const FeedActivityList: React.FC<Properties> = ({
 		[handleIncreasePage, isLoadingMore],
 	);
 
+	const hasAllBeenLoaded = activities.length === totalCount;
+
 	return (
 		<div className={styles["feed"]}>
 			{activities.map((activity) => (
 				<FeedActivity activity={activity} key={activity.id} userId={user.id} />
 			))}
 
-			{activities.length !== totalCount && (
+			{!hasAllBeenLoaded && (
 				<div ref={loaderElementReference}>
 					{isLoadingMore && <Loader color="orange" size="large" />}
 				</div>

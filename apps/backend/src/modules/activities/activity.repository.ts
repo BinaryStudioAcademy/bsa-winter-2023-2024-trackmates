@@ -247,7 +247,7 @@ class ActivityRepository implements Repository<ActivityEntity> {
 		});
 	}
 
-	public async findAllWithPagination({
+	public async findAllWithParams({
 		count,
 		page,
 		userId,

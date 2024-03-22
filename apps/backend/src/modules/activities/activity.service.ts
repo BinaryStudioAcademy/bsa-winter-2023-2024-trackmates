@@ -169,7 +169,7 @@ class ActivityService implements Service {
 	} & PaginationRequestDto): Promise<
 		PaginationResponseDto<ActivityResponseDto<ValueOf<typeof ActivityType>>>
 	> {
-		const result = await this.activityRepository.findAllWithPagination({
+		const result = await this.activityRepository.findAllWithParams({
 			count,
 			page: convertPageToZeroIndexed(page),
 			userId,

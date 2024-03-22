@@ -23,7 +23,7 @@ class ActivitiesApi extends BaseHTTPApi {
 		super({ baseUrl, http, path: APIPath.ACTIVITIES, storage });
 	}
 
-	public async getActivities(
+	public async getAll(
 		payload: PaginationRequestDto,
 	): Promise<
 		PaginationResponseDto<ActivityResponseDto<ValueOf<typeof ActivityType>>>
