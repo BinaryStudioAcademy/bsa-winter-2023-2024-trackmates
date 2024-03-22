@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { type AsyncThunkConfig, type ValueOf } from "~/libs/types/types.js";
+import {
+	type AsyncThunkConfig,
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type ValueOf,
+} from "~/libs/types/types.js";
 
 import { type ActivityType } from "../libs/enums/enums.js";
-import {
-	type ActivityGetAllResponseDto,
-	type ActivityResponseDto,
-} from "../libs/types/types.js";
+import { type ActivityResponseDto } from "../libs/types/types.js";
 import { name as sliceName } from "./activities.slice.js";
 
 const likeActivity = createAsyncThunk<
@@ -20,13 +22,13 @@ const likeActivity = createAsyncThunk<
 });
 
 const loadActivities = createAsyncThunk<
-	ActivityGetAllResponseDto,
-	undefined,
+	PaginationResponseDto<ActivityResponseDto<ValueOf<typeof ActivityType>>>,
+	PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/load-activities`, (_payload, { extra }) => {
+>(`${sliceName}/load-activities`, (loadActivitiesPayload, { extra }) => {
 	const { activitiesApi } = extra;
 
-	return activitiesApi.getActivities();
+	return activitiesApi.getAll(loadActivitiesPayload);
 });
 
 export { likeActivity, loadActivities };

@@ -94,13 +94,13 @@ class ChatService implements Service {
 		search: string;
 		userId: number;
 	}): Promise<{ items: ChatGetAllItemResponseDto[] }> {
-		const chatsByUserId = await this.chatRepository.findAll({
+		const { items } = await this.chatRepository.findAll({
 			search,
 			userId,
 		});
 
 		return {
-			items: chatsByUserId.map((chatByUserId) => {
+			items: items.map((chatByUserId) => {
 				return chatByUserId.toObjectWithLastMessage(userId);
 			}),
 		};

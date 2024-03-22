@@ -60,7 +60,7 @@ class GroupService implements Service {
 			});
 		}
 
-		const permissions = await this.permissionRepository.findAll({
+		const { items: permissions } = await this.permissionRepository.findAll({
 			keys: permissionKeys,
 		});
 

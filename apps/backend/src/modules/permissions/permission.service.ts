@@ -66,10 +66,10 @@ class PermissionService implements Service {
 	}
 
 	public async findAll(): Promise<PermissionsGetAllResponseDto> {
-		const permissions = await this.permissionRepository.findAll();
+		const { items } = await this.permissionRepository.findAll();
 
 		return {
-			items: permissions.map((permission) => {
+			items: items.map((permission) => {
 				return permission.toObject();
 			}),
 		};
