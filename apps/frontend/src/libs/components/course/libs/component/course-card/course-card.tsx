@@ -1,5 +1,7 @@
+import defaultCourseImage from "~/assets/img/mock-course-background.png";
 import { Image } from "~/libs/components/image/image.jsx";
 import { LinearProgress } from "~/libs/components/linear-progress/linear-progress.jsx";
+import { useCallback, useState } from "~/libs/hooks/hooks.js";
 import {
 	type CourseDto,
 	type CourseSearchResponseDto,
@@ -16,7 +18,18 @@ type Properties = {
 const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 	const { image, title, vendor } = course;
 
+	const [isImageLoaded, setIsImageLoaded] = useState<boolean>(true);
+
+	const [imageSource, setImageSource] = useState<string>(
+		image || defaultCourseImage,
+	);
+
 	const progress = checkIsUserCourse(course) ? course.progress : null;
+
+	const handleImageError = useCallback(() => {
+		setIsImageLoaded(false);
+		setImageSource(defaultCourseImage);
+	}, []);
 
 	return (
 		<div className={styles["content"]}>
@@ -24,7 +37,11 @@ const CourseCard: React.FC<Properties> = ({ course }: Properties) => {
 				<Image alt="Course source logo" src={`/vendors/${vendor.key}.svg`} />
 			</div>
 			<div className={styles["image-container"]}>
-				<Image alt="Course" src={image} />
+				<Image
+					alt="Course"
+					onError={handleImageError}
+					src={isImageLoaded ? imageSource : defaultCourseImage}
+				/>
 			</div>
 			<div className={styles["info-container"]}>
 				<h2 className={styles["title"]}>{title}</h2>

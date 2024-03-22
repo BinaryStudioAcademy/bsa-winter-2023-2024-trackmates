@@ -6,6 +6,7 @@ type Properties = {
 	alt: string;
 	className?: string | undefined;
 	height?: string;
+	onError?: () => void;
 	shape?: "circle" | "default";
 	src: string;
 	width?: string;
@@ -15,6 +16,7 @@ const Image: React.FC<Properties> = ({
 	alt,
 	className,
 	height,
+	onError,
 	shape = "default",
 	src,
 	width,
@@ -24,6 +26,7 @@ const Image: React.FC<Properties> = ({
 			alt={alt}
 			className={getValidClassNames(styles["image"], styles[shape], className)}
 			height={height}
+			onError={onError}
 			src={src}
 			width={width}
 		/>

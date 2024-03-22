@@ -1,3 +1,4 @@
+import defaultCourseImage from "~/assets/img/mock-course-background.png";
 import { Button, Content, Image } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
@@ -24,10 +25,21 @@ const CourseDetails: React.FC<Properties> = ({
 		Tab.ABOUT,
 	);
 
+	const [isImageLoaded, setIsImageLoaded] = useState<boolean>(true);
+
+	const [imageSource, setImageSource] = useState<string>(
+		image || defaultCourseImage,
+	);
+
 	const handleTabChange = useCallback((item: ValueOf<typeof Tab>) => {
 		return () => {
 			setSelectedTab(item);
 		};
+	}, []);
+
+	const handleImageError = useCallback(() => {
+		setIsImageLoaded(false);
+		setImageSource(defaultCourseImage);
 	}, []);
 
 	const handleTabContentRender = (
@@ -73,7 +85,12 @@ const CourseDetails: React.FC<Properties> = ({
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["title"]}>{title}</div>
-			<Image alt="Course" className={styles["image"]} src={image} />
+			<Image
+				alt="Course"
+				className={styles["image"]}
+				onError={handleImageError}
+				src={isImageLoaded ? imageSource : defaultCourseImage}
+			/>
 			<ul className={styles["tabs"]}>
 				{Object.values(Tab).map((item) => (
 					<li className={styles["tab-item"]} key={item}>
