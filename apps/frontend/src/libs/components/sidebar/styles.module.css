@@ -7,9 +7,10 @@
 	flex-direction: column;
 	height: 100%;
 	padding: 19px;
+	padding-right: 10px;
 	overflow: hidden;
 	background-color: var(--color-menu);
-	transition: width 0.3s ease;
+	transition: 0.3s ease;
 }
 
 .menu {
@@ -102,6 +103,7 @@
 	display: flex;
 	flex: 1;
 	flex-direction: column;
+	padding-right: 9px;
 	overflow: hidden scroll;
 }
 
@@ -214,6 +216,7 @@
 
 	.content-wrapper {
 		flex-direction: row;
+		padding-right: 0;
 	}
 
 	.sidebar.close {
@@ -298,10 +301,6 @@
 }
 
 @media screen and (height <= 665px) {
-	.sidebar .content-wrapper {
-		padding-right: 12px;
-	}
-
 	.content-container {
 		gap: 14px;
 	}
