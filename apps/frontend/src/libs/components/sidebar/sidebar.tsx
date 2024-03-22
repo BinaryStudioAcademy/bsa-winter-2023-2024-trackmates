@@ -3,7 +3,12 @@ import {
 	checkIfUserHasPermissions,
 	getValidClassNames,
 } from "~/libs/helpers/helpers.js";
-import { useAppDispatch, useCallback, useState } from "~/libs/hooks/hooks.js";
+import {
+	useAppDispatch,
+	useCallback,
+	useState,
+	useWindowWidth,
+} from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
@@ -16,6 +21,8 @@ import { Button } from "../button/button.js";
 import { Icon } from "../icon/icon.js";
 import { Image } from "../image/image.js";
 import { Link } from "../link/link.js";
+import { Portal } from "../portal/portal.js";
+import { SMALL_WIDTH_BREAKPOINT } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -53,19 +60,24 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		[user],
 	);
 
+	const windowWidth = useWindowWidth();
+
+	const burgerButton = (
+		<Button
+			className={getValidClassNames(
+				styles["burger-button"],
+				styles[isOpen ? "open" : "close"],
+			)}
+			hasVisuallyHiddenLabel
+			iconName="burger"
+			label="burger-button"
+			onClick={handleToggleSidebar}
+			style="secondary"
+		/>
+	);
+
 	return (
 		<>
-			<Button
-				className={getValidClassNames(
-					styles["burger-button"],
-					styles[isOpen ? "open" : "close"],
-				)}
-				hasVisuallyHiddenLabel
-				iconName="burger"
-				label="burger-button"
-				onClick={handleToggleSidebar}
-				style="secondary"
-			/>
 			<div
 				className={getValidClassNames(
 					styles["sidebar"],
@@ -78,17 +90,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 							<Image alt="website logo" className={styles["logo"]} src={logo} />
 						</Link>
 						<nav className={styles["menu"]}>
-							<Button
-								className={getValidClassNames(
-									styles["burger-button-in-flow"],
-									styles[isOpen ? "open" : "close"],
-								)}
-								hasVisuallyHiddenLabel
-								iconName="burger"
-								label="burger-button"
-								onClick={handleToggleSidebar}
-								style="secondary"
-							/>
+							{windowWidth > SMALL_WIDTH_BREAKPOINT ? (
+								burgerButton
+							) : (
+								<Portal position="absolute">{burgerButton}</Portal>
+							)}
 							{menuItems.map(({ href, icon, label, pagePermissions }) => {
 								return (
 									handleCheckPermissions(pagePermissions) && (
