@@ -50,6 +50,7 @@
 }
 
 .message-container {
+	position: relative;
 	display: inline-block;
 	align-items: end;
 	align-self: start;
@@ -72,4 +73,26 @@
 	word-break: break-word;
 	overflow-wrap: anywhere;
 	white-space: pre-wrap;
+}
+
+.unread::before {
+	position: absolute;
+	bottom: 0;
+	width: 10px;
+	height: 10px;
+	margin-bottom: 10px;
+	content: "";
+	border-radius: 50%;
+}
+
+.unread.right::before {
+	right: 100%;
+	margin-right: 4px;
+	background-color: var(--color-text-100);
+}
+
+.unread.left::before {
+	left: 100%;
+	margin-left: 4px;
+	background-color: var(--main-orange);
 }

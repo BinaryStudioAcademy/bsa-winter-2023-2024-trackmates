@@ -52,3 +52,14 @@
 	pointer-events: none;
 	cursor: default;
 }
+
+.buttons-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.add-group-button {
+	width: 120px;
+	height: 32px;
+	margin-top: 16px;
+}

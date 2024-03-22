@@ -1,5 +1,5 @@
 import { logger } from "~/libs/modules/logger/logger.js";
-import { permissionService } from "~/modules/permissions/permissions.js";
+import { permissionRepository } from "~/modules/permissions/permissions.js";
 import { UserModel, userService } from "~/modules/users/users.js";
 
 import { GroupController } from "./group.controller.js";
@@ -10,7 +10,7 @@ import { GroupService } from "./group.service.js";
 const groupRepository = new GroupRepository(GroupModel, UserModel);
 const groupService = new GroupService({
 	groupRepository,
-	permissionService,
+	permissionRepository,
 	userService,
 });
 const groupController = new GroupController(logger, groupService);
