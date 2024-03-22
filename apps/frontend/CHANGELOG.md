@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.67.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.66.0...frontend-v1.67.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** implement subscription features tm-630 ([#657](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/657)) ([66c6c78](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/66c6c78e3f30798905eb9e418f8fbb02a58ec3f8))
+
 ## [1.66.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.65.0...frontend-v1.66.0) (2024-03-22)
 
 
