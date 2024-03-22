@@ -3,6 +3,7 @@ import {
 	Button,
 	Courses,
 	EmptyPagePlaceholder,
+	Icon,
 	Image,
 	Loader,
 	Navigate,
@@ -19,6 +20,7 @@ import {
 	DataStatus,
 	PaginationValue,
 } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -118,6 +120,7 @@ const User: React.FC = () => {
 
 	const hasUser = Boolean(profileUser);
 	const hasCommonCourses = commonCourses.length > EMPTY_LENGTH;
+	const hasSubscription = Boolean(profileUser?.subscription);
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
@@ -143,16 +146,25 @@ const User: React.FC = () => {
 			/>
 
 			<div className={styles["user-content"]}>
-				<div className={styles["profile-image-wrapper"]}>
-					<Image
-						alt="avatar"
-						className={styles["profile-image"]}
-						src={
-							(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
-						}
-					/>
+				<div className={styles["avatar"]}>
+					<div
+						className={getValidClassNames(
+							styles["profile-image-wrapper"],
+							hasSubscription && styles["premium"],
+						)}
+					>
+						<Image
+							alt="avatar"
+							className={styles["profile-image"]}
+							src={
+								(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
+							}
+						/>
+					</div>
+					{hasSubscription && (
+						<Icon className={styles["premium-icon"]} name="crown" />
+					)}
 				</div>
-
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>{fullName}</p>
 					<Button
