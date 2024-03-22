@@ -41,6 +41,7 @@
 
 .link {
 	display: flex;
+	justify-content: center;
 	padding: 8px 36px;
 	color: inherit;
 	text-decoration: none;
