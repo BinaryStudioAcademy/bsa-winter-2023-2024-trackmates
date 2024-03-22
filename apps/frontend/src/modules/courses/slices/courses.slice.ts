@@ -30,6 +30,7 @@ type State = {
 	>;
 	currentCourse: CourseDto | null;
 	recommendedCourses: CourseSearchResponseDto[];
+	recommendedDataStatus: ValueOf<typeof DataStatus>;
 	searchDataStatus: ValueOf<typeof DataStatus>;
 	searchedCourses: CourseSearchResponseDto[];
 };
@@ -41,6 +42,7 @@ const initialState: State = {
 	courseToDataStatus: {},
 	currentCourse: null,
 	recommendedCourses: [],
+	recommendedDataStatus: DataStatus.IDLE,
 	searchDataStatus: DataStatus.IDLE,
 	searchedCourses: [],
 };
@@ -72,13 +74,13 @@ const { actions, name, reducer } = createSlice({
 		});
 		builder.addCase(getRecommended.fulfilled, (state, action) => {
 			state.recommendedCourses = action.payload.courses;
-			state.searchDataStatus = DataStatus.FULFILLED;
+			state.recommendedDataStatus = DataStatus.FULFILLED;
 		});
 		builder.addCase(getRecommended.pending, (state) => {
-			state.searchDataStatus = DataStatus.PENDING;
+			state.recommendedDataStatus = DataStatus.PENDING;
 		});
 		builder.addCase(getRecommended.rejected, (state) => {
-			state.searchDataStatus = DataStatus.REJECTED;
+			state.recommendedDataStatus = DataStatus.REJECTED;
 		});
 		builder.addCase(userCoursesActions.add.pending, (state, action) => {
 			const { vendorCourseId } = action.meta.arg;

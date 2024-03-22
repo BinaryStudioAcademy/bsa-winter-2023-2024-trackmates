@@ -10,6 +10,7 @@ const GroupValidationErrorMessage = {
 	GROUP_NAME_MAXIMUM_LENGTH: `Maximum length – ${GroupValidationRule.GROUP_NAME_MAXIMUM_LENGTH} characters`,
 	GROUP_NAME_MINIMUM_LENGTH: `Minimum length – ${GroupValidationRule.GROUP_NAME_MINIMUM_LENGTH} characters`,
 	INVALID_ID: "Id should be greater than or equal to 1",
+	PERMISSIONS_ARRAY_MINIMUM_LENGTH: "Array of permission should be not empty",
 } as const;
 
 export { GroupValidationErrorMessage };
