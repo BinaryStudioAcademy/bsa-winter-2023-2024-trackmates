@@ -2,7 +2,6 @@ import {
 	Button,
 	Courses,
 	Input,
-	Link,
 	Loader,
 	Modal,
 } from "~/libs/components/components.js";
@@ -15,6 +14,7 @@ import {
 	useAppSelector,
 	useCallback,
 	useEffect,
+	useNavigate,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
@@ -76,6 +76,8 @@ const AddCourseModal: React.FC<Properties> = ({
 	const isLoadFirstPage =
 		isSearchLoading && page === PaginationValue.DEFAULT_PAGE;
 	const isLoadMore = isSearchLoading && page !== PaginationValue.DEFAULT_PAGE;
+
+	const navigate = useNavigate();
 
 	const handleAddCourse = useCallback(
 		(payload: AddCourseRequestDto) => {
@@ -160,6 +162,11 @@ const AddCourseModal: React.FC<Properties> = ({
 		onClose();
 	}, [dispatch, onClose, setPage, setValue]);
 
+	const handleNavigateToSubscriptionModal = useCallback((): void => {
+		handleClose();
+		navigate("/subscription");
+	}, [navigate, handleClose]);
+
 	return (
 		<Modal isOpen={isOpen} onClose={handleClose}>
 			<div className={styles["add-course-modal"]}>
@@ -185,9 +192,11 @@ const AddCourseModal: React.FC<Properties> = ({
 							{!hasSubscription && (
 								<p className={styles["subscription-ad"]}>
 									Want to get recommended courses by AI? Then{" "}
-									<Link className={styles["link"]} to="/subscription">
-										subscribe
-									</Link>
+									<Button
+										className={styles["link"]}
+										label="subscribe"
+										onClick={handleNavigateToSubscriptionModal}
+									/>
 									!
 								</p>
 							)}

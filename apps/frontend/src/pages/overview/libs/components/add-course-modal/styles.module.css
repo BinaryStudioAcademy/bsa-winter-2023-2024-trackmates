@@ -82,13 +82,27 @@
 }
 
 .link {
+	display: inline;
+	min-height: unset;
+	padding: 0;
 	color: var(--color-button);
 	text-decoration: none;
+	background-color: transparent;
+	border: none;
 	transition: 0.1s color ease;
+}
+
+.link:hover {
+	color: var(--color-button);
+	background-color: transparent;
 }
 
 @media screen and (--large-screen) {
 	.subscription-ad {
+		font-size: var(--font-size-200);
+	}
+
+	.link {
 		font-size: var(--font-size-200);
 	}
 }
