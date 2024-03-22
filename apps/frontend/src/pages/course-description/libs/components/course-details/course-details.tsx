@@ -25,21 +25,10 @@ const CourseDetails: React.FC<Properties> = ({
 		Tab.ABOUT,
 	);
 
-	const [isImageLoaded, setIsImageLoaded] = useState<boolean>(true);
-
-	const [imageSource, setImageSource] = useState<string>(
-		image || defaultCourseImage,
-	);
-
 	const handleTabChange = useCallback((item: ValueOf<typeof Tab>) => {
 		return () => {
 			setSelectedTab(item);
 		};
-	}, []);
-
-	const handleImageError = useCallback(() => {
-		setIsImageLoaded(false);
-		setImageSource(defaultCourseImage);
 	}, []);
 
 	const handleTabContentRender = (
@@ -88,8 +77,8 @@ const CourseDetails: React.FC<Properties> = ({
 			<Image
 				alt="Course"
 				className={styles["image"]}
-				onError={handleImageError}
-				src={isImageLoaded ? imageSource : defaultCourseImage}
+				defaultSrc={defaultCourseImage}
+				src={image}
 			/>
 			<ul className={styles["tabs"]}>
 				{Object.values(Tab).map((item) => (
