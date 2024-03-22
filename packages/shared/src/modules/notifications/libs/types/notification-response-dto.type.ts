@@ -1,4 +1,5 @@
 import { type ValueOf } from "../../../../libs/types/types.js";
+import { type SubscriptionResponseDto } from "../../../subscriptions/subscriptions.js";
 import {
 	type NotificationStatus,
 	type NotificationType,
@@ -16,6 +17,7 @@ type NotificationResponseDto = {
 	userFirstName: string;
 	userId: number;
 	userLastName: string;
+	userSubscription: SubscriptionResponseDto | null;
 };
 
 export { type NotificationResponseDto };

@@ -76,8 +76,8 @@
 
 .premium-icon {
 	position: absolute;
-	top: -36%;
-	left: 24%;
+	right: -10%;
+	bottom: -5%;
 	width: 24px;
 	aspect-ratio: 1;
 }
