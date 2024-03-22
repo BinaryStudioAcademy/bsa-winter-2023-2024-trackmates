@@ -1,7 +1,7 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Button, Image, Link } from "~/libs/components/components.js";
+import { Button, Icon, Image, Link } from "~/libs/components/components.js";
 import { AppRoute } from "~/libs/enums/enums.js";
-import { configureString } from "~/libs/helpers/helpers.js";
+import { configureString, getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useAppSelector, useCallback } from "~/libs/hooks/hooks.js";
 import { type CommentWithRelationsResponseDto } from "~/modules/comments/comments.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
@@ -38,16 +38,22 @@ const CommentCard: React.FC<Properties> = ({
 
 	const isCreator = user.id === userId;
 
+	const hasSubscription = Boolean(author.subscription);
+
 	return (
 		<div className={styles["comment-card"]}>
 			<Link className={styles["avatar"]} to={userLink}>
 				<Image
 					alt="user-avatar"
+					className={getValidClassNames(hasSubscription && styles["premium"])}
 					height="36"
 					shape="circle"
 					src={authorAvatar}
 					width="36"
 				/>
+				{hasSubscription && (
+					<Icon className={styles["premium-icon"]} name="crown" />
+				)}
 			</Link>
 			<div className={styles["content"]}>
 				<Link className={styles["name"]} to={userLink}>

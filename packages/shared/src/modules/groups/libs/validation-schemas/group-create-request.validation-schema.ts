@@ -5,7 +5,7 @@ import {
 	GroupValidationRule,
 } from "../enums/enums.js";
 
-const groupNameField = z
+const groupCreateRequest = z
 	.object({
 		name: z
 			.string()
@@ -24,7 +24,13 @@ const groupNameField = z
 			.max(GroupValidationRule.GROUP_NAME_MAXIMUM_LENGTH, {
 				message: GroupValidationErrorMessage.GROUP_NAME_MAXIMUM_LENGTH,
 			}),
+		permissions: z
+			.array(z.string())
+			.min(
+				GroupValidationRule.FIELD_MINIMUM_LENGTH,
+				GroupValidationErrorMessage.PERMISSIONS_ARRAY_MINIMUM_LENGTH,
+			),
 	})
 	.required();
 
-export { groupNameField };
+export { groupCreateRequest };

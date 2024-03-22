@@ -25,14 +25,14 @@ class GroupRepository implements Repository<GroupEntity> {
 		this.userModel = userModel;
 	}
 
-	public async addPermissionToGroup(
+	public async addPermissionsToGroup(
 		groupId: number,
-		permissionId: number,
+		permissionIds: number[],
 	): Promise<PermissionEntity[]> {
 		await this.groupModel
 			.relatedQuery(RelationName.PERMISSIONS)
 			.for(groupId)
-			.relate(permissionId)
+			.relate(permissionIds)
 			.execute();
 
 		const permissions = await this.groupModel
@@ -89,11 +89,11 @@ class GroupRepository implements Repository<GroupEntity> {
 	}
 
 	public async create(group: GroupEntity): Promise<GroupEntity> {
-		const { key, name } = group.toNewObject();
 		const createdGroup = await this.groupModel
 			.query()
-			.insert({ key, name })
+			.insertGraph(group.toNewObject(), { relate: true })
 			.returning("*")
+			.withGraphJoined(RelationName.PERMISSIONS)
 			.execute();
 
 		return GroupEntity.initialize({
@@ -101,7 +101,15 @@ class GroupRepository implements Repository<GroupEntity> {
 			id: createdGroup.id,
 			key: createdGroup.key,
 			name: createdGroup.name,
-			permissions: [],
+			permissions: createdGroup.permissions.map((permission) => {
+				return PermissionEntity.initialize({
+					createdAt: permission.createdAt,
+					id: permission.id,
+					key: permission.key,
+					name: permission.name,
+					updatedAt: permission.updatedAt,
+				});
+			}),
 			updatedAt: createdGroup.updatedAt,
 		});
 	}

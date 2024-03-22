@@ -10,14 +10,14 @@ import {
 import { type PermissionResponseDto } from "~/modules/permissions/permissions.js";
 
 import {
-	type GroupRequestDto,
+	type GroupCreateRequestDto,
 	type GroupResponseDto,
 } from "../libs/types/types.js";
 import { name as sliceName } from "./groups.slice.js";
 
 const createGroup = createAsyncThunk<
 	GroupResponseDto,
-	Record<"createPayload", GroupRequestDto> & Record<"page", number>,
+	Record<"createPayload", GroupCreateRequestDto> & Record<"page", number>,
 	AsyncThunkConfig
 >(
 	`${sliceName}/create-group`,

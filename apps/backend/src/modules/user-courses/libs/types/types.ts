@@ -1,1 +1,4 @@
-export { type UserCourseResponseDto } from "@trackmates/shared";
+export {
+	type CommonCoursesResponseDto,
+	type UserCourseResponseDto,
+} from "@trackmates/shared";

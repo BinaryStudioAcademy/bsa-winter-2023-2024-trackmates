@@ -510,7 +510,7 @@ class FriendController extends BaseController {
 	 *       - bearerAuth: []
 	 *     parameters:
 	 *       - name: search
-	 * 		   in: query
+	 *         in: query
 	 *         schema:
 	 *           type: string
 	 *       - name: count
@@ -558,7 +558,7 @@ class FriendController extends BaseController {
 	 *       - bearerAuth: []
 	 *     parameters:
 	 *       - name: search
-	 * 		   in: query
+	 *         in: query
 	 *         schema:
 	 *           type: string
 	 *       - name: count
@@ -606,7 +606,7 @@ class FriendController extends BaseController {
 	 *       - bearerAuth: []
 	 *     parameters:
 	 *       - name: search
-	 * 		   in: query
+	 *         in: query
 	 *         schema:
 	 *           type: string
 	 *       - name: count

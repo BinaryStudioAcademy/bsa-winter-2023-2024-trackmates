@@ -1,5 +1,8 @@
 import { HTTPCode, PermissionKey } from "~/libs/enums/enums.js";
-import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
+import {
+	changeCase,
+	convertPageToZeroIndexed,
+} from "~/libs/helpers/helpers.js";
 import {
 	type PaginationRequestDto,
 	type PaginationResponseDto,
@@ -7,7 +10,7 @@ import {
 } from "~/libs/types/types.js";
 
 import {
-	type PermissionService,
+	type PermissionRepository,
 	type PermissionsGetAllResponseDto,
 } from "../permissions/permissions.js";
 import { type UserService } from "../users/users.js";
@@ -16,6 +19,7 @@ import { type GroupRepository } from "./group.repository.js";
 import { GroupErrorMessage } from "./libs/enums/enums.js";
 import { GroupError } from "./libs/exceptions/exceptions.js";
 import {
+	type GroupCreateRequestDto,
 	type GroupRequestDto,
 	type GroupResponseDto,
 	type GroupsGetAllResponseDto,
@@ -23,27 +27,29 @@ import {
 
 type Constructor = {
 	groupRepository: GroupRepository;
-	permissionService: PermissionService;
+	permissionRepository: PermissionRepository;
 	userService: UserService;
 };
 
 class GroupService implements Service {
 	private groupRepository: GroupRepository;
-	private permissionService: PermissionService;
+	private permissionRepository: PermissionRepository;
 	private userService: UserService;
 
 	public constructor({
 		groupRepository,
-		permissionService,
+		permissionRepository,
 		userService,
 	}: Constructor) {
 		this.groupRepository = groupRepository;
-		this.permissionService = permissionService;
+		this.permissionRepository = permissionRepository;
 		this.userService = userService;
 	}
 
-	public async create(group: GroupRequestDto): Promise<GroupResponseDto> {
-		const { key, name } = group;
+	public async create(group: GroupCreateRequestDto): Promise<GroupResponseDto> {
+		const { name, permissions: permissionKeys } = group;
+		const key = changeCase(name, "kebab");
+
 		const groupByKey = await this.groupRepository.findByKey(key);
 		const groupByName = await this.groupRepository.findByName(name);
 
@@ -54,8 +60,12 @@ class GroupService implements Service {
 			});
 		}
 
+		const permissions = await this.permissionRepository.findAll({
+			keys: permissionKeys,
+		});
+
 		const createdGroup = await this.groupRepository.create(
-			GroupEntity.initializeNew({ key, name }),
+			GroupEntity.initializeNew({ key, name, permissions }),
 		);
 
 		return createdGroup.toObject();
@@ -214,7 +224,7 @@ class GroupService implements Service {
 
 		const updatedGroup = await this.groupRepository.update(
 			id,
-			GroupEntity.initializeNew({ key, name }),
+			GroupEntity.initializeNew({ key, name, permissions: [] }),
 		);
 
 		return updatedGroup.toObject();
@@ -225,7 +235,7 @@ class GroupService implements Service {
 		permissionId: number,
 		currentUserId: number,
 	): Promise<PermissionsGetAllResponseDto> {
-		const permissionById = await this.permissionService.find(permissionId);
+		const permissionById = await this.permissionRepository.find(permissionId);
 		const groupById = await this.groupRepository.find(groupId);
 
 		if (!groupById) {
@@ -240,7 +250,10 @@ class GroupService implements Service {
 			currentUserId,
 		);
 
-		if (hasGroup && permissionById.key === PermissionKey.MANAGE_UAM) {
+		if (
+			hasGroup &&
+			permissionById?.toObject().key === PermissionKey.MANAGE_UAM
+		) {
 			throw new GroupError({
 				message: GroupErrorMessage.PERMISSION_CHANGE_FORBIDDEN,
 				status: HTTPCode.BAD_REQUEST,
@@ -257,7 +270,9 @@ class GroupService implements Service {
 					groupId,
 					permissionId,
 				)
-			: await this.groupRepository.addPermissionToGroup(groupId, permissionId);
+			: await this.groupRepository.addPermissionsToGroup(groupId, [
+					permissionId,
+				]);
 
 		return {
 			items: permissionsInGroup.map((permission) => {

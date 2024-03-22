@@ -19,7 +19,7 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 		},
 		manifest: {
 			description:
-				"Trackmates - monitor your progress and the progress of your friends!",
+				"TrackMates — keep an eye on your learning progress and track the progress of your friends as you navigate through courses together!",
 			icons: [
 				{
 					sizes: "192x192",
@@ -42,26 +42,33 @@ const config = ({ mode }: ConfigEnv): ReturnType<typeof defineConfig> => {
 					type: "image/png",
 				},
 			],
-			name: "Trackmates",
+			name: "TrackMates",
 			screenshots: [
 				{
-					sizes: "1008x717",
-					src: "/assets/screen-desk.png",
-					type: "image/png",
-				},
-				{
-					sizes: "595x715",
-					src: "/assets/screen-tablet.png",
-					type: "image/png",
+					form_factor: "wide",
+					sizes: "1232x810",
+					src: "/assets/screen-desk-first.jpg",
+					type: "image/jpg",
 				},
 				{
 					form_factor: "wide",
-					sizes: "1440x1024",
-					src: "/assets/screen-desk-1440-1024.png",
-					type: "image/png",
+					sizes: "1232x810",
+					src: "/assets/screen-desk-second.jpg",
+					type: "image/jpg",
+				},
+				{
+					form_factor: "wide",
+					sizes: "1232x810",
+					src: "/assets/screen-desk-third.jpg",
+					type: "image/jpg",
+				},
+				{
+					sizes: "768x504",
+					src: "/assets/screen-desk-fourth.jpg",
+					type: "image/jpg",
 				},
 			],
-			short_name: "Trackmates",
+			short_name: "TrackMates",
 			theme_color: "#0b372f",
 		},
 		outDir: "build",

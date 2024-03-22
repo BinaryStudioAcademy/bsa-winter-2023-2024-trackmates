@@ -1,15 +1,9 @@
-import {
-	Button,
-	Input,
-	Loader,
-	Pagination,
-} from "~/libs/components/components.js";
+import { Loader, Pagination } from "~/libs/components/components.js";
 import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
 import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import { findItemById } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
-	useAppForm,
 	useAppSelector,
 	useCallback,
 	useEffect,
@@ -18,19 +12,27 @@ import {
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
+	type GroupCreateRequestDto,
 	type GroupResponseDto,
-	groupNameFieldValidationSchema,
 	actions as groupsActions,
 } from "~/modules/groups/groups.js";
 import { actions as permissionsActions } from "~/modules/permissions/permissions.js";
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
+import { AddGroupModal } from "../add-group-modal/add-group-modal.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
 import { EditGroupModal, GroupsTable } from "./libs/components/components.js";
-import { INPUT_DEFAULT_VALUE } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
-const GroupsTab: React.FC = () => {
+type Properties = {
+	isAddGroupModalOpen: boolean;
+	onAddGroupModalClose: () => void;
+};
+
+const GroupsTab: React.FC<Properties> = ({
+	isAddGroupModalOpen,
+	onAddGroupModalClose,
+}: Properties) => {
 	const dispatch = useAppDispatch();
 	const {
 		authUser,
@@ -56,13 +58,6 @@ const GroupsTab: React.FC = () => {
 		totalCount: total,
 	});
 
-	const { control, errors, handleSubmit, reset } = useAppForm<{ name: string }>(
-		{
-			defaultValues: INPUT_DEFAULT_VALUE,
-			validationSchema: groupNameFieldValidationSchema,
-		},
-	);
-
 	const [currentGroup, setCurrentGroup] = useState<GroupResponseDto | null>(
 		null,
 	);
@@ -81,21 +76,12 @@ const GroupsTab: React.FC = () => {
 	}, [dispatch, page]);
 
 	const handleCreateGroup = useCallback(
-		({ name }: { name: string }) => {
-			const key = name.trim().replace(" ", "-").toLowerCase();
+		(payload: GroupCreateRequestDto) => {
 			void dispatch(
-				groupsActions.createGroup({ createPayload: { key, name }, page }),
+				groupsActions.createGroup({ createPayload: payload, page }),
 			);
-			reset();
 		},
-		[dispatch, reset, page],
-	);
-
-	const handleFormSubmit = useCallback(
-		(event_: React.BaseSyntheticEvent): void => {
-			void handleSubmit(handleCreateGroup)(event_);
-		},
-		[handleSubmit, handleCreateGroup],
+		[dispatch, page],
 	);
 
 	const handleCloseEditModal = useCallback(() => {
@@ -158,26 +144,6 @@ const GroupsTab: React.FC = () => {
 	return (
 		<>
 			<div className={styles["container"]}>
-				<form className={styles["group-form"]} onSubmit={handleFormSubmit}>
-					<div className={styles["input"]}>
-						<Input
-							color="light"
-							control={control}
-							errors={errors}
-							label="Group name"
-							name="name"
-							placeholder="Group name"
-							type="text"
-						/>
-					</div>
-					<Button
-						className={styles["button"]}
-						label="Create"
-						size="small"
-						style="primary"
-						type="submit"
-					/>
-				</form>
 				{isGroupsLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
@@ -193,6 +159,12 @@ const GroupsTab: React.FC = () => {
 				)}
 			</div>
 			<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
+			<AddGroupModal
+				isOpen={isAddGroupModalOpen}
+				onClose={onAddGroupModalClose}
+				onCreate={handleCreateGroup}
+				permissions={permissions}
+			/>
 			{currentGroup && (
 				<EditGroupModal
 					group={currentGroup}

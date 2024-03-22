@@ -6,10 +6,17 @@ import {
 } from "../enums/enums.js";
 
 type ReadChatMessagesRequestValidation = {
+	chatId: z.ZodNumber;
 	chatMessageIds: z.ZodArray<z.ZodNumber, z.ArrayCardinality>;
 };
 
 const readChatMessagesRequest = z.object<ReadChatMessagesRequestValidation>({
+	chatId: z
+		.number()
+		.min(
+			ChatMessageValidationRule.CHAT_ID_MINIMUM_VALUE,
+			ChatMessageValidationMessage.CHAT_ID_MINIMUM_VALUE,
+		),
 	chatMessageIds: z
 		.array(
 			z

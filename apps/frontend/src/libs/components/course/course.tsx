@@ -21,12 +21,14 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	course: CourseDto | CourseSearchResponseDto | UserCourseResponseDto;
+	isCommon?: boolean;
 	onAddCourse?: ((coursePayload: AddCourseRequestDto) => void) | undefined;
 	userId?: number | undefined;
 };
 
 const Course: React.FC<Properties> = ({
 	course,
+	isCommon = false,
 	onAddCourse,
 	userId,
 }: Properties) => {
@@ -60,7 +62,6 @@ const Course: React.FC<Properties> = ({
 
 	const hasAddCourse = !!onAddCourse;
 	const hasProgress = checkIsUserCourse(course);
-	const hasCompare = !hasProgress && !hasAddCourse;
 
 	const handleAddCourse = useCallback(() => {
 		onAddCourse?.({
@@ -72,9 +73,15 @@ const Course: React.FC<Properties> = ({
 	return (
 		<article className={styles["container"]}>
 			{hasProgress ? (
-				<Link className={styles["link"]} to={courseDescriptionRouteById}>
-					<CourseCard course={course} />
-				</Link>
+				<>
+					<Link className={styles["link"]} to={courseDescriptionRouteById}>
+						<CourseCard
+							course={course}
+							courseComparisonRoute={courseComparisonRoute}
+							isCommon={isCommon}
+						/>
+					</Link>
+				</>
 			) : (
 				<CourseCard course={course} />
 			)}
@@ -95,16 +102,6 @@ const Course: React.FC<Properties> = ({
 						isLoading={isLoading}
 						label="Add"
 						onClick={handleAddCourse}
-						size="small"
-					/>
-				</div>
-			)}
-			{hasCompare && (
-				<div className={styles["actions"]}>
-					<Button
-						className={styles["compare-progress-button"]}
-						href={courseComparisonRoute}
-						label="Compare progress"
 						size="small"
 					/>
 				</div>

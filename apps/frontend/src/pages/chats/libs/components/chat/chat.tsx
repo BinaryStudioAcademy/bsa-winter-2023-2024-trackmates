@@ -1,5 +1,12 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
-import { Button, Image, Link, Loader } from "~/libs/components/components.js";
+import {
+	Button,
+	Icon,
+	Image,
+	Link,
+	Loader,
+} from "~/libs/components/components.js";
+import { START_INDEX } from "~/libs/components/content/libs/constants.js";
 import { EMPTY_LENGTH, LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
@@ -8,6 +15,7 @@ import {
 	useCallback,
 	useEffect,
 	useNavigate,
+	useRef,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
@@ -15,8 +23,10 @@ import {
 	type ChatMessageItemResponseDto,
 	actions as chatMessageActions,
 } from "~/modules/chat-messages/chat-messages.js";
-import { actions as chatActions } from "~/modules/chats/chats.js";
-import { type UserAuthResponseDto } from "~/modules/users/users.js";
+import {
+	type ChatItemResponseDto,
+	actions as chatActions,
+} from "~/modules/chats/chats.js";
 
 import {
 	type DEFAULT_MESSAGE_PAYLOAD,
@@ -30,25 +40,25 @@ import { ChatMessage } from "../chat-message/chat-message.js";
 import styles from "./styles.module.css";
 
 type Properties = {
+	chat: ChatItemResponseDto;
 	className?: string | undefined;
 	isMessageLoading: boolean;
-	messages: ChatMessageItemResponseDto[];
 	onSubmit: (payload: typeof DEFAULT_MESSAGE_PAYLOAD) => void;
-	receiver: UserAuthResponseDto;
 };
 
 const Chat: React.FC<Properties> = ({
+	chat,
 	className,
 	isMessageLoading,
-	messages,
 	onSubmit,
-	receiver,
 }: Properties) => {
+	const { id, interlocutor, messages } = chat;
 	const [readChatMessageIds, setChatMessageIds] = useState<Set<number>>(
 		new Set<number>(),
 	);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const lastMessageReference = useRef<HTMLElement | null>(null);
 
 	const handleRead = useCallback(
 		(chatMessageId: number): void => {
@@ -64,6 +74,7 @@ const Chat: React.FC<Properties> = ({
 
 		void dispatch(
 			chatMessageActions.setReadChatMessages({
+				chatId: id,
 				chatMessageIds: [...readChatMessageIds],
 			}),
 		);
@@ -89,7 +100,14 @@ const Chat: React.FC<Properties> = ({
 		dispatch(chatActions.leaveChat());
 	}, [navigate, dispatch]);
 
+	useEffect(() => {
+		lastMessageReference.current?.scrollIntoView({
+			behavior: "smooth",
+		});
+	}, [messages.length, lastMessageReference]);
+
 	const chatsStyles = getValidClassNames(styles["container"], className);
+	const hasSubscription = Boolean(interlocutor.subscription);
 
 	return (
 		<div className={chatsStyles}>
@@ -107,18 +125,24 @@ const Chat: React.FC<Properties> = ({
 				<div className={styles["user-container"]}>
 					<Link
 						className={styles["image-container"]}
-						to={`/users/${receiver.id}` as ValueOf<typeof AppRoute>}
+						to={`/users/${interlocutor.id}` as ValueOf<typeof AppRoute>}
 					>
 						<Image
 							alt="User avatar"
+							className={getValidClassNames(
+								hasSubscription && styles["premium"],
+							)}
 							height="48"
 							shape="circle"
-							src={receiver.avatarUrl ?? defaultAvatar}
+							src={interlocutor.avatarUrl ?? defaultAvatar}
 							width="48"
 						/>
+						{hasSubscription && (
+							<Icon className={styles["premium-icon"]} name="crown" />
+						)}
 					</Link>
 					<span className={styles["full-name"]}>
-						{receiver.firstName} {receiver.lastName}
+						{interlocutor.firstName} {interlocutor.lastName}
 					</span>
 				</div>
 			</div>
@@ -130,10 +154,11 @@ const Chat: React.FC<Properties> = ({
 						<ChatDate date={item.value as string} key={`date-${index}`} />
 					) : (
 						<ChatMessage
-							isCurrentUserSender={receiver.id !== message.senderUser.id}
+							isCurrentUserSender={interlocutor.id !== message.senderUser.id}
 							key={message.id}
 							message={message}
 							onRead={handleRead}
+							ref={index === START_INDEX ? lastMessageReference : undefined}
 						/>
 					);
 				})}

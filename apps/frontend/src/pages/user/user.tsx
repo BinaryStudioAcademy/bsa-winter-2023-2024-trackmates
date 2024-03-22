@@ -3,7 +3,9 @@ import {
 	Button,
 	Courses,
 	EmptyPagePlaceholder,
+	Icon,
 	Image,
+	Link,
 	Loader,
 	Navigate,
 	Pagination,
@@ -18,7 +20,9 @@ import {
 	AppTitle,
 	DataStatus,
 	PaginationValue,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
+import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -28,6 +32,7 @@ import {
 	useNavigate,
 	usePagination,
 	useParams,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
@@ -44,9 +49,10 @@ const User: React.FC = () => {
 	const { id } = useParams();
 	const userId = Number(id);
 	const {
-		commonCourses,
+		commonCoursesIds,
 		courses,
 		currentUserId,
+		hasSubscription,
 		isCoursesLoading,
 		isFollowing,
 		isUserNotFound,
@@ -54,9 +60,12 @@ const User: React.FC = () => {
 		totalCount,
 	} = useAppSelector((state) => {
 		return {
-			commonCourses: state.userCourses.commonCourses,
+			commonCoursesIds: state.userCourses.commonCoursesIds,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
+			hasSubscription: Boolean(
+				(state.auth.user as UserAuthResponseDto).subscription,
+			),
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			isFollowing: state.friends.isFollowing,
 			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
@@ -64,6 +73,8 @@ const User: React.FC = () => {
 			totalCount: state.userCourses.totalUserCoursesCount,
 		};
 	});
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
@@ -95,7 +106,11 @@ const User: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
-		void dispatch(userCoursesActions.loadCommonCourses(userId));
+
+		if (hasSubscription) {
+			void dispatch(userCoursesActions.loadCommonCourses(userId));
+		}
+
 		void dispatch(friendsActions.getIsFollowing(userId));
 
 		return () => {
@@ -103,21 +118,20 @@ const User: React.FC = () => {
 			dispatch(userCoursesActions.reset());
 			dispatch(friendsActions.resetIsFollowing());
 		};
-	}, [dispatch, userId]);
+	}, [dispatch, userId, hasSubscription]);
 
 	useEffect(() => {
 		void dispatch(
 			userCoursesActions.loadUserCourses({
 				count: PaginationValue.DEFAULT_COUNT,
 				page,
-				search: "",
+				search: searchQuery ?? "",
 				userId,
 			}),
 		);
-	}, [dispatch, userId, page]);
+	}, [dispatch, userId, page, searchQuery]);
 
 	const hasUser = Boolean(profileUser);
-	const hasCommonCourses = commonCourses.length > EMPTY_LENGTH;
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
@@ -131,6 +145,10 @@ const User: React.FC = () => {
 
 	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
 
+	const isPremiumUser = Boolean(
+		(profileUser as UserAuthResponseDto).subscription,
+	);
+
 	return (
 		<div className={styles["container"]}>
 			<Button
@@ -143,16 +161,25 @@ const User: React.FC = () => {
 			/>
 
 			<div className={styles["user-content"]}>
-				<div className={styles["profile-image-wrapper"]}>
-					<Image
-						alt="avatar"
-						className={styles["profile-image"]}
-						src={
-							(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
-						}
-					/>
+				<div className={styles["avatar"]}>
+					<div
+						className={getValidClassNames(
+							styles["profile-image-wrapper"],
+							isPremiumUser && styles["premium"],
+						)}
+					>
+						<Image
+							alt="avatar"
+							className={styles["profile-image"]}
+							src={
+								(profileUser as UserAuthResponseDto).avatarUrl ?? defaultAvatar
+							}
+						/>
+					</div>
+					{isPremiumUser && (
+						<Icon className={styles["premium-icon"]} name="crown" />
+					)}
 				</div>
-
 				<div className={styles["user-wrapper"]}>
 					<p className={styles["fullName"]}>{fullName}</p>
 					<Button
@@ -167,18 +194,34 @@ const User: React.FC = () => {
 			</div>
 
 			<div className={styles["courses-container"]}>
-				<h2 className={styles["courses-title"]}>Courses</h2>
+				<div className={styles["title-container"]}>
+					<h2 className={styles["courses-title"]}>Courses</h2>
+					{!hasSubscription && (
+						<p className={styles["courses-subtitle"]}>
+							Want to compare your progress with your friend? Then{" "}
+							<Link className={styles["link"]} to={AppRoute.PROFILE}>
+								subscribe
+							</Link>
+							!
+						</p>
+					)}
+				</div>
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
 					<>
 						{hasCourses ? (
 							<div className={styles["courses-container-content"]}>
-								<Courses courses={courses} userId={userId} />
+								<Courses
+									commonCoursesIds={commonCoursesIds}
+									courses={courses}
+									userId={userId}
+								/>
 								<Pagination
 									currentPage={page}
 									pages={pages}
 									pagesCount={pagesCount}
+									searchQuery={searchQuery}
 								/>
 							</div>
 						) : (
@@ -187,12 +230,6 @@ const User: React.FC = () => {
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}
-					</>
-				)}
-				{hasCommonCourses && (
-					<>
-						<h2 className={styles["courses-title"]}>Common courses</h2>
-						<Courses courses={commonCourses} userId={userId} />
 					</>
 				)}
 			</div>

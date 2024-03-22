@@ -1,1 +1,1 @@
-export { INPUT_DEFAULT_VALUE } from "./input-default-value.constant.js";
+export { DEFAULT_GROUP_CREATE_IN_PAYLOAD } from "./default-group-create-in-payload.constant.js";

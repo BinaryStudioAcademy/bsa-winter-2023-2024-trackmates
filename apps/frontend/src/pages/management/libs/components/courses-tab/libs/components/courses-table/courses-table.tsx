@@ -4,8 +4,8 @@ import { useMemo } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
-import { CoursesTableColumnAlign } from "./libs/enums/enums.js";
 import { getCourseColumns, getCourseData } from "./libs/helpers/helpers.js";
+import { coursesTableColumnToColumnAlign } from "./libs/maps/maps.js";
 
 type Properties = {
 	courseToDataStatus: Record<
@@ -40,7 +40,7 @@ const CoursesTable: React.FC<Properties> = ({
 
 	return (
 		<Table
-			columnAlign={CoursesTableColumnAlign}
+			columnAlign={coursesTableColumnToColumnAlign}
 			columns={courseColumns}
 			data={courseData}
 		/>

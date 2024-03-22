@@ -1,4 +1,4 @@
-import { PaginationValue } from "~/libs/enums/enums.js";
+import { PaginationValue, QueryParameterName } from "~/libs/enums/enums.js";
 import { useEffect, useSearchParams, useState } from "~/libs/hooks/hooks.js";
 
 import {
@@ -27,6 +27,8 @@ const usePagination: UsePagination = ({
 	const [searchParameters] = useSearchParams();
 	const pageFromQuery = Number(searchParameters.get(queryName));
 
+	const searchQuery = searchParameters.get(QueryParameterName.SEARCH);
+
 	const pagesCount = Math.ceil(totalCount / pageSize);
 	const isValidPage = checkIsValidPage(pageFromQuery, pagesCount);
 
@@ -49,7 +51,14 @@ const usePagination: UsePagination = ({
 			setPage(pageFromQuery);
 		} else if (isInvalidPage) {
 			setPage(PaginationValue.DEFAULT_PAGE);
-			const url = new URL(window.location.origin + window.location.pathname);
+
+			const url = new URL(window.location.origin);
+			url.pathname = window.location.pathname;
+
+			if (searchQuery) {
+				url.searchParams.set("search", searchQuery);
+			}
+
 			window.history.replaceState(null, "", url.toString());
 		}
 	}, [pageFromQuery, pagesCount, location.pathname]);

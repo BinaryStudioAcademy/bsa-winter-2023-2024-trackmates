@@ -83,6 +83,7 @@ const UsersTab: React.FC = () => {
 
 	const handleCloseDeleteModal = useCallback(() => {
 		setIsConfirmationModalOpen(false);
+		setIsConfirmationModalOpen(false);
 		setCurrentUser(null);
 	}, []);
 
