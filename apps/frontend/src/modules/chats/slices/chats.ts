@@ -6,6 +6,7 @@ import {
 	getUnreadMessagesCount,
 	joinRoom,
 	leaveRoom,
+	updateMessagesStatus,
 } from "./actions.js";
 import { actions } from "./chats.slice.js";
 
@@ -18,6 +19,7 @@ const allAction = {
 	getUnreadMessagesCount,
 	joinRoom,
 	leaveRoom,
+	updateMessagesStatus,
 };
 
 export { reducer } from "./chats.slice.js";
