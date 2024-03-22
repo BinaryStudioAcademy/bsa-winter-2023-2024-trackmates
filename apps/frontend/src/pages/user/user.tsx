@@ -51,6 +51,7 @@ const User: React.FC = () => {
 		commonCourses,
 		courses,
 		currentUserId,
+		hasSubscription,
 		isCoursesLoading,
 		isFollowing,
 		isUserNotFound,
@@ -61,6 +62,9 @@ const User: React.FC = () => {
 			commonCourses: state.userCourses.commonCourses,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
+			hasSubscription: Boolean(
+				(state.auth.user as UserAuthResponseDto).subscription,
+			),
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			isFollowing: state.friends.isFollowing,
 			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
@@ -101,7 +105,11 @@ const User: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
-		void dispatch(userCoursesActions.loadCommonCourses(userId));
+
+		if (hasSubscription) {
+			void dispatch(userCoursesActions.loadCommonCourses(userId));
+		}
+
 		void dispatch(friendsActions.getIsFollowing(userId));
 
 		return () => {
@@ -109,7 +117,7 @@ const User: React.FC = () => {
 			dispatch(userCoursesActions.reset());
 			dispatch(friendsActions.resetIsFollowing());
 		};
-	}, [dispatch, userId]);
+	}, [dispatch, userId, hasSubscription]);
 
 	useEffect(() => {
 		void dispatch(
@@ -123,8 +131,6 @@ const User: React.FC = () => {
 	}, [dispatch, userId, page, searchQuery]);
 
 	const hasUser = Boolean(profileUser);
-	const hasCommonCourses = commonCourses.length > EMPTY_LENGTH;
-	const hasSubscription = Boolean(profileUser?.subscription);
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
@@ -137,6 +143,13 @@ const User: React.FC = () => {
 	const hasCourses = courses.length > EMPTY_LENGTH;
 
 	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
+
+	const isPremiumUser = Boolean(
+		(profileUser as UserAuthResponseDto).subscription,
+	);
+
+	const isCommonCoursesShown =
+		hasSubscription && commonCourses.length > EMPTY_LENGTH;
 
 	return (
 		<div className={styles["container"]}>
@@ -154,7 +167,7 @@ const User: React.FC = () => {
 					<div
 						className={getValidClassNames(
 							styles["profile-image-wrapper"],
-							hasSubscription && styles["premium"],
+							isPremiumUser && styles["premium"],
 						)}
 					>
 						<Image
@@ -165,7 +178,7 @@ const User: React.FC = () => {
 							}
 						/>
 					</div>
-					{hasSubscription && (
+					{isPremiumUser && (
 						<Icon className={styles["premium-icon"]} name="crown" />
 					)}
 				</div>
@@ -206,7 +219,7 @@ const User: React.FC = () => {
 						)}
 					</>
 				)}
-				{hasCommonCourses && (
+				{isCommonCoursesShown && (
 					<>
 						<h2 className={styles["courses-title"]}>Common courses</h2>
 						<Courses courses={commonCourses} userId={userId} />
