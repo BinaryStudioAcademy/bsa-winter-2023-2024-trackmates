@@ -15,13 +15,13 @@
 	}
 }
 
-@media screen and (--medium-screen) {
+@media screen and (width <= 875) {
 	.list {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
-@media screen and (--small-screen) {
+@media screen and (width <= 580) {
 	.list {
 		grid-template-columns: 1fr;
 	}
