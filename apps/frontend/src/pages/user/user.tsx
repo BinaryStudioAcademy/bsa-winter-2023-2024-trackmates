@@ -19,6 +19,7 @@ import {
 	AppTitle,
 	DataStatus,
 	PaginationValue,
+	QueryParameterName,
 } from "~/libs/enums/enums.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import {
@@ -30,6 +31,7 @@ import {
 	useNavigate,
 	usePagination,
 	useParams,
+	useSearchParams,
 } from "~/libs/hooks/hooks.js";
 import { actions as friendsActions } from "~/modules/friends/friends.js";
 import { actions as userCoursesActions } from "~/modules/user-courses/user-courses.js";
@@ -70,6 +72,8 @@ const User: React.FC = () => {
 			totalCount: state.userCourses.totalUserCoursesCount,
 		};
 	});
+	const [queryParameters] = useSearchParams();
+	const searchQuery = queryParameters.get(QueryParameterName.SEARCH);
 
 	const { page, pages, pagesCount } = usePagination({
 		pageSize: PaginationValue.DEFAULT_COUNT,
@@ -120,11 +124,11 @@ const User: React.FC = () => {
 			userCoursesActions.loadUserCourses({
 				count: PaginationValue.DEFAULT_COUNT,
 				page,
-				search: "",
+				search: searchQuery ?? "",
 				userId,
 			}),
 		);
-	}, [dispatch, userId, page]);
+	}, [dispatch, userId, page, searchQuery]);
 
 	const hasUser = Boolean(profileUser);
 
@@ -204,6 +208,7 @@ const User: React.FC = () => {
 									currentPage={page}
 									pages={pages}
 									pagesCount={pagesCount}
+									searchQuery={searchQuery}
 								/>
 							</div>
 						) : (

@@ -216,7 +216,7 @@ const AddCourseModal: React.FC<Properties> = ({
 				<div className={styles["content"]}>
 					<div className={styles["course-container"]}>
 						{isLoadFirstPage && <Loader color="orange" size="large" />}
-						{hasCourses && (
+						{hasCourses ? (
 							<>
 								{hasSubscription && (
 									<div>
@@ -250,6 +250,15 @@ const AddCourseModal: React.FC<Properties> = ({
 									/>
 								</div>
 							</>
+						) : (
+							!isLoadFirstPage && (
+								<div className={styles["placeholder-container"]}>
+									<p className={styles["placeholder-title"]}>
+										Let&apos;s search for something...
+									</p>
+									<div className={styles["character"]} />
+								</div>
+							)
 						)}
 					</div>
 				</div>
