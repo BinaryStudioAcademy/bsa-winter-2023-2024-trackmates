@@ -32,6 +32,7 @@ type State = {
 	recommendedCourses: CourseSearchResponseDto[];
 	searchDataStatus: ValueOf<typeof DataStatus>;
 	searchedCourses: CourseSearchResponseDto[];
+	totalCoursesCount: number;
 };
 
 const initialState: State = {
@@ -43,6 +44,7 @@ const initialState: State = {
 	recommendedCourses: [],
 	searchDataStatus: DataStatus.IDLE,
 	searchedCourses: [],
+	totalCoursesCount: 0,
 };
 
 const { actions, name, reducer } = createSlice({
@@ -108,10 +110,14 @@ const { actions, name, reducer } = createSlice({
 			state.addedVendorCourseDataStatuses[vendorCourseId] =
 				DataStatus.FULFILLED;
 		});
-		builder.addCase(getAll.fulfilled, (state, action) => {
-			state.allCourses = action.payload;
-			state.allCoursesDataStatus = DataStatus.FULFILLED;
-		});
+		builder.addCase(
+			getAll.fulfilled,
+			(state, { payload: { items, total } }) => {
+				state.allCourses = items;
+				state.totalCoursesCount = total;
+				state.allCoursesDataStatus = DataStatus.FULFILLED;
+			},
+		);
 		builder.addCase(getAll.pending, (state) => {
 			state.allCoursesDataStatus = DataStatus.PENDING;
 		});
@@ -121,7 +127,15 @@ const { actions, name, reducer } = createSlice({
 
 		builder.addCase(
 			deleteById.fulfilled,
-			(state, { meta: { arg: courseId }, payload }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { courseId },
+					},
+					payload,
+				},
+			) => {
 				if (payload) {
 					state.allCourses = state.allCourses.filter((course) => {
 						return course.id !== courseId;
@@ -134,7 +148,14 @@ const { actions, name, reducer } = createSlice({
 		);
 		builder.addCase(
 			deleteById.pending,
-			(state, { meta: { arg: courseId } }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { courseId },
+					},
+				},
+			) => {
 				state.courseToDataStatus[courseId] = {
 					deleteDataStatus: DataStatus.PENDING,
 				};
@@ -142,7 +163,14 @@ const { actions, name, reducer } = createSlice({
 		);
 		builder.addCase(
 			deleteById.rejected,
-			(state, { meta: { arg: courseId } }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { courseId },
+					},
+				},
+			) => {
 				state.courseToDataStatus[courseId] = {
 					deleteDataStatus: DataStatus.REJECTED,
 				};
