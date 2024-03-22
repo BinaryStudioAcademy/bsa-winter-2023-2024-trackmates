@@ -4,6 +4,7 @@
 	flex-grow: 1;
 	row-gap: 40px;
 	width: 100%;
+	margin-bottom: 40px;
 }
 
 .table-container {
