@@ -175,7 +175,7 @@
 
 @media screen and (--small-screen) {
 	.welcome-section-header {
-		padding: 15px 10px;
+		padding: 20px 10px;
 	}
 
 	.welcome-section-header-content {
@@ -185,10 +185,6 @@
 
 	.welcome-section-header-title {
 		font-size: var(--font-size-100);
-	}
-
-	.welcome-section-header-subtitle {
-		font-size: var(--font-size-200);
 	}
 
 	.add-course-button {
