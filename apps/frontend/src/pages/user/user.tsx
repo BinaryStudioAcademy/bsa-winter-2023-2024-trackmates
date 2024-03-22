@@ -5,6 +5,7 @@ import {
 	EmptyPagePlaceholder,
 	Icon,
 	Image,
+	Link,
 	Loader,
 	Navigate,
 	Pagination,
@@ -48,9 +49,10 @@ const User: React.FC = () => {
 	const { id } = useParams();
 	const userId = Number(id);
 	const {
-		commonCourses,
+		commonCoursesIds,
 		courses,
 		currentUserId,
+		hasSubscription,
 		isCoursesLoading,
 		isFollowing,
 		isUserNotFound,
@@ -58,9 +60,12 @@ const User: React.FC = () => {
 		totalCount,
 	} = useAppSelector((state) => {
 		return {
-			commonCourses: state.userCourses.commonCourses,
+			commonCoursesIds: state.userCourses.commonCoursesIds,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
+			hasSubscription: Boolean(
+				(state.auth.user as UserAuthResponseDto).subscription,
+			),
 			isCoursesLoading: state.userCourses.dataStatus === DataStatus.PENDING,
 			isFollowing: state.friends.isFollowing,
 			isUserNotFound: state.users.dataStatus === DataStatus.REJECTED,
@@ -101,7 +106,11 @@ const User: React.FC = () => {
 
 	useEffect(() => {
 		void dispatch(usersActions.getById(userId));
-		void dispatch(userCoursesActions.loadCommonCourses(userId));
+
+		if (hasSubscription) {
+			void dispatch(userCoursesActions.loadCommonCourses(userId));
+		}
+
 		void dispatch(friendsActions.getIsFollowing(userId));
 
 		return () => {
@@ -109,7 +118,7 @@ const User: React.FC = () => {
 			dispatch(userCoursesActions.reset());
 			dispatch(friendsActions.resetIsFollowing());
 		};
-	}, [dispatch, userId]);
+	}, [dispatch, userId, hasSubscription]);
 
 	useEffect(() => {
 		void dispatch(
@@ -123,8 +132,6 @@ const User: React.FC = () => {
 	}, [dispatch, userId, page, searchQuery]);
 
 	const hasUser = Boolean(profileUser);
-	const hasCommonCourses = commonCourses.length > EMPTY_LENGTH;
-	const hasSubscription = Boolean(profileUser?.subscription);
 
 	if (isUserNotFound || currentUserId === userId) {
 		return <Navigate to={AppRoute.ROOT} />;
@@ -137,6 +144,10 @@ const User: React.FC = () => {
 	const hasCourses = courses.length > EMPTY_LENGTH;
 
 	const fullName = `${(profileUser as UserAuthResponseDto).firstName} ${(profileUser as UserAuthResponseDto).lastName}`;
+
+	const isPremiumUser = Boolean(
+		(profileUser as UserAuthResponseDto).subscription,
+	);
 
 	return (
 		<div className={styles["container"]}>
@@ -154,7 +165,7 @@ const User: React.FC = () => {
 					<div
 						className={getValidClassNames(
 							styles["profile-image-wrapper"],
-							hasSubscription && styles["premium"],
+							isPremiumUser && styles["premium"],
 						)}
 					>
 						<Image
@@ -165,7 +176,7 @@ const User: React.FC = () => {
 							}
 						/>
 					</div>
-					{hasSubscription && (
+					{isPremiumUser && (
 						<Icon className={styles["premium-icon"]} name="crown" />
 					)}
 				</div>
@@ -183,14 +194,29 @@ const User: React.FC = () => {
 			</div>
 
 			<div className={styles["courses-container"]}>
-				<h2 className={styles["courses-title"]}>Courses</h2>
+				<div className={styles["title-container"]}>
+					<h2 className={styles["courses-title"]}>Courses</h2>
+					{!hasSubscription && (
+						<p className={styles["courses-subtitle"]}>
+							Want to compare your progress with your friend? Then{" "}
+							<Link className={styles["link"]} to={AppRoute.PROFILE}>
+								subscribe
+							</Link>
+							!
+						</p>
+					)}
+				</div>
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
 					<>
 						{hasCourses ? (
 							<div className={styles["courses-container-content"]}>
-								<Courses courses={courses} userId={userId} />
+								<Courses
+									commonCoursesIds={commonCoursesIds}
+									courses={courses}
+									userId={userId}
+								/>
 								<Pagination
 									currentPage={page}
 									pages={pages}
@@ -204,12 +230,6 @@ const User: React.FC = () => {
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}
-					</>
-				)}
-				{hasCommonCourses && (
-					<>
-						<h2 className={styles["courses-title"]}>Common courses</h2>
-						<Courses courses={commonCourses} userId={userId} />
 					</>
 				)}
 			</div>

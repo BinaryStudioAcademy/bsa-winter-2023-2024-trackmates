@@ -1,3 +1,5 @@
+@import url("~/assets/css/media.css");
+
 .content {
 	display: flex;
 	flex-direction: column;
@@ -7,6 +9,7 @@
 }
 
 .image-container {
+	position: relative;
 	width: 100%;
 	height: auto;
 	aspect-ratio: 16/9;
@@ -19,6 +22,7 @@
 	position: absolute;
 	top: -1px;
 	right: 25px;
+	z-index: var(--z-index-high);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -57,4 +61,36 @@
 	margin: 0;
 	font-weight: 500;
 	color: #9a9fa5;
+}
+
+.compare-progress-button {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: flex;
+	gap: 8px;
+	align-items: center;
+	justify-content: space-between;
+	width: 30px;
+	height: 30px;
+	min-height: unset;
+	padding: 0 10px 0 5px;
+	overflow: hidden;
+	font-size: var(--font-size-200);
+	color: var(--main-white);
+	background-image: linear-gradient(#febe30, var(--main-orange));
+	border: unset;
+}
+
+@media (--hover-active) {
+	.compare-progress-button:hover,
+	.compare-progress-button:focus {
+		width: 100px;
+	}
+}
+
+@media screen and (--large-screen) {
+	.compare-progress-button {
+		width: 100px;
+	}
 }

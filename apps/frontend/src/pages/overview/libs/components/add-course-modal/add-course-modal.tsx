@@ -1,7 +1,10 @@
+import premiumCharacter from "~/assets/img/premium-character.svg";
 import {
 	Button,
 	Courses,
+	Image,
 	Input,
+	Link,
 	Loader,
 	Modal,
 } from "~/libs/components/components.js";
@@ -16,6 +19,7 @@ import {
 	useEffect,
 	useState,
 } from "~/libs/hooks/hooks.js";
+import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import { actions as courseActions } from "~/modules/courses/courses.js";
 import {
 	type AddCourseRequestDto,
@@ -46,6 +50,7 @@ const AddCourseModal: React.FC<Properties> = ({
 	const dispatch = useAppDispatch();
 	const {
 		courses,
+		hasSubscription,
 		isRecommendedLoading,
 		isSearchLoading,
 		recommendedCourses,
@@ -53,6 +58,9 @@ const AddCourseModal: React.FC<Properties> = ({
 	} = useAppSelector((state) => {
 		return {
 			courses: state.courses.searchedCourses,
+			hasSubscription: Boolean(
+				(state.auth.user as UserAuthResponseDto).subscription,
+			),
 			isRecommendedLoading:
 				state.courses.recommendedDataStatus === DataStatus.PENDING,
 			isSearchLoading: state.courses.searchDataStatus === DataStatus.PENDING,
@@ -60,6 +68,7 @@ const AddCourseModal: React.FC<Properties> = ({
 			vendors: state.vendors.vendors,
 		};
 	});
+
 	const { control, errors, getValues, handleSubmit, setValue } = useAppForm({
 		defaultValues: DEFAULT_SEARCH_COURSE_PAYLOAD,
 		mode: "onChange",
@@ -90,13 +99,16 @@ const AddCourseModal: React.FC<Properties> = ({
 				vendorsKey: getVendorsFromForm(filterFormData.vendors),
 			}),
 		);
-		void dispatch(
-			courseActions.getRecommended({
-				page: PaginationValue.DEFAULT_PAGE,
-				search: filterFormData.search,
-				vendorsKey: getVendorsFromForm(filterFormData.vendors),
-			}),
-		);
+
+		if (hasSubscription) {
+			void dispatch(
+				courseActions.getRecommended({
+					page: PaginationValue.DEFAULT_PAGE,
+					search: filterFormData.search,
+					vendorsKey: getVendorsFromForm(filterFormData.vendors),
+				}),
+			);
+		}
 	};
 
 	const handleFormSubmit = useCallback(
@@ -186,24 +198,47 @@ const AddCourseModal: React.FC<Properties> = ({
 					</form>
 				</header>
 				<div className={styles["content"]}>
-					<div className={styles["course-container"]}>
-						{isLoadFirstPage && <Loader color="orange" size="large" />}
-						{hasCourses ? (
-							<>
-								<div>
-									<h2 className={styles["courses-title"]}>
-										Recommended Courses
-									</h2>
-									{isRecommendedLoading ? (
-										<Loader color="orange" size="large" />
-									) : (
-										<Courses
-											courses={recommendedCourses}
-											onAddCourse={handleAddCourse}
-										/>
-									)}
+					{isLoadFirstPage && <Loader color="orange" size="large" />}
+					{hasCourses ? (
+						<>
+							{!hasSubscription && (
+								<div className={styles["subscription-ad"]}>
+									<p>
+										<Link className={styles["link"]} to="/subscription">
+											Get premium
+										</Link>
+										<span className={styles["sub-content"]}>
+											{" "}
+											for AI-based recommendations and more!
+										</span>
+									</p>
+									<Image
+										alt="wqg"
+										className={styles["premium-character"]}
+										src={premiumCharacter}
+									/>
 								</div>
+							)}
 
+							<div className={styles["course-container"]}>
+								{hasSubscription && (
+									<div>
+										<div className={styles["courses-title-container"]}>
+											<h2 className={styles["courses-title"]}>
+												AI-based Recommendations
+											</h2>
+											<span className={styles["premium-label"]}>Premium</span>
+										</div>
+										{isRecommendedLoading ? (
+											<Loader color="orange" size="large" />
+										) : (
+											<Courses
+												courses={recommendedCourses}
+												onAddCourse={handleAddCourse}
+											/>
+										)}
+									</div>
+								)}
 								<div className={styles["searched-courses"]}>
 									<p className={styles["results-count"]}>
 										{courses.length} results
@@ -219,18 +254,18 @@ const AddCourseModal: React.FC<Properties> = ({
 										size="small"
 									/>
 								</div>
-							</>
-						) : (
-							!isLoadFirstPage && (
-								<div className={styles["placeholder-container"]}>
-									<p className={styles["placeholder-title"]}>
-										Let&apos;s search for something...
-									</p>
-									<div className={styles["character"]} />
-								</div>
-							)
-						)}
-					</div>
+							</div>
+						</>
+					) : (
+						!isLoadFirstPage && (
+							<div className={styles["placeholder-container"]}>
+								<p className={styles["placeholder-title"]}>
+									Let&apos;s search for something...
+								</p>
+								<div className={styles["character"]} />
+							</div>
+						)
+					)}
 				</div>
 			</div>
 		</Modal>

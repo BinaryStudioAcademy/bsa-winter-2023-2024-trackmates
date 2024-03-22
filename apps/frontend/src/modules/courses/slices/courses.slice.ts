@@ -21,7 +21,13 @@ type State = {
 	addedVendorCourseDataStatuses: Record<string, ValueOf<typeof DataStatus>>;
 	allCourses: CourseDto[];
 	allCoursesDataStatus: ValueOf<typeof DataStatus>;
-	courseToDataStatus: Record<number, ValueOf<typeof DataStatus>>;
+	courseToDataStatus: Record<
+		number,
+		{
+			deleteDataStatus?: ValueOf<typeof DataStatus>;
+			updateDataStatus?: ValueOf<typeof DataStatus>;
+		}
+	>;
 	currentCourse: CourseDto | null;
 	recommendedCourses: CourseSearchResponseDto[];
 	recommendedDataStatus: ValueOf<typeof DataStatus>;
@@ -122,20 +128,26 @@ const { actions, name, reducer } = createSlice({
 					state.allCourses = state.allCourses.filter((course) => {
 						return course.id !== courseId;
 					});
-					state.courseToDataStatus[courseId] = DataStatus.FULFILLED;
+					state.courseToDataStatus[courseId] = {
+						deleteDataStatus: DataStatus.FULFILLED,
+					};
 				}
 			},
 		);
 		builder.addCase(
 			deleteById.pending,
 			(state, { meta: { arg: courseId } }) => {
-				state.courseToDataStatus[courseId] = DataStatus.PENDING;
+				state.courseToDataStatus[courseId] = {
+					deleteDataStatus: DataStatus.PENDING,
+				};
 			},
 		);
 		builder.addCase(
 			deleteById.rejected,
 			(state, { meta: { arg: courseId } }) => {
-				state.courseToDataStatus[courseId] = DataStatus.REJECTED;
+				state.courseToDataStatus[courseId] = {
+					deleteDataStatus: DataStatus.REJECTED,
+				};
 			},
 		);
 
@@ -153,7 +165,9 @@ const { actions, name, reducer } = createSlice({
 				state.allCourses = state.allCourses.map((course) => {
 					return course.id === courseId ? payload : course;
 				});
-				state.courseToDataStatus[courseId] = DataStatus.FULFILLED;
+				state.courseToDataStatus[courseId] = {
+					updateDataStatus: DataStatus.FULFILLED,
+				};
 			},
 		);
 
@@ -167,7 +181,9 @@ const { actions, name, reducer } = createSlice({
 					},
 				},
 			) => {
-				state.courseToDataStatus[courseId] = DataStatus.PENDING;
+				state.courseToDataStatus[courseId] = {
+					updateDataStatus: DataStatus.PENDING,
+				};
 			},
 		);
 		builder.addCase(
@@ -180,7 +196,9 @@ const { actions, name, reducer } = createSlice({
 					},
 				},
 			) => {
-				state.courseToDataStatus[courseId] = DataStatus.REJECTED;
+				state.courseToDataStatus[courseId] = {
+					updateDataStatus: DataStatus.REJECTED,
+				};
 			},
 		);
 	},
