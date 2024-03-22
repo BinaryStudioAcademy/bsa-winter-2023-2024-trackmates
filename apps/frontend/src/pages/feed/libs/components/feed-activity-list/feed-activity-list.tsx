@@ -31,7 +31,7 @@ const FeedActivityList: React.FC<Properties> = ({
 
 	const loaderElementReference = useInfiniteScroll({
 		isLoading: isLoadingMore,
-		loadMore: handleIncreasePage,
+		onLoadMore: handleIncreasePage,
 	});
 
 	const hasAllBeenLoaded = activities.length === totalCount;

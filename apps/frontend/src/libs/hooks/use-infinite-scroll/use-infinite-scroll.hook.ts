@@ -2,12 +2,12 @@ import { useCallback, useRef } from "react";
 
 type Properties = {
 	isLoading: boolean;
-	loadMore: () => void;
+	onLoadMore: () => void;
 };
 
 const useInfiniteScroll = <T extends HTMLElement>({
 	isLoading,
-	loadMore,
+	onLoadMore,
 }: Properties): ((node: T | null) => void) => {
 	const observer = useRef<IntersectionObserver | null>(null);
 
@@ -25,7 +25,7 @@ const useInfiniteScroll = <T extends HTMLElement>({
 				const [firstEntry] = entries;
 
 				if (firstEntry?.isIntersecting) {
-					loadMore();
+					onLoadMore();
 				}
 			});
 
@@ -33,7 +33,7 @@ const useInfiniteScroll = <T extends HTMLElement>({
 				observer.current.observe(node);
 			}
 		},
-		[isLoading, loadMore],
+		[isLoading, onLoadMore],
 	);
 };
 
