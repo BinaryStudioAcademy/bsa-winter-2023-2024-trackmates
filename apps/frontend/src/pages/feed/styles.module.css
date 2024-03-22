@@ -2,16 +2,24 @@
 
 .wrapper {
 	display: grid;
+	flex-grow: 1;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	padding: 16px 40px;
+	margin: 0 auto;
+}
+
+.container {
+	display: grid;
 	flex-direction: column;
 	flex-grow: 1;
 	grid-template-rows: auto 1fr;
 	grid-template-columns: 5fr 2fr;
 	max-height: calc(100vh - 98px);
-	padding: 16px 0 16px 24px;
 }
 
 .title {
-	grid-column: span 2;
+	padding-left: 8px;
 	font-size: var(--font-size-400);
 	color: var(--color-text-300);
 }
@@ -26,13 +34,17 @@
 
 @media screen and (--large-screen) {
 	.wrapper {
+		padding: 16px 24px;
+	}
+
+	.container {
 		grid-template-columns: 1fr;
 		max-height: unset;
-		padding: 16px 24px;
 	}
 
 	.title {
 		grid-column: span 1;
+		padding-left: 0;
 	}
 
 	.background {

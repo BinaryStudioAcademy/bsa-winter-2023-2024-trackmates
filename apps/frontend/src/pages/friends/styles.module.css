@@ -1,11 +1,12 @@
 @import url("~/assets/css/media.css");
 
 .wrapper {
-	display: flex;
-	flex-direction: column;
+	display: grid;
 	flex-grow: 1;
-	width: 100%;
-	padding: 16px 24px;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	padding: 16px 40px;
+	margin: 0 auto;
 }
 
 .link-list {
@@ -41,6 +42,12 @@
 .active {
 	color: var(--main-white);
 	background-color: var(--main-orange);
+}
+
+@media screen and (--large-screen) {
+	.wrapper {
+		padding: 16px 24px;
+	}
 }
 
 @media screen and (--medium-screen) {

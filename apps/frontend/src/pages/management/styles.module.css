@@ -1,10 +1,12 @@
 @import url("~/assets/css/media.css");
 
 .wrapper {
-	display: flex;
-	flex-direction: column;
+	display: grid;
 	flex-grow: 1;
-	padding: 16px 40px;
+	grid-template-rows: min-content min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	padding: 0 40px;
+	margin: 0 auto;
 	color: var(--color-text-300);
 	background-color: var(--color-background);
 }
