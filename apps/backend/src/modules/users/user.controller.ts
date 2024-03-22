@@ -19,7 +19,10 @@ import {
 
 import { UsersApiPath } from "./libs/enums/enums.js";
 import { type UserGetByIdRequestDto } from "./libs/types/types.js";
-import { userIdParametersValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	userGetAllQueryValidationSchema,
+	userIdParametersValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 class UserController extends BaseController {
 	private userService: UserService;
@@ -76,6 +79,9 @@ class UserController extends BaseController {
 			},
 			method: "GET",
 			path: UsersApiPath.ROOT,
+			validation: {
+				query: userGetAllQueryValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -133,6 +139,21 @@ class UserController extends BaseController {
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Find all users
+	 *      parameters:
+	 *        - name: page
+	 *          in: query
+	 *          description: Page number
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *            required: true
+	 *        - name: count
+	 *          in: query
+	 *          description: Item count on page
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *            required: true
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

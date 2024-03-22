@@ -22,6 +22,7 @@ import {
 } from "./libs/types/types.js";
 import {
 	groupCreateRequestValidationSchema,
+	groupGetAllQueryValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
@@ -126,6 +127,9 @@ class GroupController extends BaseController {
 					PermissionMode.ONE_OF,
 				),
 			],
+			validation: {
+				query: groupGetAllQueryValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -336,11 +340,20 @@ class GroupController extends BaseController {
 	 *        - bearerAuth: []
 	 *      description: Get all groups
 	 *      parameters:
-	 *        - name: userId
+	 *        - name: page
 	 *          in: query
-	 *          description: The user id
+	 *          description: Page number
 	 *          schema:
 	 *            type: number
+	 *            minimum: 1
+	 *            required: false
+	 *        - name: count
+	 *          in: query
+	 *          description: Item count on page
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *            required: false
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

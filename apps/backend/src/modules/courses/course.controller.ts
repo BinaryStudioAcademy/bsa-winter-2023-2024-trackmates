@@ -22,6 +22,7 @@ import {
 } from "./libs/types/types.js";
 import {
 	addCourseValidationSchema,
+	courseGetAllQueryValidationSchema,
 	courseIdParameterValidationSchema,
 	courseUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";
@@ -169,6 +170,9 @@ class CourseController extends BaseController {
 					PermissionMode.ALL_OF,
 				),
 			],
+			validation: {
+				query: courseGetAllQueryValidationSchema,
+			},
 		});
 		this.addRoute({
 			handler: (options) => {
@@ -323,6 +327,21 @@ class CourseController extends BaseController {
 	 *      description: Return all courses from database
 	 *      security:
 	 *        - bearerAuth: []
+	 *      parameters:
+	 *        - name: page
+	 *          in: query
+	 *          description: Page number
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *            required: true
+	 *        - name: count
+	 *          in: query
+	 *          description: Item count on page
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *            required: true
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
