@@ -1,5 +1,6 @@
 import defaultAvatar from "~/assets/img/default-avatar.png";
 import { Button, Image, Link, Loader } from "~/libs/components/components.js";
+import { START_INDEX } from "~/libs/components/content/libs/constants.js";
 import { EMPTY_LENGTH, LAST_ARRAY_ITEM } from "~/libs/constants/constants.js";
 import { AppRoute } from "~/libs/enums/enums.js";
 import { getValidClassNames, initDebounce } from "~/libs/helpers/helpers.js";
@@ -51,7 +52,7 @@ const Chat: React.FC<Properties> = ({
 	);
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
-	const lastMessageReference = useRef<HTMLDivElement | null>(null);
+	const lastMessageReference = useRef<HTMLElement | null>(null);
 
 	const handleRead = useCallback(
 		(chatMessageId: number): void => {
@@ -133,8 +134,6 @@ const Chat: React.FC<Properties> = ({
 				</div>
 			</div>
 			<ul className={styles["chat-container"]}>
-				<span ref={lastMessageReference} />
-
 				{prepareMessageItems(messages).map((item, index) => {
 					const message = item.value as ChatMessageItemResponseDto;
 
@@ -146,6 +145,7 @@ const Chat: React.FC<Properties> = ({
 							key={message.id}
 							message={message}
 							onRead={handleRead}
+							ref={index === START_INDEX ? lastMessageReference : undefined}
 						/>
 					);
 				})}
