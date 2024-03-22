@@ -1,6 +1,6 @@
 const findItemById = <T extends { id: number }>(
 	items: T[],
-	targetId: number,
+	targetId: T["id"],
 ): T | null => {
 	return (
 		items.find((item) => {
