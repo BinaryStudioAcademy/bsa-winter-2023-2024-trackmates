@@ -8,6 +8,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	groupCreateRequest as groupCreateRequestValidationSchema,
+	groupGetAllQuery as groupGetAllQueryValidationSchema,
 	groupIdAndPermissionIdParameters as groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParameters as groupIdAndUserIdParametersValidationSchema,
 	groupIdParameter as groupIdParameterValidationSchema,

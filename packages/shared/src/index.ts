@@ -150,6 +150,7 @@ export {
 	type CourseUpdateRequestDto,
 	CoursesApiPath,
 	addCourseValidationSchema,
+	courseGetAllQueryValidationSchema,
 	courseIdParameterValidationSchema,
 	courseUpdateValidationSchema,
 } from "./modules/courses/courses.js";
@@ -179,6 +180,7 @@ export {
 	GroupsApiPath,
 	type GroupsGetAllResponseDto,
 	groupCreateRequestValidationSchema,
+	groupGetAllQueryValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
@@ -259,6 +261,7 @@ export {
 	type UserSignUpRequestDto,
 	type UserSignUpResponseDto,
 	UsersApiPath,
+	userGetAllQueryValidationSchema,
 	userIdParametersValidationSchema,
 	userProfileValidationSchema,
 	userSexToPronoun,
