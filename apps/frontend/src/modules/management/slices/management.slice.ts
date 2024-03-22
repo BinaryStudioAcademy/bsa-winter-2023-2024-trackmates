@@ -27,6 +27,7 @@ type State = {
 	groupsDataStatus: ValueOf<typeof DataStatus>;
 	permissions: PermissionResponseDto[];
 	permissionsDataStatus: ValueOf<typeof DataStatus>;
+	totalGroupsCount: number;
 	userToDataStatus: Record<
 		number,
 		{
@@ -44,6 +45,7 @@ const initialState: State = {
 	groupsDataStatus: DataStatus.IDLE,
 	permissions: [],
 	permissionsDataStatus: DataStatus.IDLE,
+	totalGroupsCount: 0,
 	userToDataStatus: {},
 	users: [],
 	usersDataStatus: DataStatus.IDLE,
@@ -65,10 +67,14 @@ const { reducer } = createSlice({
 			state.permissionsDataStatus = DataStatus.REJECTED;
 		});
 
-		builder.addCase(groupsActions.getAllGroups.fulfilled, (state, action) => {
-			state.groups = action.payload;
-			state.groupsDataStatus = DataStatus.FULFILLED;
-		});
+		builder.addCase(
+			groupsActions.getAllGroups.fulfilled,
+			(state, { payload: { items, total } }) => {
+				state.groups = items;
+				state.totalGroupsCount = total;
+				state.groupsDataStatus = DataStatus.FULFILLED;
+			},
+		);
 		builder.addCase(groupsActions.getAllGroups.pending, (state) => {
 			state.groupsDataStatus = DataStatus.PENDING;
 		});
@@ -191,7 +197,15 @@ const { reducer } = createSlice({
 
 		builder.addCase(
 			groupsActions.deleteGroup.fulfilled,
-			(state, { meta: { arg: groupId }, payload }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+					payload,
+				},
+			) => {
 				if (payload) {
 					state.groups = state.groups.filter((group) => {
 						return group.id !== groupId;
@@ -205,7 +219,14 @@ const { reducer } = createSlice({
 		);
 		builder.addCase(
 			groupsActions.deleteGroup.pending,
-			(state, { meta: { arg: groupId } }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+				},
+			) => {
 				state.groupToDataStatus[groupId] = {
 					deleteDataStatus: DataStatus.PENDING,
 				};
@@ -213,7 +234,14 @@ const { reducer } = createSlice({
 		);
 		builder.addCase(
 			groupsActions.deleteGroup.rejected,
-			(state, { meta: { arg: groupId } }) => {
+			(
+				state,
+				{
+					meta: {
+						arg: { groupId },
+					},
+				},
+			) => {
 				state.groupToDataStatus[groupId] = {
 					deleteDataStatus: DataStatus.REJECTED,
 				};

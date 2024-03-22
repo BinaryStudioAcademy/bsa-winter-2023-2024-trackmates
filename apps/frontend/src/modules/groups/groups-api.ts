@@ -2,6 +2,10 @@ import { APIPath, ContentType } from "~/libs/enums/enums.js";
 import { BaseHTTPApi } from "~/libs/modules/api/api.js";
 import { type HTTP } from "~/libs/modules/http/http.js";
 import { type Storage } from "~/libs/modules/storage/storage.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 import { type PermissionsGetAllResponseDto } from "~/modules/permissions/permissions.js";
 
 import { GroupsApiPath } from "./libs/enums/enums.js";
@@ -52,17 +56,20 @@ class GroupsApi extends BaseHTTPApi {
 		return await response.json<boolean>();
 	}
 
-	public async getAllGroups(): Promise<GroupsGetAllResponseDto> {
+	public async getAllGroups(
+		query: PaginationRequestDto | undefined,
+	): Promise<PaginationResponseDto<GroupResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.ROOT, {}),
 			{
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
+				query: query ?? {},
 			},
 		);
 
-		return await response.json<GroupsGetAllResponseDto>();
+		return await response.json<PaginationResponseDto<GroupResponseDto>>();
 	}
 
 	public async updateGroupPermissions(

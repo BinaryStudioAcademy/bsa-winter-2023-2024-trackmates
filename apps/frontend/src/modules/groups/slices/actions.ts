@@ -1,7 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { PaginationValue } from "~/libs/enums/enums.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import {
+	type AsyncThunkConfig,
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 import { type PermissionResponseDto } from "~/modules/permissions/permissions.js";
 
 import {
@@ -12,21 +17,30 @@ import { name as sliceName } from "./groups.slice.js";
 
 const createGroup = createAsyncThunk<
 	GroupResponseDto,
-	GroupRequestDto,
+	Record<"createPayload", GroupRequestDto> & Record<"page", number>,
 	AsyncThunkConfig
->(`${sliceName}/create-group`, async (createPayload, { extra }) => {
-	const { groupsApi, notification } = extra;
+>(
+	`${sliceName}/create-group`,
+	async ({ createPayload, page }, { dispatch, extra }) => {
+		const { groupsApi, notification } = extra;
 
-	const createdGroup = await groupsApi.createGroup(createPayload);
+		const createdGroup = await groupsApi.createGroup(createPayload);
 
-	notification.success(NotificationMessage.GROUP_CREATED);
+		notification.success(NotificationMessage.GROUP_CREATED);
 
-	return createdGroup;
-});
+		void dispatch(getAllGroups({ count: PaginationValue.DEFAULT_COUNT, page }));
 
-const deleteGroup = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+		return createdGroup;
+	},
+);
+
+const deleteGroup = createAsyncThunk<
+	boolean,
+	{ groupId: number; page: number },
+	AsyncThunkConfig
+>(
 	`${sliceName}/delete-group`,
-	async (groupId, { extra }) => {
+	async ({ groupId, page }, { dispatch, extra }) => {
 		const { groupsApi, notification } = extra;
 
 		const isDeleted = await groupsApi.deleteGroup(groupId);
@@ -35,20 +49,20 @@ const deleteGroup = createAsyncThunk<boolean, number, AsyncThunkConfig>(
 			notification.success(NotificationMessage.GROUP_DELETED);
 		}
 
+		void dispatch(getAllGroups({ count: PaginationValue.DEFAULT_COUNT, page }));
+
 		return isDeleted;
 	},
 );
 
 const getAllGroups = createAsyncThunk<
-	GroupResponseDto[],
-	undefined,
+	PaginationResponseDto<GroupResponseDto>,
+	PaginationRequestDto | undefined,
 	AsyncThunkConfig
->(`${sliceName}/get-all-groups`, async (_, { extra }) => {
+>(`${sliceName}/get-all-groups`, async (query, { extra }) => {
 	const { groupsApi } = extra;
 
-	const groups = await groupsApi.getAllGroups();
-
-	return groups.items;
+	return await groupsApi.getAllGroups(query);
 });
 
 const updateGroupPermissions = createAsyncThunk<
