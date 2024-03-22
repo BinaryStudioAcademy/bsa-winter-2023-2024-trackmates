@@ -3,12 +3,10 @@
 .container {
 	--border-color: rgba(174 180 187 / 15%);
 
-	display: grid;
-	flex-grow: 1;
-	grid-template-rows: min-content 1fr;
-	grid-template-columns: minmax(auto, 1500px);
-	padding: 33px 40px;
-	margin: 0 auto;
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	margin: 33px 40px 25px;
 	overflow: hidden;
 	font-family: Roboto, sans-serif;
 }
@@ -31,7 +29,6 @@
 
 @media screen and (--medium-screen) {
 	.container {
-		padding: 0;
 		margin: 15px 0 0;
 	}
 

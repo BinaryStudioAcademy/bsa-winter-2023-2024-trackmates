@@ -1,17 +1,20 @@
 @import url("~/assets/css/media.css");
 
 .container {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
-	grid-template-rows: min-content 1fr;
-	grid-template-columns: minmax(auto, 1500px);
 	padding: 16px 40px;
-	margin: 0 auto;
 	background-color: var(--color-background);
 }
 
 .courses-container {
+	display: grid;
+	flex-grow: 1;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
 	padding: 27px 0 0;
+	margin: 0 auto;
 	color: var(--color-text-300);
 }
 

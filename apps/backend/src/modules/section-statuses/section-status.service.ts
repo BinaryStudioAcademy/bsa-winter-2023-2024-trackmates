@@ -165,10 +165,10 @@ class SectionStatusService implements Service {
 	}
 
 	public async findAll(): Promise<SectionStatusGetAllResponseDto> {
-		const sectionStatuses = await this.sectionStatusRepository.findAll();
+		const { items } = await this.sectionStatusRepository.findAll();
 
 		return {
-			items: sectionStatuses.map((sectionStatus) => sectionStatus.toObject()),
+			items: items.map((sectionStatus) => sectionStatus.toObject()),
 		};
 	}
 

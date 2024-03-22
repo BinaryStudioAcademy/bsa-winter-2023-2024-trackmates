@@ -38,8 +38,10 @@ class FileRepository implements Repository<FileEntity> {
 		return file ? FileEntity.initialize(file) : null;
 	}
 
-	public async findAll(): Promise<FileEntity[]> {
-		return await this.fileModel.query().castTo<FileEntity[]>().execute();
+	public async findAll(): Promise<{ items: FileEntity[] }> {
+		return {
+			items: await this.fileModel.query().castTo<FileEntity[]>().execute(),
+		};
 	}
 
 	public async update(

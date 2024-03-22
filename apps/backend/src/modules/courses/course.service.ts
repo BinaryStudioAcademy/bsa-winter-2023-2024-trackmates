@@ -221,9 +221,9 @@ class CourseService {
 	}
 
 	public async findAll(): Promise<CourseSearchGetAllResponseDto> {
-		const entities = await this.courseRepository.findAll();
+		const { items } = await this.courseRepository.findAll();
 
-		const courses = entities.map((entity) => ({
+		const courses = items.map((entity) => ({
 			...entity.toObject(),
 			hasUserCourse: false,
 		}));

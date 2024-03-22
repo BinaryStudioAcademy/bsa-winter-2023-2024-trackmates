@@ -2,13 +2,10 @@
 
 .comparison-page {
 	position: relative;
-	display: grid;
-	flex-grow: 1;
-	grid-template-rows: min-content 1fr;
-	grid-template-columns: minmax(auto, 1500px);
+	display: flex;
+	flex-direction: column;
 	gap: 16px;
 	padding: 16px 40px;
-	margin: 0 auto;
 }
 
 .back-button {

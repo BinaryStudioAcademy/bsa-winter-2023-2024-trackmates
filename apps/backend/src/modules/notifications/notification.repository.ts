@@ -131,7 +131,7 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<NotificationEntity[]> {
+	public async findAll(): Promise<{ items: NotificationEntity[] }> {
 		const notifications = await this.notificationModel
 			.query()
 			.withGraphFetched(
@@ -139,23 +139,25 @@ class NotificationRepository implements Repository<NotificationEntity> {
 			)
 			.execute();
 
-		return notifications.map((notification) => {
-			return NotificationEntity.initialize({
-				actionId: notification.actionId,
-				createdAt: notification.createdAt,
-				id: notification.id,
-				message: this.getMessageByType(notification.type, notification.user),
-				receiverUserId: notification.receiverUserId,
-				status: notification.status,
-				type: notification.type,
-				updatedAt: notification.updatedAt,
-				userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
-				userFirstName: notification.user.userDetails.firstName,
-				userId: notification.userId,
-				userLastName: notification.user.userDetails.lastName,
-				userSubscription: notification.user.userDetails.subscription ?? null,
-			});
-		});
+		return {
+			items: notifications.map((notification) => {
+				return NotificationEntity.initialize({
+					actionId: notification.actionId,
+					createdAt: notification.createdAt,
+					id: notification.id,
+					message: this.getMessageByType(notification.type, notification.user),
+					receiverUserId: notification.receiverUserId,
+					status: notification.status,
+					type: notification.type,
+					updatedAt: notification.updatedAt,
+					userAvatarUrl: notification.user.userDetails.avatarFile?.url ?? null,
+					userFirstName: notification.user.userDetails.firstName,
+					userId: notification.userId,
+					userLastName: notification.user.userDetails.lastName,
+					userSubscription: notification.user.userDetails.subscription ?? null,
+				});
+			}),
+		};
 	}
 
 	public async findAllByReceiverUserId(

@@ -52,19 +52,21 @@ class VendorRepository implements Repository<VendorEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<VendorEntity[]> {
+	public async findAll(): Promise<{ items: VendorEntity[] }> {
 		const vendors = await this.vendorModel.query().execute();
 
-		return vendors.map((vendor) => {
-			return VendorEntity.initialize({
-				createdAt: vendor.createdAt,
-				id: vendor.id,
-				key: vendor.key,
-				name: vendor.name,
-				updatedAt: vendor.updatedAt,
-				url: vendor.url,
-			});
-		});
+		return {
+			items: vendors.map((vendor) => {
+				return VendorEntity.initialize({
+					createdAt: vendor.createdAt,
+					id: vendor.id,
+					key: vendor.key,
+					name: vendor.name,
+					updatedAt: vendor.updatedAt,
+					url: vendor.url,
+				});
+			}),
+		};
 	}
 
 	public async findAllByKeys(keys: string[]): Promise<VendorEntity[]> {

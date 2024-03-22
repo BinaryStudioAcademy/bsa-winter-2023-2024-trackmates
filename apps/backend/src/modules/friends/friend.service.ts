@@ -126,9 +126,9 @@ class FriendService {
 	}
 
 	public async findAll(): Promise<UserAuthResponseDto[]> {
-		const foundUsers = await this.friendRepository.findAll();
+		const { items } = await this.friendRepository.findAll();
 
-		return foundUsers.map((user) => user.toObject());
+		return items.map((user) => user.toObject());
 	}
 
 	public async getIsFollowing(

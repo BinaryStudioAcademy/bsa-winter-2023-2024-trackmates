@@ -161,7 +161,9 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			: null;
 	}
 
-	public async findAll(userId: number): Promise<ChatMessageEntity[]> {
+	public async findAll(
+		userId: number,
+	): Promise<{ items: ChatMessageEntity[] }> {
 		const messagesByUserId = await this.chatMessageModel
 			.query()
 			.where({ senderUserId: userId })
@@ -170,59 +172,64 @@ class ChatMessageRepository implements Repository<ChatMessageEntity> {
 			)
 			.execute();
 
-		return messagesByUserId.map((messageByUserId) => {
-			return ChatMessageEntity.initialize({
-				chatId: messageByUserId.chatId,
-				createdAt: messageByUserId.createdAt,
-				id: messageByUserId.id,
-				senderUser: UserEntity.initialize({
-					avatarUrl:
-						messageByUserId.senderUser.userDetails.avatarFile?.url ?? null,
-					createdAt: messageByUserId.senderUser.createdAt,
-					email: messageByUserId.senderUser.email,
-					firstName: messageByUserId.senderUser.userDetails.firstName,
-					groups: messageByUserId.senderUser.groups.map((group) => {
-						return GroupEntity.initialize({
-							createdAt: group.createdAt,
-							id: group.id,
-							key: group.key,
-							name: group.name,
-							permissions: group.permissions.map((permission) => {
-								return PermissionEntity.initialize({
-									createdAt: permission.createdAt,
-									id: permission.id,
-									key: permission.key,
-									name: permission.name,
-									updatedAt: permission.updatedAt,
-								});
-							}),
-							updatedAt: group.updatedAt,
-						});
+		return {
+			items: messagesByUserId.map((messageByUserId) => {
+				return ChatMessageEntity.initialize({
+					chatId: messageByUserId.chatId,
+					createdAt: messageByUserId.createdAt,
+					id: messageByUserId.id,
+					senderUser: UserEntity.initialize({
+						avatarUrl:
+							messageByUserId.senderUser.userDetails.avatarFile?.url ?? null,
+						createdAt: messageByUserId.senderUser.createdAt,
+						email: messageByUserId.senderUser.email,
+						firstName: messageByUserId.senderUser.userDetails.firstName,
+						groups: messageByUserId.senderUser.groups.map((group) => {
+							return GroupEntity.initialize({
+								createdAt: group.createdAt,
+								id: group.id,
+								key: group.key,
+								name: group.name,
+								permissions: group.permissions.map((permission) => {
+									return PermissionEntity.initialize({
+										createdAt: permission.createdAt,
+										id: permission.id,
+										key: permission.key,
+										name: permission.name,
+										updatedAt: permission.updatedAt,
+									});
+								}),
+								updatedAt: group.updatedAt,
+							});
+						}),
+						id: messageByUserId.senderUser.id,
+						lastName: messageByUserId.senderUser.userDetails.lastName,
+						nickname: messageByUserId.senderUser.userDetails.nickname,
+						passwordHash: messageByUserId.senderUser.passwordHash,
+						passwordSalt: messageByUserId.senderUser.passwordSalt,
+						sex: messageByUserId.senderUser.userDetails.sex,
+						subscription: messageByUserId.senderUser.userDetails.subscription
+							? SubscriptionEntity.initialize({
+									createdAt:
+										messageByUserId.senderUser.userDetails.subscription
+											.createdAt,
+									expiresAt:
+										messageByUserId.senderUser.userDetails.subscription
+											.expiresAt,
+									id: messageByUserId.senderUser.userDetails.subscription.id,
+									updatedAt:
+										messageByUserId.senderUser.userDetails.subscription
+											.updatedAt,
+								})
+							: null,
+						updatedAt: messageByUserId.senderUser.updatedAt,
 					}),
-					id: messageByUserId.senderUser.id,
-					lastName: messageByUserId.senderUser.userDetails.lastName,
-					nickname: messageByUserId.senderUser.userDetails.nickname,
-					passwordHash: messageByUserId.senderUser.passwordHash,
-					passwordSalt: messageByUserId.senderUser.passwordSalt,
-					sex: messageByUserId.senderUser.userDetails.sex,
-					subscription: messageByUserId.senderUser.userDetails.subscription
-						? SubscriptionEntity.initialize({
-								createdAt:
-									messageByUserId.senderUser.userDetails.subscription.createdAt,
-								expiresAt:
-									messageByUserId.senderUser.userDetails.subscription.expiresAt,
-								id: messageByUserId.senderUser.userDetails.subscription.id,
-								updatedAt:
-									messageByUserId.senderUser.userDetails.subscription.updatedAt,
-							})
-						: null,
-					updatedAt: messageByUserId.senderUser.updatedAt,
-				}),
-				status: messageByUserId.status,
-				text: messageByUserId.text,
-				updatedAt: messageByUserId.updatedAt,
-			});
-		});
+					status: messageByUserId.status,
+					text: messageByUserId.text,
+					updatedAt: messageByUserId.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async setReadChatMessages(
