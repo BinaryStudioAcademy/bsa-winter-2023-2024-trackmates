@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.68.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.67.1...frontend-v1.68.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** Add pagination to the Activities page tm-646 ([#666](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/666)) ([22c5dea](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/22c5dea834500ae1e6fb190e0bb6151d07d844dc))
+
+
+### Bug Fixes
+
+* **frontend:** course stable layout and default image tm-668 ([#694](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/694)) ([807f793](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/807f7933a0553d6b5499b03dd85297f2947db582))
+
 ## [1.67.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.67.0...frontend-v1.67.1) (2024-03-22)
 
 
