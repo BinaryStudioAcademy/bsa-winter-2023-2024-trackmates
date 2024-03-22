@@ -2,6 +2,7 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 
 import { AppRoute } from "~/libs/enums/enums.js";
 import { configureString } from "~/libs/helpers/helpers.js";
+import { NotificationMessage } from "~/libs/modules/notification/notification.js";
 import { actions as appActions } from "~/libs/slices/app/app.js";
 import { type AsyncThunkConfig } from "~/libs/types/types.js";
 import { type ChatMessageItemResponseDto } from "~/modules/chat-messages/chat-messages.js";
@@ -10,10 +11,9 @@ import {
 	type ChatGetAllItemResponseDto,
 	type ChatItemResponseDto,
 	type ChatSearchResponseDto,
+	type ReadChatMessagesResponseDto,
 } from "../libs/types/types.js";
-import { name as sliceName } from "./chats.slice.js";
-
-const ONE_UNREAD_MESSAGE = 1;
+import { actions, name as sliceName } from "./chats.slice.js";
 
 const getAllChats = createAsyncThunk<
 	{ items: ChatGetAllItemResponseDto[] },
@@ -52,7 +52,7 @@ const createChat = createAsyncThunk<
 });
 
 const updateChats = createAsyncThunk<
-	ChatGetAllItemResponseDto[],
+	ChatMessageItemResponseDto,
 	ChatMessageItemResponseDto,
 	AsyncThunkConfig
 >(`${sliceName}/update-chats`, (newMessage, { dispatch, getState }) => {
@@ -66,62 +66,47 @@ const updateChats = createAsyncThunk<
 
 	if (!isMessageFromExistingChat) {
 		void dispatch(getAllChats({ search: "" }));
-
-		return chats;
 	}
 
-	const updatedChats = chats.map((chat) => {
-		if (chat.id !== newMessage.chatId) {
-			return chat;
-		}
-
-		return {
-			...chat,
-			lastMessage: newMessage,
-			unreadMessageCount:
-				chat.interlocutor.id === newMessage.senderUser.id
-					? Number(chat.unreadMessageCount) + ONE_UNREAD_MESSAGE
-					: chat.unreadMessageCount,
-		};
-	});
-
-	updatedChats.sort((a, b) => {
-		return (
-			new Date(b.lastMessage.createdAt).getTime() -
-			new Date(a.lastMessage.createdAt).getTime()
-		);
-	});
-
-	return updatedChats;
+	return newMessage;
 });
 
 const addMessageToCurrentChat = createAsyncThunk<
-	ChatItemResponseDto | null,
+	{ isMessageInCurrentChat: boolean; newMessage: ChatMessageItemResponseDto },
 	ChatMessageItemResponseDto,
 	AsyncThunkConfig
->(`${sliceName}/add-message-to-chat`, (newMessage, { dispatch, getState }) => {
-	const {
-		chats: { currentChat },
-	} = getState();
+>(
+	`${sliceName}/add-message-to-chat`,
+	(newMessage, { dispatch, extra, getState }) => {
+		const { notification } = extra;
+		const {
+			auth: { user },
+			chats: { currentChat },
+		} = getState();
 
-	void dispatch(updateChats(newMessage));
+		const { firstName, id, lastName } = newMessage.senderUser;
 
-	if (currentChat?.id !== newMessage.chatId) {
-		return currentChat;
-	}
+		const isSameUser = id === user?.id;
+		const isMessageInCurrentChat = currentChat?.id === newMessage.chatId;
 
-	const [lastMessage] = currentChat.messages;
+		if (!isSameUser) {
+			void dispatch(actions.increaseUnreadMessageCount());
+		}
 
-	const updatedMessages =
-		lastMessage?.id === newMessage.id
-			? currentChat.messages
-			: [newMessage, ...currentChat.messages];
+		void dispatch(updateChats(newMessage));
 
-	return {
-		...currentChat,
-		messages: updatedMessages,
-	};
-});
+		if (!isMessageInCurrentChat && !isSameUser) {
+			notification.info(
+				`${firstName} ${lastName} ${NotificationMessage.NEW_MESSAGE}`,
+			);
+		}
+
+		return {
+			isMessageInCurrentChat,
+			newMessage,
+		};
+	},
+);
 
 const getUnreadMessagesCount = createAsyncThunk<
 	number,
@@ -131,6 +116,23 @@ const getUnreadMessagesCount = createAsyncThunk<
 	const { chatsApi } = extra;
 
 	return chatsApi.getUnreadMessagesCount();
+});
+
+const updateMessagesStatus = createAsyncThunk<
+	ReadChatMessagesResponseDto & { isUpdateUnreadCounts: boolean },
+	ReadChatMessagesResponseDto,
+	AsyncThunkConfig
+>(`${sliceName}/update-message-status`, (payload, { getState }) => {
+	const {
+		auth: { user },
+	} = getState();
+
+	const isSameUserReads = user?.id === payload.readerId;
+
+	return {
+		...payload,
+		isUpdateUnreadCounts: isSameUserReads,
+	};
 });
 
 const joinRoom = createAction(`${sliceName}/join-room`, (userId: string) => {
@@ -154,4 +156,5 @@ export {
 	joinRoom,
 	leaveRoom,
 	updateChats,
+	updateMessagesStatus,
 };
