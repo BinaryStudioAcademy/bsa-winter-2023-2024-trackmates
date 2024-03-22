@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
+import { DataStatus } from "~/libs/enums/enums.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import { type CourseDto } from "~/modules/courses/courses.js";
 
@@ -36,11 +36,7 @@ const initialState: State = {
 
 const { actions, name, reducer } = createSlice({
 	extraReducers(builder) {
-		builder.addCase(add.fulfilled, (state, action) => {
-			if (state.totalMyCoursesCount < PaginationValue.DEFAULT_COUNT) {
-				state.myCourses.unshift(action.payload);
-			}
-
+		builder.addCase(add.fulfilled, (state) => {
 			state.totalMyCoursesCount++;
 			state.addCourseDataStatus = DataStatus.FULFILLED;
 		});
