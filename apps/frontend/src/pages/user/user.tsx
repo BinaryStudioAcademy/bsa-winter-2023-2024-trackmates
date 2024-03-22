@@ -45,7 +45,7 @@ const User: React.FC = () => {
 	const { id } = useParams();
 	const userId = Number(id);
 	const {
-		commonCourses,
+		commonCoursesIds,
 		courses,
 		currentUserId,
 		hasSubscription,
@@ -56,7 +56,7 @@ const User: React.FC = () => {
 		totalCount,
 	} = useAppSelector((state) => {
 		return {
-			commonCourses: state.userCourses.commonCourses,
+			commonCoursesIds: state.userCourses.commonCoursesIds,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
 			hasSubscription: Boolean(
@@ -194,7 +194,7 @@ const User: React.FC = () => {
 						{hasCourses ? (
 							<div className={styles["courses-container-content"]}>
 								<Courses
-									commonCourses={commonCourses}
+									commonCoursesIds={commonCoursesIds}
 									courses={courses}
 									userId={userId}
 								/>

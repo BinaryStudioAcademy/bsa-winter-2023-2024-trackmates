@@ -12,14 +12,14 @@ import { Course } from "../course/course.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	commonCourses?: number[];
+	commonCoursesIds?: number[];
 	courses: (CourseDto | CourseSearchResponseDto | UserCourseResponseDto)[];
 	onAddCourse?: (coursePayload: AddCourseRequestDto) => void;
 	userId?: number;
 };
 
 const Courses: React.FC<Properties> = ({
-	commonCourses = [],
+	commonCoursesIds = [],
 	courses,
 	onAddCourse,
 	userId,
@@ -28,8 +28,8 @@ const Courses: React.FC<Properties> = ({
 		<ul className={styles["list"]}>
 			{courses.map((course) => {
 				const isCommon =
-					commonCourses.length > EMPTY_LENGTH &&
-					commonCourses.includes(course.id as number);
+					commonCoursesIds.length > EMPTY_LENGTH &&
+					commonCoursesIds.includes(course.id as number);
 
 				return (
 					<li className={styles["item"]} key={course.vendorCourseId}>
