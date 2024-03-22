@@ -161,34 +161,36 @@ class CourseRepository implements Repository<CourseEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<CourseEntity[]> {
+	public async findAll(): Promise<{ items: CourseEntity[] }> {
 		const courses = await this.courseModel
 			.query()
 			.withGraphFetched("vendor")
 			.orderBy("id", SortOrder.ASC)
 			.execute();
 
-		return courses.map((course) => {
-			return CourseEntity.initialize({
-				createdAt: course.createdAt,
-				description: course.description,
-				id: course.id,
-				image: course.image,
-				title: course.title,
-				updatedAt: course.updatedAt,
-				url: course.url,
-				vendor: VendorEntity.initialize({
-					createdAt: course.vendor.createdAt,
-					id: course.vendor.id,
-					key: course.vendor.key,
-					name: course.vendor.name,
-					updatedAt: course.vendor.updatedAt,
-					url: course.vendor.url,
-				}),
-				vendorCourseId: course.vendorCourseId,
-				vendorId: course.vendorId,
-			});
-		});
+		return {
+			items: courses.map((course) => {
+				return CourseEntity.initialize({
+					createdAt: course.createdAt,
+					description: course.description,
+					id: course.id,
+					image: course.image,
+					title: course.title,
+					updatedAt: course.updatedAt,
+					url: course.url,
+					vendor: VendorEntity.initialize({
+						createdAt: course.vendor.createdAt,
+						id: course.vendor.id,
+						key: course.vendor.key,
+						name: course.vendor.name,
+						updatedAt: course.vendor.updatedAt,
+						url: course.vendor.url,
+					}),
+					vendorCourseId: course.vendorCourseId,
+					vendorId: course.vendorId,
+				});
+			}),
+		};
 	}
 
 	public async findAllByUser({
