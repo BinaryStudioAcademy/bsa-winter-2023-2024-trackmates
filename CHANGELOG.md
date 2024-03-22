@@ -6,6 +6,7 @@
 ### Features
 
 * **backend/frontend/shared:** implement subscription features tm-630 ([#657](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/657)) ([66c6c78](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/66c6c78e3f30798905eb9e418f8fbb02a58ec3f8))
+* **frontend/backend/shared:** compare button tm-622 ([#680](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/680)) ([8e03bd0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e03bd00723dc2d03410d7e09dc2448827e74d06))
 
 ## [1.83.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.82.0...v1.83.0) (2024-03-22)
 
