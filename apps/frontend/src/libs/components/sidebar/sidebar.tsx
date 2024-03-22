@@ -78,6 +78,17 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 							<Image alt="website logo" className={styles["logo"]} src={logo} />
 						</Link>
 						<nav className={styles["menu"]}>
+							<Button
+								className={getValidClassNames(
+									styles["burger-button-in-flow"],
+									styles[isOpen ? "open" : "close"],
+								)}
+								hasVisuallyHiddenLabel
+								iconName="burger"
+								label="burger-button"
+								onClick={handleToggleSidebar}
+								style="secondary"
+							/>
 							{menuItems.map(({ href, icon, label, pagePermissions }) => {
 								return (
 									handleCheckPermissions(pagePermissions) && (
