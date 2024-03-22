@@ -1,3 +1,7 @@
 .table-container {
+	display: grid;
 	width: 100%;
+	overflow-x: auto;
+	background-color: var(--main-white);
+	border-radius: 16px 16px 0 0;
 }

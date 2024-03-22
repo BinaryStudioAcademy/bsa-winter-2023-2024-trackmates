@@ -1,3 +1,4 @@
+import { SortOrder } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
 import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 
@@ -146,6 +147,7 @@ class GroupRepository implements Repository<GroupEntity> {
 		const groups = await this.groupModel
 			.query()
 			.withGraphJoined(RelationName.PERMISSIONS)
+			.orderBy("id", SortOrder.ASC)
 			.execute();
 
 		return groups.map((group) => {

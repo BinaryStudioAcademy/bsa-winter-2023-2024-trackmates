@@ -17,8 +17,7 @@
 	transition: 0.3s;
 }
 
-.icon-button:disabled,
-.icon-button:disabled:focus {
+.icon-button:disabled {
 	color: var(--color-text-100);
 	background-color: transparent;
 }
@@ -29,7 +28,8 @@
 		background-color: transparent;
 	}
 
-	.icon-button:disabled:hover {
+	.icon-button:disabled:hover,
+	.icon-button:disabled:focus {
 		color: var(--color-text-100);
 		background-color: transparent;
 	}

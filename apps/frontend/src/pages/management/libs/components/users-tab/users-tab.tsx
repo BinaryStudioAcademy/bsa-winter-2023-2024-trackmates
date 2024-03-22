@@ -1,9 +1,13 @@
+import { Loader } from "~/libs/components/components.js";
 import {
 	DataStatus,
 	PermissionKey,
 	PermissionMode,
 } from "~/libs/enums/enums.js";
-import { checkIfUserHasPermissions } from "~/libs/helpers/helpers.js";
+import {
+	checkIfUserHasPermissions,
+	findItemById,
+} from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
@@ -18,28 +22,22 @@ import {
 } from "~/modules/users/users.js";
 
 import { ManagementDialogueMessage } from "../../enums/enums.js";
-import { ActionsCell } from "../actions-cell/actions-cell.js";
-import { Chip } from "../chip/chip.js";
 import { ConfirmationModal } from "../confirmation-modal/confirmation-modal.js";
-import { Table, TableCell, TableRow } from "../table/table.js";
-import { EditUserModal } from "./libs/components/components.js";
-import { USERS_TABLE_HEADERS } from "./libs/constants/constants.js";
-import { UsersTableHeader } from "./libs/enums/enums.js";
-import { usersHeaderToPropertyName } from "./libs/maps/maps.js";
+import { EditUserModal, UsersTable } from "./libs/components/components.js";
 import styles from "./styles.module.css";
 
 const UsersTab: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const { authUser, groups, userToDataStatus, users } = useAppSelector(
-		(state) => {
+	const { authUser, groups, isUsersLoading, userToDataStatus, users } =
+		useAppSelector((state) => {
 			return {
 				authUser: state.auth.user as UserAuthResponseDto,
 				groups: state.management.groups,
+				isUsersLoading: state.management.usersDataStatus === DataStatus.PENDING,
 				userToDataStatus: state.management.userToDataStatus,
 				users: state.management.users,
 			};
-		},
-	);
+		});
 
 	const [currentUser, setCurrentUser] = useState<UserAuthResponseDto | null>(
 		null,
@@ -63,84 +61,76 @@ const UsersTab: React.FC = () => {
 		void dispatch(groupsActions.getAllGroups());
 	}, [dispatch]);
 
-	const handleOpenEditModal = useCallback((user: UserAuthResponseDto) => {
-		setCurrentUser(user);
-		setIsEditModalOpen(true);
-	}, []);
-
 	const handleCloseEditModal = useCallback(() => {
 		setIsEditModalOpen(false);
 		setCurrentUser(null);
 	}, []);
 
-	const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
-	const handleOpenDeleteModal = useCallback((user: UserAuthResponseDto) => {
-		setCurrentUser(user);
-		setIsDeleteModalOpen(true);
-	}, []);
+	const [isConfirmationModalOpen, setIsConfirmationModalOpen] =
+		useState<boolean>(false);
+
 	const handleCloseDeleteModal = useCallback(() => {
-		setIsDeleteModalOpen(false);
+		setIsConfirmationModalOpen(false);
 		setCurrentUser(null);
 	}, []);
+
 	const handleDeleteUser = useCallback(() => {
 		void dispatch(usersActions.remove(currentUser?.id as number));
 		handleCloseDeleteModal();
 	}, [currentUser, dispatch, handleCloseDeleteModal]);
 
-	const tableData = users.map((user) => {
-		const isSameUser = user.id === authUser.id;
+	const handleOpenEditModal = useCallback(
+		(userId: number) => {
+			const userById = findItemById(users, userId);
 
-		return {
-			actions: (
-				<ActionsCell
-					isDeleteDisabled={!hasPermissionToDelete || isSameUser}
-					isEditDisabled={!hasPermissionToEdit || isSameUser}
-					isLoading={userToDataStatus[user.id] === DataStatus.PENDING}
-					item={user}
-					onDelete={handleOpenDeleteModal}
-					onEdit={handleOpenEditModal}
-				/>
-			),
-			email: `${user.email} ${authUser.id === user.id ? "(you)" : ""}`,
-			firstName: user.firstName,
-			groups: user.groups.map((group) => {
-				return <Chip key={group.id} label={group.name} />;
-			}),
-			id: user.id,
-			lastName: user.lastName,
-		};
-	});
+			if (!userById) {
+				return;
+			}
+
+			setCurrentUser(userById);
+			setIsEditModalOpen(true);
+		},
+		[users],
+	);
+
+	const handleOpenConfirmationModal = useCallback(
+		(userId: number) => {
+			const userById = findItemById(users, userId);
+
+			if (!userById) {
+				return;
+			}
+
+			setCurrentUser(userById);
+			setIsConfirmationModalOpen(true);
+		},
+		[users],
+	);
+
+	const handleCheckIfSameUser = useCallback(
+		(userId: number) => {
+			return authUser.id === userId;
+		},
+		[authUser],
+	);
 
 	return (
 		<>
-			<div className={styles["table-container"]}>
-				<Table headers={USERS_TABLE_HEADERS}>
-					{tableData.map((data) => {
-						return (
-							<TableRow key={data.id}>
-								<TableCell isCentered width="narrow">
-									{data[usersHeaderToPropertyName[UsersTableHeader.ID]]}
-								</TableCell>
-								<TableCell>
-									{data[usersHeaderToPropertyName[UsersTableHeader.EMAIL]]}
-								</TableCell>
-								<TableCell>
-									{data[usersHeaderToPropertyName[UsersTableHeader.FIRST_NAME]]}
-								</TableCell>
-								<TableCell>
-									{data[usersHeaderToPropertyName[UsersTableHeader.LAST_NAME]]}
-								</TableCell>
-								<TableCell width="medium">
-									{data[usersHeaderToPropertyName[UsersTableHeader.GROUPS]]}
-								</TableCell>
-								<TableCell isCentered width="narrow">
-									{data[usersHeaderToPropertyName[UsersTableHeader.ACTIONS]]}
-								</TableCell>
-							</TableRow>
-						);
-					})}
-				</Table>
-			</div>
+			{isUsersLoading ? (
+				<Loader color="orange" size="large" />
+			) : (
+				<div className={styles["table-container"]}>
+					<UsersTable
+						checkIfSameUser={handleCheckIfSameUser}
+						hasPermissionToDelete={hasPermissionToDelete}
+						hasPermissionToEdit={hasPermissionToEdit}
+						onDelete={handleOpenConfirmationModal}
+						onEdit={handleOpenEditModal}
+						userToDataStatus={userToDataStatus}
+						users={users}
+					/>
+				</div>
+			)}
 			{currentUser && (
 				<EditUserModal
 					groups={groups}
@@ -151,7 +141,7 @@ const UsersTab: React.FC = () => {
 				/>
 			)}
 			<ConfirmationModal
-				isOpen={isDeleteModalOpen}
+				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseDeleteModal}
 				onClose={handleCloseDeleteModal}
 				onConfirm={handleDeleteUser}

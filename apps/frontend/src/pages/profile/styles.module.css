@@ -2,13 +2,19 @@
 
 .container {
 	position: relative;
+	display: grid;
+	flex-grow: 1;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	gap: 17px;
+	padding: 33px 41px 21px;
+	margin: 0 auto;
+	background-color: var(--color-background);
+}
+
+.form {
 	display: flex;
 	flex-direction: column;
-	gap: 17px;
-	justify-content: center;
-	width: 100%;
-	padding: 33px 41px 21px;
-	background-color: var(--color-background);
 }
 
 .profile-title {
@@ -49,6 +55,7 @@
 .profile-inputs {
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 	align-items: center;
 	height: 520px;
 	color: var(--color-text-300);
