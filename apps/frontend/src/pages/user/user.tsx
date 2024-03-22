@@ -5,6 +5,7 @@ import {
 	EmptyPagePlaceholder,
 	Icon,
 	Image,
+	Link,
 	Loader,
 	Navigate,
 	Pagination,
@@ -48,7 +49,7 @@ const User: React.FC = () => {
 	const { id } = useParams();
 	const userId = Number(id);
 	const {
-		commonCourses,
+		commonCoursesIds,
 		courses,
 		currentUserId,
 		hasSubscription,
@@ -59,7 +60,7 @@ const User: React.FC = () => {
 		totalCount,
 	} = useAppSelector((state) => {
 		return {
-			commonCourses: state.userCourses.commonCourses,
+			commonCoursesIds: state.userCourses.commonCoursesIds,
 			courses: state.userCourses.userCourses,
 			currentUserId: (state.auth.user as UserAuthResponseDto).id,
 			hasSubscription: Boolean(
@@ -148,9 +149,6 @@ const User: React.FC = () => {
 		(profileUser as UserAuthResponseDto).subscription,
 	);
 
-	const isCommonCoursesShown =
-		hasSubscription && commonCourses.length > EMPTY_LENGTH;
-
 	return (
 		<div className={styles["container"]}>
 			<Button
@@ -196,14 +194,29 @@ const User: React.FC = () => {
 			</div>
 
 			<div className={styles["courses-container"]}>
-				<h2 className={styles["courses-title"]}>Courses</h2>
+				<div className={styles["title-container"]}>
+					<h2 className={styles["courses-title"]}>Courses</h2>
+					{!hasSubscription && (
+						<p className={styles["courses-subtitle"]}>
+							Want to compare your progress with your friend? Then{" "}
+							<Link className={styles["link"]} to={AppRoute.PROFILE}>
+								subscribe
+							</Link>
+							!
+						</p>
+					)}
+				</div>
 				{isCoursesLoading ? (
 					<Loader color="orange" size="large" />
 				) : (
 					<>
 						{hasCourses ? (
 							<div className={styles["courses-container-content"]}>
-								<Courses courses={courses} userId={userId} />
+								<Courses
+									commonCoursesIds={commonCoursesIds}
+									courses={courses}
+									userId={userId}
+								/>
 								<Pagination
 									currentPage={page}
 									pages={pages}
@@ -217,12 +230,6 @@ const User: React.FC = () => {
 								title={`${fullName} hasn't added any courses yet`}
 							/>
 						)}
-					</>
-				)}
-				{isCommonCoursesShown && (
-					<>
-						<h2 className={styles["courses-title"]}>Common courses</h2>
-						<Courses courses={commonCourses} userId={userId} />
 					</>
 				)}
 			</div>

@@ -46,8 +46,7 @@
 	transition: 0.3s ease;
 }
 
-.course-add-button,
-.compare-progress-button {
+.course-add-button {
 	flex-grow: 1;
 }
 

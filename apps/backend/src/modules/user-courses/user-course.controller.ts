@@ -193,7 +193,7 @@ class UserCourseController extends BaseController {
 	 *   get:
 	 *     tags:
 	 *       - User courses
-	 *     description: Return all common courses
+	 *     description: Return all common courses IDs
 	 *     security:
 	 *       - bearerAuth: []
 	 *     parameters:
@@ -212,11 +212,10 @@ class UserCourseController extends BaseController {
 	 *             schema:
 	 *               type: object
 	 *               properties:
-	 *                 courses:
+	 *                 coursesIds:
 	 *                   type: array
 	 *                   items:
-	 *                     type: object
-	 *                     $ref: '#/components/schemas/Course'
+	 *                     type: number
 	 */
 	private async findCommon({
 		params: { userId },
