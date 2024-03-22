@@ -1,14 +1,18 @@
 import { ExceptionMessage } from "~/libs/enums/enums.js";
+import { convertPageToZeroIndexed } from "~/libs/helpers/helpers.js";
 import { type Encrypt } from "~/libs/modules/encrypt/encrypt.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
-import { type Service } from "~/libs/types/types.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type Service,
+} from "~/libs/types/types.js";
 import { UserEntity } from "~/modules/users/user.entity.js";
 import { type UserRepository } from "~/modules/users/user.repository.js";
 
 import { UserError } from "./libs/exceptions/exceptions.js";
 import {
 	type UserAuthResponseDto,
-	type UserGetAllResponseDto,
 	type UserProfileRequestDto,
 	type UserSignUpRequestDto,
 } from "./libs/types/types.js";
@@ -68,10 +72,21 @@ class UserService implements Service {
 		return Promise.resolve(null);
 	}
 
-	public async findAll(): Promise<UserGetAllResponseDto> {
-		const users = await this.userRepository.findAll();
+	public async findAll({
+		count,
+		page,
+	}: PaginationRequestDto): Promise<
+		PaginationResponseDto<UserAuthResponseDto>
+	> {
+		const { items: users, total } = await this.userRepository.findAll({
+			count,
+			page: convertPageToZeroIndexed(page),
+		});
 
-		return { items: users.map((user) => user.toObject()) };
+		return {
+			items: users.map((user) => user.toObject()),
+			total,
+		};
 	}
 
 	public async findById(id: number): Promise<UserAuthResponseDto | null> {

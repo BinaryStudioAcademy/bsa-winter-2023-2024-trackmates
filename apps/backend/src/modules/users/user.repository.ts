@@ -1,5 +1,9 @@
 import { RelationName, SortOrder } from "~/libs/enums/enums.js";
-import { type Repository } from "~/libs/types/types.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type Repository,
+} from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
@@ -131,56 +135,63 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<UserEntity[]> {
-		const users = await this.userModel
+	public async findAll({
+		count,
+		page,
+	}: PaginationRequestDto): Promise<PaginationResponseDto<UserEntity>> {
+		const { results: users, total } = await this.userModel
 			.query()
-			.withGraphJoined(
+			.withGraphFetched(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy("id", SortOrder.ASC)
+			.page(page, count)
 			.execute();
 
-		return users.map((user) =>
-			UserEntity.initialize({
-				avatarUrl: user.userDetails.avatarFile?.url ?? null,
-				createdAt: user.createdAt,
-				email: user.email,
-				firstName: user.userDetails.firstName,
-				groups: user.groups.map((group) => {
-					return GroupEntity.initialize({
-						createdAt: group.createdAt,
-						id: group.id,
-						key: group.key,
-						name: group.name,
-						permissions: group.permissions.map((permission) => {
-							return PermissionEntity.initialize({
-								createdAt: permission.createdAt,
-								id: permission.id,
-								key: permission.key,
-								name: permission.name,
-								updatedAt: permission.updatedAt,
-							});
-						}),
-						updatedAt: group.updatedAt,
-					});
+		return {
+			items: users.map((user) =>
+				UserEntity.initialize({
+					avatarUrl: user.userDetails.avatarFile?.url ?? null,
+					createdAt: user.createdAt,
+					email: user.email,
+					firstName: user.userDetails.firstName,
+					groups: user.groups.map((group) => {
+						return GroupEntity.initialize({
+							createdAt: group.createdAt,
+							id: group.id,
+							key: group.key,
+							name: group.name,
+							permissions: group.permissions.map((permission) => {
+								return PermissionEntity.initialize({
+									createdAt: permission.createdAt,
+									id: permission.id,
+									key: permission.key,
+									name: permission.name,
+									updatedAt: permission.updatedAt,
+								});
+							}),
+							updatedAt: group.updatedAt,
+						});
+					}),
+					id: user.id,
+					lastName: user.userDetails.lastName,
+					nickname: user.userDetails.nickname,
+					passwordHash: user.passwordHash,
+					passwordSalt: user.passwordSalt,
+					sex: user.userDetails.sex,
+					subscription: user.userDetails.subscription
+						? SubscriptionEntity.initialize({
+								createdAt: user.userDetails.subscription.createdAt,
+								expiresAt: user.userDetails.subscription.expiresAt,
+								id: user.userDetails.subscription.id,
+								updatedAt: user.userDetails.subscription.updatedAt,
+							})
+						: null,
+					updatedAt: user.updatedAt,
 				}),
-				id: user.id,
-				lastName: user.userDetails.lastName,
-				nickname: user.userDetails.nickname,
-				passwordHash: user.passwordHash,
-				passwordSalt: user.passwordSalt,
-				sex: user.userDetails.sex,
-				subscription: user.userDetails.subscription
-					? SubscriptionEntity.initialize({
-							createdAt: user.userDetails.subscription.createdAt,
-							expiresAt: user.userDetails.subscription.expiresAt,
-							id: user.userDetails.subscription.id,
-							updatedAt: user.userDetails.subscription.updatedAt,
-						})
-					: null,
-				updatedAt: user.updatedAt,
-			}),
-		);
+			),
+			total,
+		};
 	}
 
 	public async findById(id: number): Promise<UserEntity | null> {

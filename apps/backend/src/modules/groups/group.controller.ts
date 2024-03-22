@@ -110,7 +110,7 @@ class GroupController extends BaseController {
 			handler: (options) => {
 				return this.findAll(
 					options as APIHandlerOptions<{
-						query: Record<"userId", number> & PaginationRequestDto;
+						query: PaginationRequestDto;
 					}>,
 				);
 			},
