@@ -90,16 +90,18 @@ const { actions, name, reducer } = createSlice({
 		builder.addCase(updateChats.fulfilled, (state, { payload: newMessage }) => {
 			state.chats = state.chats
 				.map((chat) => {
-					return chat.id === newMessage.chatId
-						? {
-								...chat,
-								lastMessage: newMessage,
-								unreadMessageCount:
-									chat.interlocutor.id === newMessage.senderUser.id
-										? Number(chat.unreadMessageCount) + NEW_MESSAGE_COUNT
-										: chat.unreadMessageCount,
-							}
-						: chat;
+					if (chat.id !== newMessage.chatId) {
+						return chat;
+					}
+
+					return {
+						...chat,
+						lastMessage: newMessage,
+						unreadMessageCount:
+							chat.interlocutor.id === newMessage.senderUser.id
+								? Number(chat.unreadMessageCount) + NEW_MESSAGE_COUNT
+								: chat.unreadMessageCount,
+					};
 				})
 				.sort((a, b) => {
 					return (
