@@ -1,18 +1,25 @@
 @import url("~/assets/css/media.css");
 
+.container {
+	display: grid;
+	flex-grow: 1;
+	grid-template-rows: min-content 1fr;
+	grid-template-columns: minmax(auto, 1500px);
+	padding: 15px 40px;
+	margin: 0 auto;
+}
+
 .wrapper {
 	position: relative;
 	display: flex;
 	gap: 27px;
 	justify-content: center;
-	padding: 15px 40px;
 }
 
 .back-button {
 	width: 24px;
 	height: 24px;
-	margin-top: 15px;
-	margin-left: 39px;
+	margin-bottom: 17px;
 	color: var(--color-text-400);
 	background-color: #e0e0e0;
 }

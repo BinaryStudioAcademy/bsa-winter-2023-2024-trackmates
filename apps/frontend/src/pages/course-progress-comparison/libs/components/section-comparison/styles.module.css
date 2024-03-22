@@ -1,12 +1,16 @@
 @import url("~/assets/css/media.css");
 
 .container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 	min-width: 100%;
 }
 
 .content {
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 	gap: 14px;
 	height: 400px;
 	padding: 5px;
