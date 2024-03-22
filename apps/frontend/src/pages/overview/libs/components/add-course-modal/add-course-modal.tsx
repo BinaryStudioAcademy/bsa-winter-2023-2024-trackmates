@@ -2,6 +2,7 @@ import {
 	Button,
 	Courses,
 	Input,
+	Link,
 	Loader,
 	Modal,
 } from "~/libs/components/components.js";
@@ -181,6 +182,15 @@ const AddCourseModal: React.FC<Properties> = ({
 							/>
 						</div>
 						<div className={styles["toolbar"]}>
+							{!hasSubscription && (
+								<p className={styles["subscription-ad"]}>
+									Want to get recommended courses by AI? Then{" "}
+									<Link className={styles["link"]} to="/subscription">
+										subscribe
+									</Link>
+									!
+								</p>
+							)}
 							<fieldset className={styles["vendors-container"]}>
 								{vendors.map((vendor) => (
 									<VendorBadge
