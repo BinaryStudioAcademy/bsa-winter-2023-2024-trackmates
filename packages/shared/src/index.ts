@@ -171,16 +171,17 @@ export {
 	friendIdParameterValidationSchema,
 } from "./modules/friends/friends.js";
 export {
+	type GroupCreateRequestDto,
 	GroupError,
 	GroupErrorMessage,
 	type GroupRequestDto,
 	type GroupResponseDto,
 	GroupsApiPath,
 	type GroupsGetAllResponseDto,
+	groupCreateRequestValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
-	groupNameFieldValidationSchema,
 	groupRequestBodyValidationSchema,
 } from "./modules/groups/groups.js";
 export {

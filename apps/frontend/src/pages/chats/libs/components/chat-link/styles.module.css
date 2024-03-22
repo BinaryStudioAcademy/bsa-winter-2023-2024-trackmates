@@ -68,6 +68,27 @@
 	background-color: var(--color-background);
 }
 
+.date-and-counter-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	justify-content: space-between;
+}
+
+.counter {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 20px;
+	height: 20px;
+	padding: 5px;
+	font-size: var(--font-size-50);
+	line-height: 0;
+	color: var(--main-white);
+	background-color: var(--main-orange);
+	border-radius: 12px;
+}
+
 @media screen and (--medium-screen) {
 	.reducible .text-container {
 		display: none;
