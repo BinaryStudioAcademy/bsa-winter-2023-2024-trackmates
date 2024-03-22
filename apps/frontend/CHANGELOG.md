@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.67.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.67.0...frontend-v1.67.1) (2024-03-22)
+
+
+### Bug Fixes
+
+* **frontend:** revert downscaling tm-638 ([#698](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/698)) ([5894808](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/58948085d8d1ed27326c09db1a91caf419547f94))
+
 ## [1.67.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/frontend-v1.66.0...frontend-v1.67.0) (2024-03-22)
 
 
