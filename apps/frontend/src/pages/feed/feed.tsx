@@ -33,23 +33,21 @@ const Feed: React.FC = () => {
 	return (
 		<div className={styles["wrapper"]}>
 			<h2 className={styles["title"]}>Activities</h2>
-			<div className={styles["container"]}>
-				{isLoading ? (
-					<Loader color="orange" size="large" />
-				) : (
-					<>
-						{hasActivities ? (
-							<FeedActivityList activities={activities} />
-						) : (
-							<EmptyPagePlaceholder
-								size="large"
-								title="There are no activities yet"
-							/>
-						)}
-					</>
-				)}
-				<div className={styles["background"]} />
-			</div>
+			{isLoading ? (
+				<Loader color="orange" size="large" />
+			) : (
+				<>
+					{hasActivities ? (
+						<FeedActivityList activities={activities} />
+					) : (
+						<EmptyPagePlaceholder
+							size="large"
+							title="There are no activities yet"
+						/>
+					)}
+				</>
+			)}
+			<div className={styles["background"]} />
 		</div>
 	);
 };

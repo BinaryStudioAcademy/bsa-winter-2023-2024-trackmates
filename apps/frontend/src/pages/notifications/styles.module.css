@@ -1,14 +1,13 @@
 @import url("~/assets/css/media.css");
 
 .page {
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
-	grid-template-rows: min-content 1fr;
-	grid-template-columns: minmax(auto, 1500px);
 	gap: 22px;
 	max-height: calc(100vh - 98px);
-	padding: 16px 40px;
-	margin: 0 auto;
+	padding: 33px 40px 25px;
+	overflow: hidden;
 }
 
 .notifications {
@@ -26,10 +25,10 @@
 	position: relative;
 	z-index: 0;
 	flex-grow: 1;
+	align-self: center;
 	width: 100%;
 	max-width: 637px;
 	height: calc(100% - 100px);
-	margin: 0 auto;
 	border-radius: 20px;
 	box-shadow: 0 0 8px 1px var(--shadow-color);
 }
@@ -57,10 +56,10 @@
 }
 
 .header {
-	display: block;
-	width: 100%;
-	max-width: 637px;
-	margin: 0 auto;
+	display: flex;
+	column-gap: 50px;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .filters {
