@@ -249,7 +249,6 @@ export {
 	type UserDetailsResponseDto,
 	UserError,
 	UserErrorMessage,
-	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,
 	UserSex,

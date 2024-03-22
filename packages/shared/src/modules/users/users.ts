@@ -4,7 +4,6 @@ export { userSexToPronoun } from "./libs/maps/maps.js";
 export {
 	type UserAuthResponseDto,
 	type UserDetailsResponseDto,
-	type UserGetAllResponseDto,
 	type UserGetByIdRequestDto,
 	type UserProfileRequestDto,
 	type UserSignInRequestDto,
