@@ -11,6 +11,7 @@ import {
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type PaginationRequestDto } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type GroupService } from "./group.service.js";
@@ -107,9 +108,9 @@ class GroupController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.findAllByQuery(
+				return this.findAll(
 					options as APIHandlerOptions<{
-						query: Record<"userId", number>;
+						query: Record<"userId", number> & PaginationRequestDto;
 					}>,
 				);
 			},
@@ -326,7 +327,7 @@ class GroupController extends BaseController {
 	 *        - Groups
 	 *      security:
 	 *        - bearerAuth: []
-	 *      description: Get all groups or user groups
+	 *      description: Get all groups
 	 *      parameters:
 	 *        - name: userId
 	 *          in: query
@@ -347,18 +348,13 @@ class GroupController extends BaseController {
 	 *                      type: object
 	 *                      $ref: "#/components/schemas/Group"
 	 */
-	private async findAllByQuery({
+	private async findAll({
 		query,
 	}: APIHandlerOptions<{
-		query: Record<"userId", number>;
+		query: PaginationRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		const hasUserId = Boolean(query.userId);
-		const payload = hasUserId
-			? await this.groupService.findAllUserGroups(query.userId)
-			: await this.groupService.findAll();
-
 		return {
-			payload,
+			payload: await this.groupService.findAll(query),
 			status: HTTPCode.OK,
 		};
 	}
