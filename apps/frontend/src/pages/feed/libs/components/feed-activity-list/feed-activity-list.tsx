@@ -1,5 +1,5 @@
 import { Loader } from "~/libs/components/components.js";
-import { useAppSelector, useCallback, useRef } from "~/libs/hooks/hooks.js";
+import { useAppSelector, useInfiniteScroll } from "~/libs/hooks/hooks.js";
 import { type ValueOf } from "~/libs/types/types.js";
 import {
 	type ActivityResponseDto,
@@ -29,32 +29,10 @@ const FeedActivityList: React.FC<Properties> = ({
 		};
 	});
 
-	const observer = useRef<IntersectionObserver | null>(null);
-
-	const loaderElementReference = useCallback(
-		(node: HTMLDivElement | null) => {
-			if (observer.current) {
-				observer.current.disconnect();
-			}
-
-			observer.current = new IntersectionObserver((entries) => {
-				if (isLoadingMore) {
-					return;
-				}
-
-				const [firstEntry] = entries;
-
-				if (firstEntry?.isIntersecting) {
-					handleIncreasePage();
-				}
-			});
-
-			if (node) {
-				observer.current.observe(node);
-			}
-		},
-		[handleIncreasePage, isLoadingMore],
-	);
+	const loaderElementReference = useInfiniteScroll({
+		isLoading: isLoadingMore,
+		loadMore: handleIncreasePage,
+	});
 
 	const hasAllBeenLoaded = activities.length === totalCount;
 
