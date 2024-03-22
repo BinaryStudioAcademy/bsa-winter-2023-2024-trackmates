@@ -76,6 +76,32 @@
 	margin: 30px auto 0;
 }
 
+.placeholder-container {
+	position: relative;
+	margin: auto 0;
+	font-weight: 500;
+	transform: translateY(50px);
+}
+
+.placeholder-title {
+	font-size: var(--font-size-400);
+	font-weight: 500;
+	color: var(--color-text-100);
+	text-align: center;
+}
+
+.character {
+	position: absolute;
+	top: -193px;
+	left: 50%;
+	width: 208px;
+	height: 208px;
+	background-image: url("~/assets/img/add-course-character.svg");
+	background-position: center;
+	background-size: cover;
+	transform: translateX(-50%);
+}
+
 @media screen and (width <= 865px) {
 	.add-course-modal {
 		width: 100vw;
