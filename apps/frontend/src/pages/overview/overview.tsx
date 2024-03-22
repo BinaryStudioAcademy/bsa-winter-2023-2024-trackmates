@@ -95,6 +95,7 @@ const Overview: React.FC = () => {
 									currentPage={page}
 									pages={pages}
 									pagesCount={pagesCount}
+									searchQuery={searchQuery}
 								/>
 							</div>
 						) : (
