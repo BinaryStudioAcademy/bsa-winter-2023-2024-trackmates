@@ -1,8 +1,10 @@
+import { type PaginationResponseDto } from "~/libs/types/types.js";
+
 type Repository<T = unknown> = {
 	create(payload: unknown): Promise<T>;
 	delete(id: number): Promise<boolean>;
 	find(id: number): Promise<T | null>;
-	findAll(payload: unknown): Promise<T[]>;
+	findAll(payload: unknown): Promise<PaginationResponseDto<T> | T[]>;
 	update(id: number, payload: unknown): Promise<T | null>;
 };
 
