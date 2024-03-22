@@ -81,7 +81,7 @@ const CourseDescription: React.FC = () => {
 	return isLoading || !course ? (
 		<Loader color="orange" size="large" />
 	) : (
-		<div className={styles["container"]}>
+		<>
 			<Button
 				className={styles["back-button"]}
 				hasVisuallyHiddenLabel
@@ -103,7 +103,7 @@ const CourseDescription: React.FC = () => {
 					</div>
 				)}
 			</div>
-		</div>
+		</>
 	);
 };
 

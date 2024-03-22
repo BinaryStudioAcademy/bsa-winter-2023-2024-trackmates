@@ -119,11 +119,7 @@ const Profile: React.FC = () => {
 		<>
 			<div className={styles["container"]}>
 				<span className={styles["profile-title"]}>My profile</span>
-				<form
-					className={styles["form"]}
-					name="profile"
-					onSubmit={handleFormSubmit}
-				>
+				<form name="profile" onSubmit={handleFormSubmit}>
 					<div className={styles["avatar-container"]}>
 						<div className={styles["profile-image-wrapper"]}>
 							<div className={styles["avatar"]}>
