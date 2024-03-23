@@ -17,7 +17,6 @@ ignore:
   - .git
   - node_modules
   - CHANGELOG.md
-  - build
   - packages/shared/build
   - packages/shared/node_modules
   - apps/frontend/build
