@@ -1,6 +1,6 @@
 {
-	".": "1.86.0",
+	".": "1.86.1",
 	"apps/backend": "1.52.0",
-	"apps/frontend": "1.68.2",
+	"apps/frontend": "1.68.3",
 	"packages/shared": "1.47.0"
 }
