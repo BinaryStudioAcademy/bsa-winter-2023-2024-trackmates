@@ -122,7 +122,7 @@ const UsersTab: React.FC = () => {
 		[users],
 	);
 
-	const checkIfSameUser = useCallback(
+	const handleCheckIfSameUser = useCallback(
 		(userId: number) => {
 			return authUser.id === userId;
 		},
@@ -137,7 +137,7 @@ const UsersTab: React.FC = () => {
 				) : (
 					<div className={styles["table-container"]}>
 						<UsersTable
-							checkIfSameUser={checkIfSameUser}
+							checkIfSameUser={handleCheckIfSameUser}
 							hasPermissionToDelete={hasPermissionToDelete}
 							hasPermissionToEdit={hasPermissionToEdit}
 							onDelete={handleOpenConfirmationModal}
