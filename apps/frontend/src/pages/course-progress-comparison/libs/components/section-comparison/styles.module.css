@@ -28,7 +28,12 @@
 }
 
 .head {
+	padding: 20px 31px;
 	font-size: var(--font-size-400);
+}
+
+.with-scroll .head {
+	padding-right: 36px;
 }
 
 .section {

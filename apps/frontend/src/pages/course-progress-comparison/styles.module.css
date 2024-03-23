@@ -4,6 +4,7 @@
 	position: relative;
 	display: flex;
 	flex-direction: column;
+	flex-grow: 1;
 	gap: 16px;
 	padding: 16px 40px;
 }
