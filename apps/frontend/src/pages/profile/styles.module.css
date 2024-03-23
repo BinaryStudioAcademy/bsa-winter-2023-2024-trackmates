@@ -128,6 +128,14 @@
 		padding-left: 24px;
 	}
 
+	.profile-inputs {
+		height: auto;
+	}
+
+	.fieldset {
+		margin: 49px 0;
+	}
+
 	.profile-image {
 		max-width: 100px;
 		height: 100px;
@@ -167,7 +175,7 @@
 	}
 
 	.fieldset {
-		margin-top: 24px;
+		margin: 24px 0;
 	}
 
 	.container {
