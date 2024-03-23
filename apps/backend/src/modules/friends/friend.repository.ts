@@ -1,4 +1,4 @@
-import { type Page, type QueryBuilder } from "objection";
+import { type QueryBuilder } from "objection";
 
 import { EMPTY_LENGTH } from "~/libs/constants/constants.js";
 import { SortOrder } from "~/libs/enums/enums.js";
@@ -285,44 +285,22 @@ class FriendRepository implements Repository<UserEntity> {
 	}): Promise<PaginationResponseDto<UserEntity>> {
 		const { results, total } = await this.userModel
 			.query()
-			.where("users.id", "<>", id)
-			.leftJoin(
-				DatabaseTableName.FRIENDS,
-				`${DatabaseTableName.USERS}.id`,
-				"=",
-				`${DatabaseTableName.FRIENDS}.following_id`,
-			)
-			.whereNotIn(
-				"users.id",
-				this.userModel
-					.query()
-					.select("users.id")
-					.leftJoin(
-						DatabaseTableName.FRIENDS,
-						`${DatabaseTableName.USERS}.id`,
-						"=",
-						`${DatabaseTableName.FRIENDS}.following_id`,
-					)
-					.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
-					.whereNotNull(`${DatabaseTableName.FRIENDS}.follower_id`),
-			)
-			.where((builder) => {
+			.whereNotIn(`${DatabaseTableName.USERS}.id`, (builder) => {
+				void builder
+					.select("followingId")
+					.from(DatabaseTableName.FRIENDS)
+					.where({ followerId: id });
+			})
+			.andWhereNot({ [`${DatabaseTableName.USERS}.id`]: id })
+			.andWhere((builder) => {
 				this.filterBySearch(builder, search);
 			})
-			.groupBy(
-				`${DatabaseTableName.USERS}.id`,
-				"userDetails.id",
-				"userDetails:avatar_file.id",
-				"userDetails:subscription.id",
-				"groups.id",
-				"groups:permissions.id",
-			)
-			.withGraphJoined(
+			.innerJoinRelated(RelationName.USER_DETAILS)
+			.withGraphFetched(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
-			.orderBy(`${DatabaseTableName.USERS}.createdAt`, SortOrder.DESC)
-			.page(page, count)
-			.castTo<Page<UserModel>>();
+			.orderBy(`${DatabaseTableName.USERS}.id`, SortOrder.DESC)
+			.page(page, count);
 
 		return {
 			items: results.map((user) => {
@@ -383,22 +361,23 @@ class FriendRepository implements Repository<UserEntity> {
 	}): Promise<PaginationResponseDto<UserEntity>> {
 		const { results, total } = await this.userModel
 			.query()
-			.leftJoin(
-				DatabaseTableName.FRIENDS,
-				`${DatabaseTableName.USERS}.id`,
-				"=",
-				`${DatabaseTableName.FRIENDS}.follower_id`,
-			)
-			.where(`${DatabaseTableName.FRIENDS}.following_id`, "=", id)
+			.innerJoin(DatabaseTableName.FRIENDS, (join) => {
+				join
+					.on(
+						`${DatabaseTableName.USERS}.id`,
+						`${DatabaseTableName.FRIENDS}.followerId`,
+					)
+					.andOnVal(`${DatabaseTableName.FRIENDS}.followingId`, id);
+			})
+			.innerJoinRelated(RelationName.USER_DETAILS)
 			.where((builder) => {
 				this.filterBySearch(builder, search);
 			})
-			.withGraphJoined(
+			.withGraphFetched(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
-			.page(page, count)
-			.castTo<Page<UserModel>>();
+			.page(page, count);
 
 		return {
 			items: results.map((user) => {
@@ -459,22 +438,23 @@ class FriendRepository implements Repository<UserEntity> {
 	}): Promise<PaginationResponseDto<UserEntity>> {
 		const { results, total } = await this.userModel
 			.query()
-			.leftJoin(
-				DatabaseTableName.FRIENDS,
-				`${DatabaseTableName.USERS}.id`,
-				"=",
-				`${DatabaseTableName.FRIENDS}.following_id`,
-			)
-			.where(`${DatabaseTableName.FRIENDS}.follower_id`, "=", id)
+			.innerJoin(DatabaseTableName.FRIENDS, (join) => {
+				join
+					.on(
+						`${DatabaseTableName.USERS}.id`,
+						`${DatabaseTableName.FRIENDS}.followingId`,
+					)
+					.andOnVal(`${DatabaseTableName.FRIENDS}.followerId`, id);
+			})
+			.innerJoinRelated(RelationName.USER_DETAILS)
 			.where((builder) => {
 				this.filterBySearch(builder, search);
 			})
-			.withGraphJoined(
+			.withGraphFetched(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy(`${DatabaseTableName.FRIENDS}.updatedAt`, SortOrder.DESC)
-			.page(page, count)
-			.castTo<Page<UserModel>>();
+			.page(page, count);
 
 		return {
 			items: results.map((user) => {
