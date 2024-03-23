@@ -94,15 +94,12 @@ const GroupsTab: React.FC<Properties> = ({
 		setCurrentGroup(null);
 	}, []);
 
-	const handleDeleteGroup = useCallback(
-		(groupId: number) => {
-			return () => {
-				void dispatch(groupsActions.deleteGroup({ groupId, page }));
-				handleCloseConfirmationModal();
-			};
-		},
-		[dispatch, handleCloseConfirmationModal, page],
-	);
+	const handleDeleteGroup = useCallback(() => {
+		void dispatch(
+			groupsActions.deleteGroup({ groupId: currentGroup?.id as number, page }),
+		);
+		handleCloseConfirmationModal();
+	}, [dispatch, handleCloseConfirmationModal, page, currentGroup]);
 
 	const handleEditModalOpen = useCallback(
 		(groupId: number) => {
@@ -179,7 +176,7 @@ const GroupsTab: React.FC<Properties> = ({
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseConfirmationModal}
 				onClose={handleCloseConfirmationModal}
-				onConfirm={handleDeleteGroup(currentGroup?.id as number)}
+				onConfirm={handleDeleteGroup}
 				title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
 			/>
 		</>
