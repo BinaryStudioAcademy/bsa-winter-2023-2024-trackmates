@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.85.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.85.0...v1.85.1) (2024-03-23)
+
+
+### Bug Fixes
+
+* **backend:** acitivity like tm-701 ([#703](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/703)) ([a17a7cd](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a17a7cd46f64ade2a63fccc1f183e3615796abb9))
+* **frontend:** layout issues on mobile devices tm-692 ([#707](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/707)) ([7a24a7f](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/7a24a7f9a9b533e684c09e0660bda4707d1b1f41))
+* **frontend:** stick crown to avatar tm-702 ([#704](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/704)) ([785b57e](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/785b57e5eb9c7f3e18c9472a55a32a05e0648232))
+* **frontend:** z-index for vendor and link to subdcription pop-up tm-622 ([#706](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/706)) ([6d53200](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6d5320054c5f855449e4b5d527922439e410e6c4))
+
 ## [1.85.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.84.1...v1.85.0) (2024-03-22)
 
 
