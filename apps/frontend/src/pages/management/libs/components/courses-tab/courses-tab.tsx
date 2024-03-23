@@ -9,6 +9,7 @@ import {
 	useEffect,
 	usePagination,
 	useState,
+	useToggleScroll,
 } from "~/libs/hooks/hooks.js";
 import {
 	type CourseDto,
@@ -117,6 +118,8 @@ const CoursesTab: React.FC = () => {
 		},
 		[courses],
 	);
+
+	useToggleScroll(isEditModalOpen);
 
 	return (
 		<>
