@@ -2,6 +2,7 @@
 
 .empty-page-placeholder {
 	padding-block: 20px;
+	margin-top: 200px;
 	font-size: var(--font-size-400);
 	font-weight: 600;
 	color: var(--color-text-100);
@@ -14,8 +15,15 @@
 	font-size: var(--font-size-300);
 }
 
+@media screen and (--large-screen) {
+	.empty-page-placeholder {
+		margin-top: 100px;
+	}
+}
+
 @media screen and (--small-screen) {
 	.empty-page-placeholder {
+		margin-top: 40px;
 		font-size: var(--font-size-300);
 	}
 }
