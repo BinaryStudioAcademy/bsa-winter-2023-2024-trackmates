@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.85.3](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.85.2...v1.85.3) (2024-03-23)
+
+
+### Bug Fixes
+
+* remove build from fs lint tm-1 ([6c19013](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/6c190134608604dc05d28f4bab82f10eb4e8461b))
+
 ## [1.85.2](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/v1.85.1...v1.85.2) (2024-03-23)
 
 
