@@ -1,8 +1,10 @@
 import { SectionStatusCheckbox } from "~/libs/components/components.js";
+import { getValidClassNames, hasScroll } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
+	useRef,
 } from "~/libs/hooks/hooks.js";
 import { type CourseSectionDto } from "~/modules/course-sections/course-sections.js";
 import {
@@ -64,14 +66,20 @@ const SectionComparison: React.FC<Properties> = ({
 		[dispatch],
 	);
 
+	const contentReference = useRef<HTMLDivElement>(null);
+	const containerClasses = getValidClassNames(
+		styles["container"],
+		hasScroll(contentReference.current) && styles["with-scroll"],
+	);
+
 	return (
-		<div className={styles["container"]}>
+		<div className={containerClasses}>
 			<div className={styles["head"]}>
 				<div className={styles["row-item"]}>Progress</div>
 				<div className={styles["row-item"]}>You</div>
 				<div className={styles["row-item"]}>{friendName}</div>
 			</div>
-			<div className={styles["content"]}>
+			<div className={styles["content"]} ref={contentReference}>
 				{courseSections.map((section) => {
 					const userStatus = getStatusBySectionId(
 						section.id as number,
