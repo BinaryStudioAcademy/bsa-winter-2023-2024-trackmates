@@ -125,14 +125,15 @@ class GroupService implements Service {
 		return groupById.toObject();
 	}
 
-	public async findAll(
-		query: PaginationRequestDto,
-	): Promise<PaginationResponseDto<GroupResponseDto>> {
-		const hasPagination = Boolean(query.count && query.page);
+	public async findAll({
+		count,
+		page,
+	}: PaginationRequestDto): Promise<PaginationResponseDto<GroupResponseDto>> {
+		const hasPagination = Boolean(count && page);
 		const { items: groups, total } = hasPagination
 			? await this.groupRepository.findAllWithPagination({
-					count: query.count,
-					page: convertPageToZeroIndexed(query.page),
+					count,
+					page: convertPageToZeroIndexed(page),
 				})
 			: await this.groupRepository.findAll();
 

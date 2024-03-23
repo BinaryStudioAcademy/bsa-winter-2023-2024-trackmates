@@ -146,7 +146,7 @@ class UserController extends BaseController {
 	 *          schema:
 	 *            type: number
 	 *            minimum: 1
-	 *            required: true
+
 	 *        - name: count
 	 *          in: query
 	 *          description: Item count on page
@@ -169,12 +169,15 @@ class UserController extends BaseController {
 	 *                      $ref: "#/components/schemas/User"
 	 */
 	private async findAll({
-		query,
+		query: { count, page },
 	}: APIHandlerOptions<{
 		query: PaginationRequestDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.userService.findAll(query),
+			payload: await this.userService.findAll({
+				count,
+				page,
+			}),
 			status: HTTPCode.OK,
 		};
 	}

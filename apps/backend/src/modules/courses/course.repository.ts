@@ -6,6 +6,7 @@ import { SortOrder } from "~/libs/enums/enums.js";
 import { DatabaseTableName } from "~/libs/modules/database/database.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import {
+	type PaginationRequestDto,
 	type PaginationResponseDto,
 	type Repository,
 } from "~/libs/types/types.js";
@@ -164,10 +165,7 @@ class CourseRepository implements Repository<CourseEntity> {
 	public async findAll({
 		count,
 		page,
-	}: {
-		count: number;
-		page: number;
-	}): Promise<PaginationResponseDto<CourseEntity>> {
+	}: PaginationRequestDto): Promise<PaginationResponseDto<CourseEntity>> {
 		const { results: courses, total } = await this.courseModel
 			.query()
 			.withGraphFetched("vendor")

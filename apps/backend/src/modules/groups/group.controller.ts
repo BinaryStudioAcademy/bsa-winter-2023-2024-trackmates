@@ -369,12 +369,12 @@ class GroupController extends BaseController {
 	 *                      $ref: "#/components/schemas/Group"
 	 */
 	private async findAll({
-		query,
+		query: { count, page },
 	}: APIHandlerOptions<{
 		query: PaginationRequestDto;
 	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.groupService.findAll(query),
+			payload: await this.groupService.findAll({ count, page }),
 			status: HTTPCode.OK,
 		};
 	}
