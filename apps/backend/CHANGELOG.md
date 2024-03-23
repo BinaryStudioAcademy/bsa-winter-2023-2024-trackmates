@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.52.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.51.0...backend-v1.52.0) (2024-03-23)
+
+
+### Features
+
+* **backend:** update queries in friend repository tm-665 ([#709](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/709)) ([bd0abaf](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/bd0abafe86e13ee5a7f1c1f0a6c5f585b3aa7aed))
+
 ## [1.51.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.50.1...backend-v1.51.0) (2024-03-23)
 
 
