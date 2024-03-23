@@ -346,14 +346,12 @@ class GroupController extends BaseController {
 	 *          schema:
 	 *            type: number
 	 *            minimum: 1
-	 *            required: false
 	 *        - name: count
 	 *          in: query
 	 *          description: Item count on page
 	 *          schema:
 	 *            type: number
 	 *            minimum: 1
-	 *            required: false
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation

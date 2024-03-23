@@ -20,14 +20,6 @@ const groupGetAllQuery = z
 				PaginationValidationMessage.MIN_PAGE,
 			),
 	})
-	.required()
-	.or(
-		z
-			.object({
-				count: z.undefined(),
-				page: z.undefined(),
-			})
-			.required(),
-	);
+	.required();
 
 export { groupGetAllQuery };

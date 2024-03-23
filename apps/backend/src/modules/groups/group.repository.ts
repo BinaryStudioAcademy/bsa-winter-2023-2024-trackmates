@@ -147,11 +147,14 @@ class GroupRepository implements Repository<GroupEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<PaginationResponseDto<GroupEntity>> {
-		const groups = await this.groupModel
+	public async findAll(
+		query: PaginationRequestDto,
+	): Promise<PaginationResponseDto<GroupEntity>> {
+		const { results: groups, total } = await this.groupModel
 			.query()
-			.withGraphJoined(RelationName.PERMISSIONS)
+			.withGraphFetched(RelationName.PERMISSIONS)
 			.orderBy("id", SortOrder.ASC)
+			.page(query.page, query.count)
 			.execute();
 
 		return {
@@ -173,7 +176,7 @@ class GroupRepository implements Repository<GroupEntity> {
 					updatedAt: group.updatedAt,
 				});
 			}),
-			total: groups.length,
+			total,
 		};
 	}
 
@@ -225,39 +228,6 @@ class GroupRepository implements Repository<GroupEntity> {
 				updatedAt: group.updatedAt,
 			});
 		});
-	}
-
-	public async findAllWithPagination(
-		query: PaginationRequestDto,
-	): Promise<PaginationResponseDto<GroupEntity>> {
-		const { results: groups, total } = await this.groupModel
-			.query()
-			.withGraphFetched(RelationName.PERMISSIONS)
-			.orderBy("id", SortOrder.ASC)
-			.page(query.page, query.count)
-			.execute();
-
-		return {
-			items: groups.map((group) => {
-				return GroupEntity.initialize({
-					createdAt: group.createdAt,
-					id: group.id,
-					key: group.key,
-					name: group.name,
-					permissions: group.permissions.map((permission) => {
-						return PermissionEntity.initialize({
-							createdAt: permission.createdAt,
-							id: permission.id,
-							key: permission.key,
-							name: permission.name,
-							updatedAt: permission.updatedAt,
-						});
-					}),
-					updatedAt: group.updatedAt,
-				});
-			}),
-			total,
-		};
 	}
 
 	public async findByKey(key: string): Promise<GroupEntity | null> {

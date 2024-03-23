@@ -57,7 +57,7 @@ class GroupsApi extends BaseHTTPApi {
 	}
 
 	public async getAllGroups(
-		query: PaginationRequestDto | undefined,
+		query: PaginationRequestDto,
 	): Promise<PaginationResponseDto<GroupResponseDto>> {
 		const response = await this.load(
 			this.getFullEndpoint(GroupsApiPath.ROOT, {}),
@@ -65,7 +65,7 @@ class GroupsApi extends BaseHTTPApi {
 				contentType: ContentType.JSON,
 				hasAuth: true,
 				method: "GET",
-				query: query ?? {},
+				query,
 			},
 		);
 

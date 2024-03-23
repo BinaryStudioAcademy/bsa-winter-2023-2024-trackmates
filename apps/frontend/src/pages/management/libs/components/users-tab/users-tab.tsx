@@ -70,7 +70,12 @@ const UsersTab: React.FC = () => {
 		void dispatch(
 			usersActions.getAll({ count: PaginationValue.DEFAULT_COUNT, page }),
 		);
-		void dispatch(groupsActions.getAllGroups());
+		void dispatch(
+			groupsActions.getAllGroups({
+				count: PaginationValue.MAX_COUNT,
+				page: PaginationValue.DEFAULT_PAGE,
+			}),
+		);
 	}, [dispatch, page]);
 
 	const handleCloseEditModal = useCallback(() => {

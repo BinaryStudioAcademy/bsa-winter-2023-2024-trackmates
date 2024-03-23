@@ -129,13 +129,10 @@ class GroupService implements Service {
 		count,
 		page,
 	}: PaginationRequestDto): Promise<PaginationResponseDto<GroupResponseDto>> {
-		const hasPagination = Boolean(count && page);
-		const { items: groups, total } = hasPagination
-			? await this.groupRepository.findAllWithPagination({
-					count,
-					page: convertPageToZeroIndexed(page),
-				})
-			: await this.groupRepository.findAll();
+		const { items: groups, total } = await this.groupRepository.findAll({
+			count,
+			page: convertPageToZeroIndexed(page),
+		});
 
 		return {
 			items: groups.map((group) => {

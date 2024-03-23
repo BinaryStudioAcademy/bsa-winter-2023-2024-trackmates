@@ -57,7 +57,7 @@ const deleteGroup = createAsyncThunk<
 
 const getAllGroups = createAsyncThunk<
 	PaginationResponseDto<GroupResponseDto>,
-	PaginationRequestDto | undefined,
+	PaginationRequestDto,
 	AsyncThunkConfig
 >(`${sliceName}/get-all-groups`, async (query, { extra }) => {
 	const { groupsApi } = extra;
