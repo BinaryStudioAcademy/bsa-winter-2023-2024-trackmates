@@ -8,6 +8,7 @@ import {
 	useCallback,
 	useState,
 	useToggleScroll,
+	useWindowWidth,
 } from "~/libs/hooks/hooks.js";
 import { type MenuItem, type PagePermissions } from "~/libs/types/types.js";
 import {
@@ -21,6 +22,8 @@ import { Button } from "../button/button.js";
 import { Icon } from "../icon/icon.js";
 import { Image } from "../image/image.js";
 import { Link } from "../link/link.js";
+import { Portal } from "../portal/portal.js";
+import { SMALL_WIDTH_BREAKPOINT } from "./libs/constants/constants.js";
 import styles from "./styles.module.css";
 
 type Properties = {
@@ -58,21 +61,25 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 		[user],
 	);
 
+	const windowWidth = useWindowWidth();
+
+	const burgerButton = (
+		<Button
+			className={getValidClassNames(
+				styles["burger-button"],
+				styles[isOpen ? "open" : "close"],
+			)}
+			hasVisuallyHiddenLabel
+			iconName="burger"
+			label="burger-button"
+			onClick={handleToggleSidebar}
+			style="secondary"
+		/>
+	);
 	useToggleScroll(isOpen);
 
 	return (
 		<>
-			<Button
-				className={getValidClassNames(
-					styles["burger-button"],
-					styles[isOpen ? "open" : "close"],
-				)}
-				hasVisuallyHiddenLabel
-				iconName="burger"
-				label="burger-button"
-				onClick={handleToggleSidebar}
-				style="secondary"
-			/>
 			<div
 				className={getValidClassNames(
 					styles["sidebar"],
@@ -85,6 +92,11 @@ const Sidebar: React.FC<Properties> = ({ menuItems, user }: Properties) => {
 							<Image alt="website logo" className={styles["logo"]} src={logo} />
 						</Link>
 						<nav className={styles["menu"]}>
+							{windowWidth > SMALL_WIDTH_BREAKPOINT ? (
+								burgerButton
+							) : (
+								<Portal position="absolute">{burgerButton}</Portal>
+							)}
 							{menuItems.map(({ href, icon, label, pagePermissions }) => {
 								return (
 									handleCheckPermissions(pagePermissions) && (

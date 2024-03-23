@@ -7,9 +7,10 @@
 	flex-direction: column;
 	height: 100%;
 	padding: 19px;
+	padding-right: 10px;
 	overflow: hidden;
 	background-color: var(--color-menu);
-	transition: width 0.3s ease;
+	transition: 0.3s ease;
 }
 
 .menu {
@@ -98,7 +99,8 @@
 	display: flex;
 	flex: 1;
 	flex-direction: column;
-	overflow: hidden scroll;
+	padding-right: 9px;
+	overflow: hidden;
 }
 
 @media screen and (--large-screen) {
@@ -168,6 +170,10 @@
 	}
 }
 
+.absolute {
+	position: absolute;
+}
+
 @media screen and (--small-screen) {
 	.sidebar.close {
 		width: 270px;
@@ -184,6 +190,26 @@
 		left: 33px;
 		z-index: var(--z-index-low);
 		color: var(--color-button);
+		transition:
+			all 0.3s,
+			color 0s;
+	}
+
+	.burger-button.open {
+		display: flex;
+		color: transparent;
+		visibility: hidden;
+	}
+
+	.burger-button.close {
+		transition:
+			all 0.3s,
+			color 0.3s cubic-bezier(1, -0.03, 1, 0.49);
+	}
+
+	.sidebar,
+	.content-wrapper {
+		overflow: unset;
 	}
 
 	.blurred-background {
@@ -210,6 +236,7 @@
 
 	.content-wrapper {
 		flex-direction: row;
+		padding-right: 0;
 	}
 
 	.sidebar.close {
@@ -294,12 +321,12 @@
 }
 
 @media screen and (height <= 665px) {
-	.title-container {
-		max-height: 46px;
+	.content-container {
+		gap: 14px;
 	}
 
-	.sidebar .content-wrapper {
-		padding-right: 12px;
+	.content-wrapper {
+		overflow: hidden scroll;
 	}
 }
 
@@ -308,12 +335,47 @@
 		margin-right: -8px;
 	}
 
-	.sidebar:not(.open) {
-		padding-top: 80px;
+	.sidebar:not(.open) .title-container {
+		height: 0;
+		min-height: 0;
+		padding: 0;
 	}
 
-	.sidebar:not(.open) .title-container {
-		display: none;
+	.burger-button {
+		position: static;
+		display: flex;
+		flex-shrink: 1;
+		align-items: flex-start;
+		width: 66px;
+		height: 100%;
+		min-height: 37px;
+		max-height: 103px;
+		margin: 15px 0 8px 1px;
+		color: var(--main-white);
+	}
+
+	.menu-item:first-of-type {
+		margin-top: 12px;
+	}
+
+	.content-container {
+		gap: 0;
+	}
+
+	.sidebar:not(.open) .content-container {
+		flex-direction: column-reverse;
+	}
+}
+
+@media screen and (--small-screen) and (height <= 665) {
+	.burger-button {
+		position: absolute;
+		width: unset;
+		height: unset;
+		min-height: unset;
+		max-height: unset;
+		margin: 0;
+		color: var(--color-button);
 	}
 }
 

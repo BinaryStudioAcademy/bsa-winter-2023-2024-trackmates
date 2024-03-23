@@ -7,6 +7,7 @@ export { useHandleEscPress } from "./use-handle-esc-press/use-handle-esc-press.h
 export { useInfiniteScroll } from "./use-infinite-scroll/use-infinite-scroll.hook.js";
 export { usePagination } from "./use-pagination/use-pagination.hook.js";
 export { useToggleScroll } from "./use-toggle-scroll/use-toggle-scroll.hook.js";
+export { useWindowWidth } from "./use-window-width/use-window-width.hook.js";
 export {
 	forwardRef,
 	useCallback,

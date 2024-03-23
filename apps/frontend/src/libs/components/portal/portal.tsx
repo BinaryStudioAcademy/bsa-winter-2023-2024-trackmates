@@ -6,15 +6,22 @@ import styles from "./styles.module.css";
 
 type Properties = {
 	children: React.ReactNode;
+	position?: "absolute" | "fixed";
 };
 
-const Portal: React.FC<Properties> = ({ children }: Properties) => {
+const Portal: React.FC<Properties> = ({
+	children,
+	position = "fixed",
+}: Properties) => {
 	const portalContainer = useMemo(() => {
 		const element = document.createElement("div");
-		element.classList.add(styles["portal"] as string);
+		element.classList.add(
+			styles["portal"] as string,
+			styles[position] as string,
+		);
 
 		return element;
-	}, []);
+	}, [position]);
 
 	useEffect(() => {
 		document.body.append(portalContainer);
