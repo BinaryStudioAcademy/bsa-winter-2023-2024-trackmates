@@ -199,7 +199,7 @@ const User: React.FC = () => {
 					{!hasSubscription && (
 						<p className={styles["courses-subtitle"]}>
 							Want to compare your progress with your friend? Then{" "}
-							<Link className={styles["link"]} to={AppRoute.PROFILE}>
+							<Link className={styles["link"]} to={AppRoute.SUBSCRIPTION}>
 								subscribe
 							</Link>
 							!

@@ -22,7 +22,7 @@
 	position: absolute;
 	top: -1px;
 	right: 25px;
-	z-index: var(--z-index-high);
+	z-index: var(--z-index-low);
 	display: flex;
 	align-items: center;
 	justify-content: center;
