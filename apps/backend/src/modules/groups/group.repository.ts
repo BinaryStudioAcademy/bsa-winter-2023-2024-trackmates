@@ -147,14 +147,15 @@ class GroupRepository implements Repository<GroupEntity> {
 			: null;
 	}
 
-	public async findAll(
-		query: PaginationRequestDto,
-	): Promise<PaginationResponseDto<GroupEntity>> {
+	public async findAll({
+		count,
+		page,
+	}: PaginationRequestDto): Promise<PaginationResponseDto<GroupEntity>> {
 		const { results: groups, total } = await this.groupModel
 			.query()
 			.withGraphFetched(RelationName.PERMISSIONS)
 			.orderBy("id", SortOrder.ASC)
-			.page(query.page, query.count)
+			.page(page, count)
 			.execute();
 
 		return {
