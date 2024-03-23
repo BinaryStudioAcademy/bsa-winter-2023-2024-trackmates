@@ -44,8 +44,8 @@
 
 .premium-icon {
 	position: absolute;
+	top: 21px;
 	right: -4%;
-	bottom: 22%;
 	width: 14px;
 	aspect-ratio: 1;
 }

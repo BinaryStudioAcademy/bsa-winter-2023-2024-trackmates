@@ -257,8 +257,8 @@ graph TD
 
    User
 
-   WebApp["Web App"]
-   PWA
+   Web["Web"]
+   WebApp
 
    Route53
 
@@ -273,10 +273,10 @@ graph TD
    Udemy["Udemy API"]
    Stripe["Stripe API"]
 
+   User -->|Connects to| Web
    User -->|Connects to| WebApp
-   User -->|Connects to| PWA
+   Web -->|Connects to| Route53
    WebApp -->|Connects to| Route53
-   PWA -->|Connects to| Route53
    Route53 -->|Sends traffic to| ELB
    ELB -->|Sends traffic to| EC2
    EC2 -->|Connects to| DB
