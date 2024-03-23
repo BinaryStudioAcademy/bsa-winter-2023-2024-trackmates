@@ -17,6 +17,7 @@ import {
 	useEffect,
 	usePagination,
 	useState,
+	useToggleScroll,
 } from "~/libs/hooks/hooks.js";
 import { actions as groupsActions } from "~/modules/groups/groups.js";
 import {
@@ -133,6 +134,8 @@ const UsersTab: React.FC = () => {
 		},
 		[authUser],
 	);
+
+	useToggleScroll(isEditModalOpen);
 
 	return (
 		<>

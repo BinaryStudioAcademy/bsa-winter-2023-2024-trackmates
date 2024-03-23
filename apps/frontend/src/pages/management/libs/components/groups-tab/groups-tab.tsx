@@ -9,6 +9,7 @@ import {
 	useEffect,
 	usePagination,
 	useState,
+	useToggleScroll,
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
 import {
@@ -137,6 +138,8 @@ const GroupsTab: React.FC<Properties> = ({
 		},
 		[authUser],
 	);
+
+	useToggleScroll(isEditModalOpen);
 
 	return (
 		<>
