@@ -91,6 +91,7 @@ const Header: React.FC = () => {
 								hasSubscription && styles["premium"],
 							)}
 							height="48"
+							key={user.avatarUrl ?? defaultAvatar}
 							shape="circle"
 							src={user.avatarUrl ?? defaultAvatar}
 							width="48"
