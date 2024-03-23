@@ -133,6 +133,7 @@ const Chat: React.FC<Properties> = ({
 								hasSubscription && styles["premium"],
 							)}
 							height="48"
+							key={interlocutor.avatarUrl ?? defaultAvatar}
 							shape="circle"
 							src={interlocutor.avatarUrl ?? defaultAvatar}
 							width="48"

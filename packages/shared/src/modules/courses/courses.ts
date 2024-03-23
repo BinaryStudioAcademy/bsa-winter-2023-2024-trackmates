@@ -12,6 +12,7 @@ export {
 } from "./libs/types/types.js";
 export {
 	addCourse as addCourseValidationSchema,
+	courseGetAllQuery as courseGetAllQueryValidationSchema,
 	courseIdParameter as courseIdParameterValidationSchema,
 	courseUpdate as courseUpdateValidationSchema,
 } from "./libs/validation-schemas/validation-schemas.js";

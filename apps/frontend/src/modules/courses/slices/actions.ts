@@ -1,7 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { PaginationValue } from "~/libs/enums/enums.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import {
+	type AsyncThunkConfig,
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 
 import {
 	type CourseDto,
@@ -40,29 +45,34 @@ const getRecommended = createAsyncThunk<
 	return courseApi.getRecommended(filterPayload);
 });
 
-const getAll = createAsyncThunk<CourseDto[], undefined, AsyncThunkConfig>(
-	`${sliceName}/get-all`,
-	async (_, { extra }) => {
-		const { courseApi } = extra;
+const getAll = createAsyncThunk<
+	PaginationResponseDto<CourseDto>,
+	PaginationRequestDto,
+	AsyncThunkConfig
+>(`${sliceName}/get-all`, async (query, { extra }) => {
+	const { courseApi } = extra;
 
-		const { courses } = await courseApi.getAll();
+	return await courseApi.getAll(query);
+});
 
-		return courses;
-	},
-);
-
-const deleteById = createAsyncThunk<boolean, number, AsyncThunkConfig>(
+const deleteById = createAsyncThunk<
+	boolean,
+	{ courseId: number; page: number },
+	AsyncThunkConfig
+>(
 	`${sliceName}/delete-by-id`,
-	async (id, { extra }) => {
+	async ({ courseId, page }, { dispatch, extra }) => {
 		const { courseApi, notification } = extra;
 
-		const { success } = await courseApi.deleteById(String(id));
+		const { success } = await courseApi.deleteById(String(courseId));
 
 		if (success) {
 			notification.success(NotificationMessage.COURSE_DELETED);
 		} else {
 			notification.error(NotificationMessage.COURSE_DELETION_FAILED);
 		}
+
+		void dispatch(getAll({ count: PaginationValue.DEFAULT_COUNT, page }));
 
 		return success;
 	},

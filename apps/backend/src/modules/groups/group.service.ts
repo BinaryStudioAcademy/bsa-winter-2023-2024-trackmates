@@ -1,6 +1,13 @@
 import { HTTPCode, PermissionKey } from "~/libs/enums/enums.js";
-import { changeCase } from "~/libs/helpers/helpers.js";
-import { type Service } from "~/libs/types/types.js";
+import {
+	changeCase,
+	convertPageToZeroIndexed,
+} from "~/libs/helpers/helpers.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type Service,
+} from "~/libs/types/types.js";
 
 import {
 	type PermissionRepository,
@@ -118,13 +125,20 @@ class GroupService implements Service {
 		return groupById.toObject();
 	}
 
-	public async findAll(): Promise<GroupsGetAllResponseDto> {
-		const { items } = await this.groupRepository.findAll();
+	public async findAll({
+		count,
+		page,
+	}: PaginationRequestDto): Promise<PaginationResponseDto<GroupResponseDto>> {
+		const { items: groups, total } = await this.groupRepository.findAll({
+			count,
+			page: convertPageToZeroIndexed(page),
+		});
 
 		return {
-			items: items.map((group) => {
+			items: groups.map((group) => {
 				return group.toObject();
 			}),
+			total,
 		};
 	}
 

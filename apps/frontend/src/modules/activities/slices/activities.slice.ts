@@ -90,7 +90,11 @@ const { actions, name, reducer } = createSlice({
 	},
 	initialState,
 	name: "activities",
-	reducers: {},
+	reducers: {
+		reset() {
+			return initialState;
+		},
+	},
 });
 
 export { actions, name, reducer };

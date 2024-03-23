@@ -3,8 +3,8 @@
 	flex-direction: column;
 	flex-grow: 1;
 	row-gap: 40px;
-	min-width: 100%;
-	overflow: auto;
+	width: 100%;
+	margin-bottom: 40px;
 }
 
 .table-container {
