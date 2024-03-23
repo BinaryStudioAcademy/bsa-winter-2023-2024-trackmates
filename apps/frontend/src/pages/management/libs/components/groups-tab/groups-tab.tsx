@@ -139,7 +139,7 @@ const GroupsTab: React.FC<Properties> = ({
 		[authUser],
 	);
 
-	useToggleScroll(isEditModalOpen || isConfirmationModalOpen);
+	useToggleScroll(isEditModalOpen);
 
 	return (
 		<>

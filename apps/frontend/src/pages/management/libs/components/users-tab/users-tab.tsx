@@ -135,7 +135,7 @@ const UsersTab: React.FC = () => {
 		[authUser],
 	);
 
-	useToggleScroll(isEditModalOpen || isConfirmationModalOpen);
+	useToggleScroll(isEditModalOpen);
 
 	return (
 		<>
