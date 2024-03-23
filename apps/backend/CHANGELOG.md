@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.51.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.50.1...backend-v1.51.0) (2024-03-23)
+
+
+### Features
+
+* **backend/frontend/shared:** add pagination to the management page tm-645 ([#708](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/708)) ([bd0366d](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/bd0366ddd7e1006519d57d0a0484af5948125e09))
+
 ## [1.50.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.50.0...backend-v1.50.1) (2024-03-23)
 
 
