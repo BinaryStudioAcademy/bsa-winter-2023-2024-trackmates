@@ -123,6 +123,7 @@ const Friends: React.FC = () => {
 						emptyPlaceholder="There aren't any potential friends"
 						items={friendsData.items}
 						pagination={pagination}
+						searchQuery={searchQuery}
 					/>
 				);
 			}
@@ -133,6 +134,7 @@ const Friends: React.FC = () => {
 						emptyPlaceholder="You don't have any followers yet"
 						items={friendsData.items}
 						pagination={pagination}
+						searchQuery={searchQuery}
 					/>
 				);
 			}
@@ -143,6 +145,7 @@ const Friends: React.FC = () => {
 						emptyPlaceholder="You aren't following anyone yet"
 						items={friendsData.items}
 						pagination={pagination}
+						searchQuery={searchQuery}
 					/>
 				);
 			}

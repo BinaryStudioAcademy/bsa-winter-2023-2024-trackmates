@@ -118,39 +118,42 @@ class ChatMessageService implements Service {
 	public async findAll(
 		userId: number,
 	): Promise<{ items: ChatMessageItemResponseDto[] }> {
-		const messagesByUserId = await this.chatMessageRepository.findAll(userId);
+		const { items } = await this.chatMessageRepository.findAll(userId);
 
 		return {
-			items: messagesByUserId.map((messageByUserId) => {
+			items: items.map((messageByUserId) => {
 				return messageByUserId.toObject();
 			}),
 		};
 	}
 
 	public async setReadChatMessages(
+		chatId: number,
 		chatMessageIds: number[],
 		userId: number,
 	): Promise<ReadChatMessagesResponseDto> {
 		const readChatMessages =
 			await this.chatMessageRepository.setReadChatMessages(chatMessageIds);
-		const unreadMessagesCount =
-			await this.chatService.getUnreadMessagesCount(userId);
+
+		const { firstUser, secondUser } = await this.chatService.find(chatId);
 
 		socketService.emitMessage({
 			event: SocketEvent.CHAT_READ_MESSAGES,
 			payload: {
+				chatId,
 				items: readChatMessages,
-				unreadMessagesCount,
+				readerId: userId,
 			},
-			receiversIds: [String(userId)],
+			receiversIds: [String(firstUser.id), String(secondUser.id)],
 			targetNamespace: SocketNamespace.CHAT,
 		});
 
 		return {
+			chatId,
 			items: readChatMessages.map((chatMessage) => {
 				return chatMessage.toObject();
 			}),
-			unreadMessagesCount,
+			readerId: userId,
 		};
 	}
 

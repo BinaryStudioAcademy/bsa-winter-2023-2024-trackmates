@@ -69,9 +69,9 @@ class UserService implements Service {
 	}
 
 	public async findAll(): Promise<UserGetAllResponseDto> {
-		const users = await this.userRepository.findAll();
+		const { items } = await this.userRepository.findAll();
 
-		return { items: users.map((user) => user.toObject()) };
+		return { items: items.map((user) => user.toObject()) };
 	}
 
 	public async findById(id: number): Promise<UserAuthResponseDto | null> {

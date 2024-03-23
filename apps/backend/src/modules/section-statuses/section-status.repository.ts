@@ -61,19 +61,21 @@ class SectionStatusRepository implements Repository<SectionStatusEntity> {
 		});
 	}
 
-	public async findAll(): Promise<SectionStatusEntity[]> {
+	public async findAll(): Promise<{ items: SectionStatusEntity[] }> {
 		const sectionStatusModels = await this.sectionStatusModel.query().execute();
 
-		return sectionStatusModels.map((sectionStatusModel) => {
-			return SectionStatusEntity.initialize({
-				courseSectionId: sectionStatusModel.courseSectionId,
-				createdAt: sectionStatusModel.createdAt,
-				id: sectionStatusModel.id,
-				status: sectionStatusModel.status,
-				updatedAt: sectionStatusModel.updatedAt,
-				userId: sectionStatusModel.userId,
-			});
-		});
+		return {
+			items: sectionStatusModels.map((sectionStatusModel) => {
+				return SectionStatusEntity.initialize({
+					courseSectionId: sectionStatusModel.courseSectionId,
+					createdAt: sectionStatusModel.createdAt,
+					id: sectionStatusModel.id,
+					status: sectionStatusModel.status,
+					updatedAt: sectionStatusModel.updatedAt,
+					userId: sectionStatusModel.userId,
+				});
+			}),
+		};
 	}
 
 	public async findAllByCourseIdAndUserId({

@@ -1,3 +1,4 @@
+import defaultCourseImage from "~/assets/img/mock-course-background.png";
 import { Button, Content, Image } from "~/libs/components/components.js";
 import { getValidClassNames } from "~/libs/helpers/helpers.js";
 import { useCallback, useState } from "~/libs/hooks/hooks.js";
@@ -73,7 +74,12 @@ const CourseDetails: React.FC<Properties> = ({
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["title"]}>{title}</div>
-			<Image alt="Course" className={styles["image"]} src={image} />
+			<Image
+				alt="Course"
+				className={styles["image"]}
+				defaultSrc={defaultCourseImage}
+				src={image}
+			/>
 			<ul className={styles["tabs"]}>
 				{Object.values(Tab).map((item) => (
 					<li className={styles["tab-item"]} key={item}>

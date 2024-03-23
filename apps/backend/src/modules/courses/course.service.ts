@@ -221,9 +221,9 @@ class CourseService {
 	}
 
 	public async findAll(): Promise<CourseSearchGetAllResponseDto> {
-		const entities = await this.courseRepository.findAll();
+		const { items } = await this.courseRepository.findAll();
 
-		const courses = entities.map((entity) => ({
+		const courses = items.map((entity) => ({
 			...entity.toObject(),
 			hasUserCourse: false,
 		}));
@@ -277,15 +277,13 @@ class CourseService {
 		const { courses } = await this.findAllByVendors(parameters);
 
 		const prompt =
-			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the same length as the input array. Returned array must contain indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: the input data to analyze is [{0}, {1}, {2}]. After analyzing, the output should be like: [1, 2, 0]. Please make sure that the returned array has the same length as the input array.";
+			"Given a list of courses in JSON format. Analyze these courses by all fields. Return an array with the first four indexes of sorted courses based on their overall quality and interest level, from the most recommended courses to the least. The answer should be without any explanation in the format: [index]. The index starts with 0. For example: if the input data to analyze is [{0}, {1}, {2}, {3}, {4}], and the first four sorted indexes are 1, 2, 0, and 3, then the output should be like: [1, 2, 0, 3]. Please ensure that the returned array contains only the indexes of the first four sorted courses.";
 		const request = `${prompt}\n\n${JSON.stringify(courses)}`;
 		const response = await this.openAI.call(request);
 		const sortedIndexes = JSON.parse(response) as number[];
 
-		const sortedCourses = courses.map((_, index) => {
-			const courseIndex = sortedIndexes[index] as number;
-
-			return courses[courseIndex] as CourseSearchResponseDto;
+		const sortedCourses = sortedIndexes.map((index) => {
+			return courses[index] as CourseSearchResponseDto;
 		});
 
 		return { courses: sortedCourses.filter(Boolean) };

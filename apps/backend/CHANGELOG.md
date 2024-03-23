@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.50.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.49.0...backend-v1.50.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** Add pagination to the Activities page tm-646 ([#666](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/666)) ([22c5dea](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/22c5dea834500ae1e6fb190e0bb6151d07d844dc))
+
+## [1.49.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.48.0...backend-v1.49.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** implement subscription features tm-630 ([#657](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/657)) ([66c6c78](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/66c6c78e3f30798905eb9e418f8fbb02a58ec3f8))
+* **frontend/backend/shared:** compare button tm-622 ([#680](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/680)) ([8e03bd0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/8e03bd00723dc2d03410d7e09dc2448827e74d06))
+
+## [1.48.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.47.0...backend-v1.48.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend:** Use react-table for tables in UAM view tm-542 ([#681](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/681)) ([278d152](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/278d152861a68fa0a6b1946e70eb855f313d712f))
+
+## [1.47.0](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.46.1...backend-v1.47.0) (2024-03-22)
+
+
+### Features
+
+* **backend/frontend/shared:** indicate premium users tm-631 ([#673](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/673)) ([e50ad52](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/e50ad523f538e8958e92494740ac057b905e18d9))
+* **frontend/backend/shared:** read/unread messages tm-501 ([#660](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/660)) ([a462850](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/a462850147b4354c16ed00b77bb785eb232a7687))
+* **frontend/backend/shared:** uam group creation in popup tm-543 ([#656](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/656)) ([3e3cf02](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/3e3cf02a523ea0b8e6d51343a2213b1b4c80cd45))
+* **frontend/backend:** recommended courses tm-624 ([#662](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/662)) ([0765a30](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/0765a304e6f4f160709730c0fcef0b256c068dda))
+
+
+### Bug Fixes
+
+* **frontend/backend:** fix pagination search issues in the friends page tm-561 ([#671](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/issues/671)) ([aeeb9ab](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/commit/aeeb9ab1392546b7d92b0c965cda6a1b84beccbe))
+
 ## [1.46.1](https://github.com/BinaryStudioAcademy/bsa-winter-2023-2024-trackmates/compare/backend-v1.46.0...backend-v1.46.1) (2024-03-21)
 
 

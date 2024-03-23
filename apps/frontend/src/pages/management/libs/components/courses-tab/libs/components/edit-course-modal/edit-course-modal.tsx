@@ -1,5 +1,5 @@
 import { Button, Input, Modal } from "~/libs/components/components.js";
-import { useAppForm, useCallback, useEffect } from "~/libs/hooks/hooks.js";
+import { useAppForm, useCallback } from "~/libs/hooks/hooks.js";
 import {
 	type CourseDto,
 	type CourseUpdateRequestDto,
@@ -9,7 +9,7 @@ import { courseUpdateValidationSchema } from "~/modules/courses/courses.js";
 import styles from "./styles.module.css";
 
 type Properties = {
-	course: CourseDto | null;
+	course: CourseDto;
 	isOpen: boolean;
 	onClose: () => void;
 	onConfirm: (payload: CourseUpdateRequestDto) => void;
@@ -24,7 +24,7 @@ const EditCourseModal: React.FC<Properties> = ({
 	const { control, errors, handleSubmit, reset } =
 		useAppForm<CourseUpdateRequestDto>({
 			defaultValues: {
-				title: course?.title ?? "",
+				title: course.title,
 			},
 			validationSchema: courseUpdateValidationSchema,
 		});
@@ -39,10 +39,6 @@ const EditCourseModal: React.FC<Properties> = ({
 	const handleReset = useCallback(() => {
 		reset();
 	}, [reset]);
-
-	useEffect(() => {
-		reset({ title: course?.title ?? "" });
-	}, [reset, course]);
 
 	return (
 		<Modal

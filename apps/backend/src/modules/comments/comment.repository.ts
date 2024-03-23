@@ -6,7 +6,7 @@ import { type CommentModel } from "./comment.model.js";
 import { RelationName } from "./libs/enums/enums.js";
 
 class CommentRepository implements Repository<CommentEntity> {
-	private authorWithAvatarRelation = `[${RelationName.AUTHOR}.${RelationName.AVATAR_FILE}]`;
+	private authorWithAvatarRelation = `[${RelationName.AUTHOR}.[${RelationName.AVATAR_FILE}, ${RelationName.SUBSCRIPTION}]]`;
 
 	private commentModel: typeof CommentModel;
 
@@ -35,6 +35,7 @@ class CommentRepository implements Repository<CommentEntity> {
 				firstName: comment.author.firstName,
 				lastName: comment.author.lastName,
 				nickname: comment.author.nickname,
+				subscription: comment.author.subscription ?? null,
 			},
 			createdAt: comment.createdAt,
 			id: comment.id,
@@ -71,6 +72,7 @@ class CommentRepository implements Repository<CommentEntity> {
 				firstName: comment.author.firstName,
 				lastName: comment.author.lastName,
 				nickname: comment.author.nickname,
+				subscription: comment.author.subscription ?? null,
 			},
 			createdAt: comment.createdAt,
 			id: comment.id,
@@ -80,25 +82,28 @@ class CommentRepository implements Repository<CommentEntity> {
 		});
 	}
 
-	public async findAll(): Promise<CommentEntity[]> {
+	public async findAll(): Promise<{ items: CommentEntity[] }> {
 		const comments = await this.commentModel.query().execute();
 
-		return comments.map((comment) => {
-			return CommentEntity.initialize({
-				activityId: comment.activityId,
-				author: {
-					avatarUrl: comment.author.avatarFile?.url ?? null,
-					firstName: comment.author.firstName,
-					lastName: comment.author.lastName,
-					nickname: comment.author.nickname,
-				},
-				createdAt: comment.createdAt,
-				id: comment.id,
-				text: comment.text,
-				updatedAt: comment.updatedAt,
-				userId: comment.userId,
-			});
-		});
+		return {
+			items: comments.map((comment) => {
+				return CommentEntity.initialize({
+					activityId: comment.activityId,
+					author: {
+						avatarUrl: comment.author.avatarFile?.url ?? null,
+						firstName: comment.author.firstName,
+						lastName: comment.author.lastName,
+						nickname: comment.author.nickname,
+						subscription: comment.author.subscription ?? null,
+					},
+					createdAt: comment.createdAt,
+					id: comment.id,
+					text: comment.text,
+					updatedAt: comment.updatedAt,
+					userId: comment.userId,
+				});
+			}),
+		};
 	}
 
 	public async findAllByActivityId(
@@ -119,6 +124,7 @@ class CommentRepository implements Repository<CommentEntity> {
 					firstName: comment.author.firstName,
 					lastName: comment.author.lastName,
 					nickname: comment.author.nickname,
+					subscription: comment.author.subscription ?? null,
 				},
 				createdAt: comment.createdAt,
 				id: comment.id,
@@ -152,6 +158,7 @@ class CommentRepository implements Repository<CommentEntity> {
 				firstName: comment.author.firstName,
 				lastName: comment.author.lastName,
 				nickname: comment.author.nickname,
+				subscription: comment.author.subscription ?? null,
 			},
 			createdAt: comment.createdAt,
 			id: comment.id,

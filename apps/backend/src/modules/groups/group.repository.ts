@@ -1,3 +1,4 @@
+import { SortOrder } from "~/libs/enums/enums.js";
 import { type Repository } from "~/libs/types/types.js";
 import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
 
@@ -20,14 +21,14 @@ class GroupRepository implements Repository<GroupEntity> {
 		this.userModel = userModel;
 	}
 
-	public async addPermissionToGroup(
+	public async addPermissionsToGroup(
 		groupId: number,
-		permissionId: number,
+		permissionIds: number[],
 	): Promise<PermissionEntity[]> {
 		await this.groupModel
 			.relatedQuery(RelationName.PERMISSIONS)
 			.for(groupId)
-			.relate(permissionId)
+			.relate(permissionIds)
 			.execute();
 
 		const permissions = await this.groupModel
@@ -84,11 +85,11 @@ class GroupRepository implements Repository<GroupEntity> {
 	}
 
 	public async create(group: GroupEntity): Promise<GroupEntity> {
-		const { key, name } = group.toNewObject();
 		const createdGroup = await this.groupModel
 			.query()
-			.insert({ key, name })
+			.insertGraph(group.toNewObject(), { relate: true })
 			.returning("*")
+			.withGraphJoined(RelationName.PERMISSIONS)
 			.execute();
 
 		return GroupEntity.initialize({
@@ -96,7 +97,15 @@ class GroupRepository implements Repository<GroupEntity> {
 			id: createdGroup.id,
 			key: createdGroup.key,
 			name: createdGroup.name,
-			permissions: [],
+			permissions: createdGroup.permissions.map((permission) => {
+				return PermissionEntity.initialize({
+					createdAt: permission.createdAt,
+					id: permission.id,
+					key: permission.key,
+					name: permission.name,
+					updatedAt: permission.updatedAt,
+				});
+			}),
 			updatedAt: createdGroup.updatedAt,
 		});
 	}
@@ -134,30 +143,33 @@ class GroupRepository implements Repository<GroupEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<GroupEntity[]> {
+	public async findAll(): Promise<{ items: GroupEntity[] }> {
 		const groups = await this.groupModel
 			.query()
 			.withGraphJoined(RelationName.PERMISSIONS)
+			.orderBy("id", SortOrder.ASC)
 			.execute();
 
-		return groups.map((group) => {
-			return GroupEntity.initialize({
-				createdAt: group.createdAt,
-				id: group.id,
-				key: group.key,
-				name: group.name,
-				permissions: group.permissions.map((permission) => {
-					return PermissionEntity.initialize({
-						createdAt: permission.createdAt,
-						id: permission.id,
-						key: permission.key,
-						name: permission.name,
-						updatedAt: permission.updatedAt,
-					});
-				}),
-				updatedAt: group.updatedAt,
-			});
-		});
+		return {
+			items: groups.map((group) => {
+				return GroupEntity.initialize({
+					createdAt: group.createdAt,
+					id: group.id,
+					key: group.key,
+					name: group.name,
+					permissions: group.permissions.map((permission) => {
+						return PermissionEntity.initialize({
+							createdAt: permission.createdAt,
+							id: permission.id,
+							key: permission.key,
+							name: permission.name,
+							updatedAt: permission.updatedAt,
+						});
+					}),
+					updatedAt: group.updatedAt,
+				});
+			}),
+		};
 	}
 
 	public async findAllPermissionsInGroup(

@@ -17,6 +17,7 @@ const subscriptionController = new SubscriptionController(
 );
 
 export { subscriptionController, subscriptionService };
+export { SubscriptionError } from "./libs/exceptions/exceptions.js";
 export { type SubscriptionResponseDto } from "./libs/types/types.js";
 export { SubscriptionEntity } from "./subscription.entity.js";
 export { SubscriptionModel } from "./subscription.model.js";

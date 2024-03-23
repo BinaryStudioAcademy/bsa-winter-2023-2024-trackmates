@@ -1,0 +1,8 @@
+.email {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.email-highlight {
+	font-weight: bold;
+}

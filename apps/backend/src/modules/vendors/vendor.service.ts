@@ -50,9 +50,9 @@ class VendorService {
 	}
 
 	public async findAll(): Promise<VendorResponseDto[]> {
-		const entities = await this.vendorRepository.findAll();
+		const { items } = await this.vendorRepository.findAll();
 
-		return entities.map((entity) => entity.toObject());
+		return items.map((entity) => entity.toObject());
 	}
 
 	public async findAllByKeys(keys: string[]): Promise<VendorResponseDto[]> {
