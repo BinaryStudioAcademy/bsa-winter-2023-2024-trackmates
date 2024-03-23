@@ -21,12 +21,6 @@
 	}
 }
 
-@media screen and (--medium-screen) {
-	.empty-page-placeholder {
-		margin-top: 100px;
-	}
-}
-
 @media screen and (--small-screen) {
 	.empty-page-placeholder {
 		margin-top: 40px;
