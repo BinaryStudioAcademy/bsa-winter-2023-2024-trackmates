@@ -11,6 +11,7 @@ import {
 	BaseController,
 } from "~/libs/modules/controller/controller.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type PaginationRequestDto } from "~/libs/types/types.js";
 import { type UserAuthResponseDto } from "~/modules/users/users.js";
 
 import { type GroupService } from "./group.service.js";
@@ -21,6 +22,7 @@ import {
 } from "./libs/types/types.js";
 import {
 	groupCreateRequestValidationSchema,
+	groupGetAllQueryValidationSchema,
 	groupIdAndPermissionIdParametersValidationSchema,
 	groupIdAndUserIdParametersValidationSchema,
 	groupIdParameterValidationSchema,
@@ -111,9 +113,9 @@ class GroupController extends BaseController {
 
 		this.addRoute({
 			handler: (options) => {
-				return this.findAllByQuery(
+				return this.findAll(
 					options as APIHandlerOptions<{
-						query: Record<"userId", number>;
+						query: PaginationRequestDto;
 					}>,
 				);
 			},
@@ -125,6 +127,9 @@ class GroupController extends BaseController {
 					PermissionMode.ONE_OF,
 				),
 			],
+			validation: {
+				query: groupGetAllQueryValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -333,13 +338,20 @@ class GroupController extends BaseController {
 	 *        - Groups
 	 *      security:
 	 *        - bearerAuth: []
-	 *      description: Get all groups or user groups
+	 *      description: Get all groups
 	 *      parameters:
-	 *        - name: userId
+	 *        - name: page
 	 *          in: query
-	 *          description: The user id
+	 *          description: Page number
 	 *          schema:
 	 *            type: number
+	 *            minimum: 1
+	 *        - name: count
+	 *          in: query
+	 *          description: Item count on page
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -354,18 +366,13 @@ class GroupController extends BaseController {
 	 *                      type: object
 	 *                      $ref: "#/components/schemas/Group"
 	 */
-	private async findAllByQuery({
-		query,
+	private async findAll({
+		query: { count, page },
 	}: APIHandlerOptions<{
-		query: Record<"userId", number>;
+		query: PaginationRequestDto;
 	}>): Promise<APIHandlerResponse> {
-		const hasUserId = Boolean(query.userId);
-		const payload = hasUserId
-			? await this.groupService.findAllUserGroups(query.userId)
-			: await this.groupService.findAll();
-
 		return {
-			payload,
+			payload: await this.groupService.findAll({ count, page }),
 			status: HTTPCode.OK,
 		};
 	}

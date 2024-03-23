@@ -129,6 +129,7 @@ const Profile: React.FC = () => {
 										styles["profile-image"],
 										hasSubscription && styles["premium"],
 									)}
+									key={user.avatarUrl ?? defaultAvatar}
 									shape="circle"
 									src={user.avatarUrl ?? defaultAvatar}
 								/>

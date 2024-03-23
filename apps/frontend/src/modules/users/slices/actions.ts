@@ -1,7 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+import { PaginationValue } from "~/libs/enums/enums.js";
 import { NotificationMessage } from "~/libs/modules/notification/notification.js";
-import { type AsyncThunkConfig } from "~/libs/types/types.js";
+import {
+	type AsyncThunkConfig,
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+} from "~/libs/types/types.js";
 import {
 	type UserAuthResponseDto,
 	type UserProfileRequestDto,
@@ -9,22 +14,25 @@ import {
 
 import { name as sliceName } from "./users.slice.js";
 
-const remove = createAsyncThunk<boolean, number, AsyncThunkConfig>(
-	`${sliceName}/remove`,
-	async (id, { extra }) => {
-		const { notification, userApi } = extra;
+const remove = createAsyncThunk<
+	boolean,
+	{ page: number; userId: number },
+	AsyncThunkConfig
+>(`${sliceName}/remove`, async ({ page, userId }, { dispatch, extra }) => {
+	const { notification, userApi } = extra;
 
-		const success = await userApi.remove(id);
+	const success = await userApi.remove(userId);
 
-		if (success) {
-			notification.success(NotificationMessage.USER_DELETED);
-		} else {
-			notification.error(NotificationMessage.USER_DELETION_FAILED);
-		}
+	if (success) {
+		notification.success(NotificationMessage.USER_DELETED);
+	} else {
+		notification.error(NotificationMessage.USER_DELETION_FAILED);
+	}
 
-		return success;
-	},
-);
+	void dispatch(getAll({ count: PaginationValue.DEFAULT_COUNT, page }));
+
+	return success;
+});
 
 const updateProfile = createAsyncThunk<
 	UserAuthResponseDto,
@@ -41,15 +49,13 @@ const updateProfile = createAsyncThunk<
 });
 
 const getAll = createAsyncThunk<
-	UserAuthResponseDto[],
-	undefined,
+	PaginationResponseDto<UserAuthResponseDto>,
+	PaginationRequestDto,
 	AsyncThunkConfig
->(`${sliceName}/get-all`, async (_, { extra }) => {
+>(`${sliceName}/get-all`, async (query, { extra }) => {
 	const { userApi } = extra;
 
-	const users = await userApi.getAll();
-
-	return users.items;
+	return await userApi.getAll(query);
 });
 
 const getById = createAsyncThunk<UserAuthResponseDto, number, AsyncThunkConfig>(

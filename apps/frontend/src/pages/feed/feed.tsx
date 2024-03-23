@@ -28,6 +28,10 @@ const Feed: React.FC = () => {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
+		if (page === PaginationValue.DEFAULT_PAGE) {
+			dispatch(actions.reset());
+		}
+
 		void dispatch(
 			actions.loadActivities({
 				count: PaginationValue.DEFAULT_COUNT,
