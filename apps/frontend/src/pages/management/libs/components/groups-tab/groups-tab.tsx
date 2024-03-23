@@ -1,11 +1,13 @@
-import { Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { Loader, Pagination } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
+import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import { findItemById } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useEffect,
+	usePagination,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import { type UserAuthResponseDto } from "~/modules/auth/auth.js";
@@ -32,17 +34,30 @@ const GroupsTab: React.FC<Properties> = ({
 	onAddGroupModalClose,
 }: Properties) => {
 	const dispatch = useAppDispatch();
-	const { authUser, groupToDataStatus, groups, isGroupsLoading, permissions } =
-		useAppSelector((state) => {
-			return {
-				authUser: state.auth.user as UserAuthResponseDto,
-				groupToDataStatus: state.management.groupToDataStatus,
-				groups: state.management.groups,
-				isGroupsLoading:
-					state.management.groupsDataStatus === DataStatus.PENDING,
-				permissions: state.management.permissions,
-			};
-		});
+	const {
+		authUser,
+		groupToDataStatus,
+		groups,
+		isGroupsLoading,
+		permissions,
+		total,
+	} = useAppSelector((state) => {
+		return {
+			authUser: state.auth.user as UserAuthResponseDto,
+			groupToDataStatus: state.management.groupToDataStatus,
+			groups: state.management.groups,
+			isGroupsLoading: state.management.groupsDataStatus === DataStatus.PENDING,
+			permissions: state.management.permissions,
+			total: state.management.totalGroupsCount,
+		};
+	});
+
+	const { page, pages, pagesCount } = usePagination({
+		pageSize: PaginationValue.DEFAULT_COUNT,
+		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		totalCount: total,
+	});
+
 	const [currentGroup, setCurrentGroup] = useState<GroupResponseDto | null>(
 		null,
 	);
@@ -51,15 +66,22 @@ const GroupsTab: React.FC<Properties> = ({
 		useState<boolean>(false);
 
 	useEffect(() => {
-		void dispatch(groupsActions.getAllGroups());
+		void dispatch(
+			groupsActions.getAllGroups({
+				count: PaginationValue.DEFAULT_COUNT,
+				page,
+			}),
+		);
 		void dispatch(permissionsActions.getAllPermissions());
-	}, [dispatch]);
+	}, [dispatch, page]);
 
 	const handleCreateGroup = useCallback(
 		(payload: GroupCreateRequestDto) => {
-			void dispatch(groupsActions.createGroup(payload));
+			void dispatch(
+				groupsActions.createGroup({ createPayload: payload, page }),
+			);
 		},
-		[dispatch],
+		[dispatch, page],
 	);
 
 	const handleCloseEditModal = useCallback(() => {
@@ -72,15 +94,12 @@ const GroupsTab: React.FC<Properties> = ({
 		setCurrentGroup(null);
 	}, []);
 
-	const handleDeleteGroup = useCallback(
-		(groupId: number) => {
-			return () => {
-				void dispatch(groupsActions.deleteGroup(groupId));
-				handleCloseConfirmationModal();
-			};
-		},
-		[dispatch, handleCloseConfirmationModal],
-	);
+	const handleDeleteGroup = useCallback(() => {
+		void dispatch(
+			groupsActions.deleteGroup({ groupId: currentGroup?.id as number, page }),
+		);
+		handleCloseConfirmationModal();
+	}, [dispatch, handleCloseConfirmationModal, page, currentGroup]);
 
 	const handleEditModalOpen = useCallback(
 		(groupId: number) => {
@@ -136,6 +155,7 @@ const GroupsTab: React.FC<Properties> = ({
 					</div>
 				)}
 			</div>
+			<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
 			<AddGroupModal
 				isOpen={isAddGroupModalOpen}
 				onClose={onAddGroupModalClose}
@@ -156,7 +176,7 @@ const GroupsTab: React.FC<Properties> = ({
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseConfirmationModal}
 				onClose={handleCloseConfirmationModal}
-				onConfirm={handleDeleteGroup(currentGroup?.id as number)}
+				onConfirm={handleDeleteGroup}
 				title={`${ManagementDialogueMessage.DELETE_GROUP} "${currentGroup?.name}"?`}
 			/>
 		</>

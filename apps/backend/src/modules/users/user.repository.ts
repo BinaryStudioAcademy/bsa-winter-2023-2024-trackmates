@@ -1,5 +1,9 @@
 import { RelationName, SortOrder } from "~/libs/enums/enums.js";
-import { type Repository } from "~/libs/types/types.js";
+import {
+	type PaginationRequestDto,
+	type PaginationResponseDto,
+	type Repository,
+} from "~/libs/types/types.js";
 import { GroupEntity } from "~/modules/groups/group.entity.js";
 import { PermissionEntity } from "~/modules/permissions/permissions.js";
 import { SubscriptionEntity } from "~/modules/subscriptions/subscriptions.js";
@@ -131,13 +135,17 @@ class UserRepository implements Repository<UserEntity> {
 			: null;
 	}
 
-	public async findAll(): Promise<{ items: UserEntity[] }> {
-		const users = await this.userModel
+	public async findAll({
+		count,
+		page,
+	}: PaginationRequestDto): Promise<PaginationResponseDto<UserEntity>> {
+		const { results: users, total } = await this.userModel
 			.query()
-			.withGraphJoined(
+			.withGraphFetched(
 				`[${RelationName.USER_DETAILS}.[${RelationName.AVATAR_FILE},${RelationName.SUBSCRIPTION}], ${RelationName.GROUPS}.${RelationName.PERMISSIONS}]`,
 			)
 			.orderBy("id", SortOrder.ASC)
+			.page(page, count)
 			.execute();
 
 		return {
@@ -182,6 +190,7 @@ class UserRepository implements Repository<UserEntity> {
 					updatedAt: user.updatedAt,
 				}),
 			),
+			total,
 		};
 	}
 

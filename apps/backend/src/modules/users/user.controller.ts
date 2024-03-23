@@ -10,6 +10,7 @@ import {
 } from "~/libs/modules/controller/controller.js";
 import { HTTPCode } from "~/libs/modules/http/http.js";
 import { type Logger } from "~/libs/modules/logger/logger.js";
+import { type PaginationRequestDto } from "~/libs/types/types.js";
 import { type UserService } from "~/modules/users/user.service.js";
 import {
 	type UserProfileRequestDto,
@@ -18,7 +19,10 @@ import {
 
 import { UsersApiPath } from "./libs/enums/enums.js";
 import { type UserGetByIdRequestDto } from "./libs/types/types.js";
-import { userIdParametersValidationSchema } from "./libs/validation-schemas/validation-schemas.js";
+import {
+	userGetAllQueryValidationSchema,
+	userIdParametersValidationSchema,
+} from "./libs/validation-schemas/validation-schemas.js";
 
 class UserController extends BaseController {
 	private userService: UserService;
@@ -66,11 +70,18 @@ class UserController extends BaseController {
 		});
 
 		this.addRoute({
-			handler: () => {
-				return this.findAll();
+			handler: (options) => {
+				return this.findAll(
+					options as APIHandlerOptions<{
+						query: PaginationRequestDto;
+					}>,
+				);
 			},
 			method: "GET",
 			path: UsersApiPath.ROOT,
+			validation: {
+				query: userGetAllQueryValidationSchema,
+			},
 		});
 
 		this.addRoute({
@@ -128,6 +139,21 @@ class UserController extends BaseController {
 	 *      security:
 	 *        - bearerAuth: []
 	 *      description: Find all users
+	 *      parameters:
+	 *        - name: page
+	 *          in: query
+	 *          description: Page number
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+
+	 *        - name: count
+	 *          in: query
+	 *          description: Item count on page
+	 *          schema:
+	 *            type: number
+	 *            minimum: 1
+	 *            required: true
 	 *      responses:
 	 *        200:
 	 *          description: Successful operation
@@ -142,9 +168,16 @@ class UserController extends BaseController {
 	 *                      type: object
 	 *                      $ref: "#/components/schemas/User"
 	 */
-	private async findAll(): Promise<APIHandlerResponse> {
+	private async findAll({
+		query: { count, page },
+	}: APIHandlerOptions<{
+		query: PaginationRequestDto;
+	}>): Promise<APIHandlerResponse> {
 		return {
-			payload: await this.userService.findAll(),
+			payload: await this.userService.findAll({
+				count,
+				page,
+			}),
 			status: HTTPCode.OK,
 		};
 	}

@@ -1,11 +1,13 @@
-import { Loader } from "~/libs/components/components.js";
-import { DataStatus } from "~/libs/enums/enums.js";
+import { Loader, Pagination } from "~/libs/components/components.js";
+import { PAGINATION_PAGES_CUT_COUNT } from "~/libs/constants/constants.js";
+import { DataStatus, PaginationValue } from "~/libs/enums/enums.js";
 import { findItemById } from "~/libs/helpers/helpers.js";
 import {
 	useAppDispatch,
 	useAppSelector,
 	useCallback,
 	useEffect,
+	usePagination,
 	useState,
 } from "~/libs/hooks/hooks.js";
 import {
@@ -22,16 +24,16 @@ import styles from "./styles.module.css";
 const CoursesTab: React.FC = () => {
 	const dispatch = useAppDispatch();
 
-	const { courseToDataStatus, courses, isCoursesLoading } = useAppSelector(
-		(state) => {
+	const { courseToDataStatus, courses, isCoursesLoading, total } =
+		useAppSelector((state) => {
 			return {
 				courseToDataStatus: state.courses.courseToDataStatus,
 				courses: state.courses.allCourses,
 				isCoursesLoading:
 					state.courses.allCoursesDataStatus === DataStatus.PENDING,
+				total: state.courses.totalCoursesCount,
 			};
-		},
-	);
+		});
 
 	const [currentCourse, setCurrentCourse] = useState<CourseDto | null>(null);
 
@@ -40,24 +42,35 @@ const CoursesTab: React.FC = () => {
 
 	const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
 
+	const { page, pages, pagesCount } = usePagination({
+		pageSize: PaginationValue.DEFAULT_COUNT,
+		pagesCutCount: PAGINATION_PAGES_CUT_COUNT,
+		totalCount: total,
+	});
+
 	useEffect(() => {
-		void dispatch(coursesActions.getAll());
-	}, [dispatch]);
+		void dispatch(
+			coursesActions.getAll({
+				count: PaginationValue.DEFAULT_COUNT,
+				page,
+			}),
+		);
+	}, [dispatch, page]);
 
 	const handleCloseConfirmationModal = useCallback(() => {
 		setIsConfirmationModalOpen(false);
 		setCurrentCourse(null);
 	}, []);
 
-	const handleCourseDelete = useCallback(
-		(courseId: number) => {
-			return () => {
-				void dispatch(coursesActions.deleteById(courseId));
-				handleCloseConfirmationModal();
-			};
-		},
-		[dispatch, handleCloseConfirmationModal],
-	);
+	const handleCourseDelete = useCallback(() => {
+		void dispatch(
+			coursesActions.deleteById({
+				courseId: currentCourse?.id as number,
+				page,
+			}),
+		);
+		handleCloseConfirmationModal();
+	}, [dispatch, handleCloseConfirmationModal, page, currentCourse]);
 
 	const handleCloseEditModal = useCallback(() => {
 		setCurrentCourse(null);
@@ -121,6 +134,7 @@ const CoursesTab: React.FC = () => {
 					</div>
 				)}
 			</div>
+			<Pagination currentPage={page} pages={pages} pagesCount={pagesCount} />
 			{currentCourse && (
 				<EditCourseModal
 					course={currentCourse}
@@ -133,7 +147,7 @@ const CoursesTab: React.FC = () => {
 				isOpen={isConfirmationModalOpen}
 				onCancel={handleCloseConfirmationModal}
 				onClose={handleCloseConfirmationModal}
-				onConfirm={handleCourseDelete(currentCourse?.id as number)}
+				onConfirm={handleCourseDelete}
 				title={`${ManagementDialogueMessage.DELETE_COURSE} "${currentCourse?.title}"?`}
 			/>
 		</>

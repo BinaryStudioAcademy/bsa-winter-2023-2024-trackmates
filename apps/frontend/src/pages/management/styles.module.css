@@ -19,8 +19,7 @@
 	display: flex;
 	width: min-content;
 	padding: 0;
-	margin-top: 14px;
-	margin-bottom: 14px;
+	margin: 14px 0;
 	list-style: none;
 	background-color: var(--main-white);
 	border-radius: 38px;
